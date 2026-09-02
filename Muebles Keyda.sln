@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 18
+VisualStudioVersion = 18.9.12120.119 stable
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modelos", "Modelos", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Vistaa", "Vistaa", "{A67C02F1-2AB3-42EB-8FA0-0B2815034C6D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vista", "Vista\Vista.csproj", "{EC774E6F-4C20-410D-98E4-C19554019746}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modelos", "Modelo\Modelos.csproj", "{24E2D995-6908-48F4-B63B-5A365B3703BF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "We", "We", "{EE764111-AEC6-408D-B530-32CAAB09FFCD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EC774E6F-4C20-410D-98E4-C19554019746}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC774E6F-4C20-410D-98E4-C19554019746}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC774E6F-4C20-410D-98E4-C19554019746}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC774E6F-4C20-410D-98E4-C19554019746}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24E2D995-6908-48F4-B63B-5A365B3703BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24E2D995-6908-48F4-B63B-5A365B3703BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24E2D995-6908-48F4-B63B-5A365B3703BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24E2D995-6908-48F4-B63B-5A365B3703BF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{02EA681E-C7D8-13C7-8484-4AC65E1B71E8} = {EE764111-AEC6-408D-B530-32CAAB09FFCD}
+		{A67C02F1-2AB3-42EB-8FA0-0B2815034C6D} = {EE764111-AEC6-408D-B530-32CAAB09FFCD}
+		{EC774E6F-4C20-410D-98E4-C19554019746} = {A67C02F1-2AB3-42EB-8FA0-0B2815034C6D}
+		{24E2D995-6908-48F4-B63B-5A365B3703BF} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9F829049-CC88-42D6-BB0A-0EBF8EA50231}
+	EndGlobalSection
+EndGlobal

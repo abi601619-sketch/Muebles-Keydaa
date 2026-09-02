@@ -1,0 +1,579 @@
+﻿namespace Vista.Compras
+{
+    partial class frmCompras
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            this.pnlPrincipalCompras = new System.Windows.Forms.Panel();
+            this.btnBuscar = new System.Windows.Forms.Button();
+            this.pnlComprasRegistradas = new System.Windows.Forms.Panel();
+            this.lblComprasRegistradas = new System.Windows.Forms.Label();
+            this.dgvHistorialCompras = new System.Windows.Forms.DataGridView();
+            this.txtBuscar = new System.Windows.Forms.TextBox();
+            this.pnlPedidaDeDatos = new System.Windows.Forms.Panel();
+            this.btnActualizar = new System.Windows.Forms.Button();
+            this.lblAgregarMaterial = new System.Windows.Forms.Label();
+            this.gbBarraDecorativa = new System.Windows.Forms.GroupBox();
+            this.btnAgregarProductos = new System.Windows.Forms.Button();
+            this.nudCantidad = new System.Windows.Forms.NumericUpDown();
+            this.cbProveedor = new System.Windows.Forms.ComboBox();
+            this.cbMaterial = new System.Windows.Forms.ComboBox();
+            this.txtPrecioUnitario = new System.Windows.Forms.TextBox();
+            this.lblPrecioUnitario = new System.Windows.Forms.Label();
+            this.dtpFechaDeCompra = new System.Windows.Forms.DateTimePicker();
+            this.lblFechaCompra = new System.Windows.Forms.Label();
+            this.lblProveedor = new System.Windows.Forms.Label();
+            this.lblCantidad = new System.Windows.Forms.Label();
+            this.lblMaterial = new System.Windows.Forms.Label();
+            this.lblDetalleCompra = new System.Windows.Forms.Label();
+            this.lblSubTexto = new System.Windows.Forms.Label();
+            this.lblMensajeInformativoPrincipal = new System.Windows.Forms.Label();
+            this.pnlDetalleCompra = new System.Windows.Forms.Panel();
+            this.txtTotalCompra = new System.Windows.Forms.TextBox();
+            this.btnCancelar = new System.Windows.Forms.Button();
+            this.lblTotalCompra = new System.Windows.Forms.Label();
+            this.btnGuardar = new System.Windows.Forms.Button();
+            this.lblDetallesCompra = new System.Windows.Forms.Label();
+            this.dgvDetalleCompras = new System.Windows.Forms.DataGridView();
+            this.pblSuperior = new System.Windows.Forms.Panel();
+            this.lblAdministrador = new System.Windows.Forms.Label();
+            this.pbPerfil = new System.Windows.Forms.PictureBox();
+            this.pnlPrincipalCompras.SuspendLayout();
+            this.pnlComprasRegistradas.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvHistorialCompras)).BeginInit();
+            this.pnlPedidaDeDatos.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudCantidad)).BeginInit();
+            this.pnlDetalleCompra.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDetalleCompras)).BeginInit();
+            this.pblSuperior.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPerfil)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // pnlPrincipalCompras
+            // 
+            this.pnlPrincipalCompras.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(221)))), ((int)(((byte)(175)))));
+            this.pnlPrincipalCompras.Controls.Add(this.btnBuscar);
+            this.pnlPrincipalCompras.Controls.Add(this.pnlComprasRegistradas);
+            this.pnlPrincipalCompras.Controls.Add(this.txtBuscar);
+            this.pnlPrincipalCompras.Controls.Add(this.pnlPedidaDeDatos);
+            this.pnlPrincipalCompras.Controls.Add(this.lblSubTexto);
+            this.pnlPrincipalCompras.Controls.Add(this.lblMensajeInformativoPrincipal);
+            this.pnlPrincipalCompras.Controls.Add(this.pnlDetalleCompra);
+            this.pnlPrincipalCompras.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlPrincipalCompras.Font = new System.Drawing.Font("Times New Roman", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pnlPrincipalCompras.Location = new System.Drawing.Point(0, 0);
+            this.pnlPrincipalCompras.Margin = new System.Windows.Forms.Padding(2);
+            this.pnlPrincipalCompras.Name = "pnlPrincipalCompras";
+            this.pnlPrincipalCompras.Size = new System.Drawing.Size(1102, 627);
+            this.pnlPrincipalCompras.TabIndex = 2;
+            // 
+            // btnBuscar
+            // 
+            this.btnBuscar.BackColor = System.Drawing.Color.White;
+            this.btnBuscar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnBuscar.Image = global::Vista.Properties.Resources.lupa;
+            this.btnBuscar.Location = new System.Drawing.Point(991, 52);
+            this.btnBuscar.Name = "btnBuscar";
+            this.btnBuscar.Size = new System.Drawing.Size(75, 29);
+            this.btnBuscar.TabIndex = 21;
+            this.btnBuscar.UseVisualStyleBackColor = false;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
+            // 
+            // pnlComprasRegistradas
+            // 
+            this.pnlComprasRegistradas.BackColor = System.Drawing.Color.Bisque;
+            this.pnlComprasRegistradas.Controls.Add(this.lblComprasRegistradas);
+            this.pnlComprasRegistradas.Controls.Add(this.dgvHistorialCompras);
+            this.pnlComprasRegistradas.Location = new System.Drawing.Point(293, 385);
+            this.pnlComprasRegistradas.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.pnlComprasRegistradas.Name = "pnlComprasRegistradas";
+            this.pnlComprasRegistradas.Size = new System.Drawing.Size(771, 231);
+            this.pnlComprasRegistradas.TabIndex = 4;
+            // 
+            // lblComprasRegistradas
+            // 
+            this.lblComprasRegistradas.AutoSize = true;
+            this.lblComprasRegistradas.BackColor = System.Drawing.Color.Bisque;
+            this.lblComprasRegistradas.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblComprasRegistradas.ForeColor = System.Drawing.Color.Black;
+            this.lblComprasRegistradas.Location = new System.Drawing.Point(19, 12);
+            this.lblComprasRegistradas.Name = "lblComprasRegistradas";
+            this.lblComprasRegistradas.Size = new System.Drawing.Size(228, 26);
+            this.lblComprasRegistradas.TabIndex = 1;
+            this.lblComprasRegistradas.Text = "Registro de Compras";
+            // 
+            // dgvHistorialCompras
+            // 
+            this.dgvHistorialCompras.AllowUserToResizeColumns = false;
+            this.dgvHistorialCompras.AllowUserToResizeRows = false;
+            this.dgvHistorialCompras.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvHistorialCompras.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvHistorialCompras.BackgroundColor = System.Drawing.Color.White;
+            this.dgvHistorialCompras.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Times New Roman", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.PeachPuff;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvHistorialCompras.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvHistorialCompras.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dgvHistorialCompras.GridColor = System.Drawing.Color.Black;
+            this.dgvHistorialCompras.Location = new System.Drawing.Point(8, 55);
+            this.dgvHistorialCompras.Name = "dgvHistorialCompras";
+            this.dgvHistorialCompras.ReadOnly = true;
+            this.dgvHistorialCompras.RowHeadersVisible = false;
+            this.dgvHistorialCompras.Size = new System.Drawing.Size(754, 163);
+            this.dgvHistorialCompras.TabIndex = 0;
+            this.dgvHistorialCompras.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvHistorialCompras_CellDoubleClick);
+            this.dgvHistorialCompras.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvHistorialCompras_CellDoubleClick);
+            // 
+            // txtBuscar
+            // 
+            this.txtBuscar.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBuscar.ForeColor = System.Drawing.Color.Gray;
+            this.txtBuscar.Location = new System.Drawing.Point(517, 54);
+            this.txtBuscar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtBuscar.Name = "txtBuscar";
+            this.txtBuscar.Size = new System.Drawing.Size(534, 26);
+            this.txtBuscar.TabIndex = 0;
+            this.txtBuscar.Text = "Buscar Compra...";
+            this.txtBuscar.TextChanged += new System.EventHandler(this.txtBuscar_TextChanged);
+            this.txtBuscar.Enter += new System.EventHandler(this.txtBuscar_Enter);
+            this.txtBuscar.Leave += new System.EventHandler(this.txtBuscar_Leave);
+            // 
+            // pnlPedidaDeDatos
+            // 
+            this.pnlPedidaDeDatos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlPedidaDeDatos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(215)))), ((int)(((byte)(215)))));
+            this.pnlPedidaDeDatos.Controls.Add(this.btnActualizar);
+            this.pnlPedidaDeDatos.Controls.Add(this.lblAgregarMaterial);
+            this.pnlPedidaDeDatos.Controls.Add(this.gbBarraDecorativa);
+            this.pnlPedidaDeDatos.Controls.Add(this.btnAgregarProductos);
+            this.pnlPedidaDeDatos.Controls.Add(this.nudCantidad);
+            this.pnlPedidaDeDatos.Controls.Add(this.cbProveedor);
+            this.pnlPedidaDeDatos.Controls.Add(this.cbMaterial);
+            this.pnlPedidaDeDatos.Controls.Add(this.txtPrecioUnitario);
+            this.pnlPedidaDeDatos.Controls.Add(this.lblPrecioUnitario);
+            this.pnlPedidaDeDatos.Controls.Add(this.dtpFechaDeCompra);
+            this.pnlPedidaDeDatos.Controls.Add(this.lblFechaCompra);
+            this.pnlPedidaDeDatos.Controls.Add(this.lblProveedor);
+            this.pnlPedidaDeDatos.Controls.Add(this.lblCantidad);
+            this.pnlPedidaDeDatos.Controls.Add(this.lblMaterial);
+            this.pnlPedidaDeDatos.Controls.Add(this.lblDetalleCompra);
+            this.pnlPedidaDeDatos.Location = new System.Drawing.Point(15, 116);
+            this.pnlPedidaDeDatos.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.pnlPedidaDeDatos.Name = "pnlPedidaDeDatos";
+            this.pnlPedidaDeDatos.Size = new System.Drawing.Size(259, 441);
+            this.pnlPedidaDeDatos.TabIndex = 2;
+            // 
+            // btnActualizar
+            // 
+            this.btnActualizar.BackColor = System.Drawing.Color.DarkKhaki;
+            this.btnActualizar.FlatAppearance.BorderSize = 0;
+            this.btnActualizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnActualizar.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnActualizar.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.btnActualizar.Location = new System.Drawing.Point(137, 382);
+            this.btnActualizar.Name = "btnActualizar";
+            this.btnActualizar.Size = new System.Drawing.Size(97, 33);
+            this.btnActualizar.TabIndex = 30;
+            this.btnActualizar.Text = "Actualizar";
+            this.btnActualizar.UseVisualStyleBackColor = false;
+            this.btnActualizar.Click += new System.EventHandler(this.btnActualizar_Click);
+            // 
+            // lblAgregarMaterial
+            // 
+            this.lblAgregarMaterial.AutoSize = true;
+            this.lblAgregarMaterial.Font = new System.Drawing.Font("Times New Roman", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAgregarMaterial.Location = new System.Drawing.Point(37, 169);
+            this.lblAgregarMaterial.Name = "lblAgregarMaterial";
+            this.lblAgregarMaterial.Size = new System.Drawing.Size(174, 25);
+            this.lblAgregarMaterial.TabIndex = 28;
+            this.lblAgregarMaterial.Text = "Agregar Material";
+            // 
+            // gbBarraDecorativa
+            // 
+            this.gbBarraDecorativa.BackColor = System.Drawing.SystemColors.Desktop;
+            this.gbBarraDecorativa.Location = new System.Drawing.Point(20, 157);
+            this.gbBarraDecorativa.Margin = new System.Windows.Forms.Padding(2);
+            this.gbBarraDecorativa.Name = "gbBarraDecorativa";
+            this.gbBarraDecorativa.Padding = new System.Windows.Forms.Padding(2);
+            this.gbBarraDecorativa.Size = new System.Drawing.Size(217, 3);
+            this.gbBarraDecorativa.TabIndex = 27;
+            this.gbBarraDecorativa.TabStop = false;
+            // 
+            // btnAgregarProductos
+            // 
+            this.btnAgregarProductos.BackColor = System.Drawing.Color.Peru;
+            this.btnAgregarProductos.FlatAppearance.BorderSize = 0;
+            this.btnAgregarProductos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAgregarProductos.Font = new System.Drawing.Font("Times New Roman", 7F, System.Drawing.FontStyle.Bold);
+            this.btnAgregarProductos.ForeColor = System.Drawing.Color.White;
+            this.btnAgregarProductos.Location = new System.Drawing.Point(23, 383);
+            this.btnAgregarProductos.Name = "btnAgregarProductos";
+            this.btnAgregarProductos.Size = new System.Drawing.Size(108, 33);
+            this.btnAgregarProductos.TabIndex = 26;
+            this.btnAgregarProductos.Text = "Agregar productos";
+            this.btnAgregarProductos.UseVisualStyleBackColor = false;
+            this.btnAgregarProductos.Click += new System.EventHandler(this.btnAgregarProductos_Click_1);
+            // 
+            // nudCantidad
+            // 
+            this.nudCantidad.Location = new System.Drawing.Point(20, 285);
+            this.nudCantidad.Name = "nudCantidad";
+            this.nudCantidad.Size = new System.Drawing.Size(212, 20);
+            this.nudCantidad.TabIndex = 25;
+            // 
+            // cbProveedor
+            // 
+            this.cbProveedor.Font = new System.Drawing.Font("Times New Roman", 10F);
+            this.cbProveedor.FormattingEnabled = true;
+            this.cbProveedor.Location = new System.Drawing.Point(19, 72);
+            this.cbProveedor.Name = "cbProveedor";
+            this.cbProveedor.Size = new System.Drawing.Size(212, 23);
+            this.cbProveedor.TabIndex = 24;
+            // 
+            // cbMaterial
+            // 
+            this.cbMaterial.Font = new System.Drawing.Font("Times New Roman", 10F);
+            this.cbMaterial.FormattingEnabled = true;
+            this.cbMaterial.Location = new System.Drawing.Point(17, 225);
+            this.cbMaterial.Name = "cbMaterial";
+            this.cbMaterial.Size = new System.Drawing.Size(214, 23);
+            this.cbMaterial.TabIndex = 23;
+            // 
+            // txtPrecioUnitario
+            // 
+            this.txtPrecioUnitario.Location = new System.Drawing.Point(23, 344);
+            this.txtPrecioUnitario.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtPrecioUnitario.Name = "txtPrecioUnitario";
+            this.txtPrecioUnitario.Size = new System.Drawing.Size(208, 20);
+            this.txtPrecioUnitario.TabIndex = 21;
+            this.txtPrecioUnitario.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPrecioUnitario_KeyPress);
+            // 
+            // lblPrecioUnitario
+            // 
+            this.lblPrecioUnitario.AutoSize = true;
+            this.lblPrecioUnitario.Font = new System.Drawing.Font("Times New Roman", 12F);
+            this.lblPrecioUnitario.Location = new System.Drawing.Point(20, 317);
+            this.lblPrecioUnitario.Name = "lblPrecioUnitario";
+            this.lblPrecioUnitario.Size = new System.Drawing.Size(99, 19);
+            this.lblPrecioUnitario.TabIndex = 20;
+            this.lblPrecioUnitario.Text = "Precio unitario:";
+            // 
+            // dtpFechaDeCompra
+            // 
+            this.dtpFechaDeCompra.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpFechaDeCompra.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpFechaDeCompra.Location = new System.Drawing.Point(21, 123);
+            this.dtpFechaDeCompra.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.dtpFechaDeCompra.MaxDate = new System.DateTime(2026, 8, 26, 0, 0, 0, 0);
+            this.dtpFechaDeCompra.Name = "dtpFechaDeCompra";
+            this.dtpFechaDeCompra.Size = new System.Drawing.Size(205, 23);
+            this.dtpFechaDeCompra.TabIndex = 19;
+            this.dtpFechaDeCompra.Value = new System.DateTime(2026, 8, 26, 0, 0, 0, 0);
+            // 
+            // lblFechaCompra
+            // 
+            this.lblFechaCompra.AutoSize = true;
+            this.lblFechaCompra.Font = new System.Drawing.Font("Times New Roman", 12F);
+            this.lblFechaCompra.Location = new System.Drawing.Point(20, 100);
+            this.lblFechaCompra.Name = "lblFechaCompra";
+            this.lblFechaCompra.Size = new System.Drawing.Size(132, 19);
+            this.lblFechaCompra.TabIndex = 12;
+            this.lblFechaCompra.Text = "Fecha de la compra:";
+            // 
+            // lblProveedor
+            // 
+            this.lblProveedor.AutoSize = true;
+            this.lblProveedor.Font = new System.Drawing.Font("Times New Roman", 12F);
+            this.lblProveedor.Location = new System.Drawing.Point(17, 48);
+            this.lblProveedor.Name = "lblProveedor";
+            this.lblProveedor.Size = new System.Drawing.Size(76, 19);
+            this.lblProveedor.TabIndex = 10;
+            this.lblProveedor.Text = "Proveedor:";
+            // 
+            // lblCantidad
+            // 
+            this.lblCantidad.AutoSize = true;
+            this.lblCantidad.Font = new System.Drawing.Font("Times New Roman", 12F);
+            this.lblCantidad.Location = new System.Drawing.Point(21, 258);
+            this.lblCantidad.Name = "lblCantidad";
+            this.lblCantidad.Size = new System.Drawing.Size(67, 19);
+            this.lblCantidad.TabIndex = 5;
+            this.lblCantidad.Text = "Cantidad:";
+            // 
+            // lblMaterial
+            // 
+            this.lblMaterial.AutoSize = true;
+            this.lblMaterial.Font = new System.Drawing.Font("Times New Roman", 12F);
+            this.lblMaterial.Location = new System.Drawing.Point(21, 199);
+            this.lblMaterial.Name = "lblMaterial";
+            this.lblMaterial.Size = new System.Drawing.Size(62, 19);
+            this.lblMaterial.TabIndex = 1;
+            this.lblMaterial.Text = "Material:";
+            // 
+            // lblDetalleCompra
+            // 
+            this.lblDetalleCompra.AutoSize = true;
+            this.lblDetalleCompra.Font = new System.Drawing.Font("Times New Roman", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDetalleCompra.Location = new System.Drawing.Point(16, 13);
+            this.lblDetalleCompra.Name = "lblDetalleCompra";
+            this.lblDetalleCompra.Size = new System.Drawing.Size(194, 25);
+            this.lblDetalleCompra.TabIndex = 0;
+            this.lblDetalleCompra.Text = "Datos de la compra";
+            // 
+            // lblSubTexto
+            // 
+            this.lblSubTexto.AutoSize = true;
+            this.lblSubTexto.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSubTexto.Location = new System.Drawing.Point(21, 81);
+            this.lblSubTexto.Name = "lblSubTexto";
+            this.lblSubTexto.Size = new System.Drawing.Size(253, 21);
+            this.lblSubTexto.TabIndex = 1;
+            this.lblSubTexto.Text = "Control del registro de compras.";
+            // 
+            // lblMensajeInformativoPrincipal
+            // 
+            this.lblMensajeInformativoPrincipal.AutoSize = true;
+            this.lblMensajeInformativoPrincipal.Font = new System.Drawing.Font("Times New Roman", 26F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMensajeInformativoPrincipal.Location = new System.Drawing.Point(17, 41);
+            this.lblMensajeInformativoPrincipal.Name = "lblMensajeInformativoPrincipal";
+            this.lblMensajeInformativoPrincipal.Size = new System.Drawing.Size(322, 40);
+            this.lblMensajeInformativoPrincipal.TabIndex = 0;
+            this.lblMensajeInformativoPrincipal.Text = "Gestión de Compras";
+            // 
+            // pnlDetalleCompra
+            // 
+            this.pnlDetalleCompra.BackColor = System.Drawing.Color.Bisque;
+            this.pnlDetalleCompra.Controls.Add(this.txtTotalCompra);
+            this.pnlDetalleCompra.Controls.Add(this.btnCancelar);
+            this.pnlDetalleCompra.Controls.Add(this.lblTotalCompra);
+            this.pnlDetalleCompra.Controls.Add(this.btnGuardar);
+            this.pnlDetalleCompra.Controls.Add(this.lblDetallesCompra);
+            this.pnlDetalleCompra.Controls.Add(this.dgvDetalleCompras);
+            this.pnlDetalleCompra.Location = new System.Drawing.Point(293, 116);
+            this.pnlDetalleCompra.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.pnlDetalleCompra.Name = "pnlDetalleCompra";
+            this.pnlDetalleCompra.Size = new System.Drawing.Size(771, 259);
+            this.pnlDetalleCompra.TabIndex = 3;
+            // 
+            // txtTotalCompra
+            // 
+            this.txtTotalCompra.BackColor = System.Drawing.Color.PapayaWhip;
+            this.txtTotalCompra.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtTotalCompra.Font = new System.Drawing.Font("Times New Roman", 14F);
+            this.txtTotalCompra.Location = new System.Drawing.Point(283, 219);
+            this.txtTotalCompra.Margin = new System.Windows.Forms.Padding(0);
+            this.txtTotalCompra.Name = "txtTotalCompra";
+            this.txtTotalCompra.ReadOnly = true;
+            this.txtTotalCompra.Size = new System.Drawing.Size(151, 29);
+            this.txtTotalCompra.TabIndex = 1;
+            // 
+            // btnCancelar
+            // 
+            this.btnCancelar.BackColor = System.Drawing.Color.LightCoral;
+            this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancelar.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancelar.Location = new System.Drawing.Point(641, 218);
+            this.btnCancelar.Name = "btnCancelar";
+            this.btnCancelar.Size = new System.Drawing.Size(117, 30);
+            this.btnCancelar.TabIndex = 3;
+            this.btnCancelar.Text = "Eliminar Compra";
+            this.btnCancelar.UseVisualStyleBackColor = false;
+            this.btnCancelar.Click += new System.EventHandler(this.btnEliminar_Click);
+            // 
+            // lblTotalCompra
+            // 
+            this.lblTotalCompra.AutoSize = true;
+            this.lblTotalCompra.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Bold);
+            this.lblTotalCompra.Location = new System.Drawing.Point(151, 226);
+            this.lblTotalCompra.Name = "lblTotalCompra";
+            this.lblTotalCompra.Size = new System.Drawing.Size(129, 17);
+            this.lblTotalCompra.TabIndex = 0;
+            this.lblTotalCompra.Text = "Total de la Compra:";
+            // 
+            // btnGuardar
+            // 
+            this.btnGuardar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGuardar.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGuardar.Location = new System.Drawing.Point(452, 218);
+            this.btnGuardar.Name = "btnGuardar";
+            this.btnGuardar.Size = new System.Drawing.Size(183, 30);
+            this.btnGuardar.TabIndex = 2;
+            this.btnGuardar.Text = "Guardar Compra";
+            this.btnGuardar.UseVisualStyleBackColor = true;
+            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
+            // 
+            // lblDetallesCompra
+            // 
+            this.lblDetallesCompra.AutoSize = true;
+            this.lblDetallesCompra.BackColor = System.Drawing.Color.Bisque;
+            this.lblDetallesCompra.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDetallesCompra.ForeColor = System.Drawing.Color.Black;
+            this.lblDetallesCompra.Location = new System.Drawing.Point(19, 14);
+            this.lblDetallesCompra.Name = "lblDetallesCompra";
+            this.lblDetallesCompra.Size = new System.Drawing.Size(239, 26);
+            this.lblDetallesCompra.TabIndex = 1;
+            this.lblDetallesCompra.Text = "Detalles de la Compra";
+            // 
+            // dgvDetalleCompras
+            // 
+            this.dgvDetalleCompras.AllowUserToDeleteRows = false;
+            this.dgvDetalleCompras.AllowUserToResizeColumns = false;
+            this.dgvDetalleCompras.AllowUserToResizeRows = false;
+            this.dgvDetalleCompras.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvDetalleCompras.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvDetalleCompras.BackgroundColor = System.Drawing.Color.White;
+            this.dgvDetalleCompras.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Times New Roman", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.PeachPuff;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvDetalleCompras.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.dgvDetalleCompras.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dgvDetalleCompras.GridColor = System.Drawing.Color.Black;
+            this.dgvDetalleCompras.Location = new System.Drawing.Point(8, 55);
+            this.dgvDetalleCompras.Name = "dgvDetalleCompras";
+            this.dgvDetalleCompras.ReadOnly = true;
+            this.dgvDetalleCompras.Size = new System.Drawing.Size(754, 153);
+            this.dgvDetalleCompras.TabIndex = 0;
+            this.dgvDetalleCompras.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDetalleCompras_CellDoubleClick);
+            // 
+            // pblSuperior
+            // 
+            this.pblSuperior.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(177)))), ((int)(((byte)(114)))));
+            this.pblSuperior.Controls.Add(this.lblAdministrador);
+            this.pblSuperior.Controls.Add(this.pbPerfil);
+            this.pblSuperior.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pblSuperior.Location = new System.Drawing.Point(0, 0);
+            this.pblSuperior.Margin = new System.Windows.Forms.Padding(2);
+            this.pblSuperior.Name = "pblSuperior";
+            this.pblSuperior.Size = new System.Drawing.Size(1102, 23);
+            this.pblSuperior.TabIndex = 23;
+            // 
+            // lblAdministrador
+            // 
+            this.lblAdministrador.AutoSize = true;
+            this.lblAdministrador.Font = new System.Drawing.Font("Times New Roman", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAdministrador.Location = new System.Drawing.Point(1013, 4);
+            this.lblAdministrador.Name = "lblAdministrador";
+            this.lblAdministrador.Size = new System.Drawing.Size(38, 14);
+            this.lblAdministrador.TabIndex = 28;
+            this.lblAdministrador.Text = "Admin";
+            // 
+            // pbPerfil
+            // 
+            this.pbPerfil.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(177)))), ((int)(((byte)(114)))));
+            this.pbPerfil.Image = global::Vista.Properties.Resources.user_456283;
+            this.pbPerfil.Location = new System.Drawing.Point(1054, -1);
+            this.pbPerfil.Name = "pbPerfil";
+            this.pbPerfil.Size = new System.Drawing.Size(24, 25);
+            this.pbPerfil.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbPerfil.TabIndex = 12;
+            this.pbPerfil.TabStop = false;
+            // 
+            // frmCompras
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.ClientSize = new System.Drawing.Size(1102, 627);
+            this.Controls.Add(this.pblSuperior);
+            this.Controls.Add(this.pnlPrincipalCompras);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Name = "frmCompras";
+            this.Text = "frmCompras";
+            this.Load += new System.EventHandler(this.frmCompras_Load);
+            this.pnlPrincipalCompras.ResumeLayout(false);
+            this.pnlPrincipalCompras.PerformLayout();
+            this.pnlComprasRegistradas.ResumeLayout(false);
+            this.pnlComprasRegistradas.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvHistorialCompras)).EndInit();
+            this.pnlPedidaDeDatos.ResumeLayout(false);
+            this.pnlPedidaDeDatos.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudCantidad)).EndInit();
+            this.pnlDetalleCompra.ResumeLayout(false);
+            this.pnlDetalleCompra.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDetalleCompras)).EndInit();
+            this.pblSuperior.ResumeLayout(false);
+            this.pblSuperior.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPerfil)).EndInit();
+            this.ResumeLayout(false);
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.Panel pnlPrincipalCompras;
+        private System.Windows.Forms.TextBox txtBuscar;
+        private System.Windows.Forms.Panel pnlPedidaDeDatos;
+        private System.Windows.Forms.TextBox txtPrecioUnitario;
+        private System.Windows.Forms.Label lblPrecioUnitario;
+        private System.Windows.Forms.DateTimePicker dtpFechaDeCompra;
+        private System.Windows.Forms.Label lblFechaCompra;
+        private System.Windows.Forms.Label lblProveedor;
+        private System.Windows.Forms.Label lblCantidad;
+        private System.Windows.Forms.Label lblMaterial;
+        private System.Windows.Forms.Label lblDetalleCompra;
+        private System.Windows.Forms.Label lblSubTexto;
+        private System.Windows.Forms.Label lblMensajeInformativoPrincipal;
+        private System.Windows.Forms.Panel pnlDetalleCompra;
+        private System.Windows.Forms.Panel pblSuperior;
+        private System.Windows.Forms.PictureBox pbPerfil;
+        private System.Windows.Forms.DataGridView dgvDetalleCompras;
+        private System.Windows.Forms.Label lblAdministrador;
+        private System.Windows.Forms.NumericUpDown nudCantidad;
+        private System.Windows.Forms.ComboBox cbProveedor;
+        private System.Windows.Forms.ComboBox cbMaterial;
+        private System.Windows.Forms.Button btnAgregarProductos;
+        private System.Windows.Forms.TextBox txtTotalCompra;
+        private System.Windows.Forms.Label lblTotalCompra;
+        private System.Windows.Forms.Label lblDetallesCompra;
+        private System.Windows.Forms.Panel pnlComprasRegistradas;
+        private System.Windows.Forms.Label lblComprasRegistradas;
+        private System.Windows.Forms.DataGridView dgvHistorialCompras;
+        private System.Windows.Forms.Button btnGuardar;
+        private System.Windows.Forms.Button btnCancelar;
+        private System.Windows.Forms.GroupBox gbBarraDecorativa;
+        private System.Windows.Forms.Label lblAgregarMaterial;
+        private System.Windows.Forms.Button btnActualizar;
+        private System.Windows.Forms.Button btnBuscar;
+    }
+}
