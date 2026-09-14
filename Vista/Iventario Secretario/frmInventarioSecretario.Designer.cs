@@ -64,6 +64,11 @@
             this.pnlContenedorPrincipalInventario = new System.Windows.Forms.Panel();
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.pbBuscar = new System.Windows.Forms.PictureBox();
+            this.lblMaterialesAgotados = new System.Windows.Forms.Label();
+            this.lblDisponibles = new System.Windows.Forms.Label();
+            this.lblAgotandose = new System.Windows.Forms.Label();
+            this.lblTotalRegistrados = new System.Windows.Forms.Label();
+            this.btnNuevo = new System.Windows.Forms.Button();
             this.pnlIndicador.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbAgotados)).BeginInit();
             this.pnlIndicador1.SuspendLayout();
@@ -101,7 +106,7 @@
             "Centimetros",
             "Metros",
             "Pliegos"});
-            this.cbUnidadMedida.Location = new System.Drawing.Point(21, 282);
+            this.cbUnidadMedida.Location = new System.Drawing.Point(21, 301);
             this.cbUnidadMedida.Margin = new System.Windows.Forms.Padding(2);
             this.cbUnidadMedida.Name = "cbUnidadMedida";
             this.cbUnidadMedida.Size = new System.Drawing.Size(182, 27);
@@ -111,7 +116,7 @@
             // 
             this.btnGuardar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.btnGuardar.Font = new System.Drawing.Font("Times New Roman", 12F);
-            this.btnGuardar.Location = new System.Drawing.Point(118, 323);
+            this.btnGuardar.Location = new System.Drawing.Point(118, 342);
             this.btnGuardar.Margin = new System.Windows.Forms.Padding(2);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(91, 36);
@@ -124,7 +129,7 @@
             // 
             this.btnEditar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.btnEditar.Font = new System.Drawing.Font("Times New Roman", 12F);
-            this.btnEditar.Location = new System.Drawing.Point(22, 323);
+            this.btnEditar.Location = new System.Drawing.Point(22, 342);
             this.btnEditar.Margin = new System.Windows.Forms.Padding(2);
             this.btnEditar.Name = "btnEditar";
             this.btnEditar.Size = new System.Drawing.Size(91, 36);
@@ -137,7 +142,7 @@
             // 
             this.lblMedida.AutoSize = true;
             this.lblMedida.Font = new System.Drawing.Font("Times New Roman", 12F);
-            this.lblMedida.Location = new System.Drawing.Point(19, 251);
+            this.lblMedida.Location = new System.Drawing.Point(19, 270);
             this.lblMedida.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblMedida.Name = "lblMedida";
             this.lblMedida.Size = new System.Drawing.Size(123, 19);
@@ -147,6 +152,7 @@
             // pnlIndicador
             // 
             this.pnlIndicador.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(162)))), ((int)(((byte)(147)))));
+            this.pnlIndicador.Controls.Add(this.lblMaterialesAgotados);
             this.pnlIndicador.Controls.Add(this.lblAgotados);
             this.pnlIndicador.Controls.Add(this.pbAgotados);
             this.pnlIndicador.Location = new System.Drawing.Point(260, 516);
@@ -178,6 +184,7 @@
             // pnlIndicador1
             // 
             this.pnlIndicador1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(165)))), ((int)(((byte)(237)))), ((int)(((byte)(147)))));
+            this.pnlIndicador1.Controls.Add(this.lblDisponibles);
             this.pnlIndicador1.Controls.Add(this.lblMaterialDisponible);
             this.pnlIndicador1.Controls.Add(this.pbDisponibles);
             this.pnlIndicador1.Location = new System.Drawing.Point(467, 516);
@@ -210,17 +217,18 @@
             // 
             this.txtCantidad.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtCantidad.Font = new System.Drawing.Font("Times New Roman", 12F);
-            this.txtCantidad.Location = new System.Drawing.Point(21, 221);
+            this.txtCantidad.Location = new System.Drawing.Point(21, 240);
             this.txtCantidad.Margin = new System.Windows.Forms.Padding(2);
             this.txtCantidad.Name = "txtCantidad";
             this.txtCantidad.Size = new System.Drawing.Size(180, 19);
             this.txtCantidad.TabIndex = 6;
+            this.txtCantidad.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCantidad_KeyPress);
             // 
             // lblCantidad
             // 
             this.lblCantidad.AutoSize = true;
             this.lblCantidad.Font = new System.Drawing.Font("Times New Roman", 12F);
-            this.lblCantidad.Location = new System.Drawing.Point(21, 191);
+            this.lblCantidad.Location = new System.Drawing.Point(21, 210);
             this.lblCantidad.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblCantidad.Name = "lblCantidad";
             this.lblCantidad.Size = new System.Drawing.Size(67, 19);
@@ -231,7 +239,7 @@
             // 
             this.lblCategoria.AutoSize = true;
             this.lblCategoria.Font = new System.Drawing.Font("Times New Roman", 12F);
-            this.lblCategoria.Location = new System.Drawing.Point(21, 129);
+            this.lblCategoria.Location = new System.Drawing.Point(21, 148);
             this.lblCategoria.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblCategoria.Name = "lblCategoria";
             this.lblCategoria.Size = new System.Drawing.Size(71, 19);
@@ -242,7 +250,7 @@
             // 
             this.lblMaterial.AutoSize = true;
             this.lblMaterial.Font = new System.Drawing.Font("Times New Roman", 12F);
-            this.lblMaterial.Location = new System.Drawing.Point(20, 76);
+            this.lblMaterial.Location = new System.Drawing.Point(20, 95);
             this.lblMaterial.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblMaterial.Name = "lblMaterial";
             this.lblMaterial.Size = new System.Drawing.Size(62, 19);
@@ -252,6 +260,7 @@
             // pnlIndicador2
             // 
             this.pnlIndicador2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(186)))), ((int)(((byte)(120)))));
+            this.pnlIndicador2.Controls.Add(this.lblAgotandose);
             this.pnlIndicador2.Controls.Add(this.lblPocasUnidades);
             this.pnlIndicador2.Controls.Add(this.pbPocasUnidades);
             this.pnlIndicador2.Location = new System.Drawing.Point(672, 516);
@@ -274,11 +283,12 @@
             // 
             this.txtMaterial.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtMaterial.Font = new System.Drawing.Font("Times New Roman", 12F);
-            this.txtMaterial.Location = new System.Drawing.Point(21, 104);
+            this.txtMaterial.Location = new System.Drawing.Point(21, 123);
             this.txtMaterial.Margin = new System.Windows.Forms.Padding(2);
             this.txtMaterial.Name = "txtMaterial";
             this.txtMaterial.Size = new System.Drawing.Size(182, 19);
             this.txtMaterial.TabIndex = 2;
+            this.txtMaterial.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtMaterial_KeyPress);
             // 
             // pnlPrincipal
             // 
@@ -320,6 +330,7 @@
             // pnlIndicador3
             // 
             this.pnlIndicador3.BackColor = System.Drawing.Color.White;
+            this.pnlIndicador3.Controls.Add(this.lblTotalRegistrados);
             this.pnlIndicador3.Controls.Add(this.lblTotalInventario);
             this.pnlIndicador3.Controls.Add(this.pbTotalRegistros);
             this.pnlIndicador3.Location = new System.Drawing.Point(878, 516);
@@ -358,6 +369,7 @@
             this.txtBuscar.Size = new System.Drawing.Size(488, 26);
             this.txtBuscar.TabIndex = 9;
             this.txtBuscar.Text = "Buscar Material...";
+            this.txtBuscar.TextChanged += new System.EventHandler(this.txtBuscar_TextChanged);
             this.txtBuscar.Enter += new System.EventHandler(this.txtBuscar_Enter);
             this.txtBuscar.Leave += new System.EventHandler(this.txtBuscar_Leave);
             // 
@@ -421,6 +433,7 @@
             this.pnlPedidaDeDatos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlPedidaDeDatos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(215)))), ((int)(((byte)(215)))));
+            this.pnlPedidaDeDatos.Controls.Add(this.btnNuevo);
             this.pnlPedidaDeDatos.Controls.Add(this.btnGuardarCambios);
             this.pnlPedidaDeDatos.Controls.Add(this.cbCategorias);
             this.pnlPedidaDeDatos.Controls.Add(this.cbUnidadMedida);
@@ -436,14 +449,14 @@
             this.pnlPedidaDeDatos.Location = new System.Drawing.Point(26, 104);
             this.pnlPedidaDeDatos.Margin = new System.Windows.Forms.Padding(2);
             this.pnlPedidaDeDatos.Name = "pnlPedidaDeDatos";
-            this.pnlPedidaDeDatos.Size = new System.Drawing.Size(219, 376);
+            this.pnlPedidaDeDatos.Size = new System.Drawing.Size(219, 398);
             this.pnlPedidaDeDatos.TabIndex = 2;
             // 
             // btnGuardarCambios
             // 
             this.btnGuardarCambios.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.btnGuardarCambios.Font = new System.Drawing.Font("Times New Roman", 12F);
-            this.btnGuardarCambios.Location = new System.Drawing.Point(118, 323);
+            this.btnGuardarCambios.Location = new System.Drawing.Point(118, 342);
             this.btnGuardarCambios.Margin = new System.Windows.Forms.Padding(2);
             this.btnGuardarCambios.Name = "btnGuardarCambios";
             this.btnGuardarCambios.Size = new System.Drawing.Size(91, 36);
@@ -455,7 +468,7 @@
             // cbCategorias
             // 
             this.cbCategorias.FormattingEnabled = true;
-            this.cbCategorias.Location = new System.Drawing.Point(22, 163);
+            this.cbCategorias.Location = new System.Drawing.Point(22, 182);
             this.cbCategorias.Name = "cbCategorias";
             this.cbCategorias.Size = new System.Drawing.Size(181, 21);
             this.cbCategorias.TabIndex = 2;
@@ -500,6 +513,52 @@
             this.pbBuscar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbBuscar.TabIndex = 10;
             this.pbBuscar.TabStop = false;
+            // 
+            // lblMaterialesAgotados
+            // 
+            this.lblMaterialesAgotados.AutoSize = true;
+            this.lblMaterialesAgotados.Location = new System.Drawing.Point(121, 44);
+            this.lblMaterialesAgotados.Name = "lblMaterialesAgotados";
+            this.lblMaterialesAgotados.Size = new System.Drawing.Size(35, 13);
+            this.lblMaterialesAgotados.TabIndex = 6;
+            this.lblMaterialesAgotados.Text = "label1";
+            // 
+            // lblDisponibles
+            // 
+            this.lblDisponibles.AutoSize = true;
+            this.lblDisponibles.Location = new System.Drawing.Point(133, 44);
+            this.lblDisponibles.Name = "lblDisponibles";
+            this.lblDisponibles.Size = new System.Drawing.Size(35, 13);
+            this.lblDisponibles.TabIndex = 7;
+            this.lblDisponibles.Text = "label2";
+            // 
+            // lblAgotandose
+            // 
+            this.lblAgotandose.AutoSize = true;
+            this.lblAgotandose.Location = new System.Drawing.Point(132, 44);
+            this.lblAgotandose.Name = "lblAgotandose";
+            this.lblAgotandose.Size = new System.Drawing.Size(35, 13);
+            this.lblAgotandose.TabIndex = 7;
+            this.lblAgotandose.Text = "label3";
+            // 
+            // lblTotalRegistrados
+            // 
+            this.lblTotalRegistrados.AutoSize = true;
+            this.lblTotalRegistrados.Location = new System.Drawing.Point(120, 44);
+            this.lblTotalRegistrados.Name = "lblTotalRegistrados";
+            this.lblTotalRegistrados.Size = new System.Drawing.Size(35, 13);
+            this.lblTotalRegistrados.TabIndex = 8;
+            this.lblTotalRegistrados.Text = "label4";
+            // 
+            // btnNuevo
+            // 
+            this.btnNuevo.Location = new System.Drawing.Point(23, 62);
+            this.btnNuevo.Name = "btnNuevo";
+            this.btnNuevo.Size = new System.Drawing.Size(174, 28);
+            this.btnNuevo.TabIndex = 25;
+            this.btnNuevo.Text = "Nuevo Material";
+            this.btnNuevo.UseVisualStyleBackColor = true;
+            this.btnNuevo.Click += new System.EventHandler(this.btnNuevo_Click);
             // 
             // frmInventarioSecretario
             // 
@@ -577,5 +636,10 @@
         private System.Windows.Forms.DataGridView dgvMateriales;
         private System.Windows.Forms.ComboBox cbCategorias;
         private System.Windows.Forms.Button btnGuardarCambios;
+        private System.Windows.Forms.Label lblMaterialesAgotados;
+        private System.Windows.Forms.Label lblDisponibles;
+        private System.Windows.Forms.Label lblAgotandose;
+        private System.Windows.Forms.Label lblTotalRegistrados;
+        private System.Windows.Forms.Button btnNuevo;
     }
 }
