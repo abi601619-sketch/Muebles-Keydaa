@@ -32,7 +32,7 @@ namespace Vista.Proveedores
             if (string.IsNullOrWhiteSpace(txtBuscar.Text))
             {
                 txtBuscar.Text = "Buscar proveedor...";
-                txtBuscar.ForeColor = Color.LightGray;
+                txtBuscar.ForeColor = Color.Gray;
             }
         }
         //----------------------------------------------------------------------------------------------
@@ -53,6 +53,15 @@ namespace Vista.Proveedores
             btnGuardar.TabIndex = 5;
             btnEditar.TabIndex = 6;
             btnDesactivar.TabIndex = 7;
+
+            btnEditar.Visible = false;
+
+            dgvProveedores.Columns["IdProveedor"].Visible = false;
+
+            //Declaramos que el estado del provedor al momento de registrar siempre sea activo, hasta que el usuario lo desactive
+            chkEstado.Checked = true;
+            chkEstado.Enabled = false;
+            chkEstado.Visible = false;
         }
         private void MostrarProveedor()
         {
@@ -114,21 +123,12 @@ namespace Vista.Proveedores
             // Todo proveedor su estado inicial siempre sera activo, hasta que el usuario decida desactivarlo
             proveedor.Estado1 = true;
 
+
             if (proveedor.InsertarProveedor())
             {
                 MessageBox.Show("Proveedor registrado correctamente.", "Registro exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                txtNombreProveedor.Clear();
-                txtTelefono.Clear();
-                txtCorreo.Clear();
-                txtUbicacion.Clear();
-
-                txtNombreProveedor.Focus();
-
-                //Declaramos que el estado del provedor al momento de registrar siempre sea activo, hasta que el usuario lo desactive
-                chkEstado.Checked = true;
-                chkEstado.Enabled = false;
-
+                Limpiar();
                 // Actualiza la tabla de proveedores
 
                 MostrarProveedor();
@@ -140,6 +140,7 @@ namespace Vista.Proveedores
         private void dgvProveedor_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             BloquearCampos();
+            dgvProveedores.Columns["IdProveedor"].Visible = false;
 
             if (e.RowIndex >= 0)
             {
@@ -154,6 +155,7 @@ namespace Vista.Proveedores
 
                 btnEditar.Visible = true;
                 btnGuardar.Visible = true;
+
             }
         }
         private void btnEditar_Click(object sender, EventArgs e)
@@ -168,6 +170,7 @@ namespace Vista.Proveedores
         private void HabilitarCampos()
         {
             chkEstado.Enabled = true;
+
             txtNombreProveedor.ReadOnly = false;
             txtTelefono.ReadOnly = false;
             txtCorreo.ReadOnly = false;
@@ -262,6 +265,7 @@ namespace Vista.Proveedores
             {
                 MessageBox.Show(ex.Message);
             }
+            dgvProveedores.Columns["IdProveedor"].Visible = false;
         }
 
         private void btnDesactivar_Click(object sender, EventArgs e)
@@ -332,6 +336,14 @@ namespace Vista.Proveedores
             {
                 MessageBox.Show("Error al actualizar el proveedor.");
             }
+            dgvProveedores.Columns["IdProveedor"].Visible = false;
+        }
+
+
+
+        private void btnNuevo_Click(object sender, EventArgs e)
+        {
+            Limpiar();
         }
     }
 }

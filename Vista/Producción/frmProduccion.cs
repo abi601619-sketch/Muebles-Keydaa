@@ -21,6 +21,24 @@ namespace Vista.Producción
 
             dgvProduccion.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             dgvProduccion.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+
+
+            ActualizarEstadisticas();
+        }
+
+        private void ConfigurarColumnasProduccion()
+        {
+            dgvProduccion.Columns["IdProduccion"].Visible = false;
+
+            dgvProduccion.Columns["IdPedido"].HeaderText = "N° Pedido";
+            dgvProduccion.Columns["Cliente"].HeaderText = "Cliente";
+            dgvProduccion.Columns["Producto"].HeaderText = "Producto";
+            dgvProduccion.Columns["Largo"].HeaderText = "Largo (cm)";
+            dgvProduccion.Columns["Ancho"].HeaderText = "Ancho (cm)";
+            dgvProduccion.Columns["Alto"].HeaderText = "Alto (cm)";
+            dgvProduccion.Columns["Cantidad"].HeaderText = "Cantidad";
+            dgvProduccion.Columns["Progreso"].HeaderText = "Progreso (%)";
+            dgvProduccion.Columns["Estado"].HeaderText = "Estado";
         }
 
         public void MostrarProduccion()
@@ -30,6 +48,7 @@ namespace Vista.Producción
             dgvProduccion.DataSource = null;
 
             dgvProduccion.DataSource = datos;
+            ConfigurarColumnasProduccion();
 
             dgvProduccion.Refresh();
         }
@@ -47,8 +66,19 @@ namespace Vista.Producción
             DialogResult resultado = formulario.ShowDialog();
             if (resultado == DialogResult.OK)
             {
+                dgvProduccion.Columns["IdProduccion"].Visible = false;
+                dgvProduccion.Columns["IdPedido"].HeaderText = "N° Pedido";
+                dgvProduccion.Columns["Cliente"].HeaderText = "Cliente";
+                dgvProduccion.Columns["Producto"].HeaderText = "Producto";
+                dgvProduccion.Columns["Largo"].HeaderText = "Largo (cm)";
+                dgvProduccion.Columns["Ancho"].HeaderText = "Ancho (cm)";
+                dgvProduccion.Columns["Alto"].HeaderText = "Alto (cm)";
+                dgvProduccion.Columns["Cantidad"].HeaderText = "Cantidad";
+                dgvProduccion.Columns["Progreso"].HeaderText = "Progreso (%)";
+                dgvProduccion.Columns["Estado"].HeaderText = "Estado";
                 MostrarProduccion();
             }
+
         }
 
         private void txtBuscar_Enter(object sender, EventArgs e)
@@ -137,6 +167,21 @@ namespace Vista.Producción
 
             formulario.ShowDialog();
 
+        }
+
+        //-------------------------------------------------------------------
+
+
+        //Metodo para actualizarlas
+        private void ActualizarEstadisticas()
+        {
+            lblMostrarRegistrados.Text = DbProducción.ContarProduccionesTotales().ToString();
+
+            lblMostrarPendientes.Text = DbProducción.ContarProduccionesPendientes().ToString();
+
+            lblMostrarEnProduccion.Text = DbProducción.ContarProduccionesEnProceso().ToString();
+
+            lblMostrarFinalizados.Text = DbProducción.ContarProduccionesFinalizadas().ToString();
         }
     }
 }

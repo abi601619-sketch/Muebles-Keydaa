@@ -1,4 +1,5 @@
 using Modelo.Conexión_DB;
+using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
@@ -9,17 +10,17 @@ namespace Modelo.Entidades
     {
         private int idMaterial;
         private string NombreDelMaterial;
-        private string UnidadDeMedida;
+        private int UnidadDeMedida;
         private int Stock;
         private string Categoria;
 
         public int idMaterial1 { get => idMaterial; set => idMaterial = value; }
         public string NombreDelMaterial1 { get => NombreDelMaterial; set => NombreDelMaterial = value; }
-        public string UnidadDeMedida1 { get => UnidadDeMedida; set => UnidadDeMedida = value; }
+        public int UnidadDeMedida1 { get => UnidadDeMedida; set => UnidadDeMedida = value; }
         public int Stock1 { get => Stock; set => Stock = value; }
         public string Categoria1 { get => Categoria; set => Categoria = value; }
 
-        public Material(int idMaterial, string nombreDelMaterial, string unidadDeMedida, int stock, string categoria)
+        public Material(int idMaterial, string nombreDelMaterial, int unidadDeMedida, int stock, string categoria)
         {
             idMaterial1 = idMaterial;
             NombreDelMaterial1 = nombreDelMaterial;
@@ -43,7 +44,7 @@ namespace Modelo.Entidades
 
         public bool InsertarMateriales()
         {
-            string comandoSQL = "INSERT INTO Material(NombreDelMaterial, IdUnidadDeMedida, Stock, Categoria) VALUES (@NombreDelMaterial, @IdUnidad, @Stock, (SELECT TOP 1 IdCategoria FROM Categoria WHERE Nombre_Categoria = @Categoria));";
+            string comandoSQL = "INSERT INTO Material(NombreDelMaterial, IdUnidadDeMedida, Stock, Categoria) VALUES (@NombreDelMaterial, @IdUnidadDeMedida, @Stock, (SELECT TOP 1 IdCategoria FROM Categoria WHERE Nombre_Categoria = @Categoria));";
             //El bloque using asegura que la conexion y el comando
             // se cierren y se destruyan 
             // incluso si ocurre un error
@@ -53,7 +54,7 @@ namespace Modelo.Entidades
                 {
                     // A gregan los parametros
                     comandoObjeto.Parameters.AddWithValue("@NombreDelMaterial", NombreDelMaterial1);
-                    comandoObjeto.Parameters.AddWithValue("@IdUnidad", UnidadDeMedida);
+                    comandoObjeto.Parameters.AddWithValue("@IdUnidadDeMedida", UnidadDeMedida);
                     comandoObjeto.Parameters.AddWithValue("@Stock", Stock1);
                     comandoObjeto.Parameters.AddWithValue("@Categoria", Categoria);
                     try
@@ -90,7 +91,7 @@ namespace Modelo.Entidades
 
         public bool ActualizarMaterial()
         {
-            string comandoSQL = "UPDATE Material SET NombreDelMaterial = @NombreDelMaterial, IdUnidadDeMedida = @IdUnidad, Stock = @Stock, Categoria = (SELECT TOP 1 IdCategoria FROM Categoria WHERE Nombre_Categoria = @Categoria) WHERE IdMaterial = @IdMaterial;";
+            string comandoSQL = "UPDATE Material SET NombreDelMaterial = @NombreDelMaterial, IdUnidadDeMedida = @IdUnidadDeMedida, Stock = @Stock, Categoria = (SELECT TOP 1 IdCategoria FROM Categoria WHERE Nombre_Categoria = @Categoria) WHERE IdMaterial = @IdMaterial;";
 
             using (SqlConnection conexion = Conexion.Conectar())
             {
@@ -98,7 +99,7 @@ namespace Modelo.Entidades
                 {
                     comandoObjeto.Parameters.AddWithValue("@IdMaterial", idMaterial1);
                     comandoObjeto.Parameters.AddWithValue("@NombreDelMaterial", NombreDelMaterial1);
-                    comandoObjeto.Parameters.AddWithValue("@IdUnidad", UnidadDeMedida1);
+                    comandoObjeto.Parameters.AddWithValue("@IdUnidadDeMedida", UnidadDeMedida1);
                     comandoObjeto.Parameters.AddWithValue("@Stock", Stock1);
                     comandoObjeto.Parameters.AddWithValue("@Categoria", Categoria);
 
@@ -155,7 +156,7 @@ namespace Modelo.Entidades
                     }
                     catch (SqlException ex)
                     {
-                        MessageBox.Show("Ocurri? un error al actualizar el stock.\n\n" + ex.Message, "Error " + ex.Number, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Ocurrió un error al actualizar el stock.\n\n" + ex.Message, "Error " + ex.Number, MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                         return false;
                     }
@@ -178,6 +179,100 @@ namespace Modelo.Entidades
             adapter.Fill(dt);
 
             return dt;
+        }
+
+        // CALCULAR ESTADÍSTICAS DE INVENTARIO
+
+        // Total de materiales
+        public static int ContarMaterialesTotales()
+        {
+            try
+            {
+                using (SqlConnection conexion = Conexion.Conectar())
+                {
+                    string query = @"SELECT COUNT(*) FROM VerMaterial";
+
+                    using (SqlCommand comando = new SqlCommand(query, conexion))
+                    {
+                        return Convert.ToInt32(comando.ExecuteScalar());
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al contar los materiales totales: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                return 0;
+            }
+        }
+
+        // Materiales agotándose
+        public static int ContarMaterialesAgotandose()
+        {
+            try
+            {
+                using (SqlConnection conexion = Conexion.Conectar())
+                {
+                    string query = @"SELECT COUNT(*) FROM VerMaterial WHERE Stock BETWEEN 1 AND 15";
+
+                    using (SqlCommand comando = new SqlCommand(query, conexion))
+                    {
+                        return Convert.ToInt32(comando.ExecuteScalar());
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al contar los materiales que se están agotando: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                return 0;
+            }
+        }
+
+        // Materiales disponibles
+        public static int ContarMaterialesDisponibles()
+        {
+            try
+            {
+                using (SqlConnection conexion = Conexion.Conectar())
+                {
+                    string query = @"SELECT COUNT(*) FROM VerMaterial WHERE Stock > 15";
+
+                    using (SqlCommand comando = new SqlCommand(query, conexion))
+                    {
+                        return Convert.ToInt32(comando.ExecuteScalar());
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al contar los materiales disponibles: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                return 0;
+            }
+        }
+
+        // Materiales agotados
+        public static int ContarMaterialesAgotados()
+        {
+            try
+            {
+                using (SqlConnection conexion = Conexion.Conectar())
+                {
+                    string query = @"SELECT COUNT(*)  FROM VerMaterial WHERE Stock = 0";
+
+                    using (SqlCommand comando = new SqlCommand(query, conexion))
+                    {
+                        return Convert.ToInt32(comando.ExecuteScalar());
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al contar los materiales agotados: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                return 0;
+            }
         }
 
 

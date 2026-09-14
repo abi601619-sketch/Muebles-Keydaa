@@ -51,11 +51,49 @@ namespace Vista.Reportes
         {
             CargarReporteClientes();
             CargarReporteVentas();
+            ActualizarEstadisticasClientes();
+            ActualizarEstadisticasVentas();
 
             dtFechaFin.MaxDate = DateTime.Today;
             dtFechaInicio.MaxDate = DateTime.Now;
+
+            dgvReporteClientes.Columns["TipoCliente"].HeaderText = "Tipo de Cliente";
+
+            dgvReporteVentas.Columns["IdVenta"].HeaderText = "N° de Venta";
+
+            dgvReporteVentas.Columns["N° FACTURA"].Visible = false;
+
+            dgvReporteVentas.Columns["FechaVenta"].HeaderText = "Fecha de venta";
+
         }
 
+        private void tableLayoutPanel3_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void lblClientesCorporativos_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pbClientesFrecuentes_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ActualizarEstadisticasClientes()
+        {
+            lblContadorTotal.Text = ReportesClientes.ContarClientesTotales().ToString();
+            lblContadorCorporativos.Text = ReportesClientes.ContarClientesCorporativos().ToString();
+            lblContadorIndividual.Text = ReportesClientes.ContarClientesIndividuales().ToString();
+        }
+
+        private void ActualizarEstadisticasVentas()
+        {
+            lblContadorVentasTotales.Text = ReportesVentas.ContarVentasTotales().ToString();
+            lblMostrarFacturasEmitidas.Text = ReportesVentas.ContarFacturasEmitidas().ToString();
+        }
 
     }
 }

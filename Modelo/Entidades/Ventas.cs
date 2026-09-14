@@ -50,8 +50,7 @@ namespace Modelo.Entidades
 
         public int InsertarVenta()
         {
-            string comandoSQL = @"
-        INSERT INTO Venta (FechaVenta, IdCliente, IdMetodoPago, SubTotal)
+            string comandoSQL = @"INSERT INTO Venta (FechaVenta, IdCliente, IdMetodoPago, SubTotal)
         VALUES(@FechaVenta, @IdCliente, @IdMetodoPago, @SubTotal );
         SELECT CAST(SCOPE_IDENTITY() AS INT);";
 
@@ -97,22 +96,67 @@ namespace Modelo.Entidades
 
         public bool ActualizarVenta()
         {
-            string comandoSQL = @"UPDATE Venta SET FechaVenta = @FechaVenta, IdCliente = @IdCliente, IdMetodoPago = @IdMetodoPago, SubTotal = @SubTotal 
-                                  WHERE IdVenta = @IdVenta";
+            string comandoSQL = @"UPDATE Venta 
+                          SET FechaVenta = @FechaVenta,
+                              IdMetodoPago = @IdMetodoPago,
+                              SubTotal = @SubTotal
+                          WHERE IdVenta = @IdVenta";
+
             using (SqlConnection conexion = Conexion.Conectar())
             {
                 using (SqlCommand comandoObjeto = new SqlCommand(comandoSQL, conexion))
                 {
                     comandoObjeto.Parameters.AddWithValue("@FechaVenta", FechaVenta1);
-                    comandoObjeto.Parameters.AddWithValue("@IdCliente", Cliente1);
                     comandoObjeto.Parameters.AddWithValue("@IdMetodoPago", MetodoPago1);
                     comandoObjeto.Parameters.AddWithValue("@SubTotal", SubTotal1);
                     comandoObjeto.Parameters.AddWithValue("@IdVenta", IdVenta1);
 
-                    try { return comandoObjeto.ExecuteNonQuery() > 0; }
-                    catch (SqlException) { return false; }
+                    try
+                    {
+                        return comandoObjeto.ExecuteNonQuery() > 0;
+                    }
+                    catch (SqlException)
+                    {
+                        return false;
+                    }
                 }
             }
+        }
+
+        public DataTable ObtenerDetalleVenta(int idDetalleVenta)
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                using (SqlConnection cn = Conexion.Conectar())
+                {
+                    string query = @"SELECT IdDetalleVenta, IdVenta, ProductoVendido, Cantidad, PrecioUnitario FROM DetalleVenta
+    WHERE IdDetalleVenta = @IdDetalleVenta";
+
+                    SqlCommand cmd = new SqlCommand(query, cn);
+
+                    cmd.Parameters.AddWithValue("@IdDetalleVenta", idDetalleVenta);
+
+
+
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+
+                    da.Fill(dt);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Error al cargar el detalle de la venta: " + ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
+
+            return dt;
         }
 
         public bool EliminarVenta()

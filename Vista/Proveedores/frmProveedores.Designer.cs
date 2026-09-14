@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.lblSubTexto = new System.Windows.Forms.Label();
             this.lblMensajeInformativoPrincipal = new System.Windows.Forms.Label();
             this.pnlContenedorPrincipal = new System.Windows.Forms.Panel();
@@ -47,13 +47,14 @@
             this.lblAdministrador = new System.Windows.Forms.Label();
             this.pbPerfil = new System.Windows.Forms.PictureBox();
             this.pnlPedidaDeDatos = new System.Windows.Forms.Panel();
-            this.chkEstado = new System.Windows.Forms.CheckBox();
             this.txtTelefono = new System.Windows.Forms.TextBox();
             this.txtUbicacion = new System.Windows.Forms.TextBox();
+            this.btnGuardarCambios = new System.Windows.Forms.Button();
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.pbxBuscar = new System.Windows.Forms.PictureBox();
             this.txtBuscar = new System.Windows.Forms.TextBox();
-            this.btnGuardarCambios = new System.Windows.Forms.Button();
+            this.btnNuevo = new System.Windows.Forms.Button();
+            this.chkEstado = new System.Windows.Forms.CheckBox();
             this.pnlContenedorPrincipal.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProveedores)).BeginInit();
             this.pnlBarraSuperior.SuspendLayout();
@@ -92,6 +93,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlContenedorPrincipal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(238)))), ((int)(((byte)(235)))));
             this.pnlContenedorPrincipal.Controls.Add(this.dgvProveedores);
+            this.pnlContenedorPrincipal.Controls.Add(this.chkEstado);
             this.pnlContenedorPrincipal.Location = new System.Drawing.Point(37, 135);
             this.pnlContenedorPrincipal.Margin = new System.Windows.Forms.Padding(2);
             this.pnlContenedorPrincipal.Name = "pnlContenedorPrincipal";
@@ -108,14 +110,15 @@
             this.dgvProveedores.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvProveedores.BackgroundColor = System.Drawing.Color.White;
             this.dgvProveedores.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.PeachPuff;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvProveedores.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.PeachPuff;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvProveedores.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.dgvProveedores.ColumnHeadersHeight = 28;
             this.dgvProveedores.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvProveedores.GridColor = System.Drawing.Color.Black;
             this.dgvProveedores.Location = new System.Drawing.Point(14, 16);
@@ -129,7 +132,7 @@
             // 
             this.btnDesactivar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.btnDesactivar.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDesactivar.Location = new System.Drawing.Point(144, 410);
+            this.btnDesactivar.Location = new System.Drawing.Point(145, 346);
             this.btnDesactivar.Margin = new System.Windows.Forms.Padding(2);
             this.btnDesactivar.Name = "btnDesactivar";
             this.btnDesactivar.Size = new System.Drawing.Size(81, 25);
@@ -142,7 +145,7 @@
             // 
             this.btnGuardar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.btnGuardar.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGuardar.Location = new System.Drawing.Point(80, 410);
+            this.btnGuardar.Location = new System.Drawing.Point(81, 346);
             this.btnGuardar.Margin = new System.Windows.Forms.Padding(2);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(63, 25);
@@ -155,7 +158,7 @@
             // 
             this.btnEditar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.btnEditar.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEditar.Location = new System.Drawing.Point(15, 410);
+            this.btnEditar.Location = new System.Drawing.Point(16, 346);
             this.btnEditar.Margin = new System.Windows.Forms.Padding(2);
             this.btnEditar.Name = "btnEditar";
             this.btnEditar.Size = new System.Drawing.Size(63, 25);
@@ -168,7 +171,7 @@
             // 
             this.lblTelefono.AutoSize = true;
             this.lblTelefono.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTelefono.Location = new System.Drawing.Point(20, 207);
+            this.lblTelefono.Location = new System.Drawing.Point(21, 171);
             this.lblTelefono.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblTelefono.Name = "lblTelefono";
             this.lblTelefono.Size = new System.Drawing.Size(59, 16);
@@ -179,7 +182,7 @@
             // 
             this.lblUbicacion.AutoSize = true;
             this.lblUbicacion.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUbicacion.Location = new System.Drawing.Point(21, 282);
+            this.lblUbicacion.Location = new System.Drawing.Point(22, 246);
             this.lblUbicacion.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblUbicacion.Name = "lblUbicacion";
             this.lblUbicacion.Size = new System.Drawing.Size(66, 16);
@@ -190,7 +193,7 @@
             // 
             this.txtCorreo.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtCorreo.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCorreo.Location = new System.Drawing.Point(20, 181);
+            this.txtCorreo.Location = new System.Drawing.Point(21, 145);
             this.txtCorreo.Margin = new System.Windows.Forms.Padding(2);
             this.txtCorreo.Name = "txtCorreo";
             this.txtCorreo.Size = new System.Drawing.Size(191, 16);
@@ -201,7 +204,7 @@
             // 
             this.lblCorreo.AutoSize = true;
             this.lblCorreo.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCorreo.Location = new System.Drawing.Point(19, 152);
+            this.lblCorreo.Location = new System.Drawing.Point(20, 116);
             this.lblCorreo.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblCorreo.Name = "lblCorreo";
             this.lblCorreo.Size = new System.Drawing.Size(115, 16);
@@ -212,7 +215,7 @@
             // 
             this.txtNombreProveedor.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtNombreProveedor.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNombreProveedor.Location = new System.Drawing.Point(20, 121);
+            this.txtNombreProveedor.Location = new System.Drawing.Point(21, 85);
             this.txtNombreProveedor.Margin = new System.Windows.Forms.Padding(2);
             this.txtNombreProveedor.Name = "txtNombreProveedor";
             this.txtNombreProveedor.Size = new System.Drawing.Size(191, 16);
@@ -223,7 +226,7 @@
             // 
             this.lblNombreEmpresa.AutoSize = true;
             this.lblNombreEmpresa.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNombreEmpresa.Location = new System.Drawing.Point(20, 92);
+            this.lblNombreEmpresa.Location = new System.Drawing.Point(21, 56);
             this.lblNombreEmpresa.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblNombreEmpresa.Name = "lblNombreEmpresa";
             this.lblNombreEmpresa.Size = new System.Drawing.Size(137, 16);
@@ -234,7 +237,7 @@
             // 
             this.lblDatosProveedor.AutoSize = true;
             this.lblDatosProveedor.Font = new System.Drawing.Font("Times New Roman", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDatosProveedor.Location = new System.Drawing.Point(17, 37);
+            this.lblDatosProveedor.Location = new System.Drawing.Point(16, 19);
             this.lblDatosProveedor.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblDatosProveedor.Name = "lblDatosProveedor";
             this.lblDatosProveedor.Size = new System.Drawing.Size(202, 25);
@@ -279,8 +282,6 @@
             this.pnlPedidaDeDatos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlPedidaDeDatos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(215)))), ((int)(((byte)(215)))));
-            this.pnlPedidaDeDatos.Controls.Add(this.btnGuardarCambios);
-            this.pnlPedidaDeDatos.Controls.Add(this.chkEstado);
             this.pnlPedidaDeDatos.Controls.Add(this.txtTelefono);
             this.pnlPedidaDeDatos.Controls.Add(this.txtUbicacion);
             this.pnlPedidaDeDatos.Controls.Add(this.btnDesactivar);
@@ -293,27 +294,18 @@
             this.pnlPedidaDeDatos.Controls.Add(this.txtNombreProveedor);
             this.pnlPedidaDeDatos.Controls.Add(this.lblNombreEmpresa);
             this.pnlPedidaDeDatos.Controls.Add(this.lblDatosProveedor);
-            this.pnlPedidaDeDatos.Location = new System.Drawing.Point(833, 131);
+            this.pnlPedidaDeDatos.Controls.Add(this.btnGuardarCambios);
+            this.pnlPedidaDeDatos.Location = new System.Drawing.Point(822, 174);
             this.pnlPedidaDeDatos.Margin = new System.Windows.Forms.Padding(2);
             this.pnlPedidaDeDatos.Name = "pnlPedidaDeDatos";
-            this.pnlPedidaDeDatos.Size = new System.Drawing.Size(241, 469);
+            this.pnlPedidaDeDatos.Size = new System.Drawing.Size(241, 384);
             this.pnlPedidaDeDatos.TabIndex = 2;
-            // 
-            // chkEstado
-            // 
-            this.chkEstado.AutoSize = true;
-            this.chkEstado.Location = new System.Drawing.Point(24, 377);
-            this.chkEstado.Name = "chkEstado";
-            this.chkEstado.Size = new System.Drawing.Size(108, 17);
-            this.chkEstado.TabIndex = 30;
-            this.chkEstado.Text = "Proveedor Activo";
-            this.chkEstado.UseVisualStyleBackColor = true;
             // 
             // txtTelefono
             // 
             this.txtTelefono.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtTelefono.Font = new System.Drawing.Font("Times New Roman", 12F);
-            this.txtTelefono.Location = new System.Drawing.Point(20, 244);
+            this.txtTelefono.Location = new System.Drawing.Point(21, 208);
             this.txtTelefono.Margin = new System.Windows.Forms.Padding(2);
             this.txtTelefono.Name = "txtTelefono";
             this.txtTelefono.Size = new System.Drawing.Size(191, 19);
@@ -324,7 +316,7 @@
             // 
             this.txtUbicacion.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtUbicacion.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtUbicacion.Location = new System.Drawing.Point(20, 308);
+            this.txtUbicacion.Location = new System.Drawing.Point(21, 272);
             this.txtUbicacion.Margin = new System.Windows.Forms.Padding(2);
             this.txtUbicacion.Multiline = true;
             this.txtUbicacion.Name = "txtUbicacion";
@@ -332,9 +324,23 @@
             this.txtUbicacion.TabIndex = 28;
             this.txtUbicacion.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtUbicacion_KeyPress);
             // 
+            // btnGuardarCambios
+            // 
+            this.btnGuardarCambios.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.btnGuardarCambios.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGuardarCambios.Location = new System.Drawing.Point(81, 346);
+            this.btnGuardarCambios.Margin = new System.Windows.Forms.Padding(2);
+            this.btnGuardarCambios.Name = "btnGuardarCambios";
+            this.btnGuardarCambios.Size = new System.Drawing.Size(63, 25);
+            this.btnGuardarCambios.TabIndex = 31;
+            this.btnGuardarCambios.Text = "Guardar";
+            this.btnGuardarCambios.UseVisualStyleBackColor = false;
+            this.btnGuardarCambios.Click += new System.EventHandler(this.btnGuardarCambios_Click);
+            // 
             // pnlHeader
             // 
             this.pnlHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(221)))), ((int)(((byte)(175)))));
+            this.pnlHeader.Controls.Add(this.btnNuevo);
             this.pnlHeader.Controls.Add(this.pbxBuscar);
             this.pnlHeader.Controls.Add(this.pnlBarraSuperior);
             this.pnlHeader.Controls.Add(this.txtBuscar);
@@ -374,18 +380,26 @@
             this.txtBuscar.Enter += new System.EventHandler(this.txtBuscar_Enter);
             this.txtBuscar.Leave += new System.EventHandler(this.txtBuscar_Leave);
             // 
-            // btnGuardarCambios
+            // btnNuevo
             // 
-            this.btnGuardarCambios.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnGuardarCambios.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGuardarCambios.Location = new System.Drawing.Point(80, 410);
-            this.btnGuardarCambios.Margin = new System.Windows.Forms.Padding(2);
-            this.btnGuardarCambios.Name = "btnGuardarCambios";
-            this.btnGuardarCambios.Size = new System.Drawing.Size(63, 25);
-            this.btnGuardarCambios.TabIndex = 31;
-            this.btnGuardarCambios.Text = "Guardar";
-            this.btnGuardarCambios.UseVisualStyleBackColor = false;
-            this.btnGuardarCambios.Click += new System.EventHandler(this.btnGuardarCambios_Click);
+            this.btnNuevo.Location = new System.Drawing.Point(831, 119);
+            this.btnNuevo.Name = "btnNuevo";
+            this.btnNuevo.Size = new System.Drawing.Size(226, 41);
+            this.btnNuevo.TabIndex = 32;
+            this.btnNuevo.Text = "Nuevo Proveedor";
+            this.btnNuevo.UseVisualStyleBackColor = true;
+            this.btnNuevo.Click += new System.EventHandler(this.btnNuevo_Click);
+            // 
+            // chkEstado
+            // 
+            this.chkEstado.AutoSize = true;
+            this.chkEstado.Location = new System.Drawing.Point(593, 432);
+            this.chkEstado.Name = "chkEstado";
+            this.chkEstado.Size = new System.Drawing.Size(108, 17);
+            this.chkEstado.TabIndex = 32;
+            this.chkEstado.Text = "Proveedor Activo";
+            this.chkEstado.UseVisualStyleBackColor = true;
+            this.chkEstado.Visible = false;
             // 
             // frmProveedores
             // 
@@ -399,6 +413,7 @@
             this.Text = "frmProveedores";
             this.Load += new System.EventHandler(this.frmProveedores_Load);
             this.pnlContenedorPrincipal.ResumeLayout(false);
+            this.pnlContenedorPrincipal.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProveedores)).EndInit();
             this.pnlBarraSuperior.ResumeLayout(false);
             this.pnlBarraSuperior.PerformLayout();
@@ -437,7 +452,8 @@
         private System.Windows.Forms.PictureBox pbPerfil;
         private System.Windows.Forms.Label lblAdministrador;
         private System.Windows.Forms.DataGridView dgvProveedores;
-        private System.Windows.Forms.CheckBox chkEstado;
         private System.Windows.Forms.Button btnGuardarCambios;
+        private System.Windows.Forms.Button btnNuevo;
+        private System.Windows.Forms.CheckBox chkEstado;
     }
 }

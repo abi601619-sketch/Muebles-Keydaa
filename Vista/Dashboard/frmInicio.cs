@@ -1,6 +1,7 @@
 using Modelo.Entidades;
 using System;
 using System.Windows.Forms;
+using Vista.Clientes;
 using Vista.Inventario;
 using Vista.Pedidos;
 using Vista.Responsive;

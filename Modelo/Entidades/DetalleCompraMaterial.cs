@@ -1,11 +1,6 @@
 using Modelo.Conexión_DB;
-using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Modelo.Entidades
@@ -18,7 +13,7 @@ namespace Modelo.Entidades
         private int Cantidad;
         private decimal PrecioUnitario;
 
-        
+
 
         public DetalleCompraMaterial()
         {
@@ -27,18 +22,18 @@ namespace Modelo.Entidades
 
         public DetalleCompraMaterial(int idDetalleCompraMaterial, int idCompra, int idMaterial, int cantidad, decimal precioUnitario)
         {
-            IdDetalleCompraMaterial=idDetalleCompraMaterial;
-            IdCompra=idCompra;
-            IdMaterial=idMaterial;
-            Cantidad=cantidad;
-            PrecioUnitario=precioUnitario;
+            IdDetalleCompraMaterial = idDetalleCompraMaterial;
+            IdCompra = idCompra;
+            IdMaterial = idMaterial;
+            Cantidad = cantidad;
+            PrecioUnitario = precioUnitario;
         }
 
-        public int IdDetalleCompraMaterial1 { get => IdDetalleCompraMaterial; set => IdDetalleCompraMaterial=value; }
-        public int IdCompra1 { get => IdCompra; set => IdCompra=value; }
-        public int IdMaterial1 { get => IdMaterial; set => IdMaterial=value; }
-        public int Cantidad1 { get => Cantidad; set => Cantidad=value; }
-        public decimal PrecioUnitario1 { get => PrecioUnitario; set => PrecioUnitario=value; }
+        public int IdDetalleCompraMaterial1 { get => IdDetalleCompraMaterial; set => IdDetalleCompraMaterial = value; }
+        public int IdCompra1 { get => IdCompra; set => IdCompra = value; }
+        public int IdMaterial1 { get => IdMaterial; set => IdMaterial = value; }
+        public int Cantidad1 { get => Cantidad; set => Cantidad = value; }
+        public decimal PrecioUnitario1 { get => PrecioUnitario; set => PrecioUnitario = value; }
 
         public static DataTable CargarDetallesPorCompra(int idCompra)
         {
@@ -108,7 +103,127 @@ namespace Modelo.Entidades
                 catch (SqlException ex)
                 {
                     transaccion.Rollback();
-                    MessageBox.Show("Ocurrió un error al guardar el detalle de compra.\n\n"+ ex.Message, "Error " + ex.Number,MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Ocurrió un error al guardar el detalle de compra.\n\n" + ex.Message, "Error " + ex.Number, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+            }
+        }
+
+
+        public bool ActualizarDetalleCompra(
+      int idMaterialAnterior,
+      int cantidadAnterior)
+        {
+            using (SqlConnection conexion = Conexion.Conectar())
+            {
+                SqlTransaction transaccion = conexion.BeginTransaction();
+
+                try
+                {
+                    //Devuelve al stock la cantidad anterior
+                    string devolverStock = @" UPDATE Material SET Stock = Stock - @CantidadAnterior WHERE IdMaterial = @IdMaterialAnterior;";
+
+                    using (SqlCommand cmd = new SqlCommand(
+                        devolverStock, conexion, transaccion))
+                    {
+                        cmd.Parameters.AddWithValue("@CantidadAnterior", cantidadAnterior);
+
+                        cmd.Parameters.AddWithValue("@IdMaterialAnterior", idMaterialAnterior);
+
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    // Agrega al stock la nueva cantidad
+                    string agregarStock = @"UPDATE Material SET Stock = Stock + @CantidadNueva WHERE IdMaterial = @IdMaterialNuevo;";
+
+                    using (SqlCommand cmd = new SqlCommand(agregarStock, conexion, transaccion))
+                    {
+                        cmd.Parameters.AddWithValue("@CantidadNueva", Cantidad1);
+
+                        cmd.Parameters.AddWithValue("@IdMaterialNuevo", IdMaterial1);
+
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    //Actualiza el detalle de la compra
+                    string comandoSQL = @" UPDATE DetalleCompraMaterial SET IdMaterial = @IdMaterial, Cantidad = @Cantidad, PrecioUnitario = @PrecioUnitario WHERE IdDetalleCompraMaterial = @IdDetalleCompraMaterial;";
+
+                    using (SqlCommand comando = new SqlCommand(comandoSQL, conexion, transaccion))
+                    {
+                        comando.Parameters.AddWithValue("@IdDetalleCompraMaterial", IdDetalleCompraMaterial1);
+
+                        comando.Parameters.AddWithValue("@IdMaterial", IdMaterial1);
+
+                        comando.Parameters.AddWithValue("@Cantidad", Cantidad1);
+
+                        SqlParameter parametro = comando.Parameters.Add("@PrecioUnitario", SqlDbType.Decimal);
+
+                        parametro.Precision = 10;
+                        parametro.Scale = 2;
+                        parametro.Value = PrecioUnitario1;
+
+                        comando.ExecuteNonQuery();
+                    }
+
+                    transaccion.Commit();
+                    return true;
+                }
+                catch (SqlException ex)
+                {
+                    transaccion.Rollback();
+
+                    MessageBox.Show("Ocurrió un error al actualizar el detalle.\n\n" + ex.Message, "Error " + ex.Number, MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    return false;
+                }
+            }
+        }
+        public bool EliminarDetalleCompra()
+        {
+            using (SqlConnection conexion = Conexion.Conectar())
+            {
+                SqlTransaction transaccion = conexion.BeginTransaction();
+
+                try
+                {
+                    // Primero devolver el stock
+                    string actualizarStock = @" UPDATE Material SET Stock = Stock - @Cantidad WHERE IdMaterial = @IdMaterial;";
+
+                    using (SqlCommand cmd = new SqlCommand(
+                        actualizarStock, conexion, transaccion))
+                    {
+                        cmd.Parameters.AddWithValue("@Cantidad", Cantidad1);
+                        cmd.Parameters.AddWithValue("@IdMaterial", IdMaterial1);
+
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    // Después eliminar el detalle
+                    string eliminar = @"DELETE FROM DetalleCompraMaterial WHERE IdDetalleCompraMaterial = @IdDetalleCompraMaterial;";
+
+                    using (SqlCommand cmd = new SqlCommand(
+                        eliminar, conexion, transaccion))
+                    {
+                        cmd.Parameters.AddWithValue("@IdDetalleCompraMaterial", IdDetalleCompraMaterial1);
+
+                        int filas = cmd.ExecuteNonQuery();
+
+                        if (filas == 0)
+                        {
+                            transaccion.Rollback();
+                            return false;
+                        }
+                    }
+
+                    transaccion.Commit();
+                    return true;
+                }
+                catch (SqlException ex)
+                {
+                    transaccion.Rollback();
+
+                    MessageBox.Show("Ocurrió un error al eliminar el detalle.\n\n" + ex.Message, "Error " + ex.Number, MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                     return false;
                 }
             }

@@ -35,13 +35,26 @@ namespace Vista.Facturación
 
             txtNumeroFactura.Text = "Pendiente";
 
+            dgvFacturasRegistradas.Columns["IdFactura"].HeaderText = "N° de Factura";
+            dgvFacturasRegistradas.Columns["Fecha"].HeaderText = "Fecha de emisión";
         }
 
 
         private void MostrarRegistrosFacturas()
         {
-            dgvFacturasRegistradas.DataSource = null;
-            dgvFacturasRegistradas.DataSource = DbFactura.CargarRegistrosFacturas();
+            try
+            {
+                dgvFacturasRegistradas.DataSource = null;
+                dgvFacturasRegistradas.DataSource = DbFactura.CargarRegistrosFacturas();
+
+                dgvFacturasRegistradas.Columns["IdFactura"].HeaderText = "N° de Factura";
+                dgvFacturasRegistradas.Columns["Fecha"].HeaderText = "Fecha de emisión";
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar las facturas: " + ex.Message);
+            }
         }
 
         private void MostrarDetalleFactura()
@@ -247,24 +260,69 @@ namespace Vista.Facturación
 
         private void txtBuscar_TextChanged(object sender, EventArgs e)
         {
+            try
+            {
+                if (txtBuscar.Text == "Buscar por número de factura...")
+                {
+                    return;
+                }
 
+                string buscar = txtBuscar.Text.Trim();
+
+                if (string.IsNullOrWhiteSpace(buscar))
+                {
+                    MostrarRegistrosFacturas();
+                    return;
+                }
+
+                dgvFacturasRegistradas.DataSource =
+                    DbFactura.BuscarFacturas(buscar);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
         }
 
         private void txtBuscar_Leave(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtBuscar.Text))
+            try
             {
-                txtBuscar.Text = "Buscar por número de factura...";
-                txtBuscar.ForeColor = Color.Gray;
+                if (string.IsNullOrWhiteSpace(txtBuscar.Text))
+                {
+                    txtBuscar.Text = "Buscar por número de factura...";
+                    txtBuscar.ForeColor = Color.Gray;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
             }
         }
 
         private void txtBuscar_Enter(object sender, EventArgs e)
         {
-            if (txtBuscar.Text == "Buscar por número de factura...")
+            try
             {
-                txtBuscar.Text = "";
-                txtBuscar.ForeColor = Color.Black;
+                if (txtBuscar.Text == "Buscar por número de factura...")
+                {
+                    txtBuscar.Text = "";
+                    txtBuscar.ForeColor = Color.Black;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
             }
         }
 
@@ -292,6 +350,113 @@ namespace Vista.Facturación
 
             formulario.ShowDialog();
 
+
+            MostrarRegistrosFacturas();
+            dgvFacturasRegistradas.Columns["IdFactura"].HeaderText = "N° de Factura";
+            dgvFacturasRegistradas.Columns["Fecha"].HeaderText = "Fecha de emisión";
+        }
+
+
+        private void GuardarFactura()
+        {
+            try
+            {
+                // 1. Validar número de venta
+                if (string.IsNullOrWhiteSpace(txtnVenta.Text))
+                {
+                    MessageBox.Show("Debe ingresar el número de venta.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                    txtnVenta.Focus();
+                    return;
+                }
+
+                // 2. Convertir el número de venta a entero
+                int idVenta;
+
+                if (!int.TryParse(txtnVenta.Text.Trim(), out idVenta))
+                {
+                    MessageBox.Show("El número de venta debe ser un número válido.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                    txtnVenta.Focus();
+                    return;
+                }
+
+                // 3. Obtener las fechas
+                DateTime fechaEmision = dtFechaDatosGeneralesFactura.Value;
+                DateTime fechaVencimiento = dtpFechaVencimiento.Value;
+
+                // 4. Validar que la fecha de vencimiento no sea menor
+                if (fechaVencimiento < fechaEmision)
+                {
+                    MessageBox.Show("La fecha de vencimiento no puede ser menor que la fecha de emisión.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                    return;
+                }
+
+                //Obtener observaciones
+                string observaciones = txtObservaciones.Text.Trim();
+
+                //Crear objeto Nueva Factura
+                DbFactura factura = new DbFactura();
+
+                factura.FechaEmisión1 = fechaEmision;
+                factura.FechaVencimiento1 = fechaVencimiento;
+                factura.Venta1 = idVenta;
+                factura.Observaciones1 = observaciones;
+
+                //Guardar en la base de datos
+                factura.InsertarFactura();
+
+                // 8. Mostrar mensaje
+                MessageBox.Show("La factura se guardó correctamente.", "Factura guardada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // 9. Limpiar formulario
+                LimpiarFormulario();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ocurrió un error al guardar la factura:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void LimpiarFormulario()
+        {
+            // Limpiar número de venta
+            txtnVenta.Clear();
+
+            // Limpiar datos del cliente
+            txtMostrarCliente.Clear();
+            txtTelefono.Clear();
+            txtDui.Clear();
+            txtCorreo.Clear();
+
+            // Restablecer fechas
+            dtFechaDatosGeneralesFactura.Value = DateTime.Now;
+            dtpFechaVencimiento.Value = DateTime.Now;
+
+            // Limpiar número de factura
+            txtNumeroFactura.Clear();
+
+            // Limpiar observaciones
+            txtObservaciones.Clear();
+
+            // Limpiar detalles de productos
+            dgvDetalleVenta.DataSource = null;
+            dgvDetalleVenta.Rows.Clear();
+
+            // Limpiar resumen de pago
+            txtSubTotal.Clear();
+            txtIVA.Clear();
+            txtDescuento.Clear();
+            txtTotal.Clear();
+
+            // Restablecer total a pagar
+            lblTotalAPagar.Text = "Total a pagar $ : 0.00";
+        }
+
+        private void btnGuardarFactura_Click(object sender, EventArgs e)
+        {
+            GuardarFactura();
             MostrarRegistrosFacturas();
         }
     }

@@ -42,6 +42,7 @@ namespace Vista.Cotizaciones
         {
             dgvCotizacionesRegistradas.DataSource = null;
             dgvCotizacionesRegistradas.DataSource = DbCotizacion.CargarCotizacion();
+            dgvCotizacionesRegistradas.Columns["IdCotizacion"].HeaderText = "#";
         }
 
 
@@ -50,8 +51,7 @@ namespace Vista.Cotizaciones
             cbEstado.Items.Add("Pendiente");
             cbEstado.Items.Add("Aprobada");
             cbEstado.Items.Add("Rechazada");
-            cbEstado.Items.Add("Finalizada");
-            cbEstado.SelectedIndex = 0;
+
             MostrarCotizacionesRegistradas();
             ConfigurarDetalleCotizacion();
 
@@ -60,6 +60,7 @@ namespace Vista.Cotizaciones
             txtTelefono.ReadOnly = true;
             txtCorreo.ReadOnly = true;
             txtDireccion.ReadOnly = true;
+            cbEstado.Enabled = false;
 
             // Valores iniciales
             dtpFechaCotizacion.Value = DateTime.Now;
@@ -73,17 +74,20 @@ namespace Vista.Cotizaciones
             txtTotal.Text = "0.00";
 
             // Estado inicial
-            cbEstado.SelectedIndex = -1;
+            cbEstado.SelectedIndex = 0;
             //Fecha de cotizacion actual
             dtpFechaCotizacion.Value = DateTime.Today;
             dtpFechaCotizacion.Enabled = false;
             //Metodo para validar que no se copie texto, ni tampoco se pegue texto
             DesactivarCopiarPegar(this);
 
+            dgvCotizacionesRegistradas.Columns["IdCotizacion"].HeaderText = "#";
+
 
         }
         private void btnBuscarCliente_Click(object sender, EventArgs e)
         {
+
             using (frmBuscarCliente modal = new frmBuscarCliente())
             {
                 if (modal.ShowDialog() == DialogResult.OK)
@@ -140,7 +144,7 @@ namespace Vista.Cotizaciones
 
             dtpFechaCotizacion.Value = DateTime.Now;
 
-            cbEstado.SelectedIndex = -1;
+            cbEstado.SelectedIndex = 0;
 
             subtotal = 0;
             iva = 0;
@@ -163,8 +167,7 @@ namespace Vista.Cotizaciones
 
             if (string.IsNullOrWhiteSpace(txtCondicionesPago.Text))
             {
-                MessageBox.Show(
-                    "Ingresa las condiciones de pago.");
+                MessageBox.Show("Ingresa las condiciones de pago.");
 
                 txtCondicionesPago.Focus();
 
@@ -173,28 +176,20 @@ namespace Vista.Cotizaciones
 
             if (string.IsNullOrWhiteSpace(txtCondicionesEntrega.Text))
             {
-                MessageBox.Show(
-                    "Ingresa las condiciones de entrega.");
+                MessageBox.Show("Ingresa las condiciones de entrega.");
 
                 txtCondicionesEntrega.Focus();
 
                 return;
             }
 
-            if (cbEstado.SelectedIndex == -1)
-            {
-                MessageBox.Show("Selecciona el estado de la cotizaci?n.");
-
-                cbEstado.Focus();
-                return;
-            }
 
             CalcularTotalCotizacion();
 
             if (total <= 0)
             {
                 MessageBox.Show(
-                    "El total de la cotizaci?n debe ser mayor que 0.");
+                    "El total de la cotización debe ser mayor que 0.");
 
                 return;
             }
@@ -205,8 +200,8 @@ namespace Vista.Cotizaciones
                 cbEstado.Focus();
                 return;
             }
-
-            string estadoSeleccionado = cbEstado.SelectedItem.ToString();
+            cbEstado.Enabled = false;
+            string estadoSeleccionado = Convert.ToString(cbEstado.Text);
 
             DbCotizacion cotizacion = new DbCotizacion(0, dtpFechaCotizacion.Value, idClienteSeleccionado, txtCondicionesPago.Text.Trim(), txtCondicionesEntrega.Text.Trim(), total, estadoSeleccionado);
 
@@ -237,7 +232,7 @@ namespace Vista.Cotizaciones
                 prod.InsertarProductoCotizacion();
             }
 
-            MessageBox.Show("Cotizaci?n y productos registrados correctamente.\n\n" + "N?mero de cotizaci?n: " + idCotizacion, "Cotizaci?n", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Cotización y productos registrados correctamente.\n\n" + "N?mero de cotización: " + idCotizacion, "Cotización", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             MostrarCotizacionesRegistradas();
 
@@ -373,7 +368,7 @@ namespace Vista.Cotizaciones
                 bool exito = DbPedidos.ConvertirCotizacionAPedido(idCotizacion, fechaEntrega);
                 if (exito)
                 {
-                    MessageBox.Show("?La cotización se ha convertido en Pedido exitosamente!\nFecha estimada de entrega: " + fechaEntrega.ToShortDateString(), "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("¡La cotización se ha convertido en Pedido exitosamente!\nFecha estimada de entrega: " + fechaEntrega.ToShortDateString(), "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             else
@@ -421,13 +416,13 @@ namespace Vista.Cotizaciones
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
+            cbEstado.Enabled = false;
             if (dgvCotizacionesRegistradas.CurrentRow != null)
             {
                 int idCotizacion = Convert.ToInt32(dgvCotizacionesRegistradas.CurrentRow.Cells["IdCotizacion"].Value);
                 string estadoActual = dgvCotizacionesRegistradas.CurrentRow.Cells["Estado"].Value?.ToString();
 
-                DialogResult result = MessageBox.Show(
-                    "¿Deseas cambiar el estado de la cotización? #" + idCotizacion + "?\n\nPresiona SI para marcarla como 'Aprobada'.\nPresiona NO para marcarla como 'Rechazada'.\nPresiona CANCELAR para no hacer nada.",
+                DialogResult result = MessageBox.Show("¿Deseas cambiar el estado de la cotización? #" + idCotizacion + "?\n\nPresiona SI para marcarla como 'Aprobada'.\nPresiona NO para marcarla como 'Rechazada'.\nPresiona CANCELAR para no hacer nada.",
                     "Cambiar Estado",
                     MessageBoxButtons.YesNoCancel,
                     MessageBoxIcon.Question);
@@ -476,6 +471,11 @@ namespace Vista.Cotizaciones
         {
             try
             {
+                if (txtBuscar.Text == "Buscar por código de cotización...")
+                {
+                    return;
+                }
+
                 string buscar = txtBuscar.Text.Trim();
 
                 if (string.IsNullOrWhiteSpace(buscar))
@@ -484,8 +484,9 @@ namespace Vista.Cotizaciones
                     return;
                 }
 
-                dgvCotizacionesRegistradas.DataSource =
-                    DbCotizacion.BuscarCotizacion(buscar);
+                dgvCotizacionesRegistradas.DataSource = null;
+                dgvCotizacionesRegistradas.DataSource = DbCotizacion.BuscarCotizacion(buscar);
+
             }
             catch (Exception ex)
             {
@@ -496,20 +497,34 @@ namespace Vista.Cotizaciones
         private void txtBuscar_Enter(object sender, EventArgs e)
         {
 
-            if (txtBuscar.Text == "Buscar por código de cotización...")
+            try
             {
-                txtBuscar.Text = "";
-                txtBuscar.ForeColor = Color.Black;
+                if (txtBuscar.Text == "Buscar por código de cotización...")
+                {
+                    txtBuscar.Text = "";
+                    txtBuscar.ForeColor = Color.Black;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         }
 
         private void txtBuscar_Leave(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtBuscar.Text))
+            try
             {
-                txtBuscar.Text = "Buscar por código de cotización...";
-                txtBuscar.ForeColor = Color.LightGray;
+                if (string.IsNullOrWhiteSpace(txtBuscar.Text))
+                {
+                    txtBuscar.Text = "Buscar por código de cotización...";
+                    txtBuscar.ForeColor = Color.Gray;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

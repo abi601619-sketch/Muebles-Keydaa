@@ -185,7 +185,7 @@ namespace Modelo.Entidades
         {
             SqlConnection conectar = Conexion.Conectar();
 
-            string comando = "SELECT IdCliente, CASE WHEN IdTipoCliente = 2 THEN Identificador1 + ' ' + Identificador2 ELSE Identificador1 END AS Cliente, Telefono, Correo, Direccion, Estado FROM Cliente;";
+            string comando = "SELECT * FROM SeleccionClientes";
 
             SqlDataAdapter adapter = new SqlDataAdapter(comando, conectar);
 
@@ -262,6 +262,7 @@ namespace Modelo.Entidades
         {
             int total = 0;
             using (SqlConnection conexion = Conexion.Conectar())
+
             {
                 string comandoSQL = "SELECT COUNT(*) FROM Cliente WHERE Estado = 'Activo';";
                 using (SqlCommand comandoObjeto = new SqlCommand(comandoSQL, conexion))
@@ -286,38 +287,84 @@ namespace Modelo.Entidades
             return total;
         }
 
-
-        public static DataTable BuscarCliente(string texto, int tipoCliente)
+        public static DataTable BuscarClienteIndividual(string texto)
         {
-            SqlConnection conectar = Conexion.Conectar();
-
-            string comando = @"
-        SELECT *
-        FROM VerClientes
-        WHERE IdCliente IN
-        (
-            SELECT IdCliente
-            FROM Cliente
-            WHERE IdTipoCliente = @TipoCliente
-        )
-        AND (
-            Cliente LIKE @Texto
-            OR Telefono LIKE @Texto
-            OR Correo LIKE @Texto
-            OR Direccion LIKE @Texto
-        );";
-
-            SqlDataAdapter adapter = new SqlDataAdapter(comando, conectar);
-
-            adapter.SelectCommand.Parameters.AddWithValue("@Texto", "%" + texto + "%");
-            adapter.SelectCommand.Parameters.AddWithValue("@TipoCliente", tipoCliente);
-
             DataTable dt = new DataTable();
-            adapter.Fill(dt);
 
-            conectar.Close();
+            using (SqlConnection conexion = Conexion.Conectar())
+            {
+                string consulta = @"SELECT * FROM BuscarClientesIndividuales
+                WHERE
+                Nombre LIKE '%' + @Texto + '%'
+                OR Apellidos LIKE '%' + @Texto + '%'
+                OR DUI LIKE '%' + @Texto + '%'
+                OR Telefono LIKE '%' + @Texto + '%'
+                OR Correo LIKE '%' + @Texto + '%'
+                OR Direccion LIKE '%' + @Texto + '%'";
+
+                using (SqlDataAdapter adapter = new SqlDataAdapter(consulta, conexion))
+                {
+                    adapter.SelectCommand.Parameters.AddWithValue("@Texto", texto);
+                    adapter.Fill(dt);
+                }
+            }
 
             return dt;
         }
+
+        public static DataTable BuscarClienteCorporativo(string texto)
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection conexion = Conexion.Conectar())
+            {
+                string consulta = @"SELECT * FROM BuscarClientesCorporativos
+                WHERE [Empresa] LIKE '%' + @Texto + '%'
+                OR Encargado LIKE '%' + @Texto + '%'
+                OR NIT LIKE '%' + @Texto + '%'
+                OR Telefono LIKE '%' + @Texto + '%'
+                OR Correo LIKE '%' + @Texto + '%'
+                OR Direccion LIKE '%' + @Texto + '%'";
+
+                using (SqlDataAdapter adapter = new SqlDataAdapter(consulta, conexion))
+                {
+                    adapter.SelectCommand.Parameters.AddWithValue("@Texto", texto);
+                    adapter.Fill(dt);
+                }
+            }
+
+            return dt;
+        }
+
+        public static DataTable BuscarClientesSeleecion(string texto)
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                using (SqlConnection conexion = Conexion.Conectar())
+                {
+                    string consulta = @"SELECT * FROM SeleccionClientes
+                    WHERE Cliente LIKE '%' + @Texto + '%'
+                    OR Telefono LIKE '%' + @Texto + '%'
+                    OR Correo LIKE '%' + @Texto + '%'
+                    OR Direccion LIKE '%' + @Texto + '%'";
+
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(consulta, conexion))
+                    {
+                        adapter.SelectCommand.Parameters.AddWithValue("@Texto", texto);
+
+                        adapter.Fill(dt);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ocurrió un error al buscar clientes: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            return dt;
+        }
+
     }
 }

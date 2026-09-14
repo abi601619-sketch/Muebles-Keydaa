@@ -177,12 +177,10 @@ namespace Vista.Producción
                     return;
 
                 // Obtener stock del material
-                txtStockDisponible.Text =
-                    fila["Stock"].ToString();
+                txtStockDisponible.Text = fila["Stock"].ToString();
 
                 // Obtener unidad de medida
-                string nombreUnidad =
-                    fila["NombreUnidad"].ToString();
+                string nombreUnidad = fila["UnidadMedida"].ToString();
 
                 // Buscar esa unidad en el ComboBox
                 txtUnidadMedida.Text = nombreUnidad;
@@ -253,7 +251,7 @@ namespace Vista.Producción
             string nombreMaterial = fila["Material"].ToString();
 
             // Mostrar la unidad de medida correspondiente
-            txtUnidadMedida.Text = fila["NombreUnidad"].ToString();
+            txtUnidadMedida.Text = fila["UnidadMedida"].ToString();
 
 
 

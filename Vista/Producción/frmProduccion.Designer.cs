@@ -28,7 +28,7 @@ namespace Vista.Producción
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.txtBuscar = new System.Windows.Forms.TextBox();
             this.lblSubTexto = new System.Windows.Forms.Label();
             this.btnLimpiar = new System.Windows.Forms.Button();
@@ -43,18 +43,22 @@ namespace Vista.Producción
             this.lblMensajeInformativoPrincipal = new System.Windows.Forms.Label();
             this.pnlIndicador3 = new System.Windows.Forms.Panel();
             this.pbPendientes = new System.Windows.Forms.PictureBox();
-            this.lblPendientes = new System.Windows.Forms.Label();
+            this.lblEnProduccion = new System.Windows.Forms.Label();
             this.pnlBarraInformativa = new System.Windows.Forms.Panel();
             this.lblAdministrador = new System.Windows.Forms.Label();
             this.pbPerfil = new System.Windows.Forms.PictureBox();
             this.pnlIndicador1 = new System.Windows.Forms.Panel();
             this.pbCancelados = new System.Windows.Forms.PictureBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblPendientes = new System.Windows.Forms.Label();
             this.pnlIndicador2 = new System.Windows.Forms.Panel();
             this.pbFinalizados = new System.Windows.Forms.PictureBox();
             this.lblFinalizados = new System.Windows.Forms.Label();
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.pbxBuscar = new System.Windows.Forms.PictureBox();
+            this.lblMostrarPendientes = new System.Windows.Forms.Label();
+            this.lblMostrarFinalizados = new System.Windows.Forms.Label();
+            this.lblMostrarEnProduccion = new System.Windows.Forms.Label();
+            this.lblMostrarRegistrados = new System.Windows.Forms.Label();
             this.pnlIndicador4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbTotalTrabajos)).BeginInit();
             this.pnlContenedorTabla.SuspendLayout();
@@ -126,6 +130,7 @@ namespace Vista.Producción
             // pnlIndicador4
             // 
             this.pnlIndicador4.BackColor = System.Drawing.Color.White;
+            this.pnlIndicador4.Controls.Add(this.lblMostrarRegistrados);
             this.pnlIndicador4.Controls.Add(this.pbTotalTrabajos);
             this.pnlIndicador4.Controls.Add(this.lblRegistrados);
             this.pnlIndicador4.Location = new System.Drawing.Point(724, 133);
@@ -196,14 +201,14 @@ namespace Vista.Producción
             this.dgvProduccion.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvProduccion.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvProduccion.BackgroundColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.PeachPuff;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvProduccion.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.PeachPuff;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvProduccion.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvProduccion.ColumnHeadersHeight = 42;
             this.dgvProduccion.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvProduccion.GridColor = System.Drawing.Color.Black;
@@ -245,8 +250,9 @@ namespace Vista.Producción
             // pnlIndicador3
             // 
             this.pnlIndicador3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(186)))), ((int)(((byte)(120)))));
+            this.pnlIndicador3.Controls.Add(this.lblMostrarEnProduccion);
             this.pnlIndicador3.Controls.Add(this.pbPendientes);
-            this.pnlIndicador3.Controls.Add(this.lblPendientes);
+            this.pnlIndicador3.Controls.Add(this.lblEnProduccion);
             this.pnlIndicador3.Location = new System.Drawing.Point(498, 133);
             this.pnlIndicador3.Margin = new System.Windows.Forms.Padding(2);
             this.pnlIndicador3.Name = "pnlIndicador3";
@@ -263,15 +269,15 @@ namespace Vista.Producción
             this.pbPendientes.TabIndex = 3;
             this.pbPendientes.TabStop = false;
             // 
-            // lblPendientes
+            // lblEnProduccion
             // 
-            this.lblPendientes.AutoSize = true;
-            this.lblPendientes.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPendientes.Location = new System.Drawing.Point(110, 18);
-            this.lblPendientes.Name = "lblPendientes";
-            this.lblPendientes.Size = new System.Drawing.Size(82, 19);
-            this.lblPendientes.TabIndex = 2;
-            this.lblPendientes.Text = "Pendientes";
+            this.lblEnProduccion.AutoSize = true;
+            this.lblEnProduccion.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEnProduccion.Location = new System.Drawing.Point(110, 18);
+            this.lblEnProduccion.Name = "lblEnProduccion";
+            this.lblEnProduccion.Size = new System.Drawing.Size(103, 19);
+            this.lblEnProduccion.TabIndex = 2;
+            this.lblEnProduccion.Text = "En producción";
             // 
             // pnlBarraInformativa
             // 
@@ -309,8 +315,9 @@ namespace Vista.Producción
             // pnlIndicador1
             // 
             this.pnlIndicador1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(162)))), ((int)(((byte)(147)))));
+            this.pnlIndicador1.Controls.Add(this.lblMostrarPendientes);
             this.pnlIndicador1.Controls.Add(this.pbCancelados);
-            this.pnlIndicador1.Controls.Add(this.label1);
+            this.pnlIndicador1.Controls.Add(this.lblPendientes);
             this.pnlIndicador1.Location = new System.Drawing.Point(48, 134);
             this.pnlIndicador1.Margin = new System.Windows.Forms.Padding(2);
             this.pnlIndicador1.Name = "pnlIndicador1";
@@ -327,19 +334,20 @@ namespace Vista.Producción
             this.pbCancelados.TabIndex = 1;
             this.pbCancelados.TabStop = false;
             // 
-            // label1
+            // lblPendientes
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(107, 17);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(86, 19);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Cancelados";
+            this.lblPendientes.AutoSize = true;
+            this.lblPendientes.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPendientes.Location = new System.Drawing.Point(107, 17);
+            this.lblPendientes.Name = "lblPendientes";
+            this.lblPendientes.Size = new System.Drawing.Size(82, 19);
+            this.lblPendientes.TabIndex = 0;
+            this.lblPendientes.Text = "Pendientes";
             // 
             // pnlIndicador2
             // 
             this.pnlIndicador2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(165)))), ((int)(((byte)(237)))), ((int)(((byte)(147)))));
+            this.pnlIndicador2.Controls.Add(this.lblMostrarFinalizados);
             this.pnlIndicador2.Controls.Add(this.pbFinalizados);
             this.pnlIndicador2.Controls.Add(this.lblFinalizados);
             this.pnlIndicador2.Location = new System.Drawing.Point(272, 134);
@@ -401,6 +409,42 @@ namespace Vista.Producción
             this.pbxBuscar.TabIndex = 27;
             this.pbxBuscar.TabStop = false;
             // 
+            // lblMostrarPendientes
+            // 
+            this.lblMostrarPendientes.AutoSize = true;
+            this.lblMostrarPendientes.Location = new System.Drawing.Point(122, 43);
+            this.lblMostrarPendientes.Name = "lblMostrarPendientes";
+            this.lblMostrarPendientes.Size = new System.Drawing.Size(35, 13);
+            this.lblMostrarPendientes.TabIndex = 2;
+            this.lblMostrarPendientes.Text = "label1";
+            // 
+            // lblMostrarFinalizados
+            // 
+            this.lblMostrarFinalizados.AutoSize = true;
+            this.lblMostrarFinalizados.Location = new System.Drawing.Point(125, 43);
+            this.lblMostrarFinalizados.Name = "lblMostrarFinalizados";
+            this.lblMostrarFinalizados.Size = new System.Drawing.Size(35, 13);
+            this.lblMostrarFinalizados.TabIndex = 3;
+            this.lblMostrarFinalizados.Text = "label2";
+            // 
+            // lblMostrarEnProduccion
+            // 
+            this.lblMostrarEnProduccion.AutoSize = true;
+            this.lblMostrarEnProduccion.Location = new System.Drawing.Point(140, 46);
+            this.lblMostrarEnProduccion.Name = "lblMostrarEnProduccion";
+            this.lblMostrarEnProduccion.Size = new System.Drawing.Size(35, 13);
+            this.lblMostrarEnProduccion.TabIndex = 4;
+            this.lblMostrarEnProduccion.Text = "label3";
+            // 
+            // lblMostrarRegistrados
+            // 
+            this.lblMostrarRegistrados.AutoSize = true;
+            this.lblMostrarRegistrados.Location = new System.Drawing.Point(113, 44);
+            this.lblMostrarRegistrados.Name = "lblMostrarRegistrados";
+            this.lblMostrarRegistrados.Size = new System.Drawing.Size(35, 13);
+            this.lblMostrarRegistrados.TabIndex = 5;
+            this.lblMostrarRegistrados.Text = "label4";
+            // 
             // frmProduccion
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -454,11 +498,11 @@ namespace Vista.Producción
         private System.Windows.Forms.Label lblMensajeInformativoPrincipal;
         private System.Windows.Forms.PictureBox pbPendientes;
         private System.Windows.Forms.Panel pnlIndicador3;
-        private System.Windows.Forms.Label lblPendientes;
+        private System.Windows.Forms.Label lblEnProduccion;
         private System.Windows.Forms.Panel pnlBarraInformativa;
         private System.Windows.Forms.Panel pnlIndicador1;
         private System.Windows.Forms.PictureBox pbCancelados;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblPendientes;
         private System.Windows.Forms.PictureBox pbFinalizados;
         private System.Windows.Forms.Panel pnlIndicador2;
         private System.Windows.Forms.Label lblFinalizados;
@@ -466,5 +510,9 @@ namespace Vista.Producción
         private System.Windows.Forms.Label lblAdministrador;
         private System.Windows.Forms.DataGridView dgvProduccion;
         private System.Windows.Forms.Button btnMaterialUtilizado;
+        private System.Windows.Forms.Label lblMostrarRegistrados;
+        private System.Windows.Forms.Label lblMostrarEnProduccion;
+        private System.Windows.Forms.Label lblMostrarPendientes;
+        private System.Windows.Forms.Label lblMostrarFinalizados;
     }
 }

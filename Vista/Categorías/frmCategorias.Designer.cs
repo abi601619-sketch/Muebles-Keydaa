@@ -30,8 +30,12 @@
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pnlIndicador1 = new System.Windows.Forms.Panel();
+            this.lblCategoriasInactivas = new System.Windows.Forms.Label();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.lblInactivas = new System.Windows.Forms.Label();
             this.pnlIndicador2 = new System.Windows.Forms.Panel();
+            this.lblCategoriasActivas = new System.Windows.Forms.Label();
+            this.pbActivas = new System.Windows.Forms.PictureBox();
             this.lblActivas = new System.Windows.Forms.Label();
             this.pnlPrincipal = new System.Windows.Forms.Panel();
             this.dgvCategorias = new System.Windows.Forms.DataGridView();
@@ -40,6 +44,8 @@
             this.btnEditar = new System.Windows.Forms.Button();
             this.lblDescripcion = new System.Windows.Forms.Label();
             this.pnlIndicador3 = new System.Windows.Forms.Panel();
+            this.lblCategoriasRegistradas = new System.Windows.Forms.Label();
+            this.pbTotalCategorias = new System.Windows.Forms.PictureBox();
             this.lblTotalCategorias = new System.Windows.Forms.Label();
             this.lblSubTexto = new System.Windows.Forms.Label();
             this.txtCategoria = new System.Windows.Forms.TextBox();
@@ -52,32 +58,31 @@
             this.lblCategoria = new System.Windows.Forms.Label();
             this.pnlContenedorPrincipalInventario = new System.Windows.Forms.Panel();
             this.pnlHeader = new System.Windows.Forms.Panel();
+            this.btnBuscar = new System.Windows.Forms.Button();
             this.txtBuscarCategoria = new System.Windows.Forms.TextBox();
             this.pnlBarraInformativa = new System.Windows.Forms.Panel();
             this.lblAdministrador = new System.Windows.Forms.Label();
             this.pbPerfil = new System.Windows.Forms.PictureBox();
-            this.btnBuscar = new System.Windows.Forms.Button();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.pbTotalCategorias = new System.Windows.Forms.PictureBox();
-            this.pbActivas = new System.Windows.Forms.PictureBox();
+            this.btnNueva = new System.Windows.Forms.Button();
             this.pnlIndicador1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.pnlIndicador2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbActivas)).BeginInit();
             this.pnlPrincipal.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCategorias)).BeginInit();
             this.pnlIndicador3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbTotalCategorias)).BeginInit();
             this.pnlPedidaDeDatos.SuspendLayout();
             this.pnlContenedorPrincipalInventario.SuspendLayout();
             this.pnlHeader.SuspendLayout();
             this.pnlBarraInformativa.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbPerfil)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbTotalCategorias)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbActivas)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlIndicador1
             // 
             this.pnlIndicador1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(162)))), ((int)(((byte)(147)))));
+            this.pnlIndicador1.Controls.Add(this.lblCategoriasInactivas);
             this.pnlIndicador1.Controls.Add(this.pictureBox3);
             this.pnlIndicador1.Controls.Add(this.lblInactivas);
             this.pnlIndicador1.Location = new System.Drawing.Point(347, 522);
@@ -85,6 +90,25 @@
             this.pnlIndicador1.Name = "pnlIndicador1";
             this.pnlIndicador1.Size = new System.Drawing.Size(212, 84);
             this.pnlIndicador1.TabIndex = 4;
+            // 
+            // lblCategoriasInactivas
+            // 
+            this.lblCategoriasInactivas.AutoSize = true;
+            this.lblCategoriasInactivas.Location = new System.Drawing.Point(117, 56);
+            this.lblCategoriasInactivas.Name = "lblCategoriasInactivas";
+            this.lblCategoriasInactivas.Size = new System.Drawing.Size(35, 13);
+            this.lblCategoriasInactivas.TabIndex = 4;
+            this.lblCategoriasInactivas.Text = "label1";
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Image = global::Vista.Properties.Resources.exit_787267;
+            this.pictureBox3.Location = new System.Drawing.Point(26, 14);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(55, 63);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox3.TabIndex = 3;
+            this.pictureBox3.TabStop = false;
             // 
             // lblInactivas
             // 
@@ -99,6 +123,7 @@
             // pnlIndicador2
             // 
             this.pnlIndicador2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(165)))), ((int)(((byte)(237)))), ((int)(((byte)(147)))));
+            this.pnlIndicador2.Controls.Add(this.lblCategoriasActivas);
             this.pnlIndicador2.Controls.Add(this.pbActivas);
             this.pnlIndicador2.Controls.Add(this.lblActivas);
             this.pnlIndicador2.Location = new System.Drawing.Point(571, 523);
@@ -106,6 +131,25 @@
             this.pnlIndicador2.Name = "pnlIndicador2";
             this.pnlIndicador2.Size = new System.Drawing.Size(212, 84);
             this.pnlIndicador2.TabIndex = 4;
+            // 
+            // lblCategoriasActivas
+            // 
+            this.lblCategoriasActivas.AutoSize = true;
+            this.lblCategoriasActivas.Location = new System.Drawing.Point(122, 52);
+            this.lblCategoriasActivas.Name = "lblCategoriasActivas";
+            this.lblCategoriasActivas.Size = new System.Drawing.Size(35, 13);
+            this.lblCategoriasActivas.TabIndex = 5;
+            this.lblCategoriasActivas.Text = "label2";
+            // 
+            // pbActivas
+            // 
+            this.pbActivas.Image = global::Vista.Properties.Resources.task_2353457;
+            this.pbActivas.Location = new System.Drawing.Point(33, 11);
+            this.pbActivas.Name = "pbActivas";
+            this.pbActivas.Size = new System.Drawing.Size(55, 63);
+            this.pbActivas.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbActivas.TabIndex = 2;
+            this.pbActivas.TabStop = false;
             // 
             // lblActivas
             // 
@@ -157,7 +201,7 @@
             // 
             this.txtDescripcion.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtDescripcion.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDescripcion.Location = new System.Drawing.Point(21, 168);
+            this.txtDescripcion.Location = new System.Drawing.Point(21, 191);
             this.txtDescripcion.Margin = new System.Windows.Forms.Padding(2);
             this.txtDescripcion.Multiline = true;
             this.txtDescripcion.Name = "txtDescripcion";
@@ -169,7 +213,7 @@
             // 
             this.btnGuardar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.btnGuardar.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGuardar.Location = new System.Drawing.Point(114, 330);
+            this.btnGuardar.Location = new System.Drawing.Point(114, 353);
             this.btnGuardar.Margin = new System.Windows.Forms.Padding(2);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(101, 40);
@@ -182,7 +226,7 @@
             // 
             this.btnEditar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.btnEditar.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEditar.Location = new System.Drawing.Point(13, 330);
+            this.btnEditar.Location = new System.Drawing.Point(13, 353);
             this.btnEditar.Margin = new System.Windows.Forms.Padding(2);
             this.btnEditar.Name = "btnEditar";
             this.btnEditar.Size = new System.Drawing.Size(96, 40);
@@ -195,7 +239,7 @@
             // 
             this.lblDescripcion.AutoSize = true;
             this.lblDescripcion.Font = new System.Drawing.Font("Times New Roman", 12F);
-            this.lblDescripcion.Location = new System.Drawing.Point(20, 139);
+            this.lblDescripcion.Location = new System.Drawing.Point(20, 162);
             this.lblDescripcion.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblDescripcion.Name = "lblDescripcion";
             this.lblDescripcion.Size = new System.Drawing.Size(84, 19);
@@ -205,6 +249,7 @@
             // pnlIndicador3
             // 
             this.pnlIndicador3.BackColor = System.Drawing.Color.White;
+            this.pnlIndicador3.Controls.Add(this.lblCategoriasRegistradas);
             this.pnlIndicador3.Controls.Add(this.pbTotalCategorias);
             this.pnlIndicador3.Controls.Add(this.lblTotalCategorias);
             this.pnlIndicador3.Location = new System.Drawing.Point(795, 523);
@@ -213,11 +258,30 @@
             this.pnlIndicador3.Size = new System.Drawing.Size(227, 84);
             this.pnlIndicador3.TabIndex = 4;
             // 
+            // lblCategoriasRegistradas
+            // 
+            this.lblCategoriasRegistradas.AutoSize = true;
+            this.lblCategoriasRegistradas.Location = new System.Drawing.Point(115, 47);
+            this.lblCategoriasRegistradas.Name = "lblCategoriasRegistradas";
+            this.lblCategoriasRegistradas.Size = new System.Drawing.Size(35, 13);
+            this.lblCategoriasRegistradas.TabIndex = 6;
+            this.lblCategoriasRegistradas.Text = "label3";
+            // 
+            // pbTotalCategorias
+            // 
+            this.pbTotalCategorias.Image = global::Vista.Properties.Resources.clipboard_5679881;
+            this.pbTotalCategorias.Location = new System.Drawing.Point(15, 9);
+            this.pbTotalCategorias.Name = "pbTotalCategorias";
+            this.pbTotalCategorias.Size = new System.Drawing.Size(53, 64);
+            this.pbTotalCategorias.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbTotalCategorias.TabIndex = 0;
+            this.pbTotalCategorias.TabStop = false;
+            // 
             // lblTotalCategorias
             // 
             this.lblTotalCategorias.AutoSize = true;
             this.lblTotalCategorias.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalCategorias.Location = new System.Drawing.Point(68, 18);
+            this.lblTotalCategorias.Location = new System.Drawing.Point(74, 15);
             this.lblTotalCategorias.Name = "lblTotalCategorias";
             this.lblTotalCategorias.Size = new System.Drawing.Size(140, 19);
             this.lblTotalCategorias.TabIndex = 1;
@@ -238,7 +302,7 @@
             // 
             this.txtCategoria.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtCategoria.Font = new System.Drawing.Font("Times New Roman", 12F);
-            this.txtCategoria.Location = new System.Drawing.Point(21, 100);
+            this.txtCategoria.Location = new System.Drawing.Point(21, 123);
             this.txtCategoria.Margin = new System.Windows.Forms.Padding(2);
             this.txtCategoria.Name = "txtCategoria";
             this.txtCategoria.Size = new System.Drawing.Size(193, 19);
@@ -249,7 +313,7 @@
             // 
             this.lblEstado.AutoSize = true;
             this.lblEstado.Font = new System.Drawing.Font("Times New Roman", 12F);
-            this.lblEstado.Location = new System.Drawing.Point(21, 248);
+            this.lblEstado.Location = new System.Drawing.Point(21, 271);
             this.lblEstado.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblEstado.Name = "lblEstado";
             this.lblEstado.Size = new System.Drawing.Size(54, 19);
@@ -260,7 +324,7 @@
             // 
             this.lblDetalleCategoria.AutoSize = true;
             this.lblDetalleCategoria.Font = new System.Drawing.Font("Times New Roman", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDetalleCategoria.Location = new System.Drawing.Point(19, 29);
+            this.lblDetalleCategoria.Location = new System.Drawing.Point(19, 24);
             this.lblDetalleCategoria.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblDetalleCategoria.Name = "lblDetalleCategoria";
             this.lblDetalleCategoria.Size = new System.Drawing.Size(207, 25);
@@ -283,6 +347,7 @@
             this.pnlPedidaDeDatos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlPedidaDeDatos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(215)))), ((int)(((byte)(215)))));
+            this.pnlPedidaDeDatos.Controls.Add(this.btnNueva);
             this.pnlPedidaDeDatos.Controls.Add(this.btnGuardarCambios);
             this.pnlPedidaDeDatos.Controls.Add(this.cbEstado);
             this.pnlPedidaDeDatos.Controls.Add(this.txtDescripcion);
@@ -296,14 +361,14 @@
             this.pnlPedidaDeDatos.Location = new System.Drawing.Point(38, 107);
             this.pnlPedidaDeDatos.Margin = new System.Windows.Forms.Padding(2);
             this.pnlPedidaDeDatos.Name = "pnlPedidaDeDatos";
-            this.pnlPedidaDeDatos.Size = new System.Drawing.Size(235, 389);
+            this.pnlPedidaDeDatos.Size = new System.Drawing.Size(235, 421);
             this.pnlPedidaDeDatos.TabIndex = 2;
             // 
             // btnGuardarCambios
             // 
             this.btnGuardarCambios.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.btnGuardarCambios.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGuardarCambios.Location = new System.Drawing.Point(113, 330);
+            this.btnGuardarCambios.Location = new System.Drawing.Point(113, 353);
             this.btnGuardarCambios.Margin = new System.Windows.Forms.Padding(2);
             this.btnGuardarCambios.Name = "btnGuardarCambios";
             this.btnGuardarCambios.Size = new System.Drawing.Size(101, 40);
@@ -320,7 +385,7 @@
             this.cbEstado.Items.AddRange(new object[] {
             "Activa",
             "Inactiva"});
-            this.cbEstado.Location = new System.Drawing.Point(21, 272);
+            this.cbEstado.Location = new System.Drawing.Point(21, 295);
             this.cbEstado.Margin = new System.Windows.Forms.Padding(2);
             this.cbEstado.Name = "cbEstado";
             this.cbEstado.Size = new System.Drawing.Size(194, 27);
@@ -330,7 +395,7 @@
             // 
             this.lblCategoria.AutoSize = true;
             this.lblCategoria.Font = new System.Drawing.Font("Times New Roman", 12F);
-            this.lblCategoria.Location = new System.Drawing.Point(20, 73);
+            this.lblCategoria.Location = new System.Drawing.Point(20, 96);
             this.lblCategoria.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblCategoria.Name = "lblCategoria";
             this.lblCategoria.Size = new System.Drawing.Size(71, 19);
@@ -365,6 +430,18 @@
             this.pnlHeader.Name = "pnlHeader";
             this.pnlHeader.Size = new System.Drawing.Size(1102, 627);
             this.pnlHeader.TabIndex = 0;
+            // 
+            // btnBuscar
+            // 
+            this.btnBuscar.BackColor = System.Drawing.Color.White;
+            this.btnBuscar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnBuscar.Image = global::Vista.Properties.Resources.lupa;
+            this.btnBuscar.Location = new System.Drawing.Point(900, 50);
+            this.btnBuscar.Name = "btnBuscar";
+            this.btnBuscar.Size = new System.Drawing.Size(75, 29);
+            this.btnBuscar.TabIndex = 20;
+            this.btnBuscar.UseVisualStyleBackColor = false;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
             // txtBuscarCategoria
             // 
@@ -413,47 +490,15 @@
             this.pbPerfil.TabIndex = 25;
             this.pbPerfil.TabStop = false;
             // 
-            // btnBuscar
+            // btnNueva
             // 
-            this.btnBuscar.BackColor = System.Drawing.Color.White;
-            this.btnBuscar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnBuscar.Image = global::Vista.Properties.Resources.lupa;
-            this.btnBuscar.Location = new System.Drawing.Point(900, 50);
-            this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(75, 29);
-            this.btnBuscar.TabIndex = 20;
-            this.btnBuscar.UseVisualStyleBackColor = false;
-            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
-            // 
-            // pictureBox3
-            // 
-            this.pictureBox3.Image = global::Vista.Properties.Resources.exit_787267;
-            this.pictureBox3.Location = new System.Drawing.Point(26, 14);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(55, 63);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox3.TabIndex = 3;
-            this.pictureBox3.TabStop = false;
-            // 
-            // pbTotalCategorias
-            // 
-            this.pbTotalCategorias.Image = global::Vista.Properties.Resources.clipboard_5679881;
-            this.pbTotalCategorias.Location = new System.Drawing.Point(15, 9);
-            this.pbTotalCategorias.Name = "pbTotalCategorias";
-            this.pbTotalCategorias.Size = new System.Drawing.Size(53, 64);
-            this.pbTotalCategorias.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pbTotalCategorias.TabIndex = 0;
-            this.pbTotalCategorias.TabStop = false;
-            // 
-            // pbActivas
-            // 
-            this.pbActivas.Image = global::Vista.Properties.Resources.task_2353457;
-            this.pbActivas.Location = new System.Drawing.Point(33, 11);
-            this.pbActivas.Name = "pbActivas";
-            this.pbActivas.Size = new System.Drawing.Size(55, 63);
-            this.pbActivas.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pbActivas.TabIndex = 2;
-            this.pbActivas.TabStop = false;
+            this.btnNueva.Location = new System.Drawing.Point(21, 62);
+            this.btnNueva.Name = "btnNueva";
+            this.btnNueva.Size = new System.Drawing.Size(193, 31);
+            this.btnNueva.TabIndex = 20;
+            this.btnNueva.Text = "Nueva Categoría";
+            this.btnNueva.UseVisualStyleBackColor = true;
+            this.btnNueva.Click += new System.EventHandler(this.btnNueva_Click);
             // 
             // frmCategorias
             // 
@@ -469,12 +514,15 @@
             this.Load += new System.EventHandler(this.frmCategorias_Load);
             this.pnlIndicador1.ResumeLayout(false);
             this.pnlIndicador1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.pnlIndicador2.ResumeLayout(false);
             this.pnlIndicador2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbActivas)).EndInit();
             this.pnlPrincipal.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvCategorias)).EndInit();
             this.pnlIndicador3.ResumeLayout(false);
             this.pnlIndicador3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbTotalCategorias)).EndInit();
             this.pnlPedidaDeDatos.ResumeLayout(false);
             this.pnlPedidaDeDatos.PerformLayout();
             this.pnlContenedorPrincipalInventario.ResumeLayout(false);
@@ -483,9 +531,6 @@
             this.pnlBarraInformativa.ResumeLayout(false);
             this.pnlBarraInformativa.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbPerfil)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbTotalCategorias)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbActivas)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -523,5 +568,9 @@
         private System.Windows.Forms.Label lblAdministrador;
         private System.Windows.Forms.Button btnGuardarCambios;
         private System.Windows.Forms.Button btnBuscar;
+        private System.Windows.Forms.Label lblCategoriasInactivas;
+        private System.Windows.Forms.Label lblCategoriasActivas;
+        private System.Windows.Forms.Label lblCategoriasRegistradas;
+        private System.Windows.Forms.Button btnNueva;
     }
 }

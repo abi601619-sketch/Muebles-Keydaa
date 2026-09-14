@@ -1,4 +1,5 @@
 using Modelo.Conexión_DB;
+using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
@@ -130,6 +131,77 @@ namespace Modelo.Entidades
             ad.Fill(dt);
 
             return dt;
+        }
+
+        // CALCULAR ESTADÍSTICAS DE CATEGORÍAS
+
+        // Total de categorías
+        public static int ContarCategoriasTotales()
+        {
+            try
+            {
+                using (SqlConnection conexion = Conexion.Conectar())
+                {
+                    string query = "SELECT COUNT(*) FROM Categoria";
+
+                    using (SqlCommand comando = new SqlCommand(query, conexion))
+                    {
+                        return Convert.ToInt32(comando.ExecuteScalar());
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al contar las categorías totales: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                return 0;
+            }
+        }
+
+        // Categorías activas
+        public static int ContarCategoriasActivas()
+        {
+            try
+            {
+                using (SqlConnection conexion = Conexion.Conectar())
+                {
+                    string query = @"SELECT COUNT(*) FROM Categoria WHERE Estado = 'Activa'";
+
+                    using (SqlCommand comando = new SqlCommand(query, conexion))
+                    {
+                        return Convert.ToInt32(comando.ExecuteScalar());
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al contar las categorías activas: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                return 0;
+            }
+        }
+
+        // Categorías inactivas
+        public static int ContarCategoriasInactivas()
+        {
+            try
+            {
+                using (SqlConnection conexion = Conexion.Conectar())
+                {
+                    string query = @"SELECT COUNT(*) FROM Categoria WHERE Estado = 'Inactiva'";
+
+                    using (SqlCommand comando = new SqlCommand(query, conexion))
+                    {
+                        return Convert.ToInt32(comando.ExecuteScalar());
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al contar las categorías inactivas: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                return 0;
+            }
         }
     }
 }

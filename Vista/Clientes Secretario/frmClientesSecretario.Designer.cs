@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle28 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle29 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle30 = new System.Windows.Forms.DataGridViewCellStyle();
             this.lblMensajeInformativoPrincipal = new System.Windows.Forms.Label();
             this.dgvClientesCorporativos = new System.Windows.Forms.DataGridView();
             this.pnlBarraClienteCorporativo = new System.Windows.Forms.Panel();
@@ -46,7 +46,7 @@
             this.pnlRegistroClienteCorporativo = new System.Windows.Forms.Panel();
             this.lblTotalClientes = new System.Windows.Forms.Label();
             this.pbClientesTotales = new System.Windows.Forms.PictureBox();
-            this.txtBuscar = new System.Windows.Forms.TextBox();
+            this.txtBuscarIndividual = new System.Windows.Forms.TextBox();
             this.pnlSuperior = new System.Windows.Forms.Panel();
             this.lblAdministrador = new System.Windows.Forms.Label();
             this.pbPerfil = new System.Windows.Forms.PictureBox();
@@ -55,6 +55,7 @@
             this.pnlIndicador4 = new System.Windows.Forms.Panel();
             this.lblSubTexto = new System.Windows.Forms.Label();
             this.pnlPedirInformacion = new System.Windows.Forms.Panel();
+            this.btnNuevoCliente = new System.Windows.Forms.Button();
             this.cbTipoCliente = new System.Windows.Forms.ComboBox();
             this.gbDatosGenerales = new System.Windows.Forms.GroupBox();
             this.cbEstadoCliente = new System.Windows.Forms.ComboBox();
@@ -68,13 +69,9 @@
             this.btnEditar = new System.Windows.Forms.Button();
             this.lblTipoCliente = new System.Windows.Forms.Label();
             this.lblDatosMaterial = new System.Windows.Forms.Label();
-            this.gbDatosEmpresa = new System.Windows.Forms.GroupBox();
-            this.txtNIT = new System.Windows.Forms.TextBox();
-            this.txtNombreEncargado = new System.Windows.Forms.TextBox();
-            this.txtNombreEmpresa = new System.Windows.Forms.TextBox();
-            this.lblNIT = new System.Windows.Forms.Label();
-            this.lblNombreEncargado = new System.Windows.Forms.Label();
-            this.lblNombreEmpresa = new System.Windows.Forms.Label();
+            this.btnGuardarCorporativo = new System.Windows.Forms.Button();
+            this.btnGuardarCambios = new System.Windows.Forms.Button();
+            this.btnGuardarIndividual = new System.Windows.Forms.Button();
             this.gbPersonaNatural = new System.Windows.Forms.GroupBox();
             this.txtDUI = new System.Windows.Forms.TextBox();
             this.txtApellidos = new System.Windows.Forms.TextBox();
@@ -82,11 +79,15 @@
             this.lblDUI = new System.Windows.Forms.Label();
             this.lblApellidos = new System.Windows.Forms.Label();
             this.lblNombre = new System.Windows.Forms.Label();
-            this.btnGuardarCorporativo = new System.Windows.Forms.Button();
-            this.btnGuardarCambios = new System.Windows.Forms.Button();
-            this.btnGuardarIndividual = new System.Windows.Forms.Button();
+            this.gbDatosEmpresa = new System.Windows.Forms.GroupBox();
+            this.txtNIT = new System.Windows.Forms.TextBox();
+            this.txtNombreEncargado = new System.Windows.Forms.TextBox();
+            this.txtNombreEmpresa = new System.Windows.Forms.TextBox();
+            this.lblNIT = new System.Windows.Forms.Label();
+            this.lblNombreEncargado = new System.Windows.Forms.Label();
+            this.lblNombreEmpresa = new System.Windows.Forms.Label();
             this.pnlContenedorPrincipal = new System.Windows.Forms.Panel();
-            this.btnBuscar = new System.Windows.Forms.Button();
+            this.txtBuscarCorporativo = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvClientesCorporativos)).BeginInit();
             this.pnlIndicador3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbClientes)).BeginInit();
@@ -101,8 +102,8 @@
             this.pnlIndicador4.SuspendLayout();
             this.pnlPedirInformacion.SuspendLayout();
             this.gbDatosGenerales.SuspendLayout();
-            this.gbDatosEmpresa.SuspendLayout();
             this.gbPersonaNatural.SuspendLayout();
+            this.gbDatosEmpresa.SuspendLayout();
             this.pnlContenedorPrincipal.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -127,29 +128,29 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvClientesCorporativos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvClientesCorporativos.BackgroundColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvClientesCorporativos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle28.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle28.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle28.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle28.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle28.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle28.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle28.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvClientesCorporativos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle28;
             this.dgvClientesCorporativos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.PeachPuff;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvClientesCorporativos.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle29.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle29.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle29.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle29.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle29.SelectionBackColor = System.Drawing.Color.PeachPuff;
+            dataGridViewCellStyle29.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle29.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvClientesCorporativos.DefaultCellStyle = dataGridViewCellStyle29;
             this.dgvClientesCorporativos.GridColor = System.Drawing.Color.Black;
             this.dgvClientesCorporativos.Location = new System.Drawing.Point(16, 14);
             this.dgvClientesCorporativos.Name = "dgvClientesCorporativos";
             this.dgvClientesCorporativos.Size = new System.Drawing.Size(793, 365);
             this.dgvClientesCorporativos.TabIndex = 0;
-            this.dgvClientesCorporativos.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvClientesCorporativos_CellDoubleClick);
+            this.dgvClientesCorporativos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvClientesCorporativos_CellClick);
             // 
             // pnlBarraClienteCorporativo
             // 
@@ -290,17 +291,19 @@
             this.pbClientesTotales.TabIndex = 2;
             this.pbClientesTotales.TabStop = false;
             // 
-            // txtBuscar
+            // txtBuscarIndividual
             // 
-            this.txtBuscar.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBuscar.ForeColor = System.Drawing.Color.Gray;
-            this.txtBuscar.Location = new System.Drawing.Point(582, 45);
-            this.txtBuscar.Margin = new System.Windows.Forms.Padding(2);
-            this.txtBuscar.Name = "txtBuscar";
-            this.txtBuscar.Size = new System.Drawing.Size(485, 26);
-            this.txtBuscar.TabIndex = 0;
-            this.txtBuscar.Text = "Buscar Cliente...";
-            this.txtBuscar.TextChanged += new System.EventHandler(this.txtBuscar_TextChanged);
+            this.txtBuscarIndividual.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBuscarIndividual.ForeColor = System.Drawing.Color.Gray;
+            this.txtBuscarIndividual.Location = new System.Drawing.Point(582, 45);
+            this.txtBuscarIndividual.Margin = new System.Windows.Forms.Padding(2);
+            this.txtBuscarIndividual.Name = "txtBuscarIndividual";
+            this.txtBuscarIndividual.Size = new System.Drawing.Size(485, 26);
+            this.txtBuscarIndividual.TabIndex = 0;
+            this.txtBuscarIndividual.Text = "Buscar Cliente...";
+            this.txtBuscarIndividual.TextChanged += new System.EventHandler(this.txtBuscarIndividual_TextChanged);
+            this.txtBuscarIndividual.Enter += new System.EventHandler(this.txtBuscarIndividual_Enter);
+            this.txtBuscarIndividual.Leave += new System.EventHandler(this.txtBuscarIndividual_Leave);
             // 
             // pnlSuperior
             // 
@@ -352,14 +355,14 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvClientesIndividuales.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvClientesIndividuales.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.PeachPuff;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvClientesIndividuales.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle30.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle30.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle30.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle30.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle30.SelectionBackColor = System.Drawing.Color.PeachPuff;
+            dataGridViewCellStyle30.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle30.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvClientesIndividuales.DefaultCellStyle = dataGridViewCellStyle30;
             this.dgvClientesIndividuales.Location = new System.Drawing.Point(16, 14);
             this.dgvClientesIndividuales.Name = "dgvClientesIndividuales";
             this.dgvClientesIndividuales.Size = new System.Drawing.Size(791, 368);
@@ -391,21 +394,32 @@
             // pnlPedirInformacion
             // 
             this.pnlPedirInformacion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(215)))), ((int)(((byte)(215)))));
+            this.pnlPedirInformacion.Controls.Add(this.btnNuevoCliente);
             this.pnlPedirInformacion.Controls.Add(this.cbTipoCliente);
             this.pnlPedirInformacion.Controls.Add(this.gbDatosGenerales);
             this.pnlPedirInformacion.Controls.Add(this.btnEditar);
             this.pnlPedirInformacion.Controls.Add(this.lblTipoCliente);
             this.pnlPedirInformacion.Controls.Add(this.lblDatosMaterial);
-            this.pnlPedirInformacion.Controls.Add(this.gbDatosEmpresa);
-            this.pnlPedirInformacion.Controls.Add(this.gbPersonaNatural);
             this.pnlPedirInformacion.Controls.Add(this.btnGuardarCorporativo);
             this.pnlPedirInformacion.Controls.Add(this.btnGuardarCambios);
             this.pnlPedirInformacion.Controls.Add(this.btnGuardarIndividual);
-            this.pnlPedirInformacion.Location = new System.Drawing.Point(21, 110);
+            this.pnlPedirInformacion.Controls.Add(this.gbPersonaNatural);
+            this.pnlPedirInformacion.Controls.Add(this.gbDatosEmpresa);
+            this.pnlPedirInformacion.Location = new System.Drawing.Point(21, 117);
             this.pnlPedirInformacion.Margin = new System.Windows.Forms.Padding(2);
             this.pnlPedirInformacion.Name = "pnlPedirInformacion";
             this.pnlPedirInformacion.Size = new System.Drawing.Size(220, 495);
             this.pnlPedirInformacion.TabIndex = 3;
+            // 
+            // btnNuevoCliente
+            // 
+            this.btnNuevoCliente.Location = new System.Drawing.Point(18, 40);
+            this.btnNuevoCliente.Name = "btnNuevoCliente";
+            this.btnNuevoCliente.Size = new System.Drawing.Size(182, 25);
+            this.btnNuevoCliente.TabIndex = 23;
+            this.btnNuevoCliente.Text = " Nuevo Cliente ";
+            this.btnNuevoCliente.UseVisualStyleBackColor = true;
+            this.btnNuevoCliente.Click += new System.EventHandler(this.btnNuevoCliente_Click);
             // 
             // cbTipoCliente
             // 
@@ -478,6 +492,7 @@
             this.txtDireccion.Name = "txtDireccion";
             this.txtDireccion.Size = new System.Drawing.Size(150, 40);
             this.txtDireccion.TabIndex = 5;
+            this.txtDireccion.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDireccion_KeyPress);
             // 
             // txtCorreo
             // 
@@ -494,6 +509,8 @@
             this.txtTelefono.Name = "txtTelefono";
             this.txtTelefono.Size = new System.Drawing.Size(93, 20);
             this.txtTelefono.TabIndex = 3;
+            this.txtTelefono.TextChanged += new System.EventHandler(this.txtTelefono_TextChanged);
+            this.txtTelefono.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTelefono_KeyPress);
             // 
             // lblDireccion
             // 
@@ -555,12 +572,130 @@
             // 
             this.lblDatosMaterial.AutoSize = true;
             this.lblDatosMaterial.Font = new System.Drawing.Font("Times New Roman", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDatosMaterial.Location = new System.Drawing.Point(18, 26);
+            this.lblDatosMaterial.Location = new System.Drawing.Point(22, 11);
             this.lblDatosMaterial.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblDatosMaterial.Name = "lblDatosMaterial";
             this.lblDatosMaterial.Size = new System.Drawing.Size(167, 25);
             this.lblDatosMaterial.TabIndex = 0;
             this.lblDatosMaterial.Text = "Datos del cliente";
+            // 
+            // btnGuardarCorporativo
+            // 
+            this.btnGuardarCorporativo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.btnGuardarCorporativo.Location = new System.Drawing.Point(116, 455);
+            this.btnGuardarCorporativo.Margin = new System.Windows.Forms.Padding(2);
+            this.btnGuardarCorporativo.Name = "btnGuardarCorporativo";
+            this.btnGuardarCorporativo.Size = new System.Drawing.Size(91, 25);
+            this.btnGuardarCorporativo.TabIndex = 21;
+            this.btnGuardarCorporativo.Text = "Guardar";
+            this.btnGuardarCorporativo.UseVisualStyleBackColor = false;
+            this.btnGuardarCorporativo.Click += new System.EventHandler(this.btnGuardarCorporativo_Click_1);
+            // 
+            // btnGuardarCambios
+            // 
+            this.btnGuardarCambios.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.btnGuardarCambios.Location = new System.Drawing.Point(116, 455);
+            this.btnGuardarCambios.Margin = new System.Windows.Forms.Padding(2);
+            this.btnGuardarCambios.Name = "btnGuardarCambios";
+            this.btnGuardarCambios.Size = new System.Drawing.Size(91, 25);
+            this.btnGuardarCambios.TabIndex = 20;
+            this.btnGuardarCambios.Text = "Guardar";
+            this.btnGuardarCambios.UseVisualStyleBackColor = false;
+            this.btnGuardarCambios.Click += new System.EventHandler(this.btnGuardarCambios_Click_1);
+            // 
+            // btnGuardarIndividual
+            // 
+            this.btnGuardarIndividual.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.btnGuardarIndividual.Location = new System.Drawing.Point(114, 456);
+            this.btnGuardarIndividual.Margin = new System.Windows.Forms.Padding(2);
+            this.btnGuardarIndividual.Name = "btnGuardarIndividual";
+            this.btnGuardarIndividual.Size = new System.Drawing.Size(91, 25);
+            this.btnGuardarIndividual.TabIndex = 15;
+            this.btnGuardarIndividual.Text = "Guardar";
+            this.btnGuardarIndividual.UseVisualStyleBackColor = false;
+            this.btnGuardarIndividual.Click += new System.EventHandler(this.btnGuardarIndividual_Click);
+            // 
+            // gbPersonaNatural
+            // 
+            this.gbPersonaNatural.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.gbPersonaNatural.Controls.Add(this.txtDUI);
+            this.gbPersonaNatural.Controls.Add(this.txtApellidos);
+            this.gbPersonaNatural.Controls.Add(this.txtNombres);
+            this.gbPersonaNatural.Controls.Add(this.lblDUI);
+            this.gbPersonaNatural.Controls.Add(this.lblApellidos);
+            this.gbPersonaNatural.Controls.Add(this.lblNombre);
+            this.gbPersonaNatural.Font = new System.Drawing.Font("Times New Roman", 8F, System.Drawing.FontStyle.Bold);
+            this.gbPersonaNatural.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.gbPersonaNatural.Location = new System.Drawing.Point(21, 115);
+            this.gbPersonaNatural.Margin = new System.Windows.Forms.Padding(2);
+            this.gbPersonaNatural.Name = "gbPersonaNatural";
+            this.gbPersonaNatural.Padding = new System.Windows.Forms.Padding(2);
+            this.gbPersonaNatural.Size = new System.Drawing.Size(184, 125);
+            this.gbPersonaNatural.TabIndex = 18;
+            this.gbPersonaNatural.TabStop = false;
+            this.gbPersonaNatural.Text = "DATOS PERSONA NATURAL";
+            this.gbPersonaNatural.Visible = false;
+            // 
+            // txtDUI
+            // 
+            this.txtDUI.Location = new System.Drawing.Point(69, 90);
+            this.txtDUI.Margin = new System.Windows.Forms.Padding(2);
+            this.txtDUI.Name = "txtDUI";
+            this.txtDUI.Size = new System.Drawing.Size(93, 20);
+            this.txtDUI.TabIndex = 5;
+            this.txtDUI.TextChanged += new System.EventHandler(this.txtDUI_TextChanged);
+            this.txtDUI.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDUI_KeyPress);
+            // 
+            // txtApellidos
+            // 
+            this.txtApellidos.Location = new System.Drawing.Point(73, 61);
+            this.txtApellidos.Margin = new System.Windows.Forms.Padding(2);
+            this.txtApellidos.Name = "txtApellidos";
+            this.txtApellidos.Size = new System.Drawing.Size(89, 20);
+            this.txtApellidos.TabIndex = 4;
+            this.txtApellidos.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtApellidos_KeyPress);
+            // 
+            // txtNombres
+            // 
+            this.txtNombres.Location = new System.Drawing.Point(73, 31);
+            this.txtNombres.Margin = new System.Windows.Forms.Padding(2);
+            this.txtNombres.Name = "txtNombres";
+            this.txtNombres.Size = new System.Drawing.Size(89, 20);
+            this.txtNombres.TabIndex = 3;
+            this.txtNombres.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNombres_KeyPress);
+            // 
+            // lblDUI
+            // 
+            this.lblDUI.AutoSize = true;
+            this.lblDUI.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDUI.Location = new System.Drawing.Point(19, 92);
+            this.lblDUI.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblDUI.Name = "lblDUI";
+            this.lblDUI.Size = new System.Drawing.Size(34, 16);
+            this.lblDUI.TabIndex = 2;
+            this.lblDUI.Text = "DUI:";
+            // 
+            // lblApellidos
+            // 
+            this.lblApellidos.AutoSize = true;
+            this.lblApellidos.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblApellidos.Location = new System.Drawing.Point(10, 61);
+            this.lblApellidos.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblApellidos.Name = "lblApellidos";
+            this.lblApellidos.Size = new System.Drawing.Size(61, 16);
+            this.lblApellidos.TabIndex = 1;
+            this.lblApellidos.Text = "Apellidos:";
+            // 
+            // lblNombre
+            // 
+            this.lblNombre.AutoSize = true;
+            this.lblNombre.Font = new System.Drawing.Font("Times New Roman", 10F);
+            this.lblNombre.Location = new System.Drawing.Point(11, 31);
+            this.lblNombre.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblNombre.Name = "lblNombre";
+            this.lblNombre.Size = new System.Drawing.Size(56, 16);
+            this.lblNombre.TabIndex = 0;
+            this.lblNombre.Text = "Nombre:";
             // 
             // gbDatosEmpresa
             // 
@@ -590,6 +725,7 @@
             this.txtNIT.Name = "txtNIT";
             this.txtNIT.Size = new System.Drawing.Size(93, 20);
             this.txtNIT.TabIndex = 5;
+            this.txtNIT.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNIT_KeyPress);
             // 
             // txtNombreEncargado
             // 
@@ -640,124 +776,9 @@
             this.lblNombreEmpresa.TabIndex = 0;
             this.lblNombreEmpresa.Text = "Nombre de la empresa:";
             // 
-            // gbPersonaNatural
-            // 
-            this.gbPersonaNatural.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.gbPersonaNatural.Controls.Add(this.txtDUI);
-            this.gbPersonaNatural.Controls.Add(this.txtApellidos);
-            this.gbPersonaNatural.Controls.Add(this.txtNombres);
-            this.gbPersonaNatural.Controls.Add(this.lblDUI);
-            this.gbPersonaNatural.Controls.Add(this.lblApellidos);
-            this.gbPersonaNatural.Controls.Add(this.lblNombre);
-            this.gbPersonaNatural.Font = new System.Drawing.Font("Times New Roman", 8F, System.Drawing.FontStyle.Bold);
-            this.gbPersonaNatural.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.gbPersonaNatural.Location = new System.Drawing.Point(21, 115);
-            this.gbPersonaNatural.Margin = new System.Windows.Forms.Padding(2);
-            this.gbPersonaNatural.Name = "gbPersonaNatural";
-            this.gbPersonaNatural.Padding = new System.Windows.Forms.Padding(2);
-            this.gbPersonaNatural.Size = new System.Drawing.Size(184, 125);
-            this.gbPersonaNatural.TabIndex = 18;
-            this.gbPersonaNatural.TabStop = false;
-            this.gbPersonaNatural.Text = "DATOS PERSONA NATURAL";
-            this.gbPersonaNatural.Visible = false;
-            // 
-            // txtDUI
-            // 
-            this.txtDUI.Location = new System.Drawing.Point(69, 90);
-            this.txtDUI.Margin = new System.Windows.Forms.Padding(2);
-            this.txtDUI.Name = "txtDUI";
-            this.txtDUI.Size = new System.Drawing.Size(93, 20);
-            this.txtDUI.TabIndex = 5;
-            // 
-            // txtApellidos
-            // 
-            this.txtApellidos.Location = new System.Drawing.Point(73, 61);
-            this.txtApellidos.Margin = new System.Windows.Forms.Padding(2);
-            this.txtApellidos.Name = "txtApellidos";
-            this.txtApellidos.Size = new System.Drawing.Size(89, 20);
-            this.txtApellidos.TabIndex = 4;
-            // 
-            // txtNombres
-            // 
-            this.txtNombres.Location = new System.Drawing.Point(73, 31);
-            this.txtNombres.Margin = new System.Windows.Forms.Padding(2);
-            this.txtNombres.Name = "txtNombres";
-            this.txtNombres.Size = new System.Drawing.Size(89, 20);
-            this.txtNombres.TabIndex = 3;
-            // 
-            // lblDUI
-            // 
-            this.lblDUI.AutoSize = true;
-            this.lblDUI.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDUI.Location = new System.Drawing.Point(19, 92);
-            this.lblDUI.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblDUI.Name = "lblDUI";
-            this.lblDUI.Size = new System.Drawing.Size(34, 16);
-            this.lblDUI.TabIndex = 2;
-            this.lblDUI.Text = "DUI:";
-            // 
-            // lblApellidos
-            // 
-            this.lblApellidos.AutoSize = true;
-            this.lblApellidos.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblApellidos.Location = new System.Drawing.Point(10, 61);
-            this.lblApellidos.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblApellidos.Name = "lblApellidos";
-            this.lblApellidos.Size = new System.Drawing.Size(61, 16);
-            this.lblApellidos.TabIndex = 1;
-            this.lblApellidos.Text = "Apellidos:";
-            // 
-            // lblNombre
-            // 
-            this.lblNombre.AutoSize = true;
-            this.lblNombre.Font = new System.Drawing.Font("Times New Roman", 10F);
-            this.lblNombre.Location = new System.Drawing.Point(11, 31);
-            this.lblNombre.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblNombre.Name = "lblNombre";
-            this.lblNombre.Size = new System.Drawing.Size(56, 16);
-            this.lblNombre.TabIndex = 0;
-            this.lblNombre.Text = "Nombre:";
-            // 
-            // btnGuardarCorporativo
-            // 
-            this.btnGuardarCorporativo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnGuardarCorporativo.Location = new System.Drawing.Point(116, 455);
-            this.btnGuardarCorporativo.Margin = new System.Windows.Forms.Padding(2);
-            this.btnGuardarCorporativo.Name = "btnGuardarCorporativo";
-            this.btnGuardarCorporativo.Size = new System.Drawing.Size(91, 25);
-            this.btnGuardarCorporativo.TabIndex = 21;
-            this.btnGuardarCorporativo.Text = "Guardar";
-            this.btnGuardarCorporativo.UseVisualStyleBackColor = false;
-            this.btnGuardarCorporativo.Click += new System.EventHandler(this.btnGuardarCorporativo_Click_1);
-            // 
-            // btnGuardarCambios
-            // 
-            this.btnGuardarCambios.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnGuardarCambios.Location = new System.Drawing.Point(116, 455);
-            this.btnGuardarCambios.Margin = new System.Windows.Forms.Padding(2);
-            this.btnGuardarCambios.Name = "btnGuardarCambios";
-            this.btnGuardarCambios.Size = new System.Drawing.Size(91, 25);
-            this.btnGuardarCambios.TabIndex = 20;
-            this.btnGuardarCambios.Text = "Guardar";
-            this.btnGuardarCambios.UseVisualStyleBackColor = false;
-            this.btnGuardarCambios.Click += new System.EventHandler(this.btnGuardarCambios_Click_1);
-            // 
-            // btnGuardarIndividual
-            // 
-            this.btnGuardarIndividual.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnGuardarIndividual.Location = new System.Drawing.Point(114, 456);
-            this.btnGuardarIndividual.Margin = new System.Windows.Forms.Padding(2);
-            this.btnGuardarIndividual.Name = "btnGuardarIndividual";
-            this.btnGuardarIndividual.Size = new System.Drawing.Size(91, 25);
-            this.btnGuardarIndividual.TabIndex = 15;
-            this.btnGuardarIndividual.Text = "Guardar";
-            this.btnGuardarIndividual.UseVisualStyleBackColor = false;
-            this.btnGuardarIndividual.Click += new System.EventHandler(this.btnGuardarIndividual_Click);
-            // 
             // pnlContenedorPrincipal
             // 
             this.pnlContenedorPrincipal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(227)))), ((int)(((byte)(175)))));
-            this.pnlContenedorPrincipal.Controls.Add(this.btnBuscar);
             this.pnlContenedorPrincipal.Controls.Add(this.pnlBarraClienteCorporativo);
             this.pnlContenedorPrincipal.Controls.Add(this.pnlBarraClienteIndividual);
             this.pnlContenedorPrincipal.Controls.Add(this.btnClienteIndividual);
@@ -765,30 +786,33 @@
             this.pnlContenedorPrincipal.Controls.Add(this.pnlIndicador3);
             this.pnlContenedorPrincipal.Controls.Add(this.pnlIndicador1);
             this.pnlContenedorPrincipal.Controls.Add(this.pnlIndicador4);
-            this.pnlContenedorPrincipal.Controls.Add(this.txtBuscar);
             this.pnlContenedorPrincipal.Controls.Add(this.pnlSuperior);
             this.pnlContenedorPrincipal.Controls.Add(this.lblSubTexto);
             this.pnlContenedorPrincipal.Controls.Add(this.lblMensajeInformativoPrincipal);
             this.pnlContenedorPrincipal.Controls.Add(this.pnlPedirInformacion);
             this.pnlContenedorPrincipal.Controls.Add(this.pnlRegistroClienteCorporativo);
             this.pnlContenedorPrincipal.Controls.Add(this.pnlRegistroClienteIndividual);
+            this.pnlContenedorPrincipal.Controls.Add(this.txtBuscarIndividual);
+            this.pnlContenedorPrincipal.Controls.Add(this.txtBuscarCorporativo);
             this.pnlContenedorPrincipal.Location = new System.Drawing.Point(0, 0);
             this.pnlContenedorPrincipal.Margin = new System.Windows.Forms.Padding(2);
             this.pnlContenedorPrincipal.Name = "pnlContenedorPrincipal";
             this.pnlContenedorPrincipal.Size = new System.Drawing.Size(1102, 627);
             this.pnlContenedorPrincipal.TabIndex = 6;
             // 
-            // btnBuscar
+            // txtBuscarCorporativo
             // 
-            this.btnBuscar.BackColor = System.Drawing.Color.White;
-            this.btnBuscar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnBuscar.Image = global::Vista.Properties.Resources.lupa;
-            this.btnBuscar.Location = new System.Drawing.Point(1005, 42);
-            this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(75, 29);
-            this.btnBuscar.TabIndex = 36;
-            this.btnBuscar.UseVisualStyleBackColor = false;
-            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
+            this.txtBuscarCorporativo.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBuscarCorporativo.ForeColor = System.Drawing.Color.Gray;
+            this.txtBuscarCorporativo.Location = new System.Drawing.Point(582, 45);
+            this.txtBuscarCorporativo.Margin = new System.Windows.Forms.Padding(2);
+            this.txtBuscarCorporativo.Name = "txtBuscarCorporativo";
+            this.txtBuscarCorporativo.Size = new System.Drawing.Size(485, 26);
+            this.txtBuscarCorporativo.TabIndex = 36;
+            this.txtBuscarCorporativo.Text = "Buscar Cliente...";
+            this.txtBuscarCorporativo.TextChanged += new System.EventHandler(this.txtBuscarCorporativo_TextChanged);
+            this.txtBuscarCorporativo.Enter += new System.EventHandler(this.txtBuscarCorporativo_Enter);
+            this.txtBuscarCorporativo.Leave += new System.EventHandler(this.txtBuscarCorporativo_Leave);
             // 
             // frmClientesSecretario
             // 
@@ -820,10 +844,10 @@
             this.pnlPedirInformacion.PerformLayout();
             this.gbDatosGenerales.ResumeLayout(false);
             this.gbDatosGenerales.PerformLayout();
-            this.gbDatosEmpresa.ResumeLayout(false);
-            this.gbDatosEmpresa.PerformLayout();
             this.gbPersonaNatural.ResumeLayout(false);
             this.gbPersonaNatural.PerformLayout();
+            this.gbDatosEmpresa.ResumeLayout(false);
+            this.gbDatosEmpresa.PerformLayout();
             this.pnlContenedorPrincipal.ResumeLayout(false);
             this.pnlContenedorPrincipal.PerformLayout();
             this.ResumeLayout(false);
@@ -847,7 +871,7 @@
         private System.Windows.Forms.Panel pnlRegistroClienteCorporativo;
         private System.Windows.Forms.Label lblTotalClientes;
         private System.Windows.Forms.PictureBox pbClientesTotales;
-        private System.Windows.Forms.TextBox txtBuscar;
+        private System.Windows.Forms.TextBox txtBuscarIndividual;
         private System.Windows.Forms.Panel pnlSuperior;
         private System.Windows.Forms.Label lblAdministrador;
         private System.Windows.Forms.PictureBox pbPerfil;
@@ -887,6 +911,7 @@
         private System.Windows.Forms.Label lblEstado;
         private System.Windows.Forms.ComboBox cbEstadoCliente;
         private System.Windows.Forms.Button btnGuardarCorporativo;
-        private System.Windows.Forms.Button btnBuscar;
+        private System.Windows.Forms.TextBox txtBuscarCorporativo;
+        private System.Windows.Forms.Button btnNuevoCliente;
     }
 }

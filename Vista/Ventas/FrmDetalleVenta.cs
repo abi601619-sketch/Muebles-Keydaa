@@ -1,14 +1,8 @@
-using Vista.Responsive;
 using Modelo.Entidades;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using Vista.Responsive;
 
 namespace Vista.Ventas
 {
@@ -16,11 +10,29 @@ namespace Vista.Ventas
     {
         public DetalleVenta DetalleSeleccionado { get; private set; }
 
+        private bool modoEdicion;
+        private int idDetalleVenta;
+        public FrmDetalleVenta(int idDetalleVenta)
+        {
+            InitializeComponent();
+            ResponsiveHelper.Apply(this);
+            modoEdicion = true;
+            this.idDetalleVenta = idDetalleVenta;
+            txtProducto.Enabled = false;
+
+            CargarDatosDetalle();
+
+
+
+        }
+
         public FrmDetalleVenta()
         {
             InitializeComponent();
             ResponsiveHelper.Apply(this);
+            modoEdicion = false;
         }
+
 
         private void btnSalir_Click(object sender, EventArgs e)
         {
@@ -30,11 +42,8 @@ namespace Vista.Ventas
 
         private void btnAgregarProducto_Click(object sender, EventArgs e)
         {
-            // ==========================================
-            // VALIDAR PRODUCTO
-            // ==========================================
 
-            // Verificar que el usuario haya escrito un producto
+            // VERIFICAR PRODUCTO
             if (string.IsNullOrWhiteSpace(txtProducto.Text))
             {
                 MessageBox.Show(
@@ -46,20 +55,9 @@ namespace Vista.Ventas
                 return;
             }
 
-
-            // ==========================================
             // OBTENER CANTIDAD
-            // ==========================================
-
-            // Obtener la cantidad seleccionada en el NumericUpDown
             int cantidad = Convert.ToInt32(nudCantidad.Value);
 
-
-            // ==========================================
-            // VALIDAR CANTIDAD
-            // ==========================================
-
-            // Verificar que la cantidad sea mayor que 0
             if (cantidad <= 0)
             {
                 MessageBox.Show(
@@ -71,15 +69,8 @@ namespace Vista.Ventas
                 return;
             }
 
-
-            // ==========================================
             // VALIDAR PRECIO
-            // ==========================================
-
-            // Intentar convertir el precio escrito a decimal
-            if (!decimal.TryParse(
-                txtPrecioUnitario.Text,
-                out decimal precio))
+            if (!decimal.TryParse(txtPrecioUnitario.Text, out decimal precio))
             {
                 MessageBox.Show(
                     "Ingresa un precio válido.",
@@ -90,12 +81,7 @@ namespace Vista.Ventas
                 return;
             }
 
-
-            // ==========================================
             // VALIDAR PRECIO NEGATIVO
-            // ==========================================
-
-            // Verificar que el precio no sea negativo
             if (precio < 0)
             {
                 MessageBox.Show(
@@ -106,74 +92,136 @@ namespace Vista.Ventas
 
                 return;
             }
+            //PODER INSERTAR
+
+            if (modoEdicion)
+            {
+                try
+                {
+                    DetalleVenta detalle = new DetalleVenta();
+
+                    detalle.IdDetalleVenta1 = idDetalleVenta;
+                    detalle.ProductoVendido1 = txtProducto.Text.Trim();
+                    detalle.Cantidad1 = cantidad;
+                    detalle.PrecioUnitario1 = precio;
+
+                    if (detalle.ActualizarDetalleVenta())
+                    {
+                        MessageBox.Show(
+                            "Los cambios se guardaron correctamente.",
+                            "Éxito",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information);
+
+                        this.DialogResult = DialogResult.OK;
+                        this.Close();
+
+                    }
+                    else
+                    {
+                        MessageBox.Show(
+                            "No se pudieron guardar los cambios.",
+                            "Aviso",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(
+                        "Error al actualizar el detalle: " + ex.Message,
+                        "Error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                }
 
 
-            // ==========================================
-            // CREAR DETALLE DE VENTA
-            // ==========================================
 
-            // Crear un nuevo objeto DetalleVenta
+                return;
+            }
+
+
+            // MODO AGREGAR
+
+
             DetalleSeleccionado = new DetalleVenta();
 
-
-            // Guardar el nombre del producto
+            // Guardar producto
             DetalleSeleccionado.ProductoVendido1 =
                 txtProducto.Text.Trim();
 
-
-            // Guardar la cantidad
+            // Guardar cantidad
             DetalleSeleccionado.Cantidad1 =
                 cantidad;
 
-
-            // Guardar el precio unitario
+            // Guardar precio
             DetalleSeleccionado.PrecioUnitario1 =
                 precio;
 
-
-            // ==========================================
-            // DEVOLVER EL DETALLE A FRMVENTAS
-            // ==========================================
-
-            // Indicar que el usuario agregó correctamente
-            // el producto
+            // Regresar el detalle a FrmVentas
             this.DialogResult = DialogResult.OK;
 
-
-            // Cerrar FrmDetalleVenta y regresar a FrmVentas
+            // Cerrar formulario
             this.Close();
-        
+
+            CargarDatosDetalle();
+
         }
 
-        private void nudCantidad_ValueChanged_1(
-            object sender,
-            EventArgs e)
+
+
+        private void nudCantidad_ValueChanged_1(object sender, EventArgs e)
         {
             CalcularSubtotal();
         }
 
-        private void txtPrecioUnitario_TextChanged_1(
-            object sender,
-            EventArgs e)
+        private void txtPrecioUnitario_TextChanged_1(object sender, EventArgs e)
         {
             CalcularSubtotal();
         }
 
         private void CalcularSubtotal()
         {
-            if (decimal.TryParse(
-                txtPrecioUnitario.Text,
-                out decimal precio))
+            if (decimal.TryParse(txtPrecioUnitario.Text, out decimal precio))
             {
-                decimal subtotal =
-                    nudCantidad.Value * precio;
+                decimal subtotal = nudCantidad.Value * precio;
 
-                txtSubTotal.Text =
-                    subtotal.ToString("0.00");
+                txtSubTotal.Text = subtotal.ToString("0.00");
             }
             else
             {
                 txtSubTotal.Text = "0.00";
+            }
+        }
+
+
+
+        private void CargarDatosDetalle()
+        {
+
+            try
+            {
+                DbVentas dbDetalle = new DbVentas();
+
+                DataTable dt = dbDetalle.ObtenerDetalleVenta(idDetalleVenta);
+
+                if (dt.Rows.Count > 0)
+                {
+                    DataRow fila = dt.Rows[0];
+
+                    txtProducto.Text = fila["ProductoVendido"].ToString();
+
+                    nudCantidad.Text = fila["Cantidad"].ToString();
+
+                    txtPrecioUnitario.Text = Convert.ToDecimal(fila["PrecioUnitario"]).ToString("0.00");
+
+                    CalcularSubtotal();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar los datos: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error
+                );
             }
         }
     }

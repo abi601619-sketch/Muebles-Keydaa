@@ -41,7 +41,11 @@ namespace Vista.Categorías
         {
             MostrarCategorias();
             DesactivarCopiarPegar(this);
+            CargarEstadisticasCategorias();
             btnGuardarCambios.Visible = false;
+            cbEstado.Enabled = false;
+            btnEditar.Visible = false;
+
 
             //Maximo de caracteres admitidos
             txtCategoria.MaxLength = 50;
@@ -54,13 +58,16 @@ namespace Vista.Categorías
             btnGuardar.TabIndex = 4;
             btnEditar.TabIndex = 5;
 
-
+            dgvCategorias.Columns["IdCategoria"].HeaderText = "#";
+            dgvCategorias.Columns["Nombre_Categoria"].HeaderText = "Categoría";
+            dgvCategorias.Columns["Descripcion"].HeaderText = "Descripción";
         }
 
         public void MostrarCategorias()
         {
             dgvCategorias.DataSource = null;
             dgvCategorias.DataSource = Categorias.CargarCategorias();
+            CargarEstadisticasCategorias();
         }
 
 
@@ -92,7 +99,8 @@ namespace Vista.Categorías
 
             categoria.Nombre_Categoria1 = txtCategoria.Text;
             categoria.Descripción1 = txtDescripcion.Text;
-            categoria.Estado1 = cbEstado.Text;
+            categoria.Estado1 = "Activa";
+            cbEstado.Enabled = true;
             if (categoria.InsertarCategoria())
             {
                 MessageBox.Show("Categoría registrada correctamente.", "Registro exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -104,6 +112,9 @@ namespace Vista.Categorías
 
         private void dgvCategorias_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            dgvCategorias.Columns["IdCategoria"].HeaderText = "#";
+            dgvCategorias.Columns["Nombre_Categoria"].HeaderText = "Categoría";
+            dgvCategorias.Columns["Descripcion"].HeaderText = "Descripción";
             if (e.RowIndex >= 0)
             {
                 idCategoriaSeleccionada = Convert.ToInt32(
@@ -126,8 +137,22 @@ namespace Vista.Categorías
             cbEstado.Enabled = true;
         }
 
+        private void LimpiarFormulario()
+        {
+            txtCategoria.Clear();
+            txtDescripcion.Clear();
+            cbEstado.Enabled = false;
+            btnGuardarCambios.Visible = false;
+            btnGuardar.Visible = true;
+
+            txtCategoria.Focus();
+        }
+
         private void dgvCategorias_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            dgvCategorias.Columns["IdCategoria"].HeaderText = "#";
+            dgvCategorias.Columns["Nombre_Categoria"].HeaderText = "Categoría";
+            dgvCategorias.Columns["Descripcion"].HeaderText = "Descripción";
             if (e.RowIndex >= 0)
             {
                 idCategoriaSeleccionada = Convert.ToInt32(
@@ -149,6 +174,7 @@ namespace Vista.Categorías
                 // Mostrar Editar
                 btnEditar.Visible = true;
                 btnGuardarCambios.Visible = false;
+                btnGuardar.Visible = false;
             }
 
         }
@@ -163,7 +189,7 @@ namespace Vista.Categorías
 
             DesbloquearCampos();
 
-            btnEditar.Visible = true;
+            btnEditar.Visible = false;
             btnGuardarCambios.Visible = true;
         }
 
@@ -195,6 +221,7 @@ namespace Vista.Categorías
             BloquearCampos();
 
             btnGuardarCambios.Visible = false;
+            btnGuardar.Visible = true;
             btnEditar.Visible = false;
 
             idCategoriaSeleccionada = 0;
@@ -265,6 +292,21 @@ namespace Vista.Categorías
             {
                 dgvCategorias.DataSource = Categorias.CargarCategorias();
             }
+        }
+
+        private void CargarEstadisticasCategorias()
+        {
+
+            lblCategoriasRegistradas.Text = Categorias.ContarCategoriasTotales().ToString();
+
+            lblCategoriasActivas.Text = Categorias.ContarCategoriasActivas().ToString();
+
+            lblCategoriasInactivas.Text = Categorias.ContarCategoriasInactivas().ToString();
+        }
+
+        private void btnNueva_Click(object sender, EventArgs e)
+        {
+            LimpiarFormulario();
         }
     }
 }

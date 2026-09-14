@@ -704,8 +704,7 @@ SELECT
     m.NombreDelMaterial AS Material,
     c.Nombre_Categoria AS Categoria,
     u.UnidadMedida,
-    m.Stock,
-    c.Estado
+    m.Stock
 
 FROM Material m
 
@@ -823,38 +822,45 @@ INNER JOIN TipoCliente tc
 GO
 
 ------------------------------------------------- VISTA DE FACTURAS -----------------------------------------------------------
-GO
-CREATE VIEW VerFacturas AS
-SELECT  
-    f.IdFactura AS [N.º Factura],
-    f.FechaEmision AS [Fecha],
-
-    CASE
-        WHEN tc.TipoCliente = 'Persona Natural'
-        THEN CONCAT(c.Identificador1, ' ', c.Identificador2)
-        ELSE c.Identificador1
-    END AS Cliente,
-
-    mp.MetodoPago AS [Método de Pago],
-
-    v.SubTotal,
-    ROUND(v.SubTotal * 1.13, 2) AS [Total]
-
-FROM Factura f
-
-INNER JOIN Venta v
-    ON f.IdVenta = v.IdVenta
-
-INNER JOIN Cliente c
-    ON v.IdCliente = c.IdCliente
-
-INNER JOIN TipoCliente tc
-    ON c.IdTipoCliente = tc.IdTipoCliente
-
-INNER JOIN MetodoPago mp
+ALTER VIEW VerFacturas AS
+SELECT   
+    f.IdFactura,  
+    f.FechaEmision AS [Fecha], 
+    f.FechaVencimiento AS [Fecha de Vencimiento], 
+ 
+    CASE 
+        WHEN tc.TipoCliente = 'Persona Natural' 
+        THEN CONCAT(c.Identificador1, ' ', c.Identificador2) 
+        ELSE c.Identificador1 
+    END AS Cliente, 
+ 
+    mp.MetodoPago AS [Método de Pago], 
+ 
+    CAST(v.SubTotal AS DECIMAL(10,2)) AS [SubTotal], 
+ 
+    CAST(ROUND(v.SubTotal * 0.13, 2) AS DECIMAL(10,2)) AS [IVA], 
+ 
+    CAST(0.00 AS DECIMAL(10,2)) AS [Descuento], 
+ 
+    CAST(ROUND(v.SubTotal * 1.13, 2) AS DECIMAL(10,2)) AS [Total], 
+ 
+    f.Observaciones AS Observaciones 
+ 
+FROM Factura f 
+ 
+INNER JOIN Venta v 
+    ON f.IdVenta = v.IdVenta 
+ 
+INNER JOIN Cliente c 
+    ON v.IdCliente = c.IdCliente 
+ 
+INNER JOIN TipoCliente tc 
+    ON c.IdTipoCliente = tc.IdTipoCliente 
+ 
+INNER JOIN MetodoPago mp 
     ON v.IdMetodoPago = mp.IdMetodoPago;
-GO
 
+GO
 ---------------------REPORTES DE CLIENTES-------------------------------------------------
 GO
 CREATE VIEW VerReporteClientes AS 
@@ -1028,7 +1034,7 @@ INNER JOIN UnidadMedida um
 
 GO
 
-ALTER VIEW VerVentasParaFactura AS
+CREATE VIEW VerVentasParaFactura AS
 SELECT
     v.IdVenta AS [#],
     v.FechaVenta AS [Fecha de Venta],
@@ -1059,6 +1065,21 @@ LEFT JOIN Factura f
 WHERE f.IdFactura IS NULL;
 
 GO
+
+CREATE VIEW SeleccionClientes AS
+SELECT 
+C.IdCliente AS [#],
+
+  CASE 
+WHEN IdTipoCliente = 2 
+THEN Identificador1 + ' ' + Identificador2
+ELSE Identificador1 
+END AS Cliente,
+c.Telefono,
+c.Correo,
+c.Direccion,
+c.Estado FROM Cliente c;
+
 
 ------------NO CARGAR ESTA SECCION------------------------------------------
 SELECT * FROM VerCompras;

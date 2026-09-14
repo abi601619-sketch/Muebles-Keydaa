@@ -132,7 +132,7 @@ namespace Vista.Iventario_Secretario
 
             material.idMaterial1 = 0;
             material.NombreDelMaterial1 = txtMaterial.Text;
-            material.UnidadDeMedida1 = cbUnidadMedida.Text;
+            material.UnidadDeMedida1 = Convert.ToInt32(cbUnidadMedida.SelectedValue);
             material.Stock1 = 0;
             material.Categoria1 = cbCategorias.Text;
 
@@ -196,7 +196,7 @@ namespace Vista.Iventario_Secretario
 
             material.idMaterial1 = idMaterialSeleccionado;
             material.NombreDelMaterial1 = txtMaterial.Text;
-            material.UnidadDeMedida1 = cbUnidadMedida.Text;
+            material.UnidadDeMedida1 = Convert.ToInt32(cbUnidadMedida.SelectedValue);
             material.Stock1 = Convert.ToInt32(txtCantidad.Text);
             material.Categoria1 = cbCategorias.Text;
 

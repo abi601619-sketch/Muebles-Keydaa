@@ -31,9 +31,8 @@
             this.pnlContenedor = new System.Windows.Forms.Panel();
             this.btnNuevoUsuario = new System.Windows.Forms.Button();
             this.pnlPedidaDeDatos = new System.Windows.Forms.Panel();
-            this.chkEstado = new System.Windows.Forms.CheckBox();
             this.cmbRol = new System.Windows.Forms.ComboBox();
-            this.txtContraseña = new System.Windows.Forms.TextBox();
+            this.txtContrasena = new System.Windows.Forms.TextBox();
             this.btnDesactivarUsuario = new System.Windows.Forms.Button();
             this.btnGuardarUsuario = new System.Windows.Forms.Button();
             this.lblClave = new System.Windows.Forms.Label();
@@ -49,6 +48,7 @@
             this.pnlPedidosRecientes = new System.Windows.Forms.Panel();
             this.lblUsuarios = new System.Windows.Forms.Label();
             this.dgvUsuariosRegistrados = new System.Windows.Forms.DataGridView();
+            this.chkEstado = new System.Windows.Forms.CheckBox();
             this.lblSubTexto = new System.Windows.Forms.Label();
             this.lblMensajeInformativoPrincipal = new System.Windows.Forms.Label();
             this.pbLogo = new System.Windows.Forms.PictureBox();
@@ -91,15 +91,15 @@
             this.btnNuevoUsuario.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnNuevoUsuario.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnNuevoUsuario.UseVisualStyleBackColor = false;
+            this.btnNuevoUsuario.Click += new System.EventHandler(this.btnNuevoUsuario_Click);
             // 
             // pnlPedidaDeDatos
             // 
             this.pnlPedidaDeDatos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.pnlPedidaDeDatos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(215)))), ((int)(((byte)(215)))));
-            this.pnlPedidaDeDatos.Controls.Add(this.chkEstado);
             this.pnlPedidaDeDatos.Controls.Add(this.cmbRol);
-            this.pnlPedidaDeDatos.Controls.Add(this.txtContraseña);
+            this.pnlPedidaDeDatos.Controls.Add(this.txtContrasena);
             this.pnlPedidaDeDatos.Controls.Add(this.btnDesactivarUsuario);
             this.pnlPedidaDeDatos.Controls.Add(this.btnGuardarUsuario);
             this.pnlPedidaDeDatos.Controls.Add(this.lblClave);
@@ -112,18 +112,8 @@
             this.pnlPedidaDeDatos.Location = new System.Drawing.Point(25, 206);
             this.pnlPedidaDeDatos.Margin = new System.Windows.Forms.Padding(2);
             this.pnlPedidaDeDatos.Name = "pnlPedidaDeDatos";
-            this.pnlPedidaDeDatos.Size = new System.Drawing.Size(241, 331);
+            this.pnlPedidaDeDatos.Size = new System.Drawing.Size(241, 311);
             this.pnlPedidaDeDatos.TabIndex = 11;
-            // 
-            // chkEstado
-            // 
-            this.chkEstado.AutoSize = true;
-            this.chkEstado.Location = new System.Drawing.Point(20, 268);
-            this.chkEstado.Name = "chkEstado";
-            this.chkEstado.Size = new System.Drawing.Size(95, 17);
-            this.chkEstado.TabIndex = 30;
-            this.chkEstado.Text = "Usuario Activo";
-            this.chkEstado.UseVisualStyleBackColor = true;
             // 
             // cmbRol
             // 
@@ -136,24 +126,24 @@
             this.cmbRol.Size = new System.Drawing.Size(191, 21);
             this.cmbRol.TabIndex = 2;
             // 
-            // txtContraseña
+            // txtContrasena
             // 
-            this.txtContraseña.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtContraseña.Font = new System.Drawing.Font("Times New Roman", 12F);
-            this.txtContraseña.Location = new System.Drawing.Point(20, 186);
-            this.txtContraseña.Margin = new System.Windows.Forms.Padding(2);
-            this.txtContraseña.Name = "txtContraseña";
-            this.txtContraseña.Size = new System.Drawing.Size(191, 19);
-            this.txtContraseña.TabIndex = 29;
+            this.txtContrasena.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtContrasena.Font = new System.Drawing.Font("Times New Roman", 12F);
+            this.txtContrasena.Location = new System.Drawing.Point(20, 186);
+            this.txtContrasena.Margin = new System.Windows.Forms.Padding(2);
+            this.txtContrasena.Name = "txtContrasena";
+            this.txtContrasena.Size = new System.Drawing.Size(191, 19);
+            this.txtContrasena.TabIndex = 29;
             // 
             // btnDesactivarUsuario
             // 
             this.btnDesactivarUsuario.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.btnDesactivarUsuario.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDesactivarUsuario.Location = new System.Drawing.Point(130, 290);
+            this.btnDesactivarUsuario.Location = new System.Drawing.Point(119, 272);
             this.btnDesactivarUsuario.Margin = new System.Windows.Forms.Padding(2);
             this.btnDesactivarUsuario.Name = "btnDesactivarUsuario";
-            this.btnDesactivarUsuario.Size = new System.Drawing.Size(81, 25);
+            this.btnDesactivarUsuario.Size = new System.Drawing.Size(92, 25);
             this.btnDesactivarUsuario.TabIndex = 16;
             this.btnDesactivarUsuario.Text = "Desactivar";
             this.btnDesactivarUsuario.UseVisualStyleBackColor = false;
@@ -163,10 +153,10 @@
             // 
             this.btnGuardarUsuario.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.btnGuardarUsuario.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGuardarUsuario.Location = new System.Drawing.Point(20, 290);
+            this.btnGuardarUsuario.Location = new System.Drawing.Point(20, 272);
             this.btnGuardarUsuario.Margin = new System.Windows.Forms.Padding(2);
             this.btnGuardarUsuario.Name = "btnGuardarUsuario";
-            this.btnGuardarUsuario.Size = new System.Drawing.Size(81, 25);
+            this.btnGuardarUsuario.Size = new System.Drawing.Size(95, 25);
             this.btnGuardarUsuario.TabIndex = 15;
             this.btnGuardarUsuario.Text = "Guardar";
             this.btnGuardarUsuario.UseVisualStyleBackColor = false;
@@ -287,6 +277,7 @@
             this.pnlPedidosRecientes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(153)))), ((int)(((byte)(105)))));
             this.pnlPedidosRecientes.Controls.Add(this.lblUsuarios);
             this.pnlPedidosRecientes.Controls.Add(this.dgvUsuariosRegistrados);
+            this.pnlPedidosRecientes.Controls.Add(this.chkEstado);
             this.pnlPedidosRecientes.Location = new System.Drawing.Point(293, 144);
             this.pnlPedidosRecientes.Margin = new System.Windows.Forms.Padding(2);
             this.pnlPedidosRecientes.Name = "pnlPedidosRecientes";
@@ -314,6 +305,17 @@
             this.dgvUsuariosRegistrados.Name = "dgvUsuariosRegistrados";
             this.dgvUsuariosRegistrados.Size = new System.Drawing.Size(712, 413);
             this.dgvUsuariosRegistrados.TabIndex = 0;
+            this.dgvUsuariosRegistrados.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUsuariosRegistrados_CellDoubleClick);
+            // 
+            // chkEstado
+            // 
+            this.chkEstado.AutoSize = true;
+            this.chkEstado.Location = new System.Drawing.Point(83, 230);
+            this.chkEstado.Name = "chkEstado";
+            this.chkEstado.Size = new System.Drawing.Size(95, 17);
+            this.chkEstado.TabIndex = 30;
+            this.chkEstado.Text = "Usuario Activo";
+            this.chkEstado.UseVisualStyleBackColor = true;
             // 
             // lblSubTexto
             // 
@@ -386,7 +388,7 @@
         private System.Windows.Forms.Label lblMensajeInformativoPrincipal;
         private System.Windows.Forms.PictureBox pbLogo;
         private System.Windows.Forms.Panel pnlPedidaDeDatos;
-        private System.Windows.Forms.TextBox txtContraseña;
+        private System.Windows.Forms.TextBox txtContrasena;
         private System.Windows.Forms.Button btnDesactivarUsuario;
         private System.Windows.Forms.Button btnGuardarUsuario;
         private System.Windows.Forms.Label lblClave;

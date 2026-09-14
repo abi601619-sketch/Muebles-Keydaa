@@ -1,129 +1,118 @@
-using Modelo.Entidades;
+﻿using Modelo.Entidades;
 using System;
 using System.Drawing;
 using System.Net.Mail;
 using System.Windows.Forms;
 using Vista.Responsive;
 
-namespace Vista.Clientes_Secretario
+namespace Vista.Clientes
 {
-    public partial class frmClientesSecretario : Form
+    public partial class frmClientes : Form
     {
-        public frmClientesSecretario()
+        public frmClientes()
         {
             InitializeComponent();
             ResponsiveHelper.Apply(this);
+
         }
 
-        // VARIABLES
-
+        //VARIABLES
         private int idClienteSeleccionado = 0;
         private int tipoClienteSeleccionado = 0;
 
-        // Datos originales del cliente seleccionado
+        //DATOS ORIGINALES DEL CLIENTE SELECCIONADO
         private string identificador1Original;
         private string identificador2Original;
         private string documentoOriginal;
         private string telefonoOriginal;
         private string correoOriginal;
         private string direccionOriginal;
+
         private string estadoOriginal;
 
         private bool modoEdicion = false;
 
-        // MOSTRAR CLIENTES
-        private void MostrarClientesIndividuales()
+        //MOSTRAR CLIENTES
+        private void MostrarClientes()
         {
-            dgvClientesCorporativos.DataSource = null;
+
             dgvClientesCorporativos.DataSource = DbCliente.CargarCorporativos();
+            ActualizarEstadisticas();
         }
-        private void MostrarClientesCorporativos()
+        private void MostrarClientes2()
         {
-            dgvClientesIndividuales.DataSource = null;
+
             dgvClientesIndividuales.DataSource = DbCliente.CargarIndividuales();
+            ActualizarEstadisticas();
         }
+
         //----------------------------------------------------------------------
         // ACTUALIZAR LAS ESTADISTICAS DE LOS CLIENTES
         private void ActualizarEstadisticas()
         {
-            try
-            {
-                lblTotalClientes.Text =
-                    DbCliente.ContarClientesTotales().ToString();
-
-                lblClientesActivos.Text =
-                    DbCliente.ContarClientesActivos().ToString();
-
-                lblClientesInactivos.Text =
-                    DbCliente.ContarClientesInactivos().ToString();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(
-                    "Ocurrió un error al actualizar las estadísticas.\n" + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
-            }
+            lblTotalClientes.Text = DbCliente.ContarClientesTotales().ToString();
+            lblClientesActivos.Text = DbCliente.ContarClientesActivos().ToString();
+            lblClientesInactivos.Text = DbCliente.ContarClientesInactivos().ToString();
         }
+
         //----------------------------------------------------------------------------
         //METODOS DE BLOQUEAR Y HABILITAR CAMPOS
 
 
         private void BloquearCampos()
         {
-            // Cliente corporativo
+            // CLIENTE CORPORATIVO
             txtNombreEmpresa.Enabled = false;
             txtNombreEncargado.Enabled = false;
             txtNIT.Enabled = false;
 
-            // Cliente individual
+            // CLIENTE INDIVIDUAL
             txtNombres.Enabled = false;
             txtApellidos.Enabled = false;
             txtDUI.Enabled = false;
 
-            // Campos compartidos
+            // CAMPOS COMPARTIDOS
             txtTelefono.Enabled = false;
             txtCorreo.Enabled = false;
             txtDireccion.Enabled = false;
 
-            // Estado
+            // ESTADO
             cbEstadoCliente.Enabled = false;
 
-            // El tipo de cliente no se puede cambiar
+            // TIPO DE CLIENTE
             cbTipoCliente.Enabled = false;
         }
 
         private void HabilitarCampos()
         {
-            // Cliente corporativo
+            // CLIENTE CORPORATIVO
             txtNombreEmpresa.Enabled = true;
             txtNombreEncargado.Enabled = true;
             txtNIT.Enabled = true;
 
-            // Cliente individual
+            // CLIENTE INDIVIDUAL
             txtNombres.Enabled = true;
             txtApellidos.Enabled = true;
             txtDUI.Enabled = true;
 
-            // Campos compartidos
+            // CAMPOS COMPARTIDOS
             txtTelefono.Enabled = true;
             txtCorreo.Enabled = true;
             txtDireccion.Enabled = true;
 
-            // Estado
+            // ESTADO
             cbEstadoCliente.Enabled = true;
 
-            // El tipo de cliente no se puede cambiar
+            // El tipo de cliente NO se modifica
             cbTipoCliente.Enabled = false;
+
         }
-        //-----------------------------------------------------
-        // VALIDACIONES
+
+        //-------------------------------------------------VALIDACIONES-----------------------------------------------------------------------//
 
         private bool ValidarCampos()
         {
-            // Al registrar se debe seleccionar un tipo de cliente
+            // Validar que haya seleccionado un tipo de cliente
             if (!modoEdicion)
             {
                 if (cbTipoCliente.SelectedIndex == -1)
@@ -132,9 +121,8 @@ namespace Vista.Clientes_Secretario
                     return false;
                 }
             }
-            // SI ES PERSONA NATURAL
 
-
+            // PERSONA NATURAL
             if (cbTipoCliente.Text == "Persona Natural")
             {
                 if (string.IsNullOrWhiteSpace(txtNombres.Text))
@@ -143,7 +131,6 @@ namespace Vista.Clientes_Secretario
                     txtNombres.Focus();
                     return false;
                 }
-
                 if (string.IsNullOrWhiteSpace(txtApellidos.Text))
                 {
                     MessageBox.Show("Debe ingresar los apellidos del cliente.");
@@ -153,7 +140,7 @@ namespace Vista.Clientes_Secretario
 
                 if (string.IsNullOrWhiteSpace(txtDUI.Text))
                 {
-                    MessageBox.Show("Debe ingresar el DUI del cliente.");
+                    MessageBox.Show("Debe ingresar el DUI del ciente.");
                     txtDUI.Focus();
                     return false;
                 }
@@ -165,13 +152,13 @@ namespace Vista.Clientes_Secretario
                     return false;
                 }
 
+
                 if (string.IsNullOrWhiteSpace(txtCorreo.Text))
                 {
-                    MessageBox.Show("Debe ingresar el correo del cliente.");
+                    MessageBox.Show("Debe ingresar el Correo del cliente.");
                     txtCorreo.Focus();
                     return false;
                 }
-
                 if (string.IsNullOrWhiteSpace(txtDireccion.Text))
                 {
                     MessageBox.Show("Debe ingresar la dirección del cliente.");
@@ -180,10 +167,7 @@ namespace Vista.Clientes_Secretario
                 }
             }
 
-
             // EMPRESA
-
-
             if (cbTipoCliente.Text == "Empresa")
             {
                 if (string.IsNullOrWhiteSpace(txtNombreEmpresa.Text))
@@ -216,22 +200,21 @@ namespace Vista.Clientes_Secretario
 
                 if (string.IsNullOrWhiteSpace(txtCorreo.Text))
                 {
-                    MessageBox.Show("Debe ingresar el correo.");
+                    MessageBox.Show("Debe ingresar el Correo.");
                     txtCorreo.Focus();
                     return false;
                 }
-
                 if (string.IsNullOrWhiteSpace(txtDireccion.Text))
                 {
                     MessageBox.Show("Debe ingresar la dirección de la empresa.");
-                    txtDireccion.Focus();
+                    txtCorreo.Focus();
                     return false;
                 }
             }
 
             return true;
         }
-
+        //VALIDAR CORREO
         private bool ValidarCorreo()
         {
             try
@@ -256,9 +239,7 @@ namespace Vista.Clientes_Secretario
         }
 
 
-
-        // DESACTIVAR COPIAR Y PEGAR
-
+        //DESACTIVAR COPIAR Y PEGAR
         private void DesactivarCopiarPegar(Control control)
         {
             foreach (Control elemento in control.Controls)
@@ -274,21 +255,15 @@ namespace Vista.Clientes_Secretario
                 }
             }
         }
-
-        // VALIDACIONES DE LOS TEXTBOX
-
-        private void txtDUI_KeyPress(object sender, KeyPressEventArgs e)
+        //VALIDACIONES DE LOS TEXTBOX
+        private void txtDUI_KeyPress_1(object sender, KeyPressEventArgs e)
         {
-            // Solo permite números y borrar
-            if (!char.IsDigit(e.KeyChar) &&
-                e.KeyChar != (char)Keys.Back)
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
             {
                 e.Handled = true;
             }
 
-            // Máximo 10 caracteres
-            if (char.IsDigit(e.KeyChar) &&
-                txtDUI.Text.Length >= 10)
+            if (char.IsDigit(e.KeyChar) && txtDUI.Text.Length >= 10)
             {
                 e.Handled = true;
             }
@@ -296,39 +271,31 @@ namespace Vista.Clientes_Secretario
 
         private void txtNIT_KeyPress(object sender, KeyPressEventArgs e)
         {
-            // Solo permite números y borrar
-            if (!char.IsDigit(e.KeyChar) &&
-                e.KeyChar != (char)Keys.Back)
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
             {
                 e.Handled = true;
             }
 
-            // Máximo 14 caracteres
-            if (char.IsDigit(e.KeyChar) &&
-                txtNIT.Text.Length >= 14)
+            if (char.IsDigit(e.KeyChar) && txtNIT.Text.Length >= 14)
             {
                 e.Handled = true;
             }
         }
 
-        private void txtTelefono_KeyPress(object sender, KeyPressEventArgs e)
+        private void txtTelefono_KeyPress_1(object sender, KeyPressEventArgs e)
         {
-            // Solo permite números y borrar
-            if (!char.IsDigit(e.KeyChar) &&
-                e.KeyChar != (char)Keys.Back)
+            if (char.IsDigit(e.KeyChar) && txtTelefono.Text.Length >= 9)
             {
                 e.Handled = true;
             }
 
-            // Máximo 9 caracteres
-            if (char.IsDigit(e.KeyChar) &&
-                txtTelefono.Text.Length >= 9)
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
             {
                 e.Handled = true;
             }
         }
 
-        private void txtTelefono_TextChanged(object sender, EventArgs e)
+        private void txtTelefono_TextChanged_1(object sender, EventArgs e)
         {
             string texto = txtTelefono.Text.Replace("-", "");
 
@@ -339,7 +306,7 @@ namespace Vista.Clientes_Secretario
             }
         }
 
-        private void txtDUI_TextChanged(object sender, EventArgs e)
+        private void txtDUI_TextChanged_1(object sender, EventArgs e)
         {
             string texto = txtDUI.Text.Replace("-", "");
 
@@ -350,23 +317,17 @@ namespace Vista.Clientes_Secretario
             }
         }
 
-        private void txtNombres_KeyPress(object sender, KeyPressEventArgs e)
+        private void txtNombres_KeyPress_1(object sender, KeyPressEventArgs e)
         {
-            // Solo permite letras, espacios y borrar
-            if (!char.IsLetter(e.KeyChar) &&
-                !char.IsControl(e.KeyChar) &&
-                e.KeyChar != ' ')
+            if (!char.IsLetter(e.KeyChar) && !char.IsControl(e.KeyChar) && e.KeyChar != ' ')
             {
                 e.Handled = true;
             }
         }
 
-        private void txtApellidos_KeyPress(object sender, KeyPressEventArgs e)
+        private void txtApellidos_KeyPress_1(object sender, KeyPressEventArgs e)
         {
-            // Solo permite letras, espacios y borrar
-            if (!char.IsLetter(e.KeyChar) &&
-                !char.IsControl(e.KeyChar) &&
-                e.KeyChar != ' ')
+            if (!char.IsLetter(e.KeyChar) && !char.IsControl(e.KeyChar) && e.KeyChar != ' ')
             {
                 e.Handled = true;
             }
@@ -374,7 +335,6 @@ namespace Vista.Clientes_Secretario
 
         private void txtDireccion_KeyPress(object sender, KeyPressEventArgs e)
         {
-            // Permite letras, números y caracteres comunes de una dirección
             if (!char.IsLetterOrDigit(e.KeyChar) &&
                 !char.IsControl(e.KeyChar) &&
                 e.KeyChar != ' ' &&
@@ -389,11 +349,10 @@ namespace Vista.Clientes_Secretario
                 e.Handled = true;
             }
         }
-        //-------------------------------------------------------------------------
+
+        //--------------------------  FIN VALIDACIONES -------------------------------------//
         // CAMBIAR ENTRE PERSONA NATURAL Y EMPRESA
-
-
-        private void btnClienteIndividual_Click(object sender, EventArgs e)
+        private void btnClienteIndividual_Click_1(object sender, EventArgs e)
         {
             // Barras
             pnlBarraClienteIndividual.Visible = true;
@@ -408,7 +367,7 @@ namespace Vista.Clientes_Secretario
             txtBuscarIndividual.Visible = true;
         }
 
-        private void btnClienteCorporativo_Click(object sender, EventArgs e)
+        private void btnClienteCorporativo_Click_1(object sender, EventArgs e)
         {
             // Barras
             pnlBarraClienteIndividual.Visible = false;
@@ -422,15 +381,15 @@ namespace Vista.Clientes_Secretario
             txtBuscarCorporativo.Visible = true;
             txtBuscarIndividual.Visible = false;
         }
-        //------------------------------------------------------------------------------
+        //------------------------------------------------------------------------
         // CARGA DEL FORMULARIO
-        private void frmClientesSecretario_Load(object sender, EventArgs e)
+        private void frmClientes_Load(object sender, EventArgs e)
         {
             try
             {
                 // Cargar los clientes
-                MostrarClientesIndividuales();
-                MostrarClientesCorporativos();
+                MostrarClientes();
+                MostrarClientes2();
                 ActualizarEstadisticas();
 
                 // Desactivar copiar y pegar
@@ -493,13 +452,11 @@ namespace Vista.Clientes_Secretario
                     MessageBoxIcon.Error);
             }
         }
-        //-----------------------------------------------------------------------------------------------
+
+        //----------------------------------------------------------------------------------------------
         // CAMBIO DE TIPO DE CLIENTE
-        private void cbTipoCliente_SelectedIndexChanged_1(object sender, EventArgs e)
+        private void cbTipoCliente_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // PERSONA NATURAL
-
-
             if (cbTipoCliente.Text == "Persona Natural")
             {
                 txtNombres.TabIndex = 1;
@@ -508,14 +465,9 @@ namespace Vista.Clientes_Secretario
                 txtTelefono.TabIndex = 4;
                 txtCorreo.TabIndex = 5;
                 txtDireccion.TabIndex = 6;
-
                 btnEditar.TabIndex = 7;
                 btnGuardarIndividual.TabIndex = 8;
             }
-
-
-            // EMPRESA
-
             else if (cbTipoCliente.Text == "Empresa")
             {
                 txtNombreEmpresa.TabIndex = 1;
@@ -524,11 +476,10 @@ namespace Vista.Clientes_Secretario
                 txtTelefono.TabIndex = 4;
                 txtCorreo.TabIndex = 5;
                 txtDireccion.TabIndex = 6;
-
                 btnEditar.TabIndex = 7;
                 btnGuardarCorporativo.TabIndex = 8;
             }
-            // EMPRESA
+
             if (cbTipoCliente.SelectedIndex == 0)
             {
                 // Paneles
@@ -548,8 +499,10 @@ namespace Vista.Clientes_Secretario
                 gbPersonaNatural.Visible = true;
                 gbDatosEmpresa.Visible = false;
 
+                //El estado inicial será activo
+                cbEstadoCliente.Text = "Activo";
+
             }
-            // PERSONA NATURAL
             else if (cbTipoCliente.SelectedIndex == 1)
             {
                 // Paneles
@@ -568,71 +521,74 @@ namespace Vista.Clientes_Secretario
                 gbPersonaNatural.Visible = false;
                 gbDatosEmpresa.Visible = true;
 
+                //El estado inicial será activo
+                cbEstadoCliente.Text = "Activo";
 
             }
         }
         //--------------------------------------------------------------
         // REGISTRAR CLIENTE INDIVIDUAL
-        private void btnGuardarIndividual_Click(object sender, EventArgs e)
+        private void btnGuardarIndividual_Click_1(object sender, EventArgs e)
         {
-
-            // Validar campos obligatorios
             if (!ValidarCampos())
+            {
                 return;
+            }
 
-            // Validar DUI
             if (txtDUI.Text.Length != 10 || txtDUI.Text[8] != '-')
             {
                 MessageBox.Show("El DUI debe tener el formato 12345678-9.");
-                txtDUI.Focus();
                 return;
             }
 
-            // Validar teléfono
             if (txtTelefono.Text.Length != 9 || txtTelefono.Text[4] != '-')
             {
                 MessageBox.Show("El teléfono debe tener el formato 1234-5678.");
-                txtTelefono.Focus();
                 return;
             }
 
-            // Validar correo
-            if (!ValidarCorreo())
+            //Validar Correo
+            if (string.IsNullOrWhiteSpace(txtCorreo.Text))
+            {
+                MessageBox.Show("El correo es obligatorio.");
+                txtCorreo.Focus();
                 return;
+            }
 
             try
             {
-                DbCliente cliente = new DbCliente();
-
-                cliente.TipoCliente1 = 2;
-                cliente.Identificador11 = txtNombres.Text.Trim();
-                cliente.Identificador21 = txtApellidos.Text.Trim();
-                cliente.Documento1 = txtDUI.Text.Trim();
-                cliente.Telefono1 = txtTelefono.Text.Trim();
-                cliente.Correo1 = txtCorreo.Text.Trim();
-                cliente.Direccion1 = txtDireccion.Text.Trim();
-                cliente.Estado1 = "Activo";
-
-                // Guardar cliente
-                if (cliente.InsertarClienteIndividual())
-                {
-                    MessageBox.Show("Cliente individual registrado correctamente.", "Registro exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information
-                    );
-
-                    MostrarClientesIndividuales();
-                    LimpiarFormularioCliente();
-                }
+                MailAddress correo = new MailAddress(txtCorreo.Text);
             }
-            catch (Exception ex)
+            catch
             {
-                MessageBox.Show("Ocurrió un error al registrar el cliente.\n" + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Ingrese un correo válido.");
+                txtCorreo.Focus();
+                return;
+            }
+
+
+            DbCliente cliente = new DbCliente();
+
+            cliente.TipoCliente1 = 2;
+            cliente.Identificador11 = txtNombres.Text;
+            cliente.Identificador21 = txtApellidos.Text;
+            cliente.Documento1 = txtDUI.Text;
+            cliente.Telefono1 = txtTelefono.Text;
+            cliente.Correo1 = txtCorreo.Text;
+            cliente.Direccion1 = txtDireccion.Text;
+            cliente.Estado1 = "Activo";
+
+
+            if (cliente.InsertarClienteIndividual())
+            {
+                MessageBox.Show("Cliente individual registrado correctamente.", "Registro exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                MostrarClientes2();
+
+
+                LimpiarFormularioCliente();
             }
         }
-
         // REGISTRAR CLIENTE CORPORATIVO
         private void btnGuardarCorporativo_Click_1(object sender, EventArgs e)
         {
@@ -686,7 +642,7 @@ namespace Vista.Clientes_Secretario
                         MessageBoxIcon.Information
                     );
 
-                    MostrarClientesCorporativos();
+                    MostrarClientes2();
                     LimpiarFormularioCliente();
                 }
             }
@@ -699,12 +655,12 @@ namespace Vista.Clientes_Secretario
                     MessageBoxIcon.Error
                 );
             }
-
         }
 
         //----------------------------------------------------------------------
         // SELECCIONAR CLIENTE CORPORATIVO
-        private void dgvClientesCorporativos_CellClick(object sender, DataGridViewCellEventArgs e)
+
+        private void dgvClientesCorporativos_CellClick_1(object sender, DataGridViewCellEventArgs e)
         {
             try
             {
@@ -785,7 +741,7 @@ namespace Vista.Clientes_Secretario
         }
 
         // SELECCIONAR CLIENTE INDIVIDUAL
-        private void dgvClientesIndividuales_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void dgvClientesIndividuales_CellClick_1(object sender, DataGridViewCellEventArgs e)
         {
             try
             {
@@ -863,7 +819,6 @@ namespace Vista.Clientes_Secretario
                 );
             }
         }
-
         //-------------------------------------------------------------------------------
         // BOTÓN EDITAR
 
@@ -871,29 +826,26 @@ namespace Vista.Clientes_Secretario
         {
             if (idClienteSeleccionado == 0)
             {
-                MessageBox.Show("Seleccione un cliente primero.");
-                return;
+                MessageBox.Show("Seleccione un cliente primero."); return;
             }
-
-            // Activar modo edición
             modoEdicion = true;
+            cbEstadoCliente.Enabled = true;
 
-            // Habilitar los campos
             HabilitarCampos();
-
-            // Ocultar botón Editar
+            // Ya estamos editando, por eso Editar desaparece
             btnEditar.Visible = false;
-
-            // Mostrar botón Guardar cambios
+            // Ahora sí aparece Guardar cambios
             btnGuardarCambios.Visible = true;
 
-            // Ocultar botones de registro
             btnGuardarCorporativo.Visible = false;
             btnGuardarIndividual.Visible = false;
+
+
         }
 
         //----------------------------------------------------------------------------------
         //BOTON GUARDAR CAMBIOS
+
         private void btnGuardarCambios_Click_1(object sender, EventArgs e)
         {
             if (idClienteSeleccionado == 0)
@@ -1032,11 +984,11 @@ namespace Vista.Clientes_Secretario
                     // Actualizar la tabla correspondiente
                     if (tipoClienteSeleccionado == 1)
                     {
-                        MostrarClientesCorporativos();
+                        MostrarClientes();
                     }
                     else if (tipoClienteSeleccionado == 2)
                     {
-                        MostrarClientesIndividuales();
+                        MostrarClientes2();
                     }
 
                     // Dejar el formulario listo para otro cliente
@@ -1053,66 +1005,41 @@ namespace Vista.Clientes_Secretario
                 );
             }
         }
-
         //------------------------------------------------------------------------
 
         // COMPROBAR SI HUBO CAMBIOS
+
         private bool HayCambios()
         {
             string identificador1Actual;
             string identificador2Actual;
             string documentoActual;
 
-            // Obtener los datos actuales
-            if (tipoClienteSeleccionado == 2)
+            if (tipoClienteSeleccionado == 2) // Persona Natural
             {
-                // Persona natural
-                identificador1Actual =
-                    txtNombres.Text.Trim();
-
-                identificador2Actual =
-                    txtApellidos.Text.Trim();
-
-                documentoActual =
-                    txtDUI.Text.Trim();
+                identificador1Actual = txtNombres.Text.Trim();
+                identificador2Actual = txtApellidos.Text.Trim();
+                documentoActual = txtDUI.Text.Trim();
             }
-            else
+            else // Empresa
             {
-                // Empresa
-                identificador1Actual =
-                    txtNombreEmpresa.Text.Trim();
-
-                identificador2Actual =
-                    txtNombreEncargado.Text.Trim();
-
-                documentoActual =
-                    txtNIT.Text.Trim();
+                identificador1Actual = txtNombreEmpresa.Text.Trim();
+                identificador2Actual = txtNombreEncargado.Text.Trim();
+                documentoActual = txtNIT.Text.Trim();
             }
 
-            string telefonoActual =
-                txtTelefono.Text.Trim();
+            string telefonoActual = txtTelefono.Text.Trim();
+            string correoActual = txtCorreo.Text.Trim();
+            string direccionActual = txtDireccion.Text.Trim();
+            string estadoActual = cbEstadoCliente.Text.Trim();
 
-            string correoActual =
-                txtCorreo.Text.Trim();
-
-            string direccionActual =
-                txtDireccion.Text.Trim();
-
-            string estadoActual =
-                cbEstadoCliente.Text.Trim();
-
-            // Comparar los datos actuales con los originales
             return
-                identificador1Actual != identificador1Original ||
-                identificador2Actual != identificador2Original ||
-                documentoActual != documentoOriginal ||
-                telefonoActual != telefonoOriginal ||
-                correoActual != correoOriginal ||
-                direccionActual != direccionOriginal ||
-                estadoActual != estadoOriginal;
+                identificador1Actual != identificador1Original || identificador2Actual != identificador2Original || documentoActual != documentoOriginal || telefonoActual != telefonoOriginal ||
+                correoActual != correoOriginal || direccionActual != direccionOriginal || estadoActual != estadoOriginal;
         }
         //----------------------------------------------------------------
         //LIMPIAR FORMULARIO
+
         private void LimpiarFormularioCliente()
         {
             // Habilitar los campos para registrar un nuevo cliente
@@ -1161,9 +1088,11 @@ namespace Vista.Clientes_Secretario
                 btnGuardarCorporativo.Visible = true;
             }
         }
-        //------------------------------------------------------------------------
 
-        //BUSCAR CLIENTES
+        //---------------------------------------------------------------------------------
+        //Metodos de busqueda
+
+
 
         private void txtBuscarCorporativo_TextChanged(object sender, EventArgs e)
         {
@@ -1238,12 +1167,8 @@ namespace Vista.Clientes_Secretario
         private void btnNuevoCliente_Click(object sender, EventArgs e)
         {
             LimpiarFormularioCliente();
+
         }
-
-
     }
 }
-
-
-
 

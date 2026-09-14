@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using Vista.Responsive;
 
@@ -31,12 +32,9 @@ namespace Vista.Compras
         // Detalles originales de una compra cuando se carga para editar.
         private List<DetalleCompraMaterial> detallesOriginales = new List<DetalleCompraMaterial>();
 
-        private int IdCompraSeleccionada = 0;
-        private bool modoDeEdicion = false;
+
         private DataTable dtMateriales;
-
-
-
+        private int idDetalleEditando = 0;
 
 
         private decimal totalCompra = 0;
@@ -68,10 +66,15 @@ namespace Vista.Compras
         private void frmCompras_Load(object sender, EventArgs e)
         {
             MostrarCompras();
+
+            ConfigurarDetalleCompra();
             CargarComboBoxMateriales();
             CargarComboBoxProveedores();
-            ConfigurarDetalleCompra();
+
             DesactivarCopiarPegar(this);
+
+            btnGuardar.Visible = true;
+            btnActualizarCompra.Visible = false;
 
             nudCantidad.Minimum = 1;
             nudCantidad.Value = 1;
@@ -90,8 +93,18 @@ namespace Vista.Compras
             dtpFechaDeCompra.MaxDate = DateTime.Today;
             dtpFechaDeCompra.Value = DateTime.Today;
 
+            dgvHistorialCompras.Columns["IdCompra"].HeaderText = "N.º de compra";
+            dgvHistorialCompras.Columns["FechaCompra"].HeaderText = "Fecha de compra";
+            dgvHistorialCompras.Columns["Proveedor"].HeaderText = "Proveedor";
+            dgvHistorialCompras.Columns["TotalCompra"].HeaderText = "Total de compra";
 
-            dgvHistorialCompras.DataSource = ComprasDb.CargarComprasRegistradas();
+            dgvDetalleCompras.Columns["Material"].HeaderText = "Material";
+            dgvDetalleCompras.Columns["Cantidad"].HeaderText = "Cantidad";
+            dgvDetalleCompras.Columns["PrecioUnitario"].HeaderText = "Precio unitario";
+            dgvDetalleCompras.Columns["Subtotal"].HeaderText = "Subtotal";
+
+
+
         }
         private void MostrarCompras()
         {
@@ -194,6 +207,7 @@ namespace Vista.Compras
 
             dgvDetalleCompras.Columns.Add(subtotal);
 
+            //ID DETALLE DE COMPRA
             DataGridViewTextBoxColumn idDetalle = new DataGridViewTextBoxColumn();
 
             idDetalle.Name = "IdDetalleCompraMaterial";
@@ -202,10 +216,24 @@ namespace Vista.Compras
 
             dgvDetalleCompras.Columns.Add(idDetalle);
 
+            // ELIMINAR
+            DataGridViewButtonColumn eliminar = new DataGridViewButtonColumn();
+
+            eliminar.Name = "Eliminar";
+            eliminar.HeaderText = "Eliminar";
+            eliminar.Text = "Eliminar";
+            eliminar.UseColumnTextForButtonValue = true;
+
+            dgvDetalleCompras.Columns.Add(eliminar);
+
 
             // Ajustar columnas
             dgvDetalleCompras.AutoSizeColumnsMode =
                 DataGridViewAutoSizeColumnsMode.Fill;
+
+
+            // Ajustar columnas
+            dgvDetalleCompras.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
 
@@ -287,8 +315,7 @@ namespace Vista.Compras
                 decimal subtotal =
                     detalle.Cantidad1 * detalle.PrecioUnitario1;
 
-                dgvDetalleCompras.Rows.Add(detalle.IdMaterial1, nombreMaterial, detalle.Cantidad1, detalle.PrecioUnitario1.ToString("0.00"), subtotal.ToString("0.00")
-                );
+                dgvDetalleCompras.Rows.Add(detalle.IdMaterial1, nombreMaterial, detalle.Cantidad1, detalle.PrecioUnitario1.ToString("0.00"), subtotal.ToString("0.00"), detalle.IdDetalleCompraMaterial1);
             }
 
             CalcularTotalCompra();
@@ -328,6 +355,10 @@ namespace Vista.Compras
             totalCompra = 0;
 
             txtTotalCompra.Text = "0.00";
+
+            // Volver al modo nueva compra
+            btnGuardar.Visible = true;
+            btnActualizarCompra.Visible = false;
         }
 
 
@@ -391,23 +422,7 @@ namespace Vista.Compras
                     return;
                 }
 
-                // ACTUALIZAR STOCK
 
-                Material material = new Material();
-
-                material.idMaterial1 = detalle.IdMaterial1;
-
-
-                bool stockActualizado = material.ActualizarStock(detalle.Cantidad1);
-
-
-                if (!stockActualizado)
-                {
-                    MessageBox.Show("El detalle se guard, pero no se pudo " +
-                        "actualizar el stock del material.");
-
-                    return;
-                }
             }
 
 
@@ -428,16 +443,49 @@ namespace Vista.Compras
 
             idCompraSeleccionada = Convert.ToInt32(dgvHistorialCompras.Rows[e.RowIndex].Cells["IdCompra"].Value);
 
+            modoEdicion = true;
+
             CargarCompraParaEditar(idCompraSeleccionada);
+
+
         }
 
 
 
         private void CargarCompraParaEditar(int idCompra)
         {
+
+            btnGuardar.Visible = false;
+            btnActualizarCompra.Visible = true;
+
             // Limpiar listas anteriores
             detallesOriginales.Clear();
             detallesTemporales.Clear();
+
+            DataTable dtCompra = ComprasDb.ObtenerCompraPorId(idCompra);
+
+            if (dtCompra == null || dtCompra.Rows.Count == 0)
+            {
+                MessageBox.Show("No se encontró la compra seleccionada.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                return;
+            }
+
+            DataRow filaCompra = dtCompra.Rows[0];
+
+            // Fecha
+            dtpFechaDeCompra.Value = Convert.ToDateTime(filaCompra["FechaCompra"]);
+
+            // Proveedor
+            int idProveedor = Convert.ToInt32(filaCompra["IdProveedor"]);
+
+            cbProveedor.SelectedValue = idProveedor;
+
+            // Total
+            totalCompra = Convert.ToDecimal(filaCompra["TotalCompra"]);
+
+            txtTotalCompra.Text = totalCompra.ToString("0.00");
+
 
             // CARGAR DETALLES DE LA COMPRA
 
@@ -479,7 +527,7 @@ namespace Vista.Compras
 
         }
 
-        private int idDetalleEditando = 0;
+
 
         private void dgvDetalleCompras_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -501,48 +549,20 @@ namespace Vista.Compras
             nudCantidad.Value = cantidad;
 
             txtPrecioUnitario.Text = precio.ToString("0.00");
+
+
+
         }
 
         private void btnActualizar_Click(object sender, EventArgs e)
         {
-
-            if (idDetalleEditando == 0)
-            {
-                MessageBox.Show("Selecciona un detalle para editar.");
-                return;
-            }
-
-            if (cbMaterial.SelectedIndex == -1)
-            {
-                MessageBox.Show("Selecciona un material.");
-                return;
-            }
-
-            if (string.IsNullOrWhiteSpace(txtPrecioUnitario.Text))
-            {
-                MessageBox.Show("Ingresa el precio unitario.");
-                return;
-            }
-
             if (!decimal.TryParse(txtPrecioUnitario.Text, out decimal precio))
             {
-                MessageBox.Show("Ingresa un precio vlido.");
-                return;
-            }
-
-            if (precio <= 0)
-            {
-                MessageBox.Show("El precio debe ser mayor que 0.");
+                MessageBox.Show("Ingresa un precio válido.");
                 return;
             }
 
             int cantidad = Convert.ToInt32(nudCantidad.Value);
-
-            if (cantidad <= 0)
-            {
-                MessageBox.Show("La cantidad debe ser mayor que 0.");
-                return;
-            }
 
             int idMaterial = Convert.ToInt32(cbMaterial.SelectedValue);
 
@@ -559,17 +579,19 @@ namespace Vista.Compras
                 }
             }
 
-            // Volver a mostrar los detalles
+            // Mostrar nuevamente los materiales
             MostrarDetallesTemporales();
 
-            // Limpiar seleccin de edicin
-            idDetalleEditando = 0;
-
+            // Limpiar SOLO los controles para ingresar/editar otro material
             cbMaterial.SelectedIndex = -1;
             nudCantidad.Value = 1;
             txtPrecioUnitario.Clear();
 
-            cbMaterial.Focus();
+            // Reiniciar el detalle que se está editando
+            idDetalleEditando = 0;
+
+
+
         }
 
 
@@ -645,6 +667,198 @@ namespace Vista.Compras
         private void btnBuscar_Click(object sender, EventArgs e)
         {
 
+        }
+
+
+
+
+
+        private void btnActualizarCompra_Click(object sender, EventArgs e)
+        {
+            if (!modoEdicion || idCompraSeleccionada == 0)
+            {
+                MessageBox.Show(
+                    "Primero selecciona una compra para editar.");
+                return;
+            }
+
+            if (cbProveedor.SelectedIndex == -1)
+            {
+                MessageBox.Show("Selecciona un proveedor.");
+                return;
+            }
+
+            if (detallesTemporales.Count == 0)
+            {
+                MessageBox.Show(
+                    "La compra debe tener al menos un material.");
+                return;
+            }
+
+            try
+            {
+                int idProveedor =
+                    Convert.ToInt32(cbProveedor.SelectedValue);
+
+                CalcularTotalCompra();
+
+                // ==========================================
+                // 1. ACTUALIZAR CABECERA DE LA COMPRA
+                // ==========================================
+
+                bool compraActualizada =
+                    ComprasDb.ActualizarCompra(
+                        idCompraSeleccionada,
+                        dtpFechaDeCompra.Value,
+                        totalCompra,
+                        idProveedor);
+
+                if (!compraActualizada)
+                {
+                    MessageBox.Show(
+                        "No se pudo actualizar la compra.");
+                    return;
+                }
+
+                // ==========================================
+                // 2. ACTUALIZAR O INSERTAR DETALLES
+                // ==========================================
+
+                foreach (DetalleCompraMaterial detalle
+                    in detallesTemporales)
+                {
+                    // Es un detalle NUEVO
+                    if (detalle.IdDetalleCompraMaterial1 == 0)
+                    {
+                        detalle.IdCompra1 = idCompraSeleccionada;
+
+                        bool resultado =
+                            detalle.InsertarDetalleCompra();
+
+                        if (!resultado)
+                        {
+                            MessageBox.Show(
+                                "No se pudo agregar el nuevo material.");
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        // Buscar el detalle original
+                        DetalleCompraMaterial original =
+                            detallesOriginales.FirstOrDefault(
+                                x => x.IdDetalleCompraMaterial1 ==
+                                     detalle.IdDetalleCompraMaterial1);
+
+                        if (original == null)
+                            continue;
+
+                        bool resultado =
+                            detalle.ActualizarDetalleCompra(
+                                original.IdMaterial1,
+                                original.Cantidad1);
+
+                        if (!resultado)
+                        {
+                            MessageBox.Show(
+                                "No se pudo actualizar uno de los detalles.");
+                            return;
+                        }
+                    }
+                }
+
+                // ==========================================
+                // 3. ELIMINAR DETALLES QUE YA NO EXISTEN
+                // ==========================================
+
+                foreach (DetalleCompraMaterial original
+                    in detallesOriginales)
+                {
+                    bool existe =
+                        detallesTemporales.Any(
+                            x => x.IdDetalleCompraMaterial1 ==
+                                 original.IdDetalleCompraMaterial1);
+
+                    if (!existe)
+                    {
+                        original.EliminarDetalleCompra();
+                    }
+                }
+
+                MessageBox.Show(
+                    "Compra actualizada correctamente.",
+                    "Compra",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+
+                MostrarCompras();
+
+                LimpiarCompra();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Ocurrió un error al actualizar la compra.\n\n" +
+                    ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnNueva_Click(object sender, EventArgs e)
+        {
+            LimpiarCompra();
+        }
+
+        private void dgvDetalleCompras_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // Validar fila y columna
+            if (e.RowIndex < 0 || e.ColumnIndex < 0)
+                return;
+
+            // Verificar que se hizo clic en el botón Eliminar
+            if (dgvDetalleCompras.Columns[e.ColumnIndex].Name != "Eliminar")
+                return;
+
+            // Obtener el ID del detalle
+            int idDetalle = Convert.ToInt32(
+                dgvDetalleCompras.Rows[e.RowIndex]
+                .Cells["IdDetalleCompraMaterial"].Value
+            );
+
+            // Buscar el detalle en la lista temporal
+            DetalleCompraMaterial detalle =
+                detallesTemporales.FirstOrDefault(
+                    x => x.IdDetalleCompraMaterial1 == idDetalle
+                );
+
+            if (detalle == null)
+                return;
+
+            // Confirmar eliminación
+            DialogResult resultado = MessageBox.Show(
+                "¿Está seguro de eliminar este material de la compra?",
+                "Confirmar eliminación",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning
+            );
+
+            if (resultado != DialogResult.Yes)
+                return;
+
+            // Eliminar de la lista temporal
+            detallesTemporales.Remove(detalle);
+
+            // Actualizar el DataGridView
+            MostrarDetallesTemporales();
+
+            MessageBox.Show(
+                "Material eliminado correctamente.",
+                "Eliminación",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information
+            );
         }
     }
 

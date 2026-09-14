@@ -124,9 +124,9 @@ namespace Modelo.Entidades
         }
         public bool DesactivarProveedor(int idProveedor)
         {
+            //Abre la conexion para poder trabajar en sql con a inforacion del proveedor
             using (SqlConnection conexion = Conexion.Conectar())
             {
-
 
                 // Primero verificamos el estado actual
                 string consultaEstado = @"SELECT Estado FROM Proveedor WHERE IdProveedor = @IdProveedor";
@@ -134,12 +134,14 @@ namespace Modelo.Entidades
                 using (SqlCommand cmdEstado = new SqlCommand(consultaEstado, conexion))
                 {
                     cmdEstado.Parameters.AddWithValue("@IdProveedor", idProveedor);
-
+                    // obtiene un solo valor con "Escalar" en este caso el id del proveedor
                     object resultado = cmdEstado.ExecuteScalar();
 
+                    // Si no exixte retorna false
                     if (resultado == null)
                         return false;
 
+                    // convierte el estado en true o false (booleano)
                     bool estadoActual = Convert.ToBoolean(resultado);
 
                     // Si ya está en 0, entonces si realmente el estado está inactivo
@@ -153,7 +155,7 @@ namespace Modelo.Entidades
                 using (SqlCommand cmd = new SqlCommand(consultaDesactivar, conexion))
                 {
                     cmd.Parameters.AddWithValue("@IdProveedor", idProveedor);
-
+                    // retorna a que el estado sea cero , porque es un tipo de dato BIT
                     return cmd.ExecuteNonQuery() > 0;
                 }
             }
@@ -163,7 +165,7 @@ namespace Modelo.Entidades
         {
             SqlConnection con = Conexion.Conectar();
 
-            string comando = @"SELECT *  FROM Proveedor WHERE CAST(IdProveedor AS VARCHAR) LIKE @buscar OR Nombre_Proveedor LIKE @buscar;";
+            string comando = @"SELECT *  FROM VerProveedores WHERE CAST(IdProveedor AS VARCHAR) LIKE @buscar OR Proveedor LIKE @buscar;";
 
             SqlDataAdapter ad = new SqlDataAdapter(comando, con);
 

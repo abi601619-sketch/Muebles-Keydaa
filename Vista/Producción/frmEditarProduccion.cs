@@ -129,6 +129,7 @@ namespace Vista.Producción
                     MessageBoxIcon.Information);
 
                 DialogResult = DialogResult.OK;
+
                 Close();
             }
         }

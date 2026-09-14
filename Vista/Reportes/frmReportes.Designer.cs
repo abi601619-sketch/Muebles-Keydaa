@@ -49,27 +49,30 @@
             this.pnlCuadroVentas = new System.Windows.Forms.Panel();
             this.dgvReporteClientes = new System.Windows.Forms.DataGridView();
             this.lblDetalleVentas = new System.Windows.Forms.Label();
-            this.tlContenedordeIndicadores = new System.Windows.Forms.TableLayoutPanel();
-            this.tlSeparadorElemtosReportes = new System.Windows.Forms.TableLayoutPanel();
             this.lblClientesTotales = new System.Windows.Forms.Label();
             this.pbClientesFrecuentes = new System.Windows.Forms.PictureBox();
-            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.pbClientesRegistrados = new System.Windows.Forms.PictureBox();
             this.lblClientesCorporativos = new System.Windows.Forms.Label();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.pbClientesNuevos = new System.Windows.Forms.PictureBox();
             this.lblClientesIndivisuales = new System.Windows.Forms.Label();
             this.pnlReportesVentas = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.dgvReporteVentas = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
-            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
-            this.pictureBox5 = new System.Windows.Forms.PictureBox();
+            this.pbVentas = new System.Windows.Forms.PictureBox();
             this.lblVentasTotales = new System.Windows.Forms.Label();
-            this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
-            this.pictureBox6 = new System.Windows.Forms.PictureBox();
+            this.pbFactura = new System.Windows.Forms.PictureBox();
             this.lblFacturasEmitidas = new System.Windows.Forms.Label();
+            this.lblContadorCorporativos = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.lblContadorIndividual = new System.Windows.Forms.Label();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.lblContadorTotal = new System.Windows.Forms.Label();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.lblContadorVentasTotales = new System.Windows.Forms.Label();
+            this.lblMostrarFacturasEmitidas = new System.Windows.Forms.Label();
             this.pnlBarraSuperior.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbPerfil)).BeginInit();
             this.pnlContenedorPrincipalInventario.SuspendLayout();
@@ -77,21 +80,19 @@
             this.pnlReporteDeClientes.SuspendLayout();
             this.pnlCuadroVentas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReporteClientes)).BeginInit();
-            this.tlContenedordeIndicadores.SuspendLayout();
-            this.tlSeparadorElemtosReportes.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbClientesFrecuentes)).BeginInit();
-            this.tableLayoutPanel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbClientesRegistrados)).BeginInit();
-            this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbClientesNuevos)).BeginInit();
             this.pnlReportesVentas.SuspendLayout();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReporteVentas)).BeginInit();
-            this.tableLayoutPanel4.SuspendLayout();
-            this.tableLayoutPanel6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
-            this.tableLayoutPanel7.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbVentas)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbFactura)).BeginInit();
+            this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.panel4.SuspendLayout();
+            this.panel5.SuspendLayout();
+            this.panel6.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlBarraSuperior
@@ -245,8 +246,8 @@
             this.pnlHeader.Controls.Add(this.lblMensajeInformativoPrincipal);
             this.pnlHeader.Controls.Add(this.btnClientes);
             this.pnlHeader.Controls.Add(this.btnVentas);
-            this.pnlHeader.Controls.Add(this.pnlReporteDeClientes);
             this.pnlHeader.Controls.Add(this.pnlReportesVentas);
+            this.pnlHeader.Controls.Add(this.pnlReporteDeClientes);
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlHeader.Location = new System.Drawing.Point(0, 0);
             this.pnlHeader.Margin = new System.Windows.Forms.Padding(2);
@@ -296,8 +297,10 @@
             // pnlReporteDeClientes
             // 
             this.pnlReporteDeClientes.BackColor = System.Drawing.Color.White;
+            this.pnlReporteDeClientes.Controls.Add(this.panel4);
+            this.pnlReporteDeClientes.Controls.Add(this.panel2);
+            this.pnlReporteDeClientes.Controls.Add(this.panel1);
             this.pnlReporteDeClientes.Controls.Add(this.pnlCuadroVentas);
-            this.pnlReporteDeClientes.Controls.Add(this.tlContenedordeIndicadores);
             this.pnlReporteDeClientes.Location = new System.Drawing.Point(61, 196);
             this.pnlReporteDeClientes.Margin = new System.Windows.Forms.Padding(2);
             this.pnlReporteDeClientes.Name = "pnlReporteDeClientes";
@@ -346,86 +349,34 @@
             this.lblDetalleVentas.TabIndex = 0;
             this.lblDetalleVentas.Text = "Detalle de Clientes";
             // 
-            // tlContenedordeIndicadores
-            // 
-            this.tlContenedordeIndicadores.ColumnCount = 3;
-            this.tlContenedordeIndicadores.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tlContenedordeIndicadores.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tlContenedordeIndicadores.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tlContenedordeIndicadores.Controls.Add(this.tlSeparadorElemtosReportes, 2, 0);
-            this.tlContenedordeIndicadores.Controls.Add(this.tableLayoutPanel3, 0, 0);
-            this.tlContenedordeIndicadores.Controls.Add(this.tableLayoutPanel2, 1, 0);
-            this.tlContenedordeIndicadores.Location = new System.Drawing.Point(24, 9);
-            this.tlContenedordeIndicadores.Margin = new System.Windows.Forms.Padding(2);
-            this.tlContenedordeIndicadores.Name = "tlContenedordeIndicadores";
-            this.tlContenedordeIndicadores.RowCount = 1;
-            this.tlContenedordeIndicadores.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlContenedordeIndicadores.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 82F));
-            this.tlContenedordeIndicadores.Size = new System.Drawing.Size(915, 82);
-            this.tlContenedordeIndicadores.TabIndex = 4;
-            // 
-            // tlSeparadorElemtosReportes
-            // 
-            this.tlSeparadorElemtosReportes.ColumnCount = 2;
-            this.tlSeparadorElemtosReportes.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35F));
-            this.tlSeparadorElemtosReportes.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 65F));
-            this.tlSeparadorElemtosReportes.Controls.Add(this.lblClientesTotales, 1, 0);
-            this.tlSeparadorElemtosReportes.Controls.Add(this.pbClientesFrecuentes, 0, 0);
-            this.tlSeparadorElemtosReportes.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tlSeparadorElemtosReportes.Location = new System.Drawing.Point(612, 2);
-            this.tlSeparadorElemtosReportes.Margin = new System.Windows.Forms.Padding(2);
-            this.tlSeparadorElemtosReportes.Name = "tlSeparadorElemtosReportes";
-            this.tlSeparadorElemtosReportes.RowCount = 1;
-            this.tlSeparadorElemtosReportes.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlSeparadorElemtosReportes.Size = new System.Drawing.Size(301, 78);
-            this.tlSeparadorElemtosReportes.TabIndex = 1;
-            // 
             // lblClientesTotales
             // 
             this.lblClientesTotales.AutoSize = true;
-            this.lblClientesTotales.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblClientesTotales.Font = new System.Drawing.Font("Times New Roman", 16F);
-            this.lblClientesTotales.Location = new System.Drawing.Point(107, 0);
+            this.lblClientesTotales.Location = new System.Drawing.Point(124, 10);
             this.lblClientesTotales.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblClientesTotales.Name = "lblClientesTotales";
-            this.lblClientesTotales.Size = new System.Drawing.Size(192, 25);
+            this.lblClientesTotales.Size = new System.Drawing.Size(154, 25);
             this.lblClientesTotales.TabIndex = 0;
             this.lblClientesTotales.Text = "Clientes Totales";
             // 
             // pbClientesFrecuentes
             // 
-            this.pbClientesFrecuentes.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pbClientesFrecuentes.Image = global::Vista.Properties.Resources.Cliente_frecuente;
-            this.pbClientesFrecuentes.Location = new System.Drawing.Point(3, 3);
+            this.pbClientesFrecuentes.Location = new System.Drawing.Point(4, 2);
             this.pbClientesFrecuentes.Name = "pbClientesFrecuentes";
             this.pbClientesFrecuentes.Size = new System.Drawing.Size(99, 72);
             this.pbClientesFrecuentes.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbClientesFrecuentes.TabIndex = 1;
             this.pbClientesFrecuentes.TabStop = false;
-            // 
-            // tableLayoutPanel3
-            // 
-            this.tableLayoutPanel3.ColumnCount = 2;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 65F));
-            this.tableLayoutPanel3.Controls.Add(this.pbClientesRegistrados, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.lblClientesCorporativos, 1, 0);
-            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(2, 2);
-            this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(2);
-            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 1;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(301, 78);
-            this.tableLayoutPanel3.TabIndex = 3;
+            this.pbClientesFrecuentes.Click += new System.EventHandler(this.pbClientesFrecuentes_Click);
             // 
             // pbClientesRegistrados
             // 
-            this.pbClientesRegistrados.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pbClientesRegistrados.Image = global::Vista.Properties.Resources.Clientes_totales;
-            this.pbClientesRegistrados.Location = new System.Drawing.Point(3, 3);
+            this.pbClientesRegistrados.Location = new System.Drawing.Point(8, 4);
             this.pbClientesRegistrados.Name = "pbClientesRegistrados";
-            this.pbClientesRegistrados.Size = new System.Drawing.Size(99, 72);
+            this.pbClientesRegistrados.Size = new System.Drawing.Size(106, 69);
             this.pbClientesRegistrados.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbClientesRegistrados.TabIndex = 2;
             this.pbClientesRegistrados.TabStop = false;
@@ -433,36 +384,19 @@
             // lblClientesCorporativos
             // 
             this.lblClientesCorporativos.AutoSize = true;
-            this.lblClientesCorporativos.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblClientesCorporativos.Font = new System.Drawing.Font("Times New Roman", 15F);
-            this.lblClientesCorporativos.Location = new System.Drawing.Point(107, 0);
+            this.lblClientesCorporativos.Location = new System.Drawing.Point(119, 8);
             this.lblClientesCorporativos.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblClientesCorporativos.Name = "lblClientesCorporativos";
-            this.lblClientesCorporativos.Size = new System.Drawing.Size(192, 22);
+            this.lblClientesCorporativos.Size = new System.Drawing.Size(185, 22);
             this.lblClientesCorporativos.TabIndex = 0;
             this.lblClientesCorporativos.Text = "Clientes Corporativos";
-            // 
-            // tableLayoutPanel2
-            // 
-            this.tableLayoutPanel2.ColumnCount = 2;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 65F));
-            this.tableLayoutPanel2.Controls.Add(this.pbClientesNuevos, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.lblClientesIndivisuales, 1, 0);
-            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(307, 2);
-            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(2);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 1;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(301, 78);
-            this.tableLayoutPanel2.TabIndex = 2;
+            this.lblClientesCorporativos.Click += new System.EventHandler(this.lblClientesCorporativos_Click);
             // 
             // pbClientesNuevos
             // 
-            this.pbClientesNuevos.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pbClientesNuevos.Image = global::Vista.Properties.Resources.Cliente_nuevo;
-            this.pbClientesNuevos.Location = new System.Drawing.Point(3, 3);
+            this.pbClientesNuevos.Location = new System.Drawing.Point(15, 2);
             this.pbClientesNuevos.Name = "pbClientesNuevos";
             this.pbClientesNuevos.Size = new System.Drawing.Size(99, 72);
             this.pbClientesNuevos.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -472,20 +406,20 @@
             // lblClientesIndivisuales
             // 
             this.lblClientesIndivisuales.AutoSize = true;
-            this.lblClientesIndivisuales.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblClientesIndivisuales.Font = new System.Drawing.Font("Times New Roman", 15.5F);
-            this.lblClientesIndivisuales.Location = new System.Drawing.Point(107, 0);
+            this.lblClientesIndivisuales.Location = new System.Drawing.Point(119, 9);
             this.lblClientesIndivisuales.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblClientesIndivisuales.Name = "lblClientesIndivisuales";
-            this.lblClientesIndivisuales.Size = new System.Drawing.Size(192, 23);
+            this.lblClientesIndivisuales.Size = new System.Drawing.Size(184, 23);
             this.lblClientesIndivisuales.TabIndex = 0;
             this.lblClientesIndivisuales.Text = "Clientes Individuales";
             // 
             // pnlReportesVentas
             // 
             this.pnlReportesVentas.BackColor = System.Drawing.Color.White;
+            this.pnlReportesVentas.Controls.Add(this.panel6);
+            this.pnlReportesVentas.Controls.Add(this.panel5);
             this.pnlReportesVentas.Controls.Add(this.panel3);
-            this.pnlReportesVentas.Controls.Add(this.tableLayoutPanel4);
             this.pnlReportesVentas.Location = new System.Drawing.Point(62, 197);
             this.pnlReportesVentas.Margin = new System.Windows.Forms.Padding(2);
             this.pnlReportesVentas.Name = "pnlReportesVentas";
@@ -534,100 +468,142 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Detalle de Ventas";
             // 
-            // tableLayoutPanel4
+            // pbVentas
             // 
-            this.tableLayoutPanel4.ColumnCount = 3;
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 21F));
-            this.tableLayoutPanel4.Controls.Add(this.tableLayoutPanel6, 0, 0);
-            this.tableLayoutPanel4.Controls.Add(this.tableLayoutPanel7, 1, 0);
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(24, 9);
-            this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(2);
-            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
-            this.tableLayoutPanel4.RowCount = 1;
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 82F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(915, 82);
-            this.tableLayoutPanel4.TabIndex = 4;
-            // 
-            // tableLayoutPanel6
-            // 
-            this.tableLayoutPanel6.ColumnCount = 2;
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35F));
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 65F));
-            this.tableLayoutPanel6.Controls.Add(this.pictureBox5, 0, 0);
-            this.tableLayoutPanel6.Controls.Add(this.lblVentasTotales, 1, 0);
-            this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel6.Location = new System.Drawing.Point(2, 2);
-            this.tableLayoutPanel6.Margin = new System.Windows.Forms.Padding(2);
-            this.tableLayoutPanel6.Name = "tableLayoutPanel6";
-            this.tableLayoutPanel6.RowCount = 1;
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(443, 78);
-            this.tableLayoutPanel6.TabIndex = 3;
-            // 
-            // pictureBox5
-            // 
-            this.pictureBox5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox5.Image = global::Vista.Properties.Resources.ventas_totales_reportes;
-            this.pictureBox5.Location = new System.Drawing.Point(3, 3);
-            this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Size = new System.Drawing.Size(149, 72);
-            this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox5.TabIndex = 2;
-            this.pictureBox5.TabStop = false;
+            this.pbVentas.Image = global::Vista.Properties.Resources.ventas_totales_reportes;
+            this.pbVentas.Location = new System.Drawing.Point(11, 0);
+            this.pbVentas.Name = "pbVentas";
+            this.pbVentas.Size = new System.Drawing.Size(149, 72);
+            this.pbVentas.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbVentas.TabIndex = 2;
+            this.pbVentas.TabStop = false;
             // 
             // lblVentasTotales
             // 
             this.lblVentasTotales.AutoSize = true;
-            this.lblVentasTotales.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblVentasTotales.Font = new System.Drawing.Font("Times New Roman", 16F);
-            this.lblVentasTotales.Location = new System.Drawing.Point(157, 0);
+            this.lblVentasTotales.Location = new System.Drawing.Point(183, 5);
             this.lblVentasTotales.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblVentasTotales.Name = "lblVentasTotales";
-            this.lblVentasTotales.Size = new System.Drawing.Size(284, 25);
+            this.lblVentasTotales.Size = new System.Drawing.Size(140, 25);
             this.lblVentasTotales.TabIndex = 0;
             this.lblVentasTotales.Text = "Ventas Totales";
             // 
-            // tableLayoutPanel7
+            // pbFactura
             // 
-            this.tableLayoutPanel7.ColumnCount = 2;
-            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35F));
-            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 65F));
-            this.tableLayoutPanel7.Controls.Add(this.pictureBox6, 0, 0);
-            this.tableLayoutPanel7.Controls.Add(this.lblFacturasEmitidas, 1, 0);
-            this.tableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel7.Location = new System.Drawing.Point(449, 2);
-            this.tableLayoutPanel7.Margin = new System.Windows.Forms.Padding(2);
-            this.tableLayoutPanel7.Name = "tableLayoutPanel7";
-            this.tableLayoutPanel7.RowCount = 1;
-            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel7.Size = new System.Drawing.Size(443, 78);
-            this.tableLayoutPanel7.TabIndex = 2;
-            // 
-            // pictureBox6
-            // 
-            this.pictureBox6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox6.Image = global::Vista.Properties.Resources.Facturas_emitidas;
-            this.pictureBox6.Location = new System.Drawing.Point(3, 3);
-            this.pictureBox6.Name = "pictureBox6";
-            this.pictureBox6.Size = new System.Drawing.Size(149, 72);
-            this.pictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox6.TabIndex = 2;
-            this.pictureBox6.TabStop = false;
+            this.pbFactura.Image = global::Vista.Properties.Resources.Facturas_emitidas;
+            this.pbFactura.Location = new System.Drawing.Point(16, 3);
+            this.pbFactura.Name = "pbFactura";
+            this.pbFactura.Size = new System.Drawing.Size(146, 68);
+            this.pbFactura.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbFactura.TabIndex = 2;
+            this.pbFactura.TabStop = false;
             // 
             // lblFacturasEmitidas
             // 
             this.lblFacturasEmitidas.AutoSize = true;
-            this.lblFacturasEmitidas.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblFacturasEmitidas.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFacturasEmitidas.Location = new System.Drawing.Point(157, 0);
+            this.lblFacturasEmitidas.Location = new System.Drawing.Point(183, 5);
             this.lblFacturasEmitidas.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblFacturasEmitidas.Name = "lblFacturasEmitidas";
-            this.lblFacturasEmitidas.Size = new System.Drawing.Size(284, 27);
+            this.lblFacturasEmitidas.Size = new System.Drawing.Size(184, 27);
             this.lblFacturasEmitidas.TabIndex = 0;
             this.lblFacturasEmitidas.Text = "Facturas Emitidas";
+            // 
+            // lblContadorCorporativos
+            // 
+            this.lblContadorCorporativos.AutoSize = true;
+            this.lblContadorCorporativos.Location = new System.Drawing.Point(164, 46);
+            this.lblContadorCorporativos.Name = "lblContadorCorporativos";
+            this.lblContadorCorporativos.Size = new System.Drawing.Size(35, 13);
+            this.lblContadorCorporativos.TabIndex = 6;
+            this.lblContadorCorporativos.Text = "label2";
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.lblClientesCorporativos);
+            this.panel1.Controls.Add(this.lblContadorCorporativos);
+            this.panel1.Controls.Add(this.pbClientesRegistrados);
+            this.panel1.Location = new System.Drawing.Point(24, 13);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(313, 77);
+            this.panel1.TabIndex = 7;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.lblClientesIndivisuales);
+            this.panel2.Controls.Add(this.pbClientesNuevos);
+            this.panel2.Controls.Add(this.lblContadorIndividual);
+            this.panel2.Location = new System.Drawing.Point(341, 13);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(313, 77);
+            this.panel2.TabIndex = 8;
+            // 
+            // lblContadorIndividual
+            // 
+            this.lblContadorIndividual.AutoSize = true;
+            this.lblContadorIndividual.Location = new System.Drawing.Point(164, 46);
+            this.lblContadorIndividual.Name = "lblContadorIndividual";
+            this.lblContadorIndividual.Size = new System.Drawing.Size(35, 13);
+            this.lblContadorIndividual.TabIndex = 6;
+            this.lblContadorIndividual.Text = "label4";
+            // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.lblClientesTotales);
+            this.panel4.Controls.Add(this.pbClientesFrecuentes);
+            this.panel4.Controls.Add(this.lblContadorTotal);
+            this.panel4.Location = new System.Drawing.Point(657, 12);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(313, 77);
+            this.panel4.TabIndex = 9;
+            // 
+            // lblContadorTotal
+            // 
+            this.lblContadorTotal.AutoSize = true;
+            this.lblContadorTotal.Location = new System.Drawing.Point(164, 46);
+            this.lblContadorTotal.Name = "lblContadorTotal";
+            this.lblContadorTotal.Size = new System.Drawing.Size(35, 13);
+            this.lblContadorTotal.TabIndex = 6;
+            this.lblContadorTotal.Text = "label5";
+            // 
+            // panel5
+            // 
+            this.panel5.Controls.Add(this.lblContadorVentasTotales);
+            this.panel5.Controls.Add(this.lblVentasTotales);
+            this.panel5.Controls.Add(this.pbVentas);
+            this.panel5.Location = new System.Drawing.Point(33, 11);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(431, 74);
+            this.panel5.TabIndex = 6;
+            // 
+            // panel6
+            // 
+            this.panel6.Controls.Add(this.lblMostrarFacturasEmitidas);
+            this.panel6.Controls.Add(this.lblFacturasEmitidas);
+            this.panel6.Controls.Add(this.pbFactura);
+            this.panel6.Location = new System.Drawing.Point(494, 12);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(432, 74);
+            this.panel6.TabIndex = 7;
+            // 
+            // lblContadorVentasTotales
+            // 
+            this.lblContadorVentasTotales.AutoSize = true;
+            this.lblContadorVentasTotales.Location = new System.Drawing.Point(220, 46);
+            this.lblContadorVentasTotales.Name = "lblContadorVentasTotales";
+            this.lblContadorVentasTotales.Size = new System.Drawing.Size(35, 13);
+            this.lblContadorVentasTotales.TabIndex = 3;
+            this.lblContadorVentasTotales.Text = "label2";
+            // 
+            // lblMostrarFacturasEmitidas
+            // 
+            this.lblMostrarFacturasEmitidas.AutoSize = true;
+            this.lblMostrarFacturasEmitidas.Location = new System.Drawing.Point(251, 45);
+            this.lblMostrarFacturasEmitidas.Name = "lblMostrarFacturasEmitidas";
+            this.lblMostrarFacturasEmitidas.Size = new System.Drawing.Size(35, 13);
+            this.lblMostrarFacturasEmitidas.TabIndex = 4;
+            this.lblMostrarFacturasEmitidas.Text = "label3";
             // 
             // frmReportes
             // 
@@ -650,27 +626,25 @@
             this.pnlCuadroVentas.ResumeLayout(false);
             this.pnlCuadroVentas.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReporteClientes)).EndInit();
-            this.tlContenedordeIndicadores.ResumeLayout(false);
-            this.tlSeparadorElemtosReportes.ResumeLayout(false);
-            this.tlSeparadorElemtosReportes.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbClientesFrecuentes)).EndInit();
-            this.tableLayoutPanel3.ResumeLayout(false);
-            this.tableLayoutPanel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbClientesRegistrados)).EndInit();
-            this.tableLayoutPanel2.ResumeLayout(false);
-            this.tableLayoutPanel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbClientesNuevos)).EndInit();
             this.pnlReportesVentas.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReporteVentas)).EndInit();
-            this.tableLayoutPanel4.ResumeLayout(false);
-            this.tableLayoutPanel6.ResumeLayout(false);
-            this.tableLayoutPanel6.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
-            this.tableLayoutPanel7.ResumeLayout(false);
-            this.tableLayoutPanel7.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbVentas)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbFactura)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
+            this.panel5.ResumeLayout(false);
+            this.panel5.PerformLayout();
+            this.panel6.ResumeLayout(false);
+            this.panel6.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -697,14 +671,10 @@
         private System.Windows.Forms.Panel pnlReporteDeClientes;
         private System.Windows.Forms.Panel pnlCuadroVentas;
         private System.Windows.Forms.Label lblDetalleVentas;
-        private System.Windows.Forms.TableLayoutPanel tlContenedordeIndicadores;
-        private System.Windows.Forms.TableLayoutPanel tlSeparadorElemtosReportes;
         private System.Windows.Forms.Label lblClientesTotales;
         private System.Windows.Forms.PictureBox pbClientesFrecuentes;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.PictureBox pbClientesRegistrados;
         private System.Windows.Forms.Label lblClientesCorporativos;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.PictureBox pbClientesNuevos;
         private System.Windows.Forms.Label lblClientesIndivisuales;
         private System.Windows.Forms.Panel pnlBarraCambio;
@@ -712,12 +682,19 @@
         private System.Windows.Forms.PictureBox pbPerfil;
         private System.Windows.Forms.Label lblAdministrador;
         private System.Windows.Forms.DataGridView dgvReporteClientes;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
-        private System.Windows.Forms.PictureBox pictureBox5;
+        private System.Windows.Forms.PictureBox pbVentas;
         private System.Windows.Forms.Label lblVentasTotales;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel7;
-        private System.Windows.Forms.PictureBox pictureBox6;
+        private System.Windows.Forms.PictureBox pbFactura;
         private System.Windows.Forms.Label lblFacturasEmitidas;
+        private System.Windows.Forms.Label lblContadorCorporativos;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label lblContadorIndividual;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Label lblContadorTotal;
+        private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Label lblMostrarFacturasEmitidas;
+        private System.Windows.Forms.Label lblContadorVentasTotales;
     }
 }

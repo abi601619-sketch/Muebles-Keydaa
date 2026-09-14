@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.pnlBuscarClienteSuperior = new System.Windows.Forms.Panel();
+            this.btnSlir = new System.Windows.Forms.Button();
             this.lblBuscarCliente = new System.Windows.Forms.Label();
             this.dgvClientes = new System.Windows.Forms.DataGridView();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtBuscarCliente = new System.Windows.Forms.TextBox();
             this.pbxBuscar = new System.Windows.Forms.PictureBox();
             this.btnSeleccionarCliente = new System.Windows.Forms.Button();
-            this.btnSlir = new System.Windows.Forms.Button();
             this.pnlBuscarClienteSuperior.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvClientes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbxBuscar)).BeginInit();
@@ -50,6 +50,16 @@
             this.pnlBuscarClienteSuperior.Name = "pnlBuscarClienteSuperior";
             this.pnlBuscarClienteSuperior.Size = new System.Drawing.Size(537, 35);
             this.pnlBuscarClienteSuperior.TabIndex = 0;
+            // 
+            // btnSlir
+            // 
+            this.btnSlir.Image = global::Vista.Properties.Resources.Cerrar16px;
+            this.btnSlir.Location = new System.Drawing.Point(482, 4);
+            this.btnSlir.Name = "btnSlir";
+            this.btnSlir.Size = new System.Drawing.Size(47, 23);
+            this.btnSlir.TabIndex = 3;
+            this.btnSlir.UseVisualStyleBackColor = true;
+            this.btnSlir.Click += new System.EventHandler(this.btnSlir_Click);
             // 
             // lblBuscarCliente
             // 
@@ -75,14 +85,17 @@
             this.dgvClientes.Size = new System.Drawing.Size(507, 243);
             this.dgvClientes.TabIndex = 1;
             // 
-            // textBox1
+            // txtBuscarCliente
             // 
-            this.textBox1.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(17, 51);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(401, 22);
-            this.textBox1.TabIndex = 3;
-            this.textBox1.Text = "Buscar Cliente...";
+            this.txtBuscarCliente.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBuscarCliente.Location = new System.Drawing.Point(17, 51);
+            this.txtBuscarCliente.Name = "txtBuscarCliente";
+            this.txtBuscarCliente.Size = new System.Drawing.Size(401, 22);
+            this.txtBuscarCliente.TabIndex = 3;
+            this.txtBuscarCliente.Text = "Buscar Cliente...";
+            this.txtBuscarCliente.TextChanged += new System.EventHandler(this.txtBuscarCliente_TextChanged);
+            this.txtBuscarCliente.Enter += new System.EventHandler(this.txtBuscarCliente_Enter);
+            this.txtBuscarCliente.Leave += new System.EventHandler(this.txtBuscarCliente_Leave);
             // 
             // pbxBuscar
             // 
@@ -107,16 +120,6 @@
             this.btnSeleccionarCliente.UseVisualStyleBackColor = false;
             this.btnSeleccionarCliente.Click += new System.EventHandler(this.btnSeleccionarCliente_Click);
             // 
-            // btnSlir
-            // 
-            this.btnSlir.Image = global::Vista.Properties.Resources.Cerrar16px;
-            this.btnSlir.Location = new System.Drawing.Point(482, 4);
-            this.btnSlir.Name = "btnSlir";
-            this.btnSlir.Size = new System.Drawing.Size(47, 23);
-            this.btnSlir.TabIndex = 3;
-            this.btnSlir.UseVisualStyleBackColor = true;
-            this.btnSlir.Click += new System.EventHandler(this.btnSlir_Click);
-            // 
             // frmBuscarCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -125,7 +128,7 @@
             this.ClientSize = new System.Drawing.Size(537, 385);
             this.Controls.Add(this.btnSeleccionarCliente);
             this.Controls.Add(this.pbxBuscar);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtBuscarCliente);
             this.Controls.Add(this.dgvClientes);
             this.Controls.Add(this.pnlBuscarClienteSuperior);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -147,7 +150,7 @@
         private System.Windows.Forms.Panel pnlBuscarClienteSuperior;
         private System.Windows.Forms.Label lblBuscarCliente;
         private System.Windows.Forms.DataGridView dgvClientes;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtBuscarCliente;
         private System.Windows.Forms.PictureBox pbxBuscar;
         private System.Windows.Forms.Button btnSeleccionarCliente;
         private System.Windows.Forms.Button btnSlir;

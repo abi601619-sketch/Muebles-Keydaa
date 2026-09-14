@@ -1,6 +1,7 @@
 using System;
 using System.Windows.Forms;
 using Vista.Categorías;
+using Vista.Clientes;
 using Vista.Compras;
 using Vista.Cotizaciones;
 using Vista.Facturación;

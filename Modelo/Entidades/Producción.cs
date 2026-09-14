@@ -158,7 +158,125 @@ namespace Modelo.Entidades
             }
         }
 
+        // CALCULAR ESTADÍSTICAS
 
+        // Totales
+        public static int ContarProduccionesTotales()
+        {
+            try
+            {
+                using (SqlConnection conexion = Conexion.Conectar())
+                {
+                    string query = "SELECT COUNT(*) FROM Produccion";
+
+                    using (SqlCommand comando = new SqlCommand(query, conexion))
+                    {
+                        return Convert.ToInt32(comando.ExecuteScalar());
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Error al contar las producciones totales: " + ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+
+                return 0;
+            }
+        }
+
+        // Pendientes
+        public static int ContarProduccionesPendientes()
+        {
+            try
+            {
+                using (SqlConnection conexion = Conexion.Conectar())
+                {
+                    string query = @"SELECT COUNT(*) 
+                             FROM Produccion 
+                             WHERE Progreso = 0";
+
+                    using (SqlCommand comando = new SqlCommand(query, conexion))
+                    {
+                        return Convert.ToInt32(comando.ExecuteScalar());
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Error al contar las producciones pendientes: " + ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+
+                return 0;
+            }
+        }
+
+        // En producción
+        public static int ContarProduccionesEnProceso()
+        {
+            try
+            {
+                using (SqlConnection conexion = Conexion.Conectar())
+                {
+                    string query = @"SELECT COUNT(*) 
+                             FROM Produccion 
+                             WHERE Progreso BETWEEN 1 AND 99";
+
+                    using (SqlCommand comando = new SqlCommand(query, conexion))
+                    {
+                        return Convert.ToInt32(comando.ExecuteScalar());
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Error al contar las producciones en proceso: " + ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+
+                return 0;
+            }
+        }
+
+        // Finalizados
+        public static int ContarProduccionesFinalizadas()
+        {
+            try
+            {
+                using (SqlConnection conexion = Conexion.Conectar())
+                {
+                    string query = @"SELECT COUNT(*) 
+                             FROM Produccion 
+                             WHERE Progreso = 100";
+
+                    using (SqlCommand comando = new SqlCommand(query, conexion))
+                    {
+                        return Convert.ToInt32(comando.ExecuteScalar());
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Error al contar las producciones finalizadas: " + ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+
+                return 0;
+            }
+        }
 
 
     }

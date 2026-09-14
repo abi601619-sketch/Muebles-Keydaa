@@ -30,6 +30,7 @@
         {
             this.pnlContenedorPrincipalInventario = new System.Windows.Forms.Panel();
             this.pnlPedidaDeDatos = new System.Windows.Forms.Panel();
+            this.btnNuevo = new System.Windows.Forms.Button();
             this.btnGuardarCambios = new System.Windows.Forms.Button();
             this.cbCategorias = new System.Windows.Forms.ComboBox();
             this.btnGuardar = new System.Windows.Forms.Button();
@@ -44,21 +45,25 @@
             this.lblDatosMaterial = new System.Windows.Forms.Label();
             this.lblSubTexto = new System.Windows.Forms.Label();
             this.pnlHeader = new System.Windows.Forms.Panel();
-            this.btnBuscar = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.txtBuscar = new System.Windows.Forms.TextBox();
             this.pnlBarraSuperior = new System.Windows.Forms.Panel();
             this.lblAdministrador = new System.Windows.Forms.Label();
             this.pbPerfil = new System.Windows.Forms.PictureBox();
             this.pnlIndicador3 = new System.Windows.Forms.Panel();
+            this.lblTotalRegistrados = new System.Windows.Forms.Label();
             this.lblTotalInventario = new System.Windows.Forms.Label();
             this.pbTotalInventario = new System.Windows.Forms.PictureBox();
             this.pnlIndicador2 = new System.Windows.Forms.Panel();
+            this.lblAgotandose = new System.Windows.Forms.Label();
             this.lblPocasUnidades = new System.Windows.Forms.Label();
             this.pbPocasUnidades = new System.Windows.Forms.PictureBox();
             this.pnlIndicador = new System.Windows.Forms.Panel();
+            this.lblMaterialesAgotados = new System.Windows.Forms.Label();
             this.lblAgotados = new System.Windows.Forms.Label();
             this.pbAgotados = new System.Windows.Forms.PictureBox();
             this.pnlIndicador1 = new System.Windows.Forms.Panel();
+            this.lblDisponibles = new System.Windows.Forms.Label();
             this.lblMaterialDisponible = new System.Windows.Forms.Label();
             this.pbDisponibles = new System.Windows.Forms.PictureBox();
             this.lblMensajeInformativoPrincipal = new System.Windows.Forms.Label();
@@ -67,6 +72,7 @@
             this.pnlContenedorPrincipalInventario.SuspendLayout();
             this.pnlPedidaDeDatos.SuspendLayout();
             this.pnlHeader.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.pnlBarraSuperior.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbPerfil)).BeginInit();
             this.pnlIndicador3.SuspendLayout();
@@ -99,6 +105,7 @@
             this.pnlPedidaDeDatos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlPedidaDeDatos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(215)))), ((int)(((byte)(215)))));
+            this.pnlPedidaDeDatos.Controls.Add(this.btnNuevo);
             this.pnlPedidaDeDatos.Controls.Add(this.btnGuardarCambios);
             this.pnlPedidaDeDatos.Controls.Add(this.cbCategorias);
             this.pnlPedidaDeDatos.Controls.Add(this.btnGuardar);
@@ -114,14 +121,24 @@
             this.pnlPedidaDeDatos.Location = new System.Drawing.Point(6, 117);
             this.pnlPedidaDeDatos.Margin = new System.Windows.Forms.Padding(2);
             this.pnlPedidaDeDatos.Name = "pnlPedidaDeDatos";
-            this.pnlPedidaDeDatos.Size = new System.Drawing.Size(220, 365);
+            this.pnlPedidaDeDatos.Size = new System.Drawing.Size(220, 390);
             this.pnlPedidaDeDatos.TabIndex = 2;
+            // 
+            // btnNuevo
+            // 
+            this.btnNuevo.Location = new System.Drawing.Point(21, 54);
+            this.btnNuevo.Name = "btnNuevo";
+            this.btnNuevo.Size = new System.Drawing.Size(174, 28);
+            this.btnNuevo.TabIndex = 24;
+            this.btnNuevo.Text = "Nuevo Material";
+            this.btnNuevo.UseVisualStyleBackColor = true;
+            this.btnNuevo.Click += new System.EventHandler(this.btnNuevo_Click);
             // 
             // btnGuardarCambios
             // 
             this.btnGuardarCambios.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.btnGuardarCambios.Font = new System.Drawing.Font("Times New Roman", 12F);
-            this.btnGuardarCambios.Location = new System.Drawing.Point(116, 313);
+            this.btnGuardarCambios.Location = new System.Drawing.Point(110, 330);
             this.btnGuardarCambios.Margin = new System.Windows.Forms.Padding(2);
             this.btnGuardarCambios.Name = "btnGuardarCambios";
             this.btnGuardarCambios.Size = new System.Drawing.Size(86, 36);
@@ -132,9 +149,10 @@
             // 
             // cbCategorias
             // 
+            this.cbCategorias.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbCategorias.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cbCategorias.FormattingEnabled = true;
-            this.cbCategorias.Location = new System.Drawing.Point(24, 152);
+            this.cbCategorias.Location = new System.Drawing.Point(22, 169);
             this.cbCategorias.Name = "cbCategorias";
             this.cbCategorias.Size = new System.Drawing.Size(164, 21);
             this.cbCategorias.TabIndex = 22;
@@ -143,7 +161,7 @@
             // 
             this.btnGuardar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.btnGuardar.Font = new System.Drawing.Font("Times New Roman", 12F);
-            this.btnGuardar.Location = new System.Drawing.Point(116, 313);
+            this.btnGuardar.Location = new System.Drawing.Point(110, 330);
             this.btnGuardar.Margin = new System.Windows.Forms.Padding(2);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(86, 36);
@@ -158,7 +176,7 @@
             this.cbUnidadMedida.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cbUnidadMedida.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbUnidadMedida.FormattingEnabled = true;
-            this.cbUnidadMedida.Location = new System.Drawing.Point(23, 274);
+            this.cbUnidadMedida.Location = new System.Drawing.Point(21, 291);
             this.cbUnidadMedida.Margin = new System.Windows.Forms.Padding(2);
             this.cbUnidadMedida.Name = "cbUnidadMedida";
             this.cbUnidadMedida.Size = new System.Drawing.Size(166, 28);
@@ -168,7 +186,7 @@
             // 
             this.btnEditar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.btnEditar.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEditar.Location = new System.Drawing.Point(24, 313);
+            this.btnEditar.Location = new System.Drawing.Point(18, 330);
             this.btnEditar.Margin = new System.Windows.Forms.Padding(2);
             this.btnEditar.Name = "btnEditar";
             this.btnEditar.Size = new System.Drawing.Size(88, 36);
@@ -181,7 +199,7 @@
             // 
             this.lblMedida.AutoSize = true;
             this.lblMedida.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMedida.Location = new System.Drawing.Point(20, 240);
+            this.lblMedida.Location = new System.Drawing.Point(18, 257);
             this.lblMedida.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblMedida.Name = "lblMedida";
             this.lblMedida.Size = new System.Drawing.Size(123, 19);
@@ -192,7 +210,7 @@
             // 
             this.txtCantidad.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtCantidad.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCantidad.Location = new System.Drawing.Point(21, 208);
+            this.txtCantidad.Location = new System.Drawing.Point(19, 225);
             this.txtCantidad.Margin = new System.Windows.Forms.Padding(2);
             this.txtCantidad.Name = "txtCantidad";
             this.txtCantidad.Size = new System.Drawing.Size(167, 19);
@@ -203,7 +221,7 @@
             // 
             this.lblCantidad.AutoSize = true;
             this.lblCantidad.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCantidad.Location = new System.Drawing.Point(21, 179);
+            this.lblCantidad.Location = new System.Drawing.Point(19, 196);
             this.lblCantidad.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblCantidad.Name = "lblCantidad";
             this.lblCantidad.Size = new System.Drawing.Size(67, 19);
@@ -214,7 +232,7 @@
             // 
             this.lblCategoria.AutoSize = true;
             this.lblCategoria.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCategoria.Location = new System.Drawing.Point(21, 124);
+            this.lblCategoria.Location = new System.Drawing.Point(19, 141);
             this.lblCategoria.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblCategoria.Name = "lblCategoria";
             this.lblCategoria.Size = new System.Drawing.Size(71, 19);
@@ -225,7 +243,7 @@
             // 
             this.txtMaterial.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtMaterial.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMaterial.Location = new System.Drawing.Point(21, 100);
+            this.txtMaterial.Location = new System.Drawing.Point(19, 117);
             this.txtMaterial.Margin = new System.Windows.Forms.Padding(2);
             this.txtMaterial.Name = "txtMaterial";
             this.txtMaterial.Size = new System.Drawing.Size(167, 19);
@@ -236,7 +254,7 @@
             // 
             this.lblMaterial.AutoSize = true;
             this.lblMaterial.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMaterial.Location = new System.Drawing.Point(20, 75);
+            this.lblMaterial.Location = new System.Drawing.Point(18, 92);
             this.lblMaterial.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblMaterial.Name = "lblMaterial";
             this.lblMaterial.Size = new System.Drawing.Size(62, 19);
@@ -247,7 +265,7 @@
             // 
             this.lblDatosMaterial.AutoSize = true;
             this.lblDatosMaterial.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Bold);
-            this.lblDatosMaterial.Location = new System.Drawing.Point(12, 25);
+            this.lblDatosMaterial.Location = new System.Drawing.Point(12, 17);
             this.lblDatosMaterial.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblDatosMaterial.Name = "lblDatosMaterial";
             this.lblDatosMaterial.Size = new System.Drawing.Size(200, 26);
@@ -267,7 +285,7 @@
             // 
             // pnlHeader
             // 
-            this.pnlHeader.Controls.Add(this.btnBuscar);
+            this.pnlHeader.Controls.Add(this.pictureBox1);
             this.pnlHeader.Controls.Add(this.txtBuscar);
             this.pnlHeader.Controls.Add(this.pnlBarraSuperior);
             this.pnlHeader.Controls.Add(this.pnlIndicador3);
@@ -283,16 +301,15 @@
             this.pnlHeader.Size = new System.Drawing.Size(1102, 627);
             this.pnlHeader.TabIndex = 0;
             // 
-            // btnBuscar
+            // pictureBox1
             // 
-            this.btnBuscar.BackColor = System.Drawing.Color.White;
-            this.btnBuscar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnBuscar.Image = global::Vista.Properties.Resources.lupa;
-            this.btnBuscar.Location = new System.Drawing.Point(976, 53);
-            this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(75, 29);
-            this.btnBuscar.TabIndex = 21;
-            this.btnBuscar.UseVisualStyleBackColor = false;
+            this.pictureBox1.Image = global::Vista.Properties.Resources.zoom_5611171;
+            this.pictureBox1.Location = new System.Drawing.Point(998, 56);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(32, 26);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 10;
+            this.pictureBox1.TabStop = false;
             // 
             // txtBuscar
             // 
@@ -344,6 +361,7 @@
             // pnlIndicador3
             // 
             this.pnlIndicador3.BackColor = System.Drawing.Color.White;
+            this.pnlIndicador3.Controls.Add(this.lblTotalRegistrados);
             this.pnlIndicador3.Controls.Add(this.lblTotalInventario);
             this.pnlIndicador3.Controls.Add(this.pbTotalInventario);
             this.pnlIndicador3.Location = new System.Drawing.Point(878, 524);
@@ -351,6 +369,15 @@
             this.pnlIndicador3.Name = "pnlIndicador3";
             this.pnlIndicador3.Size = new System.Drawing.Size(201, 77);
             this.pnlIndicador3.TabIndex = 4;
+            // 
+            // lblTotalRegistrados
+            // 
+            this.lblTotalRegistrados.AutoSize = true;
+            this.lblTotalRegistrados.Location = new System.Drawing.Point(115, 44);
+            this.lblTotalRegistrados.Name = "lblTotalRegistrados";
+            this.lblTotalRegistrados.Size = new System.Drawing.Size(35, 13);
+            this.lblTotalRegistrados.TabIndex = 7;
+            this.lblTotalRegistrados.Text = "label4";
             // 
             // lblTotalInventario
             // 
@@ -375,6 +402,7 @@
             // pnlIndicador2
             // 
             this.pnlIndicador2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(186)))), ((int)(((byte)(120)))));
+            this.pnlIndicador2.Controls.Add(this.lblAgotandose);
             this.pnlIndicador2.Controls.Add(this.lblPocasUnidades);
             this.pnlIndicador2.Controls.Add(this.pbPocasUnidades);
             this.pnlIndicador2.Location = new System.Drawing.Point(672, 524);
@@ -382,6 +410,15 @@
             this.pnlIndicador2.Name = "pnlIndicador2";
             this.pnlIndicador2.Size = new System.Drawing.Size(201, 77);
             this.pnlIndicador2.TabIndex = 4;
+            // 
+            // lblAgotandose
+            // 
+            this.lblAgotandose.AutoSize = true;
+            this.lblAgotandose.Location = new System.Drawing.Point(113, 47);
+            this.lblAgotandose.Name = "lblAgotandose";
+            this.lblAgotandose.Size = new System.Drawing.Size(35, 13);
+            this.lblAgotandose.TabIndex = 6;
+            this.lblAgotandose.Text = "label3";
             // 
             // lblPocasUnidades
             // 
@@ -406,6 +443,7 @@
             // pnlIndicador
             // 
             this.pnlIndicador.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(162)))), ((int)(((byte)(147)))));
+            this.pnlIndicador.Controls.Add(this.lblMaterialesAgotados);
             this.pnlIndicador.Controls.Add(this.lblAgotados);
             this.pnlIndicador.Controls.Add(this.pbAgotados);
             this.pnlIndicador.Location = new System.Drawing.Point(260, 524);
@@ -413,6 +451,15 @@
             this.pnlIndicador.Name = "pnlIndicador";
             this.pnlIndicador.Size = new System.Drawing.Size(201, 77);
             this.pnlIndicador.TabIndex = 4;
+            // 
+            // lblMaterialesAgotados
+            // 
+            this.lblMaterialesAgotados.AutoSize = true;
+            this.lblMaterialesAgotados.Location = new System.Drawing.Point(131, 49);
+            this.lblMaterialesAgotados.Name = "lblMaterialesAgotados";
+            this.lblMaterialesAgotados.Size = new System.Drawing.Size(35, 13);
+            this.lblMaterialesAgotados.TabIndex = 5;
+            this.lblMaterialesAgotados.Text = "label1";
             // 
             // lblAgotados
             // 
@@ -437,6 +484,7 @@
             // pnlIndicador1
             // 
             this.pnlIndicador1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(165)))), ((int)(((byte)(237)))), ((int)(((byte)(147)))));
+            this.pnlIndicador1.Controls.Add(this.lblDisponibles);
             this.pnlIndicador1.Controls.Add(this.lblMaterialDisponible);
             this.pnlIndicador1.Controls.Add(this.pbDisponibles);
             this.pnlIndicador1.Location = new System.Drawing.Point(467, 524);
@@ -444,6 +492,15 @@
             this.pnlIndicador1.Name = "pnlIndicador1";
             this.pnlIndicador1.Size = new System.Drawing.Size(201, 77);
             this.pnlIndicador1.TabIndex = 4;
+            // 
+            // lblDisponibles
+            // 
+            this.lblDisponibles.AutoSize = true;
+            this.lblDisponibles.Location = new System.Drawing.Point(121, 47);
+            this.lblDisponibles.Name = "lblDisponibles";
+            this.lblDisponibles.Size = new System.Drawing.Size(35, 13);
+            this.lblDisponibles.TabIndex = 6;
+            this.lblDisponibles.Text = "label2";
             // 
             // lblMaterialDisponible
             // 
@@ -524,6 +581,7 @@
             this.pnlPedidaDeDatos.PerformLayout();
             this.pnlHeader.ResumeLayout(false);
             this.pnlHeader.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.pnlBarraSuperior.ResumeLayout(false);
             this.pnlBarraSuperior.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbPerfil)).EndInit();
@@ -582,6 +640,11 @@
         private System.Windows.Forms.DataGridView dgvMateriales;
         private System.Windows.Forms.ComboBox cbCategorias;
         private System.Windows.Forms.Button btnGuardarCambios;
-        private System.Windows.Forms.Button btnBuscar;
+        private System.Windows.Forms.Label lblTotalRegistrados;
+        private System.Windows.Forms.Label lblAgotandose;
+        private System.Windows.Forms.Label lblMaterialesAgotados;
+        private System.Windows.Forms.Label lblDisponibles;
+        private System.Windows.Forms.Button btnNuevo;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

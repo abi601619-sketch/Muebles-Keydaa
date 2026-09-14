@@ -92,6 +92,12 @@
     <Compile Include="Clientes\frmBuscarCliente.Designer.cs">
       <DependentUpon>frmBuscarCliente.cs</DependentUpon>
     </Compile>
+    <Compile Include="Clientes\frmCliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Clientes\frmCliente.Designer.cs">
+      <DependentUpon>frmCliente.cs</DependentUpon>
+    </Compile>
     <Compile Include="Compras\frmCompras.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -145,12 +151,6 @@
     </Compile>
     <Compile Include="Inventario\frmInventario.Designer.cs">
       <DependentUpon>frmInventario.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Clientes\frmClientes.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Clientes\frmClientes.Designer.cs">
-      <DependentUpon>frmClientes.cs</DependentUpon>
     </Compile>
     <Compile Include="Iventario Secretario\frmInventarioSecretario.cs">
       <SubType>Form</SubType>
@@ -271,6 +271,9 @@
     <EmbeddedResource Include="Clientes\frmBuscarCliente.resx">
       <DependentUpon>frmBuscarCliente.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Clientes\frmCliente.resx">
+      <DependentUpon>frmCliente.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Compras\frmCompras.resx">
       <DependentUpon>frmCompras.cs</DependentUpon>
     </EmbeddedResource>
@@ -297,9 +300,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Inventario\frmInventario.resx">
       <DependentUpon>frmInventario.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Clientes\frmClientes.resx">
-      <DependentUpon>frmClientes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Iventario Secretario\frmInventarioSecretario.resx">
       <DependentUpon>frmInventarioSecretario.cs</DependentUpon>

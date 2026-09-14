@@ -180,13 +180,35 @@ namespace Modelo.Entidades
             }
         }
 
-        public static bool ActualizarPedido(int idPedido, string nuevoEstado, DateTime fechaEntrega)
+
+
+        public static bool ActualizarPedidoEstado(int idPedido, string nuevoEstado)
         {
             using (System.Data.SqlClient.SqlConnection conexion = Conexion.Conectar())
             {
-                string query = "UPDATE Pedido SET Estado = @Estado, FechaDeEntrega = @FechaEntrega WHERE IdPedido = @IdPedido";
+                string query = "UPDATE Pedido SET Estado = @Estado WHERE IdPedido = @IdPedido";
                 System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand(query, conexion);
                 cmd.Parameters.AddWithValue("@Estado", nuevoEstado);
+
+                cmd.Parameters.AddWithValue("@IdPedido", idPedido);
+                try
+                {
+                    return cmd.ExecuteNonQuery() > 0;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+        }
+
+        public static bool ActualizarPedidoFecha(int idPedido, DateTime fechaEntrega)
+        {
+            using (System.Data.SqlClient.SqlConnection conexion = Conexion.Conectar())
+            {
+                string query = "UPDATE Pedido SET FechaDeEntrega = @FechaEntrega WHERE IdPedido = @IdPedido";
+                System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand(query, conexion);
+
                 cmd.Parameters.AddWithValue("@FechaEntrega", fechaEntrega);
                 cmd.Parameters.AddWithValue("@IdPedido", idPedido);
                 try

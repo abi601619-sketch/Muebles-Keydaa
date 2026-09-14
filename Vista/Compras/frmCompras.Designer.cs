@@ -31,7 +31,8 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pnlPrincipalCompras = new System.Windows.Forms.Panel();
-            this.btnBuscar = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.btnNueva = new System.Windows.Forms.Button();
             this.pnlComprasRegistradas = new System.Windows.Forms.Panel();
             this.lblComprasRegistradas = new System.Windows.Forms.Label();
             this.dgvHistorialCompras = new System.Windows.Forms.DataGridView();
@@ -55,6 +56,7 @@
             this.lblSubTexto = new System.Windows.Forms.Label();
             this.lblMensajeInformativoPrincipal = new System.Windows.Forms.Label();
             this.pnlDetalleCompra = new System.Windows.Forms.Panel();
+            this.btnActualizarCompra = new System.Windows.Forms.Button();
             this.txtTotalCompra = new System.Windows.Forms.TextBox();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.lblTotalCompra = new System.Windows.Forms.Label();
@@ -65,6 +67,7 @@
             this.lblAdministrador = new System.Windows.Forms.Label();
             this.pbPerfil = new System.Windows.Forms.PictureBox();
             this.pnlPrincipalCompras.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.pnlComprasRegistradas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHistorialCompras)).BeginInit();
             this.pnlPedidaDeDatos.SuspendLayout();
@@ -78,7 +81,8 @@
             // pnlPrincipalCompras
             // 
             this.pnlPrincipalCompras.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(221)))), ((int)(((byte)(175)))));
-            this.pnlPrincipalCompras.Controls.Add(this.btnBuscar);
+            this.pnlPrincipalCompras.Controls.Add(this.pictureBox1);
+            this.pnlPrincipalCompras.Controls.Add(this.btnNueva);
             this.pnlPrincipalCompras.Controls.Add(this.pnlComprasRegistradas);
             this.pnlPrincipalCompras.Controls.Add(this.txtBuscar);
             this.pnlPrincipalCompras.Controls.Add(this.pnlPedidaDeDatos);
@@ -93,17 +97,26 @@
             this.pnlPrincipalCompras.Size = new System.Drawing.Size(1102, 627);
             this.pnlPrincipalCompras.TabIndex = 2;
             // 
-            // btnBuscar
+            // pictureBox1
             // 
-            this.btnBuscar.BackColor = System.Drawing.Color.White;
-            this.btnBuscar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnBuscar.Image = global::Vista.Properties.Resources.lupa;
-            this.btnBuscar.Location = new System.Drawing.Point(991, 52);
-            this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(75, 29);
-            this.btnBuscar.TabIndex = 21;
-            this.btnBuscar.UseVisualStyleBackColor = false;
-            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
+            this.pictureBox1.Image = global::Vista.Properties.Resources.zoom_5611171;
+            this.pictureBox1.Location = new System.Drawing.Point(1016, 54);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(39, 25);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 23;
+            this.pictureBox1.TabStop = false;
+            // 
+            // btnNueva
+            // 
+            this.btnNueva.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(215)))), ((int)(((byte)(215)))));
+            this.btnNueva.Location = new System.Drawing.Point(12, 116);
+            this.btnNueva.Name = "btnNueva";
+            this.btnNueva.Size = new System.Drawing.Size(258, 39);
+            this.btnNueva.TabIndex = 22;
+            this.btnNueva.Text = "Nueva Compra";
+            this.btnNueva.UseVisualStyleBackColor = false;
+            this.btnNueva.Click += new System.EventHandler(this.btnNueva_Click);
             // 
             // pnlComprasRegistradas
             // 
@@ -191,7 +204,7 @@
             this.pnlPedidaDeDatos.Controls.Add(this.lblCantidad);
             this.pnlPedidaDeDatos.Controls.Add(this.lblMaterial);
             this.pnlPedidaDeDatos.Controls.Add(this.lblDetalleCompra);
-            this.pnlPedidaDeDatos.Location = new System.Drawing.Point(15, 116);
+            this.pnlPedidaDeDatos.Location = new System.Drawing.Point(12, 171);
             this.pnlPedidaDeDatos.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pnlPedidaDeDatos.Name = "pnlPedidaDeDatos";
             this.pnlPedidaDeDatos.Size = new System.Drawing.Size(259, 441);
@@ -251,6 +264,11 @@
             // nudCantidad
             // 
             this.nudCantidad.Location = new System.Drawing.Point(20, 285);
+            this.nudCantidad.Maximum = new decimal(new int[] {
+            7000,
+            0,
+            0,
+            0});
             this.nudCantidad.Name = "nudCantidad";
             this.nudCantidad.Size = new System.Drawing.Size(212, 20);
             this.nudCantidad.TabIndex = 25;
@@ -377,6 +395,7 @@
             // pnlDetalleCompra
             // 
             this.pnlDetalleCompra.BackColor = System.Drawing.Color.Bisque;
+            this.pnlDetalleCompra.Controls.Add(this.btnActualizarCompra);
             this.pnlDetalleCompra.Controls.Add(this.txtTotalCompra);
             this.pnlDetalleCompra.Controls.Add(this.btnCancelar);
             this.pnlDetalleCompra.Controls.Add(this.lblTotalCompra);
@@ -388,6 +407,19 @@
             this.pnlDetalleCompra.Name = "pnlDetalleCompra";
             this.pnlDetalleCompra.Size = new System.Drawing.Size(771, 259);
             this.pnlDetalleCompra.TabIndex = 3;
+            // 
+            // btnActualizarCompra
+            // 
+            this.btnActualizarCompra.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnActualizarCompra.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnActualizarCompra.Location = new System.Drawing.Point(452, 218);
+            this.btnActualizarCompra.Name = "btnActualizarCompra";
+            this.btnActualizarCompra.Size = new System.Drawing.Size(183, 30);
+            this.btnActualizarCompra.TabIndex = 4;
+            this.btnActualizarCompra.Text = "Actualizar Compra";
+            this.btnActualizarCompra.UseVisualStyleBackColor = true;
+            this.btnActualizarCompra.Visible = false;
+            this.btnActualizarCompra.Click += new System.EventHandler(this.btnActualizarCompra_Click);
             // 
             // txtTotalCompra
             // 
@@ -474,6 +506,7 @@
             this.dgvDetalleCompras.ReadOnly = true;
             this.dgvDetalleCompras.Size = new System.Drawing.Size(754, 153);
             this.dgvDetalleCompras.TabIndex = 0;
+            this.dgvDetalleCompras.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDetalleCompras_CellContentClick);
             this.dgvDetalleCompras.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDetalleCompras_CellDoubleClick);
             // 
             // pblSuperior
@@ -523,6 +556,7 @@
             this.Load += new System.EventHandler(this.frmCompras_Load);
             this.pnlPrincipalCompras.ResumeLayout(false);
             this.pnlPrincipalCompras.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.pnlComprasRegistradas.ResumeLayout(false);
             this.pnlComprasRegistradas.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHistorialCompras)).EndInit();
@@ -574,6 +608,8 @@
         private System.Windows.Forms.GroupBox gbBarraDecorativa;
         private System.Windows.Forms.Label lblAgregarMaterial;
         private System.Windows.Forms.Button btnActualizar;
-        private System.Windows.Forms.Button btnBuscar;
+        private System.Windows.Forms.Button btnActualizarCompra;
+        private System.Windows.Forms.Button btnNueva;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

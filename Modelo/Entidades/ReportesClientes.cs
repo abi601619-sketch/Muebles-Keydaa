@@ -1,11 +1,7 @@
 using Modelo.Conexión_DB;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Modelo.Entidades
 {
@@ -19,23 +15,68 @@ namespace Modelo.Entidades
         private string correo;
         private string direccion;
 
-     
-            public static DataTable CargarReporteClientes()
+
+        public static DataTable CargarReporteClientes()
+        {
+            SqlConnection conectar = Conexion.Conectar();
+
+            string comando = "SELECT *FROM VerReporteClientes;";
+            SqlDataAdapter adapter = new SqlDataAdapter(comando, conectar);
+
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+
+            return dt;
+        }
+
+        public static int ContarClientesCorporativos()
+        {
+            int total = 0;
+
+            using (SqlConnection conexion = Conexion.Conectar())
             {
-                SqlConnection conectar = Conexion.Conectar();
+                string comandoSQL = "SELECT COUNT(*) FROM Cliente WHERE IdTipoCliente = 1;";
 
-                string comando = "SELECT *FROM VerReporteClientes;";
-                SqlDataAdapter adapter = new SqlDataAdapter(comando, conectar);
-
-                DataTable dt = new DataTable();
-                adapter.Fill(dt);
-
-                return dt;
+                using (SqlCommand comandoObjeto = new SqlCommand(comandoSQL, conexion))
+                {
+                    total = Convert.ToInt32(comandoObjeto.ExecuteScalar());
+                }
             }
 
-      
+            return total;
+        }
+
+        public static int ContarClientesIndividuales()
+        {
+            int total = 0;
+
+            using (SqlConnection conexion = Conexion.Conectar())
+            {
+                string comandoSQL = "SELECT COUNT(*) FROM Cliente WHERE IdTipoCliente = 2;";
+
+                using (SqlCommand comandoObjeto = new SqlCommand(comandoSQL, conexion))
+                {
+                    total = Convert.ToInt32(comandoObjeto.ExecuteScalar());
+                }
+            }
+
+            return total;
+        }
+
+        public static int ContarClientesTotales()
+        {
+            int total = 0;
+            using (SqlConnection conexion = Conexion.Conectar())
+            {
+                string comandoSQL = "SELECT COUNT(*) FROM Cliente;";
+                using (SqlCommand comandoObjeto = new SqlCommand(comandoSQL, conexion))
+                {
+                    total = Convert.ToInt32(comandoObjeto.ExecuteScalar());
+                }
+            }
+            return total;
+        }
 
 
-       
     }
 }

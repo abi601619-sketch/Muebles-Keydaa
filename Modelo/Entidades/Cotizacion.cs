@@ -142,7 +142,7 @@ namespace Modelo.Entidades
         {
             SqlConnection conectar = Conexion.Conectar();
 
-            string comando = @"  SELECT *  FROM VerCotizaciones  WHERE CAST(IdCotizacion AS VARCHAR) LIKE '%' + @Buscar + '%' ORDER BY IdCotizacion";
+            string comando = @"SELECT * FROM VerCotizaciones WHERE Cliente LIKE '%' + @Buscar + '%' ORDER BY IdCotizacion";
 
             SqlDataAdapter adapter = new SqlDataAdapter(comando, conectar);
 

@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Globalization;
 using System.Windows.Forms;
+using Vista.Clientes;
 using Vista.Responsive;
 
 namespace Vista.Ventas
@@ -54,11 +55,19 @@ namespace Vista.Ventas
 
         private void frmVentas_Load(object sender, EventArgs e)
         {
+
+
             // Mostrar las ventas existentes
             MostrarVentas();
 
-            // Cargar clientes
-            CargarComboBoxClientes();
+            //El cliente solo se mostrará en el textBox , no se podrá editar
+            txtMostrarCliente.Enabled = false;
+
+            dgvDetalleDeVenta.AutoGenerateColumns = false;
+
+            dgvDetalleDeVenta.Columns["Eliminar"].DisplayIndex =
+                dgvDetalleDeVenta.Columns.Count - 1;
+
 
             // Cargar metodos de pago
             CargarComboBoxMetodosDePago();
@@ -67,7 +76,7 @@ namespace Vista.Ventas
             dtFechaVenta.MaxDate = DateTime.Today;
 
             //Navegar con la tecla Tab
-            cbCliente.TabIndex = 1;
+            btnBuscarCliente.TabIndex = 1;
             dtFechaVenta.TabIndex = 2;
             cbMetodoPago.TabIndex = 3;
             btnAgregarProductos.TabIndex = 4;
@@ -76,38 +85,216 @@ namespace Vista.Ventas
             btnGuardar.TabIndex = 7;
             btnEditar.TabIndex = 8;
             btnEliminar.TabIndex = 9;
+
+            dgvVentas.Columns["IdVenta"].HeaderText = "N° de Venta";
+
+
+            dgvDetalleDeVenta.Columns["IdDetalleVenta"].Visible = false;
+
+            dgvDetalleDeVenta.Columns["IdVenta"].Visible = false;
+
+            dgvDetalleDeVenta.Columns["ProductoVendido"].HeaderText = "Producto Vendido";
+            dgvDetalleDeVenta.Columns["PrecioUnitario"].HeaderText = "Precio unitario";
         }
 
         int idVentaSeleccionada = 0;
+        int metodoPagoOriginal = 0;
+        DateTime fechaOriginal;
+        decimal subtotalOriginal = 0;
+
         private void dgvVentas_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex < 0 || dgvVentas.Rows[e.RowIndex].IsNewRow) return;
-            DataGridViewRow row = dgvVentas.Rows[e.RowIndex];
-            idVentaSeleccionada = Convert.ToInt32(row.Cells["IdVenta"].Value);
-
-
-            // Buscar los nombres exactos de las columnas en el grid
-            string colCliente = "";
-            string colMetodo = "";
-            string colFecha = "";
-            foreach (DataGridViewColumn col in dgvVentas.Columns)
+            try
             {
-                if (col.Name.Contains("Cliente")) colCliente = col.Name;
-                if (col.Name.Contains("Metodo") || col.Name.Contains("Pago")) colMetodo = col.Name;
-                if (col.Name.Contains("Fecha")) colFecha = col.Name;
+                // Evitar encabezados o filas nuevas
+                if (e.RowIndex < 0 || dgvVentas.Rows[e.RowIndex].IsNewRow)
+                    return;
+
+                DataGridViewRow fila = dgvVentas.Rows[e.RowIndex];
+
+                // Obtener ID de la venta
+                idVentaSeleccionada = Convert.ToInt32(
+                    fila.Cells["IdVenta"].Value);
+
+                // Obtener datos de la venta
+                DateTime fechaVenta = Convert.ToDateTime(fila.Cells["Fecha de Venta"].Value);
+
+                string cliente = fila.Cells["Cliente"].Value?.ToString() ?? "";
+
+                string metodoPago = fila.Cells["Metodo de Pago"].Value?.ToString() ?? "";
+
+                // Mostrar datos en el formulario
+                dtFechaVenta.Value = fechaVenta;
+
+                txtMostrarCliente.Text = cliente;
+
+                cbMetodoPago.Text = metodoPago;
+
+                // Guardar valores originales
+                metodoPagoOriginal = Convert.ToInt32(cbMetodoPago.SelectedValue);
+
+                fechaOriginal = dtFechaVenta.Value;
+
+                // CARGAR SUBTOTAL DE LA VENTA
+                txtSubTotal.Text =
+                    fila.Cells["SubTotal"]?.Value?.ToString() ?? "0";
+
+                // Guardar subtotal original
+                subtotalOriginal = Convert.ToDecimal(
+                    txtSubTotal.Text,
+                    CultureInfo.InvariantCulture);
+
+
+
+                // Cargar los productos de la venta seleccionada
+                dgvDetalleDeVenta.DataSource =
+                    DetalleVenta.CargarDetalleVenta(idVentaSeleccionada);
+                CalcularSubtotalVenta();
+
+
+                // Configurar columnas del detalle
+                dgvDetalleDeVenta.Columns["IdDetalleVenta"].Visible = false;
+                dgvDetalleDeVenta.Columns["IdVenta"].Visible = false;
+
+                dgvDetalleDeVenta.Columns["ProductoVendido"].HeaderText =
+                    "Producto Vendido";
+
+                dgvDetalleDeVenta.Columns["PrecioUnitario"].HeaderText =
+                    "Precio unitario";
+
+
+
+                // Cambiar a modo edición
+                btnEditar.Visible = true;
+                btnGuardar.Visible = false;
+                btnGuardarCambios.Visible = true;
+
+                dgvVentas.Columns["IdVenta"].HeaderText = "N° de Venta";
+
+                MessageBox.Show(
+                    "Venta seleccionada para editar.\n\n" +
+                    "Puede modificar la fecha y el método de pago.\n" +
+                    "También puede agregar o eliminar productos.",
+                    "Editar venta",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
             }
-
-            if (!string.IsNullOrEmpty(colCliente)) cbCliente.Text = row.Cells[colCliente]?.Value?.ToString() ?? "";
-            if (!string.IsNullOrEmpty(colMetodo)) cbMetodoPago.Text = row.Cells[colMetodo]?.Value?.ToString() ?? "";
-
-            if (!string.IsNullOrEmpty(colFecha) && row.Cells[colFecha]?.Value != DBNull.Value)
-                dtFechaVenta.Value = Convert.ToDateTime(row.Cells[colFecha].Value);
-
-            txtSubTotal.Text = row.Cells["SubTotal"]?.Value?.ToString() ?? "0";
-            btnEditar.Visible = true;
-            btnGuardar.Visible = false;
-            btnGuardarCambios.Visible = true;
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Ocurrió un error al seleccionar la venta:\n" +
+                    ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
         }
+
+        private void btnGuardarCambios_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Validar venta
+                if (idVentaSeleccionada == 0)
+                {
+                    MessageBox.Show(
+                        "Seleccione una venta.",
+                        "Aviso",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+
+                    return;
+                }
+
+                // Validar método de pago
+                if (cbMetodoPago.SelectedIndex == -1)
+                {
+                    MessageBox.Show(
+                        "Seleccione un método de pago.",
+                        "Aviso",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+
+                    return;
+                }
+
+                // Obtener método de pago
+                int idMetodoPago =
+                    Convert.ToInt32(cbMetodoPago.SelectedValue);
+
+                // Recalcular subtotal desde los productos
+                CalcularSubtotalVenta();
+
+                decimal subtotal = Convert.ToDecimal(
+                    txtSubTotal.Text,
+                    CultureInfo.InvariantCulture);
+
+                // Verificar si hubo cambios
+                if (idMetodoPago == metodoPagoOriginal &&
+     dtFechaVenta.Value.Date == fechaOriginal.Date &&
+     subtotal == subtotalOriginal)
+                {
+                    MessageBox.Show(
+                        "No se realizaron cambios en la venta.",
+                        "Sin cambios",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+
+                    return;
+                }
+
+                // Crear objeto venta
+                DbVentas venta = new DbVentas(
+                    idVentaSeleccionada,
+                    dtFechaVenta.Value,
+                    idClienteSeleccionado,
+                    idMetodoPago,
+                    subtotal
+                );
+
+                // Actualizar venta
+                if (venta.ActualizarVenta())
+                {
+                    MessageBox.Show(
+                        "Venta actualizada correctamente.",
+                        "Éxito",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+
+                    // Recargar tablas
+                    MostrarVentas();
+
+                    dgvDetalleDeVenta.DataSource =
+                        DetalleVenta.CargarDetalleVenta(idVentaSeleccionada);
+
+                    // Recalcular totales
+                    CalcularSubtotalVenta();
+
+                    // Salir de edición
+                    btnGuardarCambios.Visible = false;
+                    btnGuardar.Visible = true;
+
+                    idVentaSeleccionada = 0;
+                }
+                else
+                {
+                    MessageBox.Show(
+                        "Error al actualizar la venta.",
+                        "Error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Error:\n" + ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
+
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
@@ -144,7 +331,7 @@ namespace Vista.Ventas
 
             // VALIDAR CLIENTE
 
-            if (cbCliente.SelectedIndex == -1)
+            if (txtMostrarCliente.Text == "")
             {
                 MessageBox.Show(
                     "Seleccione un cliente.",
@@ -159,8 +346,7 @@ namespace Vista.Ventas
 
             if (cbMetodoPago.SelectedIndex == -1)
             {
-                MessageBox.Show(
-                    "Seleccione un método de pago.",
+                MessageBox.Show("Seleccione un método de pago.",
                     "Campo requerido",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Warning);
@@ -188,8 +374,7 @@ namespace Vista.Ventas
 
             DateTime fechaVenta = dtFechaVenta.Value;
 
-            int cliente = Convert.ToInt32(cbCliente.SelectedValue);
-
+            int cliente = idClienteSeleccionado;
             int metodoPago = Convert.ToInt32(cbMetodoPago.SelectedValue);
 
 
@@ -243,7 +428,7 @@ namespace Vista.Ventas
 
             detallesVenta.Clear();
 
-            cbCliente.SelectedIndex = -1;
+            txtMostrarCliente.Clear();
             cbMetodoPago.SelectedIndex = -1;
 
             txtSubTotal.Clear();
@@ -268,15 +453,7 @@ namespace Vista.Ventas
             CalcularTotal();
         }
 
-        private void CargarComboBoxClientes()
-        {
-            DataTable dtCliente = DbCliente.CargarTodosLosClientes();
 
-            cbCliente.DataSource = dtCliente;
-            cbCliente.DisplayMember = "NombreCliente";
-            cbCliente.ValueMember = "IdCliente";
-            cbCliente.SelectedIndex = -1;
-        }
 
         private void CargarComboBoxMetodosDePago()
         {
@@ -340,6 +517,8 @@ namespace Vista.Ventas
             // CALCULAR SUBTOTAL
 
             CalcularSubtotalVenta();
+
+
         }
 
 
@@ -376,9 +555,7 @@ namespace Vista.Ventas
             if (dgvVentas.CurrentRow == null)
                 return;
 
-            int idVenta = Convert.ToInt32(
-                dgvVentas.CurrentRow.Cells["IdVenta"].Value
-            );
+            int idVenta = Convert.ToInt32(dgvVentas.CurrentRow.Cells["IdVenta"].Value);
 
             dgvDetalleDeVenta.DataSource = DetalleVenta.CargarDetalleVenta(idVenta);
         }
@@ -443,30 +620,85 @@ namespace Vista.Ventas
             }
         }
 
-        private void btnGuardarCambios_Click(object sender, EventArgs e)
+
+
+
+        private void dgvDetalleDeVenta_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (cbCliente.SelectedIndex == -1 || cbMetodoPago.SelectedIndex == -1)
+            try
             {
-                MessageBox.Show("Seleccione cliente y método de pago.");
+                if (e.RowIndex >= 0)
+                {
+                    int idDetalleVenta = Convert.ToInt32(
+                        dgvDetalleDeVenta.Rows[e.RowIndex]
+                        .Cells["IdDetalleVenta"].Value
+                    );
+
+                    FrmDetalleVenta frm = new FrmDetalleVenta(idDetalleVenta);
+
+                    frm.ShowDialog();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Error: " + ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
+
+        }
+
+        private int idClienteSeleccionado = 0;
+
+        private void btnBuscarCliente_Click(object sender, EventArgs e)
+        {
+            using (frmBuscarCliente modal = new frmBuscarCliente())
+            {
+                if (modal.ShowDialog() == DialogResult.OK)
+                {
+                    idClienteSeleccionado = modal.IdClienteSeleccionado;
+
+                    txtMostrarCliente.Text = modal.NombreClienteSeleccionado;
+
+                }
+            }
+
+            if (idClienteSeleccionado == 0)
+            {
+                MessageBox.Show("Selecciona un cliente.");
                 return;
             }
+        }
 
-            int idCliente = Convert.ToInt32(cbCliente.SelectedValue);
-            int idMetodoPago = Convert.ToInt32(cbMetodoPago.SelectedValue);
-            decimal subtotal = Convert.ToDecimal(txtSubTotal.Text);
+        private void pnlInfo_Paint(object sender, PaintEventArgs e)
+        {
 
-            DbVentas venta = new DbVentas(idVentaSeleccionada, dtFechaVenta.Value, idCliente, idMetodoPago, subtotal);
-            if (venta.ActualizarVenta())
+        }
+
+        private void dgvDetalleDeVenta_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && dgvDetalleDeVenta.Columns[e.ColumnIndex].Name == "Eliminar")
             {
-                MessageBox.Show("Venta actualizada correctamente.");
-                MostrarVentas();
-                btnEditar.Visible = true;
-                btnGuardar.Visible = true;
-                idVentaSeleccionada = 0;
-            }
-            else
-            {
-                MessageBox.Show("Error al actualizar la venta.");
+                DialogResult resultado = MessageBox.Show(
+                    "¿Desea eliminar este producto de la venta?",
+                    "Confirmar eliminación",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question
+                );
+
+                if (resultado == DialogResult.Yes)
+                {
+                    int idDetalle = Convert.ToInt32(dgvDetalleDeVenta.Rows[e.RowIndex].Cells["IdDetalleVenta"].Value
+                    );
+
+                    DetalleVenta.EliminarDetalleVenta(idDetalle);
+
+                    MostrarDetalles();
+
+                }
             }
         }
     }

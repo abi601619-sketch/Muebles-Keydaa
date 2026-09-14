@@ -1,16 +1,11 @@
 using Modelo.Conexión_DB;
-using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Modelo.Entidades
 {
-    public class DetalleVenta  
+    public class DetalleVenta
 
     {
         private int IdDetalleVenta;
@@ -19,18 +14,18 @@ namespace Modelo.Entidades
         private int Cantidad;
         private decimal PrecioUnitario;
 
-        public int IdDetalleVenta1 { get => IdDetalleVenta; set => IdDetalleVenta=value; }
-        public int IdVenta1 { get => IdVenta; set => IdVenta=value; }
-        public string ProductoVendido1 { get => ProductoVendido; set => ProductoVendido=value; }
-        public int Cantidad1 { get => Cantidad; set => Cantidad=value; }
-        public decimal PrecioUnitario1 { get => PrecioUnitario; set => PrecioUnitario=value; }
+        public int IdDetalleVenta1 { get => IdDetalleVenta; set => IdDetalleVenta = value; }
+        public int IdVenta1 { get => IdVenta; set => IdVenta = value; }
+        public string ProductoVendido1 { get => ProductoVendido; set => ProductoVendido = value; }
+        public int Cantidad1 { get => Cantidad; set => Cantidad = value; }
+        public decimal PrecioUnitario1 { get => PrecioUnitario; set => PrecioUnitario = value; }
 
         public DetalleVenta(int idVenta, string productoVendido, int cantidad, decimal precioUnitario)
         {
-            IdVenta1=idVenta;
-            ProductoVendido1=productoVendido;
-            Cantidad1=cantidad;
-            PrecioUnitario1=precioUnitario;
+            IdVenta1 = idVenta;
+            ProductoVendido1 = productoVendido;
+            Cantidad1 = cantidad;
+            PrecioUnitario1 = precioUnitario;
         }
         public DetalleVenta()
         {
@@ -128,7 +123,7 @@ namespace Modelo.Entidades
                 }
             }
         }
-        
+
         public bool ActualizarDetalleVenta()
         {
             string comandoSQL = @"UPDATE DetalleVenta SET ProductoVendido = @ProductoVendido, Cantidad = @Cantidad, PrecioUnitario = @PrecioUnitario 
@@ -141,7 +136,7 @@ namespace Modelo.Entidades
                     comandoObjeto.Parameters.AddWithValue("@Cantidad", Cantidad1);
                     comandoObjeto.Parameters.AddWithValue("@PrecioUnitario", PrecioUnitario1);
                     comandoObjeto.Parameters.AddWithValue("@IdDetalleVenta", IdDetalleVenta1);
-                    
+
                     try { return comandoObjeto.ExecuteNonQuery() > 0; }
                     catch (SqlException) { return false; }
                 }
@@ -163,4 +158,4 @@ namespace Modelo.Entidades
         }
     }
 }
-    
+
