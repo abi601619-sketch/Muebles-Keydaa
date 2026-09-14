@@ -28,12 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.lblFinalizados = new System.Windows.Forms.Label();
             this.pnlIndicador2 = new System.Windows.Forms.Panel();
             this.pbFinalizados = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.pnlContenedorTabla = new System.Windows.Forms.Panel();
+            this.btnMaterialUtilizado = new System.Windows.Forms.Button();
             this.dgvProduccion = new System.Windows.Forms.DataGridView();
             this.btnEditar = new System.Windows.Forms.Button();
             this.pnlIndicador1 = new System.Windows.Forms.Panel();
@@ -54,7 +55,10 @@
             this.pnlBarraInformativa = new System.Windows.Forms.Panel();
             this.lblAdministrador = new System.Windows.Forms.Label();
             this.pbPerfil = new System.Windows.Forms.PictureBox();
-            this.btnMaterialUtilizado = new System.Windows.Forms.Button();
+            this.lblMostrarPendientes = new System.Windows.Forms.Label();
+            this.lblMostrarFinalizados = new System.Windows.Forms.Label();
+            this.lblMostrarEnProduccion = new System.Windows.Forms.Label();
+            this.lblMostrarRegistrados = new System.Windows.Forms.Label();
             this.pnlIndicador2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbFinalizados)).BeginInit();
             this.pnlContenedorTabla.SuspendLayout();
@@ -84,6 +88,7 @@
             // pnlIndicador2
             // 
             this.pnlIndicador2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(165)))), ((int)(((byte)(237)))), ((int)(((byte)(147)))));
+            this.pnlIndicador2.Controls.Add(this.lblMostrarFinalizados);
             this.pnlIndicador2.Controls.Add(this.pbFinalizados);
             this.pnlIndicador2.Controls.Add(this.lblFinalizados);
             this.pnlIndicador2.Location = new System.Drawing.Point(272, 134);
@@ -127,20 +132,38 @@
             this.pnlContenedorTabla.Size = new System.Drawing.Size(1045, 337);
             this.pnlContenedorTabla.TabIndex = 3;
             // 
+            // btnMaterialUtilizado
+            // 
+            this.btnMaterialUtilizado.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnMaterialUtilizado.BackColor = System.Drawing.Color.SandyBrown;
+            this.btnMaterialUtilizado.FlatAppearance.BorderSize = 0;
+            this.btnMaterialUtilizado.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMaterialUtilizado.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMaterialUtilizado.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnMaterialUtilizado.Location = new System.Drawing.Point(809, 284);
+            this.btnMaterialUtilizado.Name = "btnMaterialUtilizado";
+            this.btnMaterialUtilizado.Size = new System.Drawing.Size(219, 40);
+            this.btnMaterialUtilizado.TabIndex = 5;
+            this.btnMaterialUtilizado.Text = "Gestion de Material Utilizado";
+            this.btnMaterialUtilizado.UseVisualStyleBackColor = false;
+            this.btnMaterialUtilizado.Click += new System.EventHandler(this.btnMaterialUtilizado_Click);
+            // 
             // dgvProduccion
             // 
             this.dgvProduccion.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvProduccion.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.PeachPuff;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvProduccion.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvProduccion.BackgroundColor = System.Drawing.Color.White;
+            this.dgvProduccion.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.PeachPuff;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvProduccion.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.dgvProduccion.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvProduccion.Location = new System.Drawing.Point(17, 14);
             this.dgvProduccion.Name = "dgvProduccion";
@@ -167,6 +190,7 @@
             // pnlIndicador1
             // 
             this.pnlIndicador1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(162)))), ((int)(((byte)(147)))));
+            this.pnlIndicador1.Controls.Add(this.lblMostrarPendientes);
             this.pnlIndicador1.Controls.Add(this.pbCancelados);
             this.pnlIndicador1.Controls.Add(this.label1);
             this.pnlIndicador1.Location = new System.Drawing.Point(48, 134);
@@ -198,6 +222,7 @@
             // pnlIndicador3
             // 
             this.pnlIndicador3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(186)))), ((int)(((byte)(120)))));
+            this.pnlIndicador3.Controls.Add(this.lblMostrarEnProduccion);
             this.pnlIndicador3.Controls.Add(this.pbPendientes);
             this.pnlIndicador3.Controls.Add(this.lblPendientes);
             this.pnlIndicador3.Location = new System.Drawing.Point(498, 133);
@@ -265,10 +290,9 @@
             this.cbEstados.Font = new System.Drawing.Font("Times New Roman", 14F);
             this.cbEstados.FormattingEnabled = true;
             this.cbEstados.Items.AddRange(new object[] {
-            "Todos los estados",
-            "Finalizados",
-            "Pendientes",
-            "En Proceso"});
+            "Pendiente",
+            "En producción",
+            "Finalizado"});
             this.cbEstados.Location = new System.Drawing.Point(53, 231);
             this.cbEstados.Margin = new System.Windows.Forms.Padding(2);
             this.cbEstados.Name = "cbEstados";
@@ -279,6 +303,7 @@
             // pnlIndicador4
             // 
             this.pnlIndicador4.BackColor = System.Drawing.Color.White;
+            this.pnlIndicador4.Controls.Add(this.lblMostrarRegistrados);
             this.pnlIndicador4.Controls.Add(this.pbTotalRegistros);
             this.pnlIndicador4.Controls.Add(this.lblRegistrados);
             this.pnlIndicador4.Location = new System.Drawing.Point(724, 133);
@@ -336,9 +361,11 @@
             // pbxBuscar
             // 
             this.pbxBuscar.BackColor = System.Drawing.Color.Transparent;
+            this.pbxBuscar.Image = global::Vista.Properties.Resources.zoom_5611171;
             this.pbxBuscar.Location = new System.Drawing.Point(758, 231);
             this.pbxBuscar.Name = "pbxBuscar";
             this.pbxBuscar.Size = new System.Drawing.Size(26, 28);
+            this.pbxBuscar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbxBuscar.TabIndex = 27;
             this.pbxBuscar.TabStop = false;
             // 
@@ -375,21 +402,41 @@
             this.pbPerfil.TabIndex = 25;
             this.pbPerfil.TabStop = false;
             // 
-            // btnMaterialUtilizado
+            // lblMostrarPendientes
             // 
-            this.btnMaterialUtilizado.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnMaterialUtilizado.BackColor = System.Drawing.Color.SandyBrown;
-            this.btnMaterialUtilizado.FlatAppearance.BorderSize = 0;
-            this.btnMaterialUtilizado.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnMaterialUtilizado.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMaterialUtilizado.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnMaterialUtilizado.Location = new System.Drawing.Point(809, 284);
-            this.btnMaterialUtilizado.Name = "btnMaterialUtilizado";
-            this.btnMaterialUtilizado.Size = new System.Drawing.Size(219, 40);
-            this.btnMaterialUtilizado.TabIndex = 5;
-            this.btnMaterialUtilizado.Text = "Gestion de Material Utilizado";
-            this.btnMaterialUtilizado.UseVisualStyleBackColor = false;
-            this.btnMaterialUtilizado.Click += new System.EventHandler(this.btnMaterialUtilizado_Click);
+            this.lblMostrarPendientes.AutoSize = true;
+            this.lblMostrarPendientes.Location = new System.Drawing.Point(133, 45);
+            this.lblMostrarPendientes.Name = "lblMostrarPendientes";
+            this.lblMostrarPendientes.Size = new System.Drawing.Size(35, 13);
+            this.lblMostrarPendientes.TabIndex = 3;
+            this.lblMostrarPendientes.Text = "label1";
+            // 
+            // lblMostrarFinalizados
+            // 
+            this.lblMostrarFinalizados.AutoSize = true;
+            this.lblMostrarFinalizados.Location = new System.Drawing.Point(127, 45);
+            this.lblMostrarFinalizados.Name = "lblMostrarFinalizados";
+            this.lblMostrarFinalizados.Size = new System.Drawing.Size(35, 13);
+            this.lblMostrarFinalizados.TabIndex = 4;
+            this.lblMostrarFinalizados.Text = "label2";
+            // 
+            // lblMostrarEnProduccion
+            // 
+            this.lblMostrarEnProduccion.AutoSize = true;
+            this.lblMostrarEnProduccion.Location = new System.Drawing.Point(134, 46);
+            this.lblMostrarEnProduccion.Name = "lblMostrarEnProduccion";
+            this.lblMostrarEnProduccion.Size = new System.Drawing.Size(35, 13);
+            this.lblMostrarEnProduccion.TabIndex = 5;
+            this.lblMostrarEnProduccion.Text = "label3";
+            // 
+            // lblMostrarRegistrados
+            // 
+            this.lblMostrarRegistrados.AutoSize = true;
+            this.lblMostrarRegistrados.Location = new System.Drawing.Point(147, 46);
+            this.lblMostrarRegistrados.Name = "lblMostrarRegistrados";
+            this.lblMostrarRegistrados.Size = new System.Drawing.Size(35, 13);
+            this.lblMostrarRegistrados.TabIndex = 6;
+            this.lblMostrarRegistrados.Text = "label4";
             // 
             // frmProduccionSecretario
             // 
@@ -453,5 +500,9 @@
         private System.Windows.Forms.Label lblAdministrador;
         private System.Windows.Forms.DataGridView dgvProduccion;
         private System.Windows.Forms.Button btnMaterialUtilizado;
+        private System.Windows.Forms.Label lblMostrarPendientes;
+        private System.Windows.Forms.Label lblMostrarFinalizados;
+        private System.Windows.Forms.Label lblMostrarEnProduccion;
+        private System.Windows.Forms.Label lblMostrarRegistrados;
     }
 }
