@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pnlIndicador1 = new System.Windows.Forms.Panel();
             this.pbInactivas = new System.Windows.Forms.PictureBox();
             this.lblInactivas = new System.Windows.Forms.Label();
@@ -49,6 +49,9 @@
             this.lblMensajeInformativoPrincipal = new System.Windows.Forms.Label();
             this.pnlPrincipal = new System.Windows.Forms.Panel();
             this.dgvCategorias = new System.Windows.Forms.DataGridView();
+            this.lblCategoriasInactivas = new System.Windows.Forms.Label();
+            this.lblCategoriasActivas = new System.Windows.Forms.Label();
+            this.lblCategoriasRegistradas = new System.Windows.Forms.Label();
             this.pnlIndicador1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbInactivas)).BeginInit();
             this.pblBarraInformativa.SuspendLayout();
@@ -66,6 +69,7 @@
             // pnlIndicador1
             // 
             this.pnlIndicador1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(162)))), ((int)(((byte)(147)))));
+            this.pnlIndicador1.Controls.Add(this.lblCategoriasInactivas);
             this.pnlIndicador1.Controls.Add(this.pbInactivas);
             this.pnlIndicador1.Controls.Add(this.lblInactivas);
             this.pnlIndicador1.Location = new System.Drawing.Point(51, 522);
@@ -88,7 +92,7 @@
             // 
             this.lblInactivas.AutoSize = true;
             this.lblInactivas.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblInactivas.Location = new System.Drawing.Point(87, 19);
+            this.lblInactivas.Location = new System.Drawing.Point(119, 19);
             this.lblInactivas.Name = "lblInactivas";
             this.lblInactivas.Size = new System.Drawing.Size(91, 24);
             this.lblInactivas.TabIndex = 0;
@@ -196,6 +200,7 @@
             // pnlIndicador3
             // 
             this.pnlIndicador3.BackColor = System.Drawing.Color.White;
+            this.pnlIndicador3.Controls.Add(this.lblCategoriasRegistradas);
             this.pnlIndicador3.Controls.Add(this.pictureBox1);
             this.pnlIndicador3.Controls.Add(this.lblTotalCategorias);
             this.pnlIndicador3.Location = new System.Drawing.Point(711, 523);
@@ -207,7 +212,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = global::Vista.Properties.Resources.clipboard_5679881;
-            this.pictureBox1.Location = new System.Drawing.Point(15, 9);
+            this.pictureBox1.Location = new System.Drawing.Point(31, 9);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(53, 64);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -218,7 +223,7 @@
             // 
             this.lblTotalCategorias.AutoSize = true;
             this.lblTotalCategorias.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalCategorias.Location = new System.Drawing.Point(68, 18);
+            this.lblTotalCategorias.Location = new System.Drawing.Point(107, 18);
             this.lblTotalCategorias.Name = "lblTotalCategorias";
             this.lblTotalCategorias.Size = new System.Drawing.Size(140, 19);
             this.lblTotalCategorias.TabIndex = 1;
@@ -227,6 +232,7 @@
             // pnlIndicador2
             // 
             this.pnlIndicador2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(165)))), ((int)(((byte)(237)))), ((int)(((byte)(147)))));
+            this.pnlIndicador2.Controls.Add(this.lblCategoriasActivas);
             this.pnlIndicador2.Controls.Add(this.pbActivas);
             this.pnlIndicador2.Controls.Add(this.lblActivas);
             this.pnlIndicador2.Location = new System.Drawing.Point(381, 523);
@@ -249,7 +255,7 @@
             // 
             this.lblActivas.AutoSize = true;
             this.lblActivas.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblActivas.Location = new System.Drawing.Point(103, 16);
+            this.lblActivas.Location = new System.Drawing.Point(135, 16);
             this.lblActivas.Name = "lblActivas";
             this.lblActivas.Size = new System.Drawing.Size(77, 24);
             this.lblActivas.TabIndex = 1;
@@ -285,20 +291,47 @@
             this.dgvCategorias.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedHeaders;
             this.dgvCategorias.BackgroundColor = System.Drawing.Color.White;
             this.dgvCategorias.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.PeachPuff;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvCategorias.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.PeachPuff;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvCategorias.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvCategorias.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvCategorias.GridColor = System.Drawing.Color.Black;
             this.dgvCategorias.Location = new System.Drawing.Point(18, 14);
             this.dgvCategorias.Name = "dgvCategorias";
             this.dgvCategorias.Size = new System.Drawing.Size(1008, 372);
             this.dgvCategorias.TabIndex = 0;
+            // 
+            // lblCategoriasInactivas
+            // 
+            this.lblCategoriasInactivas.AutoSize = true;
+            this.lblCategoriasInactivas.Location = new System.Drawing.Point(140, 53);
+            this.lblCategoriasInactivas.Name = "lblCategoriasInactivas";
+            this.lblCategoriasInactivas.Size = new System.Drawing.Size(35, 13);
+            this.lblCategoriasInactivas.TabIndex = 5;
+            this.lblCategoriasInactivas.Text = "label1";
+            // 
+            // lblCategoriasActivas
+            // 
+            this.lblCategoriasActivas.AutoSize = true;
+            this.lblCategoriasActivas.Location = new System.Drawing.Point(151, 50);
+            this.lblCategoriasActivas.Name = "lblCategoriasActivas";
+            this.lblCategoriasActivas.Size = new System.Drawing.Size(35, 13);
+            this.lblCategoriasActivas.TabIndex = 6;
+            this.lblCategoriasActivas.Text = "label2";
+            // 
+            // lblCategoriasRegistradas
+            // 
+            this.lblCategoriasRegistradas.AutoSize = true;
+            this.lblCategoriasRegistradas.Location = new System.Drawing.Point(148, 50);
+            this.lblCategoriasRegistradas.Name = "lblCategoriasRegistradas";
+            this.lblCategoriasRegistradas.Size = new System.Drawing.Size(35, 13);
+            this.lblCategoriasRegistradas.TabIndex = 7;
+            this.lblCategoriasRegistradas.Text = "label3";
             // 
             // frmCategoriasInventarioSecretario
             // 
@@ -354,5 +387,8 @@
         private System.Windows.Forms.DataGridView dgvCategorias;
         private System.Windows.Forms.Label lblAdministrador;
         private System.Windows.Forms.Button btnBuscar;
+        private System.Windows.Forms.Label lblCategoriasInactivas;
+        private System.Windows.Forms.Label lblCategoriasActivas;
+        private System.Windows.Forms.Label lblCategoriasRegistradas;
     }
 }

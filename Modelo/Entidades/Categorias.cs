@@ -98,23 +98,41 @@ namespace Modelo.Entidades
             }
         }
 
-        public void ActualizarCategoria()
+        public bool ActualizarCategoria()
         {
-            SqlConnection conectar = Conexion.Conectar();
+            try
+            {
+                SqlConnection conectar = Conexion.Conectar();
 
-            string comando = "UPDATE Categoria SET Nombre_Categoria = @Nombre, Descripcion = @Descripcion, Estado = @Estado WHERE IdCategoria = @IdCategoria";
+                string comando = "UPDATE Categoria SET Nombre_Categoria = @Nombre, Descripcion = @Descripcion, Estado = @Estado WHERE IdCategoria = @IdCategoria";
 
-            SqlCommand cmd = new SqlCommand(comando, conectar);
+                SqlCommand cmd = new SqlCommand(comando, conectar);
 
-            cmd.Parameters.AddWithValue("@Nombre", Nombre_Categoria1);
-            cmd.Parameters.AddWithValue("@Descripcion", Descripción1);
-            cmd.Parameters.AddWithValue("@Estado", Estado1);
-            cmd.Parameters.AddWithValue("@IdCategoria", IdCategoria1);
+                cmd.Parameters.AddWithValue("@Nombre", Nombre_Categoria1);
+                cmd.Parameters.AddWithValue("@Descripcion", Descripción1);
+                cmd.Parameters.AddWithValue("@Estado", Estado1);
+                cmd.Parameters.AddWithValue("@IdCategoria", IdCategoria1);
 
-            cmd.ExecuteNonQuery();
-            conectar.Close();
+                // Ejecuta la actualización
+                int filasAfectadas = cmd.ExecuteNonQuery();
+
+                conectar.Close();
+
+                // Verifica si se actualizó la categoría
+                return filasAfectadas > 0;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Error al actualizar la categoría: " + ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+
+                return false;
+            }
         }
-
         public static DataTable Buscar(string termino)
         {
             SqlConnection con = Conexion.Conectar();
