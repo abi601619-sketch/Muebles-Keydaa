@@ -361,89 +361,49 @@ namespace Vista.Facturación
         {
             try
             {
-                // ==========================================
-                // VALIDAR NÚMERO DE VENTA
-                // ==========================================
+                //VALIDAR EL NUMERO DE LA VENTA QUE SE INGRESO
 
                 if (string.IsNullOrWhiteSpace(txtnVenta.Text))
                 {
-                    MessageBox.Show(
-                        "Debe ingresar el número de venta.",
-                        "Aviso",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning);
-
+                    MessageBox.Show("Debe ingresar el número de venta.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     txtnVenta.Focus();
                     return;
                 }
 
                 if (!int.TryParse(txtnVenta.Text.Trim(), out int idVenta))
                 {
-                    MessageBox.Show(
-                        "El número de venta debe ser un número válido.",
-                        "Aviso",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning);
-
+                    MessageBox.Show("El número de venta debe ser un número válido.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     txtnVenta.Focus();
                     return;
                 }
+                //VALIDACIÓN DE FECHAS
+                DateTime fechaEmision = dtFechaDatosGeneralesFactura.Value;
 
-                // ==========================================
-                // VALIDAR FECHAS
-                // ==========================================
-
-                DateTime fechaEmision =
-                    dtFechaDatosGeneralesFactura.Value;
-
-                DateTime fechaVencimiento =
-                    dtpFechaVencimiento.Value;
+                DateTime fechaVencimiento = dtpFechaVencimiento.Value;
 
                 if (fechaVencimiento < fechaEmision)
                 {
-                    MessageBox.Show(
-                        "La fecha de vencimiento no puede ser menor que la fecha de emisión.",
-                        "Aviso",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning);
+                    MessageBox.Show("La fecha de vencimiento no puede ser menor que la fecha de emisión.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                     return;
                 }
+                //OBTIENE EL DESCUENTO Y LO ALMACENA EN LA VARIABLE LUEGO DE CONVERTIRLO
 
-                // ==========================================
-                // OBTENER DESCUENTO
-                // ==========================================
-
-                if (!decimal.TryParse(
-                    txtDescuento.Text.Trim(),
-                    out decimal descuento))
+                if (!decimal.TryParse(txtDescuento.Text.Trim(), out decimal descuento))
                 {
                     descuento = 0;
                 }
 
                 if (descuento < 0)
                 {
-                    MessageBox.Show(
-                        "El descuento no puede ser negativo.",
-                        "Descuento inválido",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning);
+                    MessageBox.Show("El descuento no puede ser negativo.", "Descuento inválido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                     txtDescuento.Focus();
                     return;
                 }
-
-                // ==========================================
                 // OBSERVACIONES
-                // ==========================================
-
-                string observaciones =
-                    txtObservaciones.Text.Trim();
-
-                // ==========================================
-                // CREAR FACTURA
-                // ==========================================
-
+                string observaciones = txtObservaciones.Text.Trim();
+                //CREA EL OBJETO DE UNA NUEVA FACTURA
                 DbFactura factura = new DbFactura();
 
                 factura.FechaEmisión1 = fechaEmision;
@@ -452,48 +412,25 @@ namespace Vista.Facturación
                 factura.Descuento1 = descuento;
                 factura.Observaciones1 = observaciones;
 
-                // ==========================================
-                // GUARDAR Y OBTENER ID DE FACTURA
-                // ==========================================
-
                 int idFactura = factura.InsertarFactura();
 
+                //GUARDA EL ID DE LA FACTURA Y LO MUESTRA EN EL TEXTBOX
                 if (idFactura == 0)
                 {
                     return;
                 }
+                //MUESTRA EL NUMERO DE LA FACTURA
+                txtNumeroFactura.Text = idFactura.ToString();
 
-                // ==========================================
-                // MOSTRAR NÚMERO DE FACTURA
-                // ==========================================
-
-                txtNumeroFactura.Text =
-                    idFactura.ToString();
-
-                // ==========================================
-                // ACTUALIZAR LISTA
-                // ==========================================
-
+                //ACTUALIZA LA TABLA DE LOS REGISTROS LUEGO DE GUARDAR LA FACTURA
                 MostrarRegistrosFacturas();
 
-                // ==========================================
-                // MENSAJE
-                // ==========================================
-
-                MessageBox.Show(
-                    $"La factura N.º {idFactura} se guardó correctamente.\n\n" +
-                    "Ahora puedes presionar 'Generar PDF'.",
-                    "Factura guardada",
-                    MessageBoxButtons.OK,
+                MessageBox.Show($"La factura N.º {idFactura} se guardó correctamente.\n\n" + "Ahora puedes presionar 'Generar PDF'.", "Factura guardada", MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Ocurrió un error al guardar la factura:\n" +
-                    ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
+                MessageBox.Show("Ocurrió un error al guardar la factura:\n" + ex.Message, "Error", MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }
         }
@@ -509,20 +446,21 @@ namespace Vista.Facturación
             txtCorreo.Clear();
 
             // Restablecer fechas
-            if (DateTime.Now >= dtFechaDatosGeneralesFactura.MinDate &&
-     DateTime.Now <= dtFechaDatosGeneralesFactura.MaxDate)
+            if (DateTime.Now >= dtFechaDatosGeneralesFactura.MinDate && DateTime.Now <= dtFechaDatosGeneralesFactura.MaxDate)
             {
                 dtFechaDatosGeneralesFactura.Value = DateTime.Now;
             }
 
-            if (DateTime.Now >= dtpFechaVencimiento.MinDate &&
-                DateTime.Now <= dtpFechaVencimiento.MaxDate)
+            if (DateTime.Now >= dtpFechaVencimiento.MinDate && DateTime.Now <= dtpFechaVencimiento.MaxDate)
             {
                 dtpFechaVencimiento.Value = DateTime.Now;
             }
 
             // Limpiar número de factura
             txtNumeroFactura.Clear();
+
+            //Limpiar total de productos
+            lblTotalDeProductos = "";
 
             // Limpiar observaciones
             txtObservaciones.Clear();
@@ -556,11 +494,7 @@ namespace Vista.Facturación
                     txtNumeroFactura.Text.Trim(),
                     out int idFactura))
                 {
-                    MessageBox.Show(
-                        "Primero debes guardar una factura.",
-                        "Generar PDF",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning);
+                    MessageBox.Show("Primero debes guardar una factura.", "Generar PDF", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                     return;
                 }
@@ -575,10 +509,9 @@ namespace Vista.Facturación
                     if (guardar.ShowDialog() != DialogResult.OK)
                         return;
 
-                    // Generar el PDF
-                    GeneradorFactura.Generar(
-                        idFactura,
-                        guardar.FileName);
+                    // Generar el PDF, mandando los paraámetros al contructor de la clase del PDF
+                    //manda el id de la factura que se obtiene depués de guardar, y manda el encabezado o titulo que tendrá el pdf
+                    GeneradorFactura.Generar(idFactura, guardar.FileName);
 
                     // Limpiar solamente después de generar
                     LimpiarFormulario();
@@ -586,11 +519,7 @@ namespace Vista.Facturación
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error al generar el PDF:\n" + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                MessageBox.Show("Error al generar el PDF:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
