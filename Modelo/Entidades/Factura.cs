@@ -11,6 +11,8 @@ namespace Modelo.Entidades
         private int IdFactura;
         private DateTime FechaEmision;
         private DateTime FechaVencimiento;
+
+        private decimal Descuento;
         private int IdVenta;
         private string Observaciones;
 
@@ -33,7 +35,7 @@ namespace Modelo.Entidades
         public DateTime FechaVencimiento1 { get => FechaVencimiento; set => FechaVencimiento = value; }
         public int Venta1 { get => IdVenta; set => IdVenta = value; }
         public string Observaciones1 { get => Observaciones; set => Observaciones = value; }
-
+        public decimal Descuento1 { get => Descuento; set => Descuento = value; }
 
         public static DataTable CargarRegistrosFacturas()
         {
@@ -59,11 +61,11 @@ namespace Modelo.Entidades
             return dt;
         }
 
-
-        public void InsertarFactura()
+        public int InsertarFactura()
         {
-            string sql = @"INSERT INTO Factura(FechaEmision, FechaVencimiento, IdVenta, Observaciones)
-                   VALUES (@FechaEmision, @FechaVencimiento, @IdVenta, @Observaciones)";
+            string sql = @"INSERT INTO Factura (FechaEmision, FechaVencimiento, IdVenta, Descuento, Observaciones)
+                   VALUES(@FechaEmision, @FechaVencimiento, @IdVenta, @Descuento, @Observaciones);
+                   SELECT CAST(SCOPE_IDENTITY() AS INT);";
 
             try
             {
@@ -73,14 +75,27 @@ namespace Modelo.Entidades
                     cmd.Parameters.AddWithValue("@FechaEmision", FechaEmision);
                     cmd.Parameters.AddWithValue("@FechaVencimiento", FechaVencimiento);
                     cmd.Parameters.AddWithValue("@IdVenta", IdVenta);
-                    cmd.Parameters.AddWithValue("@Observaciones", Observaciones);
+                    cmd.Parameters.AddWithValue("@Descuento", Descuento);
 
-                    cmd.ExecuteNonQuery();
+                    cmd.Parameters.AddWithValue(
+                        "@Observaciones",
+                        string.IsNullOrWhiteSpace(Observaciones)
+                            ? (object)DBNull.Value
+                            : Observaciones
+                    );
+
+                    return Convert.ToInt32(cmd.ExecuteScalar());
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al insertar la factura: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(
+                    "Error al insertar la factura: " + ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+
+                return 0;
             }
         }
 
