@@ -54,8 +54,8 @@ namespace Vista.Reportes
             ActualizarEstadisticasClientes();
             ActualizarEstadisticasVentas();
 
-            dtFechaFin.MaxDate = DateTime.Today;
-            dtFechaInicio.MaxDate = DateTime.Now;
+            dtpFechaFin.MaxDate = DateTime.Today;
+            dtpFechaInicio.MaxDate = DateTime.Now;
 
             dgvReporteClientes.Columns["TipoCliente"].HeaderText = "Tipo de Cliente";
 
@@ -95,6 +95,27 @@ namespace Vista.Reportes
             lblMostrarFacturasEmitidas.Text = ReportesVentas.ContarFacturasEmitidas().ToString();
         }
 
+        private void btnConsultar_Click(object sender, EventArgs e)
+        {
+            DateTime fechaInicio = dtpFechaInicio.Value.Date;
+            DateTime fechaFin = dtpFechaFin.Value.Date.AddDays(1);
+
+            ReportesClientes reporte = new ReportesClientes();
+
+            dgvReporteClientes.DataSource = reporte.ObtenerClientesPorFecha(fechaInicio, fechaFin);
+        }
+
+        private void btnExportarReporteClientes_Click(object sender, EventArgs e)
+        {
+
+            DateTime fechaInicio = dtpFechaInicio.Value.Date;
+            DateTime fechaFin = dtpFechaFin.Value.Date.AddDays(1);
+
+            frmReporteClientes reporte =
+                new frmReporteClientes(fechaInicio, fechaFin);
+
+            reporte.Show();
+        }
     }
 }
 

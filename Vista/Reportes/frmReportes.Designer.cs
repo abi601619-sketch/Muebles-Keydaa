@@ -33,11 +33,11 @@
             this.pbPerfil = new System.Windows.Forms.PictureBox();
             this.btnVentas = new System.Windows.Forms.Button();
             this.btnClientes = new System.Windows.Forms.Button();
-            this.btnReporte = new System.Windows.Forms.Button();
-            this.btnExportar = new System.Windows.Forms.Button();
-            this.dtFechaFin = new System.Windows.Forms.DateTimePicker();
+            this.btnConsultar = new System.Windows.Forms.Button();
+            this.btnExportarReporteClientes = new System.Windows.Forms.Button();
+            this.dtpFechaFin = new System.Windows.Forms.DateTimePicker();
             this.lblFechaFin = new System.Windows.Forms.Label();
-            this.dtFechaInicio = new System.Windows.Forms.DateTimePicker();
+            this.dtpFechaInicio = new System.Windows.Forms.DateTimePicker();
             this.lblFechaInicio = new System.Windows.Forms.Label();
             this.pnlContenedorPrincipalInventario = new System.Windows.Forms.Panel();
             this.pnlHeader = new System.Windows.Forms.Panel();
@@ -46,53 +46,53 @@
             this.lblSubTexto = new System.Windows.Forms.Label();
             this.lblMensajeInformativoPrincipal = new System.Windows.Forms.Label();
             this.pnlReporteDeClientes = new System.Windows.Forms.Panel();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.lblClientesTotales = new System.Windows.Forms.Label();
+            this.pbClientesFrecuentes = new System.Windows.Forms.PictureBox();
+            this.lblContadorTotal = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.lblClientesIndivisuales = new System.Windows.Forms.Label();
+            this.pbClientesNuevos = new System.Windows.Forms.PictureBox();
+            this.lblContadorIndividual = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.lblClientesCorporativos = new System.Windows.Forms.Label();
+            this.lblContadorCorporativos = new System.Windows.Forms.Label();
+            this.pbClientesRegistrados = new System.Windows.Forms.PictureBox();
             this.pnlCuadroVentas = new System.Windows.Forms.Panel();
             this.dgvReporteClientes = new System.Windows.Forms.DataGridView();
             this.lblDetalleVentas = new System.Windows.Forms.Label();
-            this.lblClientesTotales = new System.Windows.Forms.Label();
-            this.pbClientesFrecuentes = new System.Windows.Forms.PictureBox();
-            this.pbClientesRegistrados = new System.Windows.Forms.PictureBox();
-            this.lblClientesCorporativos = new System.Windows.Forms.Label();
-            this.pbClientesNuevos = new System.Windows.Forms.PictureBox();
-            this.lblClientesIndivisuales = new System.Windows.Forms.Label();
             this.pnlReportesVentas = new System.Windows.Forms.Panel();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.lblMostrarFacturasEmitidas = new System.Windows.Forms.Label();
+            this.lblFacturasEmitidas = new System.Windows.Forms.Label();
+            this.pbFactura = new System.Windows.Forms.PictureBox();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.lblContadorVentasTotales = new System.Windows.Forms.Label();
+            this.lblVentasTotales = new System.Windows.Forms.Label();
+            this.pbVentas = new System.Windows.Forms.PictureBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.dgvReporteVentas = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
-            this.pbVentas = new System.Windows.Forms.PictureBox();
-            this.lblVentasTotales = new System.Windows.Forms.Label();
-            this.pbFactura = new System.Windows.Forms.PictureBox();
-            this.lblFacturasEmitidas = new System.Windows.Forms.Label();
-            this.lblContadorCorporativos = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.lblContadorIndividual = new System.Windows.Forms.Label();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.lblContadorTotal = new System.Windows.Forms.Label();
-            this.panel5 = new System.Windows.Forms.Panel();
-            this.panel6 = new System.Windows.Forms.Panel();
-            this.lblContadorVentasTotales = new System.Windows.Forms.Label();
-            this.lblMostrarFacturasEmitidas = new System.Windows.Forms.Label();
             this.pnlBarraSuperior.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbPerfil)).BeginInit();
             this.pnlContenedorPrincipalInventario.SuspendLayout();
             this.pnlHeader.SuspendLayout();
             this.pnlReporteDeClientes.SuspendLayout();
+            this.panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbClientesFrecuentes)).BeginInit();
+            this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbClientesNuevos)).BeginInit();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbClientesRegistrados)).BeginInit();
             this.pnlCuadroVentas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReporteClientes)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbClientesFrecuentes)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbClientesRegistrados)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbClientesNuevos)).BeginInit();
             this.pnlReportesVentas.SuspendLayout();
+            this.panel6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbFactura)).BeginInit();
+            this.panel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbVentas)).BeginInit();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReporteVentas)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbVentas)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbFactura)).BeginInit();
-            this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
-            this.panel4.SuspendLayout();
-            this.panel5.SuspendLayout();
-            this.panel6.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlBarraSuperior
@@ -156,67 +156,69 @@
             this.btnClientes.UseVisualStyleBackColor = false;
             this.btnClientes.Click += new System.EventHandler(this.btnClientes_Click);
             // 
-            // btnReporte
+            // btnConsultar
             // 
-            this.btnReporte.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnReporte.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnReporte.Location = new System.Drawing.Point(847, 98);
-            this.btnReporte.Margin = new System.Windows.Forms.Padding(2);
-            this.btnReporte.Name = "btnReporte";
-            this.btnReporte.Size = new System.Drawing.Size(143, 31);
-            this.btnReporte.TabIndex = 12;
-            this.btnReporte.Text = "Generar Reporte";
-            this.btnReporte.UseVisualStyleBackColor = false;
+            this.btnConsultar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.btnConsultar.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnConsultar.Location = new System.Drawing.Point(722, 107);
+            this.btnConsultar.Margin = new System.Windows.Forms.Padding(2);
+            this.btnConsultar.Name = "btnConsultar";
+            this.btnConsultar.Size = new System.Drawing.Size(154, 35);
+            this.btnConsultar.TabIndex = 12;
+            this.btnConsultar.Text = "Consultar";
+            this.btnConsultar.UseVisualStyleBackColor = false;
+            this.btnConsultar.Click += new System.EventHandler(this.btnConsultar_Click);
             // 
-            // btnExportar
+            // btnExportarReporteClientes
             // 
-            this.btnExportar.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.btnExportar.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExportar.Location = new System.Drawing.Point(847, 50);
-            this.btnExportar.Margin = new System.Windows.Forms.Padding(2);
-            this.btnExportar.Name = "btnExportar";
-            this.btnExportar.Size = new System.Drawing.Size(143, 31);
-            this.btnExportar.TabIndex = 1;
-            this.btnExportar.Text = "Exportar PDF";
-            this.btnExportar.UseVisualStyleBackColor = false;
+            this.btnExportarReporteClientes.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.btnExportarReporteClientes.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnExportarReporteClientes.Location = new System.Drawing.Point(894, 99);
+            this.btnExportarReporteClientes.Margin = new System.Windows.Forms.Padding(2);
+            this.btnExportarReporteClientes.Name = "btnExportarReporteClientes";
+            this.btnExportarReporteClientes.Size = new System.Drawing.Size(152, 40);
+            this.btnExportarReporteClientes.TabIndex = 1;
+            this.btnExportarReporteClientes.Text = "Exportar PDF";
+            this.btnExportarReporteClientes.UseVisualStyleBackColor = false;
+            this.btnExportarReporteClientes.Click += new System.EventHandler(this.btnExportarReporteClientes_Click);
             // 
-            // dtFechaFin
+            // dtpFechaFin
             // 
-            this.dtFechaFin.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtFechaFin.Location = new System.Drawing.Point(600, 123);
-            this.dtFechaFin.Margin = new System.Windows.Forms.Padding(2);
-            this.dtFechaFin.Name = "dtFechaFin";
-            this.dtFechaFin.Size = new System.Drawing.Size(201, 20);
-            this.dtFechaFin.TabIndex = 11;
+            this.dtpFechaFin.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpFechaFin.Location = new System.Drawing.Point(426, 131);
+            this.dtpFechaFin.Margin = new System.Windows.Forms.Padding(2);
+            this.dtpFechaFin.Name = "dtpFechaFin";
+            this.dtpFechaFin.Size = new System.Drawing.Size(274, 20);
+            this.dtpFechaFin.TabIndex = 11;
             // 
             // lblFechaFin
             // 
             this.lblFechaFin.AutoSize = true;
-            this.lblFechaFin.Font = new System.Drawing.Font("Times New Roman", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFechaFin.Location = new System.Drawing.Point(477, 120);
+            this.lblFechaFin.Font = new System.Drawing.Font("Times New Roman", 14F);
+            this.lblFechaFin.Location = new System.Drawing.Point(294, 130);
             this.lblFechaFin.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblFechaFin.Name = "lblFechaFin";
-            this.lblFechaFin.Size = new System.Drawing.Size(126, 25);
+            this.lblFechaFin.Size = new System.Drawing.Size(106, 21);
             this.lblFechaFin.TabIndex = 10;
             this.lblFechaFin.Text = "Fecha de fin:";
             // 
-            // dtFechaInicio
+            // dtpFechaInicio
             // 
-            this.dtFechaInicio.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtFechaInicio.Location = new System.Drawing.Point(248, 125);
-            this.dtFechaInicio.Margin = new System.Windows.Forms.Padding(2);
-            this.dtFechaInicio.Name = "dtFechaInicio";
-            this.dtFechaInicio.Size = new System.Drawing.Size(201, 20);
-            this.dtFechaInicio.TabIndex = 9;
+            this.dtpFechaInicio.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpFechaInicio.Location = new System.Drawing.Point(426, 101);
+            this.dtpFechaInicio.Margin = new System.Windows.Forms.Padding(2);
+            this.dtpFechaInicio.Name = "dtpFechaInicio";
+            this.dtpFechaInicio.Size = new System.Drawing.Size(274, 20);
+            this.dtpFechaInicio.TabIndex = 9;
             // 
             // lblFechaInicio
             // 
             this.lblFechaInicio.AutoSize = true;
-            this.lblFechaInicio.Font = new System.Drawing.Font("Times New Roman", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFechaInicio.Location = new System.Drawing.Point(99, 120);
+            this.lblFechaInicio.Font = new System.Drawing.Font("Times New Roman", 14F);
+            this.lblFechaInicio.Location = new System.Drawing.Point(294, 102);
             this.lblFechaInicio.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblFechaInicio.Name = "lblFechaInicio";
-            this.lblFechaInicio.Size = new System.Drawing.Size(152, 25);
+            this.lblFechaInicio.Size = new System.Drawing.Size(127, 21);
             this.lblFechaInicio.TabIndex = 8;
             this.lblFechaInicio.Text = "Fecha de inicio:";
             // 
@@ -235,19 +237,19 @@
             // 
             this.pnlHeader.Controls.Add(this.pnlBarraCambioVentas);
             this.pnlHeader.Controls.Add(this.pnlBarraCambio);
-            this.pnlHeader.Controls.Add(this.btnReporte);
-            this.pnlHeader.Controls.Add(this.btnExportar);
-            this.pnlHeader.Controls.Add(this.dtFechaFin);
+            this.pnlHeader.Controls.Add(this.btnConsultar);
+            this.pnlHeader.Controls.Add(this.btnExportarReporteClientes);
+            this.pnlHeader.Controls.Add(this.dtpFechaFin);
             this.pnlHeader.Controls.Add(this.lblFechaFin);
-            this.pnlHeader.Controls.Add(this.dtFechaInicio);
+            this.pnlHeader.Controls.Add(this.dtpFechaInicio);
             this.pnlHeader.Controls.Add(this.lblFechaInicio);
             this.pnlHeader.Controls.Add(this.pnlBarraSuperior);
             this.pnlHeader.Controls.Add(this.lblSubTexto);
             this.pnlHeader.Controls.Add(this.lblMensajeInformativoPrincipal);
             this.pnlHeader.Controls.Add(this.btnClientes);
             this.pnlHeader.Controls.Add(this.btnVentas);
-            this.pnlHeader.Controls.Add(this.pnlReportesVentas);
             this.pnlHeader.Controls.Add(this.pnlReporteDeClientes);
+            this.pnlHeader.Controls.Add(this.pnlReportesVentas);
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlHeader.Location = new System.Drawing.Point(0, 0);
             this.pnlHeader.Margin = new System.Windows.Forms.Padding(2);
@@ -276,7 +278,7 @@
             // 
             this.lblSubTexto.AutoSize = true;
             this.lblSubTexto.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSubTexto.Location = new System.Drawing.Point(30, 68);
+            this.lblSubTexto.Location = new System.Drawing.Point(30, 69);
             this.lblSubTexto.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblSubTexto.Name = "lblSubTexto";
             this.lblSubTexto.Size = new System.Drawing.Size(368, 21);
@@ -287,7 +289,7 @@
             // 
             this.lblMensajeInformativoPrincipal.AutoSize = true;
             this.lblMensajeInformativoPrincipal.Font = new System.Drawing.Font("Times New Roman", 26F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMensajeInformativoPrincipal.Location = new System.Drawing.Point(27, 27);
+            this.lblMensajeInformativoPrincipal.Location = new System.Drawing.Point(28, 26);
             this.lblMensajeInformativoPrincipal.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblMensajeInformativoPrincipal.Name = "lblMensajeInformativoPrincipal";
             this.lblMensajeInformativoPrincipal.Size = new System.Drawing.Size(153, 40);
@@ -306,6 +308,128 @@
             this.pnlReporteDeClientes.Name = "pnlReporteDeClientes";
             this.pnlReporteDeClientes.Size = new System.Drawing.Size(985, 420);
             this.pnlReporteDeClientes.TabIndex = 14;
+            // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.lblClientesTotales);
+            this.panel4.Controls.Add(this.pbClientesFrecuentes);
+            this.panel4.Controls.Add(this.lblContadorTotal);
+            this.panel4.Location = new System.Drawing.Point(657, 12);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(313, 77);
+            this.panel4.TabIndex = 9;
+            // 
+            // lblClientesTotales
+            // 
+            this.lblClientesTotales.AutoSize = true;
+            this.lblClientesTotales.Font = new System.Drawing.Font("Times New Roman", 16F);
+            this.lblClientesTotales.Location = new System.Drawing.Point(124, 10);
+            this.lblClientesTotales.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblClientesTotales.Name = "lblClientesTotales";
+            this.lblClientesTotales.Size = new System.Drawing.Size(154, 25);
+            this.lblClientesTotales.TabIndex = 0;
+            this.lblClientesTotales.Text = "Clientes Totales";
+            // 
+            // pbClientesFrecuentes
+            // 
+            this.pbClientesFrecuentes.Image = global::Vista.Properties.Resources.Cliente_frecuente;
+            this.pbClientesFrecuentes.Location = new System.Drawing.Point(4, 2);
+            this.pbClientesFrecuentes.Name = "pbClientesFrecuentes";
+            this.pbClientesFrecuentes.Size = new System.Drawing.Size(99, 72);
+            this.pbClientesFrecuentes.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbClientesFrecuentes.TabIndex = 1;
+            this.pbClientesFrecuentes.TabStop = false;
+            this.pbClientesFrecuentes.Click += new System.EventHandler(this.pbClientesFrecuentes_Click);
+            // 
+            // lblContadorTotal
+            // 
+            this.lblContadorTotal.AutoSize = true;
+            this.lblContadorTotal.Location = new System.Drawing.Point(164, 46);
+            this.lblContadorTotal.Name = "lblContadorTotal";
+            this.lblContadorTotal.Size = new System.Drawing.Size(35, 13);
+            this.lblContadorTotal.TabIndex = 6;
+            this.lblContadorTotal.Text = "label5";
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.lblClientesIndivisuales);
+            this.panel2.Controls.Add(this.pbClientesNuevos);
+            this.panel2.Controls.Add(this.lblContadorIndividual);
+            this.panel2.Location = new System.Drawing.Point(341, 13);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(313, 77);
+            this.panel2.TabIndex = 8;
+            // 
+            // lblClientesIndivisuales
+            // 
+            this.lblClientesIndivisuales.AutoSize = true;
+            this.lblClientesIndivisuales.Font = new System.Drawing.Font("Times New Roman", 15.5F);
+            this.lblClientesIndivisuales.Location = new System.Drawing.Point(119, 9);
+            this.lblClientesIndivisuales.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblClientesIndivisuales.Name = "lblClientesIndivisuales";
+            this.lblClientesIndivisuales.Size = new System.Drawing.Size(184, 23);
+            this.lblClientesIndivisuales.TabIndex = 0;
+            this.lblClientesIndivisuales.Text = "Clientes Individuales";
+            // 
+            // pbClientesNuevos
+            // 
+            this.pbClientesNuevos.Image = global::Vista.Properties.Resources.Cliente_nuevo;
+            this.pbClientesNuevos.Location = new System.Drawing.Point(15, 2);
+            this.pbClientesNuevos.Name = "pbClientesNuevos";
+            this.pbClientesNuevos.Size = new System.Drawing.Size(99, 72);
+            this.pbClientesNuevos.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbClientesNuevos.TabIndex = 2;
+            this.pbClientesNuevos.TabStop = false;
+            // 
+            // lblContadorIndividual
+            // 
+            this.lblContadorIndividual.AutoSize = true;
+            this.lblContadorIndividual.Location = new System.Drawing.Point(164, 46);
+            this.lblContadorIndividual.Name = "lblContadorIndividual";
+            this.lblContadorIndividual.Size = new System.Drawing.Size(35, 13);
+            this.lblContadorIndividual.TabIndex = 6;
+            this.lblContadorIndividual.Text = "label4";
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.lblClientesCorporativos);
+            this.panel1.Controls.Add(this.lblContadorCorporativos);
+            this.panel1.Controls.Add(this.pbClientesRegistrados);
+            this.panel1.Location = new System.Drawing.Point(24, 13);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(313, 77);
+            this.panel1.TabIndex = 7;
+            // 
+            // lblClientesCorporativos
+            // 
+            this.lblClientesCorporativos.AutoSize = true;
+            this.lblClientesCorporativos.Font = new System.Drawing.Font("Times New Roman", 15F);
+            this.lblClientesCorporativos.Location = new System.Drawing.Point(119, 8);
+            this.lblClientesCorporativos.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblClientesCorporativos.Name = "lblClientesCorporativos";
+            this.lblClientesCorporativos.Size = new System.Drawing.Size(185, 22);
+            this.lblClientesCorporativos.TabIndex = 0;
+            this.lblClientesCorporativos.Text = "Clientes Corporativos";
+            this.lblClientesCorporativos.Click += new System.EventHandler(this.lblClientesCorporativos_Click);
+            // 
+            // lblContadorCorporativos
+            // 
+            this.lblContadorCorporativos.AutoSize = true;
+            this.lblContadorCorporativos.Location = new System.Drawing.Point(164, 46);
+            this.lblContadorCorporativos.Name = "lblContadorCorporativos";
+            this.lblContadorCorporativos.Size = new System.Drawing.Size(35, 13);
+            this.lblContadorCorporativos.TabIndex = 6;
+            this.lblContadorCorporativos.Text = "label2";
+            // 
+            // pbClientesRegistrados
+            // 
+            this.pbClientesRegistrados.Image = global::Vista.Properties.Resources.Clientes_totales;
+            this.pbClientesRegistrados.Location = new System.Drawing.Point(8, 4);
+            this.pbClientesRegistrados.Name = "pbClientesRegistrados";
+            this.pbClientesRegistrados.Size = new System.Drawing.Size(106, 69);
+            this.pbClientesRegistrados.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbClientesRegistrados.TabIndex = 2;
+            this.pbClientesRegistrados.TabStop = false;
             // 
             // pnlCuadroVentas
             // 
@@ -349,71 +473,6 @@
             this.lblDetalleVentas.TabIndex = 0;
             this.lblDetalleVentas.Text = "Detalle de Clientes";
             // 
-            // lblClientesTotales
-            // 
-            this.lblClientesTotales.AutoSize = true;
-            this.lblClientesTotales.Font = new System.Drawing.Font("Times New Roman", 16F);
-            this.lblClientesTotales.Location = new System.Drawing.Point(124, 10);
-            this.lblClientesTotales.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblClientesTotales.Name = "lblClientesTotales";
-            this.lblClientesTotales.Size = new System.Drawing.Size(154, 25);
-            this.lblClientesTotales.TabIndex = 0;
-            this.lblClientesTotales.Text = "Clientes Totales";
-            // 
-            // pbClientesFrecuentes
-            // 
-            this.pbClientesFrecuentes.Image = global::Vista.Properties.Resources.Cliente_frecuente;
-            this.pbClientesFrecuentes.Location = new System.Drawing.Point(4, 2);
-            this.pbClientesFrecuentes.Name = "pbClientesFrecuentes";
-            this.pbClientesFrecuentes.Size = new System.Drawing.Size(99, 72);
-            this.pbClientesFrecuentes.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pbClientesFrecuentes.TabIndex = 1;
-            this.pbClientesFrecuentes.TabStop = false;
-            this.pbClientesFrecuentes.Click += new System.EventHandler(this.pbClientesFrecuentes_Click);
-            // 
-            // pbClientesRegistrados
-            // 
-            this.pbClientesRegistrados.Image = global::Vista.Properties.Resources.Clientes_totales;
-            this.pbClientesRegistrados.Location = new System.Drawing.Point(8, 4);
-            this.pbClientesRegistrados.Name = "pbClientesRegistrados";
-            this.pbClientesRegistrados.Size = new System.Drawing.Size(106, 69);
-            this.pbClientesRegistrados.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pbClientesRegistrados.TabIndex = 2;
-            this.pbClientesRegistrados.TabStop = false;
-            // 
-            // lblClientesCorporativos
-            // 
-            this.lblClientesCorporativos.AutoSize = true;
-            this.lblClientesCorporativos.Font = new System.Drawing.Font("Times New Roman", 15F);
-            this.lblClientesCorporativos.Location = new System.Drawing.Point(119, 8);
-            this.lblClientesCorporativos.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblClientesCorporativos.Name = "lblClientesCorporativos";
-            this.lblClientesCorporativos.Size = new System.Drawing.Size(185, 22);
-            this.lblClientesCorporativos.TabIndex = 0;
-            this.lblClientesCorporativos.Text = "Clientes Corporativos";
-            this.lblClientesCorporativos.Click += new System.EventHandler(this.lblClientesCorporativos_Click);
-            // 
-            // pbClientesNuevos
-            // 
-            this.pbClientesNuevos.Image = global::Vista.Properties.Resources.Cliente_nuevo;
-            this.pbClientesNuevos.Location = new System.Drawing.Point(15, 2);
-            this.pbClientesNuevos.Name = "pbClientesNuevos";
-            this.pbClientesNuevos.Size = new System.Drawing.Size(99, 72);
-            this.pbClientesNuevos.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pbClientesNuevos.TabIndex = 2;
-            this.pbClientesNuevos.TabStop = false;
-            // 
-            // lblClientesIndivisuales
-            // 
-            this.lblClientesIndivisuales.AutoSize = true;
-            this.lblClientesIndivisuales.Font = new System.Drawing.Font("Times New Roman", 15.5F);
-            this.lblClientesIndivisuales.Location = new System.Drawing.Point(119, 9);
-            this.lblClientesIndivisuales.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblClientesIndivisuales.Name = "lblClientesIndivisuales";
-            this.lblClientesIndivisuales.Size = new System.Drawing.Size(184, 23);
-            this.lblClientesIndivisuales.TabIndex = 0;
-            this.lblClientesIndivisuales.Text = "Clientes Individuales";
-            // 
             // pnlReportesVentas
             // 
             this.pnlReportesVentas.BackColor = System.Drawing.Color.White;
@@ -426,6 +485,86 @@
             this.pnlReportesVentas.Size = new System.Drawing.Size(985, 419);
             this.pnlReportesVentas.TabIndex = 6;
             this.pnlReportesVentas.Visible = false;
+            // 
+            // panel6
+            // 
+            this.panel6.Controls.Add(this.lblMostrarFacturasEmitidas);
+            this.panel6.Controls.Add(this.lblFacturasEmitidas);
+            this.panel6.Controls.Add(this.pbFactura);
+            this.panel6.Location = new System.Drawing.Point(494, 12);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(432, 74);
+            this.panel6.TabIndex = 7;
+            // 
+            // lblMostrarFacturasEmitidas
+            // 
+            this.lblMostrarFacturasEmitidas.AutoSize = true;
+            this.lblMostrarFacturasEmitidas.Location = new System.Drawing.Point(251, 45);
+            this.lblMostrarFacturasEmitidas.Name = "lblMostrarFacturasEmitidas";
+            this.lblMostrarFacturasEmitidas.Size = new System.Drawing.Size(35, 13);
+            this.lblMostrarFacturasEmitidas.TabIndex = 4;
+            this.lblMostrarFacturasEmitidas.Text = "label3";
+            // 
+            // lblFacturasEmitidas
+            // 
+            this.lblFacturasEmitidas.AutoSize = true;
+            this.lblFacturasEmitidas.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFacturasEmitidas.Location = new System.Drawing.Point(183, 5);
+            this.lblFacturasEmitidas.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblFacturasEmitidas.Name = "lblFacturasEmitidas";
+            this.lblFacturasEmitidas.Size = new System.Drawing.Size(184, 27);
+            this.lblFacturasEmitidas.TabIndex = 0;
+            this.lblFacturasEmitidas.Text = "Facturas Emitidas";
+            // 
+            // pbFactura
+            // 
+            this.pbFactura.Image = global::Vista.Properties.Resources.Facturas_emitidas;
+            this.pbFactura.Location = new System.Drawing.Point(16, 3);
+            this.pbFactura.Name = "pbFactura";
+            this.pbFactura.Size = new System.Drawing.Size(146, 68);
+            this.pbFactura.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbFactura.TabIndex = 2;
+            this.pbFactura.TabStop = false;
+            // 
+            // panel5
+            // 
+            this.panel5.Controls.Add(this.lblContadorVentasTotales);
+            this.panel5.Controls.Add(this.lblVentasTotales);
+            this.panel5.Controls.Add(this.pbVentas);
+            this.panel5.Location = new System.Drawing.Point(33, 11);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(431, 74);
+            this.panel5.TabIndex = 6;
+            // 
+            // lblContadorVentasTotales
+            // 
+            this.lblContadorVentasTotales.AutoSize = true;
+            this.lblContadorVentasTotales.Location = new System.Drawing.Point(220, 46);
+            this.lblContadorVentasTotales.Name = "lblContadorVentasTotales";
+            this.lblContadorVentasTotales.Size = new System.Drawing.Size(35, 13);
+            this.lblContadorVentasTotales.TabIndex = 3;
+            this.lblContadorVentasTotales.Text = "label2";
+            // 
+            // lblVentasTotales
+            // 
+            this.lblVentasTotales.AutoSize = true;
+            this.lblVentasTotales.Font = new System.Drawing.Font("Times New Roman", 16F);
+            this.lblVentasTotales.Location = new System.Drawing.Point(183, 5);
+            this.lblVentasTotales.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblVentasTotales.Name = "lblVentasTotales";
+            this.lblVentasTotales.Size = new System.Drawing.Size(140, 25);
+            this.lblVentasTotales.TabIndex = 0;
+            this.lblVentasTotales.Text = "Ventas Totales";
+            // 
+            // pbVentas
+            // 
+            this.pbVentas.Image = global::Vista.Properties.Resources.ventas_totales_reportes;
+            this.pbVentas.Location = new System.Drawing.Point(11, 0);
+            this.pbVentas.Name = "pbVentas";
+            this.pbVentas.Size = new System.Drawing.Size(149, 72);
+            this.pbVentas.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbVentas.TabIndex = 2;
+            this.pbVentas.TabStop = false;
             // 
             // panel3
             // 
@@ -468,143 +607,6 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Detalle de Ventas";
             // 
-            // pbVentas
-            // 
-            this.pbVentas.Image = global::Vista.Properties.Resources.ventas_totales_reportes;
-            this.pbVentas.Location = new System.Drawing.Point(11, 0);
-            this.pbVentas.Name = "pbVentas";
-            this.pbVentas.Size = new System.Drawing.Size(149, 72);
-            this.pbVentas.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pbVentas.TabIndex = 2;
-            this.pbVentas.TabStop = false;
-            // 
-            // lblVentasTotales
-            // 
-            this.lblVentasTotales.AutoSize = true;
-            this.lblVentasTotales.Font = new System.Drawing.Font("Times New Roman", 16F);
-            this.lblVentasTotales.Location = new System.Drawing.Point(183, 5);
-            this.lblVentasTotales.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblVentasTotales.Name = "lblVentasTotales";
-            this.lblVentasTotales.Size = new System.Drawing.Size(140, 25);
-            this.lblVentasTotales.TabIndex = 0;
-            this.lblVentasTotales.Text = "Ventas Totales";
-            // 
-            // pbFactura
-            // 
-            this.pbFactura.Image = global::Vista.Properties.Resources.Facturas_emitidas;
-            this.pbFactura.Location = new System.Drawing.Point(16, 3);
-            this.pbFactura.Name = "pbFactura";
-            this.pbFactura.Size = new System.Drawing.Size(146, 68);
-            this.pbFactura.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pbFactura.TabIndex = 2;
-            this.pbFactura.TabStop = false;
-            // 
-            // lblFacturasEmitidas
-            // 
-            this.lblFacturasEmitidas.AutoSize = true;
-            this.lblFacturasEmitidas.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFacturasEmitidas.Location = new System.Drawing.Point(183, 5);
-            this.lblFacturasEmitidas.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblFacturasEmitidas.Name = "lblFacturasEmitidas";
-            this.lblFacturasEmitidas.Size = new System.Drawing.Size(184, 27);
-            this.lblFacturasEmitidas.TabIndex = 0;
-            this.lblFacturasEmitidas.Text = "Facturas Emitidas";
-            // 
-            // lblContadorCorporativos
-            // 
-            this.lblContadorCorporativos.AutoSize = true;
-            this.lblContadorCorporativos.Location = new System.Drawing.Point(164, 46);
-            this.lblContadorCorporativos.Name = "lblContadorCorporativos";
-            this.lblContadorCorporativos.Size = new System.Drawing.Size(35, 13);
-            this.lblContadorCorporativos.TabIndex = 6;
-            this.lblContadorCorporativos.Text = "label2";
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.lblClientesCorporativos);
-            this.panel1.Controls.Add(this.lblContadorCorporativos);
-            this.panel1.Controls.Add(this.pbClientesRegistrados);
-            this.panel1.Location = new System.Drawing.Point(24, 13);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(313, 77);
-            this.panel1.TabIndex = 7;
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.lblClientesIndivisuales);
-            this.panel2.Controls.Add(this.pbClientesNuevos);
-            this.panel2.Controls.Add(this.lblContadorIndividual);
-            this.panel2.Location = new System.Drawing.Point(341, 13);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(313, 77);
-            this.panel2.TabIndex = 8;
-            // 
-            // lblContadorIndividual
-            // 
-            this.lblContadorIndividual.AutoSize = true;
-            this.lblContadorIndividual.Location = new System.Drawing.Point(164, 46);
-            this.lblContadorIndividual.Name = "lblContadorIndividual";
-            this.lblContadorIndividual.Size = new System.Drawing.Size(35, 13);
-            this.lblContadorIndividual.TabIndex = 6;
-            this.lblContadorIndividual.Text = "label4";
-            // 
-            // panel4
-            // 
-            this.panel4.Controls.Add(this.lblClientesTotales);
-            this.panel4.Controls.Add(this.pbClientesFrecuentes);
-            this.panel4.Controls.Add(this.lblContadorTotal);
-            this.panel4.Location = new System.Drawing.Point(657, 12);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(313, 77);
-            this.panel4.TabIndex = 9;
-            // 
-            // lblContadorTotal
-            // 
-            this.lblContadorTotal.AutoSize = true;
-            this.lblContadorTotal.Location = new System.Drawing.Point(164, 46);
-            this.lblContadorTotal.Name = "lblContadorTotal";
-            this.lblContadorTotal.Size = new System.Drawing.Size(35, 13);
-            this.lblContadorTotal.TabIndex = 6;
-            this.lblContadorTotal.Text = "label5";
-            // 
-            // panel5
-            // 
-            this.panel5.Controls.Add(this.lblContadorVentasTotales);
-            this.panel5.Controls.Add(this.lblVentasTotales);
-            this.panel5.Controls.Add(this.pbVentas);
-            this.panel5.Location = new System.Drawing.Point(33, 11);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(431, 74);
-            this.panel5.TabIndex = 6;
-            // 
-            // panel6
-            // 
-            this.panel6.Controls.Add(this.lblMostrarFacturasEmitidas);
-            this.panel6.Controls.Add(this.lblFacturasEmitidas);
-            this.panel6.Controls.Add(this.pbFactura);
-            this.panel6.Location = new System.Drawing.Point(494, 12);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(432, 74);
-            this.panel6.TabIndex = 7;
-            // 
-            // lblContadorVentasTotales
-            // 
-            this.lblContadorVentasTotales.AutoSize = true;
-            this.lblContadorVentasTotales.Location = new System.Drawing.Point(220, 46);
-            this.lblContadorVentasTotales.Name = "lblContadorVentasTotales";
-            this.lblContadorVentasTotales.Size = new System.Drawing.Size(35, 13);
-            this.lblContadorVentasTotales.TabIndex = 3;
-            this.lblContadorVentasTotales.Text = "label2";
-            // 
-            // lblMostrarFacturasEmitidas
-            // 
-            this.lblMostrarFacturasEmitidas.AutoSize = true;
-            this.lblMostrarFacturasEmitidas.Location = new System.Drawing.Point(251, 45);
-            this.lblMostrarFacturasEmitidas.Name = "lblMostrarFacturasEmitidas";
-            this.lblMostrarFacturasEmitidas.Size = new System.Drawing.Size(35, 13);
-            this.lblMostrarFacturasEmitidas.TabIndex = 4;
-            this.lblMostrarFacturasEmitidas.Text = "label3";
-            // 
             // frmReportes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -623,28 +625,28 @@
             this.pnlHeader.ResumeLayout(false);
             this.pnlHeader.PerformLayout();
             this.pnlReporteDeClientes.ResumeLayout(false);
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbClientesFrecuentes)).EndInit();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbClientesNuevos)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbClientesRegistrados)).EndInit();
             this.pnlCuadroVentas.ResumeLayout(false);
             this.pnlCuadroVentas.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReporteClientes)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbClientesFrecuentes)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbClientesRegistrados)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbClientesNuevos)).EndInit();
             this.pnlReportesVentas.ResumeLayout(false);
+            this.panel6.ResumeLayout(false);
+            this.panel6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbFactura)).EndInit();
+            this.panel5.ResumeLayout(false);
+            this.panel5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbVentas)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReporteVentas)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbVentas)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbFactura)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
-            this.panel4.ResumeLayout(false);
-            this.panel4.PerformLayout();
-            this.panel5.ResumeLayout(false);
-            this.panel5.PerformLayout();
-            this.panel6.ResumeLayout(false);
-            this.panel6.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -654,11 +656,11 @@
         private System.Windows.Forms.Panel pnlBarraSuperior;
         private System.Windows.Forms.Button btnVentas;
         private System.Windows.Forms.Button btnClientes;
-        private System.Windows.Forms.Button btnReporte;
-        private System.Windows.Forms.Button btnExportar;
-        private System.Windows.Forms.DateTimePicker dtFechaFin;
+        private System.Windows.Forms.Button btnConsultar;
+        private System.Windows.Forms.Button btnExportarReporteClientes;
+        private System.Windows.Forms.DateTimePicker dtpFechaFin;
         private System.Windows.Forms.Label lblFechaFin;
-        private System.Windows.Forms.DateTimePicker dtFechaInicio;
+        private System.Windows.Forms.DateTimePicker dtpFechaInicio;
         private System.Windows.Forms.Label lblFechaInicio;
         private System.Windows.Forms.Panel pnlContenedorPrincipalInventario;
         private System.Windows.Forms.Panel pnlHeader;

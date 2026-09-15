@@ -74,9 +74,11 @@ CREATE TABLE Cliente
     Documento VARCHAR(30) NOT NULL,
     Telefono VARCHAR(9) NOT NULL UNIQUE, 
     Correo VARCHAR(40) UNIQUE,
-    Direccion VARCHAR(200)NOT NULL,
+    Direccion VARCHAR(200) NOT NULL,
     Estado VARCHAR(10) NOT NULL DEFAULT 'Activo'
-    CHECK (Estado IN ('Activo', 'Inactivo')),
+        CHECK (Estado IN ('Activo', 'Inactivo')),
+
+    FechaRegistro DATETIME NOT NULL DEFAULT GETDATE(),
 
     CONSTRAINT FK_Cliente_TipoCliente
         FOREIGN KEY (IdTipoCliente)
@@ -85,6 +87,7 @@ CREATE TABLE Cliente
     CONSTRAINT UNICO_Cliente_Tipo_Documento
         UNIQUE (IdTipoCliente, Documento)
 );
+GO
 GO
 
 CREATE TABLE Categoria
@@ -862,64 +865,92 @@ INNER JOIN MetodoPago mp
 
 GO
 ---------------------REPORTES DE CLIENTES-------------------------------------------------
-GO
+
 CREATE VIEW VerReporteClientes AS 
 SELECT
     CASE
-    WHEN tc.TipoCliente = 'Persona Natural'
-    THEN CONCAT(c.Identificador1, ' ', c.Identificador2)
-    ELSE c.Identificador1
+        WHEN tc.TipoCliente = 'Persona Natural'
+        THEN CONCAT(c.Identificador1, ' ', c.Identificador2)
+        ELSE c.Identificador1
     END AS [Nombre del Cliente],
+
     tc.TipoCliente,
+
     CASE
-    WHEN tc.TipoCliente = 'Empresa'
-            THEN c.Identificador2
+        WHEN tc.TipoCliente = 'Empresa'
+        THEN c.Identificador2
         ELSE NULL
     END AS Encargado,
 
     c.Documento,
-    c.telefono AS [Telefono],
+    c.Telefono AS [Telefono],
     c.Correo,
-    c.Direccion AS[Direccion]
+    c.Direccion AS [Direccion],
+    c.FechaRegistro AS [Fecha de Registro]
 
 FROM Cliente c
 
-INNER JOIN Cotizacion co
-    ON c.IdCliente = co.IdCliente
+INNER JOIN TipoCliente tc
+    ON c.IdTipoCliente = tc.IdTipoCliente;
+
+----Vista para mostrar en el documento de exportacion de visual--------
+GO
+
+CREATE VIEW VerReporteClientes2 AS 
+SELECT
+    CASE
+        WHEN tc.TipoCliente = 'Persona Natural'
+        THEN CONCAT(c.Identificador1, ' ', c.Identificador2)
+        ELSE c.Identificador1
+    END AS NombreCliente,
+
+    tc.TipoCliente AS TipoCliente,
+
+    CASE
+        WHEN tc.TipoCliente = 'Empresa'
+        THEN c.Identificador2
+        ELSE NULL
+    END AS Encargado,
+
+    c.Documento AS Documento,
+    c.Telefono AS Telefono,
+    c.Correo AS Correo,
+    c.Direccion AS Direccion,
+    c.FechaRegistro AS FechaRegistro
+
+FROM Cliente c
 
 INNER JOIN TipoCliente tc
-    ON c.IdTipoCliente = tc.IdTipoCliente
-
-INNER JOIN Venta v
-    ON v.IdVenta=c.IdCliente;
+    ON c.IdTipoCliente = tc.IdTipoCliente;
 GO
 
 ----------------------------------REPORTE DE VENTAS---------------------------------------------
-GO
-CREATE VIEW ReporteDetalleVentas AS
+
+CREATE VIEW VerReporteClientes AS 
 SELECT
-    v.IdVenta,
-    f.IdFactura AS [N° FACTURA],
+    CASE
+        WHEN tc.TipoCliente = 'Persona Natural'
+        THEN CONCAT(c.Identificador1, ' ', c.Identificador2)
+        ELSE c.Identificador1
+    END AS [Nombre del Cliente],
+
+    tc.TipoCliente,
 
     CASE
-    WHEN tc.TipoCliente = 'Persona Natural'
-    THEN CONCAT(c.Identificador1, ' ', c.Identificador2)
-    ELSE c.Identificador1
-    END AS [Nombre de Cliente],
-    v.FechaVenta,
-    v.IdMetodoPago,
-    v.SubTotal,
-    ROUND(v.SubTotal * 1.13,2) AS [Total a Pagar],
+        WHEN tc.TipoCliente = 'Empresa'
+        THEN c.Identificador2
+        ELSE NULL
+    END AS Encargado,
 
-    f.Observaciones AS [Estado de Factura]
+    c.Documento,
+    c.Telefono AS [Telefono],
+    c.Correo,
+    c.Direccion AS [Direccion],
+    CONVERT(DATE, c.FechaRegistro) AS [Fecha de Registro]
 
-FROM Venta v
-INNER JOIN Cliente c
-    ON v.IdCliente = c.IdCliente
+FROM Cliente c
 INNER JOIN TipoCliente tc
-    ON c.IdTipoCliente = tc.IdTipoCliente
-LEFT JOIN Factura f
-    ON v.IdVenta = f.IdVenta;
+    ON c.IdTipoCliente = tc.IdTipoCliente;
 GO
 
 ------------------DETALLE FACTURA------------------------------------------------
@@ -973,24 +1004,6 @@ SELECT
 FROM DetalleVenta;
 GO
 
---------------DETALLE DE CLIENTES REGISTRADOS ------------------------------------------------------
-GO
-CREATE VIEW UnionClientes AS
-SELECT 
-    IdCliente,
-    CASE 
-        WHEN IdTipoCliente = 1 
-            THEN Identificador1 + ' - ' + Identificador2
-        WHEN IdTipoCliente = 2 
-            THEN Identificador1 + ' ' + Identificador2
-    END AS NombreCliente
-FROM Cliente
-WHERE IdTipoCliente IN (1, 2);
-
-GO
-
-
-GO
 ------------------MUESTRA LOS MATERIALES UTILIZADOS EN UNA PRODUCCION-----------------------
 
 CREATE VIEW VerMaterialesUtilizados

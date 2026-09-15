@@ -3,6 +3,7 @@ using System;
 using System.Data;
 using System.Data.SqlClient;
 
+
 namespace Modelo.Entidades
 {
     public class ReportesClientes
@@ -16,6 +17,7 @@ namespace Modelo.Entidades
         private string direccion;
 
 
+
         public static DataTable CargarReporteClientes()
         {
             SqlConnection conectar = Conexion.Conectar();
@@ -27,6 +29,26 @@ namespace Modelo.Entidades
             adapter.Fill(dt);
 
             return dt;
+        }
+
+        public static DataTable ObtenerClientes()
+        {
+            DataTable tabla = new DataTable();
+
+            using (SqlConnection conexion = Conexion.Conectar())
+            {
+                string query = "SELECT * FROM VerReporteClientes";
+
+                using (SqlCommand comando = new SqlCommand(query, conexion))
+                {
+                    using (SqlDataAdapter adaptador = new SqlDataAdapter(comando))
+                    {
+                        adaptador.Fill(tabla);
+                    }
+                }
+            }
+
+            return tabla;
         }
 
         public static int ContarClientesCorporativos()
@@ -76,7 +98,24 @@ namespace Modelo.Entidades
             }
             return total;
         }
+        public DataTable ObtenerClientesPorFecha(DateTime fechaInicio, DateTime fechaFin)
+        {
+            DataTable tabla = new DataTable();
 
+            string consulta = @"SELECT *  FROM VerReporteClientes   WHERE [Fecha de Registro] >= @FechaInicio  AND [Fecha de Registro] < @FechaFin";
+
+            using (SqlConnection conexion = Conexion.Conectar())
+            {
+                SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexion);
+
+                adaptador.SelectCommand.Parameters.AddWithValue("@FechaInicio", fechaInicio);
+                adaptador.SelectCommand.Parameters.AddWithValue("@FechaFin", fechaFin);
+
+                adaptador.Fill(tabla);
+            }
+
+            return tabla;
+        }
 
     }
 }
