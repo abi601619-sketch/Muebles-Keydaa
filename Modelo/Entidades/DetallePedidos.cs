@@ -1,4 +1,4 @@
-using Modelo.Conexión_DB;
+﻿using Modelo.Conexión_DB;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -47,6 +47,43 @@ namespace Modelo.Entidades
             DataTable dt = new DataTable();
             adapter.Fill(dt);
             return dt;
+        }
+
+        public static bool EliminarDetalle(int idPedido, int idDetalle, bool confirmarCancelacion)
+        {
+            using (SqlConnection conexion = Conexion.Conectar())
+            using (SqlTransaction transaccion = conexion.BeginTransaction(IsolationLevel.Serializable))
+            using (var cmd = new SqlCommand(@"
+                IF NOT EXISTS (SELECT 1 FROM Pedido WITH (UPDLOCK, HOLDLOCK) WHERE IdPedido = @Pedido)
+                    THROW 50001, 'El pedido ya no existe.', 1;
+                DECLARE @Cantidad int = (SELECT COUNT(*) FROM DetallePedido WITH (UPDLOCK, HOLDLOCK) WHERE IdPedido = @Pedido);
+                IF @Cantidad = 1 AND @Confirmar = 0
+                    THROW 50002, 'Este es ahora el último producto. Vuelva a intentar para confirmar la cancelación.', 1;
+                DELETE FROM DetallePedido WHERE IdDetallePedido = @Detalle AND IdPedido = @Pedido;
+                IF @@ROWCOUNT = 0
+                    THROW 50003, 'El producto ya no existe. Actualice el pedido.', 1;
+                IF NOT EXISTS (SELECT 1 FROM DetallePedido WHERE IdPedido = @Pedido)
+                BEGIN
+                    UPDATE Pedido SET Estado = 'Cancelado' WHERE IdPedido = @Pedido;
+                    SELECT CAST(1 AS bit);
+                END
+                ELSE SELECT CAST(0 AS bit);", conexion, transaccion))
+            {
+                cmd.Parameters.AddWithValue("@Pedido", idPedido);
+                cmd.Parameters.AddWithValue("@Detalle", idDetalle);
+                cmd.Parameters.AddWithValue("@Confirmar", confirmarCancelacion);
+                try
+                {
+                    bool cancelado = Convert.ToBoolean(cmd.ExecuteScalar());
+                    transaccion.Commit();
+                    return cancelado;
+                }
+                catch
+                {
+                    transaccion.Rollback();
+                    throw;
+                }
+            }
         }
 
         public static bool InsertarDetalle(int idPedido, string mueble, int cantidad, string medidas)

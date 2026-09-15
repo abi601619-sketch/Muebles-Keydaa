@@ -1,4 +1,4 @@
-using Modelo.Entidades;
+﻿using Modelo.Entidades;
 using System;
 using System.Data;
 using System.Drawing;
@@ -13,6 +13,15 @@ namespace Vista.Pedidos
         {
             InitializeComponent();
             ResponsiveHelper.Apply(this);
+            dgvDetallesDePedido.AllowUserToDeleteRows = false;
+            dgvDetallesDePedido.AllowUserToAddRows = false;
+            dgvDetallesDePedido.ReadOnly = true;
+            dgvDetallesDePedido.Columns.Add(new DataGridViewButtonColumn
+            {
+                Name = "EliminarProducto", HeaderText = "Eliminar", Text = "Eliminar",
+                UseColumnTextForButtonValue = true
+            });
+            dgvDetallesDePedido.CellContentClick += EliminarProducto_Click;
         }
 
         string medidaLargo = "0";
@@ -26,6 +35,42 @@ namespace Vista.Pedidos
         int idPedidoSeleccionado = 0;
         private string estadoOriginal = "";
         private DateTime fechaEntregaOriginal;
+
+        private void EliminarProducto_Click(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0 || e.ColumnIndex < 0 ||
+                dgvDetallesDePedido.Columns[e.ColumnIndex].Name != "EliminarProducto")
+                return;
+            var fila = dgvDetallesDePedido.Rows[e.RowIndex];
+            if (fila.IsNewRow) return;
+            int pedido = Convert.ToInt32(fila.Cells["IdPedido"].Value);
+            int detalle = Convert.ToInt32(fila.Cells["IdDetallePedido"].Value);
+            try
+            {
+                bool ultimo = DetallePedidos.CargarDetallesPorPedido(pedido).Rows.Count == 1;
+                string aviso = ultimo
+                    ? "Al eliminar el último producto, el pedido quedará marcado como Cancelado. El registro del pedido se conservará. ¿Desea continuar?"
+                    : "¿Desea eliminar este producto del pedido?";
+                if (MessageBox.Show(aviso, "Confirmar eliminación", MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) != DialogResult.Yes)
+                    return;
+                bool cancelado = DetallePedidos.EliminarDetalle(pedido, detalle, ultimo);
+                dgvDetallesDePedido.DataSource = DetallePedidos.CargarDetallesPorPedido(pedido);
+                MostrarPedidos();
+                if (cancelado && idPedidoSeleccionado == pedido)
+                {
+                    cbEstado.Text = "Cancelado";
+                    estadoOriginal = "Cancelado";
+                }
+                MessageBox.Show(cancelado ? "Producto eliminado. El pedido quedó Cancelado."
+                    : "Producto eliminado correctamente.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("No se pudo eliminar el producto: " + ex.Message,
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
         private void txtBuscar_Enter(object sender, EventArgs e)
         {
@@ -52,6 +97,7 @@ namespace Vista.Pedidos
 
             cbEstado.Items.Add("En proceso");
             cbEstado.Items.Add("Finalizado");
+            cbEstado.Items.Add("Cancelado");
             cbEstado.SelectedIndex = 0;
             dtpFechaDeEntrega.MinDate = DateTime.Today;
             dtpFechaDeEntrega.Value = DateTime.Today;

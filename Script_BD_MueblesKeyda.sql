@@ -1,4 +1,4 @@
-USE master;
+﻿USE master;
 GO
 
 IF EXISTS(select * from sys.databases where name='MueblesKeyda')
@@ -141,6 +141,12 @@ CREATE TABLE Proveedor
 GO
 
 
+CREATE OR ALTER VIEW dbo.VerProveedores AS
+SELECT IdProveedor, Nombre_Proveedor AS Proveedor, Telefono, Correo, Ubicacion,
+    CASE WHEN Estado = 1 THEN 'Activo' ELSE 'Inactivo' END AS Estado
+FROM dbo.Proveedor;
+GO
+
 CREATE TABLE Compras
 (
     IdCompra INT IDENTITY(1,1) PRIMARY KEY,
@@ -214,7 +220,7 @@ CREATE TABLE Pedido
     FechaDePedido DATE NOT NULL,
     FechaDeEntrega DATE NOT NULL,
     Estado VARCHAR(10) NOT NULL
-    CHECK (Estado IN ('Finalizado', 'En proceso')),
+    CHECK (Estado IN ('Finalizado', 'En proceso', 'Cancelado')),
     IdCotizacion INT NOT NULL,
 
     FOREIGN KEY (IdCotizacion)

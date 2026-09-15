@@ -1,4 +1,4 @@
-using Modelo.Entidades;
+﻿using Modelo.Entidades;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -315,7 +315,8 @@ namespace Vista.Compras
                 decimal subtotal =
                     detalle.Cantidad1 * detalle.PrecioUnitario1;
 
-                dgvDetalleCompras.Rows.Add(detalle.IdMaterial1, nombreMaterial, detalle.Cantidad1, detalle.PrecioUnitario1.ToString("0.00"), subtotal.ToString("0.00"), detalle.IdDetalleCompraMaterial1);
+                int indice = dgvDetalleCompras.Rows.Add(detalle.IdMaterial1, nombreMaterial, detalle.Cantidad1, detalle.PrecioUnitario1.ToString("0.00"), subtotal.ToString("0.00"), detalle.IdDetalleCompraMaterial1);
+                dgvDetalleCompras.Rows[indice].Tag = detalle;
             }
 
             CalcularTotalCompra();
@@ -390,41 +391,16 @@ namespace Vista.Compras
 
             int idProveedor = Convert.ToInt32(cbProveedor.SelectedValue);
 
-            // Crear el registro de compra
-            ComprasDb compra = new ComprasDb(0, dtpFechaDeCompra.Value, totalCompra, idProveedor);
-
-            // Insertar la compra
-
-            int idCompra = compra.InsertarCompra();
-
-            if (idCompra == 0)
+            int idCompra;
+            try
             {
-                MessageBox.Show("No se pudo registrar la compra.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
+                idCompra = ComprasDb.GuardarCompleta(0, dtpFechaDeCompra.Value, idProveedor, detallesTemporales);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("No se pudo guardar la compra: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
-            foreach (DetalleCompraMaterial detalle in detallesTemporales)
-            {
-                // Dar el IdCompra que acabamos de obtener
-                detalle.IdCompra1 = idCompra;
-
-
-                // Guardar detalle
-                bool resultadoExitoso = detalle.InsertarDetalleCompra();
-
-
-                if (!resultadoExitoso)
-                {
-                    MessageBox.Show("Ocurri un error al guardar " +
-                        "el detalle de la compra.");
-
-                    return;
-                }
-
-
-            }
-
 
             MessageBox.Show("Compra registrada correctamente.\n\n" + "Nmero de compra: " + idCompra, "Compra", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -603,7 +579,7 @@ namespace Vista.Compras
                 return;
             }
 
-            DialogResult res = MessageBox.Show("Est seguro de eliminar esta compra permanentemente? Se eliminarn tambin sus detalles.", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            DialogResult res = MessageBox.Show("¿Desea eliminar esta compra y todos sus materiales? Se revertirá el inventario que sumó esta compra, conservando los demás movimientos.", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
             if (res == DialogResult.Yes)
             {
                 Modelo.Entidades.ComprasDb compra = new Modelo.Entidades.ComprasDb();
@@ -612,7 +588,8 @@ namespace Vista.Compras
                 {
                     MessageBox.Show("Compra eliminada correctamente.");
                     MostrarCompras();
-                    idCompraSeleccionada = 0;
+                    LimpiarCompra();
+                    CargarComboBoxMateriales();
                 }
                 else
                 {
@@ -702,88 +679,8 @@ namespace Vista.Compras
 
                 CalcularTotalCompra();
 
-                // ==========================================
-                // 1. ACTUALIZAR CABECERA DE LA COMPRA
-                // ==========================================
-
-                bool compraActualizada =
-                    ComprasDb.ActualizarCompra(
-                        idCompraSeleccionada,
-                        dtpFechaDeCompra.Value,
-                        totalCompra,
-                        idProveedor);
-
-                if (!compraActualizada)
-                {
-                    MessageBox.Show(
-                        "No se pudo actualizar la compra.");
-                    return;
-                }
-
-                // ==========================================
-                // 2. ACTUALIZAR O INSERTAR DETALLES
-                // ==========================================
-
-                foreach (DetalleCompraMaterial detalle
-                    in detallesTemporales)
-                {
-                    // Es un detalle NUEVO
-                    if (detalle.IdDetalleCompraMaterial1 == 0)
-                    {
-                        detalle.IdCompra1 = idCompraSeleccionada;
-
-                        bool resultado =
-                            detalle.InsertarDetalleCompra();
-
-                        if (!resultado)
-                        {
-                            MessageBox.Show(
-                                "No se pudo agregar el nuevo material.");
-                            return;
-                        }
-                    }
-                    else
-                    {
-                        // Buscar el detalle original
-                        DetalleCompraMaterial original =
-                            detallesOriginales.FirstOrDefault(
-                                x => x.IdDetalleCompraMaterial1 ==
-                                     detalle.IdDetalleCompraMaterial1);
-
-                        if (original == null)
-                            continue;
-
-                        bool resultado =
-                            detalle.ActualizarDetalleCompra(
-                                original.IdMaterial1,
-                                original.Cantidad1);
-
-                        if (!resultado)
-                        {
-                            MessageBox.Show(
-                                "No se pudo actualizar uno de los detalles.");
-                            return;
-                        }
-                    }
-                }
-
-                // ==========================================
-                // 3. ELIMINAR DETALLES QUE YA NO EXISTEN
-                // ==========================================
-
-                foreach (DetalleCompraMaterial original
-                    in detallesOriginales)
-                {
-                    bool existe =
-                        detallesTemporales.Any(
-                            x => x.IdDetalleCompraMaterial1 ==
-                                 original.IdDetalleCompraMaterial1);
-
-                    if (!existe)
-                    {
-                        original.EliminarDetalleCompra();
-                    }
-                }
+                ComprasDb.GuardarCompleta(idCompraSeleccionada, dtpFechaDeCompra.Value,
+                    idProveedor, detallesTemporales);
 
                 MessageBox.Show(
                     "Compra actualizada correctamente.",
@@ -821,31 +718,37 @@ namespace Vista.Compras
             if (dgvDetalleCompras.Columns[e.ColumnIndex].Name != "Eliminar")
                 return;
 
-            // Obtener el ID del detalle
-            int idDetalle = Convert.ToInt32(
-                dgvDetalleCompras.Rows[e.RowIndex]
-                .Cells["IdDetalleCompraMaterial"].Value
-            );
-
-            // Buscar el detalle en la lista temporal
-            DetalleCompraMaterial detalle =
-                detallesTemporales.FirstOrDefault(
-                    x => x.IdDetalleCompraMaterial1 == idDetalle
-                );
-
+            DetalleCompraMaterial detalle = dgvDetalleCompras.Rows[e.RowIndex].Tag as DetalleCompraMaterial;
             if (detalle == null)
                 return;
 
+            bool ultimo = detallesTemporales.Count == 1;
             // Confirmar eliminación
             DialogResult resultado = MessageBox.Show(
-                "¿Está seguro de eliminar este material de la compra?",
+                ultimo && modoEdicion
+                    ? "Al eliminar el último material se eliminará automáticamente el registro de esta compra y se revertirá todo el inventario que sumó. Los demás movimientos de inventario se conservarán. ¿Desea continuar?"
+                    : "¿Está seguro de quitar este material? Los cambios se aplicarán al guardar o actualizar la compra.",
                 "Confirmar eliminación",
                 MessageBoxButtons.YesNo,
-                MessageBoxIcon.Warning
+                MessageBoxIcon.Warning,
+                MessageBoxDefaultButton.Button2
             );
 
             if (resultado != DialogResult.Yes)
                 return;
+
+            if (ultimo && modoEdicion)
+            {
+                var compra = new ComprasDb();
+                compra.IdCompra1 = idCompraSeleccionada;
+                if (!compra.EliminarCompra())
+                    return;
+                LimpiarCompra();
+                MostrarCompras();
+                CargarComboBoxMateriales();
+                MessageBox.Show("Compra eliminada e inventario ajustado correctamente.");
+                return;
+            }
 
             // Eliminar de la lista temporal
             detallesTemporales.Remove(detalle);
@@ -854,7 +757,7 @@ namespace Vista.Compras
             MostrarDetallesTemporales();
 
             MessageBox.Show(
-                "Material eliminado correctamente.",
+                "Material quitado de la lista. Guarda o actualiza la compra para aplicar el cambio.",
                 "Eliminación",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information
