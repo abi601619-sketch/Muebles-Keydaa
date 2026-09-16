@@ -118,45 +118,115 @@ namespace Modelo.Entidades
             string comandoSQL = @"
         UPDATE Produccion
         SET Progreso = @Progreso
-        WHERE IdProduccion = @IdProduccion;";
+        WHERE IdProduccion = @IdProduccion;
+
+        IF @Progreso = 100
+        BEGIN
+            UPDATE Pedido
+            SET Estado = 'Finalizado'
+            WHERE IdPedido = (
+                SELECT IdPedido
+                FROM Produccion
+                WHERE IdProduccion = @IdProduccion
+            );
+        END";
 
             using (SqlConnection conexion = Conexion.Conectar())
             {
-                using (SqlCommand comando = new SqlCommand(comandoSQL, conexion))
+                SqlTransaction transaccion = null;
+
+                try
                 {
-                    comando.Parameters.Add("@IdProduccion", SqlDbType.Int).Value =
-                        IdProduccion;
+                    transaccion = conexion.BeginTransaction();
 
-                    comando.Parameters.Add("@Progreso", SqlDbType.Int).Value =
-                        Progreso;
-
-                    try
+                    using (SqlCommand comando = new SqlCommand(
+                        comandoSQL,
+                        conexion,
+                        transaccion))
                     {
+                        comando.Parameters.Add("@IdProduccion", SqlDbType.Int).Value =
+                            IdProduccion;
+
+                        comando.Parameters.Add("@Progreso", SqlDbType.Int).Value =
+                            Progreso;
+
                         int filasAfectadas = comando.ExecuteNonQuery();
 
-                        MessageBox.Show(
-                            "ID: " + IdProduccion +
-                            "\nProgreso enviado: " + Progreso +
-                            "\nFilas afectadas: " + filasAfectadas,
-                            "Prueba de actualización",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information);
+                        transaccion.Commit();
+
+                        if (Progreso == 100)
+                        {
+                            MessageBox.Show(
+                                "La producción ha finalizado correctamente.\n\n" +
+                                "El pedido ha sido marcado automáticamente como FINALIZADO.",
+                                "Producción finalizada",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Information
+                            );
+                        }
+                        else
+                        {
+                            MessageBox.Show(
+                                "La producción se actualizó correctamente.\n\n" +
+                                "ID Producción: " + IdProduccion +
+                                "\nProgreso: " + Progreso + "%",
+                                "Producción actualizada",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Information
+                            );
+                        }
 
                         return filasAfectadas > 0;
                     }
-                    catch (SqlException ex)
+                }
+                catch (SqlException ex)
+                {
+                    if (transaccion != null)
                     {
-                        MessageBox.Show(
-                            "ERROR SQL:\n\n" + ex.Message,
-                            "Error " + ex.Number,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error);
-
-                        return false;
+                        try
+                        {
+                            transaccion.Rollback();
+                        }
+                        catch
+                        {
+                        }
                     }
+
+                    MessageBox.Show(
+                        "ERROR SQL:\n\n" + ex.Message,
+                        "Error " + ex.Number,
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    );
+
+                    return false;
+                }
+                catch (Exception ex)
+                {
+                    if (transaccion != null)
+                    {
+                        try
+                        {
+                            transaccion.Rollback();
+                        }
+                        catch
+                        {
+                        }
+                    }
+
+                    MessageBox.Show(
+                        "ERROR:\n\n" + ex.Message,
+                        "Error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    );
+
+                    return false;
                 }
             }
         }
+
+
 
         // CALCULAR ESTADÍSTICAS
 

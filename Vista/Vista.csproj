@@ -173,12 +173,6 @@
     <Compile Include="Facturación\frmFacturacion.Designer.cs">
       <DependentUpon>frmFacturacion.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmReporteClientes.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmReporteClientes.Designer.cs">
-      <DependentUpon>frmReporteClientes.cs</DependentUpon>
-    </Compile>
     <Compile Include="InicioSecretario\frmInicioSecretario.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -202,11 +196,6 @@
     </Compile>
     <Compile Include="Login\frmLogin.Designer.cs">
       <DependentUpon>frmLogin.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MueblesKeydaDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MueblesKeydaDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="Pedidos Secretario\frmDetallePedidoSecretario.cs">
       <SubType>Form</SubType>
@@ -340,9 +329,6 @@
     <EmbeddedResource Include="Facturación\frmFacturacion.resx">
       <DependentUpon>frmFacturacion.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmReporteClientes.resx">
-      <DependentUpon>frmReporteClientes.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="InicioSecretario\frmInicioSecretario.resx">
       <DependentUpon>frmInicioSecretario.cs</DependentUpon>
     </EmbeddedResource>
@@ -393,7 +379,6 @@
     <EmbeddedResource Include="Reportes\frmReportes.resx">
       <DependentUpon>frmReportes.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="rptReporteClientes.rdlc" />
     <EmbeddedResource Include="Usuarios\frmUsuarios.resx">
       <DependentUpon>frmUsuarios.cs</DependentUpon>
     </EmbeddedResource>
@@ -403,17 +388,6 @@
     <EmbeddedResource Include="Ventas\frmVentas.resx">
       <DependentUpon>frmVentas.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="MueblesKeydaDataSet.xsc">
-      <DependentUpon>MueblesKeydaDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="MueblesKeydaDataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>MueblesKeydaDataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="MueblesKeydaDataSet.xss">
-      <DependentUpon>MueblesKeydaDataSet.xsd</DependentUpon>
-    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
