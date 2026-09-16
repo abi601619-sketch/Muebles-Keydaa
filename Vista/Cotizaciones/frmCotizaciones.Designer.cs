@@ -28,7 +28,7 @@ namespace Vista.Cotizaciones
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pnlContenedorPrincipalCotizaciones = new System.Windows.Forms.Panel();
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.pnlBarraCambioRegistros = new System.Windows.Forms.Panel();
@@ -82,7 +82,7 @@ namespace Vista.Cotizaciones
             this.lblProductos = new System.Windows.Forms.Label();
             this.txtProductosCotizacion = new System.Windows.Forms.TextBox();
             this.lblCantidad = new System.Windows.Forms.Label();
-            this.btnGenerarCotizacion = new System.Windows.Forms.Button();
+            this.btnGenerarPDF = new System.Windows.Forms.Button();
             this.pnlResumenDePago = new System.Windows.Forms.Panel();
             this.txtTotal = new System.Windows.Forms.TextBox();
             this.txtIVA = new System.Windows.Forms.TextBox();
@@ -370,14 +370,14 @@ namespace Vista.Cotizaciones
             this.dgvCotizacionesRegistradas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvCotizacionesRegistradas.BackgroundColor = System.Drawing.Color.White;
             this.dgvCotizacionesRegistradas.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvCotizacionesRegistradas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvCotizacionesRegistradas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvCotizacionesRegistradas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvCotizacionesRegistradas.Location = new System.Drawing.Point(10, 8);
             this.dgvCotizacionesRegistradas.Name = "dgvCotizacionesRegistradas";
@@ -531,7 +531,7 @@ namespace Vista.Cotizaciones
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlNuevaCotizacion.Controls.Add(this.btnGuardar);
             this.pnlNuevaCotizacion.Controls.Add(this.pnlDatalledeProductos);
-            this.pnlNuevaCotizacion.Controls.Add(this.btnGenerarCotizacion);
+            this.pnlNuevaCotizacion.Controls.Add(this.btnGenerarPDF);
             this.pnlNuevaCotizacion.Controls.Add(this.pnlResumenDePago);
             this.pnlNuevaCotizacion.Controls.Add(this.pnlVistaPrevia);
             this.pnlNuevaCotizacion.Controls.Add(this.pnlDatosGenerales);
@@ -776,18 +776,19 @@ namespace Vista.Cotizaciones
             this.lblCantidad.TabIndex = 10;
             this.lblCantidad.Text = "Cantidad:";
             // 
-            // btnGenerarCotizacion
+            // btnGenerarPDF
             // 
-            this.btnGenerarCotizacion.BackColor = System.Drawing.Color.Silver;
-            this.btnGenerarCotizacion.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGenerarCotizacion.Location = new System.Drawing.Point(838, 336);
-            this.btnGenerarCotizacion.Margin = new System.Windows.Forms.Padding(2);
-            this.btnGenerarCotizacion.Name = "btnGenerarCotizacion";
-            this.btnGenerarCotizacion.Size = new System.Drawing.Size(219, 42);
-            this.btnGenerarCotizacion.TabIndex = 14;
-            this.btnGenerarCotizacion.Text = "Generar PDF";
-            this.btnGenerarCotizacion.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnGenerarCotizacion.UseVisualStyleBackColor = false;
+            this.btnGenerarPDF.BackColor = System.Drawing.Color.Silver;
+            this.btnGenerarPDF.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGenerarPDF.Location = new System.Drawing.Point(838, 336);
+            this.btnGenerarPDF.Margin = new System.Windows.Forms.Padding(2);
+            this.btnGenerarPDF.Name = "btnGenerarPDF";
+            this.btnGenerarPDF.Size = new System.Drawing.Size(219, 42);
+            this.btnGenerarPDF.TabIndex = 14;
+            this.btnGenerarPDF.Text = "Generar PDF";
+            this.btnGenerarPDF.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnGenerarPDF.UseVisualStyleBackColor = false;
+            this.btnGenerarPDF.Click += new System.EventHandler(this.btnGenerarPDF_Click);
             // 
             // pnlResumenDePago
             // 
@@ -1269,7 +1270,7 @@ namespace Vista.Cotizaciones
         private System.Windows.Forms.Label lblProductos;
         private System.Windows.Forms.TextBox txtProductosCotizacion;
         private System.Windows.Forms.Label lblCantidad;
-        private System.Windows.Forms.Button btnGenerarCotizacion;
+        private System.Windows.Forms.Button btnGenerarPDF;
         private System.Windows.Forms.Panel pnlResumenDePago;
         private System.Windows.Forms.TextBox txtTotal;
         private System.Windows.Forms.TextBox txtIVA;

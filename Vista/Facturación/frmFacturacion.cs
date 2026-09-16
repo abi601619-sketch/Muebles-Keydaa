@@ -460,7 +460,7 @@ namespace Vista.Facturación
             txtNumeroFactura.Clear();
 
             //Limpiar total de productos
-            lblTotalDeProductos = "";
+            lblTotalDeProductos.Text = "";
 
             // Limpiar observaciones
             txtObservaciones.Clear();
