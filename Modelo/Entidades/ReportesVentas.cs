@@ -2,6 +2,7 @@ using Modelo.Conexión_DB;
 using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Windows.Forms;
 
 namespace Modelo.Entidades
 {
@@ -27,7 +28,7 @@ namespace Modelo.Entidades
             Subtotal = subtotal;
             TotalAPagar = totalAPagar;
         }
-
+        public ReportesVentas() { }
         public int IdVenta1 { get => IdVenta; set => IdVenta = value; }
         public int N_Factura1 { get => N_Factura; set => N_Factura = value; }
         public string Nombre_De_Cliente1 { get => Nombre_De_Cliente; set => Nombre_De_Cliente = value; }
@@ -39,13 +40,33 @@ namespace Modelo.Entidades
 
         public static DataTable CargarReporteVentas()
         {
-            SqlConnection conectar = Conexion.Conectar();
-
-            string comando = " SELECT* FROM ReporteDetalleVentas;";
-            SqlDataAdapter adapter = new SqlDataAdapter(comando, conectar);
-
             DataTable dt = new DataTable();
-            adapter.Fill(dt);
+
+            try
+            {
+                using (SqlConnection conectar = Conexion.Conectar())
+                {
+                    string comando = @"
+                    SELECT *
+                    FROM ReporteDetalleVentas;";
+
+                    using (SqlDataAdapter adapter =
+                           new SqlDataAdapter(comando, conectar))
+                    {
+                        adapter.Fill(dt);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Ocurrió un error al cargar el reporte:\n\n"
+                    + ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
 
             return dt;
         }
@@ -82,6 +103,105 @@ namespace Modelo.Entidades
             }
 
             return total;
+        }
+
+
+
+        public static DataTable ObtenerVentasPorFecha(
+        DateTime fechaInicio,
+        DateTime fechaFin)
+        {
+            DataTable tabla = new DataTable();
+
+            try
+            {
+                string consulta = @"
+            SELECT *
+            FROM VerReporteVentas
+            WHERE FechaVenta >= @FechaInicio
+              AND FechaVenta < @FechaFin;";
+
+                using (SqlConnection conexion = Conexion.Conectar())
+                {
+                    using (SqlDataAdapter adaptador =
+                           new SqlDataAdapter(consulta, conexion))
+                    {
+                        adaptador.SelectCommand.Parameters.Add(
+                            "@FechaInicio",
+                            SqlDbType.DateTime
+                        ).Value = fechaInicio.Date;
+
+                        adaptador.SelectCommand.Parameters.Add(
+                            "@FechaFin",
+                            SqlDbType.DateTime
+                        ).Value = fechaFin.Date.AddDays(1);
+
+                        adaptador.Fill(tabla);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Ocurrió un error al obtener las ventas:\n\n" +
+                    ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
+
+            return tabla;
+        }
+
+        public static DataTable ObtenerEstadisticasVentas(
+     DateTime fechaInicio,
+     DateTime fechaFin)
+        {
+            DataTable tabla = new DataTable();
+
+            try
+            {
+                string consulta = @"
+            SELECT
+                COUNT(DISTINCT [N° FACTURA]) AS FacturasEmitidas,
+                ISNULL(SUM(TotalAPagar), 0) AS TotalVentas,
+                ISNULL(MAX(TotalAPagar), 0) AS VentaMasAlta
+            FROM VerReporteVentas
+            WHERE FechaVenta >= @FechaInicio
+              AND FechaVenta < @FechaFin;";
+
+                using (SqlConnection conexion = Conexion.Conectar())
+                {
+                    using (SqlDataAdapter adaptador =
+                           new SqlDataAdapter(consulta, conexion))
+                    {
+                        adaptador.SelectCommand.Parameters.Add(
+                            "@FechaInicio",
+                            SqlDbType.DateTime
+                        ).Value = fechaInicio.Date;
+
+                        adaptador.SelectCommand.Parameters.Add(
+                            "@FechaFin",
+                            SqlDbType.DateTime
+                        ).Value = fechaFin.Date.AddDays(1);
+
+                        adaptador.Fill(tabla);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Ocurrió un error al obtener las estadísticas:\n\n"
+                    + ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
+
+            return tabla;
         }
     }
 }

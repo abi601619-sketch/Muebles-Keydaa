@@ -1,7 +1,13 @@
 using Modelo.Entidades;
+using QuestPDF.Fluent;
 using System;
+using System.Data;
+using System.Diagnostics;
+using System.IO;
 using System.Windows.Forms;
 using Vista.Responsive;
+
+
 
 
 
@@ -23,6 +29,8 @@ namespace Vista.Reportes
             pnlReportesVentas.Visible = false;
             pnlBarraCambio.Visible = true;
             pnlBarraCambioVentas.Visible = false;
+            btnConsultarVentas.Visible = false;
+            btnConsultar.Visible = true;
 
 
         }
@@ -33,6 +41,8 @@ namespace Vista.Reportes
             pnlReportesVentas.Visible = true;
             pnlBarraCambioVentas.Visible = true;
             pnlBarraCambio.Visible = false;
+            btnConsultarVentas.Visible = true;
+            btnConsultar.Visible = false;
         }
 
         public void CargarReporteClientes()
@@ -115,6 +125,195 @@ namespace Vista.Reportes
                 new frmReporteClientes(fechaInicio, fechaFin);
 
             reporte.Show();
+        }
+
+        private void btnConsultarVentas_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DateTime fechaInicio = dtpFechaInicio.Value.Date;
+                DateTime fechaFin = dtpFechaFin.Value.Date;
+
+                if (fechaInicio > fechaFin)
+                {
+                    MessageBox.Show(
+                        "La fecha de inicio no puede ser mayor que la fecha de fin.",
+                        "Rango de fechas",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning
+                    );
+
+                    return;
+                }
+
+                dgvReporteVentas.DataSource =
+                    ReportesVentas.ObtenerVentasPorFecha(
+                        fechaInicio,
+                        fechaFin
+                    );
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Ocurrió un error al consultar el reporte de ventas:\n\n" +
+                    ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
+        }
+
+        private void btnExportarReporteVentas_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DateTime fechaInicio = dtpFechaInicio.Value.Date;
+                DateTime fechaFin = dtpFechaFin.Value.Date;
+
+                // ==========================================
+                // VALIDAR PERÍODO
+                // ==========================================
+
+                if (fechaInicio > fechaFin)
+                {
+                    MessageBox.Show(
+                        "La fecha de inicio no puede ser mayor que la fecha final.",
+                        "Período inválido",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning
+                    );
+
+                    return;
+                }
+
+                // ==========================================
+                // OBTENER VENTAS DEL PERÍODO
+                // ==========================================
+
+                DataTable ventas = ReportesVentas.ObtenerVentasPorFecha(
+                    fechaInicio,
+                    fechaFin
+                );
+
+                if (ventas == null || ventas.Rows.Count == 0)
+                {
+                    MessageBox.Show(
+                        "No existen ventas registradas durante el período seleccionado.",
+                        "Sin resultados",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information
+                    );
+
+                    return;
+                }
+
+                // ==========================================
+                // OBTENER ESTADÍSTICAS
+                // ==========================================
+
+                DataTable estadisticas =
+                    ReportesVentas.ObtenerEstadisticasVentas(
+                        fechaInicio,
+                        fechaFin
+                    );
+
+                int facturasEmitidas = 0;
+                double totalVentas = 0;
+                double ventaMasAlta = 0;
+
+                if (estadisticas != null && estadisticas.Rows.Count > 0)
+                {
+                    facturasEmitidas = Convert.ToInt32(
+                        estadisticas.Rows[0]["FacturasEmitidas"]
+                    );
+
+                    totalVentas = Convert.ToDouble(
+                        estadisticas.Rows[0]["TotalVentas"]
+                    );
+
+                    ventaMasAlta = Convert.ToDouble(
+                        estadisticas.Rows[0]["VentaMasAlta"]
+                    );
+                }
+
+                // ==========================================
+                // CREAR CARPETA DE REPORTES
+                // ==========================================
+
+                string carpetaReportes = Path.Combine(
+                    Application.StartupPath,
+                    "Reportes"
+                );
+
+                if (!Directory.Exists(carpetaReportes))
+                {
+                    Directory.CreateDirectory(carpetaReportes);
+                }
+
+                // ==========================================
+                // NOMBRE DEL ARCHIVO
+                // ==========================================
+
+                string nombreArchivo =
+                    $"Reporte_Ventas_{fechaInicio:dd-MM-yyyy}_{fechaFin:dd-MM-yyyy}.pdf";
+
+                string rutaArchivo = Path.Combine(
+                    carpetaReportes,
+                    nombreArchivo
+                );
+
+                // ==========================================
+                // CREAR DOCUMENTO
+                // ==========================================
+
+                VentasDocumentoPDF documento = new VentasDocumentoPDF(
+                    ventas,
+                    fechaInicio,
+                    fechaFin,
+                    facturasEmitidas,
+                    totalVentas,
+                    ventaMasAlta
+                );
+
+                documento.GeneratePdf(rutaArchivo);
+
+                // ==========================================
+                // MENSAJE
+                // ==========================================
+
+                MessageBox.Show(
+                    "El reporte de ventas se generó correctamente.\n\n" +
+                    $"Período: {fechaInicio:dd/MM/yyyy} - {fechaFin:dd/MM/yyyy}\n\n" +
+                    $"Facturas emitidas: {facturasEmitidas}\n" +
+                    $"Total de ventas: ${totalVentas:N2}\n" +
+                    $"Venta más alta: ${ventaMasAlta:N2}\n\n" +
+                    $"Guardado en:\n{rutaArchivo}",
+                    "Reporte generado",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+
+                // ==========================================
+                // ABRIR PDF
+                // ==========================================
+
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = rutaArchivo,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Ocurrió un error al generar el reporte:\n\n" +
+                    ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
         }
     }
 }

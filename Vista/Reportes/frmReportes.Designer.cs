@@ -73,6 +73,8 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.dgvReporteVentas = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
+            this.btnConsultarVentas = new System.Windows.Forms.Button();
+            this.btnExportarReporteVentas = new System.Windows.Forms.Button();
             this.pnlBarraSuperior.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbPerfil)).BeginInit();
             this.pnlContenedorPrincipalInventario.SuspendLayout();
@@ -235,6 +237,8 @@
             // 
             // pnlHeader
             // 
+            this.pnlHeader.Controls.Add(this.btnExportarReporteVentas);
+            this.pnlHeader.Controls.Add(this.btnConsultarVentas);
             this.pnlHeader.Controls.Add(this.pnlBarraCambioVentas);
             this.pnlHeader.Controls.Add(this.pnlBarraCambio);
             this.pnlHeader.Controls.Add(this.btnConsultar);
@@ -607,6 +611,32 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Detalle de Ventas";
             // 
+            // btnConsultarVentas
+            // 
+            this.btnConsultarVentas.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.btnConsultarVentas.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnConsultarVentas.Location = new System.Drawing.Point(722, 107);
+            this.btnConsultarVentas.Margin = new System.Windows.Forms.Padding(2);
+            this.btnConsultarVentas.Name = "btnConsultarVentas";
+            this.btnConsultarVentas.Size = new System.Drawing.Size(154, 35);
+            this.btnConsultarVentas.TabIndex = 15;
+            this.btnConsultarVentas.Text = "Consultar";
+            this.btnConsultarVentas.UseVisualStyleBackColor = false;
+            this.btnConsultarVentas.Click += new System.EventHandler(this.btnConsultarVentas_Click);
+            // 
+            // btnExportarReporteVentas
+            // 
+            this.btnExportarReporteVentas.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.btnExportarReporteVentas.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnExportarReporteVentas.Location = new System.Drawing.Point(894, 99);
+            this.btnExportarReporteVentas.Margin = new System.Windows.Forms.Padding(2);
+            this.btnExportarReporteVentas.Name = "btnExportarReporteVentas";
+            this.btnExportarReporteVentas.Size = new System.Drawing.Size(152, 40);
+            this.btnExportarReporteVentas.TabIndex = 16;
+            this.btnExportarReporteVentas.Text = "Exportar PDF";
+            this.btnExportarReporteVentas.UseVisualStyleBackColor = false;
+            this.btnExportarReporteVentas.Click += new System.EventHandler(this.btnExportarReporteVentas_Click);
+            // 
             // frmReportes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -698,5 +728,7 @@
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Label lblMostrarFacturasEmitidas;
         private System.Windows.Forms.Label lblContadorVentasTotales;
+        private System.Windows.Forms.Button btnConsultarVentas;
+        private System.Windows.Forms.Button btnExportarReporteVentas;
     }
 }
