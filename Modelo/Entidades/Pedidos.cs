@@ -1,4 +1,4 @@
-using Modelo.Conexión_DB;
+﻿using Modelo.Conexión_DB;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -186,7 +186,7 @@ namespace Modelo.Entidades
         {
             using (System.Data.SqlClient.SqlConnection conexion = Conexion.Conectar())
             {
-                string query = "UPDATE Pedido SET Estado = @Estado WHERE IdPedido = @IdPedido";
+                string query = "UPDATE Pedido SET Estado = @Estado WHERE IdPedido = @IdPedido AND (@Estado = 'Cancelado' OR EXISTS (SELECT 1 FROM DetallePedido WHERE IdPedido = @IdPedido))";
                 System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand(query, conexion);
                 cmd.Parameters.AddWithValue("@Estado", nuevoEstado);
 

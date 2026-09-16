@@ -86,6 +86,9 @@ namespace Vista.Producción
 
             // Vincular la tabla con el DataGridView
             dgvMaterialesAgregados.DataSource = dtMateriales;
+            dgvMaterialesAgregados.ReadOnly = true;
+            dgvMaterialesAgregados.AllowUserToDeleteRows = false;
+            dgvMaterialesAgregados.AllowUserToAddRows = false;
         }
         // Metodo para traer y cargar la informacion del formulario de producción
         private void CargarProduccion()
@@ -154,6 +157,9 @@ namespace Vista.Producción
 
             // Mostrar los registros en el DataGridView
             dgvMaterialesAgregados.DataSource = dtMateriales;
+            dgvMaterialesAgregados.ReadOnly = true;
+            dgvMaterialesAgregados.AllowUserToDeleteRows = false;
+            dgvMaterialesAgregados.AllowUserToAddRows = false;
         }
 
 
@@ -257,7 +263,14 @@ namespace Vista.Producción
 
             // AGREGAR CADA MATERIAL A LA TABLA TEMPORAL
 
-            dtMateriales.Rows.Add(0, idProduccion, idMaterial, nombreMaterial, cantidad);
+            DataRow nueva = dtMateriales.NewRow();
+            nueva["IdMaterialUtilizado"] = 0;
+            nueva["IdProduccion"] = idProduccion;
+            nueva["IdMaterial"] = idMaterial;
+            nueva["NombreDelMaterial"] = nombreMaterial;
+            nueva["Cantidad_Utilizada"] = cantidad;
+            nueva["UnidadMedida"] = fila["UnidadMedida"];
+            dtMateriales.Rows.Add(nueva);
 
             // Limpiar los controles después de agregar
             cbMateriales.SelectedIndex = -1;
@@ -277,37 +290,23 @@ namespace Vista.Producción
             try
             //RECORRE TODAS LAS FILAS DEL DATA GRID VIEW
             {
-                foreach (DataGridViewRow fila in dgvMaterialesAgregados.Rows)
+                DataTable pendientes = dtMateriales.Clone();
+                foreach (DataRow fila in dtMateriales.Rows)
                 {
-                    if (fila.IsNewRow)
-                        continue;
-
-                    int idMaterialUtilizado = Convert.ToInt32(fila.Cells["IdMaterialUtilizado"].Value);
-
-                    // Si el Id del material es 0, significa que es un material nuevo
-                    if (idMaterialUtilizado == 0)
-                    {
-                        int idMaterial = Convert.ToInt32(fila.Cells["IdMaterial"].Value);
-
-                        int cantidad = Convert.ToInt32(fila.Cells["Cantidad_Utilizada"].Value);
-
-                        using (SqlConnection conectar = Conexion.Conectar())
-                        {
-                            string consulta = @"INSERT INTO MaterialUtilizado(Cantidad_Utilizada, IdMaterial,IdProduccion) VALUES(@Cantidad, @IdMaterial, @IdProduccion  )";
-
-                            SqlCommand comando =
-                                new SqlCommand(consulta, conectar);
-
-                            comando.Parameters.AddWithValue("@Cantidad", cantidad);
-
-                            comando.Parameters.AddWithValue("@IdMaterial", idMaterial);
-
-                            comando.Parameters.AddWithValue("@IdProduccion", idProduccion);
-
-                            comando.ExecuteNonQuery();
-                        }
-                    }
+                    if (Convert.ToInt32(fila["IdMaterialUtilizado"]) == 0)
+                        pendientes.ImportRow(fila);
                 }
+                if (pendientes.Rows.Count == 0)
+                {
+                    MessageBox.Show("Agrega un material antes de guardar.");
+                    return;
+                }
+                MaterialUtilizado.GuardarConsumo(idProduccion, pendientes);
+                // Marcar los nuevos registros como guardados incluso si falla la recarga.
+                foreach (DataRow fila in dtMateriales.Rows)
+                    if (Convert.ToInt32(fila["IdMaterialUtilizado"]) == 0)
+                        fila["IdMaterialUtilizado"] = -1;
+                CargarComboBoxMateriales();
 
                 MessageBox.Show("Materiales guardados correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 

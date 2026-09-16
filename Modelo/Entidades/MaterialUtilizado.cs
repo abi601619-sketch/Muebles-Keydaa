@@ -1,4 +1,4 @@
-using Modelo.Conexión_DB;
+﻿using Modelo.Conexión_DB;
 using System;
 using System.Data;
 using System.Data.SqlClient;
@@ -30,31 +30,47 @@ namespace Modelo.Entidades
         }
         public static bool InsertarMaterialUtilizado(int idMaterial, int idProduccion, int cantidad)
         {
-            using (System.Data.SqlClient.SqlConnection conexion = Conexion.Conectar())
+            var materiales = new DataTable();
+            materiales.Columns.Add("IdMaterial", typeof(int));
+            materiales.Columns.Add("Cantidad_Utilizada", typeof(int));
+            materiales.Rows.Add(idMaterial, cantidad);
+            GuardarConsumo(idProduccion, materiales);
+            return true;
+        }
+
+        // Todo el lote se guarda o se revierte; el stock se valida dentro de SQL.
+        public static void GuardarConsumo(int idProduccion, DataTable materiales)
+        {
+            using (SqlConnection conexion = Conexion.Conectar())
+            using (SqlTransaction transaccion = conexion.BeginTransaction())
             {
-                System.Data.SqlClient.SqlTransaction transaccion = conexion.BeginTransaction();
                 try
                 {
-                    string insertSql = "INSERT INTO MaterialUtilizado (IdMaterial, IdProduccion, Cantidad_Utilizada) VALUES (@IdMaterial, @IdProduccion, @Cantidad);";
-                    System.Data.SqlClient.SqlCommand cmdInsert = new System.Data.SqlClient.SqlCommand(insertSql, conexion, transaccion);
-                    cmdInsert.Parameters.AddWithValue("@IdMaterial", idMaterial);
-                    cmdInsert.Parameters.AddWithValue("@IdProduccion", idProduccion);
-                    cmdInsert.Parameters.AddWithValue("@Cantidad", cantidad);
-                    cmdInsert.ExecuteNonQuery();
-
-                    string updateSql = "UPDATE Material SET Stock = Stock - @Cantidad WHERE IdMaterial = @IdMaterial;";
-                    System.Data.SqlClient.SqlCommand cmdUpdate = new System.Data.SqlClient.SqlCommand(updateSql, conexion, transaccion);
-                    cmdUpdate.Parameters.AddWithValue("@IdMaterial", idMaterial);
-                    cmdUpdate.Parameters.AddWithValue("@Cantidad", cantidad);
-                    cmdUpdate.ExecuteNonQuery();
-
+                    foreach (DataRow fila in materiales.Rows)
+                    {
+                        int cantidad = Convert.ToInt32(fila["Cantidad_Utilizada"]);
+                        if (cantidad <= 0)
+                            throw new InvalidOperationException("La cantidad utilizada debe ser mayor que cero.");
+                        using (var cmd = new SqlCommand(@"
+                            UPDATE Material SET Stock = Stock - @Cantidad
+                            WHERE IdMaterial = @IdMaterial AND Stock >= @Cantidad;
+                            IF @@ROWCOUNT = 0
+                                THROW 50001, 'Stock insuficiente o material inexistente. No se guardó el consumo.', 1;
+                            INSERT INTO MaterialUtilizado (IdMaterial, IdProduccion, Cantidad_Utilizada)
+                            VALUES (@IdMaterial, @IdProduccion, @Cantidad);", conexion, transaccion))
+                        {
+                            cmd.Parameters.AddWithValue("@IdMaterial", fila["IdMaterial"]);
+                            cmd.Parameters.AddWithValue("@IdProduccion", idProduccion);
+                            cmd.Parameters.AddWithValue("@Cantidad", cantidad);
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
                     transaccion.Commit();
-                    return true;
                 }
-                catch (Exception)
+                catch
                 {
                     transaccion.Rollback();
-                    return false;
+                    throw;
                 }
             }
         }
