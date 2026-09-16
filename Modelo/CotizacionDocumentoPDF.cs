@@ -8,10 +8,6 @@ namespace Modelo.PDF
 {
     public class CotizacionDocumentoPDF : IDocument
     {
-        // ==============================
-        // DATOS DE LA COTIZACIÓN
-        // ==============================
-
         private readonly int idCotizacion;
         private readonly DateTime fecha;
         private readonly string cliente;
@@ -21,16 +17,10 @@ namespace Modelo.PDF
         private readonly string condicionesPago;
         private readonly string condicionesEntrega;
         private readonly string estado;
-
         private readonly decimal subtotal;
         private readonly decimal iva;
         private readonly decimal total;
-
         private readonly List<ProductoPDF> productos;
-
-        // ==============================
-        // CONSTRUCTOR
-        // ==============================
 
         public CotizacionDocumentoPDF(
             int idCotizacion,
@@ -56,394 +46,318 @@ namespace Modelo.PDF
             this.condicionesPago = condicionesPago;
             this.condicionesEntrega = condicionesEntrega;
             this.estado = estado;
-
             this.subtotal = subtotal;
             this.iva = iva;
             this.total = total;
-
             this.productos = productos;
         }
 
-        // ==============================
-        // METADATA
-        // ==============================
-
         public DocumentMetadata GetMetadata()
         {
-            return DocumentMetadata.Default;
+            return new DocumentMetadata
+            {
+                Title = $"Cotización #{idCotizacion}",
+                Author = "Muebles Keyda",
+                Subject = "Cotización de muebles"
+            };
         }
-
-        // ==============================
-        // SETTINGS
-        // ==============================
 
         public DocumentSettings GetSettings()
         {
             return DocumentSettings.Default;
         }
 
-        // ==============================
-        // DOCUMENTO
-        // ==============================
-
         public void Compose(IDocumentContainer container)
         {
-            container.Page(page =>
+            container
+                .Page(page =>
+                {
+                    page.Size(PageSizes.A4);
+                    page.Margin(35);
+
+                    page.Header()
+                        .Element(ConstruirEncabezado);
+
+                    page.Content()
+                        .PaddingVertical(15)
+                        .Element(ConstruirContenido);
+
+                    page.Footer()
+                        .AlignCenter()
+                        .Text(text =>
+                        {
+                            text.Span("Muebles Keyda | Cotización ");
+                            text.Span($"#{idCotizacion}");
+                        });
+                });
+        }
+
+        private void ConstruirEncabezado(IContainer container)
+        {
+            container.Row(row =>
             {
-                page.Size(PageSizes.A4);
-
-                page.Margin(35);
-
-                // ==================================
-                // ENCABEZADO
-                // ==================================
-
-                page.Header()
+                row.RelativeItem()
                     .Column(column =>
                     {
                         column.Item()
-                            .AlignCenter()
                             .Text("MUEBLES KEYDA")
-                            .FontSize(25)
-                            .Bold();
+                            .Bold()
+                            .FontSize(22);
 
                         column.Item()
-                            .AlignCenter()
-                            .PaddingTop(3)
-                            .Text("COTIZACIÓN")
-                            .FontSize(18)
-                            .Bold();
-
-                        column.Item()
-                            .PaddingTop(10)
-                            .LineHorizontal(1);
+                            .Text("Fabricación de muebles")
+                            .FontSize(10);
                     });
 
-                // ==================================
-                // CONTENIDO
-                // ==================================
-
-                page.Content()
-                    .PaddingTop(20)
+                row.ConstantItem(160)
                     .Column(column =>
                     {
-                        // ==================================
-                        // INFORMACIÓN DE COTIZACIÓN
-                        // ==================================
-
                         column.Item()
-                            .Row(row =>
-                            {
-                                row.RelativeItem()
-                                    .Text(text =>
-                                    {
-                                        text.Span("Cotización N.º: ")
-                                            .Bold();
-
-                                        text.Span(idCotizacion.ToString());
-                                    });
-
-                                row.RelativeItem()
-                                    .AlignRight()
-                                    .Text(text =>
-                                    {
-                                        text.Span("Fecha: ")
-                                            .Bold();
-
-                                        text.Span(fecha.ToString("dd/MM/yyyy"));
-                                    });
-                            });
-
-                        // ==================================
-                        // DATOS DEL CLIENTE
-                        // ==================================
-
-                        column.Item()
-                            .PaddingTop(20)
-                            .Border(1)
-                            .Padding(10)
-                            .Column(clienteColumn =>
-                            {
-                                clienteColumn.Item()
-                                    .Text("DATOS DEL CLIENTE")
-                                    .FontSize(13)
-                                    .Bold();
-
-                                clienteColumn.Item()
-                                    .PaddingTop(8)
-                                    .Text(text =>
-                                    {
-                                        text.Span("Cliente: ")
-                                            .Bold();
-
-                                        text.Span(cliente);
-                                    });
-
-                                clienteColumn.Item()
-                                    .PaddingTop(4)
-                                    .Text(text =>
-                                    {
-                                        text.Span("Teléfono: ")
-                                            .Bold();
-
-                                        text.Span(telefono);
-                                    });
-
-                                clienteColumn.Item()
-                                    .PaddingTop(4)
-                                    .Text(text =>
-                                    {
-                                        text.Span("Correo: ")
-                                            .Bold();
-
-                                        text.Span(correo);
-                                    });
-
-                                clienteColumn.Item()
-                                    .PaddingTop(4)
-                                    .Text(text =>
-                                    {
-                                        text.Span("Dirección: ")
-                                            .Bold();
-
-                                        text.Span(direccion);
-                                    });
-                            });
-
-                        // ==================================
-                        // DETALLE
-                        // ==================================
-
-                        column.Item()
-                            .PaddingTop(20)
-                            .Text("DETALLE DE LOS PRODUCTOS")
-                            .FontSize(13)
-                            .Bold();
-
-                        // ==================================
-                        // TABLA DE PRODUCTOS
-                        // ==================================
-
-                        column.Item()
-                            .PaddingTop(8)
-                            .Table(table =>
-                            {
-                                table.ColumnsDefinition(columns =>
-                                {
-                                    columns.RelativeColumn(3);
-                                    columns.RelativeColumn(0.8f);
-                                    columns.RelativeColumn(0.8f);
-                                    columns.RelativeColumn(0.8f);
-                                    columns.RelativeColumn(0.8f);
-                                    columns.RelativeColumn(1.3f);
-                                    columns.RelativeColumn(1.3f);
-                                });
-
-                                // ==============================
-                                // CABECERA
-                                // ==============================
-
-                                table.Header(header =>
-                                {
-                                    header.Cell()
-                                        .Background(Colors.Grey.Lighten2)
-                                        .Padding(5)
-                                        .Text("Producto")
-                                        .Bold();
-
-                                    header.Cell()
-                                        .Background(Colors.Grey.Lighten2)
-                                        .Padding(5)
-                                        .AlignCenter()
-                                        .Text("Largo")
-                                        .Bold();
-
-                                    header.Cell()
-                                        .Background(Colors.Grey.Lighten2)
-                                        .Padding(5)
-                                        .AlignCenter()
-                                        .Text("Ancho")
-                                        .Bold();
-
-                                    header.Cell()
-                                        .Background(Colors.Grey.Lighten2)
-                                        .Padding(5)
-                                        .AlignCenter()
-                                        .Text("Alto")
-                                        .Bold();
-
-                                    header.Cell()
-                                        .Background(Colors.Grey.Lighten2)
-                                        .Padding(5)
-                                        .AlignCenter()
-                                        .Text("Cant.")
-                                        .Bold();
-
-                                    header.Cell()
-                                        .Background(Colors.Grey.Lighten2)
-                                        .Padding(5)
-                                        .AlignRight()
-                                        .Text("P. Unit.")
-                                        .Bold();
-
-                                    header.Cell()
-                                        .Background(Colors.Grey.Lighten2)
-                                        .Padding(5)
-                                        .AlignRight()
-                                        .Text("Subtotal")
-                                        .Bold();
-                                });
-
-                                // ==============================
-                                // PRODUCTOS
-                                // ==============================
-
-                                foreach (var producto in productos)
-                                {
-                                    table.Cell()
-                                        .BorderBottom(1)
-                                        .Padding(5)
-                                        .Text(producto.Descripcion);
-
-                                    table.Cell()
-                                        .BorderBottom(1)
-                                        .Padding(5)
-                                        .AlignCenter()
-                                        .Text(producto.Largo.ToString());
-
-                                    table.Cell()
-                                        .BorderBottom(1)
-                                        .Padding(5)
-                                        .AlignCenter()
-                                        .Text(producto.Ancho.ToString());
-
-                                    table.Cell()
-                                        .BorderBottom(1)
-                                        .Padding(5)
-                                        .AlignCenter()
-                                        .Text(producto.Alto.ToString());
-
-                                    table.Cell()
-                                        .BorderBottom(1)
-                                        .Padding(5)
-                                        .AlignCenter()
-                                        .Text(producto.Cantidad.ToString());
-
-                                    table.Cell()
-                                        .BorderBottom(1)
-                                        .Padding(5)
-                                        .AlignRight()
-                                        .Text($"${producto.PrecioUnitario:0.00}");
-
-                                    table.Cell()
-                                        .BorderBottom(1)
-                                        .Padding(5)
-                                        .AlignRight()
-                                        .Text($"${producto.SubTotal:0.00}");
-                                }
-                            });
-
-                        // ==================================
-                        // TOTALES
-                        // ==================================
-
-                        column.Item()
-                            .PaddingTop(15)
                             .AlignRight()
-                            .Column(totales =>
-                            {
-                                totales.Item()
-                                    .Text(text =>
-                                    {
-                                        text.Span("Subtotal: ")
-                                            .Bold();
-
-                                        text.Span($"${subtotal:0.00}");
-                                    });
-
-                                totales.Item()
-                                    .PaddingTop(5)
-                                    .Text(text =>
-                                    {
-                                        text.Span("IVA (13%): ")
-                                            .Bold();
-
-                                        text.Span($"${iva:0.00}");
-                                    });
-
-                                totales.Item()
-                                    .PaddingTop(5)
-                                    .Text(text =>
-                                    {
-                                        text.Span("TOTAL: ")
-                                            .Bold()
-                                            .FontSize(14);
-
-                                        text.Span($"${total:0.00}")
-                                            .Bold()
-                                            .FontSize(14);
-                                    });
-                            });
-
-                        // ==================================
-                        // CONDICIONES
-                        // ==================================
+                            .Text("COTIZACIÓN")
+                            .Bold()
+                            .FontSize(18);
 
                         column.Item()
-                            .PaddingTop(25)
-                            .Text("CONDICIONES")
-                            .FontSize(13)
-                            .Bold();
+                            .AlignRight()
+                            .Text($"No. {idCotizacion}")
+                            .FontSize(11);
 
                         column.Item()
-                            .PaddingTop(8)
-                            .Text(text =>
-                            {
-                                text.Span("Condiciones de pago: ")
-                                    .Bold();
-
-                                text.Span(condicionesPago);
-                            });
+                            .AlignRight()
+                            .Text($"Fecha: {fecha:dd/MM/yyyy}")
+                            .FontSize(10);
 
                         column.Item()
-                            .PaddingTop(5)
-                            .Text(text =>
-                            {
-                                text.Span("Condiciones de entrega: ")
-                                    .Bold();
-
-                                text.Span(condicionesEntrega);
-                            });
-
-                        column.Item()
-                            .PaddingTop(5)
-                            .Text(text =>
-                            {
-                                text.Span("Estado: ")
-                                    .Bold();
-
-                                text.Span(estado);
-                            });
-                    });
-
-                // ==================================
-                // PIE DE PÁGINA
-                // ==================================
-
-                page.Footer()
-                    .AlignCenter()
-                    .Text(text =>
-                    {
-                        text.Span("Muebles Keyda | Cotización N.º ");
-                        text.Span(idCotizacion.ToString())
-                            .Bold();
+                            .AlignRight()
+                            .Text($"Estado: {estado}")
+                            .FontSize(10);
                     });
             });
         }
 
-        // ==================================
-        // GENERAR PDF
-        // ==================================
+        private void ConstruirContenido(IContainer container)
+        {
+            container.Column(column =>
+            {
+                // DATOS DEL CLIENTE
+                column.Item()
+                    .Element(ConstruirDatosCliente);
+
+                column.Item()
+                    .PaddingTop(15)
+                    .Text("DETALLE DE LA COTIZACIÓN")
+                    .Bold()
+                    .FontSize(12);
+
+                // TABLA DE PRODUCTOS
+                column.Item()
+                    .PaddingTop(8)
+                    .Element(ConstruirTablaProductos);
+
+                // TOTALES
+                column.Item()
+                    .PaddingTop(15)
+                    .AlignRight()
+                    .Element(ConstruirTotales);
+
+                // CONDICIONES
+                column.Item()
+                    .PaddingTop(20)
+                    .Element(ConstruirCondiciones);
+            });
+        }
+
+        private void ConstruirDatosCliente(IContainer container)
+        {
+            container
+                .Border(1)
+                .Padding(10)
+                .Column(column =>
+                {
+                    column.Item()
+                        .Text("DATOS DEL CLIENTE")
+                        .Bold()
+                        .FontSize(11);
+
+                    column.Item()
+                        .PaddingTop(5)
+                        .Text($"Cliente: {cliente}");
+
+                    column.Item()
+                        .Text($"Teléfono: {telefono}");
+
+                    column.Item()
+                        .Text($"Correo: {correo}");
+
+                    column.Item()
+                        .Text($"Dirección: {direccion}");
+                });
+        }
+
+        private void ConstruirTablaProductos(IContainer container)
+        {
+            container.Table(table =>
+            {
+                table.ColumnsDefinition(columns =>
+                {
+                    columns.RelativeColumn(3);
+                    columns.ConstantColumn(45);
+                    columns.ConstantColumn(45);
+                    columns.ConstantColumn(45);
+                    columns.ConstantColumn(45);
+                    columns.ConstantColumn(70);
+                    columns.ConstantColumn(70);
+                });
+
+                // ENCABEZADOS
+                table.Header(header =>
+                {
+                    header.Cell()
+                        .Element(EncabezadoTabla)
+                        .Text("Producto");
+
+                    header.Cell()
+                        .Element(EncabezadoTabla)
+                        .Text("Largo");
+
+                    header.Cell()
+                        .Element(EncabezadoTabla)
+                        .Text("Ancho");
+
+                    header.Cell()
+                        .Element(EncabezadoTabla)
+                        .Text("Alto");
+
+                    header.Cell()
+                        .Element(EncabezadoTabla)
+                        .Text("Cant.");
+
+                    header.Cell()
+                        .Element(EncabezadoTabla)
+                        .Text("P. Unit.");
+
+                    header.Cell()
+                        .Element(EncabezadoTabla)
+                        .Text("Subtotal");
+                });
+
+                // PRODUCTOS
+                foreach (ProductoPDF producto in productos)
+                {
+                    table.Cell()
+                        .Element(CeldaTabla)
+                        .Text(producto.Descripcion);
+
+                    table.Cell()
+                        .Element(CeldaTabla)
+                        .Text($"{producto.Largo}");
+
+                    table.Cell()
+                        .Element(CeldaTabla)
+                        .Text($"{producto.Ancho}");
+
+                    table.Cell()
+                        .Element(CeldaTabla)
+                        .Text($"{producto.Alto}");
+
+                    table.Cell()
+                        .Element(CeldaTabla)
+                        .Text($"{producto.Cantidad}");
+
+                    table.Cell()
+                        .Element(CeldaTabla)
+                        .Text($"${producto.PrecioUnitario:N2}");
+
+                    table.Cell()
+                        .Element(CeldaTabla)
+                        .Text($"${producto.SubTotal:N2}");
+                }
+            });
+        }
+
+        private IContainer EncabezadoTabla(IContainer container)
+        {
+            return container
+                .Border(1)
+                .Padding(5)
+                .Background(Colors.Grey.Lighten2);
+        }
+
+        private IContainer CeldaTabla(IContainer container)
+        {
+            return container
+                .Border(1)
+                .Padding(5);
+        }
+
+        private void ConstruirTotales(IContainer container)
+        {
+            container
+                .Width(220)
+                .Column(column =>
+                {
+                    column.Item()
+                        .Row(row =>
+                        {
+                            row.RelativeItem()
+                                .Text("Subtotal:");
+
+                            row.ConstantItem(90)
+                                .AlignRight()
+                                .Text($"${subtotal:N2}");
+                        });
+
+                    column.Item()
+                        .PaddingTop(5)
+                        .Row(row =>
+                        {
+                            row.RelativeItem()
+                                .Text("IVA (13%):");
+
+                            row.ConstantItem(90)
+                                .AlignRight()
+                                .Text($"${iva:N2}");
+                        });
+
+                    column.Item()
+                        .PaddingTop(5)
+                        .BorderTop(1)
+                        .PaddingTop(5)
+                        .Row(row =>
+                        {
+                            row.RelativeItem()
+                                .Text("TOTAL")
+                                .Bold();
+
+                            row.ConstantItem(90)
+                                .AlignRight()
+                                .Text($"${total:N2}")
+                                .Bold();
+                        });
+                });
+        }
+
+        private void ConstruirCondiciones(IContainer container)
+        {
+            container
+                .Border(1)
+                .Padding(10)
+                .Column(column =>
+                {
+                    column.Item()
+                        .Text("CONDICIONES")
+                        .Bold()
+                        .FontSize(11);
+
+                    column.Item()
+                        .PaddingTop(5)
+                        .Text($"Forma de pago: {condicionesPago}");
+
+                    column.Item()
+                        .Text($"Condiciones de entrega: {condicionesEntrega}");
+                });
+        }
 
         public static void Generar(
             string rutaPDF,
@@ -461,28 +375,25 @@ namespace Modelo.PDF
             decimal total,
             List<ProductoPDF> productos)
         {
-            var documento = new CotizacionDocumentoPDF(
-                idCotizacion,
-                fecha,
-                cliente,
-                telefono,
-                correo,
-                direccion,
-                condicionesPago,
-                condicionesEntrega,
-                estado,
-                subtotal,
-                iva,
-                total,
-                productos);
+            CotizacionDocumentoPDF documento =
+                new CotizacionDocumentoPDF(
+                    idCotizacion,
+                    fecha,
+                    cliente,
+                    telefono,
+                    correo,
+                    direccion,
+                    condicionesPago,
+                    condicionesEntrega,
+                    estado,
+                    subtotal,
+                    iva,
+                    total,
+                    productos);
 
             documento.GeneratePdf(rutaPDF);
         }
     }
-
-    // ==================================
-    // CLASE PARA LOS PRODUCTOS DEL PDF
-    // ==================================
 
     public class ProductoPDF
     {

@@ -93,7 +93,6 @@ namespace Vista.Cotizaciones
             this.lblTotal = new System.Windows.Forms.Label();
             this.pnlVistaPrevia = new System.Windows.Forms.Panel();
             this.lblVistaPrevia = new System.Windows.Forms.Label();
-            this.pbVistaPrevia = new System.Windows.Forms.PictureBox();
             this.pnlDatosGenerales = new System.Windows.Forms.Panel();
             this.cbEstado = new System.Windows.Forms.ComboBox();
             this.lblEstado = new System.Windows.Forms.Label();
@@ -116,6 +115,7 @@ namespace Vista.Cotizaciones
             this.lblCondicionesEntrega = new System.Windows.Forms.Label();
             this.lblObservaciones = new System.Windows.Forms.Label();
             this.lblCondicionesPago = new System.Windows.Forms.Label();
+            this.pnlPDFPreview = new System.Windows.Forms.Panel();
             this.pnlContenedorPrincipalCotizaciones.SuspendLayout();
             this.pnlHeader.SuspendLayout();
             this.pnlBarraSuperior.SuspendLayout();
@@ -133,7 +133,6 @@ namespace Vista.Cotizaciones
             ((System.ComponentModel.ISupportInitialize)(this.nudCantidad)).BeginInit();
             this.pnlResumenDePago.SuspendLayout();
             this.pnlVistaPrevia.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbVistaPrevia)).BeginInit();
             this.pnlDatosGenerales.SuspendLayout();
             this.pnlObeservaciones.SuspendLayout();
             this.SuspendLayout();
@@ -884,8 +883,8 @@ namespace Vista.Cotizaciones
             // pnlVistaPrevia
             // 
             this.pnlVistaPrevia.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(215)))), ((int)(((byte)(215)))));
+            this.pnlVistaPrevia.Controls.Add(this.pnlPDFPreview);
             this.pnlVistaPrevia.Controls.Add(this.lblVistaPrevia);
-            this.pnlVistaPrevia.Controls.Add(this.pbVistaPrevia);
             this.pnlVistaPrevia.Location = new System.Drawing.Point(805, 14);
             this.pnlVistaPrevia.Margin = new System.Windows.Forms.Padding(2);
             this.pnlVistaPrevia.Name = "pnlVistaPrevia";
@@ -902,17 +901,6 @@ namespace Vista.Cotizaciones
             this.lblVistaPrevia.Size = new System.Drawing.Size(127, 25);
             this.lblVistaPrevia.TabIndex = 13;
             this.lblVistaPrevia.Text = "Vista Previa";
-            // 
-            // pbVistaPrevia
-            // 
-            this.pbVistaPrevia.Image = global::Vista.Properties.Resources.Captura_de_pantalla_2026_07_06_171749;
-            this.pbVistaPrevia.Location = new System.Drawing.Point(2, 32);
-            this.pbVistaPrevia.Margin = new System.Windows.Forms.Padding(2);
-            this.pbVistaPrevia.Name = "pbVistaPrevia";
-            this.pbVistaPrevia.Size = new System.Drawing.Size(270, 277);
-            this.pbVistaPrevia.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pbVistaPrevia.TabIndex = 20;
-            this.pbVistaPrevia.TabStop = false;
             // 
             // pnlDatosGenerales
             // 
@@ -1170,6 +1158,13 @@ namespace Vista.Cotizaciones
             this.lblCondicionesPago.TabIndex = 3;
             this.lblCondicionesPago.Text = "Condiciones de pago:";
             // 
+            // pnlPDFPreview
+            // 
+            this.pnlPDFPreview.Location = new System.Drawing.Point(21, 41);
+            this.pnlPDFPreview.Name = "pnlPDFPreview";
+            this.pnlPDFPreview.Size = new System.Drawing.Size(230, 262);
+            this.pnlPDFPreview.TabIndex = 14;
+            // 
             // frmCotizaciones
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1207,7 +1202,6 @@ namespace Vista.Cotizaciones
             this.pnlResumenDePago.PerformLayout();
             this.pnlVistaPrevia.ResumeLayout(false);
             this.pnlVistaPrevia.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbVistaPrevia)).EndInit();
             this.pnlDatosGenerales.ResumeLayout(false);
             this.pnlDatosGenerales.PerformLayout();
             this.pnlObeservaciones.ResumeLayout(false);
@@ -1281,7 +1275,6 @@ namespace Vista.Cotizaciones
         private System.Windows.Forms.Label lblTotal;
         private System.Windows.Forms.Panel pnlVistaPrevia;
         private System.Windows.Forms.Label lblVistaPrevia;
-        private System.Windows.Forms.PictureBox pbVistaPrevia;
         private System.Windows.Forms.Panel pnlDatosGenerales;
         private System.Windows.Forms.ComboBox cbEstado;
         private System.Windows.Forms.Label lblEstado;
@@ -1304,6 +1297,7 @@ namespace Vista.Cotizaciones
         private System.Windows.Forms.Label lblCondicionesEntrega;
         private System.Windows.Forms.Label lblObservaciones;
         private System.Windows.Forms.Label lblCondicionesPago;
+        private System.Windows.Forms.Panel pnlPDFPreview;
     }
 }
 

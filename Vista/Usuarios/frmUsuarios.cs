@@ -20,6 +20,7 @@ namespace Vista.Usuarios
             string usuarioNombre = txtNombreUsuario.Text.Trim();
             string contraseña = txtContrasena.Text;
             bool estado = true;
+            chkEstado.Checked = true;
             chkEstado.Visible = false;
 
             if (cmbRol.SelectedIndex == -1)

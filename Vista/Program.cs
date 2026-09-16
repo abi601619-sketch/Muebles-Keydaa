@@ -1,3 +1,4 @@
+using QuestPDF.Infrastructure;
 using System;
 
 using System.Windows.Forms;
@@ -15,6 +16,8 @@ namespace Vista
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            QuestPDF.Settings.License = QuestPDF.Infrastructure.LicenseType.Community;
+            QuestPDF.Settings.License = LicenseType.Evaluation;
             Application.Run(new frmDashboard());
         }
     }

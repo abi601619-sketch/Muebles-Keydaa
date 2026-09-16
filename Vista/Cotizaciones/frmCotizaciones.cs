@@ -3,12 +3,14 @@ using Modelo.Entidades;
 using Modelo.PDF;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Vista.Clientes;
 using Vista.Responsive;
+
 
 namespace Vista.Cotizaciones
 {
@@ -18,6 +20,13 @@ namespace Vista.Cotizaciones
         {
             InitializeComponent();
             ResponsiveHelper.Apply(this);
+
+            visorPDF = new WebView2
+            {
+                Dock = DockStyle.Fill
+            };
+
+            pnlPDFPreview.Controls.Add(visorPDF);
 
         }
         private int idClienteSeleccionado = 0;
@@ -52,7 +61,7 @@ namespace Vista.Cotizaciones
         }
 
 
-        private void frmCotizaciones_Load(object sender, EventArgs e)
+        private async void frmCotizaciones_Load(object sender, EventArgs e)
         {
             cbEstado.Items.Add("Pendiente");
             cbEstado.Items.Add("Aprobada");
@@ -89,7 +98,116 @@ namespace Vista.Cotizaciones
 
             dgvCotizacionesRegistradas.Columns["IdCotizacion"].HeaderText = "#";
 
+            try
+            {
+                await visorPDF.EnsureCoreWebView2Async();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "No se pudo inicializar la vista previa.\n\n" + ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
 
+
+        }
+
+        private void ActualizarVistaPrevia()
+        {
+            try
+            {
+                if (visorPDF == null || visorPDF.CoreWebView2 == null)
+                    return;
+
+                // Verificar que haya productos
+                bool hayProductos = dgvDetalleDeCotizacion.Rows
+                    .Cast<DataGridViewRow>()
+                    .Any(row =>
+                        !row.IsNewRow &&
+                        row.Cells["DescripcionMueble"].Value != null &&
+                        !string.IsNullOrWhiteSpace(
+                            row.Cells["DescripcionMueble"].Value.ToString()));
+
+                if (!hayProductos)
+                    return;
+
+                // Calcular totales
+                CalcularTotalCotizacion();
+
+                // Lista de productos
+                List<ProductoPDF> productos = new List<ProductoPDF>();
+
+                foreach (DataGridViewRow row in dgvDetalleDeCotizacion.Rows)
+                {
+                    if (row.IsNewRow)
+                        continue;
+
+                    if (row.Cells["DescripcionMueble"].Value == null)
+                        continue;
+
+                    string descripcion =
+                        row.Cells["DescripcionMueble"].Value.ToString();
+
+                    if (string.IsNullOrWhiteSpace(descripcion))
+                        continue;
+
+                    ProductoPDF producto = new ProductoPDF
+                    {
+                        Descripcion = descripcion,
+                        Largo = Convert.ToInt32(row.Cells["Largo"].Value),
+                        Ancho = Convert.ToInt32(row.Cells["Ancho"].Value),
+                        Alto = Convert.ToInt32(row.Cells["Alto"].Value),
+                        Cantidad = Convert.ToInt32(row.Cells["Cantidad"].Value),
+                        PrecioUnitario = Convert.ToDecimal(
+                            row.Cells["PrecioUnitario"].Value),
+                        SubTotal = Convert.ToDecimal(
+                            row.Cells["SubTotal"].Value)
+                    };
+
+                    productos.Add(producto);
+                }
+
+                // Crear archivo temporal
+                rutaPDFPreview = Path.Combine(
+                    Path.GetTempPath(),
+                    "CotizacionPreview.pdf");
+
+                // Generar PDF
+                CotizacionDocumentoPDF.Generar(
+                    rutaPDFPreview,
+                    idCotizacionGuardada,
+                    dtpFechaCotizacion.Value,
+                    txtCliente.Text.Trim(),
+                    txtTelefono.Text.Trim(),
+                    txtCorreo.Text.Trim(),
+                    txtDireccion.Text.Trim(),
+                    txtCondicionesPago.Text.Trim(),
+                    txtCondicionesEntrega.Text.Trim(),
+                    cbEstado.Text.Trim(),
+                    subtotal,
+                    iva,
+                    total,
+                    productos
+                );
+
+                // Mostrar el PDF dentro del formulario
+                if (File.Exists(rutaPDFPreview))
+                {
+                    visorPDF.CoreWebView2.Navigate(
+                        new Uri(rutaPDFPreview).AbsoluteUri);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "No se pudo actualizar la vista previa.\n\n" +
+                    ex.ToString(),
+                    "Vista previa",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
         }
         private void btnBuscarCliente_Click(object sender, EventArgs e)
         {
@@ -343,6 +461,9 @@ namespace Vista.Cotizaciones
 
             CalcularTotalCotizacion();
 
+            // Actualizar vista previa
+            ActualizarVistaPrevia();
+
             LimpiarProducto();
         }
 
@@ -537,42 +658,19 @@ namespace Vista.Cotizaciones
         {
             try
             {
-                // ==========================================
-                // VERIFICAR QUE LA COTIZACIÓN ESTÉ GUARDADA
-                // ==========================================
-
-                if (idCotizacionGuardada == 0)
+                // Verificar que la cotización haya sido guardada
+                if (idCotizacionGuardada <= 0)
                 {
                     MessageBox.Show(
                         "Primero debes guardar la cotización.",
-                        "Aviso",
+                        "Generar PDF",
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Warning);
 
                     return;
                 }
 
-                // ==========================================
-                // VERIFICAR QUE EXISTAN PRODUCTOS
-                // ==========================================
-
-                if (dgvDetalleDeCotizacion.Rows.Count == 0 ||
-                    dgvDetalleDeCotizacion.Rows.Cast<DataGridViewRow>()
-                        .All(row => row.IsNewRow))
-                {
-                    MessageBox.Show(
-                        "La cotización no tiene productos.",
-                        "Aviso",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning);
-
-                    return;
-                }
-
-                // ==========================================
-                // LISTA DE PRODUCTOS
-                // ==========================================
-
+                // Verificar que existan productos
                 List<ProductoPDF> productos = new List<ProductoPDF>();
 
                 foreach (DataGridViewRow row in dgvDetalleDeCotizacion.Rows)
@@ -583,71 +681,75 @@ namespace Vista.Cotizaciones
                     if (row.Cells["DescripcionMueble"].Value == null)
                         continue;
 
-                    ProductoPDF producto = new ProductoPDF();
-
-                    producto.Descripcion =
+                    string descripcion =
                         row.Cells["DescripcionMueble"].Value.ToString();
 
-                    producto.Largo =
-                        Convert.ToInt32(row.Cells["Largo"].Value);
+                    if (string.IsNullOrWhiteSpace(descripcion))
+                        continue;
 
-                    producto.Ancho =
-                        Convert.ToInt32(row.Cells["Ancho"].Value);
+                    ProductoPDF producto = new ProductoPDF
+                    {
+                        Descripcion = descripcion,
 
-                    producto.Alto =
-                        Convert.ToInt32(row.Cells["Alto"].Value);
+                        Largo = Convert.ToInt32(
+                            row.Cells["Largo"].Value),
 
-                    producto.Cantidad =
-                        Convert.ToInt32(row.Cells["Cantidad"].Value);
+                        Ancho = Convert.ToInt32(
+                            row.Cells["Ancho"].Value),
 
-                    producto.PrecioUnitario =
-                        Convert.ToDecimal(row.Cells["PrecioUnitario"].Value);
+                        Alto = Convert.ToInt32(
+                            row.Cells["Alto"].Value),
 
-                    producto.SubTotal =
-                        Convert.ToDecimal(row.Cells["SubTotal"].Value);
+                        Cantidad = Convert.ToInt32(
+                            row.Cells["Cantidad"].Value),
+
+                        PrecioUnitario = Convert.ToDecimal(
+                            row.Cells["PrecioUnitario"].Value),
+
+                        SubTotal = Convert.ToDecimal(
+                            row.Cells["SubTotal"].Value)
+                    };
 
                     productos.Add(producto);
                 }
 
-                // ==========================================
-                // ACTUALIZAR TOTALES
-                // ==========================================
+                if (productos.Count == 0)
+                {
+                    MessageBox.Show(
+                        "Debes agregar al menos un producto.",
+                        "Generar PDF",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
 
+                    return;
+                }
+
+                // Recalcular totales
                 CalcularTotalCotizacion();
 
-                // ==========================================
-                // OBTENER CARPETA DOCUMENTOS
-                // ==========================================
-
-                string documentos = Environment.GetFolderPath(
-                    Environment.SpecialFolder.MyDocuments);
-
-                string carpetaMueblesKeyda = Path.Combine(
-                    documentos,
-                    "Muebles Keyda");
-
-                string carpetaCotizaciones = Path.Combine(
-                    carpetaMueblesKeyda,
+                // Crear carpeta
+                string carpeta = Path.Combine(
+                    Environment.GetFolderPath(
+                        Environment.SpecialFolder.MyDocuments),
+                    "Muebles Keyda",
                     "Cotizaciones");
 
-                // Crear las carpetas si no existen
-                Directory.CreateDirectory(carpetaCotizaciones);
+                Directory.CreateDirectory(carpeta);
 
-                // ==========================================
-                // NOMBRE DEL ARCHIVO
-                // ==========================================
-
-                string nombreArchivo =
-                    $"Cotizacion_{idCotizacionGuardada}.pdf";
-
+                // Ruta del PDF
                 string rutaPDF = Path.Combine(
-                    carpetaCotizaciones,
-                    nombreArchivo);
+                    carpeta,
+                    $"Cotizacion_{idCotizacionGuardada}.pdf");
+                // Mostrar la ruta real que se está utilizando
+                MessageBox.Show(
+                    "La ruta del PDF será:\n\n" + rutaPDF +
+                    "\n\nCarpeta:\n" + carpeta,
+                    "Ruta del PDF",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
 
-                // ==========================================
-                // GENERAR PDF
-                // ==========================================
 
+                // Generar PDF
                 CotizacionDocumentoPDF.Generar(
                     rutaPDF,
                     idCotizacionGuardada,
@@ -662,17 +764,14 @@ namespace Vista.Cotizaciones
                     subtotal,
                     iva,
                     total,
-                    productos);
+                    productos
+                );
 
-                // ==========================================
-                // COMPROBAR ARCHIVO
-                // ==========================================
-
+                // Verificar que se haya creado
                 if (!File.Exists(rutaPDF))
                 {
                     MessageBox.Show(
-                        "El PDF no pudo ser creado.\n\n" +
-                        "Ruta:\n" + rutaPDF,
+                        "No se pudo crear el archivo PDF.",
                         "Error",
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Error);
@@ -680,47 +779,25 @@ namespace Vista.Cotizaciones
                     return;
                 }
 
-                // ==========================================
-                // MENSAJE
-                // ==========================================
+                // Abrir PDF
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = rutaPDF,
+                    UseShellExecute = true
+                });
 
                 MessageBox.Show(
-                    "El PDF se generó correctamente.\n\n" +
-                    "Cotización N.º: " +
-                    idCotizacionGuardada +
-                    "\n\nGuardado en:\n" +
-                    rutaPDF,
-                    "PDF generado",
+                    "PDF generado correctamente.\n\n" +
+                    "Guardado en:\n" + rutaPDF,
+                    "Generar PDF",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
-
-                // ==========================================
-                // ABRIR PDF
-                // ==========================================
-
-                System.Diagnostics.Process.Start(
-                    new System.Diagnostics.ProcessStartInfo
-                    {
-                        FileName = rutaPDF,
-                        UseShellExecute = true
-                    });
-
-                // ==========================================
-                // LIMPIAR
-                // ==========================================
-
-                LimpiarFormulario();
-
-                dgvDetalleDeCotizacion.Rows.Clear();
-
-                idCotizacionGuardada = 0;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(
-                    "No se pudo generar el PDF.\n\n" +
-                    "DETALLE DEL ERROR:\n\n" +
-                    ex.ToString(),
+                    "Ocurrió un error al generar el PDF.\n\n" +
+                    ex.Message,
                     "Error",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);

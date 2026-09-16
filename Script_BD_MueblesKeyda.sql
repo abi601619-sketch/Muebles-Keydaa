@@ -1099,6 +1099,21 @@ c.Correo,
 c.Direccion,
 c.Estado FROM Cliente c;
 
+GO
+CREATE VIEW vw_VerUsuarios
+AS
+SELECT
+    U.IdUsuario,
+    U.Nombre,
+    U.Usuario,
+    U.Contraseña,
+    R.Nombre AS Rol,
+    U.Estado
+FROM Usuario U
+INNER JOIN Rol R
+    ON U.IdRol = R.IdRol;
+GO
+
 
 ------------NO CARGAR ESTA SECCION------------------------------------------
 SELECT * FROM VerCompras;

@@ -18,7 +18,9 @@ namespace Vista.Pedidos
             dgvDetallesDePedido.ReadOnly = true;
             dgvDetallesDePedido.Columns.Add(new DataGridViewButtonColumn
             {
-                Name = "EliminarProducto", HeaderText = "Eliminar", Text = "Eliminar",
+                Name = "EliminarProducto",
+                HeaderText = "Eliminar",
+                Text = "Eliminar",
                 UseColumnTextForButtonValue = true
             });
             dgvDetallesDePedido.CellContentClick += EliminarProducto_Click;
@@ -96,7 +98,7 @@ namespace Vista.Pedidos
             cbEstado.Items.Add("Finalizado");
             cbEstado.Items.Add("Cancelado");
             cbEstado.SelectedIndex = 0;
-            dtpFechaDeEntrega.MinDate = DateTime.Today;
+
             dtpFechaDeEntrega.Value = DateTime.Today;
 
             txtMuebleaRealizar.MaxLength = 150;

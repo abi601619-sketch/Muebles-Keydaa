@@ -4,7 +4,7 @@ namespace Modelo.Conexión_DB
 {
     public class Conexion
     {
-        private static string servidor = "LOWKIPC\\LOWK";
+        private static string servidor = "(localdb)\\MSSQLLocalDB";
         private static string baseDeDatos = "MueblesKeyda";
 
         public static SqlConnection Conectar()
