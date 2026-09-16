@@ -8,16 +8,6 @@ namespace Modelo.Entidades
 {
     public class ReportesClientes
     {
-        private string Nombre_del_Cliente;
-        private string TipoCliente;
-        private string Encargado;
-        private int Documento;
-        private string telefono;
-        private string correo;
-        private string direccion;
-
-
-
         public static DataTable CargarReporteClientes()
         {
             SqlConnection conectar = Conexion.Conectar();

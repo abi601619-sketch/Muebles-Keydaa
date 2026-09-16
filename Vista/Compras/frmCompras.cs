@@ -33,7 +33,6 @@ namespace Vista.Compras
         private List<DetalleCompraMaterial> detallesOriginales = new List<DetalleCompraMaterial>();
 
 
-        private DataTable dtMateriales;
         private int idDetalleEditando = 0;
 
 

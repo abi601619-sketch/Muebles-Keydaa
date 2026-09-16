@@ -29,9 +29,6 @@ namespace Vista.Pedidos
         string medidaAlto = "0";
         string observaciones = "";
 
-        private int idClienteSeleccionado = 0;
-        private string nombreClienteSeleccionado = "";
-
         int idPedidoSeleccionado = 0;
         private string estadoOriginal = "";
         private DateTime fechaEntregaOriginal;
