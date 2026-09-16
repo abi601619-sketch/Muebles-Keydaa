@@ -931,32 +931,35 @@ INNER JOIN TipoCliente tc
 GO
 
 ----------------------------------REPORTE DE VENTAS---------------------------------------------
-
-CREATE VIEW VerReporteClientes AS 
+CREATE VIEW VerReporteVentas AS
 SELECT
+    v.IdVenta,
+    f.IdFactura AS [N° FACTURA],
+
     CASE
         WHEN tc.TipoCliente = 'Persona Natural'
         THEN CONCAT(c.Identificador1, ' ', c.Identificador2)
         ELSE c.Identificador1
-    END AS [Nombre del Cliente],
+    END AS [Nombre De Cliente],
 
-    tc.TipoCliente,
+    v.FechaVenta,
+    mp.MetodoPago AS [MetodoPago],
+    v.SubTotal,
+    v.SubTotal AS [TotalAPagar]
 
-    CASE
-        WHEN tc.TipoCliente = 'Empresa'
-        THEN c.Identificador2
-        ELSE NULL
-    END AS Encargado,
+FROM Venta v
 
-    c.Documento,
-    c.Telefono AS [Telefono],
-    c.Correo,
-    c.Direccion AS [Direccion],
-    CONVERT(DATE, c.FechaRegistro) AS [Fecha de Registro]
+INNER JOIN Cliente c
+    ON v.IdCliente = c.IdCliente
 
-FROM Cliente c
 INNER JOIN TipoCliente tc
-    ON c.IdTipoCliente = tc.IdTipoCliente;
+    ON c.IdTipoCliente = tc.IdTipoCliente
+
+INNER JOIN MetodoPago mp
+    ON v.IdMetodoPago = mp.IdMetodoPago
+
+LEFT JOIN Factura f
+    ON v.IdVenta = f.IdVenta;
 GO
 
 ------------------DETALLE FACTURA------------------------------------------------

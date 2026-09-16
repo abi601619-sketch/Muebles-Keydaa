@@ -87,6 +87,7 @@
   <ItemGroup>
     <Compile Include="CotizacionDocumentoPDF.cs" />
     <Compile Include="Entidades\Categorias.cs" />
+    <Compile Include="Entidades\ClientesDocumentoPDF.cs" />
     <Compile Include="Entidades\Compras.cs" />
     <Compile Include="Entidades\Cotizacion.cs" />
     <Compile Include="Entidades\DetalleCompraMaterial.cs" />

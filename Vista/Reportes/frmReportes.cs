@@ -20,6 +20,8 @@ namespace Vista.Reportes
             InitializeComponent();
             ResponsiveHelper.Apply(this);
             btnVentas.Cursor = Cursors.Default;
+            btnConsultarVentas.Visible = false;
+            btnExportarReporteVentas.Visible = false;
         }
 
         private void btnClientes_Click(object sender, EventArgs e)
@@ -31,6 +33,8 @@ namespace Vista.Reportes
             pnlBarraCambioVentas.Visible = false;
             btnConsultarVentas.Visible = false;
             btnConsultar.Visible = true;
+            btnExportarReporteClientes.Visible = true;
+            btnExportarReporteVentas.Visible = false;
 
 
         }
@@ -43,6 +47,8 @@ namespace Vista.Reportes
             pnlBarraCambio.Visible = false;
             btnConsultarVentas.Visible = true;
             btnConsultar.Visible = false;
+            btnExportarReporteClientes.Visible = false;
+            btnExportarReporteVentas.Visible = true;
         }
 
         public void CargarReporteClientes()
@@ -67,12 +73,11 @@ namespace Vista.Reportes
             dtpFechaFin.MaxDate = DateTime.Today;
             dtpFechaInicio.MaxDate = DateTime.Now;
 
-            dgvReporteClientes.Columns["TipoCliente"].HeaderText = "Tipo de Cliente";
+
+
 
             dgvReporteVentas.Columns["IdVenta"].HeaderText = "N° de Venta";
-
-            dgvReporteVentas.Columns["N° FACTURA"].Visible = false;
-
+            //dgvReporteVentas.Columns["N° FACTURA"].Visible = false;
             dgvReporteVentas.Columns["FechaVenta"].HeaderText = "Fecha de venta";
 
         }
@@ -107,24 +112,213 @@ namespace Vista.Reportes
 
         private void btnConsultar_Click(object sender, EventArgs e)
         {
-            DateTime fechaInicio = dtpFechaInicio.Value.Date;
-            DateTime fechaFin = dtpFechaFin.Value.Date.AddDays(1);
+            try
+            {
+                DateTime fechaInicio = dtpFechaInicio.Value.Date;
+                DateTime fechaFin = dtpFechaFin.Value.Date;
 
-            ReportesClientes reporte = new ReportesClientes();
+                if (fechaInicio > fechaFin)
+                {
+                    MessageBox.Show(
+                        "La fecha de inicio no puede ser mayor que la fecha final.",
+                        "Período inválido",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning
+                    );
 
-            dgvReporteClientes.DataSource = reporte.ObtenerClientesPorFecha(fechaInicio, fechaFin);
+                    return;
+                }
+                ReportesClientes reporte = new ReportesClientes();
+                DataTable clientes = reporte.ObtenerClientesPorFecha(fechaInicio, fechaFin);
+
+
+                if (clientes == null || clientes.Rows.Count == 0)
+                {
+                    MessageBox.Show(
+                        "No existen clientes registrados durante el período seleccionado.",
+                        "Sin resultados",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information
+                    );
+
+                    return;
+                }
+
+                dgvReporteClientes.DataSource = null;
+                dgvReporteClientes.DataSource = clientes;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Ocurrió un error al consultar el reporte de clientes:\n\n" +
+                    ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
         }
 
         private void btnExportarReporteClientes_Click(object sender, EventArgs e)
         {
+            try
+            {
+                DateTime fechaInicio = dtpFechaInicio.Value.Date;
+                DateTime fechaFin = dtpFechaFin.Value.Date;
 
-            DateTime fechaInicio = dtpFechaInicio.Value.Date;
-            DateTime fechaFin = dtpFechaFin.Value.Date.AddDays(1);
+                // ==========================================
+                // VALIDAR PERÍODO
+                // ==========================================
 
-            frmReporteClientes reporte =
-                new frmReporteClientes(fechaInicio, fechaFin);
+                if (fechaInicio > fechaFin)
+                {
+                    MessageBox.Show(
+                        "La fecha de inicio no puede ser mayor que la fecha final.",
+                        "Período inválido",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning
+                    );
 
-            reporte.Show();
+                    return;
+                }
+
+                // ==========================================
+                // OBTENER CLIENTES DEL PERÍODO
+                // ==========================================
+
+                ReportesClientes reporte = new ReportesClientes();
+
+                DataTable clientes =
+                    reporte.ObtenerClientesPorFecha(
+                        fechaInicio,
+                        fechaFin
+                    );
+
+                if (clientes == null || clientes.Rows.Count == 0)
+                {
+                    MessageBox.Show(
+                        "No existen clientes registrados durante el período seleccionado.",
+                        "Sin resultados",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information
+                    );
+
+                    return;
+                }
+
+                // ==========================================
+                // OBTENER ESTADÍSTICAS
+                // ==========================================
+
+                DataTable estadisticas =
+                    ReportesClientes.ObtenerEstadisticasClientes(
+                        fechaInicio,
+                        fechaFin
+                    );
+
+                int clientesTotales = 0;
+                int clientesCorporativos = 0;
+                int clientesIndividuales = 0;
+
+                if (estadisticas != null &&
+                    estadisticas.Rows.Count > 0)
+                {
+                    clientesTotales =
+                        Convert.ToInt32(
+                            estadisticas.Rows[0]["ClientesTotales"]
+                        );
+
+                    clientesCorporativos =
+                        Convert.ToInt32(
+                            estadisticas.Rows[0]["ClientesCorporativos"]
+                        );
+
+                    clientesIndividuales =
+                        Convert.ToInt32(
+                            estadisticas.Rows[0]["ClientesIndividuales"]
+                        );
+                }
+
+                // ==========================================
+                // CREAR CARPETA DE REPORTES
+                // ==========================================
+
+                string carpetaReportes =
+                    Path.Combine(
+                        Application.StartupPath,
+                        "Reportes"
+                    );
+
+                if (!Directory.Exists(carpetaReportes))
+                {
+                    Directory.CreateDirectory(carpetaReportes);
+                }
+
+                // ==========================================
+                // NOMBRE DEL ARCHIVO
+                // ==========================================
+
+                string nombreArchivo =
+                    $"Reporte_Clientes_{fechaInicio:dd-MM-yyyy}_{fechaFin:dd-MM-yyyy}.pdf";
+
+                string rutaArchivo =
+                    Path.Combine(
+                        carpetaReportes,
+                        nombreArchivo
+                    );
+
+                // ==========================================
+                // CREAR DOCUMENTO PDF
+                // ==========================================
+
+                ClientesDocumentoPDF documento =
+                    new ClientesDocumentoPDF(
+                        clientes,
+                        fechaInicio,
+                        fechaFin,
+                        clientesTotales,
+                        clientesCorporativos,
+                        clientesIndividuales
+                    );
+
+                documento.GeneratePdf(rutaArchivo);
+
+                // ==========================================
+                // MENSAJE
+                // ==========================================
+
+                MessageBox.Show(
+                    "El reporte de clientes se generó correctamente.\n\n" +
+                    $"Período: {fechaInicio:dd/MM/yyyy} - {fechaFin:dd/MM/yyyy}\n\n" +
+                    $"Clientes totales: {clientesTotales}\n" +
+                    $"Clientes corporativos: {clientesCorporativos}\n" +
+                    $"Clientes individuales: {clientesIndividuales}\n\n" +
+                    $"Guardado en:\n{rutaArchivo}",
+                    "Reporte generado",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+
+                // ==========================================
+                // ABRIR PDF
+                // ==========================================
+
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = rutaArchivo,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Ocurrió un error al generar el reporte de clientes:\n\n" +
+                    ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
         }
 
         private void btnConsultarVentas_Click(object sender, EventArgs e)
