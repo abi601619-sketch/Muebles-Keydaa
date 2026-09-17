@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Modelo.Conexión_DB;
+using System;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -82,25 +83,34 @@ namespace Datos
 
         //COTIZACIONES POR ESTADO
 
-        public DataTable ObtenerCotizacionesPorEstado(
-            int? mes = null,
-            int? anio = null)
+        public DataTable ObtenerCotizacionesPorEstado()
         {
             DataTable tabla = new DataTable();
 
             try
             {
-                using (SqlConnection conexion = new SqlConnection(cadenaConexion))
+                using (SqlConnection conexion = Conexion.Conectar())
                 {
-                    using (SqlCommand comando = new SqlCommand("sp_Dashboard_CotizacionesEstado", conexion))
+                    using (SqlCommand comando =
+                           new SqlCommand(
+                               "sp_Dashboard_CotizacionesEstado",
+                               conexion))
                     {
-                        comando.CommandType = CommandType.StoredProcedure;
+                        comando.CommandType =
+                            CommandType.StoredProcedure;
 
-                        comando.Parameters.AddWithValue("@Mes", (object)mes ?? DBNull.Value);
+                        comando.Parameters.AddWithValue(
+                            "@Mes",
+                            DBNull.Value
+                        );
 
-                        comando.Parameters.AddWithValue("@Anio", (object)anio ?? DBNull.Value);
+                        comando.Parameters.AddWithValue(
+                            "@Anio",
+                            DateTime.Now.Year
+                        );
 
-                        using (SqlDataAdapter adaptador = new SqlDataAdapter(comando))
+                        using (SqlDataAdapter adaptador =
+                               new SqlDataAdapter(comando))
                         {
                             adaptador.Fill(tabla);
                         }
@@ -117,50 +127,26 @@ namespace Datos
 
         //VENTAS MENSUALES
 
-        public DataTable ObtenerVentasMensuales(int? anio = null)
+        public DataTable ObtenerVentasPorMes()
         {
             DataTable tabla = new DataTable();
 
             try
             {
-                using (SqlConnection conexion = new SqlConnection(cadenaConexion))
+                using (SqlConnection conexion = Conexion.Conectar())
                 {
-                    using (SqlCommand comando = new SqlCommand("sp_Dashboard_VentasMensuales",
-                        conexion))
+                    using (SqlCommand comando =
+                           new SqlCommand(
+                               "sp_Dashboard_VentasMensuales",
+                               conexion))
                     {
-                        comando.CommandType = CommandType.StoredProcedure;
+                        comando.CommandType =
+                            CommandType.StoredProcedure;
 
-                        comando.Parameters.AddWithValue("@Anio", (object)anio ?? DBNull.Value);
-
-                        using (SqlDataAdapter adaptador = new SqlDataAdapter(comando))
-                        {
-                            adaptador.Fill(tabla);
-                        }
-                    }
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-
-            return tabla;
-        }
-
-
-        //PEDIDOS RECIENTES
-
-        public DataTable ObtenerPedidosRecientes()
-        {
-            DataTable tabla = new DataTable();
-
-            try
-            {
-                using (SqlConnection conexion = new SqlConnection(cadenaConexion))
-                {
-                    using (SqlCommand comando = new SqlCommand("sp_Dashboard_PedidosRecientes", conexion))
-                    {
-                        comando.CommandType = CommandType.StoredProcedure;
+                        comando.Parameters.AddWithValue(
+                            "@Anio",
+                            DateTime.Now.Year
+                        );
 
                         using (SqlDataAdapter adaptador =
                                new SqlDataAdapter(comando))

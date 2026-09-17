@@ -32,123 +32,212 @@ namespace Modelo.Entidades
         public string Descripción1 { get => Descripcion; set => Descripcion = value; }
         public string Estado1 { get => Estado; set => Estado = value; }
 
+        //METODO PARA CARGAR LOS REGISTROS DE GATEGORIAS
         public static DataTable CargarCategorias()
         {
-            SqlConnection conectar = Conexion.Conectar();
+            try
+            {
+                SqlConnection conectar = Conexion.Conectar();
 
-            string comando = "SELECT IdCategoria,Nombre_Categoria,Descripcion,Estado FROM Categoria;";
-            SqlDataAdapter adapter = new SqlDataAdapter(comando, conectar);
-            DataTable dt = new DataTable();
-            adapter.Fill(dt);
-            return dt;
+                string comando = @" SELECT IdCategoria, Nombre_Categoria, Descripcion, Estado FROM Categoria;";
+
+                SqlDataAdapter adapter = new SqlDataAdapter(comando, conectar);
+
+                DataTable dt = new DataTable();
+
+                adapter.Fill(dt);
+
+                conectar.Close();
+
+                return dt;
+            }
+            catch (SqlException ex)
+            {
+                switch (ex.Number)
+                {
+                    // Error: no existe la tabla o el objeto especificado
+                    case 208:
+                        MessageBox.Show("La tabla Categoria no existe en la base de datos.", "Error",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    // Error: no se pudo establecer conexión con SQL Server
+                    case 53:
+                        MessageBox.Show("No se pudo establecer conexión con el servidor SQL.", "Error de Conexión",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    // Otros errores SQL
+                    default:
+                        MessageBox.Show("Error al cargar las categorías: " + ex.Message, "Error " + ex.Number,
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                }
+
+                return new DataTable();
+            }
         }
-
 
         public bool InsertarCategoria()
         {
-            string comandoSQL = "INSERT INTO Categoria(Nombre_Categoria,Descripcion,Estado)" +
-                "VALUES (@Nombre_Categoria,@Descripcion,@Estado);";
-
-            // El bloque using asegura que la conexión y el comando
-            // se cierren y se destruyan
-            // incluso si ocurre un error
+            string comandoSQL = @"INSERT INTO Categoria (Nombre_Categoria, Descripcion, Estado)VALUES( @Nombre_Categoria, @Descripcion,@Estado );";
 
             using (SqlConnection conexion = Conexion.Conectar())
+            using (SqlCommand comandoObjeto = new SqlCommand(comandoSQL, conexion))
             {
-                using (SqlCommand comandoObjeto = new SqlCommand(comandoSQL, conexion))
+                comandoObjeto.Parameters.AddWithValue("@Nombre_Categoria", Nombre_Categoria);
+
+                comandoObjeto.Parameters.AddWithValue("@Descripcion", Descripcion);
+
+                comandoObjeto.Parameters.AddWithValue("@Estado", Estado);
+
+                try
                 {
-                    // Agregan los parámetros
-                    comandoObjeto.Parameters.AddWithValue("@Nombre_Categoria", Nombre_Categoria);
-                    comandoObjeto.Parameters.AddWithValue("@Descripcion", Descripcion);
-                    comandoObjeto.Parameters.AddWithValue("@Estado", Estado);
+                    int filaAfectada = comandoObjeto.ExecuteNonQuery();
 
-                    try
+                    return filaAfectada > 0;
+                }
+                catch (SqlException ex)
+                {
+                    switch (ex.Number)
                     {
-                        // Se ejecuta una sola vez
-                        // y se guarda la cantidad de filas afectadas
-                        int filaAfectada = comandoObjeto.ExecuteNonQuery();
+                        // Error: clave primaria o restricción UNIQUE duplicada
+                        case 2627:
 
-                        // Si se afectó más de 0 filas retorna true
-                        // y sino false
-                        return filaAfectada > 0;
-                    }
-                    catch (SqlException ex)
-                    {
-                        switch (ex.Number)
-                        {
-                            case 2627:
-                            case 2601:
+                        // Error: índice UNIQUE duplicado
+                        case 2601:
 
-                                MessageBox.Show("La categoría ya existe en la base de datos. Por favor use otro nombre.", "Registro Duplicado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            MessageBox.Show("La categoría ya existe en la base de datos.", "Registro Duplicado",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            break;
 
-                                break;
+                        // Error: se está intentando insertar NULL
+                        // en una columna NOT NULL
+                        case 515:
 
-                            default:
+                            MessageBox.Show("No se pueden dejar campos obligatorios vacíos.", "Datos Obligatorios",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            break;
 
-                                MessageBox.Show("Ocurrió un error inesperado en la base de datos " + ex.Message, "Error " + ex.Number, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        // Otros errores
+                        default:
 
-                                break;
-                        }
-
-                        return false;
+                            MessageBox.Show("Ocurrió un error al registrar la categoría: " + ex.Message, "Error " + ex.Number,
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
                     }
 
-
+                    return false;
                 }
             }
         }
 
+        //METODO PARA ACTUALIZAR CATEGORIA
         public bool ActualizarCategoria()
         {
             try
             {
                 SqlConnection conectar = Conexion.Conectar();
 
-                string comando = "UPDATE Categoria SET Nombre_Categoria = @Nombre, Descripcion = @Descripcion, Estado = @Estado WHERE IdCategoria = @IdCategoria";
+                string comando = @" UPDATE Categoria SET Nombre_Categoria = @Nombre,Descripcion = @Descripcion, Estado = @Estado WHERE IdCategoria = @IdCategoria";
 
                 SqlCommand cmd = new SqlCommand(comando, conectar);
 
                 cmd.Parameters.AddWithValue("@Nombre", Nombre_Categoria1);
+
                 cmd.Parameters.AddWithValue("@Descripcion", Descripción1);
+
                 cmd.Parameters.AddWithValue("@Estado", Estado1);
+
                 cmd.Parameters.AddWithValue("@IdCategoria", IdCategoria1);
 
-                // Ejecuta la actualización
                 int filasAfectadas = cmd.ExecuteNonQuery();
 
                 conectar.Close();
 
-                // Verifica si se actualizó la categoría
                 return filasAfectadas > 0;
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
-                MessageBox.Show(
-                    "Error al actualizar la categoría: " + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                switch (ex.Number)
+                {
+                    // Error: nombre de categoría duplicado
+                    case 2627:
+                    case 2601:
+
+                        MessageBox.Show("Ya existe otra categoría con ese nombre.", "Registro Duplicado",
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+
+                    // Error: valor NULL en columna NOT NULL
+                    case 515:
+
+                        MessageBox.Show("Uno de los campos obligatorios está vacío.", "Datos Obligatorios",
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+
+                    // Otros errores SQL
+                    default:
+
+                        MessageBox.Show("Error al actualizar la categoría: " + ex.Message, "Error " + ex.Number,
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                }
 
                 return false;
             }
         }
+
+
         public static DataTable Buscar(string termino)
         {
-            SqlConnection con = Conexion.Conectar();
+            try
+            {
+                SqlConnection con = Conexion.Conectar();
 
-            string comando = "SELECT IdCategoria, Nombre_Categoria, Descripcion, Estado FROM Categoria WHERE CAST(IdCategoria AS VARCHAR) LIKE @buscar" +
-                             " OR Nombre_Categoria LIKE @buscar;";
+                string comando = @"SELECT IdCategoria, Nombre_Categoria,  Descripcion, Estado
+            FROM Categoria WHERE CAST(IdCategoria AS VARCHAR) LIKE @buscar OR Nombre_Categoria LIKE @buscar;";
 
-            SqlDataAdapter ad = new SqlDataAdapter(comando, con);
+                SqlDataAdapter ad = new SqlDataAdapter(comando, con);
 
-            ad.SelectCommand.Parameters.AddWithValue("@buscar", "%" + termino + "%");
+                ad.SelectCommand.Parameters.AddWithValue("@buscar", "%" + termino + "%");
 
-            DataTable dt = new DataTable();
+                DataTable dt = new DataTable();
 
-            ad.Fill(dt);
+                ad.Fill(dt);
 
-            return dt;
+                con.Close();
+
+                return dt;
+            }
+            catch (SqlException ex)
+            {
+                switch (ex.Number)
+                {
+                    // Error: la tabla Categoria no existe
+                    case 208:
+
+                        MessageBox.Show("La tabla Categoria no existe en la base de datos.", "Error",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    // Error: no se pudo establecer conexión
+                    case 53:
+
+                        MessageBox.Show("No se pudo conectar con el servidor SQL.", "Error de Conexión",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    // Otros errores SQL
+                    default:
+
+                        MessageBox.Show("Error al buscar categorías: " + ex.Message, "Error " + ex.Number,
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                }
+
+                return new DataTable();
+            }
         }
 
         // CALCULAR ESTADÍSTICAS DE CATEGORÍAS
@@ -168,13 +257,34 @@ namespace Modelo.Entidades
                     }
                 }
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
-                MessageBox.Show("Error al contar las categorías totales: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                switch (ex.Number)
+                {
+                    // Error: la tabla Categoria no existe
+                    case 208:
+
+                        MessageBox.Show("La tabla Categoria no existe.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    // Error: no se pudo conectar con SQL Server
+                    case 53:
+
+                        MessageBox.Show("No se pudo establecer conexión con SQL Server.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    // Otros errores
+                    default:
+
+                        MessageBox.Show("Error al contar las categorías: " + ex.Message, "Error " + ex.Number, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                }
 
                 return 0;
             }
         }
+
+
 
         // Categorías activas
         public static int ContarCategoriasActivas()
@@ -187,17 +297,43 @@ namespace Modelo.Entidades
 
                     using (SqlCommand comando = new SqlCommand(query, conexion))
                     {
-                        return Convert.ToInt32(comando.ExecuteScalar());
+                        return Convert.ToInt32(
+                            comando.ExecuteScalar()
+                        );
                     }
                 }
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
-                MessageBox.Show("Error al contar las categorías activas: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                switch (ex.Number)
+                {
+                    // Error: no existe la tabla Categoria
+                    case 208:
+
+                        MessageBox.Show("La tabla Categoria no existe.", "Error",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    // Error: conversión de datos
+                    case 245:
+
+                        MessageBox.Show("El tipo de dato del campo Estado no es compatible " + "con la consulta.", "Error de Tipo de Dato",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    // Otros errores
+                    default:
+
+                        MessageBox.Show("Error al contar las categorías activas: " + ex.Message, "Error " + ex.Number,
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                }
 
                 return 0;
             }
         }
+
+
 
         // Categorías inactivas
         public static int ContarCategoriasInactivas()
@@ -206,7 +342,7 @@ namespace Modelo.Entidades
             {
                 using (SqlConnection conexion = Conexion.Conectar())
                 {
-                    string query = @"SELECT COUNT(*) FROM Categoria WHERE Estado = 'Inactiva'";
+                    string query = @" SELECT COUNT(*)  FROM Categoria  WHERE Estado = 'Inactiva'";
 
                     using (SqlCommand comando = new SqlCommand(query, conexion))
                     {
@@ -214,9 +350,28 @@ namespace Modelo.Entidades
                     }
                 }
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
-                MessageBox.Show("Error al contar las categorías inactivas: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                switch (ex.Number)
+                {
+                    // Error: no existe la tabla Categoria
+                    case 208:
+
+                        MessageBox.Show("La tabla Categoria no existe.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    // Error: conversión de datos
+                    case 245:
+
+                        MessageBox.Show("El tipo de dato del campo Estado no es compatible " + "con la consulta.", "Error de Tipo de Dato", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    // Otros errores
+                    default:
+
+                        MessageBox.Show("Error al contar las categorías inactivas: " + ex.Message, "Error " + ex.Number, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                }
 
                 return 0;
             }

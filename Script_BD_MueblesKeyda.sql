@@ -1287,7 +1287,7 @@ GO
 
 
 
-
+EXEC sp_Dashboard_Indicadores;
 
 
 

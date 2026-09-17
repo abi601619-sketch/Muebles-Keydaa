@@ -28,6 +28,7 @@ namespace Vista.Dashboard
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.pnlCotizaciones = new System.Windows.Forms.Panel();
             this.btnCotizaciones = new System.Windows.Forms.Button();
             this.pnlReportes = new System.Windows.Forms.Panel();
@@ -75,6 +76,7 @@ namespace Vista.Dashboard
             this.btnSalir = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.pnlCotizaciones.SuspendLayout();
             this.pnlReportes.SuspendLayout();
             this.pnlProveedores.SuspendLayout();
@@ -847,5 +849,6 @@ namespace Vista.Dashboard
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnMaximizar;
         private System.Windows.Forms.Button btnUsuarios;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

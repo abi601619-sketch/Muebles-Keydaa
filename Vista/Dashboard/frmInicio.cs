@@ -1,8 +1,8 @@
 using Datos;
-using Modelo.Entidades;
 using System;
 using System.Data;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 using Vista.Responsive;
 
 
@@ -81,18 +81,179 @@ namespace Vista.Dashboard
             }
         }
 
-        private void MostrarPedidosRecientes()
+
+
+        private void CargarPedidosPorEstado()
         {
             try
             {
-                dgvPedidosRecientes.DataSource = null;
-                dgvPedidosRecientes.DataSource =
-                    DbPedidos.CargarPedidosRecientes();
+                DataTable datos = dbDashboard.ObtenerPedidosPorEstado();
+
+                chartPedidosEstado.Series.Clear();
+                chartPedidosEstado.Titles.Clear();
+
+                chartPedidosEstado.Titles.Add("Pedidos por Estado");
+
+                Series serie =
+                    new Series("Pedidos");
+
+                serie.ChartType =
+                    SeriesChartType.Doughnut;
+
+                serie.IsValueShownAsLabel = true;
+
+                foreach (DataRow fila in datos.Rows)
+                {
+                    string estado =
+                        fila["Estado"].ToString();
+
+                    int cantidad =
+                        Convert.ToInt32(
+                            fila["Cantidad"]
+                        );
+
+                    serie.Points.AddXY(
+                        estado,
+                        cantidad
+                    );
+                }
+
+                chartPedidosEstado.Series.Add(serie);
+
+                chartPedidosEstado.Legends.Clear();
+
+                Legend leyenda =
+                    new Legend("Estados");
+
+                chartPedidosEstado.Legends.Add(leyenda);
+                // Vincular la serie con la leyenda
+                serie.Legend = "Estados";
             }
             catch (Exception ex)
             {
                 MessageBox.Show(
-                    "Error al cargar los pedidos recientes: "
+                    "Error al cargar el gráfico de pedidos: "
+                    + ex.Message,
+                    "Dashboard",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
+        }
+        private void CargarVentasPorMes()
+        {
+            try
+            {
+                DataTable datos = dbDashboard.ObtenerVentasPorMes();
+
+                chartVentasMes.Series.Clear();
+                chartVentasMes.Titles.Clear();
+                chartVentasMes.Legends.Clear();
+
+                chartVentasMes.Titles.Add("Ventas por Mes");
+
+                Series serie = new Series("Ventas");
+
+                serie.ChartType = SeriesChartType.Column;
+                serie.IsValueShownAsLabel = true;
+
+                serie.ToolTip = "#VALX: $#,##0.00";
+
+                foreach (DataRow fila in datos.Rows)
+                {
+                    string mes =
+                        fila["Mes"].ToString();
+
+                    decimal total =
+                        Convert.ToDecimal(
+                            fila["TotalVentas"]
+                        );
+
+                    serie.Points.AddXY(
+                        mes,
+                        total
+                    );
+                }
+
+                chartVentasMes.Series.Add(serie);
+
+                ChartArea area =
+                    chartVentasMes.ChartAreas[0];
+
+                area.AxisX.Title = "Mes";
+                area.AxisY.Title = "Ventas";
+
+                area.AxisY.LabelStyle.Format =
+                    "$#,##0.00";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Error al cargar el gráfico de ventas: "
+                    + ex.Message,
+                    "Dashboard",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
+        }
+
+        private void CargarCotizacionesPorEstado()
+        {
+            try
+            {
+                DataTable datos =
+                    dbDashboard.ObtenerCotizacionesPorEstado();
+
+                chartCotizacionesEstado.Series.Clear();
+                chartCotizacionesEstado.Titles.Clear();
+                chartCotizacionesEstado.Legends.Clear();
+
+                chartCotizacionesEstado.Titles.Add(
+                    "Cotizaciones por Estado"
+                );
+
+                Series serie =
+                    new Series("Cotizaciones");
+
+                serie.ChartType =
+                    SeriesChartType.Doughnut;
+
+                serie.IsValueShownAsLabel = true;
+
+                foreach (DataRow fila in datos.Rows)
+                {
+                    string estado =
+                        fila["Estado"].ToString();
+
+                    int cantidad =
+                        Convert.ToInt32(
+                            fila["Cantidad"]
+                        );
+
+                    serie.Points.AddXY(
+                        estado,
+                        cantidad
+                    );
+                }
+
+                chartCotizacionesEstado.Series.Add(
+                    serie
+                );
+
+                Legend leyenda =
+                    new Legend("Estados");
+
+                chartCotizacionesEstado.Legends.Add(
+                    leyenda
+                );
+
+                serie.Legend = "Estados";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Error al cargar el gráfico de cotizaciones: "
                     + ex.Message,
                     "Dashboard",
                     MessageBoxButtons.OK,
@@ -106,18 +267,22 @@ namespace Vista.Dashboard
             try
             {
                 CargarIndicadores();
-                MostrarPedidosRecientes();
+
+                CargarCotizacionesPorEstado();
+
+                CargarPedidosPorEstado();
+
+                CargarVentasPorMes();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error al cargar el Dashboard: "
-                    + ex.Message,
-                    "Dashboard",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Error al cargar el Dashboard: " + ex.Message, "Dashboard", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void chartPedidosEstado_Click(object sender, EventArgs e)
+        {
+
         }
     }
 

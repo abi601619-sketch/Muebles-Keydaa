@@ -134,7 +134,22 @@ namespace Vista.Dashboard
         {
             subPanel(false);
             AbrirFormulario(new frmInicio());
-
+            toolTip1.SetToolTip(btnClientes, "Ver clientes registrados");
+            toolTip1.SetToolTip(btnVentas, "Consultar ventas");
+            toolTip1.SetToolTip(btnPedidos, "Ver pedidos registrados");
+            toolTip1.SetToolTip(btnCotizaciones, "Gestionar cotizaciones");
+            toolTip1.SetToolTip(btnProduccion, "Ver Produccion de los pedidos");
+            toolTip1.SetToolTip(btnInventario, "Ver Materiales del inventario");
+            toolTip1.SetToolTip(btnReportes, "Consulta informacion y genera PDF");
+            toolTip1.SetToolTip(btnProveedores, "Ver Proveedores registrados");
+            toolTip1.SetToolTip(btnFacturacion, "Registra y genera una facturas");
+            toolTip1.SetToolTip(btnCompras, "Registra y administra las compras");
+            toolTip1.SetToolTip(btnCategorias, "Categorias del inventario");
+            toolTip1.SetToolTip(btnCerrarSesion, "Cierra sesión");
+            toolTip1.SetToolTip(btnAgrupar, "Agupar");
+            toolTip1.SetToolTip(btnMinimizar, "Minimizar");
+            toolTip1.SetToolTip(btnSalir, "Salir");
+            toolTip1.SetToolTip(btnMaximizar, "Maximizar");
 
         }
 
