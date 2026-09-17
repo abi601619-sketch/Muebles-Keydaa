@@ -29,8 +29,8 @@ namespace Vista.Reportes
 
             pnlReporteDeClientes.Visible = true;
             pnlReportesVentas.Visible = false;
-            pnlBarraCambio.Visible = true;
-            pnlBarraCambioVentas.Visible = false;
+            pnlBarraCambioVentas.Visible = true;
+            pnlBarraCambiosCotizaciones.Visible = false;
             btnConsultarVentas.Visible = false;
             btnConsultar.Visible = true;
             btnExportarReporteClientes.Visible = true;
@@ -43,8 +43,8 @@ namespace Vista.Reportes
         {
             pnlReporteDeClientes.Visible = false;
             pnlReportesVentas.Visible = true;
-            pnlBarraCambioVentas.Visible = true;
-            pnlBarraCambio.Visible = false;
+            pnlBarraCambiosCotizaciones.Visible = true;
+            pnlBarraCambioVentas.Visible = false;
             btnConsultarVentas.Visible = true;
             btnConsultar.Visible = false;
             btnExportarReporteClientes.Visible = false;
