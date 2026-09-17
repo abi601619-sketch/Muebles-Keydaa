@@ -337,6 +337,7 @@
             this.pnlBarraCambioVentas.Name = "pnlBarraCambioVentas";
             this.pnlBarraCambioVentas.Size = new System.Drawing.Size(319, 3);
             this.pnlBarraCambioVentas.TabIndex = 1;
+            this.pnlBarraCambioVentas.Visible = false;
             // 
             // lblSubTexto
             // 

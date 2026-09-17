@@ -124,7 +124,6 @@ namespace Vista.Reportes
             pnlReporteDeClientes.Visible = true;
             btnExportarReporteClientes.Visible = true;
 
-
             //Cotizaciones
             pnlBarraCambiosCotizaciones.Visible = false;
             pnlReporteCotizaciones.Visible = false;
