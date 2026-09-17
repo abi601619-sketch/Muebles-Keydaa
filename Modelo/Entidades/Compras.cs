@@ -1,275 +1,719 @@
 ﻿using Modelo.Conexión_DB;
+using Modelo.Entidades;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Data;
 using System.Data.SqlClient;
+using System.Text;
 using System.Windows.Forms;
 
-namespace Modelo.Entidades
+public class ComprasDb
 {
-    public class ComprasDb
+    private int IdCompra;
+    private DateTime FechaCompra;
+    private decimal TotalCompra;
+    private int IdProveedor;
+
+    public ComprasDb() { }
+
+    public ComprasDb(int idCompra, DateTime fechaCompra, decimal totalCompra, int idProveedor)
     {
-        private int IdCompra;
-        private DateTime FechaCompra;
-        private decimal TotalCompra;
-        private int IdProveedor;
+        IdCompra1 = idCompra;
+        FechaCompra1 = fechaCompra;
+        TotalCompra1 = totalCompra;
+        IdProveedor1 = idProveedor;
+    }
 
-        public ComprasDb() { }
+    public int IdCompra1 { get => IdCompra; set => IdCompra = value; }
+    public DateTime FechaCompra1 { get => FechaCompra; set => FechaCompra = value; }
+    public decimal TotalCompra1 { get => TotalCompra; set => TotalCompra = value; }
+    public int IdProveedor1 { get => IdProveedor; set => IdProveedor = value; }
 
-        public ComprasDb(int idCompra, DateTime fechaCompra, decimal totalCompra, int idProveedor)
+    //COMPRAS REGISTRADAS
+
+    public static DataTable CargarComprasRegistradas()
+    {
+        try
         {
-            IdCompra1 = idCompra;
-            FechaCompra1 = fechaCompra;
-            TotalCompra1 = totalCompra;
-            IdProveedor1 = idProveedor;
-        }
-
-        public int IdCompra1 { get => IdCompra; set => IdCompra = value; }
-        public DateTime FechaCompra1 { get => FechaCompra; set => FechaCompra = value; }
-        public decimal TotalCompra1 { get => TotalCompra; set => TotalCompra = value; }
-        public int IdProveedor1 { get => IdProveedor; set => IdProveedor = value; }
-
-        public static DataTable CargarComprasRegistradas()
-        {
-            SqlConnection conectar = Conexion.Conectar();
-
-            string comando = "SELECT * FROM VerCompras;";
-            SqlDataAdapter adapter = new SqlDataAdapter(comando, conectar);
-            DataTable dt = new DataTable();
-            adapter.Fill(dt);
-            return dt;
-        }
-
-        public int InsertarCompra()
-        {
-            string comandoSQL = @"INSERT INTO Compras (FechaCompra,TotalCompra,IdProveedor)VALUES
-            (@FechaCompra,@TotalCompra,@IdProveedor); SELECT CAST(SCOPE_IDENTITY() AS INT);"; //SELECT CAST(SCOPE_IDENTITY() AS INT); SIRVE PARA OBTENER EL ID QUE SLQ RECIENTEMENTE GUARDO
-
-            using (SqlConnection conexion = Conexion.Conectar())
+            using (SqlConnection conectar = Conexion.Conectar())
             {
-                using (SqlCommand comandoObjeto = new SqlCommand(comandoSQL, conexion))
-                {
-                    comandoObjeto.Parameters.AddWithValue("@FechaCompra", FechaCompra);
+                string comando = "SELECT * FROM VerCompras;";
+                SqlDataAdapter adapter = new SqlDataAdapter(comando, conectar);
+                DataTable dt = new DataTable();
 
-                    comandoObjeto.Parameters.AddWithValue("@IdProveedor", IdProveedor);
+                adapter.Fill(dt);
 
-                    SqlParameter parametro = comandoObjeto.Parameters.Add("@TotalCompra", SqlDbType.Decimal);
-                    parametro.Precision = 10;
-                    parametro.Scale = 2;
-                    parametro.Value = TotalCompra;
-
-                    try
-                    {
-                        int idCompra =
-                            Convert.ToInt32(comandoObjeto.ExecuteScalar());
-
-                        return idCompra;
-                    }
-                    catch (SqlException ex)
-                    {
-                        MessageBox.Show("Ocurrió un error al guardar la compra.\n\n" + ex.Message, "Error " + ex.Number, MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                        return 0;
-                    }
-                }
-
+                return dt;
             }
         }
-
-        public static bool ActualizarCompra(int idCompra, DateTime fechaCompra, decimal totalCompra, int idProveedor)
+        catch (SqlException ex)
         {
-            string comandoSQL = @"UPDATE Compras SET FechaCompra = @FechaCompra,TotalCompra = @TotalCompra,IdProveedor = @IdProveedor WHERE IdCompra = @IdCompra;";
-
-            using (SqlConnection conexion = Conexion.Conectar())
+            switch (ex.Number)
             {
-                try
-                {
-                    using (SqlCommand comando = new SqlCommand(comandoSQL, conexion))
-                    {
-                        comando.Parameters.AddWithValue("@IdCompra", idCompra);
-                        comando.Parameters.AddWithValue("@FechaCompra", fechaCompra);
-                        comando.Parameters.AddWithValue("@TotalCompra", totalCompra);
-                        comando.Parameters.AddWithValue("@IdProveedor", idProveedor);
+                case 53:
+                    MessageBox.Show("No se pudo establecer conexión con el servidor.", "Error 53", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
 
-                        int filasAfectadas = comando.ExecuteNonQuery();
+                case 4060:
+                    MessageBox.Show("No se pudo acceder a la base de datos.", "Error 4060", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
 
-                        return filasAfectadas > 0;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error al actualizar la compra: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                case 208:
+                    MessageBox.Show("La vista VerCompras no existe.", "Error 208", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
 
-                    return false;
-                }
+                case -2:
+                    MessageBox.Show("La operación tardó demasiado tiempo.", "Error -2", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+
+                default:
+                    MessageBox.Show("Ocurrió un error al cargar las compras.\n\n" + ex.Message, "Error " + ex.Number, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+            }
+
+            return new DataTable();
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show("Ocurrió un error inesperado.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            return new DataTable();
+        }
+    }
+
+    //INSERTAR COMPRAS
+
+    public int InsertarCompra()
+    {
+        string comandoSQL = @"INSERT INTO Compras (FechaCompra, TotalCompra, IdProveedor)
+            VALUES (@FechaCompra, @TotalCompra, @IdProveedor);
+            SELECT CAST(SCOPE_IDENTITY() AS INT);";
+
+        try
+        {
+            using (SqlConnection conexion = Conexion.Conectar())
+            using (SqlCommand comandoObjeto = new SqlCommand(comandoSQL, conexion))
+            {
+                comandoObjeto.Parameters.AddWithValue("@FechaCompra", FechaCompra);
+                comandoObjeto.Parameters.AddWithValue("@IdProveedor", IdProveedor);
+
+                SqlParameter parametro = comandoObjeto.Parameters.Add(
+                    "@TotalCompra", SqlDbType.Decimal);
+
+                parametro.Precision = 10;
+                parametro.Scale = 2;
+                parametro.Value = TotalCompra;
+
+                int idCompra = Convert.ToInt32(comandoObjeto.ExecuteScalar());
+
+                return idCompra;
             }
         }
-
-        public static DataTable ObtenerCompraPorId(int idCompra)
+        catch (SqlException ex)
         {
-            string comandoSQL = @"SELECT IdCompra, FechaCompra, TotalCompra, IdProveedor FROM Compras WHERE IdCompra = @IdCompra;";
-
-            using (SqlConnection conexion = Conexion.Conectar())
+            switch (ex.Number)
             {
-                try
-                {
-                    using (SqlCommand comando = new SqlCommand(comandoSQL, conexion))
-                    {
-                        comando.Parameters.AddWithValue("@IdCompra", idCompra);
+                case 2627:
+                case 2601:
+                    MessageBox.Show("La compra ya existe en el sistema.",
+                        "Error " + ex.Number, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
 
-                        SqlDataAdapter adapter = new SqlDataAdapter(comando);
-                        DataTable dt = new DataTable();
+                case 547:
+                    MessageBox.Show("El proveedor seleccionado no existe.",
+                        "Error 547", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
 
-                        adapter.Fill(dt);
+                case 515:
+                    MessageBox.Show("Faltan datos obligatorios para guardar la compra.",
+                        "Error 515", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
 
-                        return dt;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error al obtener la compra: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                case 8115:
+                    MessageBox.Show("El total de la compra supera el límite permitido.",
+                        "Error 8115", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
 
-                    return null;
-                }
+                case 53:
+                    MessageBox.Show("No se pudo establecer conexión con el servidor.",
+                        "Error 53", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+
+                case 4060:
+                    MessageBox.Show("No se pudo acceder a la base de datos.",
+                        "Error 4060", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+
+                case -2:
+                    MessageBox.Show("La operación tardó demasiado tiempo.",
+                        "Error -2", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+
+                default:
+                    MessageBox.Show("Ocurrió un error al guardar la compra.\n\n" + ex.Message,
+                        "Error " + ex.Number, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+            }
+
+            return 0;
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show("Ocurrió un error inesperado.\n\n" + ex.Message,
+                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            return 0;
+        }
+    }
+
+
+    //METODO DE ACTUALIZAR COMPRA
+
+    public static bool ActualizarCompra(
+        int idCompra,
+        DateTime fechaCompra,
+        decimal totalCompra,
+        int idProveedor)
+    {
+        string comandoSQL = @"UPDATE Compras
+            SET FechaCompra = @FechaCompra,
+                TotalCompra = @TotalCompra,
+                IdProveedor = @IdProveedor
+            WHERE IdCompra = @IdCompra;";
+
+        try
+        {
+            using (SqlConnection conexion = Conexion.Conectar())
+            using (SqlCommand comando = new SqlCommand(comandoSQL, conexion))
+            {
+                comando.Parameters.AddWithValue("@IdCompra", idCompra);
+                comando.Parameters.AddWithValue("@FechaCompra", fechaCompra);
+                comando.Parameters.AddWithValue("@TotalCompra", totalCompra);
+                comando.Parameters.AddWithValue("@IdProveedor", idProveedor);
+
+                int filasAfectadas = comando.ExecuteNonQuery();
+
+                return filasAfectadas > 0;
             }
         }
-
-        public static int GuardarCompleta(int idCompra, DateTime fecha, int idProveedor,
-            IList<DetalleCompraMaterial> detalles)
+        catch (SqlException ex)
         {
-            if (detalles.Count == 0)
-                throw new InvalidOperationException("Agrega al menos un material.");
+            switch (ex.Number)
+            {
+                case 547:
+                    MessageBox.Show("El proveedor seleccionado no existe.",
+                        "Error 547", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+
+                case 515:
+                    MessageBox.Show("Faltan datos obligatorios para actualizar la compra.",
+                        "Error 515", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+
+                case 8115:
+                    MessageBox.Show("El total de la compra supera el límite permitido.",
+                        "Error 8115", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+
+                case 53:
+                    MessageBox.Show("No se pudo establecer conexión con el servidor.",
+                        "Error 53", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+
+                case 4060:
+                    MessageBox.Show("No se pudo acceder a la base de datos.",
+                        "Error 4060", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+
+                case -2:
+                    MessageBox.Show("La operación tardó demasiado tiempo.",
+                        "Error -2", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+
+                default:
+                    MessageBox.Show("Error al actualizar la compra.\n\n" + ex.Message,
+                        "Error " + ex.Number, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+            }
+
+            return false;
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show("Ocurrió un error inesperado.\n\n" + ex.Message,
+                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            return false;
+        }
+    }
+
+    //METODO PARA OBTENER LA COMPRA POR MEDIO DE ID
+
+    public static DataTable ObtenerCompraPorId(int idCompra)
+    {
+        string comandoSQL = @"SELECT IdCompra, FechaCompra,
+            TotalCompra, IdProveedor
+            FROM Compras
+            WHERE IdCompra = @IdCompra;";
+
+        try
+        {
             using (SqlConnection conexion = Conexion.Conectar())
-            using (SqlTransaction transaccion = conexion.BeginTransaction(IsolationLevel.Serializable))
+            using (SqlCommand comando = new SqlCommand(comandoSQL, conexion))
+            {
+                comando.Parameters.AddWithValue("@IdCompra", idCompra);
+
+                SqlDataAdapter adapter = new SqlDataAdapter(comando);
+                DataTable dt = new DataTable();
+
+                adapter.Fill(dt);
+
+                return dt;
+            }
+        }
+        catch (SqlException ex)
+        {
+            switch (ex.Number)
+            {
+                case 53:
+                    MessageBox.Show("No se pudo establecer conexión con el servidor.",
+                        "Error 53", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+
+                case 4060:
+                    MessageBox.Show("No se pudo acceder a la base de datos.",
+                        "Error 4060", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+
+                case 208:
+                    MessageBox.Show("La tabla Compras no existe.",
+                        "Error 208", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+
+                case -2:
+                    MessageBox.Show("La operación tardó demasiado tiempo.",
+                        "Error -2", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+
+                default:
+                    MessageBox.Show("Error al obtener la compra.\n\n" + ex.Message,
+                        "Error " + ex.Number, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+            }
+
+            return new DataTable();
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show("Ocurrió un error inesperado.\n\n" + ex.Message,
+                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            return new DataTable();
+        }
+    }
+
+    //GUARDAR COMPRA COMPLETA
+
+    public static int GuardarCompleta(
+        int idCompra,
+        DateTime fecha,
+        int idProveedor,
+        IList<DetalleCompraMaterial> detalles)
+    {
+        if (detalles == null || detalles.Count == 0)
+        {
+            MessageBox.Show("Agrega al menos un material.",
+                "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+            return 0;
+        }
+
+        try
+        {
+            using (SqlConnection conexion = Conexion.Conectar())
+            using (SqlTransaction transaccion =
+                conexion.BeginTransaction(IsolationLevel.Serializable))
             using (SqlCommand cmd = new SqlCommand())
             {
                 cmd.Connection = conexion;
                 cmd.Transaction = transaccion;
+
                 cmd.Parameters.AddWithValue("@IdCompra", idCompra);
                 cmd.Parameters.AddWithValue("@Fecha", fecha);
                 cmd.Parameters.AddWithValue("@Proveedor", idProveedor);
-                var sql = new StringBuilder(@"
-                    DECLARE @Detalles TABLE (Id int, Material int, Cantidad int, Precio decimal(10,2));");
+
+                StringBuilder sql = new StringBuilder(@"
+                    DECLARE @Detalles TABLE
+                    (
+                        Id int,
+                        Material int,
+                        Cantidad int,
+                        Precio decimal(10,2)
+                    );");
+
                 for (int i = 0; i < detalles.Count; i++)
                 {
-                    var d = detalles[i];
+                    DetalleCompraMaterial d = detalles[i];
+
                     if (d.Cantidad1 <= 0 || d.PrecioUnitario1 < 0)
-                        throw new InvalidOperationException("Revisa la cantidad y el precio de los materiales.");
-                    sql.AppendFormat("INSERT INTO @Detalles VALUES (@d{0}, @m{0}, @c{0}, @p{0});", i);
-                    cmd.Parameters.AddWithValue("@d" + i, d.IdDetalleCompraMaterial1);
-                    cmd.Parameters.AddWithValue("@m" + i, d.IdMaterial1);
-                    cmd.Parameters.AddWithValue("@c" + i, d.Cantidad1);
-                    var precio = cmd.Parameters.Add("@p" + i, SqlDbType.Decimal);
+                    {
+                        MessageBox.Show("Revisa la cantidad y el precio de los materiales.",
+                            "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                        transaccion.Rollback();
+                        return 0;
+                    }
+
+                    sql.AppendFormat(
+                        "INSERT INTO @Detalles VALUES (@d{0}, @m{0}, @c{0}, @p{0});",
+                        i);
+
+                    cmd.Parameters.AddWithValue("@d" + i,
+                        d.IdDetalleCompraMaterial1);
+
+                    cmd.Parameters.AddWithValue("@m" + i,
+                        d.IdMaterial1);
+
+                    cmd.Parameters.AddWithValue("@c" + i,
+                        d.Cantidad1);
+
+                    SqlParameter precio = cmd.Parameters.Add(
+                        "@p" + i, SqlDbType.Decimal);
+
                     precio.Precision = 10;
                     precio.Scale = 2;
                     precio.Value = d.PrecioUnitario1;
                 }
+
                 sql.Append(@"
                     IF @IdCompra = 0
                     BEGIN
-                        INSERT INTO Compras (FechaCompra, TotalCompra, IdProveedor)
+                        INSERT INTO Compras
+                        (FechaCompra, TotalCompra, IdProveedor)
                         VALUES (@Fecha, 0, @Proveedor);
-                        SET @IdCompra = CONVERT(int, SCOPE_IDENTITY());
+
+                        SET @IdCompra =
+                            CONVERT(int, SCOPE_IDENTITY());
                     END
-                    ELSE IF NOT EXISTS (SELECT 1 FROM Compras WITH (UPDLOCK, HOLDLOCK) WHERE IdCompra = @IdCompra)
-                        THROW 50002, 'La compra ya no existe. Vuelva a cargar la lista.', 1;
-                    IF EXISTS (SELECT 1 FROM @Detalles d WHERE d.Id <> 0 AND NOT EXISTS
-                        (SELECT 1 FROM DetalleCompraMaterial o WHERE o.IdCompra = @IdCompra AND o.IdDetalleCompraMaterial = d.Id))
-                        THROW 50003, 'Los detalles cambiaron. Vuelva a cargar la compra.', 1;
-                    DECLARE @Cambios TABLE (Material int PRIMARY KEY, Cantidad int);
-                    INSERT INTO @Cambios
-                    SELECT Material, SUM(Cantidad) FROM (
-                        SELECT Material, Cantidad FROM @Detalles
-                        UNION ALL
-                        SELECT IdMaterial, -Cantidad FROM DetalleCompraMaterial WITH (UPDLOCK, HOLDLOCK)
+                    ELSE IF NOT EXISTS
+                    (
+                        SELECT 1
+                        FROM Compras WITH (UPDLOCK, HOLDLOCK)
                         WHERE IdCompra = @IdCompra
-                    ) movimientos GROUP BY Material;
-                    IF EXISTS (SELECT 1 FROM @Cambios c LEFT JOIN Material m WITH (UPDLOCK, HOLDLOCK)
-                        ON m.IdMaterial = c.Material WHERE m.IdMaterial IS NULL OR m.Stock + c.Cantidad < 0)
-                        THROW 50004, 'No hay stock suficiente para revertir la compra: parte del material ya fue utilizado.', 1;
-                    UPDATE m SET Stock = Stock + c.Cantidad FROM Material m
-                        JOIN @Cambios c ON m.IdMaterial = c.Material;
-                    DELETE FROM DetalleCompraMaterial WHERE IdCompra = @IdCompra
-                        AND IdDetalleCompraMaterial NOT IN (SELECT Id FROM @Detalles);
-                    UPDATE o SET IdMaterial = d.Material, Cantidad = d.Cantidad, PrecioUnitario = d.Precio
-                        FROM DetalleCompraMaterial o JOIN @Detalles d ON o.IdDetalleCompraMaterial = d.Id
-                        WHERE o.IdCompra = @IdCompra;
-                    INSERT INTO DetalleCompraMaterial (IdCompra, IdMaterial, Cantidad, PrecioUnitario)
-                        SELECT @IdCompra, Material, Cantidad, Precio FROM @Detalles WHERE Id = 0;
-                    UPDATE Compras SET FechaCompra = @Fecha, IdProveedor = @Proveedor,
-                        TotalCompra = (SELECT SUM(Cantidad * Precio) FROM @Detalles) WHERE IdCompra = @IdCompra;
+                    )
+                        THROW 50002,
+                        'La compra ya no existe. Vuelva a cargar la lista.', 1;
+
+                    IF EXISTS
+                    (
+                        SELECT 1
+                        FROM @Detalles d
+                        WHERE d.Id <> 0
+                        AND NOT EXISTS
+                        (
+                            SELECT 1
+                            FROM DetalleCompraMaterial o
+                            WHERE o.IdCompra = @IdCompra
+                            AND o.IdDetalleCompraMaterial = d.Id
+                        )
+                    )
+                        THROW 50003,
+                        'Los detalles cambiaron. Vuelva a cargar la compra.', 1;
+
+                    DECLARE @Cambios TABLE
+                    (
+                        Material int PRIMARY KEY,
+                        Cantidad int
+                    );
+
+                    INSERT INTO @Cambios
+                    SELECT Material, SUM(Cantidad)
+                    FROM
+                    (
+                        SELECT Material, Cantidad
+                        FROM @Detalles
+
+                        UNION ALL
+
+                        SELECT IdMaterial, -Cantidad
+                        FROM DetalleCompraMaterial
+                        WITH (UPDLOCK, HOLDLOCK)
+                        WHERE IdCompra = @IdCompra
+                    ) movimientos
+                    GROUP BY Material;
+
+                    IF EXISTS
+                    (
+                        SELECT 1
+                        FROM @Cambios c
+                        LEFT JOIN Material m
+                        WITH (UPDLOCK, HOLDLOCK)
+                        ON m.IdMaterial = c.Material
+                        WHERE m.IdMaterial IS NULL
+                        OR m.Stock + c.Cantidad < 0
+                    )
+                        THROW 50004,
+                        'No hay stock suficiente para revertir la compra: parte del material ya fue utilizado.', 1;
+
+                    UPDATE m
+                    SET Stock = Stock + c.Cantidad
+                    FROM Material m
+                    JOIN @Cambios c
+                    ON m.IdMaterial = c.Material;
+
+                    DELETE FROM DetalleCompraMaterial
+                    WHERE IdCompra = @IdCompra
+                    AND IdDetalleCompraMaterial NOT IN
+                    (
+                        SELECT Id FROM @Detalles
+                    );
+
+                    UPDATE o
+                    SET IdMaterial = d.Material,
+                        Cantidad = d.Cantidad,
+                        PrecioUnitario = d.Precio
+                    FROM DetalleCompraMaterial o
+                    JOIN @Detalles d
+                    ON o.IdDetalleCompraMaterial = d.Id
+                    WHERE o.IdCompra = @IdCompra;
+
+                    INSERT INTO DetalleCompraMaterial
+                    (IdCompra, IdMaterial, Cantidad, PrecioUnitario)
+                    SELECT @IdCompra, Material, Cantidad, Precio
+                    FROM @Detalles
+                    WHERE Id = 0;
+
+                    UPDATE Compras
+                    SET FechaCompra = @Fecha,
+                        IdProveedor = @Proveedor,
+                        TotalCompra =
+                        (
+                            SELECT SUM(Cantidad * Precio)
+                            FROM @Detalles
+                        )
+                    WHERE IdCompra = @IdCompra;
+
                     SELECT @IdCompra;");
+
                 cmd.CommandText = sql.ToString();
+
                 try
                 {
-                    int resultado = Convert.ToInt32(cmd.ExecuteScalar());
+                    int resultado = Convert.ToInt32(
+                        cmd.ExecuteScalar());
+
                     transaccion.Commit();
+
                     return resultado;
                 }
-                catch
+                catch (SqlException ex)
                 {
-                    transaccion.Rollback();
-                    throw;
+                    try
+                    {
+                        transaccion.Rollback();
+                    }
+                    catch { }
+
+                    switch (ex.Number)
+                    {
+                        case 50002:
+                            MessageBox.Show("La compra ya no existe. Vuelve a cargar la lista.",
+                                "Error 50002", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+
+                        case 50003:
+                            MessageBox.Show("Los detalles cambiaron. Vuelve a cargar la compra.",
+                                "Error 50003", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+
+                        case 50004:
+                            MessageBox.Show("No hay stock suficiente para revertir la compra.",
+                                "Error 50004", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+
+                        case 547:
+                            MessageBox.Show("Existe un material o proveedor que no es válido.",
+                                "Error 547", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+
+                        case 2627:
+                        case 2601:
+                            MessageBox.Show("Ya existe un registro con los mismos datos.",
+                                "Error " + ex.Number, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+
+                        case 515:
+                            MessageBox.Show("Faltan datos obligatorios para guardar la compra.",
+                                "Error 515", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+
+                        case 8115:
+                            MessageBox.Show("Uno de los valores supera el límite permitido.",
+                                "Error 8115", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+
+                        case 53:
+                            MessageBox.Show("No se pudo establecer conexión con el servidor.",
+                                "Error 53", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+
+                        case 4060:
+                            MessageBox.Show("No se pudo acceder a la base de datos.",
+                                "Error 4060", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+
+                        case -2:
+                            MessageBox.Show("La operación tardó demasiado tiempo.",
+                                "Error -2", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+
+                        default:
+                            MessageBox.Show("Ocurrió un error al guardar la compra.\n\n" + ex.Message,
+                                "Error " + ex.Number, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+                    }
+
+                    return 0;
+                }
+                catch (Exception ex)
+                {
+                    try
+                    {
+                        transaccion.Rollback();
+                    }
+                    catch { }
+
+                    MessageBox.Show("Ocurrió un error inesperado.\n\n" + ex.Message,
+                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    return 0;
                 }
             }
         }
+        catch (SqlException ex)
+        {
+            switch (ex.Number)
+            {
+                case 53:
+                    MessageBox.Show("No se pudo establecer conexión con el servidor.",
+                        "Error 53", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
 
-        public bool EliminarCompra()
+                case 4060:
+                    MessageBox.Show("No se pudo acceder a la base de datos.",
+                        "Error 4060", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+
+                default:
+                    MessageBox.Show("Ocurrió un error al procesar la compra.\n\n" + ex.Message,
+                        "Error " + ex.Number, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+            }
+
+            return 0;
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show("Ocurrió un error inesperado.\n\n" + ex.Message,
+                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            return 0;
+        }
+    }
+    //ELIMINAR COMPRA
+
+    public bool EliminarCompra()
+    {
+        try
         {
             using (SqlConnection conexion = Conexion.Conectar())
+            using (SqlTransaction transaccion =
+                conexion.BeginTransaction(IsolationLevel.Serializable))
             {
-                SqlTransaction transaccion =
-                    conexion.BeginTransaction(IsolationLevel.Serializable);
-
                 try
                 {
-                    //DEVUELVE EL STOCK
+                    // DEVUELVE EL STOCK
 
                     string actualizarStock = @"
-                IF NOT EXISTS (SELECT 1 FROM Compras WITH (UPDLOCK, HOLDLOCK) WHERE IdCompra = @IdCompra)
-                    THROW 50001, 'La compra ya no existe.', 1;
-                IF EXISTS (SELECT 1 FROM Material m WITH (UPDLOCK, HOLDLOCK)
-                    JOIN (SELECT IdMaterial, SUM(Cantidad) AS Cantidad
-                        FROM DetalleCompraMaterial WITH (UPDLOCK, HOLDLOCK)
-                        WHERE IdCompra = @IdCompra GROUP BY IdMaterial) d ON m.IdMaterial = d.IdMaterial
-                    WHERE m.Stock < d.Cantidad)
-                    THROW 50002, 'No hay stock suficiente para revertir la compra: parte del material ya fue utilizado.', 1;
-                UPDATE m
-                SET m.Stock = m.Stock - d.Cantidad
-                FROM Material m
-                INNER JOIN (SELECT IdMaterial, SUM(Cantidad) AS Cantidad
-                    FROM DetalleCompraMaterial WITH (UPDLOCK, HOLDLOCK)
-                    WHERE IdCompra = @IdCompra GROUP BY IdMaterial) d
-                    ON m.IdMaterial = d.IdMaterial;";
+                        IF NOT EXISTS
+                        (
+                            SELECT 1
+                            FROM Compras WITH (UPDLOCK, HOLDLOCK)
+                            WHERE IdCompra = @IdCompra
+                        )
+                            THROW 50001,
+                            'La compra ya no existe.', 1;
 
-                    using (SqlCommand cmd = new SqlCommand(actualizarStock, conexion, transaccion))
+                        IF EXISTS
+                        (
+                            SELECT 1
+                            FROM Material m WITH (UPDLOCK, HOLDLOCK)
+                            JOIN
+                            (
+                                SELECT IdMaterial,
+                                       SUM(Cantidad) AS Cantidad
+                                FROM DetalleCompraMaterial
+                                WITH (UPDLOCK, HOLDLOCK)
+                                WHERE IdCompra = @IdCompra
+                                GROUP BY IdMaterial
+                            ) d
+                            ON m.IdMaterial = d.IdMaterial
+                            WHERE m.Stock < d.Cantidad
+                        )
+                            THROW 50002,
+                            'No hay stock suficiente para revertir la compra: parte del material ya fue utilizado.', 1;
+
+                        UPDATE m
+                        SET m.Stock = m.Stock - d.Cantidad
+                        FROM Material m
+                        INNER JOIN
+                        (
+                            SELECT IdMaterial,
+                                   SUM(Cantidad) AS Cantidad
+                            FROM DetalleCompraMaterial
+                            WITH (UPDLOCK, HOLDLOCK)
+                            WHERE IdCompra = @IdCompra
+                            GROUP BY IdMaterial
+                        ) d
+                        ON m.IdMaterial = d.IdMaterial;";
+
+                    using (SqlCommand cmd = new SqlCommand(
+                        actualizarStock, conexion, transaccion))
                     {
-                        cmd.Parameters.AddWithValue("@IdCompra", IdCompra1);
+                        cmd.Parameters.AddWithValue(
+                            "@IdCompra", IdCompra1);
 
                         cmd.ExecuteNonQuery();
                     }
 
 
-                    // ELIMINAR LOS DETALLES DE COMPRAS
+                    // ELIMINAR LOS DETALLES
 
+                    string cmdDetalle = @"
+                        DELETE FROM DetalleCompraMaterial
+                        WHERE IdCompra = @IdCompra;";
 
-                    string cmdDetalle = @"DELETE FROM DetalleCompraMaterial WHERE IdCompra = @IdCompra;";
-
-                    using (SqlCommand cmd = new SqlCommand(cmdDetalle, conexion, transaccion))
+                    using (SqlCommand cmd = new SqlCommand(
+                        cmdDetalle, conexion, transaccion))
                     {
-                        cmd.Parameters.AddWithValue("@IdCompra", IdCompra1);
+                        cmd.Parameters.AddWithValue(
+                            "@IdCompra", IdCompra1);
 
                         cmd.ExecuteNonQuery();
                     }
 
-                    // ELIMINA LA COMPRA DEL MATERIAL
 
-                    string cmdCompra = @"DELETE FROM Compras  WHERE IdCompra = @IdCompra;";
+                    // ELIMINAR LA COMPRA
 
-                    using (SqlCommand cmd = new SqlCommand(cmdCompra, conexion, transaccion))
+                    string cmdCompra = @"
+                        DELETE FROM Compras
+                        WHERE IdCompra = @IdCompra;";
+
+                    using (SqlCommand cmd = new SqlCommand(
+                        cmdCompra, conexion, transaccion))
                     {
-                        cmd.Parameters.AddWithValue("@IdCompra", IdCompra1);
+                        cmd.Parameters.AddWithValue(
+                            "@IdCompra", IdCompra1);
 
                         int filas = cmd.ExecuteNonQuery();
 
@@ -278,42 +722,169 @@ namespace Modelo.Entidades
                             transaccion.Commit();
                             return true;
                         }
-                        else
-                        {
-                            transaccion.Rollback();
-                            return false;
-                        }
+
+                        transaccion.Rollback();
+                        return false;
                     }
+                }
+                catch (SqlException ex)
+                {
+                    try
+                    {
+                        transaccion.Rollback();
+                    }
+                    catch { }
+
+                    switch (ex.Number)
+                    {
+                        case 50001:
+                            MessageBox.Show("La compra ya no existe.",
+                                "Error 50001", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+
+                        case 50002:
+                            MessageBox.Show("No hay stock suficiente para revertir la compra.",
+                                "Error 50002", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+
+                        case 547:
+                            MessageBox.Show("No se puede eliminar la compra porque tiene registros relacionados.",
+                                "Error 547", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+
+                        case 53:
+                            MessageBox.Show("No se pudo establecer conexión con el servidor.",
+                                "Error 53", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+
+                        case 4060:
+                            MessageBox.Show("No se pudo acceder a la base de datos.",
+                                "Error 4060", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+
+                        case -2:
+                            MessageBox.Show("La operación tardó demasiado tiempo.",
+                                "Error -2", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+
+                        default:
+                            MessageBox.Show("Ocurrió un error al eliminar la compra.\n\n" + ex.Message,
+                                "Error " + ex.Number, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+                    }
+
+                    return false;
                 }
                 catch (Exception ex)
                 {
-                    transaccion.Rollback();
+                    try
+                    {
+                        transaccion.Rollback();
+                    }
+                    catch { }
 
-                    MessageBox.Show("Ocurrió un error al eliminar la compra.\n\n" + ex.Message, "Error", MessageBoxButtons.OK,
-                        MessageBoxIcon.Error);
+                    MessageBox.Show("Ocurrió un error inesperado.\n\n" + ex.Message,
+                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                     return false;
                 }
             }
         }
-
-        //Metodo para buscar una compra ya registrada
-        public static DataTable Buscar(string termino)
+        catch (SqlException ex)
         {
-            SqlConnection con = Conexion.Conectar();
-            string comando = @"SELECT * FROM VerCompras WHERE CAST(IdCompra AS VARCHAR) LIKE @buscar OR Proveedor LIKE @buscar;";
+            switch (ex.Number)
+            {
+                case 53:
+                    MessageBox.Show("No se pudo establecer conexión con el servidor.",
+                        "Error 53", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
 
-            SqlDataAdapter ad = new SqlDataAdapter(comando, con);
+                case 4060:
+                    MessageBox.Show("No se pudo acceder a la base de datos.",
+                        "Error 4060", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
 
-            ad.SelectCommand.Parameters.AddWithValue("@buscar", "%" + termino + "%");
+                default:
+                    MessageBox.Show("Ocurrió un error al eliminar la compra.\n\n" + ex.Message,
+                        "Error " + ex.Number, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+            }
 
-            DataTable dt = new DataTable();
-
-            ad.Fill(dt);
-
-            return dt;
+            return false;
         }
+        catch (Exception ex)
+        {
+            MessageBox.Show("Ocurrió un error inesperado.\n\n" + ex.Message,
+                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
+            return false;
+        }
+    }
 
+    //BUSCAR COMPRA
+    public static DataTable Buscar(string termino)
+    {
+        string comando = @"
+            SELECT *
+            FROM VerCompras
+            WHERE CAST(IdCompra AS VARCHAR) LIKE @buscar
+            OR Proveedor LIKE @buscar;";
+
+        try
+        {
+            using (SqlConnection con = Conexion.Conectar())
+            using (SqlDataAdapter ad = new SqlDataAdapter(
+                comando, con))
+            {
+                ad.SelectCommand.Parameters.AddWithValue(
+                    "@buscar", "%" + (termino ?? "") + "%");
+
+                DataTable dt = new DataTable();
+
+                ad.Fill(dt);
+
+                return dt;
+            }
+        }
+        catch (SqlException ex)
+        {
+            switch (ex.Number)
+            {
+                case 208:
+                    MessageBox.Show("La vista VerCompras no existe.",
+                        "Error 208", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+
+                case 53:
+                    MessageBox.Show("No se pudo establecer conexión con el servidor.",
+                        "Error 53", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+
+                case 4060:
+                    MessageBox.Show("No se pudo acceder a la base de datos.",
+                        "Error 4060", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+
+                case -2:
+                    MessageBox.Show("La operación tardó demasiado tiempo.",
+                        "Error -2", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+
+                default:
+                    MessageBox.Show("Ocurrió un error al buscar la compra.\n\n" + ex.Message,
+                        "Error " + ex.Number, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+            }
+
+            return new DataTable();
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show("Ocurrió un error inesperado.\n\n" + ex.Message,
+                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            return new DataTable();
+        }
     }
 }
+
