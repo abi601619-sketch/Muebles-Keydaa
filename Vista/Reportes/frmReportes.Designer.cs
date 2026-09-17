@@ -41,12 +41,44 @@
             this.lblFechaInicio = new System.Windows.Forms.Label();
             this.pnlContenedorPrincipalInventario = new System.Windows.Forms.Panel();
             this.pnlHeader = new System.Windows.Forms.Panel();
+            this.btnExportarCotizaciones = new System.Windows.Forms.Button();
+            this.btnConsultarCotizaciones = new System.Windows.Forms.Button();
+            this.pnlBarraCambiosClientes = new System.Windows.Forms.Panel();
+            this.pnlBarraCambioVentas = new System.Windows.Forms.Panel();
+            this.pnlBarraCambiosCotizaciones = new System.Windows.Forms.Panel();
+            this.btnCotizaciones = new System.Windows.Forms.Button();
             this.btnExportarReporteVentas = new System.Windows.Forms.Button();
             this.btnConsultarVentas = new System.Windows.Forms.Button();
-            this.pnlBarraCambiosCotizaciones = new System.Windows.Forms.Panel();
-            this.pnlBarraCambioVentas = new System.Windows.Forms.Panel();
             this.lblSubTexto = new System.Windows.Forms.Label();
             this.lblMensajeInformativoPrincipal = new System.Windows.Forms.Label();
+            this.pnlReporteCotizaciones = new System.Windows.Forms.Panel();
+            this.panel8 = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.pbCotizacionesTotales = new System.Windows.Forms.PictureBox();
+            this.lblMostrarTotalCotizaciones = new System.Windows.Forms.Label();
+            this.panel9 = new System.Windows.Forms.Panel();
+            this.lblCoRechazadas = new System.Windows.Forms.Label();
+            this.pbCotizacionesRechazadas = new System.Windows.Forms.PictureBox();
+            this.lblMostrarCotizacionesRechazadas = new System.Windows.Forms.Label();
+            this.panel10 = new System.Windows.Forms.Panel();
+            this.lblCoAprobadas = new System.Windows.Forms.Label();
+            this.lblMostrarCotizacionesAprobadas = new System.Windows.Forms.Label();
+            this.pbCotizacionesAprobadas = new System.Windows.Forms.PictureBox();
+            this.pnlRegistroCotizaciones = new System.Windows.Forms.Panel();
+            this.dgvReporteCotizaciones = new System.Windows.Forms.DataGridView();
+            this.label8 = new System.Windows.Forms.Label();
+            this.pnlReportesVentas = new System.Windows.Forms.Panel();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.lblMostrarFacturasEmitidas = new System.Windows.Forms.Label();
+            this.lblFacturasEmitidas = new System.Windows.Forms.Label();
+            this.pbFactura = new System.Windows.Forms.PictureBox();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.lblContadorVentasTotales = new System.Windows.Forms.Label();
+            this.lblVentasTotales = new System.Windows.Forms.Label();
+            this.pbVentas = new System.Windows.Forms.PictureBox();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.dgvReporteVentas = new System.Windows.Forms.DataGridView();
+            this.label1 = new System.Windows.Forms.Label();
             this.pnlReporteDeClientes = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.lblClientesTotales = new System.Windows.Forms.Label();
@@ -63,42 +95,26 @@
             this.pnlCuadroVentas = new System.Windows.Forms.Panel();
             this.dgvReporteClientes = new System.Windows.Forms.DataGridView();
             this.lblDetalleVentas = new System.Windows.Forms.Label();
-            this.pnlReportesVentas = new System.Windows.Forms.Panel();
-            this.panel6 = new System.Windows.Forms.Panel();
-            this.lblMostrarFacturasEmitidas = new System.Windows.Forms.Label();
-            this.lblFacturasEmitidas = new System.Windows.Forms.Label();
-            this.pbFactura = new System.Windows.Forms.PictureBox();
-            this.panel5 = new System.Windows.Forms.Panel();
-            this.lblContadorVentasTotales = new System.Windows.Forms.Label();
-            this.lblVentasTotales = new System.Windows.Forms.Label();
-            this.pbVentas = new System.Windows.Forms.PictureBox();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.dgvReporteVentas = new System.Windows.Forms.DataGridView();
-            this.label1 = new System.Windows.Forms.Label();
-            this.btnCotizaciones = new System.Windows.Forms.Button();
-            this.pnlBarraCambiosClientes = new System.Windows.Forms.Panel();
-            this.pnlRegistroCotizaciones = new System.Windows.Forms.Panel();
-            this.label8 = new System.Windows.Forms.Label();
-            this.dgvCotizaciones = new System.Windows.Forms.DataGridView();
-            this.panel10 = new System.Windows.Forms.Panel();
-            this.pbCotizacionesAprobadas = new System.Windows.Forms.PictureBox();
-            this.lblMostrarCotizacionesAprobadas = new System.Windows.Forms.Label();
-            this.lblCoAprobadas = new System.Windows.Forms.Label();
-            this.panel9 = new System.Windows.Forms.Panel();
-            this.lblMostrarCotizacionesRechazadas = new System.Windows.Forms.Label();
-            this.pbCotizacionesRechazadas = new System.Windows.Forms.PictureBox();
-            this.lblCoRechazadas = new System.Windows.Forms.Label();
-            this.panel8 = new System.Windows.Forms.Panel();
-            this.lblMostrarTotalCotizaciones = new System.Windows.Forms.Label();
-            this.pbCotizacionesTotales = new System.Windows.Forms.PictureBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.pnlReporteCotizaciones = new System.Windows.Forms.Panel();
-            this.btnConsultarCotizaciones = new System.Windows.Forms.Button();
-            this.btnExportarCotizaciones = new System.Windows.Forms.Button();
             this.pnlBarraSuperior.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbPerfil)).BeginInit();
             this.pnlContenedorPrincipalInventario.SuspendLayout();
             this.pnlHeader.SuspendLayout();
+            this.pnlReporteCotizaciones.SuspendLayout();
+            this.panel8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbCotizacionesTotales)).BeginInit();
+            this.panel9.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbCotizacionesRechazadas)).BeginInit();
+            this.panel10.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbCotizacionesAprobadas)).BeginInit();
+            this.pnlRegistroCotizaciones.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvReporteCotizaciones)).BeginInit();
+            this.pnlReportesVentas.SuspendLayout();
+            this.panel6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbFactura)).BeginInit();
+            this.panel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbVentas)).BeginInit();
+            this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvReporteVentas)).BeginInit();
             this.pnlReporteDeClientes.SuspendLayout();
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbClientesFrecuentes)).BeginInit();
@@ -108,22 +124,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbClientesRegistrados)).BeginInit();
             this.pnlCuadroVentas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReporteClientes)).BeginInit();
-            this.pnlReportesVentas.SuspendLayout();
-            this.panel6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbFactura)).BeginInit();
-            this.panel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbVentas)).BeginInit();
-            this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvReporteVentas)).BeginInit();
-            this.pnlRegistroCotizaciones.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvCotizaciones)).BeginInit();
-            this.panel10.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbCotizacionesAprobadas)).BeginInit();
-            this.panel9.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbCotizacionesRechazadas)).BeginInit();
-            this.panel8.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbCotizacionesTotales)).BeginInit();
-            this.pnlReporteCotizaciones.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlBarraSuperior
@@ -295,6 +295,71 @@
             this.pnlHeader.Size = new System.Drawing.Size(1102, 627);
             this.pnlHeader.TabIndex = 0;
             // 
+            // btnExportarCotizaciones
+            // 
+            this.btnExportarCotizaciones.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.btnExportarCotizaciones.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnExportarCotizaciones.Location = new System.Drawing.Point(894, 99);
+            this.btnExportarCotizaciones.Margin = new System.Windows.Forms.Padding(2);
+            this.btnExportarCotizaciones.Name = "btnExportarCotizaciones";
+            this.btnExportarCotizaciones.Size = new System.Drawing.Size(152, 40);
+            this.btnExportarCotizaciones.TabIndex = 19;
+            this.btnExportarCotizaciones.Text = "Exportar PDF";
+            this.btnExportarCotizaciones.UseVisualStyleBackColor = false;
+            this.btnExportarCotizaciones.Click += new System.EventHandler(this.btnExportarCotizaciones_Click);
+            // 
+            // btnConsultarCotizaciones
+            // 
+            this.btnConsultarCotizaciones.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.btnConsultarCotizaciones.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnConsultarCotizaciones.Location = new System.Drawing.Point(722, 107);
+            this.btnConsultarCotizaciones.Margin = new System.Windows.Forms.Padding(2);
+            this.btnConsultarCotizaciones.Name = "btnConsultarCotizaciones";
+            this.btnConsultarCotizaciones.Size = new System.Drawing.Size(154, 35);
+            this.btnConsultarCotizaciones.TabIndex = 18;
+            this.btnConsultarCotizaciones.Text = "Consultar";
+            this.btnConsultarCotizaciones.UseVisualStyleBackColor = false;
+            this.btnConsultarCotizaciones.Click += new System.EventHandler(this.btnConsultarCotizaciones_Click_1);
+            // 
+            // pnlBarraCambiosClientes
+            // 
+            this.pnlBarraCambiosClientes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.pnlBarraCambiosClientes.Location = new System.Drawing.Point(386, 189);
+            this.pnlBarraCambiosClientes.Name = "pnlBarraCambiosClientes";
+            this.pnlBarraCambiosClientes.Size = new System.Drawing.Size(319, 3);
+            this.pnlBarraCambiosClientes.TabIndex = 2;
+            // 
+            // pnlBarraCambioVentas
+            // 
+            this.pnlBarraCambioVentas.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.pnlBarraCambioVentas.Location = new System.Drawing.Point(69, 189);
+            this.pnlBarraCambioVentas.Name = "pnlBarraCambioVentas";
+            this.pnlBarraCambioVentas.Size = new System.Drawing.Size(319, 3);
+            this.pnlBarraCambioVentas.TabIndex = 1;
+            this.pnlBarraCambioVentas.Visible = false;
+            // 
+            // pnlBarraCambiosCotizaciones
+            // 
+            this.pnlBarraCambiosCotizaciones.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.pnlBarraCambiosCotizaciones.Location = new System.Drawing.Point(704, 189);
+            this.pnlBarraCambiosCotizaciones.Name = "pnlBarraCambiosCotizaciones";
+            this.pnlBarraCambiosCotizaciones.Size = new System.Drawing.Size(330, 3);
+            this.pnlBarraCambiosCotizaciones.TabIndex = 3;
+            this.pnlBarraCambiosCotizaciones.Visible = false;
+            // 
+            // btnCotizaciones
+            // 
+            this.btnCotizaciones.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.btnCotizaciones.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCotizaciones.Location = new System.Drawing.Point(704, 157);
+            this.btnCotizaciones.Margin = new System.Windows.Forms.Padding(2);
+            this.btnCotizaciones.Name = "btnCotizaciones";
+            this.btnCotizaciones.Size = new System.Drawing.Size(330, 35);
+            this.btnCotizaciones.TabIndex = 17;
+            this.btnCotizaciones.Text = "Cotizaciones";
+            this.btnCotizaciones.UseVisualStyleBackColor = false;
+            this.btnCotizaciones.Click += new System.EventHandler(this.btnCotizaciones_Click);
+            // 
             // btnExportarReporteVentas
             // 
             this.btnExportarReporteVentas.BackColor = System.Drawing.SystemColors.ControlLight;
@@ -321,24 +386,6 @@
             this.btnConsultarVentas.UseVisualStyleBackColor = false;
             this.btnConsultarVentas.Click += new System.EventHandler(this.btnConsultarVentas_Click);
             // 
-            // pnlBarraCambiosCotizaciones
-            // 
-            this.pnlBarraCambiosCotizaciones.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.pnlBarraCambiosCotizaciones.Location = new System.Drawing.Point(704, 189);
-            this.pnlBarraCambiosCotizaciones.Name = "pnlBarraCambiosCotizaciones";
-            this.pnlBarraCambiosCotizaciones.Size = new System.Drawing.Size(330, 3);
-            this.pnlBarraCambiosCotizaciones.TabIndex = 3;
-            this.pnlBarraCambiosCotizaciones.Visible = false;
-            // 
-            // pnlBarraCambioVentas
-            // 
-            this.pnlBarraCambioVentas.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.pnlBarraCambioVentas.Location = new System.Drawing.Point(69, 189);
-            this.pnlBarraCambioVentas.Name = "pnlBarraCambioVentas";
-            this.pnlBarraCambioVentas.Size = new System.Drawing.Size(319, 3);
-            this.pnlBarraCambioVentas.TabIndex = 1;
-            this.pnlBarraCambioVentas.Visible = false;
-            // 
             // lblSubTexto
             // 
             this.lblSubTexto.AutoSize = true;
@@ -361,182 +408,179 @@
             this.lblMensajeInformativoPrincipal.TabIndex = 0;
             this.lblMensajeInformativoPrincipal.Text = "Reportes";
             // 
-            // pnlReporteDeClientes
+            // pnlReporteCotizaciones
             // 
-            this.pnlReporteDeClientes.BackColor = System.Drawing.Color.White;
-            this.pnlReporteDeClientes.Controls.Add(this.panel4);
-            this.pnlReporteDeClientes.Controls.Add(this.panel2);
-            this.pnlReporteDeClientes.Controls.Add(this.panel1);
-            this.pnlReporteDeClientes.Controls.Add(this.pnlCuadroVentas);
-            this.pnlReporteDeClientes.Location = new System.Drawing.Point(63, 193);
-            this.pnlReporteDeClientes.Margin = new System.Windows.Forms.Padding(2);
-            this.pnlReporteDeClientes.Name = "pnlReporteDeClientes";
-            this.pnlReporteDeClientes.Size = new System.Drawing.Size(985, 420);
-            this.pnlReporteDeClientes.TabIndex = 14;
+            this.pnlReporteCotizaciones.BackColor = System.Drawing.Color.White;
+            this.pnlReporteCotizaciones.Controls.Add(this.panel8);
+            this.pnlReporteCotizaciones.Controls.Add(this.panel9);
+            this.pnlReporteCotizaciones.Controls.Add(this.panel10);
+            this.pnlReporteCotizaciones.Controls.Add(this.pnlRegistroCotizaciones);
+            this.pnlReporteCotizaciones.Location = new System.Drawing.Point(64, 193);
+            this.pnlReporteCotizaciones.Margin = new System.Windows.Forms.Padding(2);
+            this.pnlReporteCotizaciones.Name = "pnlReporteCotizaciones";
+            this.pnlReporteCotizaciones.Size = new System.Drawing.Size(985, 420);
+            this.pnlReporteCotizaciones.TabIndex = 15;
             // 
-            // panel4
+            // panel8
             // 
-            this.panel4.Controls.Add(this.lblClientesTotales);
-            this.panel4.Controls.Add(this.pbClientesFrecuentes);
-            this.panel4.Controls.Add(this.lblContadorTotal);
-            this.panel4.Location = new System.Drawing.Point(657, 12);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(313, 77);
-            this.panel4.TabIndex = 9;
+            this.panel8.Controls.Add(this.label2);
+            this.panel8.Controls.Add(this.pbCotizacionesTotales);
+            this.panel8.Controls.Add(this.lblMostrarTotalCotizaciones);
+            this.panel8.Location = new System.Drawing.Point(657, 12);
+            this.panel8.Name = "panel8";
+            this.panel8.Size = new System.Drawing.Size(313, 77);
+            this.panel8.TabIndex = 9;
             // 
-            // lblClientesTotales
+            // label2
             // 
-            this.lblClientesTotales.AutoSize = true;
-            this.lblClientesTotales.Font = new System.Drawing.Font("Times New Roman", 16F);
-            this.lblClientesTotales.Location = new System.Drawing.Point(124, 10);
-            this.lblClientesTotales.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblClientesTotales.Name = "lblClientesTotales";
-            this.lblClientesTotales.Size = new System.Drawing.Size(154, 25);
-            this.lblClientesTotales.TabIndex = 0;
-            this.lblClientesTotales.Text = "Clientes Totales";
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Times New Roman", 14F);
+            this.label2.Location = new System.Drawing.Point(113, 9);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(198, 21);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Cotizaciones Registradas";
             // 
-            // pbClientesFrecuentes
+            // pbCotizacionesTotales
             // 
-            this.pbClientesFrecuentes.Image = global::Vista.Properties.Resources.Cliente_frecuente;
-            this.pbClientesFrecuentes.Location = new System.Drawing.Point(4, 2);
-            this.pbClientesFrecuentes.Name = "pbClientesFrecuentes";
-            this.pbClientesFrecuentes.Size = new System.Drawing.Size(99, 72);
-            this.pbClientesFrecuentes.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pbClientesFrecuentes.TabIndex = 1;
-            this.pbClientesFrecuentes.TabStop = false;
-            this.pbClientesFrecuentes.Click += new System.EventHandler(this.pbClientesFrecuentes_Click);
+            this.pbCotizacionesTotales.Image = global::Vista.Properties.Resources.Cliente_frecuente;
+            this.pbCotizacionesTotales.Location = new System.Drawing.Point(4, 2);
+            this.pbCotizacionesTotales.Name = "pbCotizacionesTotales";
+            this.pbCotizacionesTotales.Size = new System.Drawing.Size(99, 72);
+            this.pbCotizacionesTotales.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbCotizacionesTotales.TabIndex = 1;
+            this.pbCotizacionesTotales.TabStop = false;
             // 
-            // lblContadorTotal
+            // lblMostrarTotalCotizaciones
             // 
-            this.lblContadorTotal.AutoSize = true;
-            this.lblContadorTotal.Location = new System.Drawing.Point(164, 46);
-            this.lblContadorTotal.Name = "lblContadorTotal";
-            this.lblContadorTotal.Size = new System.Drawing.Size(35, 13);
-            this.lblContadorTotal.TabIndex = 6;
-            this.lblContadorTotal.Text = "label5";
+            this.lblMostrarTotalCotizaciones.AutoSize = true;
+            this.lblMostrarTotalCotizaciones.Location = new System.Drawing.Point(164, 46);
+            this.lblMostrarTotalCotizaciones.Name = "lblMostrarTotalCotizaciones";
+            this.lblMostrarTotalCotizaciones.Size = new System.Drawing.Size(35, 13);
+            this.lblMostrarTotalCotizaciones.TabIndex = 6;
+            this.lblMostrarTotalCotizaciones.Text = "label5";
             // 
-            // panel2
+            // panel9
             // 
-            this.panel2.Controls.Add(this.lblClientesIndivisuales);
-            this.panel2.Controls.Add(this.pbClientesNuevos);
-            this.panel2.Controls.Add(this.lblContadorIndividual);
-            this.panel2.Location = new System.Drawing.Point(341, 13);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(313, 77);
-            this.panel2.TabIndex = 8;
+            this.panel9.Controls.Add(this.lblCoRechazadas);
+            this.panel9.Controls.Add(this.pbCotizacionesRechazadas);
+            this.panel9.Controls.Add(this.lblMostrarCotizacionesRechazadas);
+            this.panel9.Location = new System.Drawing.Point(341, 13);
+            this.panel9.Name = "panel9";
+            this.panel9.Size = new System.Drawing.Size(313, 77);
+            this.panel9.TabIndex = 8;
             // 
-            // lblClientesIndivisuales
+            // lblCoRechazadas
             // 
-            this.lblClientesIndivisuales.AutoSize = true;
-            this.lblClientesIndivisuales.Font = new System.Drawing.Font("Times New Roman", 15.5F);
-            this.lblClientesIndivisuales.Location = new System.Drawing.Point(119, 9);
-            this.lblClientesIndivisuales.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblClientesIndivisuales.Name = "lblClientesIndivisuales";
-            this.lblClientesIndivisuales.Size = new System.Drawing.Size(184, 23);
-            this.lblClientesIndivisuales.TabIndex = 0;
-            this.lblClientesIndivisuales.Text = "Clientes Individuales";
+            this.lblCoRechazadas.Font = new System.Drawing.Font("Times New Roman", 14F);
+            this.lblCoRechazadas.Location = new System.Drawing.Point(115, 8);
+            this.lblCoRechazadas.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblCoRechazadas.Name = "lblCoRechazadas";
+            this.lblCoRechazadas.Size = new System.Drawing.Size(210, 23);
+            this.lblCoRechazadas.TabIndex = 0;
+            this.lblCoRechazadas.Text = "Cotizaciones Rechazadas";
             // 
-            // pbClientesNuevos
+            // pbCotizacionesRechazadas
             // 
-            this.pbClientesNuevos.Image = global::Vista.Properties.Resources.Cliente_nuevo;
-            this.pbClientesNuevos.Location = new System.Drawing.Point(15, 2);
-            this.pbClientesNuevos.Name = "pbClientesNuevos";
-            this.pbClientesNuevos.Size = new System.Drawing.Size(99, 72);
-            this.pbClientesNuevos.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pbClientesNuevos.TabIndex = 2;
-            this.pbClientesNuevos.TabStop = false;
+            this.pbCotizacionesRechazadas.Image = global::Vista.Properties.Resources.Cliente_nuevo;
+            this.pbCotizacionesRechazadas.Location = new System.Drawing.Point(15, 2);
+            this.pbCotizacionesRechazadas.Name = "pbCotizacionesRechazadas";
+            this.pbCotizacionesRechazadas.Size = new System.Drawing.Size(99, 72);
+            this.pbCotizacionesRechazadas.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbCotizacionesRechazadas.TabIndex = 2;
+            this.pbCotizacionesRechazadas.TabStop = false;
             // 
-            // lblContadorIndividual
+            // lblMostrarCotizacionesRechazadas
             // 
-            this.lblContadorIndividual.AutoSize = true;
-            this.lblContadorIndividual.Location = new System.Drawing.Point(164, 46);
-            this.lblContadorIndividual.Name = "lblContadorIndividual";
-            this.lblContadorIndividual.Size = new System.Drawing.Size(35, 13);
-            this.lblContadorIndividual.TabIndex = 6;
-            this.lblContadorIndividual.Text = "label4";
+            this.lblMostrarCotizacionesRechazadas.AutoSize = true;
+            this.lblMostrarCotizacionesRechazadas.Location = new System.Drawing.Point(164, 46);
+            this.lblMostrarCotizacionesRechazadas.Name = "lblMostrarCotizacionesRechazadas";
+            this.lblMostrarCotizacionesRechazadas.Size = new System.Drawing.Size(35, 13);
+            this.lblMostrarCotizacionesRechazadas.TabIndex = 6;
+            this.lblMostrarCotizacionesRechazadas.Text = "label4";
             // 
-            // panel1
+            // panel10
             // 
-            this.panel1.Controls.Add(this.lblClientesCorporativos);
-            this.panel1.Controls.Add(this.lblContadorCorporativos);
-            this.panel1.Controls.Add(this.pbClientesRegistrados);
-            this.panel1.Location = new System.Drawing.Point(24, 13);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(313, 77);
-            this.panel1.TabIndex = 7;
+            this.panel10.Controls.Add(this.lblCoAprobadas);
+            this.panel10.Controls.Add(this.lblMostrarCotizacionesAprobadas);
+            this.panel10.Controls.Add(this.pbCotizacionesAprobadas);
+            this.panel10.Location = new System.Drawing.Point(24, 13);
+            this.panel10.Name = "panel10";
+            this.panel10.Size = new System.Drawing.Size(313, 77);
+            this.panel10.TabIndex = 7;
             // 
-            // lblClientesCorporativos
+            // lblCoAprobadas
             // 
-            this.lblClientesCorporativos.AutoSize = true;
-            this.lblClientesCorporativos.Font = new System.Drawing.Font("Times New Roman", 15F);
-            this.lblClientesCorporativos.Location = new System.Drawing.Point(119, 8);
-            this.lblClientesCorporativos.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblClientesCorporativos.Name = "lblClientesCorporativos";
-            this.lblClientesCorporativos.Size = new System.Drawing.Size(185, 22);
-            this.lblClientesCorporativos.TabIndex = 0;
-            this.lblClientesCorporativos.Text = "Clientes Corporativos";
-            this.lblClientesCorporativos.Click += new System.EventHandler(this.lblClientesCorporativos_Click);
+            this.lblCoAprobadas.AutoSize = true;
+            this.lblCoAprobadas.Font = new System.Drawing.Font("Times New Roman", 14F);
+            this.lblCoAprobadas.Location = new System.Drawing.Point(119, 8);
+            this.lblCoAprobadas.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblCoAprobadas.Name = "lblCoAprobadas";
+            this.lblCoAprobadas.Size = new System.Drawing.Size(193, 21);
+            this.lblCoAprobadas.TabIndex = 0;
+            this.lblCoAprobadas.Text = "Cotizaciones Aprobadas";
             // 
-            // lblContadorCorporativos
+            // lblMostrarCotizacionesAprobadas
             // 
-            this.lblContadorCorporativos.AutoSize = true;
-            this.lblContadorCorporativos.Location = new System.Drawing.Point(164, 46);
-            this.lblContadorCorporativos.Name = "lblContadorCorporativos";
-            this.lblContadorCorporativos.Size = new System.Drawing.Size(35, 13);
-            this.lblContadorCorporativos.TabIndex = 6;
-            this.lblContadorCorporativos.Text = "label2";
+            this.lblMostrarCotizacionesAprobadas.AutoSize = true;
+            this.lblMostrarCotizacionesAprobadas.Location = new System.Drawing.Point(164, 46);
+            this.lblMostrarCotizacionesAprobadas.Name = "lblMostrarCotizacionesAprobadas";
+            this.lblMostrarCotizacionesAprobadas.Size = new System.Drawing.Size(35, 13);
+            this.lblMostrarCotizacionesAprobadas.TabIndex = 6;
+            this.lblMostrarCotizacionesAprobadas.Text = "label2";
             // 
-            // pbClientesRegistrados
+            // pbCotizacionesAprobadas
             // 
-            this.pbClientesRegistrados.Image = global::Vista.Properties.Resources.Clientes_totales;
-            this.pbClientesRegistrados.Location = new System.Drawing.Point(8, 4);
-            this.pbClientesRegistrados.Name = "pbClientesRegistrados";
-            this.pbClientesRegistrados.Size = new System.Drawing.Size(106, 69);
-            this.pbClientesRegistrados.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pbClientesRegistrados.TabIndex = 2;
-            this.pbClientesRegistrados.TabStop = false;
+            this.pbCotizacionesAprobadas.Image = global::Vista.Properties.Resources.Clientes_totales;
+            this.pbCotizacionesAprobadas.Location = new System.Drawing.Point(8, 4);
+            this.pbCotizacionesAprobadas.Name = "pbCotizacionesAprobadas";
+            this.pbCotizacionesAprobadas.Size = new System.Drawing.Size(106, 69);
+            this.pbCotizacionesAprobadas.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbCotizacionesAprobadas.TabIndex = 2;
+            this.pbCotizacionesAprobadas.TabStop = false;
             // 
-            // pnlCuadroVentas
+            // pnlRegistroCotizaciones
             // 
-            this.pnlCuadroVentas.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(221)))), ((int)(((byte)(175)))));
-            this.pnlCuadroVentas.Controls.Add(this.dgvReporteClientes);
-            this.pnlCuadroVentas.Controls.Add(this.lblDetalleVentas);
-            this.pnlCuadroVentas.Location = new System.Drawing.Point(24, 95);
-            this.pnlCuadroVentas.Margin = new System.Windows.Forms.Padding(2);
-            this.pnlCuadroVentas.Name = "pnlCuadroVentas";
-            this.pnlCuadroVentas.Size = new System.Drawing.Size(937, 307);
-            this.pnlCuadroVentas.TabIndex = 5;
+            this.pnlRegistroCotizaciones.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(221)))), ((int)(((byte)(175)))));
+            this.pnlRegistroCotizaciones.Controls.Add(this.dgvReporteCotizaciones);
+            this.pnlRegistroCotizaciones.Controls.Add(this.label8);
+            this.pnlRegistroCotizaciones.Location = new System.Drawing.Point(24, 95);
+            this.pnlRegistroCotizaciones.Margin = new System.Windows.Forms.Padding(2);
+            this.pnlRegistroCotizaciones.Name = "pnlRegistroCotizaciones";
+            this.pnlRegistroCotizaciones.Size = new System.Drawing.Size(937, 307);
+            this.pnlRegistroCotizaciones.TabIndex = 5;
             // 
-            // dgvReporteClientes
+            // dgvReporteCotizaciones
             // 
-            this.dgvReporteClientes.AllowUserToAddRows = false;
-            this.dgvReporteClientes.AllowUserToResizeColumns = false;
-            this.dgvReporteClientes.AllowUserToResizeRows = false;
-            this.dgvReporteClientes.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.dgvReporteCotizaciones.AllowUserToAddRows = false;
+            this.dgvReporteCotizaciones.AllowUserToResizeColumns = false;
+            this.dgvReporteCotizaciones.AllowUserToResizeRows = false;
+            this.dgvReporteCotizaciones.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvReporteClientes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvReporteClientes.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.dgvReporteClientes.BackgroundColor = System.Drawing.Color.White;
-            this.dgvReporteClientes.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dgvReporteClientes.GridColor = System.Drawing.Color.Black;
-            this.dgvReporteClientes.Location = new System.Drawing.Point(10, 35);
-            this.dgvReporteClientes.Name = "dgvReporteClientes";
-            this.dgvReporteClientes.ReadOnly = true;
-            this.dgvReporteClientes.RowHeadersVisible = false;
-            this.dgvReporteClientes.Size = new System.Drawing.Size(915, 259);
-            this.dgvReporteClientes.TabIndex = 0;
+            this.dgvReporteCotizaciones.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvReporteCotizaciones.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dgvReporteCotizaciones.BackgroundColor = System.Drawing.Color.White;
+            this.dgvReporteCotizaciones.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dgvReporteCotizaciones.GridColor = System.Drawing.Color.Black;
+            this.dgvReporteCotizaciones.Location = new System.Drawing.Point(10, 35);
+            this.dgvReporteCotizaciones.Name = "dgvReporteCotizaciones";
+            this.dgvReporteCotizaciones.ReadOnly = true;
+            this.dgvReporteCotizaciones.RowHeadersVisible = false;
+            this.dgvReporteCotizaciones.Size = new System.Drawing.Size(915, 259);
+            this.dgvReporteCotizaciones.TabIndex = 0;
             // 
-            // lblDetalleVentas
+            // label8
             // 
-            this.lblDetalleVentas.AutoSize = true;
-            this.lblDetalleVentas.Font = new System.Drawing.Font("Times New Roman", 15F, System.Drawing.FontStyle.Bold);
-            this.lblDetalleVentas.Location = new System.Drawing.Point(15, 6);
-            this.lblDetalleVentas.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblDetalleVentas.Name = "lblDetalleVentas";
-            this.lblDetalleVentas.Size = new System.Drawing.Size(170, 23);
-            this.lblDetalleVentas.TabIndex = 0;
-            this.lblDetalleVentas.Text = "Detalle de Clientes";
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Times New Roman", 15F, System.Drawing.FontStyle.Bold);
+            this.label8.Location = new System.Drawing.Point(15, 6);
+            this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(209, 23);
+            this.label8.TabIndex = 0;
+            this.label8.Text = "Detalle de Cotizaciones";
             // 
             // pnlReportesVentas
             // 
@@ -672,224 +716,180 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Detalle de Ventas";
             // 
-            // btnCotizaciones
+            // pnlReporteDeClientes
             // 
-            this.btnCotizaciones.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
-            this.btnCotizaciones.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCotizaciones.Location = new System.Drawing.Point(704, 157);
-            this.btnCotizaciones.Margin = new System.Windows.Forms.Padding(2);
-            this.btnCotizaciones.Name = "btnCotizaciones";
-            this.btnCotizaciones.Size = new System.Drawing.Size(330, 35);
-            this.btnCotizaciones.TabIndex = 17;
-            this.btnCotizaciones.Text = "Cotizaciones";
-            this.btnCotizaciones.UseVisualStyleBackColor = false;
-            this.btnCotizaciones.Click += new System.EventHandler(this.btnCotizaciones_Click);
+            this.pnlReporteDeClientes.BackColor = System.Drawing.Color.White;
+            this.pnlReporteDeClientes.Controls.Add(this.panel4);
+            this.pnlReporteDeClientes.Controls.Add(this.panel2);
+            this.pnlReporteDeClientes.Controls.Add(this.panel1);
+            this.pnlReporteDeClientes.Controls.Add(this.pnlCuadroVentas);
+            this.pnlReporteDeClientes.Location = new System.Drawing.Point(63, 193);
+            this.pnlReporteDeClientes.Margin = new System.Windows.Forms.Padding(2);
+            this.pnlReporteDeClientes.Name = "pnlReporteDeClientes";
+            this.pnlReporteDeClientes.Size = new System.Drawing.Size(985, 420);
+            this.pnlReporteDeClientes.TabIndex = 14;
             // 
-            // pnlBarraCambiosClientes
+            // panel4
             // 
-            this.pnlBarraCambiosClientes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.pnlBarraCambiosClientes.Location = new System.Drawing.Point(386, 189);
-            this.pnlBarraCambiosClientes.Name = "pnlBarraCambiosClientes";
-            this.pnlBarraCambiosClientes.Size = new System.Drawing.Size(319, 3);
-            this.pnlBarraCambiosClientes.TabIndex = 2;
+            this.panel4.Controls.Add(this.lblClientesTotales);
+            this.panel4.Controls.Add(this.pbClientesFrecuentes);
+            this.panel4.Controls.Add(this.lblContadorTotal);
+            this.panel4.Location = new System.Drawing.Point(657, 12);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(313, 77);
+            this.panel4.TabIndex = 9;
             // 
-            // pnlRegistroCotizaciones
+            // lblClientesTotales
             // 
-            this.pnlRegistroCotizaciones.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(221)))), ((int)(((byte)(175)))));
-            this.pnlRegistroCotizaciones.Controls.Add(this.dgvCotizaciones);
-            this.pnlRegistroCotizaciones.Controls.Add(this.label8);
-            this.pnlRegistroCotizaciones.Location = new System.Drawing.Point(24, 95);
-            this.pnlRegistroCotizaciones.Margin = new System.Windows.Forms.Padding(2);
-            this.pnlRegistroCotizaciones.Name = "pnlRegistroCotizaciones";
-            this.pnlRegistroCotizaciones.Size = new System.Drawing.Size(937, 307);
-            this.pnlRegistroCotizaciones.TabIndex = 5;
+            this.lblClientesTotales.AutoSize = true;
+            this.lblClientesTotales.Font = new System.Drawing.Font("Times New Roman", 16F);
+            this.lblClientesTotales.Location = new System.Drawing.Point(124, 10);
+            this.lblClientesTotales.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblClientesTotales.Name = "lblClientesTotales";
+            this.lblClientesTotales.Size = new System.Drawing.Size(154, 25);
+            this.lblClientesTotales.TabIndex = 0;
+            this.lblClientesTotales.Text = "Clientes Totales";
             // 
-            // label8
+            // pbClientesFrecuentes
             // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Times New Roman", 15F, System.Drawing.FontStyle.Bold);
-            this.label8.Location = new System.Drawing.Point(15, 6);
-            this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(209, 23);
-            this.label8.TabIndex = 0;
-            this.label8.Text = "Detalle de Cotizaciones";
+            this.pbClientesFrecuentes.Image = global::Vista.Properties.Resources.Cliente_frecuente;
+            this.pbClientesFrecuentes.Location = new System.Drawing.Point(4, 2);
+            this.pbClientesFrecuentes.Name = "pbClientesFrecuentes";
+            this.pbClientesFrecuentes.Size = new System.Drawing.Size(99, 72);
+            this.pbClientesFrecuentes.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbClientesFrecuentes.TabIndex = 1;
+            this.pbClientesFrecuentes.TabStop = false;
             // 
-            // dgvCotizaciones
+            // lblContadorTotal
             // 
-            this.dgvCotizaciones.AllowUserToAddRows = false;
-            this.dgvCotizaciones.AllowUserToResizeColumns = false;
-            this.dgvCotizaciones.AllowUserToResizeRows = false;
-            this.dgvCotizaciones.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.lblContadorTotal.AutoSize = true;
+            this.lblContadorTotal.Location = new System.Drawing.Point(164, 46);
+            this.lblContadorTotal.Name = "lblContadorTotal";
+            this.lblContadorTotal.Size = new System.Drawing.Size(35, 13);
+            this.lblContadorTotal.TabIndex = 6;
+            this.lblContadorTotal.Text = "label5";
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.lblClientesIndivisuales);
+            this.panel2.Controls.Add(this.pbClientesNuevos);
+            this.panel2.Controls.Add(this.lblContadorIndividual);
+            this.panel2.Location = new System.Drawing.Point(341, 13);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(313, 77);
+            this.panel2.TabIndex = 8;
+            // 
+            // lblClientesIndivisuales
+            // 
+            this.lblClientesIndivisuales.AutoSize = true;
+            this.lblClientesIndivisuales.Font = new System.Drawing.Font("Times New Roman", 15.5F);
+            this.lblClientesIndivisuales.Location = new System.Drawing.Point(119, 9);
+            this.lblClientesIndivisuales.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblClientesIndivisuales.Name = "lblClientesIndivisuales";
+            this.lblClientesIndivisuales.Size = new System.Drawing.Size(184, 23);
+            this.lblClientesIndivisuales.TabIndex = 0;
+            this.lblClientesIndivisuales.Text = "Clientes Individuales";
+            // 
+            // pbClientesNuevos
+            // 
+            this.pbClientesNuevos.Image = global::Vista.Properties.Resources.Cliente_nuevo;
+            this.pbClientesNuevos.Location = new System.Drawing.Point(15, 2);
+            this.pbClientesNuevos.Name = "pbClientesNuevos";
+            this.pbClientesNuevos.Size = new System.Drawing.Size(99, 72);
+            this.pbClientesNuevos.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbClientesNuevos.TabIndex = 2;
+            this.pbClientesNuevos.TabStop = false;
+            // 
+            // lblContadorIndividual
+            // 
+            this.lblContadorIndividual.AutoSize = true;
+            this.lblContadorIndividual.Location = new System.Drawing.Point(164, 46);
+            this.lblContadorIndividual.Name = "lblContadorIndividual";
+            this.lblContadorIndividual.Size = new System.Drawing.Size(35, 13);
+            this.lblContadorIndividual.TabIndex = 6;
+            this.lblContadorIndividual.Text = "label4";
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.lblClientesCorporativos);
+            this.panel1.Controls.Add(this.lblContadorCorporativos);
+            this.panel1.Controls.Add(this.pbClientesRegistrados);
+            this.panel1.Location = new System.Drawing.Point(24, 13);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(313, 77);
+            this.panel1.TabIndex = 7;
+            // 
+            // lblClientesCorporativos
+            // 
+            this.lblClientesCorporativos.AutoSize = true;
+            this.lblClientesCorporativos.Font = new System.Drawing.Font("Times New Roman", 15F);
+            this.lblClientesCorporativos.Location = new System.Drawing.Point(119, 8);
+            this.lblClientesCorporativos.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblClientesCorporativos.Name = "lblClientesCorporativos";
+            this.lblClientesCorporativos.Size = new System.Drawing.Size(185, 22);
+            this.lblClientesCorporativos.TabIndex = 0;
+            this.lblClientesCorporativos.Text = "Clientes Corporativos";
+            // 
+            // lblContadorCorporativos
+            // 
+            this.lblContadorCorporativos.AutoSize = true;
+            this.lblContadorCorporativos.Location = new System.Drawing.Point(164, 46);
+            this.lblContadorCorporativos.Name = "lblContadorCorporativos";
+            this.lblContadorCorporativos.Size = new System.Drawing.Size(35, 13);
+            this.lblContadorCorporativos.TabIndex = 6;
+            this.lblContadorCorporativos.Text = "label2";
+            // 
+            // pbClientesRegistrados
+            // 
+            this.pbClientesRegistrados.Image = global::Vista.Properties.Resources.Clientes_totales;
+            this.pbClientesRegistrados.Location = new System.Drawing.Point(8, 4);
+            this.pbClientesRegistrados.Name = "pbClientesRegistrados";
+            this.pbClientesRegistrados.Size = new System.Drawing.Size(106, 69);
+            this.pbClientesRegistrados.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbClientesRegistrados.TabIndex = 2;
+            this.pbClientesRegistrados.TabStop = false;
+            // 
+            // pnlCuadroVentas
+            // 
+            this.pnlCuadroVentas.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(221)))), ((int)(((byte)(175)))));
+            this.pnlCuadroVentas.Controls.Add(this.dgvReporteClientes);
+            this.pnlCuadroVentas.Controls.Add(this.lblDetalleVentas);
+            this.pnlCuadroVentas.Location = new System.Drawing.Point(24, 95);
+            this.pnlCuadroVentas.Margin = new System.Windows.Forms.Padding(2);
+            this.pnlCuadroVentas.Name = "pnlCuadroVentas";
+            this.pnlCuadroVentas.Size = new System.Drawing.Size(937, 307);
+            this.pnlCuadroVentas.TabIndex = 5;
+            // 
+            // dgvReporteClientes
+            // 
+            this.dgvReporteClientes.AllowUserToAddRows = false;
+            this.dgvReporteClientes.AllowUserToResizeColumns = false;
+            this.dgvReporteClientes.AllowUserToResizeRows = false;
+            this.dgvReporteClientes.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvCotizaciones.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvCotizaciones.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.dgvCotizaciones.BackgroundColor = System.Drawing.Color.White;
-            this.dgvCotizaciones.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dgvCotizaciones.GridColor = System.Drawing.Color.Black;
-            this.dgvCotizaciones.Location = new System.Drawing.Point(10, 35);
-            this.dgvCotizaciones.Name = "dgvCotizaciones";
-            this.dgvCotizaciones.ReadOnly = true;
-            this.dgvCotizaciones.RowHeadersVisible = false;
-            this.dgvCotizaciones.Size = new System.Drawing.Size(915, 259);
-            this.dgvCotizaciones.TabIndex = 0;
+            this.dgvReporteClientes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvReporteClientes.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dgvReporteClientes.BackgroundColor = System.Drawing.Color.White;
+            this.dgvReporteClientes.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dgvReporteClientes.GridColor = System.Drawing.Color.Black;
+            this.dgvReporteClientes.Location = new System.Drawing.Point(10, 35);
+            this.dgvReporteClientes.Name = "dgvReporteClientes";
+            this.dgvReporteClientes.ReadOnly = true;
+            this.dgvReporteClientes.RowHeadersVisible = false;
+            this.dgvReporteClientes.Size = new System.Drawing.Size(915, 259);
+            this.dgvReporteClientes.TabIndex = 0;
             // 
-            // panel10
+            // lblDetalleVentas
             // 
-            this.panel10.Controls.Add(this.lblCoAprobadas);
-            this.panel10.Controls.Add(this.lblMostrarCotizacionesAprobadas);
-            this.panel10.Controls.Add(this.pbCotizacionesAprobadas);
-            this.panel10.Location = new System.Drawing.Point(24, 13);
-            this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(313, 77);
-            this.panel10.TabIndex = 7;
-            // 
-            // pbCotizacionesAprobadas
-            // 
-            this.pbCotizacionesAprobadas.Image = global::Vista.Properties.Resources.Clientes_totales;
-            this.pbCotizacionesAprobadas.Location = new System.Drawing.Point(8, 4);
-            this.pbCotizacionesAprobadas.Name = "pbCotizacionesAprobadas";
-            this.pbCotizacionesAprobadas.Size = new System.Drawing.Size(106, 69);
-            this.pbCotizacionesAprobadas.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pbCotizacionesAprobadas.TabIndex = 2;
-            this.pbCotizacionesAprobadas.TabStop = false;
-            // 
-            // lblMostrarCotizacionesAprobadas
-            // 
-            this.lblMostrarCotizacionesAprobadas.AutoSize = true;
-            this.lblMostrarCotizacionesAprobadas.Location = new System.Drawing.Point(164, 46);
-            this.lblMostrarCotizacionesAprobadas.Name = "lblMostrarCotizacionesAprobadas";
-            this.lblMostrarCotizacionesAprobadas.Size = new System.Drawing.Size(35, 13);
-            this.lblMostrarCotizacionesAprobadas.TabIndex = 6;
-            this.lblMostrarCotizacionesAprobadas.Text = "label2";
-            // 
-            // lblCoAprobadas
-            // 
-            this.lblCoAprobadas.AutoSize = true;
-            this.lblCoAprobadas.Font = new System.Drawing.Font("Times New Roman", 14F);
-            this.lblCoAprobadas.Location = new System.Drawing.Point(119, 8);
-            this.lblCoAprobadas.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblCoAprobadas.Name = "lblCoAprobadas";
-            this.lblCoAprobadas.Size = new System.Drawing.Size(193, 21);
-            this.lblCoAprobadas.TabIndex = 0;
-            this.lblCoAprobadas.Text = "Cotizaciones Aprobadas";
-            // 
-            // panel9
-            // 
-            this.panel9.Controls.Add(this.lblCoRechazadas);
-            this.panel9.Controls.Add(this.pbCotizacionesRechazadas);
-            this.panel9.Controls.Add(this.lblMostrarCotizacionesRechazadas);
-            this.panel9.Location = new System.Drawing.Point(341, 13);
-            this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(313, 77);
-            this.panel9.TabIndex = 8;
-            // 
-            // lblMostrarCotizacionesRechazadas
-            // 
-            this.lblMostrarCotizacionesRechazadas.AutoSize = true;
-            this.lblMostrarCotizacionesRechazadas.Location = new System.Drawing.Point(164, 46);
-            this.lblMostrarCotizacionesRechazadas.Name = "lblMostrarCotizacionesRechazadas";
-            this.lblMostrarCotizacionesRechazadas.Size = new System.Drawing.Size(35, 13);
-            this.lblMostrarCotizacionesRechazadas.TabIndex = 6;
-            this.lblMostrarCotizacionesRechazadas.Text = "label4";
-            // 
-            // pbCotizacionesRechazadas
-            // 
-            this.pbCotizacionesRechazadas.Image = global::Vista.Properties.Resources.Cliente_nuevo;
-            this.pbCotizacionesRechazadas.Location = new System.Drawing.Point(15, 2);
-            this.pbCotizacionesRechazadas.Name = "pbCotizacionesRechazadas";
-            this.pbCotizacionesRechazadas.Size = new System.Drawing.Size(99, 72);
-            this.pbCotizacionesRechazadas.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pbCotizacionesRechazadas.TabIndex = 2;
-            this.pbCotizacionesRechazadas.TabStop = false;
-            // 
-            // lblCoRechazadas
-            // 
-            this.lblCoRechazadas.Font = new System.Drawing.Font("Times New Roman", 14F);
-            this.lblCoRechazadas.Location = new System.Drawing.Point(115, 8);
-            this.lblCoRechazadas.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblCoRechazadas.Name = "lblCoRechazadas";
-            this.lblCoRechazadas.Size = new System.Drawing.Size(210, 23);
-            this.lblCoRechazadas.TabIndex = 0;
-            this.lblCoRechazadas.Text = "Cotizaciones Rechazadas";
-            // 
-            // panel8
-            // 
-            this.panel8.Controls.Add(this.label2);
-            this.panel8.Controls.Add(this.pbCotizacionesTotales);
-            this.panel8.Controls.Add(this.lblMostrarTotalCotizaciones);
-            this.panel8.Location = new System.Drawing.Point(657, 12);
-            this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(313, 77);
-            this.panel8.TabIndex = 9;
-            // 
-            // lblMostrarTotalCotizaciones
-            // 
-            this.lblMostrarTotalCotizaciones.AutoSize = true;
-            this.lblMostrarTotalCotizaciones.Location = new System.Drawing.Point(164, 46);
-            this.lblMostrarTotalCotizaciones.Name = "lblMostrarTotalCotizaciones";
-            this.lblMostrarTotalCotizaciones.Size = new System.Drawing.Size(35, 13);
-            this.lblMostrarTotalCotizaciones.TabIndex = 6;
-            this.lblMostrarTotalCotizaciones.Text = "label5";
-            // 
-            // pbCotizacionesTotales
-            // 
-            this.pbCotizacionesTotales.Image = global::Vista.Properties.Resources.Cliente_frecuente;
-            this.pbCotizacionesTotales.Location = new System.Drawing.Point(4, 2);
-            this.pbCotizacionesTotales.Name = "pbCotizacionesTotales";
-            this.pbCotizacionesTotales.Size = new System.Drawing.Size(99, 72);
-            this.pbCotizacionesTotales.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pbCotizacionesTotales.TabIndex = 1;
-            this.pbCotizacionesTotales.TabStop = false;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Times New Roman", 14F);
-            this.label2.Location = new System.Drawing.Point(113, 9);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(198, 21);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Cotizaciones Registradas";
-            // 
-            // pnlReporteCotizaciones
-            // 
-            this.pnlReporteCotizaciones.BackColor = System.Drawing.Color.White;
-            this.pnlReporteCotizaciones.Controls.Add(this.panel8);
-            this.pnlReporteCotizaciones.Controls.Add(this.panel9);
-            this.pnlReporteCotizaciones.Controls.Add(this.panel10);
-            this.pnlReporteCotizaciones.Controls.Add(this.pnlRegistroCotizaciones);
-            this.pnlReporteCotizaciones.Location = new System.Drawing.Point(64, 193);
-            this.pnlReporteCotizaciones.Margin = new System.Windows.Forms.Padding(2);
-            this.pnlReporteCotizaciones.Name = "pnlReporteCotizaciones";
-            this.pnlReporteCotizaciones.Size = new System.Drawing.Size(985, 420);
-            this.pnlReporteCotizaciones.TabIndex = 15;
-            // 
-            // btnConsultarCotizaciones
-            // 
-            this.btnConsultarCotizaciones.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnConsultarCotizaciones.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnConsultarCotizaciones.Location = new System.Drawing.Point(722, 107);
-            this.btnConsultarCotizaciones.Margin = new System.Windows.Forms.Padding(2);
-            this.btnConsultarCotizaciones.Name = "btnConsultarCotizaciones";
-            this.btnConsultarCotizaciones.Size = new System.Drawing.Size(154, 35);
-            this.btnConsultarCotizaciones.TabIndex = 18;
-            this.btnConsultarCotizaciones.Text = "Consultar";
-            this.btnConsultarCotizaciones.UseVisualStyleBackColor = false;
-            // 
-            // btnExportarCotizaciones
-            // 
-            this.btnExportarCotizaciones.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.btnExportarCotizaciones.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExportarCotizaciones.Location = new System.Drawing.Point(894, 99);
-            this.btnExportarCotizaciones.Margin = new System.Windows.Forms.Padding(2);
-            this.btnExportarCotizaciones.Name = "btnExportarCotizaciones";
-            this.btnExportarCotizaciones.Size = new System.Drawing.Size(152, 40);
-            this.btnExportarCotizaciones.TabIndex = 19;
-            this.btnExportarCotizaciones.Text = "Exportar PDF";
-            this.btnExportarCotizaciones.UseVisualStyleBackColor = false;
+            this.lblDetalleVentas.AutoSize = true;
+            this.lblDetalleVentas.Font = new System.Drawing.Font("Times New Roman", 15F, System.Drawing.FontStyle.Bold);
+            this.lblDetalleVentas.Location = new System.Drawing.Point(15, 6);
+            this.lblDetalleVentas.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblDetalleVentas.Name = "lblDetalleVentas";
+            this.lblDetalleVentas.Size = new System.Drawing.Size(170, 23);
+            this.lblDetalleVentas.TabIndex = 0;
+            this.lblDetalleVentas.Text = "Detalle de Clientes";
             // 
             // frmReportes
             // 
@@ -908,6 +908,29 @@
             this.pnlContenedorPrincipalInventario.ResumeLayout(false);
             this.pnlHeader.ResumeLayout(false);
             this.pnlHeader.PerformLayout();
+            this.pnlReporteCotizaciones.ResumeLayout(false);
+            this.panel8.ResumeLayout(false);
+            this.panel8.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbCotizacionesTotales)).EndInit();
+            this.panel9.ResumeLayout(false);
+            this.panel9.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbCotizacionesRechazadas)).EndInit();
+            this.panel10.ResumeLayout(false);
+            this.panel10.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbCotizacionesAprobadas)).EndInit();
+            this.pnlRegistroCotizaciones.ResumeLayout(false);
+            this.pnlRegistroCotizaciones.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvReporteCotizaciones)).EndInit();
+            this.pnlReportesVentas.ResumeLayout(false);
+            this.panel6.ResumeLayout(false);
+            this.panel6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbFactura)).EndInit();
+            this.panel5.ResumeLayout(false);
+            this.panel5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbVentas)).EndInit();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvReporteVentas)).EndInit();
             this.pnlReporteDeClientes.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
@@ -921,29 +944,6 @@
             this.pnlCuadroVentas.ResumeLayout(false);
             this.pnlCuadroVentas.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReporteClientes)).EndInit();
-            this.pnlReportesVentas.ResumeLayout(false);
-            this.panel6.ResumeLayout(false);
-            this.panel6.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbFactura)).EndInit();
-            this.panel5.ResumeLayout(false);
-            this.panel5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbVentas)).EndInit();
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvReporteVentas)).EndInit();
-            this.pnlRegistroCotizaciones.ResumeLayout(false);
-            this.pnlRegistroCotizaciones.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvCotizaciones)).EndInit();
-            this.panel10.ResumeLayout(false);
-            this.panel10.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbCotizacionesAprobadas)).EndInit();
-            this.panel9.ResumeLayout(false);
-            this.panel9.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbCotizacionesRechazadas)).EndInit();
-            this.panel8.ResumeLayout(false);
-            this.panel8.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbCotizacionesTotales)).EndInit();
-            this.pnlReporteCotizaciones.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1013,7 +1013,7 @@
         private System.Windows.Forms.Label lblMostrarCotizacionesAprobadas;
         private System.Windows.Forms.PictureBox pbCotizacionesAprobadas;
         private System.Windows.Forms.Panel pnlRegistroCotizaciones;
-        private System.Windows.Forms.DataGridView dgvCotizaciones;
+        private System.Windows.Forms.DataGridView dgvReporteCotizaciones;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button btnExportarCotizaciones;
         private System.Windows.Forms.Button btnConsultarCotizaciones;

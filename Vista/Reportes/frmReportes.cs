@@ -102,12 +102,23 @@ namespace Vista.Reportes
             dgvReporteVentas.DataSource = ReportesVentas.CargarReporteVentas();
         }
 
+        public void CargarReporteCotizaciones()
+        {
+            dgvReporteCotizaciones.DataSource = null;
+            dgvReporteCotizaciones.DataSource =
+                ReportesCotizaciones.CargarReporteCotizaciones();
+
+
+        }
+
         private void frmReportes_Load(object sender, EventArgs e)
         {
             CargarReporteClientes();
             CargarReporteVentas();
+            CargarReporteCotizaciones();
             ActualizarEstadisticasClientes();
             ActualizarEstadisticasVentas();
+            ActualizarEstadisticasCotizaciones();
 
             dtpFechaFin.MaxDate = DateTime.Today;
             dtpFechaInicio.MaxDate = DateTime.Now;
@@ -135,22 +146,49 @@ namespace Vista.Reportes
             //dgvReporteVentas.Columns["N° FACTURA"].Visible = false;
             dgvReporteVentas.Columns["FechaVenta"].HeaderText = "Fecha de venta";
 
+
+            // ==========================================
+            // ENCABEZADOS DE COTIZACIONES
+            // ==========================================
+
+            dgvReporteCotizaciones.Columns["IdCotizacion"].HeaderText =
+                "N° Cotización";
+
+            dgvReporteCotizaciones.Columns["Fecha"].HeaderText =
+                "Fecha";
+
+            dgvReporteCotizaciones.Columns["Cliente"].HeaderText =
+                "Cliente";
+
+            dgvReporteCotizaciones.Columns["TipoCliente"].HeaderText =
+                "Tipo de Cliente";
+
+            dgvReporteCotizaciones.Columns["Estado"].HeaderText =
+                "Estado";
+
+            dgvReporteCotizaciones.Columns["Total"].HeaderText =
+                "Total";
+
+            // ==========================================
+            // ESPACIO DE COLUMNAS
+            // ==========================================
+
+            dgvReporteCotizaciones.AutoSizeColumnsMode =
+                DataGridViewAutoSizeColumnsMode.Fill;
+
+            dgvReporteCotizaciones.Columns["IdCotizacion"].FillWeight = 80;
+            dgvReporteCotizaciones.Columns["Fecha"].FillWeight = 90;
+            dgvReporteCotizaciones.Columns["Cliente"].FillWeight = 150;
+            dgvReporteCotizaciones.Columns["TipoCliente"].FillWeight = 120;
+            dgvReporteCotizaciones.Columns["Estado"].FillWeight = 100;
+            dgvReporteCotizaciones.Columns["Total"].FillWeight = 100;
+
+            dgvReporteCotizaciones.Columns["Total"]
+                .DefaultCellStyle.Format = "$#,##0.00";
+
         }
 
-        private void tableLayoutPanel3_Paint(object sender, PaintEventArgs e)
-        {
 
-        }
-
-        private void lblClientesCorporativos_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pbClientesFrecuentes_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void ActualizarEstadisticasClientes()
         {
@@ -564,8 +602,377 @@ namespace Vista.Reportes
                 );
             }
         }
+        private void ActualizarEstadisticasCotizaciones()
+        {
+            try
+            {
+                // Tomamos todo el período disponible
+                DateTime fechaInicio = new DateTime(2000, 1, 1);
+                DateTime fechaFin = DateTime.Today;
+
+                DataTable estadisticas =
+                    ReportesCotizaciones.ObtenerEstadisticasCotizaciones(
+                        fechaInicio,
+                        fechaFin
+                    );
+
+                if (estadisticas != null &&
+                    estadisticas.Rows.Count > 0)
+                {
+                    lblMostrarCotizacionesAprobadas.Text =
+                        Convert.ToInt32(
+                            estadisticas.Rows[0]["CotizacionesAprobadas"]
+                        ).ToString();
+
+                    lblMostrarCotizacionesRechazadas.Text =
+                        Convert.ToInt32(
+                            estadisticas.Rows[0]["CotizacionesRechazadas"]
+                        ).ToString();
+
+                    lblMostrarTotalCotizaciones.Text =
+                        Convert.ToInt32(
+                            estadisticas.Rows[0]["CotizacionesRegistradas"]
+                        ).ToString();
+                }
+                else
+                {
+                    lblMostrarCotizacionesAprobadas.Text = "0";
+                    lblMostrarCotizacionesRechazadas.Text = "0";
+                    lblMostrarTotalCotizaciones.Text = "0";
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Ocurrió un error al actualizar las estadísticas de cotizaciones:\n\n" +
+                    ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
+        }
+
+        private void btnConsultarCotizaciones_Click_1(object sender, EventArgs e)
+        {
+
+            try
+            {
+                DateTime fechaInicio = dtpFechaInicio.Value.Date;
+                DateTime fechaFin = dtpFechaFin.Value.Date;
+
+                // ==========================================
+                // VALIDAR FECHAS
+                // ==========================================
+
+                if (fechaInicio > fechaFin)
+                {
+                    MessageBox.Show(
+                        "La fecha de inicio no puede ser mayor que la fecha final.",
+                        "Período inválido",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning
+                    );
+
+                    return;
+                }
+
+                // ==========================================
+                // OBTENER COTIZACIONES
+                // ==========================================
+
+                DataTable cotizaciones =
+                    ReportesCotizaciones.ObtenerCotizacionesPorFecha(
+                        fechaInicio,
+                        fechaFin
+                    );
+
+                // ==========================================
+                // VALIDAR RESULTADOS
+                // ==========================================
+
+                if (cotizaciones == null ||
+                    cotizaciones.Rows.Count == 0)
+                {
+                    dgvReporteCotizaciones.DataSource = null;
+
+                    lblMostrarCotizacionesAprobadas.Text = "0";
+                    lblMostrarCotizacionesRechazadas.Text = "0";
+                    lblMostrarTotalCotizaciones.Text = "0";
+
+                    MessageBox.Show(
+                        "No existen cotizaciones registradas durante el período seleccionado.",
+                        "Sin resultados",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information
+                    );
+
+                    return;
+                }
+
+                // ==========================================
+                // MOSTRAR COTIZACIONES
+                // ==========================================
+
+                dgvReporteCotizaciones.DataSource = null;
+                dgvReporteCotizaciones.DataSource = cotizaciones;
+
+                // ==========================================
+                // OBTENER ESTADÍSTICAS DEL MISMO PERÍODO
+                // ==========================================
+
+                DataTable estadisticas =
+                    ReportesCotizaciones.ObtenerEstadisticasCotizaciones(
+                        fechaInicio,
+                        fechaFin
+                    );
+
+                // ==========================================
+                // MOSTRAR ESTADÍSTICAS
+                // ==========================================
+
+                if (estadisticas != null &&
+                    estadisticas.Rows.Count > 0)
+                {
+                    lblMostrarCotizacionesAprobadas.Text =
+                        Convert.ToInt32(
+                            estadisticas.Rows[0]["CotizacionesAprobadas"]
+                        ).ToString();
+
+                    lblMostrarCotizacionesRechazadas.Text =
+                        Convert.ToInt32(
+                            estadisticas.Rows[0]["CotizacionesRechazadas"]
+                        ).ToString();
+
+                    lblMostrarTotalCotizaciones.Text =
+                        Convert.ToInt32(
+                            estadisticas.Rows[0]["CotizacionesRegistradas"]
+                        ).ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Ocurrió un error al consultar el reporte de cotizaciones:\n\n" +
+                    ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
+        }
+
+        private void GenerarReportePDF(
+    DataTable cotizaciones,
+    DateTime fechaInicio,
+    DateTime fechaFin,
+    int cotizacionesRegistradas,
+    int cotizacionesAprobadas,
+    int cotizacionesRechazadas)
+        {
+            try
+            {
+                // ==========================================
+                // CREAR CARPETA DE REPORTES
+                // ==========================================
+
+                string carpetaReportes =
+                    Path.Combine(
+                        Application.StartupPath,
+                        "Reportes"
+                    );
+
+                if (!Directory.Exists(carpetaReportes))
+                {
+                    Directory.CreateDirectory(carpetaReportes);
+                }
 
 
+                // ==========================================
+                // NOMBRE DEL ARCHIVO
+                // ==========================================
+
+                string nombreArchivo =
+                    $"Reporte_Cotizaciones_{fechaInicio:dd-MM-yyyy}_{fechaFin:dd-MM-yyyy}.pdf";
+
+                string rutaArchivo =
+                    Path.Combine(
+                        carpetaReportes,
+                        nombreArchivo
+                    );
+
+
+                // ==========================================
+                // CREAR DOCUMENTO
+                // ==========================================
+
+                CotizacionesDocumentoPDF documento =
+                    new CotizacionesDocumentoPDF(
+                        cotizaciones,
+                        fechaInicio,
+                        fechaFin,
+                        cotizacionesRegistradas,
+                        cotizacionesAprobadas,
+                        cotizacionesRechazadas
+                    );
+
+
+                // ==========================================
+                // GENERAR PDF
+                // ==========================================
+
+                documento.GeneratePdf(rutaArchivo);
+
+
+                // ==========================================
+                // MENSAJE
+                // ==========================================
+
+                MessageBox.Show(
+                    "El reporte de cotizaciones se generó correctamente.\n\n" +
+                    $"Período: {fechaInicio:dd/MM/yyyy} - {fechaFin:dd/MM/yyyy}\n\n" +
+                    $"Cotizaciones registradas: {cotizacionesRegistradas}\n" +
+                    $"Cotizaciones aprobadas: {cotizacionesAprobadas}\n" +
+                    $"Cotizaciones rechazadas: {cotizacionesRechazadas}\n\n" +
+                    $"Guardado en:\n{rutaArchivo}",
+                    "Reporte generado",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+
+
+                // ==========================================
+                // ABRIR PDF
+                // ==========================================
+
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = rutaArchivo,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Ocurrió un error al generar el reporte de cotizaciones:\n\n" +
+                    ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
+        }
+
+        private void btnExportarCotizaciones_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DateTime fechaInicio = dtpFechaInicio.Value.Date;
+                DateTime fechaFin = dtpFechaFin.Value.Date;
+
+                // ==========================================
+                // VALIDAR FECHAS
+                // ==========================================
+
+                if (fechaInicio > fechaFin)
+                {
+                    MessageBox.Show(
+                        "La fecha de inicio no puede ser mayor que la fecha final.",
+                        "Período inválido",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning
+                    );
+
+                    return;
+                }
+
+
+                // ==========================================
+                // OBTENER COTIZACIONES
+                // ==========================================
+
+                DataTable cotizaciones =
+                    ReportesCotizaciones.ObtenerCotizacionesPorFecha(
+                        fechaInicio,
+                        fechaFin
+                    );
+
+
+                if (cotizaciones == null ||
+                    cotizaciones.Rows.Count == 0)
+                {
+                    MessageBox.Show(
+                        "No existen cotizaciones registradas durante el período seleccionado.",
+                        "Sin resultados",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information
+                    );
+
+                    return;
+                }
+
+
+                // ==========================================
+                // OBTENER ESTADÍSTICAS
+                // ==========================================
+
+                DataTable estadisticas =
+                    ReportesCotizaciones.ObtenerEstadisticasCotizaciones(
+                        fechaInicio,
+                        fechaFin
+                    );
+
+
+                int cotizacionesRegistradas = 0;
+                int cotizacionesAprobadas = 0;
+                int cotizacionesRechazadas = 0;
+
+
+                if (estadisticas != null &&
+                    estadisticas.Rows.Count > 0)
+                {
+                    cotizacionesRegistradas =
+                        Convert.ToInt32(
+                            estadisticas.Rows[0]["CotizacionesRegistradas"]
+                        );
+
+                    cotizacionesAprobadas =
+                        Convert.ToInt32(
+                            estadisticas.Rows[0]["CotizacionesAprobadas"]
+                        );
+
+                    cotizacionesRechazadas =
+                        Convert.ToInt32(
+                            estadisticas.Rows[0]["CotizacionesRechazadas"]
+                        );
+                }
+
+
+                // ==========================================
+                // GENERAR PDF
+                // ==========================================
+
+                GenerarReportePDF(
+                    cotizaciones,
+                    fechaInicio,
+                    fechaFin,
+                    cotizacionesRegistradas,
+                    cotizacionesAprobadas,
+                    cotizacionesRechazadas
+                );
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Ocurrió un error al exportar el reporte de cotizaciones:\n\n" +
+                    ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
+        }
     }
 }
+
 
