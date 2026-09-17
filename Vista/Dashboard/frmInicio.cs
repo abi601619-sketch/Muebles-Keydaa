@@ -1,62 +1,126 @@
+using Datos;
 using Modelo.Entidades;
 using System;
+using System.Data;
 using System.Windows.Forms;
-using Vista.Clientes;
-using Vista.Inventario;
-using Vista.Pedidos;
 using Vista.Responsive;
+
 
 namespace Vista.Dashboard
 {
     public partial class frmInicio : Form
     {
+
+        private static string servidor = "(localdb)\\MSSQLLocalDB";
+        private static string baseDeDatos = "MueblesKeyda";
+
+        private string cadena =
+            $"Data source={servidor};" +
+            $"Initial Catalog={baseDeDatos};" +
+            $"Integrated Security=true;";
+
+        private DbDashboard dbDashboard;
+
         public frmInicio()
         {
             InitializeComponent();
             ResponsiveHelper.Apply(this);
+
+            // Inicializar acceso al Dashboard
+            dbDashboard = new DbDashboard(cadena);
         }
 
-        private void AbrirFormulario(Form formulario)
+        private void CargarIndicadores()
         {
-            pnlContenedor.Controls.Clear();
+            try
+            {
+                DataTable datos =
+                    dbDashboard.ObtenerIndicadores();
 
-            formulario.TopLevel = false;
-            formulario.FormBorderStyle = FormBorderStyle.None;
-            formulario.Dock = DockStyle.Fill;
+                if (datos.Rows.Count > 0)
+                {
+                    DataRow fila = datos.Rows[0];
 
-            pnlContenedor.Controls.Add(formulario);
-            pnlContenedor.Tag = formulario;
+                    // Materiales registrados
+                    lblMateriales.Text =
+                        Convert.ToInt32(
+                            fila["MaterialesRegistrados"]
+                        ).ToString();
 
-            formulario.Show();
-        }
+                    // Clientes registrados
+                    lblClientess.Text =
+                        Convert.ToInt32(
+                            fila["ClientesRegistrados"]
+                        ).ToString();
 
-        private void lblVerDetallesClientes_Click_1(object sender, EventArgs e)
-        {
-            AbrirFormulario(new frmClientes());
-        }
+                    // Ventas del mes
+                    decimal ventas =
+                        Convert.ToDecimal(
+                            fila["VentasDelMes"]
+                        );
 
-        private void lblVerDetallesPedidos_Click(object sender, EventArgs e)
-        {
-            AbrirFormulario(new frmPedidos());
-        }
+                    lblVentas.Text =
+                        ventas.ToString("$#,##0.00");
 
-        private void lblVerDetallesInventario_Click_1(object sender, EventArgs e)
-        {
-            AbrirFormulario(new frmInventario());
+                    // Cotizaciones registradas
+                    lblCotizacioness.Text =
+                        Convert.ToInt32(
+                            fila["CotizacionesRegistradas"]
+                        ).ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Error al cargar los indicadores: "
+                    + ex.Message,
+                    "Dashboard",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
         }
 
         private void MostrarPedidosRecientes()
         {
-            dgvPedidosRecientes.DataSource = null;
-            dgvPedidosRecientes.DataSource = DbPedidos.CargarPedidosRecientes();
+            try
+            {
+                dgvPedidosRecientes.DataSource = null;
+                dgvPedidosRecientes.DataSource =
+                    DbPedidos.CargarPedidosRecientes();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Error al cargar los pedidos recientes: "
+                    + ex.Message,
+                    "Dashboard",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
         }
 
         private void frmInicio_Load(object sender, EventArgs e)
         {
-            MostrarPedidosRecientes();
+            try
+            {
+                CargarIndicadores();
+                MostrarPedidosRecientes();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Error al cargar el Dashboard: "
+                    + ex.Message,
+                    "Dashboard",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
         }
-
-
     }
+
 }
+
 

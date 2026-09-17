@@ -28,11 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.lblSubTexto = new System.Windows.Forms.Label();
             this.lblMensajeInformativoPrincipal = new System.Windows.Forms.Label();
             this.pnlContenedorPrincipal = new System.Windows.Forms.Panel();
             this.dgvProveedores = new System.Windows.Forms.DataGridView();
+            this.chkEstado = new System.Windows.Forms.CheckBox();
             this.btnDesactivar = new System.Windows.Forms.Button();
             this.btnGuardar = new System.Windows.Forms.Button();
             this.btnEditar = new System.Windows.Forms.Button();
@@ -51,10 +52,9 @@
             this.txtUbicacion = new System.Windows.Forms.TextBox();
             this.btnGuardarCambios = new System.Windows.Forms.Button();
             this.pnlHeader = new System.Windows.Forms.Panel();
+            this.btnNuevo = new System.Windows.Forms.Button();
             this.pbxBuscar = new System.Windows.Forms.PictureBox();
             this.txtBuscar = new System.Windows.Forms.TextBox();
-            this.btnNuevo = new System.Windows.Forms.Button();
-            this.chkEstado = new System.Windows.Forms.CheckBox();
             this.pnlContenedorPrincipal.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProveedores)).BeginInit();
             this.pnlBarraSuperior.SuspendLayout();
@@ -93,7 +93,6 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlContenedorPrincipal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(238)))), ((int)(((byte)(235)))));
             this.pnlContenedorPrincipal.Controls.Add(this.dgvProveedores);
-            this.pnlContenedorPrincipal.Controls.Add(this.chkEstado);
             this.pnlContenedorPrincipal.Location = new System.Drawing.Point(37, 135);
             this.pnlContenedorPrincipal.Margin = new System.Windows.Forms.Padding(2);
             this.pnlContenedorPrincipal.Name = "pnlContenedorPrincipal";
@@ -110,29 +109,40 @@
             this.dgvProveedores.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvProveedores.BackgroundColor = System.Drawing.Color.White;
             this.dgvProveedores.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.PeachPuff;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvProveedores.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.PeachPuff;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvProveedores.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvProveedores.ColumnHeadersHeight = 28;
             this.dgvProveedores.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvProveedores.GridColor = System.Drawing.Color.Black;
-            this.dgvProveedores.Location = new System.Drawing.Point(14, 16);
+            this.dgvProveedores.Location = new System.Drawing.Point(13, 17);
             this.dgvProveedores.Name = "dgvProveedores";
             this.dgvProveedores.ReadOnly = true;
             this.dgvProveedores.Size = new System.Drawing.Size(739, 433);
             this.dgvProveedores.TabIndex = 0;
             this.dgvProveedores.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProveedor_CellDoubleClick);
             // 
+            // chkEstado
+            // 
+            this.chkEstado.AutoSize = true;
+            this.chkEstado.Location = new System.Drawing.Point(21, 331);
+            this.chkEstado.Name = "chkEstado";
+            this.chkEstado.Size = new System.Drawing.Size(108, 17);
+            this.chkEstado.TabIndex = 32;
+            this.chkEstado.Text = "Proveedor Activo";
+            this.chkEstado.UseVisualStyleBackColor = true;
+            this.chkEstado.Visible = false;
+            // 
             // btnDesactivar
             // 
             this.btnDesactivar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.btnDesactivar.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDesactivar.Location = new System.Drawing.Point(145, 346);
+            this.btnDesactivar.Location = new System.Drawing.Point(145, 353);
             this.btnDesactivar.Margin = new System.Windows.Forms.Padding(2);
             this.btnDesactivar.Name = "btnDesactivar";
             this.btnDesactivar.Size = new System.Drawing.Size(81, 25);
@@ -145,7 +155,7 @@
             // 
             this.btnGuardar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.btnGuardar.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGuardar.Location = new System.Drawing.Point(81, 346);
+            this.btnGuardar.Location = new System.Drawing.Point(81, 353);
             this.btnGuardar.Margin = new System.Windows.Forms.Padding(2);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(63, 25);
@@ -158,7 +168,7 @@
             // 
             this.btnEditar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.btnEditar.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEditar.Location = new System.Drawing.Point(16, 346);
+            this.btnEditar.Location = new System.Drawing.Point(16, 353);
             this.btnEditar.Margin = new System.Windows.Forms.Padding(2);
             this.btnEditar.Name = "btnEditar";
             this.btnEditar.Size = new System.Drawing.Size(63, 25);
@@ -283,6 +293,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlPedidaDeDatos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(215)))), ((int)(((byte)(215)))));
             this.pnlPedidaDeDatos.Controls.Add(this.txtTelefono);
+            this.pnlPedidaDeDatos.Controls.Add(this.chkEstado);
             this.pnlPedidaDeDatos.Controls.Add(this.txtUbicacion);
             this.pnlPedidaDeDatos.Controls.Add(this.btnDesactivar);
             this.pnlPedidaDeDatos.Controls.Add(this.btnGuardar);
@@ -298,7 +309,7 @@
             this.pnlPedidaDeDatos.Location = new System.Drawing.Point(822, 174);
             this.pnlPedidaDeDatos.Margin = new System.Windows.Forms.Padding(2);
             this.pnlPedidaDeDatos.Name = "pnlPedidaDeDatos";
-            this.pnlPedidaDeDatos.Size = new System.Drawing.Size(241, 384);
+            this.pnlPedidaDeDatos.Size = new System.Drawing.Size(241, 398);
             this.pnlPedidaDeDatos.TabIndex = 2;
             // 
             // txtTelefono
@@ -328,7 +339,7 @@
             // 
             this.btnGuardarCambios.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.btnGuardarCambios.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGuardarCambios.Location = new System.Drawing.Point(81, 346);
+            this.btnGuardarCambios.Location = new System.Drawing.Point(81, 353);
             this.btnGuardarCambios.Margin = new System.Windows.Forms.Padding(2);
             this.btnGuardarCambios.Name = "btnGuardarCambios";
             this.btnGuardarCambios.Size = new System.Drawing.Size(63, 25);
@@ -355,6 +366,16 @@
             this.pnlHeader.Size = new System.Drawing.Size(1102, 627);
             this.pnlHeader.TabIndex = 2;
             // 
+            // btnNuevo
+            // 
+            this.btnNuevo.Location = new System.Drawing.Point(831, 119);
+            this.btnNuevo.Name = "btnNuevo";
+            this.btnNuevo.Size = new System.Drawing.Size(226, 41);
+            this.btnNuevo.TabIndex = 32;
+            this.btnNuevo.Text = "Nuevo Proveedor";
+            this.btnNuevo.UseVisualStyleBackColor = true;
+            this.btnNuevo.Click += new System.EventHandler(this.btnNuevo_Click);
+            // 
             // pbxBuscar
             // 
             this.pbxBuscar.BackColor = System.Drawing.Color.Transparent;
@@ -380,27 +401,6 @@
             this.txtBuscar.Enter += new System.EventHandler(this.txtBuscar_Enter);
             this.txtBuscar.Leave += new System.EventHandler(this.txtBuscar_Leave);
             // 
-            // btnNuevo
-            // 
-            this.btnNuevo.Location = new System.Drawing.Point(831, 119);
-            this.btnNuevo.Name = "btnNuevo";
-            this.btnNuevo.Size = new System.Drawing.Size(226, 41);
-            this.btnNuevo.TabIndex = 32;
-            this.btnNuevo.Text = "Nuevo Proveedor";
-            this.btnNuevo.UseVisualStyleBackColor = true;
-            this.btnNuevo.Click += new System.EventHandler(this.btnNuevo_Click);
-            // 
-            // chkEstado
-            // 
-            this.chkEstado.AutoSize = true;
-            this.chkEstado.Location = new System.Drawing.Point(593, 432);
-            this.chkEstado.Name = "chkEstado";
-            this.chkEstado.Size = new System.Drawing.Size(108, 17);
-            this.chkEstado.TabIndex = 32;
-            this.chkEstado.Text = "Proveedor Activo";
-            this.chkEstado.UseVisualStyleBackColor = true;
-            this.chkEstado.Visible = false;
-            // 
             // frmProveedores
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -413,7 +413,6 @@
             this.Text = "frmProveedores";
             this.Load += new System.EventHandler(this.frmProveedores_Load);
             this.pnlContenedorPrincipal.ResumeLayout(false);
-            this.pnlContenedorPrincipal.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProveedores)).EndInit();
             this.pnlBarraSuperior.ResumeLayout(false);
             this.pnlBarraSuperior.PerformLayout();

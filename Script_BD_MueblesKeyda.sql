@@ -661,9 +661,22 @@ SELECT
 
 FROM Cliente c;
 GO
-
----------------------- VISTA DE COMPRAS ------------------------------------------------------------------
+--------------------------------VER PROVEEDORES------------------------------------------------------
+ALTER VIEW VerProveedores
+AS
+SELECT
+    p.IdProveedor ,
+    P.Nombre_Proveedor AS [Proveedor],
+    p.Telefono,
+    p.Correo,
+    p.Ubicacion,
+     CASE
+        WHEN Estado = 1 THEN 'Activo'
+        WHEN Estado = 0 THEN 'Inactivo'
+    END AS Estado
+FROM Proveedor p;
 GO
+---------------------- VISTA DE COMPRAS ------------------------------------------------------------------
 
 CREATE VIEW VerCompras AS
 SELECT
@@ -1116,6 +1129,197 @@ FROM Usuario U
 INNER JOIN Rol R
     ON U.IdRol = R.IdRol;
 GO
+SELECT 
+    TABLE_NAME,
+    COLUMN_NAME,
+    DATA_TYPE
+FROM INFORMATION_SCHEMA.COLUMNS
+ORDER BY TABLE_NAME, ORDINAL_POSITION;
+/*=========================================================*/
+              /*PROCEDIMIENTOS ALMACENADOS*/
+/*=========================================================*/
+
+/* 1. INDICADORES DEL DASHBOARD */
+
+CREATE OR ALTER PROCEDURE sp_Dashboard_Indicadores
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT
+        -- Total de materiales
+        (SELECT COUNT(*)
+         FROM Material) AS MaterialesRegistrados,
+
+        -- Total de clientes
+        (SELECT COUNT(*)
+         FROM Cliente) AS ClientesRegistrados,
+
+        -- Ventas del mes actual
+        (SELECT ISNULL(SUM([Total a Pagar]), 0)
+         FROM VerVentas
+         WHERE MONTH([Fecha de Venta]) = MONTH(GETDATE())
+           AND YEAR([Fecha de Venta]) = YEAR(GETDATE())) AS VentasDelMes,
+
+        -- Total de cotizaciones
+        (SELECT COUNT(*)
+         FROM Cotizacion) AS CotizacionesRegistradas,
+
+        -- Materiales registrados este mes
+        (SELECT COUNT(*)
+         FROM Material) AS MaterialesEsteMes,
+
+        -- Clientes registrados este mes
+        (SELECT COUNT(*)
+         FROM Cliente
+         WHERE MONTH(FechaRegistro) = MONTH(GETDATE())
+           AND YEAR(FechaRegistro) = YEAR(GETDATE())) AS ClientesEsteMes,
+
+        -- Cotizaciones registradas este mes
+        (SELECT COUNT(*)
+         FROM Cotizacion
+         WHERE MONTH(Fecha) = MONTH(GETDATE())
+           AND YEAR(Fecha) = YEAR(GETDATE())) AS CotizacionesEsteMes;
+END;
+GO
+
+
+/* 2. PEDIDOS POR ESTADO */
+
+CREATE OR ALTER PROCEDURE sp_Dashboard_PedidosEstado
+    @Mes INT = NULL,
+    @Anio INT = NULL
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT
+        Estado,
+        COUNT(*) AS Cantidad
+    FROM Pedido
+    WHERE
+        (@Mes IS NULL OR MONTH(FechaDePedido) = @Mes)
+        AND
+        (@Anio IS NULL OR YEAR(FechaDePedido) = @Anio)
+    GROUP BY Estado
+    ORDER BY Cantidad DESC;
+END;
+GO
+
+
+/* 3. COTIZACIONES POR ESTADO */
+
+CREATE OR ALTER PROCEDURE sp_Dashboard_CotizacionesEstado
+    @Mes INT = NULL,
+    @Anio INT = NULL
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT
+        Estado,
+        COUNT(*) AS Cantidad
+    FROM Cotizacion
+    WHERE
+        (@Mes IS NULL OR MONTH(Fecha) = @Mes)
+        AND
+        (@Anio IS NULL OR YEAR(Fecha) = @Anio)
+    GROUP BY Estado
+    ORDER BY Cantidad DESC;
+END;
+GO
+
+
+/* 4. VENTAS MENSUALES */
+
+CREATE OR ALTER PROCEDURE sp_Dashboard_VentasMensuales
+    @Anio INT = NULL
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT
+        MONTH([Fecha de Venta]) AS NumeroMes,
+        CASE MONTH([Fecha de Venta])
+            WHEN 1 THEN 'Ene'
+            WHEN 2 THEN 'Feb'
+            WHEN 3 THEN 'Mar'
+            WHEN 4 THEN 'Abr'
+            WHEN 5 THEN 'May'
+            WHEN 6 THEN 'Jun'
+            WHEN 7 THEN 'Jul'
+            WHEN 8 THEN 'Ago'
+            WHEN 9 THEN 'Sep'
+            WHEN 10 THEN 'Oct'
+            WHEN 11 THEN 'Nov'
+            WHEN 12 THEN 'Dic'
+        END AS Mes,
+        ISNULL(SUM([Total a Pagar]), 0) AS TotalVentas
+    FROM VerVentas
+    WHERE
+        @Anio IS NULL
+        OR YEAR([Fecha de Venta]) = @Anio
+    GROUP BY
+        MONTH([Fecha de Venta])
+    ORDER BY
+        MONTH([Fecha de Venta]);
+END;
+GO
+
+
+/* 5. PEDIDOS RECIENTES */
+
+CREATE OR ALTER PROCEDURE sp_Dashboard_PedidosRecientes
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT TOP 5
+        [# Pedido],
+        Cliente,
+        [Fecha de Pedido],
+        [Fecha de Entrega],
+        Estado
+    FROM PedidosRecientes
+    ORDER BY [Fecha de Pedido] DESC;
+END;
+GO
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ------------NO CARGAR ESTA SECCION------------------------------------------

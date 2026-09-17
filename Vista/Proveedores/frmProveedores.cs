@@ -162,6 +162,7 @@ namespace Vista.Proveedores
         {
             btnGuardar.Visible = false;
             btnGuardarCambios.Visible = true;
+            chkEstado.Visible = true;
             HabilitarCampos();
 
         }
