@@ -1,0 +1,341 @@
+﻿namespace Vista.Configuracion_Inicial
+{
+    partial class ConfiguracionParte3
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.lblLogo = new System.Windows.Forms.Label();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.lblDireccion = new System.Windows.Forms.Label();
+            this.lblCorreo = new System.Windows.Forms.Label();
+            this.txtTelefono = new System.Windows.Forms.TextBox();
+            this.txtNombreEmpresa = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.button6 = new System.Windows.Forms.Button();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.button5 = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.flpBotones = new System.Windows.Forms.FlowLayoutPanel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.lblCrear = new System.Windows.Forms.Label();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.panel3.SuspendLayout();
+            this.flpBotones.SuspendLayout();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // lblLogo
+            // 
+            this.lblLogo.Font = new System.Drawing.Font("Times New Roman", 12F);
+            this.lblLogo.Location = new System.Drawing.Point(27, 129);
+            this.lblLogo.Name = "lblLogo";
+            this.lblLogo.Size = new System.Drawing.Size(78, 22);
+            this.lblLogo.TabIndex = 19;
+            this.lblLogo.Text = "Contraseña:";
+            this.lblLogo.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // textBox2
+            // 
+            this.textBox2.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.textBox2.Location = new System.Drawing.Point(28, 212);
+            this.textBox2.Multiline = true;
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(551, 20);
+            this.textBox2.TabIndex = 18;
+            // 
+            // textBox1
+            // 
+            this.textBox1.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.textBox1.Location = new System.Drawing.Point(28, 100);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(551, 20);
+            this.textBox1.TabIndex = 17;
+            // 
+            // lblDireccion
+            // 
+            this.lblDireccion.Font = new System.Drawing.Font("Times New Roman", 12F);
+            this.lblDireccion.Location = new System.Drawing.Point(24, 187);
+            this.lblDireccion.Name = "lblDireccion";
+            this.lblDireccion.Size = new System.Drawing.Size(146, 22);
+            this.lblDireccion.TabIndex = 16;
+            this.lblDireccion.Text = "Confirmar contraseña:";
+            this.lblDireccion.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // lblCorreo
+            // 
+            this.lblCorreo.Font = new System.Drawing.Font("Times New Roman", 12F);
+            this.lblCorreo.Location = new System.Drawing.Point(27, 72);
+            this.lblCorreo.Name = "lblCorreo";
+            this.lblCorreo.Size = new System.Drawing.Size(61, 22);
+            this.lblCorreo.TabIndex = 15;
+            this.lblCorreo.Text = "Usuario:";
+            this.lblCorreo.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // txtTelefono
+            // 
+            this.txtTelefono.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.txtTelefono.Location = new System.Drawing.Point(28, 154);
+            this.txtTelefono.Name = "txtTelefono";
+            this.txtTelefono.Size = new System.Drawing.Size(551, 20);
+            this.txtTelefono.TabIndex = 14;
+            // 
+            // txtNombreEmpresa
+            // 
+            this.txtNombreEmpresa.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.txtNombreEmpresa.Location = new System.Drawing.Point(28, 40);
+            this.txtNombreEmpresa.Name = "txtNombreEmpresa";
+            this.txtNombreEmpresa.Size = new System.Drawing.Size(551, 20);
+            this.txtNombreEmpresa.TabIndex = 12;
+            // 
+            // label3
+            // 
+            this.label3.Font = new System.Drawing.Font("Times New Roman", 12F);
+            this.label3.Location = new System.Drawing.Point(27, 15);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(124, 22);
+            this.label3.TabIndex = 11;
+            this.label3.Text = "Nombre completo:";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // button6
+            // 
+            this.button6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.button6.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button6.Location = new System.Drawing.Point(729, 477);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(148, 45);
+            this.button6.TabIndex = 17;
+            this.button6.Text = "Finalizar configuración";
+            this.button6.UseVisualStyleBackColor = false;
+            // 
+            // panel3
+            // 
+            this.panel3.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.panel3.Controls.Add(this.checkBox1);
+            this.panel3.Controls.Add(this.lblLogo);
+            this.panel3.Controls.Add(this.textBox2);
+            this.panel3.Controls.Add(this.textBox1);
+            this.panel3.Controls.Add(this.lblDireccion);
+            this.panel3.Controls.Add(this.lblCorreo);
+            this.panel3.Controls.Add(this.txtTelefono);
+            this.panel3.Controls.Add(this.txtNombreEmpresa);
+            this.panel3.Controls.Add(this.label3);
+            this.panel3.Location = new System.Drawing.Point(224, 98);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(632, 296);
+            this.panel3.TabIndex = 16;
+            // 
+            // button5
+            // 
+            this.button5.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button5.Location = new System.Drawing.Point(579, 477);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(148, 45);
+            this.button5.TabIndex = 15;
+            this.button5.Text = "Atrás";
+            this.button5.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.Font = new System.Drawing.Font("Times New Roman", 12F);
+            this.label1.Location = new System.Drawing.Point(275, 55);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(318, 22);
+            this.label1.TabIndex = 14;
+            this.label1.Text = "Cree la cuenta principal para administrar el sistema.";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // panel2
+            // 
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(180, 32);
+            this.panel2.TabIndex = 0;
+            // 
+            // button1
+            // 
+            this.button1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.PeachPuff;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Location = new System.Drawing.Point(3, 3);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(175, 36);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "Bienvenida";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.button2.FlatAppearance.BorderSize = 0;
+            this.button2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.PeachPuff;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button2.Location = new System.Drawing.Point(3, 45);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(175, 36);
+            this.button2.TabIndex = 1;
+            this.button2.Text = "Empresa";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            this.button3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.button3.FlatAppearance.BorderSize = 0;
+            this.button3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.PeachPuff;
+            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button3.Location = new System.Drawing.Point(3, 87);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(175, 36);
+            this.button3.TabIndex = 2;
+            this.button3.Text = "Administrador";
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // button4
+            // 
+            this.button4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.button4.FlatAppearance.BorderSize = 0;
+            this.button4.FlatAppearance.MouseOverBackColor = System.Drawing.Color.PeachPuff;
+            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button4.Location = new System.Drawing.Point(3, 129);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(175, 36);
+            this.button4.TabIndex = 3;
+            this.button4.Text = "Comenzar";
+            this.button4.UseVisualStyleBackColor = true;
+            // 
+            // flpBotones
+            // 
+            this.flpBotones.Controls.Add(this.button1);
+            this.flpBotones.Controls.Add(this.button2);
+            this.flpBotones.Controls.Add(this.button3);
+            this.flpBotones.Controls.Add(this.button4);
+            this.flpBotones.Dock = System.Windows.Forms.DockStyle.Top;
+            this.flpBotones.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.flpBotones.ForeColor = System.Drawing.Color.White;
+            this.flpBotones.Location = new System.Drawing.Point(0, 32);
+            this.flpBotones.Name = "flpBotones";
+            this.flpBotones.Size = new System.Drawing.Size(180, 165);
+            this.flpBotones.TabIndex = 0;
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(129)))), ((int)(((byte)(62)))), ((int)(((byte)(36)))));
+            this.panel1.Controls.Add(this.flpBotones);
+            this.panel1.Controls.Add(this.panel2);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(180, 549);
+            this.panel1.TabIndex = 12;
+            // 
+            // lblCrear
+            // 
+            this.lblCrear.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Bold);
+            this.lblCrear.Location = new System.Drawing.Point(274, 21);
+            this.lblCrear.Name = "lblCrear";
+            this.lblCrear.Size = new System.Drawing.Size(319, 34);
+            this.lblCrear.TabIndex = 13;
+            this.lblCrear.Text = "Crear Administrador";
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(29, 247);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(226, 17);
+            this.checkBox1.TabIndex = 21;
+            this.checkBox1.Text = "Acepto la cuenta principal para administrar";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::Vista.Properties.Resources.user_456283;
+            this.pictureBox1.Location = new System.Drawing.Point(215, 24);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(64, 46);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 18;
+            this.pictureBox1.TabStop = false;
+            // 
+            // ConfiguracionParte3
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(902, 549);
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.button6);
+            this.Controls.Add(this.panel3);
+            this.Controls.Add(this.button5);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.lblCrear);
+            this.Name = "ConfiguracionParte3";
+            this.Text = "ConfiguracionParte3";
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
+            this.flpBotones.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.ResumeLayout(false);
+
+        }
+
+        #endregion
+        private System.Windows.Forms.Label lblLogo;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label lblDireccion;
+        private System.Windows.Forms.Label lblCorreo;
+        private System.Windows.Forms.TextBox txtTelefono;
+        private System.Windows.Forms.TextBox txtNombreEmpresa;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.FlowLayoutPanel flpBotones;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label lblCrear;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.PictureBox pictureBox1;
+    }
+}

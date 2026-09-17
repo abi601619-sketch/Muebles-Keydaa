@@ -138,6 +138,30 @@
     <Compile Include="Compras\frmCompras.Designer.cs">
       <DependentUpon>frmCompras.cs</DependentUpon>
     </Compile>
+    <Compile Include="Configuracion Inicial\Configuracion Inicial.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Configuracion Inicial\Configuracion Inicial.Designer.cs">
+      <DependentUpon>Configuracion Inicial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Configuracion Inicial\ConfiguracionParte3.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Configuracion Inicial\ConfiguracionParte3.Designer.cs">
+      <DependentUpon>ConfiguracionParte3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Configuracion Inicial\ConfiguracionUltimaParte.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Configuracion Inicial\ConfiguracionUltimaParte.Designer.cs">
+      <DependentUpon>ConfiguracionUltimaParte.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Configuracion Inicial\frmConfiguracionparte2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Configuracion Inicial\frmConfiguracionparte2.Designer.cs">
+      <DependentUpon>frmConfiguracionparte2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Cotizaciones\frmCotizaciones.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -311,6 +335,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Compras\frmCompras.resx">
       <DependentUpon>frmCompras.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configuracion Inicial\Configuracion Inicial.resx">
+      <DependentUpon>Configuracion Inicial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configuracion Inicial\ConfiguracionParte3.resx">
+      <DependentUpon>ConfiguracionParte3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configuracion Inicial\ConfiguracionUltimaParte.resx">
+      <DependentUpon>ConfiguracionUltimaParte.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configuracion Inicial\frmConfiguracionparte2.resx">
+      <DependentUpon>frmConfiguracionparte2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Cotizaciones\frmCotizaciones.resx">
       <DependentUpon>frmCotizaciones.cs</DependentUpon>
@@ -649,6 +685,11 @@
   <ItemGroup>
     <None Include="Resources\carro.png" />
     <None Include="Resources\carro %281%29.png" />
+    <None Include="Resources\comprobado %281%29.png" />
+    <None Include="Resources\bienvenido-de-nuevo.png" />
+    <None Include="Resources\flecha-correcta %281%29.png" />
+    <None Include="Resources\logistica.png" />
+    <None Include="Resources\logistica %281%29.png" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

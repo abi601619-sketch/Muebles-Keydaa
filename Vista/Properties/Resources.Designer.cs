@@ -113,6 +113,16 @@ namespace Vista.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap bienvenido_de_nuevo {
+            get {
+                object obj = ResourceManager.GetObject("bienvenido-de-nuevo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Captura_de_pantalla_2026_07_06_171749 {
             get {
                 object obj = ResourceManager.GetObject("Captura de pantalla 2026-07-06 171749", resourceCulture);
@@ -293,6 +303,16 @@ namespace Vista.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap comprobado__1_ {
+            get {
+                object obj = ResourceManager.GetObject("comprobado (1)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Cotizaciones16px {
             get {
                 object obj = ResourceManager.GetObject("Cotizaciones16px", resourceCulture);
@@ -353,6 +373,16 @@ namespace Vista.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap flecha_correcta__1_ {
+            get {
+                object obj = ResourceManager.GetObject("flecha-correcta (1)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Imagen_perfil {
             get {
                 object obj = ResourceManager.GetObject("Imagen perfil", resourceCulture);
@@ -406,6 +436,26 @@ namespace Vista.Properties {
         internal static System.Drawing.Bitmap LoginFondo {
             get {
                 object obj = ResourceManager.GetObject("LoginFondo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap logistica {
+            get {
+                object obj = ResourceManager.GetObject("logistica", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap logistica__1_ {
+            get {
+                object obj = ResourceManager.GetObject("logistica (1)", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
