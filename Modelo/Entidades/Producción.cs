@@ -21,7 +21,14 @@ namespace Modelo.Entidades
         {
         }
 
-        public DbProducción(int idProduccion, int pedido, string cliente, string mueble, DateTime fechaEntrega, string estado, int progreso)
+        public DbProducción(
+            int idProduccion,
+            int pedido,
+            string cliente,
+            string mueble,
+            DateTime fechaEntrega,
+            string estado,
+            int progreso)
         {
             IdProduccion1 = idProduccion;
             Pedido1 = pedido;
@@ -40,26 +47,88 @@ namespace Modelo.Entidades
         public string Estado1 { get => Estado; set => Estado = value; }
         public int Progreso1 { get => Progreso; set => Progreso = value; }
 
+
         public static DataTable CargarProducción()
         {
-            using (SqlConnection conectar = Conexion.Conectar())
+            try
             {
-                string comando = "SELECT * FROM VerProduccion;";
+                using (SqlConnection conectar = Conexion.Conectar())
+                {
+                    string comando = "SELECT * FROM VerProduccion;";
 
-                SqlDataAdapter adapter =
-                    new SqlDataAdapter(comando, conectar);
+                    SqlDataAdapter adapter =
+                        new SqlDataAdapter(comando, conectar);
 
-                DataTable dt = new DataTable();
+                    DataTable dt = new DataTable();
 
-                adapter.Fill(dt);
+                    adapter.Fill(dt);
 
-                return dt;
+                    return dt;
+                }
+            }
+            catch (SqlException ex)
+            {
+                switch (ex.Number)
+                {
+                    case 208:
+                        MessageBox.Show(
+                            "La vista VerProduccion no existe en la base de datos.",
+                            "Error 208",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
+
+                    case 53:
+                        MessageBox.Show(
+                            "No se pudo establecer conexión con el servidor.",
+                            "Error 53",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
+
+                    case 4060:
+                        MessageBox.Show(
+                            "No se pudo acceder a la base de datos.",
+                            "Error 4060",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
+
+                    case -2:
+                        MessageBox.Show(
+                            "La consulta tardó demasiado tiempo.",
+                            "Error -2",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
+
+                    default:
+                        MessageBox.Show(
+                            "Ocurrió un error al cargar las producciones.\n" + ex.Message,
+                            "Error " + ex.Number,
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
+                }
+
+                return new DataTable();
             }
         }
 
+
         public bool ObtenerProduccion()
         {
-            string comandoSQL = @"SELECT IdProduccion, IdPedido, Cliente,Producto, [Fecha de Entrega], Progreso, Estado FROM VerProduccion WHERE IdProduccion = @IdProduccion;";
+            string comandoSQL = @"
+                SELECT
+                    IdProduccion,
+                    IdPedido,
+                    Cliente,
+                    Producto,
+                    [Fecha de Entrega],
+                    Progreso,
+                    Estado
+                FROM VerProduccion
+                WHERE IdProduccion = @IdProduccion;";
 
             using (SqlConnection conexion = Conexion.Conectar())
             {
@@ -77,19 +146,30 @@ namespace Modelo.Entidades
                         {
                             if (reader.Read())
                             {
-                                IdProduccion1 = Convert.ToInt32(reader["IdProduccion"]);
+                                IdProduccion1 =
+                                    Convert.ToInt32(
+                                        reader["IdProduccion"]);
 
-                                Pedido1 = Convert.ToInt32(reader["IdPedido"]);
+                                Pedido1 =
+                                    Convert.ToInt32(
+                                        reader["IdPedido"]);
 
-                                Cliente1 = reader["Cliente"].ToString();
+                                Cliente1 =
+                                    reader["Cliente"].ToString();
 
-                                Mueble1 = reader["Producto"].ToString();
+                                Mueble1 =
+                                    reader["Producto"].ToString();
 
-                                FechaEntrega1 = Convert.ToDateTime(reader["Fecha de Entrega"]);
+                                FechaEntrega1 =
+                                    Convert.ToDateTime(
+                                        reader["Fecha de Entrega"]);
 
-                                Progreso1 = Convert.ToInt32(reader["Progreso"]);
+                                Progreso1 =
+                                    Convert.ToInt32(
+                                        reader["Progreso"]);
 
-                                Estado1 = reader["Estado"].ToString();
+                                Estado1 =
+                                    reader["Estado"].ToString();
 
                                 return true;
                             }
@@ -97,10 +177,56 @@ namespace Modelo.Entidades
                     }
                     catch (SqlException ex)
                     {
+                        switch (ex.Number)
+                        {
+                            case 208:
+                                MessageBox.Show(
+                                    "La vista VerProduccion no existe en la base de datos.",
+                                    "Error 208",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+                                break;
+
+                            case 53:
+                                MessageBox.Show(
+                                    "No se pudo establecer conexión con el servidor.",
+                                    "Error 53",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+                                break;
+
+                            case 4060:
+                                MessageBox.Show(
+                                    "No se pudo acceder a la base de datos.",
+                                    "Error 4060",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+                                break;
+
+                            case -2:
+                                MessageBox.Show(
+                                    "La consulta tardó demasiado tiempo.",
+                                    "Error -2",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+                                break;
+
+                            default:
+                                MessageBox.Show(
+                                    "Error al consultar la producción.\n" + ex.Message,
+                                    "Error " + ex.Number,
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+                                break;
+                        }
+
+                        return false;
+                    }
+                    catch (Exception ex)
+                    {
                         MessageBox.Show(
-                            "Error al consultar la producción:\n\n"
-                            + ex.Message,
-                            "Error " + ex.Number,
+                            "Ocurrió un error inesperado.\n" + ex.Message,
+                            "Error",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Error);
 
@@ -116,20 +242,20 @@ namespace Modelo.Entidades
         public bool ActualizarProduccion()
         {
             string comandoSQL = @"
-        UPDATE Produccion
-        SET Progreso = @Progreso
-        WHERE IdProduccion = @IdProduccion;
+                UPDATE Produccion
+                SET Progreso = @Progreso
+                WHERE IdProduccion = @IdProduccion;
 
-        IF @Progreso = 100
-        BEGIN
-            UPDATE Pedido
-            SET Estado = 'Finalizado'
-            WHERE IdPedido = (
-                SELECT IdPedido
-                FROM Produccion
-                WHERE IdProduccion = @IdProduccion
-            );
-        END";
+                IF @Progreso = 100
+                BEGIN
+                    UPDATE Pedido
+                    SET Estado = 'Finalizado'
+                    WHERE IdPedido = (
+                        SELECT IdPedido
+                        FROM Produccion
+                        WHERE IdProduccion = @IdProduccion
+                    );
+                END";
 
             using (SqlConnection conexion = Conexion.Conectar())
             {
@@ -144,39 +270,54 @@ namespace Modelo.Entidades
                         conexion,
                         transaccion))
                     {
-                        comando.Parameters.Add("@IdProduccion", SqlDbType.Int).Value =
+                        comando.Parameters.Add(
+                            "@IdProduccion",
+                            SqlDbType.Int).Value =
                             IdProduccion;
 
-                        comando.Parameters.Add("@Progreso", SqlDbType.Int).Value =
+                        comando.Parameters.Add(
+                            "@Progreso",
+                            SqlDbType.Int).Value =
                             Progreso;
 
-                        int filasAfectadas = comando.ExecuteNonQuery();
+                        int filasAfectadas =
+                            comando.ExecuteNonQuery();
+
+                        if (filasAfectadas == 0)
+                        {
+                            transaccion.Rollback();
+
+                            MessageBox.Show(
+                                "No se encontró la producción que desea actualizar.",
+                                "Producción no encontrada",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning);
+
+                            return false;
+                        }
 
                         transaccion.Commit();
 
                         if (Progreso == 100)
                         {
                             MessageBox.Show(
-                                "La producción ha finalizado correctamente.\n\n" +
-                                "El pedido ha sido marcado automáticamente como FINALIZADO.",
+                                "La producción ha finalizado correctamente.\nEl pedido fue marcado como FINALIZADO.",
                                 "Producción finalizada",
                                 MessageBoxButtons.OK,
-                                MessageBoxIcon.Information
-                            );
+                                MessageBoxIcon.Information);
                         }
                         else
                         {
                             MessageBox.Show(
-                                "La producción se actualizó correctamente.\n\n" +
-                                "ID Producción: " + IdProduccion +
-                                "\nProgreso: " + Progreso + "%",
+                                "La producción se actualizó correctamente.\nID Producción: " +
+                                IdProduccion + " | Progreso: " +
+                                Progreso + "%",
                                 "Producción actualizada",
                                 MessageBoxButtons.OK,
-                                MessageBoxIcon.Information
-                            );
+                                MessageBoxIcon.Information);
                         }
 
-                        return filasAfectadas > 0;
+                        return true;
                     }
                 }
                 catch (SqlException ex)
@@ -192,12 +333,80 @@ namespace Modelo.Entidades
                         }
                     }
 
-                    MessageBox.Show(
-                        "ERROR SQL:\n\n" + ex.Message,
-                        "Error " + ex.Number,
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Error
-                    );
+                    switch (ex.Number)
+                    {
+                        case 547:
+                            MessageBox.Show(
+                                "No se puede actualizar la producción.\nVerifique el pedido relacionado.",
+                                "Error 547",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning);
+                            break;
+
+                        case 515:
+                            MessageBox.Show(
+                                "El progreso de la producción es obligatorio.",
+                                "Error 515",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning);
+                            break;
+
+                        case 245:
+                            MessageBox.Show(
+                                "El valor del progreso tiene un formato incorrecto.",
+                                "Error 245",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning);
+                            break;
+
+                        case 8115:
+                            MessageBox.Show(
+                                "El valor ingresado para el progreso es demasiado grande.",
+                                "Error 8115",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning);
+                            break;
+
+                        case 53:
+                            MessageBox.Show(
+                                "No se pudo establecer conexión con el servidor.",
+                                "Error 53",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+                            break;
+
+                        case 4060:
+                            MessageBox.Show(
+                                "No se pudo acceder a la base de datos.",
+                                "Error 4060",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+                            break;
+
+                        case -2:
+                            MessageBox.Show(
+                                "La actualización tardó demasiado tiempo.",
+                                "Error -2",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+                            break;
+
+                        case 208:
+                            MessageBox.Show(
+                                "La tabla Produccion o Pedido no existe.",
+                                "Error 208",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+                            break;
+
+                        default:
+                            MessageBox.Show(
+                                "Ocurrió un error al actualizar la producción.\n" + ex.Message,
+                                "Error " + ex.Number,
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+                            break;
+                    }
 
                     return false;
                 }
@@ -215,17 +424,15 @@ namespace Modelo.Entidades
                     }
 
                     MessageBox.Show(
-                        "ERROR:\n\n" + ex.Message,
+                        "Ocurrió un error inesperado.\n" + ex.Message,
                         "Error",
                         MessageBoxButtons.OK,
-                        MessageBoxIcon.Error
-                    );
+                        MessageBoxIcon.Error);
 
                     return false;
                 }
             }
         }
-
 
 
         // CALCULAR ESTADÍSTICAS
@@ -237,26 +444,66 @@ namespace Modelo.Entidades
             {
                 using (SqlConnection conexion = Conexion.Conectar())
                 {
-                    string query = "SELECT COUNT(*) FROM Produccion";
+                    string query =
+                        "SELECT COUNT(*) FROM Produccion";
 
-                    using (SqlCommand comando = new SqlCommand(query, conexion))
+                    using (SqlCommand comando =
+                        new SqlCommand(query, conexion))
                     {
-                        return Convert.ToInt32(comando.ExecuteScalar());
+                        return Convert.ToInt32(
+                            comando.ExecuteScalar());
                     }
                 }
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
-                MessageBox.Show(
-                    "Error al contar las producciones totales: " + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                switch (ex.Number)
+                {
+                    case 208:
+                        MessageBox.Show(
+                            "La tabla Produccion no existe en la base de datos.",
+                            "Error 208",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
+
+                    case 53:
+                        MessageBox.Show(
+                            "No se pudo establecer conexión con el servidor.",
+                            "Error 53",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
+
+                    case 4060:
+                        MessageBox.Show(
+                            "No se pudo acceder a la base de datos.",
+                            "Error 4060",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
+
+                    case -2:
+                        MessageBox.Show(
+                            "La consulta tardó demasiado tiempo.",
+                            "Error -2",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
+
+                    default:
+                        MessageBox.Show(
+                            "Error al contar las producciones totales.\n" + ex.Message,
+                            "Error " + ex.Number,
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
+                }
 
                 return 0;
             }
         }
+
 
         // Pendientes
         public static int ContarProduccionesPendientes()
@@ -265,28 +512,68 @@ namespace Modelo.Entidades
             {
                 using (SqlConnection conexion = Conexion.Conectar())
                 {
-                    string query = @"SELECT COUNT(*) 
-                             FROM Produccion 
-                             WHERE Progreso = 0";
+                    string query = @"
+                        SELECT COUNT(*)
+                        FROM Produccion
+                        WHERE Progreso = 0";
 
-                    using (SqlCommand comando = new SqlCommand(query, conexion))
+                    using (SqlCommand comando =
+                        new SqlCommand(query, conexion))
                     {
-                        return Convert.ToInt32(comando.ExecuteScalar());
+                        return Convert.ToInt32(
+                            comando.ExecuteScalar());
                     }
                 }
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
-                MessageBox.Show(
-                    "Error al contar las producciones pendientes: " + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                switch (ex.Number)
+                {
+                    case 208:
+                        MessageBox.Show(
+                            "La tabla Produccion no existe en la base de datos.",
+                            "Error 208",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
+
+                    case 53:
+                        MessageBox.Show(
+                            "No se pudo establecer conexión con el servidor.",
+                            "Error 53",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
+
+                    case 4060:
+                        MessageBox.Show(
+                            "No se pudo acceder a la base de datos.",
+                            "Error 4060",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
+
+                    case -2:
+                        MessageBox.Show(
+                            "La consulta tardó demasiado tiempo.",
+                            "Error -2",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
+
+                    default:
+                        MessageBox.Show(
+                            "Error al contar las producciones pendientes.\n" + ex.Message,
+                            "Error " + ex.Number,
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
+                }
 
                 return 0;
             }
         }
+
 
         // En producción
         public static int ContarProduccionesEnProceso()
@@ -295,28 +582,68 @@ namespace Modelo.Entidades
             {
                 using (SqlConnection conexion = Conexion.Conectar())
                 {
-                    string query = @"SELECT COUNT(*) 
-                             FROM Produccion 
-                             WHERE Progreso BETWEEN 1 AND 99";
+                    string query = @"
+                        SELECT COUNT(*)
+                        FROM Produccion
+                        WHERE Progreso BETWEEN 1 AND 99";
 
-                    using (SqlCommand comando = new SqlCommand(query, conexion))
+                    using (SqlCommand comando =
+                        new SqlCommand(query, conexion))
                     {
-                        return Convert.ToInt32(comando.ExecuteScalar());
+                        return Convert.ToInt32(
+                            comando.ExecuteScalar());
                     }
                 }
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
-                MessageBox.Show(
-                    "Error al contar las producciones en proceso: " + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                switch (ex.Number)
+                {
+                    case 208:
+                        MessageBox.Show(
+                            "La tabla Produccion no existe en la base de datos.",
+                            "Error 208",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
+
+                    case 53:
+                        MessageBox.Show(
+                            "No se pudo establecer conexión con el servidor.",
+                            "Error 53",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
+
+                    case 4060:
+                        MessageBox.Show(
+                            "No se pudo acceder a la base de datos.",
+                            "Error 4060",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
+
+                    case -2:
+                        MessageBox.Show(
+                            "La consulta tardó demasiado tiempo.",
+                            "Error -2",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
+
+                    default:
+                        MessageBox.Show(
+                            "Error al contar las producciones en proceso.\n" + ex.Message,
+                            "Error " + ex.Number,
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
+                }
 
                 return 0;
             }
         }
+
 
         // Finalizados
         public static int ContarProduccionesFinalizadas()
@@ -325,30 +652,66 @@ namespace Modelo.Entidades
             {
                 using (SqlConnection conexion = Conexion.Conectar())
                 {
-                    string query = @"SELECT COUNT(*) 
-                             FROM Produccion 
-                             WHERE Progreso = 100";
+                    string query = @"
+                        SELECT COUNT(*)
+                        FROM Produccion
+                        WHERE Progreso = 100";
 
-                    using (SqlCommand comando = new SqlCommand(query, conexion))
+                    using (SqlCommand comando =
+                        new SqlCommand(query, conexion))
                     {
-                        return Convert.ToInt32(comando.ExecuteScalar());
+                        return Convert.ToInt32(
+                            comando.ExecuteScalar());
                     }
                 }
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
-                MessageBox.Show(
-                    "Error al contar las producciones finalizadas: " + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                switch (ex.Number)
+                {
+                    case 208:
+                        MessageBox.Show(
+                            "La tabla Produccion no existe en la base de datos.",
+                            "Error 208",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
+
+                    case 53:
+                        MessageBox.Show(
+                            "No se pudo establecer conexión con el servidor.",
+                            "Error 53",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
+
+                    case 4060:
+                        MessageBox.Show(
+                            "No se pudo acceder a la base de datos.",
+                            "Error 4060",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
+
+                    case -2:
+                        MessageBox.Show(
+                            "La consulta tardó demasiado tiempo.",
+                            "Error -2",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
+
+                    default:
+                        MessageBox.Show(
+                            "Error al contar las producciones finalizadas.\n" + ex.Message,
+                            "Error " + ex.Number,
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
+                }
 
                 return 0;
             }
         }
-
-
     }
 }
-

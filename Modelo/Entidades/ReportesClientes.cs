@@ -4,7 +4,6 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
 
-
 namespace Modelo.Entidades
 {
     public class ReportesClientes
@@ -26,15 +25,58 @@ namespace Modelo.Entidades
                     }
                 }
             }
+            catch (SqlException ex)
+            {
+                switch (ex.Number)
+                {
+                    case 208:
+                        MessageBox.Show(
+                            "Error 208: La vista VerReporteClientes2 no existe.",
+                            "Error",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
+
+                    case 53:
+                        MessageBox.Show(
+                            "Error 53: No se pudo conectar con el servidor.",
+                            "Error",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
+
+                    case 4060:
+                        MessageBox.Show(
+                            "Error 4060: No se pudo acceder a la base de datos.",
+                            "Error",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
+
+                    case -2:
+                        MessageBox.Show(
+                            "Error -2: La operación tardó demasiado.",
+                            "Error",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning);
+                        break;
+
+                    default:
+                        MessageBox.Show(
+                            "Error SQL " + ex.Number + ": " + ex.Message,
+                            "Error",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
+                }
+            }
             catch (Exception ex)
             {
                 MessageBox.Show(
-                    "Ocurrió un error al cargar el reporte de clientes:\n\n" +
-                    ex.Message,
+                    "Error inesperado: " + ex.Message,
                     "Error",
                     MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                    MessageBoxIcon.Error);
             }
 
             return tabla;
@@ -59,19 +101,64 @@ namespace Modelo.Entidades
                     }
                 }
             }
+            catch (SqlException ex)
+            {
+                switch (ex.Number)
+                {
+                    case 208:
+                        MessageBox.Show(
+                            "Error 208: La vista VerReporteClientes2 no existe.",
+                            "Error",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
+
+                    case 53:
+                        MessageBox.Show(
+                            "Error 53: No se pudo conectar con el servidor.",
+                            "Error",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
+
+                    case 4060:
+                        MessageBox.Show(
+                            "Error 4060: No se pudo acceder a la base de datos.",
+                            "Error",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
+
+                    case -2:
+                        MessageBox.Show(
+                            "Error -2: La operación tardó demasiado.",
+                            "Error",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning);
+                        break;
+
+                    default:
+                        MessageBox.Show(
+                            "Error SQL " + ex.Number + ": " + ex.Message,
+                            "Error",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
+                }
+            }
             catch (Exception ex)
             {
                 MessageBox.Show(
-                    "Ocurrió un error al obtener los clientes:\n\n" +
-                    ex.Message,
+                    "Error inesperado: " + ex.Message,
                     "Error",
                     MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                    MessageBoxIcon.Error);
             }
 
             return tabla;
         }
+
+
         public static int ContarClientesCorporativos()
         {
             int total = 0;
@@ -87,24 +174,67 @@ namespace Modelo.Entidades
                         new SqlCommand(consulta, conexion))
                     {
                         total = Convert.ToInt32(
-                            comando.ExecuteScalar()
-                        );
+                            comando.ExecuteScalar());
                     }
+                }
+            }
+            catch (SqlException ex)
+            {
+                switch (ex.Number)
+                {
+                    case 208:
+                        MessageBox.Show(
+                            "Error 208: La tabla Cliente no existe.",
+                            "Error",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
+
+                    case 53:
+                        MessageBox.Show(
+                            "Error 53: No se pudo conectar con el servidor.",
+                            "Error",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
+
+                    case 4060:
+                        MessageBox.Show(
+                            "Error 4060: No se pudo acceder a la base de datos.",
+                            "Error",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
+
+                    case -2:
+                        MessageBox.Show(
+                            "Error -2: La operación tardó demasiado.",
+                            "Error",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning);
+                        break;
+
+                    default:
+                        MessageBox.Show(
+                            "Error SQL " + ex.Number + ": " + ex.Message,
+                            "Error",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(
-                    "Ocurrió un error al contar los clientes corporativos:\n\n" +
-                    ex.Message,
+                    "Error inesperado: " + ex.Message,
                     "Error",
                     MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                    MessageBoxIcon.Error);
             }
 
             return total;
         }
+
 
         public static int ContarClientesIndividuales()
         {
@@ -121,24 +251,67 @@ namespace Modelo.Entidades
                         new SqlCommand(consulta, conexion))
                     {
                         total = Convert.ToInt32(
-                            comando.ExecuteScalar()
-                        );
+                            comando.ExecuteScalar());
                     }
+                }
+            }
+            catch (SqlException ex)
+            {
+                switch (ex.Number)
+                {
+                    case 208:
+                        MessageBox.Show(
+                            "Error 208: La tabla Cliente no existe.",
+                            "Error",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
+
+                    case 53:
+                        MessageBox.Show(
+                            "Error 53: No se pudo conectar con el servidor.",
+                            "Error",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
+
+                    case 4060:
+                        MessageBox.Show(
+                            "Error 4060: No se pudo acceder a la base de datos.",
+                            "Error",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
+
+                    case -2:
+                        MessageBox.Show(
+                            "Error -2: La operación tardó demasiado.",
+                            "Error",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning);
+                        break;
+
+                    default:
+                        MessageBox.Show(
+                            "Error SQL " + ex.Number + ": " + ex.Message,
+                            "Error",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(
-                    "Ocurrió un error al contar los clientes individuales:\n\n" +
-                    ex.Message,
+                    "Error inesperado: " + ex.Message,
                     "Error",
                     MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                    MessageBoxIcon.Error);
             }
 
             return total;
         }
+
 
         public static int ContarClientesTotales()
         {
@@ -155,37 +328,81 @@ namespace Modelo.Entidades
                         new SqlCommand(consulta, conexion))
                     {
                         total = Convert.ToInt32(
-                            comando.ExecuteScalar()
-                        );
+                            comando.ExecuteScalar());
                     }
+                }
+            }
+            catch (SqlException ex)
+            {
+                switch (ex.Number)
+                {
+                    case 208:
+                        MessageBox.Show(
+                            "Error 208: La tabla Cliente no existe.",
+                            "Error",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
+
+                    case 53:
+                        MessageBox.Show(
+                            "Error 53: No se pudo conectar con el servidor.",
+                            "Error",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
+
+                    case 4060:
+                        MessageBox.Show(
+                            "Error 4060: No se pudo acceder a la base de datos.",
+                            "Error",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
+
+                    case -2:
+                        MessageBox.Show(
+                            "Error -2: La operación tardó demasiado.",
+                            "Error",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning);
+                        break;
+
+                    default:
+                        MessageBox.Show(
+                            "Error SQL " + ex.Number + ": " + ex.Message,
+                            "Error",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(
-                    "Ocurrió un error al contar los clientes totales:\n\n" +
-                    ex.Message,
+                    "Error inesperado: " + ex.Message,
                     "Error",
                     MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                    MessageBoxIcon.Error);
             }
 
             return total;
         }
+
+
         public DataTable ObtenerClientesPorFecha(
-      DateTime fechaInicio,
-      DateTime fechaFin)
+            DateTime fechaInicio,
+            DateTime fechaFin)
         {
             DataTable tabla = new DataTable();
 
             try
             {
                 string consulta = @"
-            SELECT *
-            FROM VerReporteClientes2
-            WHERE [Fecha de Registro] >= @FechaInicio
-              AND [Fecha de Registro] < @FechaFin;";
+                    SELECT *
+                    FROM VerReporteClientes2
+                    WHERE [Fecha de Registro] >= @FechaInicio
+                      AND [Fecha de Registro] < @FechaFin;";
 
                 using (SqlConnection conexion = Conexion.Conectar())
                 {
@@ -206,56 +423,108 @@ namespace Modelo.Entidades
                     }
                 }
             }
+            catch (SqlException ex)
+            {
+                switch (ex.Number)
+                {
+                    case 208:
+                        MessageBox.Show(
+                            "Error 208: La vista VerReporteClientes2 no existe.",
+                            "Error",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
+
+                    case 53:
+                        MessageBox.Show(
+                            "Error 53: No se pudo conectar con el servidor.",
+                            "Error",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
+
+                    case 4060:
+                        MessageBox.Show(
+                            "Error 4060: No se pudo acceder a la base de datos.",
+                            "Error",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
+
+                    case -2:
+                        MessageBox.Show(
+                            "Error -2: La consulta tardó demasiado.",
+                            "Error",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning);
+                        break;
+
+                    case 245:
+                        MessageBox.Show(
+                            "Error 245: Existe un valor con formato incorrecto.",
+                            "Error",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning);
+                        break;
+
+                    default:
+                        MessageBox.Show(
+                            "Error SQL " + ex.Number + ": " + ex.Message,
+                            "Error",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
+                }
+            }
             catch (Exception ex)
             {
                 MessageBox.Show(
-                    "Ocurrió un error al obtener los clientes por fecha:\n\n" +
-                    ex.Message,
+                    "Error inesperado: " + ex.Message,
                     "Error",
                     MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                    MessageBoxIcon.Error);
             }
 
             return tabla;
         }
+
 
         public static DataTable ObtenerEstadisticasClientes(
-      DateTime fechaInicio,
-      DateTime fechaFin)
+            DateTime fechaInicio,
+            DateTime fechaFin)
         {
             DataTable tabla = new DataTable();
 
             try
             {
                 string consulta = @"
-            SELECT
-                COUNT(*) AS ClientesTotales,
+                    SELECT
+                        COUNT(*) AS ClientesTotales,
 
-                ISNULL(
-                    SUM(
-                        CASE
-                            WHEN [Tipo de Cliente] = 'Empresa'
-                            THEN 1
-                            ELSE 0
-                        END
-                    ), 0
-                ) AS ClientesCorporativos,
+                        ISNULL(
+                            SUM(
+                                CASE
+                                    WHEN [Tipo de Cliente] = 'Empresa'
+                                    THEN 1
+                                    ELSE 0
+                                END
+                            ), 0
+                        ) AS ClientesCorporativos,
 
-                ISNULL(
-                    SUM(
-                        CASE
-                            WHEN [Tipo de Cliente] = 'Persona Natural'
-                            THEN 1
-                            ELSE 0
-                        END
-                    ), 0
-                ) AS ClientesIndividuales
+                        ISNULL(
+                            SUM(
+                                CASE
+                                    WHEN [Tipo de Cliente] = 'Persona Natural'
+                                    THEN 1
+                                    ELSE 0
+                                END
+                            ), 0
+                        ) AS ClientesIndividuales
 
-            FROM VerReporteClientes2
+                    FROM VerReporteClientes2
 
-            WHERE [Fecha de Registro] >= @FechaInicio
-              AND [Fecha de Registro] < @FechaFin;";
+                    WHERE [Fecha de Registro] >= @FechaInicio
+                      AND [Fecha de Registro] < @FechaFin;";
 
                 using (SqlConnection conexion = Conexion.Conectar())
                 {
@@ -276,20 +545,69 @@ namespace Modelo.Entidades
                     }
                 }
             }
+            catch (SqlException ex)
+            {
+                switch (ex.Number)
+                {
+                    case 208:
+                        MessageBox.Show(
+                            "Error 208: La vista VerReporteClientes2 no existe.",
+                            "Error",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
+
+                    case 53:
+                        MessageBox.Show(
+                            "Error 53: No se pudo conectar con el servidor.",
+                            "Error",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
+
+                    case 4060:
+                        MessageBox.Show(
+                            "Error 4060: No se pudo acceder a la base de datos.",
+                            "Error",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
+
+                    case -2:
+                        MessageBox.Show(
+                            "Error -2: La consulta tardó demasiado.",
+                            "Error",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning);
+                        break;
+
+                    case 245:
+                        MessageBox.Show(
+                            "Error 245: Existe un valor con formato incorrecto.",
+                            "Error",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning);
+                        break;
+
+                    default:
+                        MessageBox.Show(
+                            "Error SQL " + ex.Number + ": " + ex.Message,
+                            "Error",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
+                }
+            }
             catch (Exception ex)
             {
                 MessageBox.Show(
-                    "Ocurrió un error al obtener las estadísticas de clientes:\n\n" +
-                    ex.Message,
+                    "Error inesperado: " + ex.Message,
                     "Error",
                     MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                    MessageBoxIcon.Error);
             }
 
             return tabla;
         }
-
-
     }
 }

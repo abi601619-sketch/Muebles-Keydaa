@@ -58,9 +58,56 @@ namespace Modelo.Entidades
 
                     DataTable dt = new DataTable();
 
-                    adapter.Fill(dt);
+                    try
+                    {
+                        adapter.Fill(dt);
 
-                    return dt;
+                        return dt;
+                    }
+                    catch (SqlException ex)
+                    {
+                        switch (ex.Number)
+                        {
+                            case 208:
+                                MessageBox.Show("No se encontró una de las tablas utilizadas.",
+                                    "Error 208", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                break;
+
+                            case 547:
+                                MessageBox.Show("No se puede cargar el detalle por datos relacionados.",
+                                    "Error 547", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                break;
+
+                            case 53:
+                                MessageBox.Show("No se pudo conectar con el servidor SQL.",
+                                    "Error 53", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                break;
+
+                            case 4060:
+                                MessageBox.Show("No se pudo acceder a la base de datos.",
+                                    "Error 4060", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                break;
+
+                            case -2:
+                                MessageBox.Show("La operación tardó demasiado tiempo.",
+                                    "Error -2", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                break;
+
+                            default:
+                                MessageBox.Show("Ocurrió un error al cargar el detalle de compra.",
+                                    "Error " + ex.Number, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                break;
+                        }
+
+                        return new DataTable();
+                    }
+                    catch (System.Exception ex)
+                    {
+                        MessageBox.Show("Ocurrió un error inesperado al cargar el detalle.",
+                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                        return new DataTable();
+                    }
                 }
             }
         }
@@ -70,6 +117,7 @@ namespace Modelo.Entidades
             using (SqlConnection conexion = Conexion.Conectar())
             {
                 SqlTransaction transaccion = conexion.BeginTransaction();
+
                 try
                 {
                     string comandoSQL = @"INSERT INTO DetalleCompraMaterial(IdCompra,IdMaterial,Cantidad,PrecioUnitario)
@@ -90,6 +138,7 @@ namespace Modelo.Entidades
                     }
 
                     string updateSQL = "UPDATE Material SET Stock = Stock + @Cantidad WHERE IdMaterial = @IdMaterial;";
+
                     using (SqlCommand cmdUpdate = new SqlCommand(updateSQL, conexion, transaccion))
                     {
                         cmdUpdate.Parameters.AddWithValue("@Cantidad", Cantidad1);
@@ -102,8 +151,78 @@ namespace Modelo.Entidades
                 }
                 catch (SqlException ex)
                 {
-                    transaccion.Rollback();
-                    MessageBox.Show("Ocurrió un error al guardar el detalle de compra.\n\n" + ex.Message, "Error " + ex.Number, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    try
+                    {
+                        transaccion.Rollback();
+                    }
+                    catch
+                    {
+                    }
+
+                    switch (ex.Number)
+                    {
+                        case 2627:
+                        case 2601:
+                            MessageBox.Show("El detalle de compra ya existe.",
+                                "Error " + ex.Number, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+
+                        case 547:
+                            MessageBox.Show("La compra o el material seleccionado no existe.",
+                                "Error 547", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+
+                        case 515:
+                            MessageBox.Show("Faltan datos obligatorios para guardar el detalle.",
+                                "Error 515", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+
+                        case 8115:
+                            MessageBox.Show("El precio o cantidad excede el límite permitido.",
+                                "Error 8115", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+
+                        case 245:
+                            MessageBox.Show("Uno de los datos ingresados tiene un formato incorrecto.",
+                                "Error 245", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+
+                        case 53:
+                            MessageBox.Show("No se pudo conectar con el servidor SQL.",
+                                "Error 53", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+
+                        case 4060:
+                            MessageBox.Show("No se pudo acceder a la base de datos.",
+                                "Error 4060", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+
+                        case -2:
+                            MessageBox.Show("La operación tardó demasiado tiempo.",
+                                "Error -2", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+
+                        default:
+                            MessageBox.Show("Ocurrió un error al guardar el detalle de compra.",
+                                "Error " + ex.Number, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+                    }
+
+                    return false;
+                }
+                catch (System.Exception ex)
+                {
+                    try
+                    {
+                        transaccion.Rollback();
+                    }
+                    catch
+                    {
+                    }
+
+                    MessageBox.Show("Ocurrió un error inesperado al guardar el detalle.",
+                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                     return false;
                 }
             }
@@ -136,7 +255,8 @@ namespace Modelo.Entidades
                     // Agrega al stock la nueva cantidad
                     string agregarStock = @"UPDATE Material SET Stock = Stock + @CantidadNueva WHERE IdMaterial = @IdMaterialNuevo;";
 
-                    using (SqlCommand cmd = new SqlCommand(agregarStock, conexion, transaccion))
+                    using (SqlCommand cmd = new SqlCommand(
+                        agregarStock, conexion, transaccion))
                     {
                         cmd.Parameters.AddWithValue("@CantidadNueva", Cantidad1);
 
@@ -170,14 +290,77 @@ namespace Modelo.Entidades
                 }
                 catch (SqlException ex)
                 {
-                    transaccion.Rollback();
+                    try
+                    {
+                        transaccion.Rollback();
+                    }
+                    catch
+                    {
+                    }
 
-                    MessageBox.Show("Ocurrió un error al actualizar el detalle.\n\n" + ex.Message, "Error " + ex.Number, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    switch (ex.Number)
+                    {
+                        case 547:
+                            MessageBox.Show("El material o detalle seleccionado no existe.",
+                                "Error 547", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+
+                        case 515:
+                            MessageBox.Show("Faltan datos obligatorios para actualizar el detalle.",
+                                "Error 515", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+
+                        case 8115:
+                            MessageBox.Show("El precio o cantidad excede el límite permitido.",
+                                "Error 8115", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+
+                        case 245:
+                            MessageBox.Show("Uno de los datos ingresados tiene un formato incorrecto.",
+                                "Error 245", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+
+                        case 53:
+                            MessageBox.Show("No se pudo conectar con el servidor SQL.",
+                                "Error 53", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+
+                        case 4060:
+                            MessageBox.Show("No se pudo acceder a la base de datos.",
+                                "Error 4060", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+
+                        case -2:
+                            MessageBox.Show("La operación tardó demasiado tiempo.",
+                                "Error -2", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+
+                        default:
+                            MessageBox.Show("Ocurrió un error al actualizar el detalle.",
+                                "Error " + ex.Number, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+                    }
+
+                    return false;
+                }
+                catch (System.Exception ex)
+                {
+                    try
+                    {
+                        transaccion.Rollback();
+                    }
+                    catch
+                    {
+                    }
+
+                    MessageBox.Show("Ocurrió un error inesperado al actualizar el detalle.",
+                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                     return false;
                 }
             }
         }
+
         public bool EliminarDetalleCompra()
         {
             using (SqlConnection conexion = Conexion.Conectar())
@@ -211,6 +394,10 @@ namespace Modelo.Entidades
                         if (filas == 0)
                         {
                             transaccion.Rollback();
+
+                            MessageBox.Show("No se encontró el detalle de compra seleccionado.",
+                                "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
                             return false;
                         }
                     }
@@ -220,9 +407,56 @@ namespace Modelo.Entidades
                 }
                 catch (SqlException ex)
                 {
-                    transaccion.Rollback();
+                    try
+                    {
+                        transaccion.Rollback();
+                    }
+                    catch
+                    {
+                    }
 
-                    MessageBox.Show("Ocurrió un error al eliminar el detalle.\n\n" + ex.Message, "Error " + ex.Number, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    switch (ex.Number)
+                    {
+                        case 547:
+                            MessageBox.Show("No se puede eliminar el detalle porque tiene datos relacionados.",
+                                "Error 547", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+
+                        case 53:
+                            MessageBox.Show("No se pudo conectar con el servidor SQL.",
+                                "Error 53", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+
+                        case 4060:
+                            MessageBox.Show("No se pudo acceder a la base de datos.",
+                                "Error 4060", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+
+                        case -2:
+                            MessageBox.Show("La operación tardó demasiado tiempo.",
+                                "Error -2", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+
+                        default:
+                            MessageBox.Show("Ocurrió un error al eliminar el detalle de compra.",
+                                "Error " + ex.Number, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+                    }
+
+                    return false;
+                }
+                catch (System.Exception ex)
+                {
+                    try
+                    {
+                        transaccion.Rollback();
+                    }
+                    catch
+                    {
+                    }
+
+                    MessageBox.Show("Ocurrió un error inesperado al eliminar el detalle.",
+                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                     return false;
                 }
@@ -230,4 +464,3 @@ namespace Modelo.Entidades
         }
     }
 }
-

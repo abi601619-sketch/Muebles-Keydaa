@@ -53,9 +53,40 @@ namespace Modelo.Entidades
                     }
                 }
             }
+            catch (SqlException ex)
+            {
+                switch (ex.Number)
+                {
+                    case 208:
+                        MessageBox.Show("No se encontró la vista VerFacturas.",
+                            "Error 208", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 53:
+                        MessageBox.Show("No se pudo conectar con el servidor SQL.",
+                            "Error 53", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 4060:
+                        MessageBox.Show("No se pudo acceder a la base de datos.",
+                            "Error 4060", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case -2:
+                        MessageBox.Show("La operación tardó demasiado tiempo.",
+                            "Error -2", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    default:
+                        MessageBox.Show("Ocurrió un error al cargar las facturas.",
+                            "Error " + ex.Number, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                }
+            }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al cargar los registros de facturas: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Ocurrió un error inesperado al cargar las facturas.",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             return dt;
@@ -87,13 +118,63 @@ namespace Modelo.Entidades
                     return Convert.ToInt32(cmd.ExecuteScalar());
                 }
             }
+            catch (SqlException ex)
+            {
+                switch (ex.Number)
+                {
+                    case 2627:
+                    case 2601:
+                        MessageBox.Show("La factura ya existe en la base de datos.",
+                            "Error " + ex.Number, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+
+                    case 547:
+                        MessageBox.Show("La venta indicada no existe en la base de datos.",
+                            "Error 547", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+
+                    case 515:
+                        MessageBox.Show("Faltan datos obligatorios para guardar la factura.",
+                            "Error 515", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 8115:
+                        MessageBox.Show("El descuento excede el límite permitido.",
+                            "Error 8115", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 245:
+                        MessageBox.Show("Uno de los datos ingresados tiene un formato incorrecto.",
+                            "Error 245", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 53:
+                        MessageBox.Show("No se pudo conectar con el servidor SQL.",
+                            "Error 53", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 4060:
+                        MessageBox.Show("No se pudo acceder a la base de datos.",
+                            "Error 4060", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case -2:
+                        MessageBox.Show("La operación tardó demasiado tiempo.",
+                            "Error -2", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    default:
+                        MessageBox.Show("Ocurrió un error al insertar la factura.",
+                            "Error " + ex.Number, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                }
+
+                return 0;
+            }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error al insertar la factura: " + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                MessageBox.Show("Ocurrió un error inesperado al insertar la factura.",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 return 0;
             }
@@ -118,9 +199,40 @@ namespace Modelo.Entidades
                     }
                 }
             }
+            catch (SqlException ex)
+            {
+                switch (ex.Number)
+                {
+                    case 208:
+                        MessageBox.Show("No se encontró la vista VerVentasParaFactura.",
+                            "Error 208", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 53:
+                        MessageBox.Show("No se pudo conectar con el servidor SQL.",
+                            "Error 53", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 4060:
+                        MessageBox.Show("No se pudo acceder a la base de datos.",
+                            "Error 4060", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case -2:
+                        MessageBox.Show("La operación tardó demasiado tiempo.",
+                            "Error -2", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    default:
+                        MessageBox.Show("Ocurrió un error al buscar la venta para factura.",
+                            "Error " + ex.Number, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                }
+            }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al buscar la venta para factura: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Ocurrió un error inesperado al buscar la venta.",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             return dt;
@@ -146,9 +258,40 @@ namespace Modelo.Entidades
                     }
                 }
             }
+            catch (SqlException ex)
+            {
+                switch (ex.Number)
+                {
+                    case 208:
+                        MessageBox.Show("No se encontró la vista VerDetalleVenta.",
+                            "Error 208", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 53:
+                        MessageBox.Show("No se pudo conectar con el servidor SQL.",
+                            "Error 53", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 4060:
+                        MessageBox.Show("No se pudo acceder a la base de datos.",
+                            "Error 4060", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case -2:
+                        MessageBox.Show("La operación tardó demasiado tiempo.",
+                            "Error -2", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    default:
+                        MessageBox.Show("Ocurrió un error al cargar el detalle de la venta.",
+                            "Error " + ex.Number, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                }
+            }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al cargar el detalle de la venta: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Ocurrió un error inesperado al cargar el detalle.",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             return dt;
@@ -174,9 +317,40 @@ namespace Modelo.Entidades
                     }
                 }
             }
+            catch (SqlException ex)
+            {
+                switch (ex.Number)
+                {
+                    case 208:
+                        MessageBox.Show("No se encontró la vista VerFacturaEditar.",
+                            "Error 208", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 53:
+                        MessageBox.Show("No se pudo conectar con el servidor SQL.",
+                            "Error 53", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 4060:
+                        MessageBox.Show("No se pudo acceder a la base de datos.",
+                            "Error 4060", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case -2:
+                        MessageBox.Show("La operación tardó demasiado tiempo.",
+                            "Error -2", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    default:
+                        MessageBox.Show("Ocurrió un error al cargar la factura.",
+                            "Error " + ex.Number, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                }
+            }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al cargar la factura: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Ocurrió un error inesperado al cargar la factura.",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             return dt;
@@ -204,14 +378,69 @@ namespace Modelo.Entidades
 
                     cmd.Parameters.AddWithValue("@IdFactura", idFactura);
 
-                    cmd.ExecuteNonQuery();
+                    int filasAfectadas = cmd.ExecuteNonQuery();
 
-                    MessageBox.Show("Factura actualizada correctamente.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (filasAfectadas > 0)
+                    {
+                        MessageBox.Show("Factura actualizada correctamente.",
+                            "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se encontró la factura seleccionada.",
+                            "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                switch (ex.Number)
+                {
+                    case 547:
+                        MessageBox.Show("No se puede actualizar la factura por datos relacionados.",
+                            "Error 547", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 515:
+                        MessageBox.Show("Faltan datos obligatorios para actualizar la factura.",
+                            "Error 515", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 8115:
+                        MessageBox.Show("El descuento excede el límite permitido.",
+                            "Error 8115", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 245:
+                        MessageBox.Show("Uno de los datos ingresados tiene un formato incorrecto.",
+                            "Error 245", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 53:
+                        MessageBox.Show("No se pudo conectar con el servidor SQL.",
+                            "Error 53", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 4060:
+                        MessageBox.Show("No se pudo acceder a la base de datos.",
+                            "Error 4060", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case -2:
+                        MessageBox.Show("La operación tardó demasiado tiempo.",
+                            "Error -2", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    default:
+                        MessageBox.Show("Ocurrió un error al actualizar la factura.",
+                            "Error " + ex.Number, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al actualizar la factura: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Ocurrió un error inesperado al actualizar la factura.",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -228,7 +457,7 @@ namespace Modelo.Entidades
 
                     using (SqlCommand comando = new SqlCommand(consulta, conexion))
                     {
-                        comando.Parameters.AddWithValue("@Texto", texto);
+                        comando.Parameters.AddWithValue("@Texto", texto ?? "");
 
                         using (SqlDataAdapter adaptador = new SqlDataAdapter(comando))
                         {
@@ -236,9 +465,40 @@ namespace Modelo.Entidades
                         }
                     }
                 }
-                catch (Exception ex)
+                catch (SqlException ex)
                 {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    switch (ex.Number)
+                    {
+                        case 208:
+                            MessageBox.Show("No se encontró la vista VerFacturas.",
+                                "Error 208", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+
+                        case 53:
+                            MessageBox.Show("No se pudo conectar con el servidor SQL.",
+                                "Error 53", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+
+                        case 4060:
+                            MessageBox.Show("No se pudo acceder a la base de datos.",
+                                "Error 4060", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+
+                        case -2:
+                            MessageBox.Show("La operación tardó demasiado tiempo.",
+                                "Error -2", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+
+                        default:
+                            MessageBox.Show("Ocurrió un error al buscar las facturas.",
+                                "Error " + ex.Number, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+                    }
+                }
+                catch (System.Exception ex)
+                {
+                    MessageBox.Show("Ocurrió un error inesperado al buscar las facturas.",
+                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
 
