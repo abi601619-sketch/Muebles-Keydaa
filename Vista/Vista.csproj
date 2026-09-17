@@ -222,6 +222,7 @@
     <Compile Include="Login\frmLogin.Designer.cs">
       <DependentUpon>frmLogin.cs</DependentUpon>
     </Compile>
+    <Compile Include="Modelo\Entidades\ComprasDb.cs" />
     <Compile Include="Pedidos Secretario\frmDetallePedidoSecretario.cs">
       <SubType>Form</SubType>
     </Compile>

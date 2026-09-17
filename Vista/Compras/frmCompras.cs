@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
 using Vista.Responsive;
 
@@ -581,7 +580,7 @@ namespace Vista.Compras
             DialogResult res = MessageBox.Show("¿Desea eliminar esta compra y todos sus materiales? Se revertirá el inventario que sumó esta compra, conservando los demás movimientos.", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
             if (res == DialogResult.Yes)
             {
-                Modelo.Entidades.ComprasDb compra = new Modelo.Entidades.ComprasDb();
+                ComprasDb compra = new ComprasDb();
                 compra.IdCompra1 = idCompraSeleccionada;
                 if (compra.EliminarCompra())
                 {
