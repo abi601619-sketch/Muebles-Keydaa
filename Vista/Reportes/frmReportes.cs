@@ -26,31 +26,70 @@ namespace Vista.Reportes
 
         private void btnClientes_Click(object sender, EventArgs e)
         {
-
-            pnlReporteDeClientes.Visible = true;
+            //Ventas
             pnlReportesVentas.Visible = false;
-            pnlBarraCambioVentas.Visible = true;
-            pnlBarraCambiosCotizaciones.Visible = false;
-            btnConsultarVentas.Visible = false;
-            btnConsultar.Visible = true;
-            btnExportarReporteClientes.Visible = true;
+            pnlBarraCambioVentas.Visible = false;
             btnExportarReporteVentas.Visible = false;
+            btnConsultarVentas.Visible = false;
+
+            //Clientes
+            btnConsultar.Visible = true;
+            pnlBarraCambiosClientes.Visible = true;
+            pnlReporteDeClientes.Visible = true;
+            btnExportarReporteClientes.Visible = true;
+
+
+            //Cotizaciones
+            pnlBarraCambiosCotizaciones.Visible = false;
+            pnlReporteCotizaciones.Visible = false;
+            btnConsultarCotizaciones.Visible = false;
+            btnExportarCotizaciones.Visible = false;
 
 
         }
 
         private void btnVentas_Click(object sender, EventArgs e)
         {
-            pnlReporteDeClientes.Visible = false;
+            //Ventas
             pnlReportesVentas.Visible = true;
-            pnlBarraCambiosCotizaciones.Visible = true;
-            pnlBarraCambioVentas.Visible = false;
-            btnConsultarVentas.Visible = true;
-            btnConsultar.Visible = false;
-            btnExportarReporteClientes.Visible = false;
+            pnlBarraCambioVentas.Visible = true;
             btnExportarReporteVentas.Visible = true;
-        }
+            btnConsultarVentas.Visible = true;
 
+            //Clientes
+            btnConsultar.Visible = false;
+            pnlBarraCambiosClientes.Visible = false;
+            pnlReporteDeClientes.Visible = false;
+            btnExportarReporteClientes.Visible = false;
+
+
+            //Cotizaciones
+            pnlBarraCambiosCotizaciones.Visible = false;
+            pnlReporteCotizaciones.Visible = false;
+            btnConsultarCotizaciones.Visible = false;
+            btnExportarCotizaciones.Visible = false;
+        }
+        private void btnCotizaciones_Click(object sender, EventArgs e)
+        {
+            //Ventas
+            pnlReportesVentas.Visible = false;
+            pnlBarraCambioVentas.Visible = false;
+            btnExportarReporteVentas.Visible = false;
+            btnConsultarVentas.Visible = false;
+
+            //Clientes
+            btnConsultar.Visible = false;
+            pnlBarraCambiosClientes.Visible = false;
+            pnlReporteDeClientes.Visible = false;
+            btnExportarReporteClientes.Visible = false;
+
+
+            //Cotizaciones
+            pnlBarraCambiosCotizaciones.Visible = true;
+            pnlReporteCotizaciones.Visible = true;
+            btnConsultarCotizaciones.Visible = true;
+            btnExportarCotizaciones.Visible = true;
+        }
         public void CargarReporteClientes()
         {
             dgvReporteClientes.DataSource = null;
@@ -73,7 +112,24 @@ namespace Vista.Reportes
             dtpFechaFin.MaxDate = DateTime.Today;
             dtpFechaInicio.MaxDate = DateTime.Now;
 
+            //Ventas
+            pnlReportesVentas.Visible = false;
+            pnlBarraCambioVentas.Visible = false;
+            btnExportarReporteVentas.Visible = false;
+            btnConsultarVentas.Visible = false;
 
+            //Clientes
+            btnConsultar.Visible = true;
+            pnlBarraCambiosClientes.Visible = true;
+            pnlReporteDeClientes.Visible = true;
+            btnExportarReporteClientes.Visible = true;
+
+
+            //Cotizaciones
+            pnlBarraCambiosCotizaciones.Visible = false;
+            pnlReporteCotizaciones.Visible = false;
+            btnConsultarCotizaciones.Visible = false;
+            btnExportarCotizaciones.Visible = false;
 
 
             dgvReporteVentas.Columns["IdVenta"].HeaderText = "N° de Venta";
@@ -509,6 +565,8 @@ namespace Vista.Reportes
                 );
             }
         }
+
+
     }
 }
 
