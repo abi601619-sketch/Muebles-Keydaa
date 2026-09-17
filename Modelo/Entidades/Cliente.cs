@@ -50,83 +50,207 @@ namespace Modelo.Entidades
 
         public static DataTable CargarCorporativos()
         {
-            SqlConnection conectar = Conexion.Conectar();
-            string comando = "SELECT IdCliente,Identificador1 AS Nombre_De_Empresa,Identificador2 AS Nombre_Del_Encargado,Documento AS NIT,Telefono,Correo,Direccion,Estado FROM Cliente \r\nWHERE IdTipoCliente =1; ";
-            SqlDataAdapter adapter = new SqlDataAdapter(comando, conectar);
             DataTable dt = new DataTable();
-            adapter.Fill(dt);
+
+            try
+            {
+                using (SqlConnection conectar = Conexion.Conectar())
+                {
+                    string comando = @"SELECT  IdCliente,  Identificador1 AS Nombre_De_Empresa, Identificador2 AS Nombre_Del_Encargado,  Documento AS NIT, Telefono, Correo, Direccion, Estado FROM Cliente
+                               WHERE IdTipoCliente = 1;";
+
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(comando, conectar))
+                    {
+                        adapter.Fill(dt);
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                switch (ex.Number)
+                {
+                    case 53:
+                        MessageBox.Show("No se pudo establecer conexión con el servidor de base de datos.", "Error de conexión",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 4060:
+                        MessageBox.Show("No se pudo acceder a la base de datos.", "Error de base de datos",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case -2:
+                        MessageBox.Show("La operación tardó demasiado tiempo. Intente nuevamente.", "Tiempo de espera agotado",
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+
+                    default:
+                        MessageBox.Show("Ocurrió un error al cargar los clientes corporativos.\n\n" + "Código: " + ex.Number + "\nDetalle: " + ex.Message, "Error de base de datos",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ocurrió un error inesperado al cargar los clientes corporativos.\n\n" + ex.Message, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
             return dt;
         }
+
+
         public static DataTable CargarIndividuales()
         {
-            SqlConnection conectar = Conexion.Conectar();
-            string comando = "SELECT IdCliente,Identificador1 AS Nombre,Identificador2 AS Apellidos,Documento AS DUI,Telefono,Correo,Direccion,Estado  FROM Cliente \r\nWHERE IdTipoCliente =2;";
-            SqlDataAdapter adapter = new SqlDataAdapter(comando, conectar);
-            DataTable DT = new DataTable();
-            adapter.Fill(DT);
-            return DT;
+            DataTable dt = new DataTable();
+
+            try
+            {
+                using (SqlConnection conectar = Conexion.Conectar())
+                {
+                    string comando = @"SELECT  IdCliente,Identificador1 AS Nombre,Identificador2 AS Apellidos,Documento AS DUI,Telefono, Correo, Direccion, Estado
+                               FROM Cliente WHERE IdTipoCliente = 2;";
+
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(comando, conectar))
+                    {
+                        adapter.Fill(dt);
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                switch (ex.Number)
+                {
+                    case 53:
+                        MessageBox.Show("No se pudo establecer conexión con el servidor de base de datos.", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 4060:
+                        MessageBox.Show("No se pudo acceder a la base de datos.", "Error de base de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case -2:
+                        MessageBox.Show("La operación tardó demasiado tiempo. Intente nuevamente.", "Tiempo de espera agotado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+
+                    default:
+                        MessageBox.Show("Ocurrió un error al cargar los clientes individuales.\n\n" + "Código: " + ex.Number + "\nDetalle: " + ex.Message, "Error de base de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ocurrió un error inesperado al cargar los clientes individuales.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            return dt;
         }
-        public static DataTable CargarTodosLosClientes()
-        {
-            SqlConnection conectar = Conexion.Conectar();
-            string comando = "SELECT IdCliente, CASE WHEN IdTipoCliente = 1 THEN Identificador1 + ' - ' + Identificador2 WHEN IdTipoCliente = 2 THEN Identificador1 + ' ' + Identificador2 END AS NombreCliente FROM Cliente WHERE IdTipoCliente IN (1, 2)";
-            SqlDataAdapter adapter = new SqlDataAdapter(comando, conectar);
-            DataTable DT = new DataTable();
-            adapter.Fill(DT);
-            return DT;
-        }
+
         public bool InsertarClienteIndividual()
         {
-            string comandoSQL = "INSERT INTO Cliente(IdTipoCliente,Identificador1,Identificador2,Documento,Telefono,Correo,Direccion,Estado)" +
-                "VALUES (@IdTipoCliente,@Identificador1,@Identificador2,@Documento,@Telefono,@Correo,@Direccion,@Estado);";
+            string comandoSQL = @"INSERT INTO Cliente(IdTipoCliente, Identificador1, Identificador2,Documento, Telefono, Correo, Direccion, Estado)
+                         VALUES(@IdTipoCliente, @Identificador1, @Identificador2, @Documento, @Telefono, @Correo, @Direccion, @Estado);";
 
-            using (SqlConnection conexion = Conexion.Conectar())
+            try
             {
-                using (SqlCommand comandoObjeto = new SqlCommand(comandoSQL, conexion))
+                using (SqlConnection conexion = Conexion.Conectar())
                 {
-                    // Agregan los parámetros
-                    comandoObjeto.Parameters.AddWithValue("@IdTipoCliente", TipoCliente);
-                    comandoObjeto.Parameters.AddWithValue("@Identificador1", Identificador1);
-                    comandoObjeto.Parameters.AddWithValue("@Identificador2", Identificador2);
-                    comandoObjeto.Parameters.AddWithValue("@Documento", Documento);
-                    comandoObjeto.Parameters.AddWithValue("@Telefono", Telefono);
-                    comandoObjeto.Parameters.AddWithValue("@Correo", Correo);
-                    comandoObjeto.Parameters.AddWithValue("@Direccion", Direccion);
-                    comandoObjeto.Parameters.AddWithValue("@Estado", Estado);
-
-                    try
+                    using (SqlCommand comandoObjeto = new SqlCommand(comandoSQL, conexion))
                     {
+                        comandoObjeto.Parameters.AddWithValue("@IdTipoCliente", TipoCliente);
+                        comandoObjeto.Parameters.AddWithValue("@Identificador1", Identificador1);
+                        comandoObjeto.Parameters.AddWithValue("@Identificador2", Identificador2);
+                        comandoObjeto.Parameters.AddWithValue("@Documento", Documento);
+                        comandoObjeto.Parameters.AddWithValue("@Telefono", Telefono);
+                        comandoObjeto.Parameters.AddWithValue("@Correo", Correo);
+                        comandoObjeto.Parameters.AddWithValue("@Direccion", Direccion);
+                        comandoObjeto.Parameters.AddWithValue("@Estado", Estado);
+
                         int filaAfectada = comandoObjeto.ExecuteNonQuery();
 
                         return filaAfectada > 0;
                     }
-                    catch (SqlException ex)
-                    {
-                        switch (ex.Number)
-                        {
-                            case 2627:
-                            case 2601:
-
-                                MessageBox.Show("El identificador del cliente ya existe en la base de datos. Por favor verifique los datos.", "Registro Duplicado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
-                                break;
-
-                            default:
-
-                                MessageBox.Show(
-                                    "Ocurrió un error inesperado en la base de datos " + ex.Message,
-                                    "Error " + ex.Number,
-                                    MessageBoxButtons.OK,
-                                    MessageBoxIcon.Warning);
-
-                                break;
-                        }
-
-                        return false;
-                    }
                 }
             }
+            catch (SqlException ex)
+            {
+                switch (ex.Number)
+                {
+                    case 2627:
+                    case 2601:
+
+                        MessageBox.Show("El identificador o documento del cliente ya existe en la base de datos.", "Registro duplicado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+
+                    case 547:
+
+                        MessageBox.Show("No se puede registrar el cliente porque el tipo de cliente seleccionado no existe.", "Error de relación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+
+                    case 515:
+
+                        MessageBox.Show("No se puede registrar el cliente porque uno de los campos obligatorios está vacío.", "Datos incompletos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+
+                    case 245:
+
+                        MessageBox.Show("Uno de los datos proporcionados tiene un formato incorrecto.", "Error de formato", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+
+                    case 53:
+
+                        MessageBox.Show(
+                            "No se pudo establecer conexión con el servidor de base de datos.",
+                            "Error de conexión",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
+
+                    case 4060:
+
+                        MessageBox.Show(
+                            "No se pudo acceder a la base de datos.",
+                            "Error de base de datos",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
+
+                    case -2:
+
+                        MessageBox.Show(
+                            "La operación tardó demasiado tiempo. Intente nuevamente.",
+                            "Tiempo de espera agotado",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning);
+                        break;
+
+                    default:
+
+                        MessageBox.Show(
+                            "Ocurrió un error inesperado en la base de datos.\n\n" +
+                            "Código: " + ex.Number +
+                            "\nDetalle: " + ex.Message,
+                            "Error de base de datos",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
+                }
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Ocurrió un error inesperado al registrar el cliente.\n\n" +
+                    ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+
+                return false;
+            }
         }
+
 
         public bool InsertarClienteCorporativo()
         {
@@ -164,16 +288,89 @@ namespace Modelo.Entidades
                             case 2627:
                             case 2601:
 
-                                MessageBox.Show("El identificador del cliente ya existe en la base de datos. Por favor verifique los datos.", "Registro Duplicado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                MessageBox.Show(
+                                    "El identificador o documento del cliente ya existe.",
+                                    "Registro duplicado",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Warning);
+                                break;
 
+                            case 547:
+
+                                MessageBox.Show(
+                                    "No se puede actualizar el cliente porque el tipo de cliente seleccionado no existe.",
+                                    "Error de relación",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Warning);
+                                break;
+
+                            case 515:
+
+                                MessageBox.Show(
+                                    "No se puede actualizar el cliente porque uno de los campos obligatorios está vacío.",
+                                    "Datos incompletos",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Warning);
+                                break;
+
+                            case 245:
+
+                                MessageBox.Show(
+                                    "Uno de los datos proporcionados tiene un formato incorrecto.",
+                                    "Error de formato",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Warning);
+                                break;
+
+                            case 53:
+
+                                MessageBox.Show(
+                                    "No se pudo establecer conexión con el servidor de base de datos.",
+                                    "Error de conexión",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+                                break;
+
+                            case 4060:
+
+                                MessageBox.Show(
+                                    "No se pudo acceder a la base de datos.",
+                                    "Error de base de datos",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+                                break;
+
+                            case -2:
+
+                                MessageBox.Show(
+                                    "La operación tardó demasiado tiempo.",
+                                    "Tiempo de espera agotado",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Warning);
                                 break;
 
                             default:
 
-                                MessageBox.Show("Ocurrió un error inesperado en la base de datos " + ex.Message, "Error " + ex.Number, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
+                                MessageBox.Show(
+                                    "Ocurrió un error inesperado en la base de datos.\n\n" +
+                                    "Código: " + ex.Number +
+                                    "\nDetalle: " + ex.Message,
+                                    "Error de base de datos",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
                                 break;
                         }
+
+                        return false;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(
+                            "Ocurrió un error inesperado al actualizar el cliente.\n\n" +
+                            ex.Message,
+                            "Error",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
 
                         return false;
                     }
@@ -198,92 +395,333 @@ namespace Modelo.Entidades
 
         public bool ActualizarCliente()
         {
-            string comandoSQL = "UPDATE Cliente SET " + "IdTipoCliente = @IdTipoCliente, " + "Identificador1 = @Identificador1, " + "Identificador2 = @Identificador2, " + "Documento = @Documento, " +
-                "Telefono = @Telefono, " + "Correo = @Correo, " + "Direccion = @Direccion, " + "Estado = @Estado " + "WHERE IdCliente = @IdCliente;";
+            string comandoSQL = @" UPDATE Cliente SET IdTipoCliente = @IdTipoCliente, Identificador1 = @Identificador1, Identificador2 = @Identificador2, Documento = @Documento,
+                Telefono = @Telefono, Correo = @Correo, Direccion = @Direccion, Estado = @Estado WHERE IdCliente = @IdCliente;";
 
-            using (SqlConnection conexion = Conexion.Conectar())
+            try
             {
-                using (SqlCommand comandoObjeto = new SqlCommand(comandoSQL, conexion))
+                using (SqlConnection conexion = Conexion.Conectar())
                 {
-                    comandoObjeto.Parameters.AddWithValue("@IdCliente", IdCliente);
-                    comandoObjeto.Parameters.AddWithValue("@IdTipoCliente", TipoCliente);
-                    comandoObjeto.Parameters.AddWithValue("@Identificador1", Identificador1);
-                    comandoObjeto.Parameters.AddWithValue("@Identificador2", Identificador2);
-                    comandoObjeto.Parameters.AddWithValue("@Documento", Documento);
-                    comandoObjeto.Parameters.AddWithValue("@Telefono", Telefono);
-                    comandoObjeto.Parameters.AddWithValue("@Correo", Correo);
-                    comandoObjeto.Parameters.AddWithValue("@Direccion", Direccion);
-                    comandoObjeto.Parameters.AddWithValue("@Estado", Estado);
-
-                    try
+                    using (SqlCommand comandoObjeto = new SqlCommand(comandoSQL, conexion))
                     {
+                        comandoObjeto.Parameters.AddWithValue("@IdCliente", IdCliente);
+
+                        comandoObjeto.Parameters.AddWithValue(
+                            "@IdTipoCliente", TipoCliente);
+
+                        comandoObjeto.Parameters.AddWithValue(
+                            "@Identificador1", Identificador1);
+
+                        comandoObjeto.Parameters.AddWithValue(
+                            "@Identificador2", Identificador2);
+
+                        comandoObjeto.Parameters.AddWithValue(
+                            "@Documento", Documento);
+
+                        comandoObjeto.Parameters.AddWithValue(
+                            "@Telefono", Telefono);
+
+                        comandoObjeto.Parameters.AddWithValue(
+                            "@Correo", Correo);
+
+                        comandoObjeto.Parameters.AddWithValue(
+                            "@Direccion", Direccion);
+
+                        comandoObjeto.Parameters.AddWithValue(
+                            "@Estado", Estado);
+
                         int filaAfectada = comandoObjeto.ExecuteNonQuery();
 
                         return filaAfectada > 0;
                     }
-                    catch (SqlException ex)
-                    {
-                        switch (ex.Number)
-                        {
-                            case 2627:
-                            case 2601:
-
-                                MessageBox.Show("El identificador del cliente ya existe en la base de datos. Por favor verifique los datos.", "Registro Duplicado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
-                                break;
-
-                            default:
-
-                                MessageBox.Show("Ocurrió un error inesperado en la base de datos " + ex.Message, "Error " + ex.Number, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
-                                break;
-                        }
-
-                        return false;
-                    }
                 }
             }
+            catch (SqlException ex)
+            {
+                switch (ex.Number)
+                {
+                    case 2627:
+                    case 2601:
+
+                        MessageBox.Show(
+                            "El identificador o documento del cliente ya existe.",
+                            "Registro duplicado",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning);
+
+                        break;
+
+                    case 547:
+
+                        MessageBox.Show(
+                            "No se puede actualizar el cliente porque el tipo de cliente seleccionado no existe.",
+                            "Error de relación",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning);
+
+                        break;
+
+                    case 515:
+
+                        MessageBox.Show(
+                            "No se puede actualizar el cliente porque uno de los campos obligatorios está vacío.",
+                            "Datos incompletos",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning);
+
+                        break;
+
+                    case 245:
+
+                        MessageBox.Show(
+                            "Uno de los datos proporcionados tiene un formato incorrecto.",
+                            "Error de formato",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning);
+
+                        break;
+
+                    case 53:
+
+                        MessageBox.Show(
+                            "No se pudo establecer conexión con el servidor de base de datos.",
+                            "Error de conexión",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+
+                        break;
+
+                    case 4060:
+
+                        MessageBox.Show(
+                            "No se pudo acceder a la base de datos.",
+                            "Error de base de datos",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+
+                        break;
+
+                    case -2:
+
+                        MessageBox.Show(
+                            "La operación tardó demasiado tiempo.",
+                            "Tiempo de espera agotado",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning);
+
+                        break;
+
+                    default:
+
+                        MessageBox.Show(
+                            "Ocurrió un error inesperado en la base de datos.\n\n" +
+                            "Código: " + ex.Number +
+                            "\nDetalle: " + ex.Message,
+                            "Error de base de datos",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+
+                        break;
+                }
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Ocurrió un error inesperado al actualizar el cliente.\n\n" +
+                    ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+
+                return false;
+            }
         }
+
         public static int ContarClientesTotales()
         {
             int total = 0;
-            using (SqlConnection conexion = Conexion.Conectar())
+
+            try
             {
-                string comandoSQL = "SELECT COUNT(*) FROM Cliente;";
-                using (SqlCommand comandoObjeto = new SqlCommand(comandoSQL, conexion))
+                using (SqlConnection conexion = Conexion.Conectar())
                 {
-                    total = Convert.ToInt32(comandoObjeto.ExecuteScalar());
+                    string comandoSQL = "SELECT COUNT(*) FROM Cliente;";
+
+                    using (SqlCommand comandoObjeto = new SqlCommand(comandoSQL, conexion))
+                    {
+                        total = Convert.ToInt32(comandoObjeto.ExecuteScalar());
+                    }
                 }
             }
+            catch (SqlException ex)
+            {
+                switch (ex.Number)
+                {
+                    case 53:
+                        MessageBox.Show("No se pudo establecer conexión con el servidor.", "Error de conexión",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 4060:
+                        MessageBox.Show("No se pudo acceder a la base de datos.", "Error de base de datos",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case -2:
+                        MessageBox.Show("La consulta tardó demasiado tiempo.", "Tiempo de espera agotado",
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+
+                    default:
+                        MessageBox.Show("Ocurrió un error al contar los clientes.\n\n" + "Código: " + ex.Number + "\nDetalle: " + ex.Message, "Error de base de datos",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ocurrió un error inesperado al contar los clientes.\n\n" + ex.Message, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
             return total;
         }
+
 
         public static int ContarClientesActivos()
         {
             int total = 0;
-            using (SqlConnection conexion = Conexion.Conectar())
 
+            try
             {
-                string comandoSQL = "SELECT COUNT(*) FROM Cliente WHERE Estado = 'Activo';";
-                using (SqlCommand comandoObjeto = new SqlCommand(comandoSQL, conexion))
+                using (SqlConnection conexion = Conexion.Conectar())
                 {
-                    total = Convert.ToInt32(comandoObjeto.ExecuteScalar());
+                    string comandoSQL = "SELECT COUNT(*) FROM Cliente WHERE Estado = 'Activo';";
+
+                    using (SqlCommand comandoObjeto = new SqlCommand(comandoSQL, conexion))
+                    {
+                        total = Convert.ToInt32(comandoObjeto.ExecuteScalar());
+                    }
                 }
             }
+            catch (SqlException ex)
+            {
+                switch (ex.Number)
+                {
+                    case 53:
+                        MessageBox.Show("No se pudo establecer conexión con el servidor.", "Error de conexión",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 4060:
+                        MessageBox.Show(
+                            "No se pudo acceder a la base de datos.",
+                            "Error de base de datos",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
+
+                    case -2:
+                        MessageBox.Show(
+                            "La consulta tardó demasiado tiempo.",
+                            "Tiempo de espera agotado",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning);
+                        break;
+
+                    default:
+                        MessageBox.Show(
+                            "Ocurrió un error al contar los clientes activos.\n\n" +
+                            "Código: " + ex.Number +
+                            "\nDetalle: " + ex.Message,
+                            "Error de base de datos",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Ocurrió un error inesperado al contar los clientes activos.\n\n" +
+                    ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+
             return total;
         }
+
 
         public static int ContarClientesInactivos()
         {
             int total = 0;
-            using (SqlConnection conexion = Conexion.Conectar())
+
+            try
             {
-                string comandoSQL = "SELECT COUNT(*) FROM Cliente WHERE Estado = 'Inactivo';";
-                using (SqlCommand comandoObjeto = new SqlCommand(comandoSQL, conexion))
+                using (SqlConnection conexion = Conexion.Conectar())
                 {
-                    total = Convert.ToInt32(comandoObjeto.ExecuteScalar());
+                    string comandoSQL =
+                        "SELECT COUNT(*) FROM Cliente WHERE Estado = 'Inactivo';";
+
+                    using (SqlCommand comandoObjeto = new SqlCommand(comandoSQL, conexion))
+                    {
+                        total = Convert.ToInt32(comandoObjeto.ExecuteScalar());
+                    }
                 }
             }
+            catch (SqlException ex)
+            {
+                switch (ex.Number)
+                {
+                    case 53:
+                        MessageBox.Show(
+                            "No se pudo establecer conexión con el servidor.",
+                            "Error de conexión",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
+
+                    case 4060:
+                        MessageBox.Show(
+                            "No se pudo acceder a la base de datos.",
+                            "Error de base de datos",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
+
+                    case -2:
+                        MessageBox.Show(
+                            "La consulta tardó demasiado tiempo.",
+                            "Tiempo de espera agotado",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning);
+                        break;
+
+                    default:
+                        MessageBox.Show(
+                            "Ocurrió un error al contar los clientes inactivos.\n\n" +
+                            "Código: " + ex.Number +
+                            "\nDetalle: " + ex.Message,
+                            "Error de base de datos",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Ocurrió un error inesperado al contar los clientes inactivos.\n\n" +
+                    ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+
             return total;
         }
 
@@ -291,46 +729,196 @@ namespace Modelo.Entidades
         {
             DataTable dt = new DataTable();
 
-            using (SqlConnection conexion = Conexion.Conectar())
+            try
             {
-                string consulta = @"SELECT * FROM BuscarClientesIndividuales
-                WHERE
-                Nombre LIKE '%' + @Texto + '%'
-                OR Apellidos LIKE '%' + @Texto + '%'
-                OR DUI LIKE '%' + @Texto + '%'
-                OR Telefono LIKE '%' + @Texto + '%'
-                OR Correo LIKE '%' + @Texto + '%'
-                OR Direccion LIKE '%' + @Texto + '%'";
-
-                using (SqlDataAdapter adapter = new SqlDataAdapter(consulta, conexion))
+                using (SqlConnection conexion = Conexion.Conectar())
                 {
-                    adapter.SelectCommand.Parameters.AddWithValue("@Texto", texto);
-                    adapter.Fill(dt);
+                    string consulta = @"
+                    SELECT *
+                    FROM BuscarClientesIndividuales
+                    WHERE
+                        Nombre LIKE '%' + @Texto + '%'
+                        OR Apellidos LIKE '%' + @Texto + '%'
+                        OR DUI LIKE '%' + @Texto + '%'
+                        OR Telefono LIKE '%' + @Texto + '%'
+                        OR Correo LIKE '%' + @Texto + '%'
+                        OR Direccion LIKE '%' + @Texto + '%';";
+
+                    using (SqlDataAdapter adapter =
+                           new SqlDataAdapter(consulta, conexion))
+                    {
+                        adapter.SelectCommand.Parameters.AddWithValue(
+                            "@Texto", texto ?? "");
+
+                        adapter.Fill(dt);
+                    }
                 }
+            }
+            catch (SqlException ex)
+            {
+                switch (ex.Number)
+                {
+                    case 53:
+
+                        MessageBox.Show(
+                            "No se pudo establecer conexión con el servidor.",
+                            "Error de conexión",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+
+                        break;
+
+                    case 4060:
+
+                        MessageBox.Show(
+                            "No se pudo acceder a la base de datos.",
+                            "Error de base de datos",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+
+                        break;
+
+                    case -2:
+
+                        MessageBox.Show(
+                            "La búsqueda tardó demasiado tiempo.",
+                            "Tiempo de espera agotado",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning);
+
+                        break;
+
+                    case 208:
+
+                        MessageBox.Show(
+                            "No se encontró la vista BuscarClientesIndividuales en la base de datos.",
+                            "Objeto no encontrado",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+
+                        break;
+
+                    default:
+
+                        MessageBox.Show(
+                            "Ocurrió un error al buscar clientes individuales.\n\n" +
+                            "Código: " + ex.Number +
+                            "\nDetalle: " + ex.Message,
+                            "Error de base de datos",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Ocurrió un error inesperado al buscar clientes individuales.\n\n" +
+                    ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
             }
 
             return dt;
         }
 
+
         public static DataTable BuscarClienteCorporativo(string texto)
         {
             DataTable dt = new DataTable();
 
-            using (SqlConnection conexion = Conexion.Conectar())
+            try
             {
-                string consulta = @"SELECT * FROM BuscarClientesCorporativos
-                WHERE [Empresa] LIKE '%' + @Texto + '%'
-                OR Encargado LIKE '%' + @Texto + '%'
-                OR NIT LIKE '%' + @Texto + '%'
-                OR Telefono LIKE '%' + @Texto + '%'
-                OR Correo LIKE '%' + @Texto + '%'
-                OR Direccion LIKE '%' + @Texto + '%'";
-
-                using (SqlDataAdapter adapter = new SqlDataAdapter(consulta, conexion))
+                using (SqlConnection conexion = Conexion.Conectar())
                 {
-                    adapter.SelectCommand.Parameters.AddWithValue("@Texto", texto);
-                    adapter.Fill(dt);
+                    string consulta = @"
+                    SELECT *
+                    FROM BuscarClientesCorporativos
+                    WHERE
+                        [Empresa] LIKE '%' + @Texto + '%'
+                        OR Encargado LIKE '%' + @Texto + '%'
+                        OR NIT LIKE '%' + @Texto + '%'
+                        OR Telefono LIKE '%' + @Texto + '%'
+                        OR Correo LIKE '%' + @Texto + '%'
+                        OR Direccion LIKE '%' + @Texto + '%';";
+
+                    using (SqlDataAdapter adapter =
+                           new SqlDataAdapter(consulta, conexion))
+                    {
+                        adapter.SelectCommand.Parameters.AddWithValue(
+                            "@Texto", texto ?? "");
+
+                        adapter.Fill(dt);
+                    }
                 }
+            }
+            catch (SqlException ex)
+            {
+                switch (ex.Number)
+                {
+                    case 53:
+
+                        MessageBox.Show(
+                            "No se pudo establecer conexión con el servidor.",
+                            "Error de conexión",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+
+                        break;
+
+                    case 4060:
+
+                        MessageBox.Show(
+                            "No se pudo acceder a la base de datos.",
+                            "Error de base de datos",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+
+                        break;
+
+                    case -2:
+
+                        MessageBox.Show(
+                            "La búsqueda tardó demasiado tiempo.",
+                            "Tiempo de espera agotado",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning);
+
+                        break;
+
+                    case 208:
+
+                        MessageBox.Show(
+                            "No se encontró la vista BuscarClientesCorporativos en la base de datos.",
+                            "Objeto no encontrado",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+
+                        break;
+
+                    default:
+
+                        MessageBox.Show(
+                            "Ocurrió un error al buscar clientes corporativos.\n\n" +
+                            "Código: " + ex.Number +
+                            "\nDetalle: " + ex.Message,
+                            "Error de base de datos",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Ocurrió un error inesperado al buscar clientes corporativos.\n\n" +
+                    ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
             }
 
             return dt;
@@ -344,27 +932,93 @@ namespace Modelo.Entidades
             {
                 using (SqlConnection conexion = Conexion.Conectar())
                 {
-                    string consulta = @"SELECT * FROM SeleccionClientes
-                    WHERE Cliente LIKE '%' + @Texto + '%'
-                    OR Telefono LIKE '%' + @Texto + '%'
-                    OR Correo LIKE '%' + @Texto + '%'
-                    OR Direccion LIKE '%' + @Texto + '%'";
+                    string consulta = @"
+                    SELECT *
+                    FROM SeleccionClientes
+                    WHERE
+                        Cliente LIKE '%' + @Texto + '%'
+                        OR Telefono LIKE '%' + @Texto + '%'
+                        OR Correo LIKE '%' + @Texto + '%'
+                        OR Direccion LIKE '%' + @Texto + '%';";
 
-                    using (SqlDataAdapter adapter = new SqlDataAdapter(consulta, conexion))
+                    using (SqlDataAdapter adapter =
+                           new SqlDataAdapter(consulta, conexion))
                     {
-                        adapter.SelectCommand.Parameters.AddWithValue("@Texto", texto);
+                        adapter.SelectCommand.Parameters.AddWithValue(
+                            "@Texto", texto ?? "");
 
                         adapter.Fill(dt);
                     }
                 }
             }
+            catch (SqlException ex)
+            {
+                switch (ex.Number)
+                {
+                    case 53:
+
+                        MessageBox.Show(
+                            "No se pudo establecer conexión con el servidor.",
+                            "Error de conexión",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+
+                        break;
+
+                    case 4060:
+
+                        MessageBox.Show(
+                            "No se pudo acceder a la base de datos.",
+                            "Error de base de datos",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+
+                        break;
+
+                    case -2:
+
+                        MessageBox.Show(
+                            "La búsqueda tardó demasiado tiempo.",
+                            "Tiempo de espera agotado",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning);
+
+                        break;
+
+                    case 208:
+
+                        MessageBox.Show(
+                            "No se encontró la vista SeleccionClientes en la base de datos.",
+                            "Objeto no encontrado",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+
+                        break;
+
+                    default:
+
+                        MessageBox.Show(
+                            "Ocurrió un error al buscar clientes.\n\n" +
+                            "Código: " + ex.Number +
+                            "\nDetalle: " + ex.Message,
+                            "Error de base de datos",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+
+                        break;
+                }
+            }
             catch (Exception ex)
             {
-                MessageBox.Show("Ocurrió un error al buscar clientes: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(
+                    "Ocurrió un error inesperado al buscar clientes.\n\n" +
+                    ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
             }
 
             return dt;
         }
-
     }
 }
