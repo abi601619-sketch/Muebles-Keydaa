@@ -222,7 +222,6 @@
     <Compile Include="Login\frmLogin.Designer.cs">
       <DependentUpon>frmLogin.cs</DependentUpon>
     </Compile>
-    <Compile Include="Modelo\Entidades\ComprasDb.cs" />
     <Compile Include="Pedidos Secretario\frmDetallePedidoSecretario.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -278,6 +277,12 @@
       <DependentUpon>frmProduccion.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
+    <Compile Include="Recuperar Contraseña\frmRecuperarClave.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Recuperar Contraseña\frmRecuperarClave.Designer.cs">
+      <DependentUpon>frmRecuperarClave.cs</DependentUpon>
+    </Compile>
     <Compile Include="Responsive\ResponsiveHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -413,6 +418,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Proveedores\frmProveedores.resx">
       <DependentUpon>frmProveedores.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Recuperar Contraseña\frmRecuperarClave.resx">
+      <DependentUpon>frmRecuperarClave.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reportes\frmReportes.resx">
       <DependentUpon>frmReportes.cs</DependentUpon>
