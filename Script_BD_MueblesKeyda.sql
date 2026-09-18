@@ -20,12 +20,31 @@ CREATE TABLE Usuario
     Nombre VARCHAR(100) NOT NULL,
     Usuario VARCHAR(50) NOT NULL UNIQUE,
     Contraseña VARCHAR(255) NOT NULL,
+    Correo VARCHAR(150) NOT NULL UNIQUE,
     IdRol INT NOT NULL,
     Estado BIT NOT NULL DEFAULT 1,
 
     CONSTRAINT FK_Usuario_Rol
     FOREIGN KEY (IdRol) REFERENCES Rol(IdRol)
 );
+
+GO
+
+CREATE TABLE RecuperacionContraseña
+(
+    IdRecuperacion INT IDENTITY(1,1) PRIMARY KEY,
+    IdUsuario INT NOT NULL,
+    Codigo VARCHAR(6) NOT NULL,
+    FechaGeneracion DATETIME NOT NULL DEFAULT GETDATE(),
+    FechaExpiracion DATETIME NOT NULL,
+    Usado BIT NOT NULL DEFAULT 0,
+
+    CONSTRAINT FK_Recuperacion_Usuario
+    FOREIGN KEY (IdUsuario)
+    REFERENCES Usuario(IdUsuario)
+);
+
+
 SELECT * FROM Usuario
 GO
 --------------------------------------------------------
@@ -749,6 +768,38 @@ INNER JOIN TipoCliente tc
     ON c.IdTipoCliente = tc.IdTipoCliente;
 GO
 
+---------------REPORTES DE COTIZACIONESS---------------------------
+
+GO
+
+CREATE VIEW VerCotizaciones2 AS
+SELECT
+    co.IdCotizacion AS IdCotizacion,
+
+    co.Fecha AS Fecha,
+
+    CASE
+        WHEN tc.TipoCliente = 'Persona Natural'
+        THEN CONCAT(c.Identificador1, ' ', c.Identificador2)
+        ELSE c.Identificador1
+    END AS Cliente,
+
+    tc.TipoCliente AS TipoCliente,
+
+    co.Estado AS Estado,
+
+    co.Total AS Total
+
+FROM Cotizacion co
+
+INNER JOIN Cliente c
+    ON co.IdCliente = c.IdCliente
+
+INNER JOIN TipoCliente tc
+    ON c.IdTipoCliente = tc.IdTipoCliente;
+
+GO
+
 ------------------------------------------------- VISTA DE VENTAS -----------------------------------------------------------
 GO
 
@@ -1116,7 +1167,74 @@ INNER JOIN Rol R
     ON U.IdRol = R.IdRol;
 GO
 
+-----------------------------------------------------------------------------------------
+---BUSCAR EL CORREO INGRESADO EN LOS REGISTROS---
 
+CREATE OR ALTER PROCEDURE sp_Usuario_BuscarPorCorreo
+    @Correo VARCHAR(150)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT
+        IdUsuario,
+        Nombre,
+        Usuario,
+        Correo
+    FROM Usuario
+    WHERE Correo = @Correo
+      AND Estado = 1;
+END;
+GO
+
+CREATE OR ALTER PROCEDURE sp_Recuperacion_Crear
+    @IdUsuario INT,
+    @Codigo VARCHAR(6)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    INSERT INTO RecuperacionContraseña
+    (
+        IdUsuario,
+        Codigo,
+        FechaGeneracion,
+        FechaExpiracion,
+        Usado
+    )
+    VALUES
+    (
+        @IdUsuario,
+        @Codigo,
+        GETDATE(),
+        DATEADD(MINUTE, 10, GETDATE()),
+        0
+    );
+END;
+GO
+-----------------VERIFICAR EL CODIGO---------------------------
+CREATE OR ALTER PROCEDURE sp_Recuperacion_Verificar
+    @IdUsuario INT,
+    @Codigo VARCHAR(6)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT TOP 1
+        IdRecuperacion,
+        IdUsuario,
+        Codigo,
+        FechaGeneracion,
+        FechaExpiracion,
+        Usado
+    FROM RecuperacionContraseña
+    WHERE IdUsuario = @IdUsuario
+      AND Codigo = @Codigo
+      AND Usado = 0
+      AND FechaExpiracion > GETDATE()
+    ORDER BY IdRecuperacion DESC;
+END;
+GO
 
 
 

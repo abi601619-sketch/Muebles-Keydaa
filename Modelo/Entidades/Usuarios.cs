@@ -13,6 +13,7 @@ namespace Modelo.Entidades
         private string Usuario;
         private string Contraseña;
         private string Rol;
+        private string correo;
         private bool Estado;
 
         public DbUsuarios(int idUsuario, string nombre, string usuario, string contraseña, string rol, bool estado)
@@ -36,6 +37,7 @@ namespace Modelo.Entidades
         public string Contraseña1 { get => Contraseña; set => Contraseña = value; }
         public string Rol1 { get => Rol; set => Rol = value; }
         public bool Estado1 { get => Estado; set => Estado = value; }
+        public string Correo { get => correo; set => correo = value; }
 
         public static DataTable CargarUsuarios()
         {
@@ -122,22 +124,79 @@ namespace Modelo.Entidades
         {
             try
             {
-                string contraseñaHash = BCrypt.Net.BCrypt.HashPassword(Contraseña);
+                // =========================================
+                // ENCRIPTAR CONTRASEÑA
+                // =========================================
 
-                string comandoSQL = @"INSERT INTO Usuario
-                    (Nombre, Usuario, Contraseña, Rol, Estado)
-                    VALUES
-                    (@Nombre, @Usuario, @Contraseña, @Rol, @Estado);";
+                string contraseñaHash =
+                    BCrypt.Net.BCrypt.HashPassword(Contraseña);
+
+                // =========================================
+                // INSERTAR USUARIO
+                // =========================================
+
+                string comandoSQL = @"
+            INSERT INTO Usuario
+            (
+                Nombre,
+                Usuario,
+                Correo,
+                Contraseña,
+                Rol,
+                Estado
+            )
+            VALUES
+            (
+                @Nombre,
+                @Usuario,
+                @Correo,
+                @Contraseña,
+                @Rol,
+                @Estado
+            );";
 
                 using (SqlConnection conexion = Conexion.Conectar())
                 {
-                    using (SqlCommand comandoObjeto = new SqlCommand(comandoSQL, conexion))
+                    using (SqlCommand comandoObjeto =
+                        new SqlCommand(comandoSQL, conexion))
                     {
-                        comandoObjeto.Parameters.AddWithValue("@Nombre", Nombre);
-                        comandoObjeto.Parameters.AddWithValue("@Usuario", Usuario);
-                        comandoObjeto.Parameters.AddWithValue("@Contraseña", contraseñaHash);
-                        comandoObjeto.Parameters.AddWithValue("@Rol", Rol);
-                        comandoObjeto.Parameters.AddWithValue("@Estado", Estado);
+                        // =========================================
+                        // PARÁMETROS
+                        // =========================================
+
+                        comandoObjeto.Parameters.AddWithValue(
+                            "@Nombre",
+                            Nombre
+                        );
+
+                        comandoObjeto.Parameters.AddWithValue(
+                            "@Usuario",
+                            Usuario
+                        );
+
+                        comandoObjeto.Parameters.AddWithValue(
+                            "@Correo",
+                            Correo
+                        );
+
+                        comandoObjeto.Parameters.AddWithValue(
+                            "@Contraseña",
+                            contraseñaHash
+                        );
+
+                        comandoObjeto.Parameters.AddWithValue(
+                            "@Rol",
+                            Rol
+                        );
+
+                        comandoObjeto.Parameters.AddWithValue(
+                            "@Estado",
+                            Estado
+                        );
+
+                        // =========================================
+                        // EJECUTAR
+                        // =========================================
 
                         comandoObjeto.ExecuteNonQuery();
                     }
@@ -147,208 +206,143 @@ namespace Modelo.Entidades
             {
                 switch (ex.Number)
                 {
+                    // =========================================
+                    // USUARIO O CORREO DUPLICADO
+                    // =========================================
+
                     case 2627:
                     case 2601:
+
                         MessageBox.Show(
-                            "Error 2627/2601: El nombre de usuario ya está en uso.",
-                            "Usuario duplicado",
+                            "Error 2627/2601: El nombre de usuario o correo electrónico ya está registrado.",
+                            "Dato duplicado",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Warning
                         );
+
                         break;
 
+
+                    // =========================================
+                    // ERROR DE CLAVE FORÁNEA
+                    // =========================================
+
                     case 547:
+
                         MessageBox.Show(
                             "Error 547: El rol seleccionado no existe.",
                             "Error de relación",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Error
                         );
+
                         break;
 
+
+                    // =========================================
+                    // CAMPO OBLIGATORIO VACÍO
+                    // =========================================
+
                     case 515:
+
                         MessageBox.Show(
                             "Error 515: Hay campos obligatorios sin completar.",
                             "Datos incompletos",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Warning
                         );
+
                         break;
 
+
+                    // =========================================
+                    // SERVIDOR SQL NO ENCONTRADO
+                    // =========================================
+
                     case 53:
+
                         MessageBox.Show(
                             "Error 53: No se pudo conectar con el servidor SQL.",
                             "Error de conexión",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Error
                         );
+
                         break;
 
+
+                    // =========================================
+                    // BASE DE DATOS NO DISPONIBLE
+                    // =========================================
+
                     case 4060:
+
                         MessageBox.Show(
                             "Error 4060: No se pudo acceder a la base de datos.",
                             "Error de base de datos",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Error
                         );
+
                         break;
 
+
+                    // =========================================
+                    // TIEMPO DE ESPERA
+                    // =========================================
+
                     case -2:
+
                         MessageBox.Show(
                             "Error -2: La operación tardó demasiado.",
                             "Tiempo de espera agotado",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Warning
                         );
+
                         break;
 
+
+                    // =========================================
+                    // TABLA NO EXISTE
+                    // =========================================
+
                     case 208:
+
                         MessageBox.Show(
                             "Error 208: La tabla Usuario no existe.",
                             "Error de base de datos",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Error
                         );
+
                         break;
 
+
+                    // =========================================
+                    // ERROR SQL NO CONTEMPLADO
+                    // =========================================
+
                     default:
+
                         MessageBox.Show(
-                            "Error SQL " + ex.Number + ": " + ex.Message,
+                            "Error SQL " +
+                            ex.Number +
+                            ": " +
+                            ex.Message,
                             "Error al guardar usuario",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Error
                         );
+
                         break;
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(
-                    "Error inesperado: " + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
-            }
-        }
-
-        public void ActualizarUsuario(int idUsuario)
-        {
-            try
-            {
-                string comandoSQL = @"UPDATE Usuario 
-                    SET Nombre = @Nombre,
-                        Usuario = @Usuario,
-                        Rol = @Rol,
-                        Estado = @Estado
-                    WHERE IdUsuario = @IdUsuario;";
-
-                using (SqlConnection conexion = Conexion.Conectar())
-                {
-                    using (SqlCommand comandoObjeto = new SqlCommand(comandoSQL, conexion))
-                    {
-                        comandoObjeto.Parameters.AddWithValue("@IdUsuario", idUsuario);
-                        comandoObjeto.Parameters.AddWithValue("@Nombre", Nombre);
-                        comandoObjeto.Parameters.AddWithValue("@Usuario", Usuario);
-                        comandoObjeto.Parameters.AddWithValue("@Rol", Rol);
-                        comandoObjeto.Parameters.AddWithValue("@Estado", Estado);
-
-                        int filasAfectadas = comandoObjeto.ExecuteNonQuery();
-
-                        if (filasAfectadas == 0)
-                        {
-                            MessageBox.Show(
-                                "No se encontró el usuario indicado.",
-                                "Usuario no encontrado",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Warning
-                            );
-                        }
-                    }
-                }
-            }
-            catch (SqlException ex)
-            {
-                switch (ex.Number)
-                {
-                    case 2627:
-                    case 2601:
-                        MessageBox.Show(
-                            "Error 2627/2601: El nombre de usuario ya está en uso.",
-                            "Usuario duplicado",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Warning
-                        );
-                        break;
-
-                    case 547:
-                        MessageBox.Show(
-                            "Error 547: El rol seleccionado no existe.",
-                            "Error de relación",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error
-                        );
-                        break;
-
-                    case 515:
-                        MessageBox.Show(
-                            "Error 515: Hay campos obligatorios sin completar.",
-                            "Datos incompletos",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Warning
-                        );
-                        break;
-
-                    case 53:
-                        MessageBox.Show(
-                            "Error 53: No se pudo conectar con el servidor SQL.",
-                            "Error de conexión",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error
-                        );
-                        break;
-
-                    case 4060:
-                        MessageBox.Show(
-                            "Error 4060: No se pudo acceder a la base de datos.",
-                            "Error de base de datos",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error
-                        );
-                        break;
-
-                    case -2:
-                        MessageBox.Show(
-                            "Error -2: La operación tardó demasiado.",
-                            "Tiempo de espera agotado",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Warning
-                        );
-                        break;
-
-                    case 208:
-                        MessageBox.Show(
-                            "Error 208: La tabla Usuario no existe.",
-                            "Error de base de datos",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error
-                        );
-                        break;
-
-                    default:
-                        MessageBox.Show(
-                            "Error SQL " + ex.Number + ": " + ex.Message,
-                            "Error al actualizar usuario",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error
-                        );
-                        break;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(
-                    "Error inesperado: " + ex.Message,
+                    "Error inesperado: " +
+                    ex.Message,
                     "Error",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error

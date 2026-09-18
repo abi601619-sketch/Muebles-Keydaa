@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Windows.Forms;
 using Vista.Dashboard;
 using Vista.DashboardSecretario;
+using Vista.Recuperar_Contraseña;
 using Vista.Responsive;
 
 namespace Vista.Login
@@ -134,6 +135,13 @@ namespace Vista.Login
                     }
                 }
             }
+        }
+
+        private void btnRecuperarContrasena_Click(object sender, EventArgs e)
+        {
+            frmRecuperarClave recuperar = new frmRecuperarClave();
+
+            recuperar.Show();
         }
     }
 

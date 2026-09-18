@@ -31,7 +31,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.pnlPrincipalLogin = new System.Windows.Forms.Panel();
             this.pnlContenedorLogin = new System.Windows.Forms.Panel();
-            this.cbRecuperarContraseña = new System.Windows.Forms.CheckBox();
+            this.btnRecuperarContrasena = new System.Windows.Forms.Button();
             this.btnIngresar = new System.Windows.Forms.Button();
             this.txtContraseña = new System.Windows.Forms.TextBox();
             this.txtUsuario = new System.Windows.Forms.TextBox();
@@ -75,7 +75,7 @@
             // 
             this.pnlContenedorLogin.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
             this.pnlContenedorLogin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(221)))), ((int)(((byte)(175)))));
-            this.pnlContenedorLogin.Controls.Add(this.cbRecuperarContraseña);
+            this.pnlContenedorLogin.Controls.Add(this.btnRecuperarContrasena);
             this.pnlContenedorLogin.Controls.Add(this.btnIngresar);
             this.pnlContenedorLogin.Controls.Add(this.txtContraseña);
             this.pnlContenedorLogin.Controls.Add(this.txtUsuario);
@@ -91,15 +91,15 @@
             this.pnlContenedorLogin.Size = new System.Drawing.Size(1065, 550);
             this.pnlContenedorLogin.TabIndex = 24;
             // 
-            // cbRecuperarContraseña
+            // btnRecuperarContrasena
             // 
-            this.cbRecuperarContraseña.AutoSize = true;
-            this.cbRecuperarContraseña.Location = new System.Drawing.Point(514, 437);
-            this.cbRecuperarContraseña.Name = "cbRecuperarContraseña";
-            this.cbRecuperarContraseña.Size = new System.Drawing.Size(127, 18);
-            this.cbRecuperarContraseña.TabIndex = 8;
-            this.cbRecuperarContraseña.Text = "Recuperar Contraseña";
-            this.cbRecuperarContraseña.UseVisualStyleBackColor = true;
+            this.btnRecuperarContrasena.Location = new System.Drawing.Point(523, 439);
+            this.btnRecuperarContrasena.Name = "btnRecuperarContrasena";
+            this.btnRecuperarContrasena.Size = new System.Drawing.Size(143, 27);
+            this.btnRecuperarContrasena.TabIndex = 10;
+            this.btnRecuperarContrasena.Text = "Recuperar contraseña";
+            this.btnRecuperarContrasena.UseVisualStyleBackColor = true;
+            this.btnRecuperarContrasena.Click += new System.EventHandler(this.btnRecuperarContrasena_Click);
             // 
             // btnIngresar
             // 
@@ -124,7 +124,7 @@
             this.txtContraseña.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtContraseña.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtContraseña.Location = new System.Drawing.Point(523, 400);
+            this.txtContraseña.Location = new System.Drawing.Point(523, 393);
             this.txtContraseña.Name = "txtContraseña";
             this.txtContraseña.Size = new System.Drawing.Size(435, 32);
             this.txtContraseña.TabIndex = 6;
@@ -144,7 +144,7 @@
             // 
             this.lblContraseña.AutoSize = true;
             this.lblContraseña.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblContraseña.Location = new System.Drawing.Point(522, 370);
+            this.lblContraseña.Location = new System.Drawing.Point(522, 364);
             this.lblContraseña.Name = "lblContraseña";
             this.lblContraseña.Size = new System.Drawing.Size(103, 21);
             this.lblContraseña.TabIndex = 4;
@@ -253,7 +253,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel pnlPrincipalLogin;
         private System.Windows.Forms.Panel pnlContenedorLogin;
-        private System.Windows.Forms.CheckBox cbRecuperarContraseña;
         private System.Windows.Forms.Button btnIngresar;
         private System.Windows.Forms.TextBox txtContraseña;
         private System.Windows.Forms.TextBox txtUsuario;
@@ -265,5 +264,6 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button btnCerrarClientes;
+        private System.Windows.Forms.Button btnRecuperarContrasena;
     }
 }

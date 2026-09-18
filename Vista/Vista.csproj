@@ -699,6 +699,7 @@
     <None Include="Resources\flecha-correcta %281%29.png" />
     <None Include="Resources\logistica.png" />
     <None Include="Resources\logistica %281%29.png" />
+    <None Include="Resources\ojo %281%29.png" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

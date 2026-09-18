@@ -31,15 +31,16 @@
             this.btnRecuperarClave = new System.Windows.Forms.Button();
             this.lblBienvenida = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.btnCodigoRecuperar = new System.Windows.Forms.Button();
             this.lblNuevaContra = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtConfirmarContrasena = new System.Windows.Forms.TextBox();
+            this.txtCodigo = new System.Windows.Forms.TextBox();
             this.lblDireccion = new System.Windows.Forms.Label();
             this.lblCorreo = new System.Windows.Forms.Label();
-            this.txtTelefono = new System.Windows.Forms.TextBox();
-            this.txtNombreEmpresa = new System.Windows.Forms.TextBox();
+            this.txtNuevaContrasena = new System.Windows.Forms.TextBox();
+            this.txtCorreoRecuperacion = new System.Windows.Forms.TextBox();
             this.lblCorreoRecuperacion = new System.Windows.Forms.Label();
-            this.btnCodigoRecuperar = new System.Windows.Forms.Button();
+            this.btnVerContrasena = new System.Windows.Forms.Button();
             this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -55,6 +56,7 @@
             this.btnRecuperarClave.Text = "Cambiar contraseña";
             this.btnRecuperarClave.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.btnRecuperarClave.UseVisualStyleBackColor = false;
+            this.btnRecuperarClave.Click += new System.EventHandler(this.btnRecuperarClave_Click);
             // 
             // lblBienvenida
             // 
@@ -68,20 +70,32 @@
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.panel3.Controls.Add(this.btnVerContrasena);
             this.panel3.Controls.Add(this.btnCodigoRecuperar);
             this.panel3.Controls.Add(this.btnRecuperarClave);
             this.panel3.Controls.Add(this.lblNuevaContra);
-            this.panel3.Controls.Add(this.textBox2);
-            this.panel3.Controls.Add(this.textBox1);
+            this.panel3.Controls.Add(this.txtConfirmarContrasena);
+            this.panel3.Controls.Add(this.txtCodigo);
             this.panel3.Controls.Add(this.lblDireccion);
             this.panel3.Controls.Add(this.lblCorreo);
-            this.panel3.Controls.Add(this.txtTelefono);
-            this.panel3.Controls.Add(this.txtNombreEmpresa);
+            this.panel3.Controls.Add(this.txtNuevaContrasena);
+            this.panel3.Controls.Add(this.txtCorreoRecuperacion);
             this.panel3.Controls.Add(this.lblCorreoRecuperacion);
             this.panel3.Location = new System.Drawing.Point(74, 80);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(632, 359);
             this.panel3.TabIndex = 17;
+            // 
+            // btnCodigoRecuperar
+            // 
+            this.btnCodigoRecuperar.BackColor = System.Drawing.Color.Linen;
+            this.btnCodigoRecuperar.Location = new System.Drawing.Point(203, 75);
+            this.btnCodigoRecuperar.Name = "btnCodigoRecuperar";
+            this.btnCodigoRecuperar.Size = new System.Drawing.Size(246, 31);
+            this.btnCodigoRecuperar.TabIndex = 20;
+            this.btnCodigoRecuperar.Text = "Enviar código";
+            this.btnCodigoRecuperar.UseVisualStyleBackColor = false;
+            this.btnCodigoRecuperar.Click += new System.EventHandler(this.btnCodigoRecuperar_Click);
             // 
             // lblNuevaContra
             // 
@@ -93,22 +107,22 @@
             this.lblNuevaContra.Text = "Nueva contraseña:";
             this.lblNuevaContra.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // textBox2
+            // txtConfirmarContrasena
             // 
-            this.textBox2.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.textBox2.Location = new System.Drawing.Point(30, 248);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(551, 20);
-            this.textBox2.TabIndex = 18;
+            this.txtConfirmarContrasena.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.txtConfirmarContrasena.Location = new System.Drawing.Point(30, 248);
+            this.txtConfirmarContrasena.Multiline = true;
+            this.txtConfirmarContrasena.Name = "txtConfirmarContrasena";
+            this.txtConfirmarContrasena.Size = new System.Drawing.Size(551, 20);
+            this.txtConfirmarContrasena.TabIndex = 18;
             // 
-            // textBox1
+            // txtCodigo
             // 
-            this.textBox1.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.textBox1.Location = new System.Drawing.Point(30, 137);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(264, 20);
-            this.textBox1.TabIndex = 17;
+            this.txtCodigo.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.txtCodigo.Location = new System.Drawing.Point(30, 137);
+            this.txtCodigo.Name = "txtCodigo";
+            this.txtCodigo.Size = new System.Drawing.Size(264, 20);
+            this.txtCodigo.TabIndex = 17;
             // 
             // lblDireccion
             // 
@@ -130,21 +144,21 @@
             this.lblCorreo.Text = "Código:";
             this.lblCorreo.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // txtTelefono
+            // txtNuevaContrasena
             // 
-            this.txtTelefono.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.txtTelefono.Location = new System.Drawing.Point(30, 190);
-            this.txtTelefono.Name = "txtTelefono";
-            this.txtTelefono.Size = new System.Drawing.Size(551, 20);
-            this.txtTelefono.TabIndex = 14;
+            this.txtNuevaContrasena.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.txtNuevaContrasena.Location = new System.Drawing.Point(30, 190);
+            this.txtNuevaContrasena.Name = "txtNuevaContrasena";
+            this.txtNuevaContrasena.Size = new System.Drawing.Size(551, 20);
+            this.txtNuevaContrasena.TabIndex = 14;
             // 
-            // txtNombreEmpresa
+            // txtCorreoRecuperacion
             // 
-            this.txtNombreEmpresa.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.txtNombreEmpresa.Location = new System.Drawing.Point(28, 40);
-            this.txtNombreEmpresa.Name = "txtNombreEmpresa";
-            this.txtNombreEmpresa.Size = new System.Drawing.Size(551, 20);
-            this.txtNombreEmpresa.TabIndex = 12;
+            this.txtCorreoRecuperacion.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.txtCorreoRecuperacion.Location = new System.Drawing.Point(28, 40);
+            this.txtCorreoRecuperacion.Name = "txtCorreoRecuperacion";
+            this.txtCorreoRecuperacion.Size = new System.Drawing.Size(551, 20);
+            this.txtCorreoRecuperacion.TabIndex = 12;
             // 
             // lblCorreoRecuperacion
             // 
@@ -156,15 +170,18 @@
             this.lblCorreoRecuperacion.Text = "Correo:";
             this.lblCorreoRecuperacion.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // btnCodigoRecuperar
+            // btnVerContrasena
             // 
-            this.btnCodigoRecuperar.BackColor = System.Drawing.Color.Linen;
-            this.btnCodigoRecuperar.Location = new System.Drawing.Point(203, 75);
-            this.btnCodigoRecuperar.Name = "btnCodigoRecuperar";
-            this.btnCodigoRecuperar.Size = new System.Drawing.Size(246, 31);
-            this.btnCodigoRecuperar.TabIndex = 20;
-            this.btnCodigoRecuperar.Text = "Enviar código";
-            this.btnCodigoRecuperar.UseVisualStyleBackColor = false;
+            this.btnVerContrasena.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.btnVerContrasena.FlatAppearance.BorderSize = 0;
+            this.btnVerContrasena.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnVerContrasena.Image = global::Vista.Properties.Resources.ojo__1_;
+            this.btnVerContrasena.Location = new System.Drawing.Point(553, 190);
+            this.btnVerContrasena.Name = "btnVerContrasena";
+            this.btnVerContrasena.Size = new System.Drawing.Size(28, 17);
+            this.btnVerContrasena.TabIndex = 21;
+            this.btnVerContrasena.UseVisualStyleBackColor = false;
+            this.btnVerContrasena.Click += new System.EventHandler(this.btnVerContrasena_Click);
             // 
             // frmRecuperarClave
             // 
@@ -174,6 +191,7 @@
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.lblBienvenida);
             this.Name = "frmRecuperarClave";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "RECUPERAR CONTRASEÑA";
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
@@ -187,13 +205,14 @@
         private System.Windows.Forms.Label lblBienvenida;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label lblNuevaContra;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtConfirmarContrasena;
+        private System.Windows.Forms.TextBox txtCodigo;
         private System.Windows.Forms.Label lblDireccion;
         private System.Windows.Forms.Label lblCorreo;
-        private System.Windows.Forms.TextBox txtTelefono;
-        private System.Windows.Forms.TextBox txtNombreEmpresa;
+        private System.Windows.Forms.TextBox txtNuevaContrasena;
+        private System.Windows.Forms.TextBox txtCorreoRecuperacion;
         private System.Windows.Forms.Label lblCorreoRecuperacion;
         private System.Windows.Forms.Button btnCodigoRecuperar;
+        private System.Windows.Forms.Button btnVerContrasena;
     }
 }

@@ -37,10 +37,10 @@
             this.btnGuardarUsuario = new System.Windows.Forms.Button();
             this.lblClave = new System.Windows.Forms.Label();
             this.lblRol = new System.Windows.Forms.Label();
-            this.txtNombreUsuario = new System.Windows.Forms.TextBox();
-            this.lblUsuario = new System.Windows.Forms.Label();
-            this.txtNombre = new System.Windows.Forms.TextBox();
-            this.lblNombre = new System.Windows.Forms.Label();
+            this.txtCorreo = new System.Windows.Forms.TextBox();
+            this.lblCorreoelectronico = new System.Windows.Forms.Label();
+            this.txtUsuario = new System.Windows.Forms.TextBox();
+            this.lblNombreUsuario = new System.Windows.Forms.Label();
             this.lblDatosParaUsuario = new System.Windows.Forms.Label();
             this.pnlBarraInformativa = new System.Windows.Forms.Panel();
             this.lblAdministrador = new System.Windows.Forms.Label();
@@ -104,10 +104,10 @@
             this.pnlPedidaDeDatos.Controls.Add(this.btnGuardarUsuario);
             this.pnlPedidaDeDatos.Controls.Add(this.lblClave);
             this.pnlPedidaDeDatos.Controls.Add(this.lblRol);
-            this.pnlPedidaDeDatos.Controls.Add(this.txtNombreUsuario);
-            this.pnlPedidaDeDatos.Controls.Add(this.lblUsuario);
-            this.pnlPedidaDeDatos.Controls.Add(this.txtNombre);
-            this.pnlPedidaDeDatos.Controls.Add(this.lblNombre);
+            this.pnlPedidaDeDatos.Controls.Add(this.txtCorreo);
+            this.pnlPedidaDeDatos.Controls.Add(this.lblCorreoelectronico);
+            this.pnlPedidaDeDatos.Controls.Add(this.txtUsuario);
+            this.pnlPedidaDeDatos.Controls.Add(this.lblNombreUsuario);
             this.pnlPedidaDeDatos.Controls.Add(this.lblDatosParaUsuario);
             this.pnlPedidaDeDatos.Location = new System.Drawing.Point(25, 206);
             this.pnlPedidaDeDatos.Margin = new System.Windows.Forms.Padding(2);
@@ -184,47 +184,47 @@
             this.lblRol.TabIndex = 8;
             this.lblRol.Text = "Rol";
             // 
-            // txtNombreUsuario
+            // txtCorreo
             // 
-            this.txtNombreUsuario.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtNombreUsuario.Font = new System.Drawing.Font("Times New Roman", 12F);
-            this.txtNombreUsuario.Location = new System.Drawing.Point(20, 134);
-            this.txtNombreUsuario.Margin = new System.Windows.Forms.Padding(2);
-            this.txtNombreUsuario.Name = "txtNombreUsuario";
-            this.txtNombreUsuario.Size = new System.Drawing.Size(191, 19);
-            this.txtNombreUsuario.TabIndex = 4;
+            this.txtCorreo.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtCorreo.Font = new System.Drawing.Font("Times New Roman", 12F);
+            this.txtCorreo.Location = new System.Drawing.Point(20, 134);
+            this.txtCorreo.Margin = new System.Windows.Forms.Padding(2);
+            this.txtCorreo.Name = "txtCorreo";
+            this.txtCorreo.Size = new System.Drawing.Size(191, 19);
+            this.txtCorreo.TabIndex = 4;
             // 
-            // lblUsuario
+            // lblCorreoelectronico
             // 
-            this.lblUsuario.AutoSize = true;
-            this.lblUsuario.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUsuario.Location = new System.Drawing.Point(17, 116);
-            this.lblUsuario.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblUsuario.Name = "lblUsuario";
-            this.lblUsuario.Size = new System.Drawing.Size(118, 16);
-            this.lblUsuario.TabIndex = 3;
-            this.lblUsuario.Text = "Nombre de usuario:";
+            this.lblCorreoelectronico.AutoSize = true;
+            this.lblCorreoelectronico.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCorreoelectronico.Location = new System.Drawing.Point(17, 116);
+            this.lblCorreoelectronico.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblCorreoelectronico.Name = "lblCorreoelectronico";
+            this.lblCorreoelectronico.Size = new System.Drawing.Size(115, 16);
+            this.lblCorreoelectronico.TabIndex = 3;
+            this.lblCorreoelectronico.Text = "Correo eléctronico:";
             // 
-            // txtNombre
+            // txtUsuario
             // 
-            this.txtNombre.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtNombre.Font = new System.Drawing.Font("Times New Roman", 12F);
-            this.txtNombre.Location = new System.Drawing.Point(20, 83);
-            this.txtNombre.Margin = new System.Windows.Forms.Padding(2);
-            this.txtNombre.Name = "txtNombre";
-            this.txtNombre.Size = new System.Drawing.Size(191, 19);
-            this.txtNombre.TabIndex = 2;
+            this.txtUsuario.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtUsuario.Font = new System.Drawing.Font("Times New Roman", 12F);
+            this.txtUsuario.Location = new System.Drawing.Point(20, 83);
+            this.txtUsuario.Margin = new System.Windows.Forms.Padding(2);
+            this.txtUsuario.Name = "txtUsuario";
+            this.txtUsuario.Size = new System.Drawing.Size(191, 19);
+            this.txtUsuario.TabIndex = 2;
             // 
-            // lblNombre
+            // lblNombreUsuario
             // 
-            this.lblNombre.AutoSize = true;
-            this.lblNombre.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNombre.Location = new System.Drawing.Point(17, 65);
-            this.lblNombre.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblNombre.Name = "lblNombre";
-            this.lblNombre.Size = new System.Drawing.Size(60, 16);
-            this.lblNombre.TabIndex = 1;
-            this.lblNombre.Text = "Nombre :";
+            this.lblNombreUsuario.AutoSize = true;
+            this.lblNombreUsuario.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNombreUsuario.Location = new System.Drawing.Point(17, 65);
+            this.lblNombreUsuario.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblNombreUsuario.Name = "lblNombreUsuario";
+            this.lblNombreUsuario.Size = new System.Drawing.Size(122, 16);
+            this.lblNombreUsuario.TabIndex = 1;
+            this.lblNombreUsuario.Text = "Nombre de usuario :";
             // 
             // lblDatosParaUsuario
             // 
@@ -393,10 +393,10 @@
         private System.Windows.Forms.Button btnGuardarUsuario;
         private System.Windows.Forms.Label lblClave;
         private System.Windows.Forms.Label lblRol;
-        private System.Windows.Forms.TextBox txtNombreUsuario;
-        private System.Windows.Forms.Label lblUsuario;
-        private System.Windows.Forms.TextBox txtNombre;
-        private System.Windows.Forms.Label lblNombre;
+        private System.Windows.Forms.TextBox txtCorreo;
+        private System.Windows.Forms.Label lblCorreoelectronico;
+        private System.Windows.Forms.TextBox txtUsuario;
+        private System.Windows.Forms.Label lblNombreUsuario;
         private System.Windows.Forms.Label lblDatosParaUsuario;
         private System.Windows.Forms.Button btnNuevoUsuario;
         private System.Windows.Forms.ComboBox cmbRol;
