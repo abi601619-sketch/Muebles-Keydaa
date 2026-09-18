@@ -29,15 +29,16 @@
         private void InitializeComponent()
         {
             this.lblLogo = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtConfirmarContrasena = new System.Windows.Forms.TextBox();
+            this.txtUsuario = new System.Windows.Forms.TextBox();
             this.lblDireccion = new System.Windows.Forms.Label();
             this.lblCorreo = new System.Windows.Forms.Label();
-            this.txtTelefono = new System.Windows.Forms.TextBox();
-            this.txtNombreEmpresa = new System.Windows.Forms.TextBox();
+            this.txtContrasena = new System.Windows.Forms.TextBox();
+            this.txtNombreAdministrador = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.button6 = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.chkAceptarCondiciones = new System.Windows.Forms.CheckBox();
             this.button5 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -48,7 +49,6 @@
             this.flpBotones = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblCrear = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel3.SuspendLayout();
             this.flpBotones.SuspendLayout();
@@ -66,22 +66,22 @@
             this.lblLogo.Text = "Contraseña:";
             this.lblLogo.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // textBox2
+            // txtConfirmarContrasena
             // 
-            this.textBox2.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.textBox2.Location = new System.Drawing.Point(28, 212);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(551, 20);
-            this.textBox2.TabIndex = 18;
+            this.txtConfirmarContrasena.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.txtConfirmarContrasena.Location = new System.Drawing.Point(28, 212);
+            this.txtConfirmarContrasena.Multiline = true;
+            this.txtConfirmarContrasena.Name = "txtConfirmarContrasena";
+            this.txtConfirmarContrasena.Size = new System.Drawing.Size(551, 20);
+            this.txtConfirmarContrasena.TabIndex = 18;
             // 
-            // textBox1
+            // txtUsuario
             // 
-            this.textBox1.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.textBox1.Location = new System.Drawing.Point(28, 100);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(551, 20);
-            this.textBox1.TabIndex = 17;
+            this.txtUsuario.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.txtUsuario.Location = new System.Drawing.Point(28, 100);
+            this.txtUsuario.Name = "txtUsuario";
+            this.txtUsuario.Size = new System.Drawing.Size(551, 20);
+            this.txtUsuario.TabIndex = 17;
             // 
             // lblDireccion
             // 
@@ -103,21 +103,21 @@
             this.lblCorreo.Text = "Usuario:";
             this.lblCorreo.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // txtTelefono
+            // txtContrasena
             // 
-            this.txtTelefono.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.txtTelefono.Location = new System.Drawing.Point(28, 154);
-            this.txtTelefono.Name = "txtTelefono";
-            this.txtTelefono.Size = new System.Drawing.Size(551, 20);
-            this.txtTelefono.TabIndex = 14;
+            this.txtContrasena.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.txtContrasena.Location = new System.Drawing.Point(28, 154);
+            this.txtContrasena.Name = "txtContrasena";
+            this.txtContrasena.Size = new System.Drawing.Size(551, 20);
+            this.txtContrasena.TabIndex = 14;
             // 
-            // txtNombreEmpresa
+            // txtNombreAdministrador
             // 
-            this.txtNombreEmpresa.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.txtNombreEmpresa.Location = new System.Drawing.Point(28, 40);
-            this.txtNombreEmpresa.Name = "txtNombreEmpresa";
-            this.txtNombreEmpresa.Size = new System.Drawing.Size(551, 20);
-            this.txtNombreEmpresa.TabIndex = 12;
+            this.txtNombreAdministrador.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.txtNombreAdministrador.Location = new System.Drawing.Point(28, 40);
+            this.txtNombreAdministrador.Name = "txtNombreAdministrador";
+            this.txtNombreAdministrador.Size = new System.Drawing.Size(551, 20);
+            this.txtNombreAdministrador.TabIndex = 12;
             // 
             // label3
             // 
@@ -139,23 +139,34 @@
             this.button6.TabIndex = 17;
             this.button6.Text = "Finalizar configuración";
             this.button6.UseVisualStyleBackColor = false;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.panel3.Controls.Add(this.checkBox1);
+            this.panel3.Controls.Add(this.chkAceptarCondiciones);
             this.panel3.Controls.Add(this.lblLogo);
-            this.panel3.Controls.Add(this.textBox2);
-            this.panel3.Controls.Add(this.textBox1);
+            this.panel3.Controls.Add(this.txtConfirmarContrasena);
+            this.panel3.Controls.Add(this.txtUsuario);
             this.panel3.Controls.Add(this.lblDireccion);
             this.panel3.Controls.Add(this.lblCorreo);
-            this.panel3.Controls.Add(this.txtTelefono);
-            this.panel3.Controls.Add(this.txtNombreEmpresa);
+            this.panel3.Controls.Add(this.txtContrasena);
+            this.panel3.Controls.Add(this.txtNombreAdministrador);
             this.panel3.Controls.Add(this.label3);
             this.panel3.Location = new System.Drawing.Point(224, 98);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(632, 296);
             this.panel3.TabIndex = 16;
+            // 
+            // chkAceptarCondiciones
+            // 
+            this.chkAceptarCondiciones.AutoSize = true;
+            this.chkAceptarCondiciones.Location = new System.Drawing.Point(29, 247);
+            this.chkAceptarCondiciones.Name = "chkAceptarCondiciones";
+            this.chkAceptarCondiciones.Size = new System.Drawing.Size(226, 17);
+            this.chkAceptarCondiciones.TabIndex = 21;
+            this.chkAceptarCondiciones.Text = "Acepto la cuenta principal para administrar";
+            this.chkAceptarCondiciones.UseVisualStyleBackColor = true;
             // 
             // button5
             // 
@@ -166,6 +177,7 @@
             this.button5.TabIndex = 15;
             this.button5.Text = "Atrás";
             this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // label1
             // 
@@ -271,16 +283,6 @@
             this.lblCrear.TabIndex = 13;
             this.lblCrear.Text = "Crear Administrador";
             // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(29, 247);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(226, 17);
-            this.checkBox1.TabIndex = 21;
-            this.checkBox1.Text = "Acepto la cuenta principal para administrar";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
             // pictureBox1
             // 
             this.pictureBox1.Image = global::Vista.Properties.Resources.user_456283;
@@ -305,6 +307,7 @@
             this.Controls.Add(this.lblCrear);
             this.Name = "ConfiguracionParte3";
             this.Text = "ConfiguracionParte3";
+            this.Load += new System.EventHandler(this.ConfiguracionParte3_Load);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.flpBotones.ResumeLayout(false);
@@ -316,12 +319,12 @@
 
         #endregion
         private System.Windows.Forms.Label lblLogo;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtConfirmarContrasena;
+        private System.Windows.Forms.TextBox txtUsuario;
         private System.Windows.Forms.Label lblDireccion;
         private System.Windows.Forms.Label lblCorreo;
-        private System.Windows.Forms.TextBox txtTelefono;
-        private System.Windows.Forms.TextBox txtNombreEmpresa;
+        private System.Windows.Forms.TextBox txtContrasena;
+        private System.Windows.Forms.TextBox txtNombreAdministrador;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Panel panel3;
@@ -335,7 +338,7 @@
         private System.Windows.Forms.FlowLayoutPanel flpBotones;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label lblCrear;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox chkAceptarCondiciones;
         private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

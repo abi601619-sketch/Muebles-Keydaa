@@ -38,9 +38,9 @@
             this.btnInicioLogin = new System.Windows.Forms.Button();
             this.lblBienvenida = new System.Windows.Forms.Label();
             this.pnlRegistros = new System.Windows.Forms.Panel();
-            this.pnlSeparador = new System.Windows.Forms.Panel();
-            this.lblAAdministrador = new System.Windows.Forms.Label();
             this.lblEmpresa = new System.Windows.Forms.Label();
+            this.lblAAdministrador = new System.Windows.Forms.Label();
+            this.pnlSeparador = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -149,6 +149,7 @@
             this.btnInicioLogin.TabIndex = 9;
             this.btnInicioLogin.Text = "Ir al Login";
             this.btnInicioLogin.UseVisualStyleBackColor = false;
+            this.btnInicioLogin.Click += new System.EventHandler(this.btnInicioLogin_Click);
             // 
             // lblBienvenida
             // 
@@ -172,13 +173,15 @@
             this.pnlRegistros.Size = new System.Drawing.Size(536, 87);
             this.pnlRegistros.TabIndex = 10;
             // 
-            // pnlSeparador
+            // lblEmpresa
             // 
-            this.pnlSeparador.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.pnlSeparador.Location = new System.Drawing.Point(273, 14);
-            this.pnlSeparador.Name = "pnlSeparador";
-            this.pnlSeparador.Size = new System.Drawing.Size(2, 60);
-            this.pnlSeparador.TabIndex = 11;
+            this.lblEmpresa.Font = new System.Drawing.Font("Times New Roman", 12F);
+            this.lblEmpresa.Location = new System.Drawing.Point(86, 14);
+            this.lblEmpresa.Name = "lblEmpresa";
+            this.lblEmpresa.Size = new System.Drawing.Size(105, 22);
+            this.lblEmpresa.TabIndex = 13;
+            this.lblEmpresa.Text = "Empresa";
+            this.lblEmpresa.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // lblAAdministrador
             // 
@@ -190,15 +193,13 @@
             this.lblAAdministrador.Text = "Administrador";
             this.lblAAdministrador.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // lblEmpresa
+            // pnlSeparador
             // 
-            this.lblEmpresa.Font = new System.Drawing.Font("Times New Roman", 12F);
-            this.lblEmpresa.Location = new System.Drawing.Point(86, 14);
-            this.lblEmpresa.Name = "lblEmpresa";
-            this.lblEmpresa.Size = new System.Drawing.Size(105, 22);
-            this.lblEmpresa.TabIndex = 13;
-            this.lblEmpresa.Text = "Empresa";
-            this.lblEmpresa.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.pnlSeparador.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.pnlSeparador.Location = new System.Drawing.Point(273, 14);
+            this.pnlSeparador.Name = "pnlSeparador";
+            this.pnlSeparador.Size = new System.Drawing.Size(2, 60);
+            this.pnlSeparador.TabIndex = 11;
             // 
             // label1
             // 

@@ -138,11 +138,11 @@
     <Compile Include="Compras\frmCompras.Designer.cs">
       <DependentUpon>frmCompras.cs</DependentUpon>
     </Compile>
-    <Compile Include="Configuracion Inicial\Configuracion Inicial.cs">
+    <Compile Include="Configuracion Inicial\ConfiguracionInicial.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Configuracion Inicial\Configuracion Inicial.Designer.cs">
-      <DependentUpon>Configuracion Inicial.cs</DependentUpon>
+    <Compile Include="Configuracion Inicial\ConfiguracionInicial.Designer.cs">
+      <DependentUpon>ConfiguracionInicial.cs</DependentUpon>
     </Compile>
     <Compile Include="Configuracion Inicial\ConfiguracionParte3.cs">
       <SubType>Form</SubType>
@@ -161,6 +161,9 @@
     </Compile>
     <Compile Include="Configuracion Inicial\frmConfiguracionparte2.Designer.cs">
       <DependentUpon>frmConfiguracionparte2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ConfiguracionInicial.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Cotizaciones\frmCotizaciones.cs">
       <SubType>Form</SubType>
@@ -342,8 +345,8 @@
     <EmbeddedResource Include="Compras\frmCompras.resx">
       <DependentUpon>frmCompras.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Configuracion Inicial\Configuracion Inicial.resx">
-      <DependentUpon>Configuracion Inicial.cs</DependentUpon>
+    <EmbeddedResource Include="Configuracion Inicial\ConfiguracionInicial.resx">
+      <DependentUpon>ConfiguracionInicial.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Configuracion Inicial\ConfiguracionParte3.resx">
       <DependentUpon>ConfiguracionParte3.cs</DependentUpon>

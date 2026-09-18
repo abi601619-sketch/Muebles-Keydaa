@@ -35,21 +35,21 @@
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.button5 = new System.Windows.Forms.Button();
+            this.btnAtras = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.lblBienvenida = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.label3 = new System.Windows.Forms.Label();
-            this.txtNombreEmpresa = new System.Windows.Forms.TextBox();
-            this.lblTelefono = new System.Windows.Forms.Label();
-            this.txtTelefono = new System.Windows.Forms.TextBox();
-            this.lblCorreo = new System.Windows.Forms.Label();
-            this.lblDireccion = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.lblLogo = new System.Windows.Forms.Label();
-            this.button6 = new System.Windows.Forms.Button();
             this.lblFormatos = new System.Windows.Forms.Label();
+            this.lblLogo = new System.Windows.Forms.Label();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.lblDireccion = new System.Windows.Forms.Label();
+            this.lblCorreo = new System.Windows.Forms.Label();
+            this.txtTelefono = new System.Windows.Forms.TextBox();
+            this.lblTelefono = new System.Windows.Forms.Label();
+            this.txtNombreEmpresa = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.button6 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             this.flpBotones.SuspendLayout();
@@ -142,15 +142,16 @@
             this.panel2.Size = new System.Drawing.Size(180, 32);
             this.panel2.TabIndex = 0;
             // 
-            // button5
+            // btnAtras
             // 
-            this.button5.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button5.Location = new System.Drawing.Point(582, 477);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(148, 45);
-            this.button5.TabIndex = 9;
-            this.button5.Text = "Atrás";
-            this.button5.UseVisualStyleBackColor = true;
+            this.btnAtras.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAtras.Location = new System.Drawing.Point(582, 477);
+            this.btnAtras.Name = "btnAtras";
+            this.btnAtras.Size = new System.Drawing.Size(148, 45);
+            this.btnAtras.TabIndex = 9;
+            this.btnAtras.Text = "Atrás";
+            this.btnAtras.UseVisualStyleBackColor = true;
+            this.btnAtras.Click += new System.EventHandler(this.btnAtras_Click);
             // 
             // label1
             // 
@@ -189,78 +190,14 @@
             this.panel3.Size = new System.Drawing.Size(632, 296);
             this.panel3.TabIndex = 10;
             // 
-            // label3
+            // lblFormatos
             // 
-            this.label3.Font = new System.Drawing.Font("Times New Roman", 12F);
-            this.label3.Location = new System.Drawing.Point(26, 14);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(149, 22);
-            this.label3.TabIndex = 11;
-            this.label3.Text = "Nombre de la empresa";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // txtNombreEmpresa
-            // 
-            this.txtNombreEmpresa.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.txtNombreEmpresa.Location = new System.Drawing.Point(28, 40);
-            this.txtNombreEmpresa.Name = "txtNombreEmpresa";
-            this.txtNombreEmpresa.Size = new System.Drawing.Size(210, 20);
-            this.txtNombreEmpresa.TabIndex = 12;
-            // 
-            // lblTelefono
-            // 
-            this.lblTelefono.Font = new System.Drawing.Font("Times New Roman", 12F);
-            this.lblTelefono.Location = new System.Drawing.Point(345, 14);
-            this.lblTelefono.Name = "lblTelefono";
-            this.lblTelefono.Size = new System.Drawing.Size(149, 22);
-            this.lblTelefono.TabIndex = 13;
-            this.lblTelefono.Text = "Teléfono de la empresa";
-            this.lblTelefono.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // txtTelefono
-            // 
-            this.txtTelefono.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.txtTelefono.Location = new System.Drawing.Point(349, 40);
-            this.txtTelefono.Name = "txtTelefono";
-            this.txtTelefono.Size = new System.Drawing.Size(210, 20);
-            this.txtTelefono.TabIndex = 14;
-            // 
-            // lblCorreo
-            // 
-            this.lblCorreo.Font = new System.Drawing.Font("Times New Roman", 12F);
-            this.lblCorreo.Location = new System.Drawing.Point(26, 79);
-            this.lblCorreo.Name = "lblCorreo";
-            this.lblCorreo.Size = new System.Drawing.Size(54, 22);
-            this.lblCorreo.TabIndex = 15;
-            this.lblCorreo.Text = "Correo";
-            this.lblCorreo.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // lblDireccion
-            // 
-            this.lblDireccion.Font = new System.Drawing.Font("Times New Roman", 12F);
-            this.lblDireccion.Location = new System.Drawing.Point(345, 79);
-            this.lblDireccion.Name = "lblDireccion";
-            this.lblDireccion.Size = new System.Drawing.Size(78, 22);
-            this.lblDireccion.TabIndex = 16;
-            this.lblDireccion.Text = "Dirección";
-            this.lblDireccion.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // textBox1
-            // 
-            this.textBox1.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.textBox1.Location = new System.Drawing.Point(28, 104);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(210, 20);
-            this.textBox1.TabIndex = 17;
-            // 
-            // textBox2
-            // 
-            this.textBox2.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.textBox2.Location = new System.Drawing.Point(349, 106);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(210, 20);
-            this.textBox2.TabIndex = 18;
+            this.lblFormatos.AutoSize = true;
+            this.lblFormatos.Location = new System.Drawing.Point(336, 189);
+            this.lblFormatos.Name = "lblFormatos";
+            this.lblFormatos.Size = new System.Drawing.Size(155, 14);
+            this.lblFormatos.TabIndex = 20;
+            this.lblFormatos.Text = "Formatos permitidos: JPG, PNG";
             // 
             // lblLogo
             // 
@@ -272,6 +209,79 @@
             this.lblLogo.Text = "Logotipo";
             this.lblLogo.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
+            // textBox2
+            // 
+            this.textBox2.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.textBox2.Location = new System.Drawing.Point(349, 106);
+            this.textBox2.Multiline = true;
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(210, 20);
+            this.textBox2.TabIndex = 18;
+            // 
+            // textBox1
+            // 
+            this.textBox1.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.textBox1.Location = new System.Drawing.Point(28, 104);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(210, 20);
+            this.textBox1.TabIndex = 17;
+            // 
+            // lblDireccion
+            // 
+            this.lblDireccion.Font = new System.Drawing.Font("Times New Roman", 12F);
+            this.lblDireccion.Location = new System.Drawing.Point(345, 79);
+            this.lblDireccion.Name = "lblDireccion";
+            this.lblDireccion.Size = new System.Drawing.Size(78, 22);
+            this.lblDireccion.TabIndex = 16;
+            this.lblDireccion.Text = "Dirección";
+            this.lblDireccion.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // lblCorreo
+            // 
+            this.lblCorreo.Font = new System.Drawing.Font("Times New Roman", 12F);
+            this.lblCorreo.Location = new System.Drawing.Point(26, 79);
+            this.lblCorreo.Name = "lblCorreo";
+            this.lblCorreo.Size = new System.Drawing.Size(54, 22);
+            this.lblCorreo.TabIndex = 15;
+            this.lblCorreo.Text = "Correo";
+            this.lblCorreo.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // txtTelefono
+            // 
+            this.txtTelefono.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.txtTelefono.Location = new System.Drawing.Point(349, 40);
+            this.txtTelefono.Name = "txtTelefono";
+            this.txtTelefono.Size = new System.Drawing.Size(210, 20);
+            this.txtTelefono.TabIndex = 14;
+            // 
+            // lblTelefono
+            // 
+            this.lblTelefono.Font = new System.Drawing.Font("Times New Roman", 12F);
+            this.lblTelefono.Location = new System.Drawing.Point(345, 14);
+            this.lblTelefono.Name = "lblTelefono";
+            this.lblTelefono.Size = new System.Drawing.Size(149, 22);
+            this.lblTelefono.TabIndex = 13;
+            this.lblTelefono.Text = "Teléfono de la empresa";
+            this.lblTelefono.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // txtNombreEmpresa
+            // 
+            this.txtNombreEmpresa.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.txtNombreEmpresa.Location = new System.Drawing.Point(28, 40);
+            this.txtNombreEmpresa.Name = "txtNombreEmpresa";
+            this.txtNombreEmpresa.Size = new System.Drawing.Size(210, 20);
+            this.txtNombreEmpresa.TabIndex = 12;
+            // 
+            // label3
+            // 
+            this.label3.Font = new System.Drawing.Font("Times New Roman", 12F);
+            this.label3.Location = new System.Drawing.Point(26, 14);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(149, 22);
+            this.label3.TabIndex = 11;
+            this.label3.Text = "Nombre de la empresa";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
             // button6
             // 
             this.button6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
@@ -282,15 +292,7 @@
             this.button6.TabIndex = 11;
             this.button6.Text = "Siguiente";
             this.button6.UseVisualStyleBackColor = false;
-            // 
-            // lblFormatos
-            // 
-            this.lblFormatos.AutoSize = true;
-            this.lblFormatos.Location = new System.Drawing.Point(336, 189);
-            this.lblFormatos.Name = "lblFormatos";
-            this.lblFormatos.Size = new System.Drawing.Size(155, 14);
-            this.lblFormatos.TabIndex = 20;
-            this.lblFormatos.Text = "Formatos permitidos: JPG, PNG";
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // pictureBox1
             // 
@@ -311,7 +313,7 @@
             this.Controls.Add(this.button6);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.button5);
+            this.Controls.Add(this.btnAtras);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lblBienvenida);
             this.Font = new System.Drawing.Font("Times New Roman", 8F);
@@ -335,7 +337,7 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button btnAtras;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblBienvenida;
         private System.Windows.Forms.Panel panel3;

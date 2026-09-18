@@ -14,5 +14,11 @@ namespace Vista.Configuracion_Inicial
         {
 
         }
+
+        private void btnSeguir_Click(object sender, EventArgs e)
+        {
+            frmConfiguracionparte2 frm = new frmConfiguracionparte2();
+            frm.Show();
+        }
     }
 }

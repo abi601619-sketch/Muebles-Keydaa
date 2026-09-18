@@ -184,6 +184,7 @@
             this.btnSeguir.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnSeguir.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.btnSeguir.UseVisualStyleBackColor = false;
+            this.btnSeguir.Click += new System.EventHandler(this.btnSeguir_Click);
             // 
             // Configuracion_Inicial
             // 
