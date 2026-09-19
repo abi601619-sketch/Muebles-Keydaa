@@ -1,5 +1,6 @@
 using Modelo;
 using Modelo.Entidades;
+using Modelo.PDF;
 using QuestPDF.Fluent;
 using System;
 using System.Data;

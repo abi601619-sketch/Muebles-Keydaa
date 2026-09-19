@@ -717,6 +717,12 @@
     <None Include="Resources\documento.png" />
     <None Include="Resources\documento1.png" />
     <None Include="Resources\pdf1.png" />
+    <None Include="Resources\hacia-adelante.png" />
+    <None Include="Resources\hacia-adelante %281%29.png" />
+    <None Include="Resources\flecha-izquierda.png" />
+    <None Include="Resources\atras %281%29.png" />
+    <None Include="Resources\flecha-adelante.png" />
+    <None Include="Resources\flecha-atras.png" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

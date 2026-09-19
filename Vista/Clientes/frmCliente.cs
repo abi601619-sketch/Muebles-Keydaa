@@ -20,6 +20,18 @@ namespace Vista.Clientes
         private int idClienteSeleccionado = 0;
         private int tipoClienteSeleccionado = 0;
 
+        // Cantidad de clientes que se mostrarán por página.
+        private int registrosPorPagina = 20;
+
+        // Página en la que estamos actualmente.
+        private int paginaActual = 1;
+
+        // Cantidad total de clientes.
+        private int totalRegistros = 0;
+
+        // Cantidad total de páginas.
+        private int totalPaginas = 0;
+
         //DATOS ORIGINALES DEL CLIENTE SELECCIONADO
         private string identificador1Original;
         private string identificador2Original;
@@ -35,8 +47,26 @@ namespace Vista.Clientes
         //MOSTRAR CLIENTES
         private void MostrarClientes()
         {
+            int registrosSaltar = (paginaActual - 1) * registrosPorPagina;
 
-            dgvClientesCorporativos.DataSource = DbCliente.CargarCorporativos();
+            dgvClientesCorporativos.DataSource =
+                DbCliente.CargarCorporativos(registrosSaltar, registrosPorPagina);
+
+            totalRegistros = DbCliente.ObtenerTotalCorporativos();
+
+            totalPaginas = (int)Math.Ceiling(
+                (double)totalRegistros / registrosPorPagina);
+
+            if (totalPaginas == 0)
+            {
+                totalPaginas = 1;
+            }
+
+            lblPagina.Text = $"Página {paginaActual} de {totalPaginas}";
+
+            btnAnterior.Enabled = paginaActual > 1;
+            btnSiguiente.Enabled = paginaActual < totalPaginas;
+
             ActualizarEstadisticas();
         }
         private void MostrarClientes2()
@@ -44,6 +74,26 @@ namespace Vista.Clientes
 
             dgvClientesIndividuales.DataSource = DbCliente.CargarIndividuales();
             ActualizarEstadisticas();
+        }
+
+        private void btnSiguienteC_Click(object sender, EventArgs e)
+        {
+            if (paginaActual < totalPaginas)
+            {
+                paginaActual++;
+
+                MostrarClientes();
+            }
+        }
+
+        private void btnAtrasC_Click(object sender, EventArgs e)
+        {
+            if (paginaActual > 1)
+            {
+                paginaActual--;
+
+                MostrarClientes();
+            }
         }
 
         //----------------------------------------------------------------------
@@ -1169,6 +1219,8 @@ namespace Vista.Clientes
             LimpiarFormularioCliente();
 
         }
+
+
     }
 }
 

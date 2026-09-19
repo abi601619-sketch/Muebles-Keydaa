@@ -28,11 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             this.gbDatosGenerales = new System.Windows.Forms.GroupBox();
             this.cbEstadoCliente = new System.Windows.Forms.ComboBox();
             this.lblEstado = new System.Windows.Forms.Label();
@@ -50,22 +50,19 @@
             this.pnlIndicador3 = new System.Windows.Forms.Panel();
             this.lblClienteActivoTitulo = new System.Windows.Forms.Label();
             this.lblClientesActivos = new System.Windows.Forms.Label();
-            this.pbClientes = new System.Windows.Forms.PictureBox();
             this.pnlIndicador1 = new System.Windows.Forms.Panel();
             this.lblTituloClienteactivo = new System.Windows.Forms.Label();
-            this.pbClientesInactvos = new System.Windows.Forms.PictureBox();
             this.lblClientesInactivos = new System.Windows.Forms.Label();
             this.pnlIndicador4 = new System.Windows.Forms.Panel();
             this.blbTituloTotalRegistros = new System.Windows.Forms.Label();
             this.lblTotalClientes = new System.Windows.Forms.Label();
-            this.pbClientesTotales = new System.Windows.Forms.PictureBox();
             this.txtBuscarIndividual = new System.Windows.Forms.TextBox();
             this.pnlSuperior = new System.Windows.Forms.Panel();
             this.lblAdministrador = new System.Windows.Forms.Label();
-            this.pbPerfil = new System.Windows.Forms.PictureBox();
             this.lblSubTexto = new System.Windows.Forms.Label();
             this.lblMensajeInformativoPrincipal = new System.Windows.Forms.Label();
             this.pnlPedirInformacion = new System.Windows.Forms.Panel();
+            this.btnNuevoCliente = new System.Windows.Forms.Button();
             this.cbTipoCliente = new System.Windows.Forms.ComboBox();
             this.btnEditar = new System.Windows.Forms.Button();
             this.lblTipoCliente = new System.Windows.Forms.Label();
@@ -93,17 +90,22 @@
             this.pnlRegistroClienteCorporativo = new System.Windows.Forms.Panel();
             this.dgvClientesCorporativos = new System.Windows.Forms.DataGridView();
             this.button1 = new System.Windows.Forms.Button();
-            this.btnNuevoCliente = new System.Windows.Forms.Button();
+            this.pbClientes = new System.Windows.Forms.PictureBox();
+            this.pbClientesInactvos = new System.Windows.Forms.PictureBox();
+            this.pbClientesTotales = new System.Windows.Forms.PictureBox();
+            this.pbPerfil = new System.Windows.Forms.PictureBox();
+            this.btnAnterior = new System.Windows.Forms.Button();
+            this.btnSiguiente = new System.Windows.Forms.Button();
+            this.lblPagina = new System.Windows.Forms.Label();
+            this.lblPaginaC = new System.Windows.Forms.Label();
+            this.btnAtrasC = new System.Windows.Forms.Button();
+            this.btnSiguienteC = new System.Windows.Forms.Button();
             this.gbDatosGenerales.SuspendLayout();
             this.pnlContenedorPrincipal.SuspendLayout();
             this.pnlIndicador3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbClientes)).BeginInit();
             this.pnlIndicador1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbClientesInactvos)).BeginInit();
             this.pnlIndicador4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbClientesTotales)).BeginInit();
             this.pnlSuperior.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbPerfil)).BeginInit();
             this.pnlPedirInformacion.SuspendLayout();
             this.gbPersonaNatural.SuspendLayout();
             this.gbDatosEmpresa.SuspendLayout();
@@ -111,6 +113,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvClientesIndividuales)).BeginInit();
             this.pnlRegistroClienteCorporativo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvClientesCorporativos)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbClientes)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbClientesInactvos)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbClientesTotales)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPerfil)).BeginInit();
             this.SuspendLayout();
             // 
             // gbDatosGenerales
@@ -237,8 +243,8 @@
             this.pnlContenedorPrincipal.Controls.Add(this.lblMensajeInformativoPrincipal);
             this.pnlContenedorPrincipal.Controls.Add(this.pnlPedirInformacion);
             this.pnlContenedorPrincipal.Controls.Add(this.txtBuscarCorporativo);
-            this.pnlContenedorPrincipal.Controls.Add(this.pnlRegistroClienteIndividual);
             this.pnlContenedorPrincipal.Controls.Add(this.pnlRegistroClienteCorporativo);
+            this.pnlContenedorPrincipal.Controls.Add(this.pnlRegistroClienteIndividual);
             this.pnlContenedorPrincipal.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlContenedorPrincipal.Location = new System.Drawing.Point(0, 0);
             this.pnlContenedorPrincipal.Margin = new System.Windows.Forms.Padding(2);
@@ -324,16 +330,6 @@
             this.lblClientesActivos.Size = new System.Drawing.Size(0, 15);
             this.lblClientesActivos.TabIndex = 6;
             // 
-            // pbClientes
-            // 
-            this.pbClientes.Image = global::Vista.Properties.Resources.Cliente_activo;
-            this.pbClientes.Location = new System.Drawing.Point(9, 2);
-            this.pbClientes.Name = "pbClientes";
-            this.pbClientes.Size = new System.Drawing.Size(79, 59);
-            this.pbClientes.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pbClientes.TabIndex = 4;
-            this.pbClientes.TabStop = false;
-            // 
             // pnlIndicador1
             // 
             this.pnlIndicador1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(162)))), ((int)(((byte)(147)))));
@@ -355,16 +351,6 @@
             this.lblTituloClienteactivo.Size = new System.Drawing.Size(104, 15);
             this.lblTituloClienteactivo.TabIndex = 6;
             this.lblTituloClienteactivo.Text = "Clientes Inactivos";
-            // 
-            // pbClientesInactvos
-            // 
-            this.pbClientesInactvos.Image = global::Vista.Properties.Resources.Cliente_inactivo;
-            this.pbClientesInactvos.Location = new System.Drawing.Point(6, 3);
-            this.pbClientesInactvos.Name = "pbClientesInactvos";
-            this.pbClientesInactvos.Size = new System.Drawing.Size(79, 59);
-            this.pbClientesInactvos.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pbClientesInactvos.TabIndex = 5;
-            this.pbClientesInactvos.TabStop = false;
             // 
             // lblClientesInactivos
             // 
@@ -406,16 +392,6 @@
             this.lblTotalClientes.Size = new System.Drawing.Size(0, 15);
             this.lblTotalClientes.TabIndex = 7;
             // 
-            // pbClientesTotales
-            // 
-            this.pbClientesTotales.Image = global::Vista.Properties.Resources.Clientes_totales;
-            this.pbClientesTotales.Location = new System.Drawing.Point(5, 2);
-            this.pbClientesTotales.Name = "pbClientesTotales";
-            this.pbClientesTotales.Size = new System.Drawing.Size(79, 59);
-            this.pbClientesTotales.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pbClientesTotales.TabIndex = 2;
-            this.pbClientesTotales.TabStop = false;
-            // 
             // txtBuscarIndividual
             // 
             this.txtBuscarIndividual.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -451,17 +427,6 @@
             this.lblAdministrador.Size = new System.Drawing.Size(38, 14);
             this.lblAdministrador.TabIndex = 29;
             this.lblAdministrador.Text = "Admin";
-            // 
-            // pbPerfil
-            // 
-            this.pbPerfil.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(177)))), ((int)(((byte)(114)))));
-            this.pbPerfil.Image = global::Vista.Properties.Resources.user_456283;
-            this.pbPerfil.Location = new System.Drawing.Point(1054, -1);
-            this.pbPerfil.Name = "pbPerfil";
-            this.pbPerfil.Size = new System.Drawing.Size(26, 24);
-            this.pbPerfil.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pbPerfil.TabIndex = 25;
-            this.pbPerfil.TabStop = false;
             // 
             // lblSubTexto
             // 
@@ -504,6 +469,16 @@
             this.pnlPedirInformacion.Name = "pnlPedirInformacion";
             this.pnlPedirInformacion.Size = new System.Drawing.Size(220, 495);
             this.pnlPedirInformacion.TabIndex = 3;
+            // 
+            // btnNuevoCliente
+            // 
+            this.btnNuevoCliente.Location = new System.Drawing.Point(23, 47);
+            this.btnNuevoCliente.Name = "btnNuevoCliente";
+            this.btnNuevoCliente.Size = new System.Drawing.Size(182, 25);
+            this.btnNuevoCliente.TabIndex = 22;
+            this.btnNuevoCliente.Text = " Nuevo Cliente ";
+            this.btnNuevoCliente.UseVisualStyleBackColor = true;
+            this.btnNuevoCliente.Click += new System.EventHandler(this.btnNuevoCliente_Click);
             // 
             // cbTipoCliente
             // 
@@ -769,6 +744,9 @@
             // pnlRegistroClienteIndividual
             // 
             this.pnlRegistroClienteIndividual.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(153)))), ((int)(((byte)(105)))));
+            this.pnlRegistroClienteIndividual.Controls.Add(this.lblPagina);
+            this.pnlRegistroClienteIndividual.Controls.Add(this.btnAnterior);
+            this.pnlRegistroClienteIndividual.Controls.Add(this.btnSiguiente);
             this.pnlRegistroClienteIndividual.Controls.Add(this.dgvClientesIndividuales);
             this.pnlRegistroClienteIndividual.Location = new System.Drawing.Point(256, 208);
             this.pnlRegistroClienteIndividual.Margin = new System.Windows.Forms.Padding(2);
@@ -789,23 +767,23 @@
             this.dgvClientesIndividuales.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvClientesIndividuales.BackgroundColor = System.Drawing.Color.White;
             this.dgvClientesIndividuales.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvClientesIndividuales.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvClientesIndividuales.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
             this.dgvClientesIndividuales.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.SandyBrown;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvClientesIndividuales.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.SandyBrown;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvClientesIndividuales.DefaultCellStyle = dataGridViewCellStyle10;
             this.dgvClientesIndividuales.GridColor = System.Drawing.Color.Black;
             this.dgvClientesIndividuales.Location = new System.Drawing.Point(16, 14);
             this.dgvClientesIndividuales.MultiSelect = false;
@@ -813,13 +791,16 @@
             this.dgvClientesIndividuales.ReadOnly = true;
             this.dgvClientesIndividuales.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dgvClientesIndividuales.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dgvClientesIndividuales.Size = new System.Drawing.Size(791, 368);
+            this.dgvClientesIndividuales.Size = new System.Drawing.Size(791, 348);
             this.dgvClientesIndividuales.TabIndex = 0;
             this.dgvClientesIndividuales.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvClientesIndividuales_CellClick_1);
             // 
             // pnlRegistroClienteCorporativo
             // 
             this.pnlRegistroClienteCorporativo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(153)))), ((int)(((byte)(105)))));
+            this.pnlRegistroClienteCorporativo.Controls.Add(this.lblPaginaC);
+            this.pnlRegistroClienteCorporativo.Controls.Add(this.btnAtrasC);
+            this.pnlRegistroClienteCorporativo.Controls.Add(this.btnSiguienteC);
             this.pnlRegistroClienteCorporativo.Controls.Add(this.dgvClientesCorporativos);
             this.pnlRegistroClienteCorporativo.Location = new System.Drawing.Point(256, 208);
             this.pnlRegistroClienteCorporativo.Margin = new System.Windows.Forms.Padding(2);
@@ -839,38 +820,38 @@
             this.dgvClientesCorporativos.BackgroundColor = System.Drawing.Color.White;
             this.dgvClientesCorporativos.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvClientesCorporativos.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvClientesCorporativos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvClientesCorporativos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.dgvClientesCorporativos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.SandyBrown;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvClientesCorporativos.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.SandyBrown;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvClientesCorporativos.DefaultCellStyle = dataGridViewCellStyle7;
             this.dgvClientesCorporativos.GridColor = System.Drawing.Color.Black;
             this.dgvClientesCorporativos.Location = new System.Drawing.Point(16, 14);
             this.dgvClientesCorporativos.Name = "dgvClientesCorporativos";
             this.dgvClientesCorporativos.ReadOnly = true;
             this.dgvClientesCorporativos.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.SandyBrown;
-            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvClientesCorporativos.RowHeadersDefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.SandyBrown;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvClientesCorporativos.RowHeadersDefaultCellStyle = dataGridViewCellStyle8;
             this.dgvClientesCorporativos.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            this.dgvClientesCorporativos.Size = new System.Drawing.Size(793, 365);
+            this.dgvClientesCorporativos.Size = new System.Drawing.Size(793, 348);
             this.dgvClientesCorporativos.TabIndex = 0;
             this.dgvClientesCorporativos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvClientesCorporativos_CellClick_1);
             // 
@@ -883,15 +864,114 @@
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
             // 
-            // btnNuevoCliente
+            // pbClientes
             // 
-            this.btnNuevoCliente.Location = new System.Drawing.Point(23, 47);
-            this.btnNuevoCliente.Name = "btnNuevoCliente";
-            this.btnNuevoCliente.Size = new System.Drawing.Size(182, 25);
-            this.btnNuevoCliente.TabIndex = 22;
-            this.btnNuevoCliente.Text = " Nuevo Cliente ";
-            this.btnNuevoCliente.UseVisualStyleBackColor = true;
-            this.btnNuevoCliente.Click += new System.EventHandler(this.btnNuevoCliente_Click);
+            this.pbClientes.Image = global::Vista.Properties.Resources.Cliente_activo;
+            this.pbClientes.Location = new System.Drawing.Point(9, 2);
+            this.pbClientes.Name = "pbClientes";
+            this.pbClientes.Size = new System.Drawing.Size(79, 59);
+            this.pbClientes.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbClientes.TabIndex = 4;
+            this.pbClientes.TabStop = false;
+            // 
+            // pbClientesInactvos
+            // 
+            this.pbClientesInactvos.Image = global::Vista.Properties.Resources.Cliente_inactivo;
+            this.pbClientesInactvos.Location = new System.Drawing.Point(6, 3);
+            this.pbClientesInactvos.Name = "pbClientesInactvos";
+            this.pbClientesInactvos.Size = new System.Drawing.Size(79, 59);
+            this.pbClientesInactvos.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbClientesInactvos.TabIndex = 5;
+            this.pbClientesInactvos.TabStop = false;
+            // 
+            // pbClientesTotales
+            // 
+            this.pbClientesTotales.Image = global::Vista.Properties.Resources.Clientes_totales;
+            this.pbClientesTotales.Location = new System.Drawing.Point(5, 2);
+            this.pbClientesTotales.Name = "pbClientesTotales";
+            this.pbClientesTotales.Size = new System.Drawing.Size(79, 59);
+            this.pbClientesTotales.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbClientesTotales.TabIndex = 2;
+            this.pbClientesTotales.TabStop = false;
+            // 
+            // pbPerfil
+            // 
+            this.pbPerfil.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(177)))), ((int)(((byte)(114)))));
+            this.pbPerfil.Image = global::Vista.Properties.Resources.user_456283;
+            this.pbPerfil.Location = new System.Drawing.Point(1054, -1);
+            this.pbPerfil.Name = "pbPerfil";
+            this.pbPerfil.Size = new System.Drawing.Size(26, 24);
+            this.pbPerfil.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbPerfil.TabIndex = 25;
+            this.pbPerfil.TabStop = false;
+            // 
+            // btnAnterior
+            // 
+            this.btnAnterior.FlatAppearance.BorderSize = 0;
+            this.btnAnterior.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAnterior.Image = global::Vista.Properties.Resources.flecha_atras;
+            this.btnAnterior.Location = new System.Drawing.Point(653, 367);
+            this.btnAnterior.Name = "btnAnterior";
+            this.btnAnterior.Size = new System.Drawing.Size(30, 23);
+            this.btnAnterior.TabIndex = 3;
+            this.btnAnterior.UseVisualStyleBackColor = true;
+            // 
+            // btnSiguiente
+            // 
+            this.btnSiguiente.FlatAppearance.BorderSize = 0;
+            this.btnSiguiente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSiguiente.Image = global::Vista.Properties.Resources.flecha_adelante;
+            this.btnSiguiente.Location = new System.Drawing.Point(777, 365);
+            this.btnSiguiente.Name = "btnSiguiente";
+            this.btnSiguiente.Size = new System.Drawing.Size(30, 23);
+            this.btnSiguiente.TabIndex = 2;
+            this.btnSiguiente.UseVisualStyleBackColor = true;
+            // 
+            // lblPagina
+            // 
+            this.lblPagina.AutoSize = true;
+            this.lblPagina.Font = new System.Drawing.Font("Times New Roman", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPagina.ForeColor = System.Drawing.Color.White;
+            this.lblPagina.Location = new System.Drawing.Point(717, 372);
+            this.lblPagina.Name = "lblPagina";
+            this.lblPagina.Size = new System.Drawing.Size(39, 13);
+            this.lblPagina.TabIndex = 4;
+            this.lblPagina.Text = "label1";
+            // 
+            // lblPaginaC
+            // 
+            this.lblPaginaC.AutoSize = true;
+            this.lblPaginaC.Font = new System.Drawing.Font("Times New Roman", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPaginaC.ForeColor = System.Drawing.Color.White;
+            this.lblPaginaC.Location = new System.Drawing.Point(718, 372);
+            this.lblPaginaC.Name = "lblPaginaC";
+            this.lblPaginaC.Size = new System.Drawing.Size(39, 13);
+            this.lblPaginaC.TabIndex = 7;
+            this.lblPaginaC.Text = "label1";
+            // 
+            // btnAtrasC
+            // 
+            this.btnAtrasC.FlatAppearance.BorderSize = 0;
+            this.btnAtrasC.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAtrasC.Image = global::Vista.Properties.Resources.flecha_atras;
+            this.btnAtrasC.Location = new System.Drawing.Point(654, 367);
+            this.btnAtrasC.Name = "btnAtrasC";
+            this.btnAtrasC.Size = new System.Drawing.Size(30, 23);
+            this.btnAtrasC.TabIndex = 6;
+            this.btnAtrasC.UseVisualStyleBackColor = true;
+            this.btnAtrasC.Click += new System.EventHandler(this.btnAtrasC_Click);
+            // 
+            // btnSiguienteC
+            // 
+            this.btnSiguienteC.FlatAppearance.BorderSize = 0;
+            this.btnSiguienteC.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSiguienteC.Image = global::Vista.Properties.Resources.flecha_adelante;
+            this.btnSiguienteC.Location = new System.Drawing.Point(778, 365);
+            this.btnSiguienteC.Name = "btnSiguienteC";
+            this.btnSiguienteC.Size = new System.Drawing.Size(30, 23);
+            this.btnSiguienteC.TabIndex = 5;
+            this.btnSiguienteC.UseVisualStyleBackColor = true;
+            this.btnSiguienteC.Click += new System.EventHandler(this.btnSiguienteC_Click);
             // 
             // frmClientes
             // 
@@ -909,16 +989,12 @@
             this.pnlContenedorPrincipal.PerformLayout();
             this.pnlIndicador3.ResumeLayout(false);
             this.pnlIndicador3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbClientes)).EndInit();
             this.pnlIndicador1.ResumeLayout(false);
             this.pnlIndicador1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbClientesInactvos)).EndInit();
             this.pnlIndicador4.ResumeLayout(false);
             this.pnlIndicador4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbClientesTotales)).EndInit();
             this.pnlSuperior.ResumeLayout(false);
             this.pnlSuperior.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbPerfil)).EndInit();
             this.pnlPedirInformacion.ResumeLayout(false);
             this.pnlPedirInformacion.PerformLayout();
             this.gbPersonaNatural.ResumeLayout(false);
@@ -926,9 +1002,15 @@
             this.gbDatosEmpresa.ResumeLayout(false);
             this.gbDatosEmpresa.PerformLayout();
             this.pnlRegistroClienteIndividual.ResumeLayout(false);
+            this.pnlRegistroClienteIndividual.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvClientesIndividuales)).EndInit();
             this.pnlRegistroClienteCorporativo.ResumeLayout(false);
+            this.pnlRegistroClienteCorporativo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvClientesCorporativos)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbClientes)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbClientesInactvos)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbClientesTotales)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPerfil)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -996,5 +1078,11 @@
         private System.Windows.Forms.TextBox txtBuscarCorporativo;
         private System.Windows.Forms.Button btnNuevoCliente;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnSiguiente;
+        private System.Windows.Forms.Button btnAnterior;
+        private System.Windows.Forms.Label lblPagina;
+        private System.Windows.Forms.Label lblPaginaC;
+        private System.Windows.Forms.Button btnAtrasC;
+        private System.Windows.Forms.Button btnSiguienteC;
     }
 }

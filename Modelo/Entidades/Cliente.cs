@@ -48,7 +48,7 @@ namespace Modelo.Entidades
         public string Direccion1 { get => Direccion; set => Direccion = value; }
         public string Estado1 { get => Estado; set => Estado = value; }
 
-        public static DataTable CargarCorporativos()
+        public static DataTable CargarCorporativos(int registrosSaltar, int registrosPorPagina)
         {
             DataTable dt = new DataTable();
 
@@ -56,12 +56,31 @@ namespace Modelo.Entidades
             {
                 using (SqlConnection conectar = Conexion.Conectar())
                 {
-                    string comando = @"SELECT  IdCliente,  Identificador1 AS Nombre_De_Empresa, Identificador2 AS Nombre_Del_Encargado,  Documento AS NIT, Telefono, Correo, Direccion, Estado FROM Cliente
-                               WHERE IdTipoCliente = 1;";
+                    string comando = @"
+                SELECT 
+                    IdCliente,
+                    Identificador1 AS Nombre_De_Empresa,
+                    Identificador2 AS Nombre_Del_Encargado,
+                    Documento AS NIT,
+                    Telefono,
+                    Correo,
+                    Direccion,
+                    Estado
+                FROM Cliente
+                WHERE IdTipoCliente = 1
+                ORDER BY IdCliente
+                OFFSET @RegistrosSaltar ROWS
+                FETCH NEXT @RegistrosPorPagina ROWS ONLY;";
 
-                    using (SqlDataAdapter adapter = new SqlDataAdapter(comando, conectar))
+                    using (SqlCommand cmd = new SqlCommand(comando, conectar))
                     {
-                        adapter.Fill(dt);
+                        cmd.Parameters.AddWithValue("@RegistrosSaltar", registrosSaltar);
+                        cmd.Parameters.AddWithValue("@RegistrosPorPagina", registrosPorPagina);
+
+                        using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                        {
+                            adapter.Fill(dt);
+                        }
                     }
                 }
             }
@@ -70,33 +89,122 @@ namespace Modelo.Entidades
                 switch (ex.Number)
                 {
                     case 53:
-                        MessageBox.Show("No se pudo establecer conexión con el servidor de base de datos.", "Error de conexión",
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(
+                            "No se pudo establecer conexión con el servidor de base de datos.",
+                            "Error de conexión",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
                         break;
 
                     case 4060:
-                        MessageBox.Show("No se pudo acceder a la base de datos.", "Error de base de datos",
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(
+                            "No se pudo acceder a la base de datos.",
+                            "Error de base de datos",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
                         break;
 
                     case -2:
-                        MessageBox.Show("La operación tardó demasiado tiempo. Intente nuevamente.", "Tiempo de espera agotado",
-                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show(
+                            "La operación tardó demasiado tiempo. Intente nuevamente.",
+                            "Tiempo de espera agotado",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning);
                         break;
 
                     default:
-                        MessageBox.Show("Ocurrió un error al cargar los clientes corporativos.\n\n" + "Código: " + ex.Number + "\nDetalle: " + ex.Message, "Error de base de datos",
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(
+                            "Ocurrió un error al cargar los clientes corporativos.\n\n" +
+                            "Código: " + ex.Number +
+                            "\nDetalle: " + ex.Message,
+                            "Error de base de datos",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
                         break;
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ocurrió un error inesperado al cargar los clientes corporativos.\n\n" + ex.Message, "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(
+                    "Ocurrió un error inesperado al cargar los clientes corporativos.\n\n" +
+                    ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
             }
 
             return dt;
+        }
+        //OBTENER LOS TOTALES DE CORPORATIVOS , PARA SABER EL TOTAL DE REGISTROS DE ESA TABLA
+        public static int ObtenerTotalCorporativos()
+        {
+            int total = 0;
+
+            try
+            {
+                using (SqlConnection conectar = Conexion.Conectar())
+                {
+                    string comando = @"
+                SELECT COUNT(*)
+                FROM Cliente
+                WHERE IdTipoCliente = 1;";
+
+                    using (SqlCommand cmd = new SqlCommand(comando, conectar))
+                    {
+                        total = Convert.ToInt32(cmd.ExecuteScalar());
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                switch (ex.Number)
+                {
+                    case 53:
+                        MessageBox.Show(
+                            "No se pudo establecer conexión con el servidor de base de datos.",
+                            "Error de conexión",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
+
+                    case 4060:
+                        MessageBox.Show(
+                            "No se pudo acceder a la base de datos.",
+                            "Error de base de datos",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
+
+                    case -2:
+                        MessageBox.Show(
+                            "La operación tardó demasiado tiempo. Intente nuevamente.",
+                            "Tiempo de espera agotado",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning);
+                        break;
+
+                    default:
+                        MessageBox.Show(
+                            "Ocurrió un error al obtener el total de clientes corporativos.\n\n" +
+                            "Código: " + ex.Number +
+                            "\nDetalle: " + ex.Message,
+                            "Error de base de datos",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Ocurrió un error inesperado al obtener el total de clientes corporativos.\n\n" +
+                    ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+
+            return total;
         }
 
 

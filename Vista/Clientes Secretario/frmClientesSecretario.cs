@@ -34,8 +34,7 @@ namespace Vista.Clientes_Secretario
         // MOSTRAR CLIENTES
         private void MostrarClientesIndividuales()
         {
-            dgvClientesCorporativos.DataSource = null;
-            dgvClientesCorporativos.DataSource = DbCliente.CargarCorporativos();
+
         }
         private void MostrarClientesCorporativos()
         {
