@@ -128,6 +128,7 @@ namespace Vista.Configuracion_Inicial
 
                 ConfiguracionUltimaParte frm = new ConfiguracionUltimaParte();
                 frm.ShowDialog();
+
             }
         }
 

@@ -39,21 +39,24 @@
             this.label1 = new System.Windows.Forms.Label();
             this.lblBienvenida = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.btnSeleccionarLogo = new System.Windows.Forms.Button();
+            this.picLogo = new System.Windows.Forms.PictureBox();
             this.lblFormatos = new System.Windows.Forms.Label();
             this.lblLogo = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtDireccion = new System.Windows.Forms.TextBox();
+            this.txtCorreo = new System.Windows.Forms.TextBox();
             this.lblDireccion = new System.Windows.Forms.Label();
             this.lblCorreo = new System.Windows.Forms.Label();
             this.txtTelefono = new System.Windows.Forms.TextBox();
             this.lblTelefono = new System.Windows.Forms.Label();
             this.txtNombreEmpresa = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.button6 = new System.Windows.Forms.Button();
+            this.btnSiguiente = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             this.flpBotones.SuspendLayout();
             this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picLogo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -86,7 +89,7 @@
             // 
             this.button1.Dock = System.Windows.Forms.DockStyle.Top;
             this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.PeachPuff;
+            this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Location = new System.Drawing.Point(3, 3);
             this.button1.Name = "button1";
@@ -97,22 +100,24 @@
             // 
             // button2
             // 
+            this.button2.BackColor = System.Drawing.Color.PeachPuff;
             this.button2.Dock = System.Windows.Forms.DockStyle.Top;
             this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.PeachPuff;
+            this.button2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button2.ForeColor = System.Drawing.Color.Black;
             this.button2.Location = new System.Drawing.Point(3, 45);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(175, 36);
             this.button2.TabIndex = 1;
             this.button2.Text = "Empresa";
-            this.button2.UseVisualStyleBackColor = true;
+            this.button2.UseVisualStyleBackColor = false;
             // 
             // button3
             // 
             this.button3.Dock = System.Windows.Forms.DockStyle.Top;
             this.button3.FlatAppearance.BorderSize = 0;
-            this.button3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.PeachPuff;
+            this.button3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button3.Location = new System.Drawing.Point(3, 87);
             this.button3.Name = "button3";
@@ -125,7 +130,7 @@
             // 
             this.button4.Dock = System.Windows.Forms.DockStyle.Top;
             this.button4.FlatAppearance.BorderSize = 0;
-            this.button4.FlatAppearance.MouseOverBackColor = System.Drawing.Color.PeachPuff;
+            this.button4.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button4.Location = new System.Drawing.Point(3, 129);
             this.button4.Name = "button4";
@@ -175,25 +180,45 @@
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.panel3.Controls.Add(this.btnSeleccionarLogo);
+            this.panel3.Controls.Add(this.picLogo);
             this.panel3.Controls.Add(this.lblFormatos);
             this.panel3.Controls.Add(this.lblLogo);
-            this.panel3.Controls.Add(this.textBox2);
-            this.panel3.Controls.Add(this.textBox1);
+            this.panel3.Controls.Add(this.txtDireccion);
+            this.panel3.Controls.Add(this.txtCorreo);
             this.panel3.Controls.Add(this.lblDireccion);
             this.panel3.Controls.Add(this.lblCorreo);
             this.panel3.Controls.Add(this.txtTelefono);
             this.panel3.Controls.Add(this.lblTelefono);
             this.panel3.Controls.Add(this.txtNombreEmpresa);
             this.panel3.Controls.Add(this.label3);
-            this.panel3.Location = new System.Drawing.Point(233, 89);
+            this.panel3.Location = new System.Drawing.Point(233, 99);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(632, 296);
             this.panel3.TabIndex = 10;
             // 
+            // btnSeleccionarLogo
+            // 
+            this.btnSeleccionarLogo.Location = new System.Drawing.Point(303, 194);
+            this.btnSeleccionarLogo.Name = "btnSeleccionarLogo";
+            this.btnSeleccionarLogo.Size = new System.Drawing.Size(180, 28);
+            this.btnSeleccionarLogo.TabIndex = 22;
+            this.btnSeleccionarLogo.Text = "Seleccionar logo";
+            this.btnSeleccionarLogo.UseVisualStyleBackColor = true;
+            this.btnSeleccionarLogo.Click += new System.EventHandler(this.btnSeleccionarLogo_Click);
+            // 
+            // picLogo
+            // 
+            this.picLogo.Location = new System.Drawing.Point(54, 174);
+            this.picLogo.Name = "picLogo";
+            this.picLogo.Size = new System.Drawing.Size(184, 89);
+            this.picLogo.TabIndex = 21;
+            this.picLogo.TabStop = false;
+            // 
             // lblFormatos
             // 
             this.lblFormatos.AutoSize = true;
-            this.lblFormatos.Location = new System.Drawing.Point(336, 189);
+            this.lblFormatos.Location = new System.Drawing.Point(300, 235);
             this.lblFormatos.Name = "lblFormatos";
             this.lblFormatos.Size = new System.Drawing.Size(155, 14);
             this.lblFormatos.TabIndex = 20;
@@ -209,22 +234,22 @@
             this.lblLogo.Text = "Logotipo";
             this.lblLogo.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // textBox2
+            // txtDireccion
             // 
-            this.textBox2.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.textBox2.Location = new System.Drawing.Point(349, 106);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(210, 20);
-            this.textBox2.TabIndex = 18;
+            this.txtDireccion.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.txtDireccion.Location = new System.Drawing.Point(349, 106);
+            this.txtDireccion.Multiline = true;
+            this.txtDireccion.Name = "txtDireccion";
+            this.txtDireccion.Size = new System.Drawing.Size(210, 20);
+            this.txtDireccion.TabIndex = 18;
             // 
-            // textBox1
+            // txtCorreo
             // 
-            this.textBox1.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.textBox1.Location = new System.Drawing.Point(28, 104);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(210, 20);
-            this.textBox1.TabIndex = 17;
+            this.txtCorreo.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.txtCorreo.Location = new System.Drawing.Point(28, 104);
+            this.txtCorreo.Name = "txtCorreo";
+            this.txtCorreo.Size = new System.Drawing.Size(210, 20);
+            this.txtCorreo.TabIndex = 17;
             // 
             // lblDireccion
             // 
@@ -282,17 +307,17 @@
             this.label3.Text = "Nombre de la empresa";
             this.label3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // button6
+            // btnSiguiente
             // 
-            this.button6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
-            this.button6.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button6.Location = new System.Drawing.Point(736, 477);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(148, 45);
-            this.button6.TabIndex = 11;
-            this.button6.Text = "Siguiente";
-            this.button6.UseVisualStyleBackColor = false;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
+            this.btnSiguiente.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.btnSiguiente.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSiguiente.Location = new System.Drawing.Point(736, 477);
+            this.btnSiguiente.Name = "btnSiguiente";
+            this.btnSiguiente.Size = new System.Drawing.Size(148, 45);
+            this.btnSiguiente.TabIndex = 11;
+            this.btnSiguiente.Text = "Siguiente";
+            this.btnSiguiente.UseVisualStyleBackColor = false;
+            this.btnSiguiente.Click += new System.EventHandler(this.btnSiguiente_Click);
             // 
             // pictureBox1
             // 
@@ -310,7 +335,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(902, 549);
             this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.button6);
+            this.Controls.Add(this.btnSiguiente);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnAtras);
@@ -318,11 +343,14 @@
             this.Controls.Add(this.lblBienvenida);
             this.Font = new System.Drawing.Font("Times New Roman", 8F);
             this.Name = "frmConfiguracionparte2";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmConfiguracionparte2";
+            this.Load += new System.EventHandler(this.frmConfiguracionparte2_Load);
             this.panel1.ResumeLayout(false);
             this.flpBotones.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picLogo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
@@ -342,16 +370,18 @@
         private System.Windows.Forms.Label lblBienvenida;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtDireccion;
+        private System.Windows.Forms.TextBox txtCorreo;
         private System.Windows.Forms.Label lblDireccion;
         private System.Windows.Forms.Label lblCorreo;
         private System.Windows.Forms.TextBox txtTelefono;
         private System.Windows.Forms.Label lblTelefono;
         private System.Windows.Forms.TextBox txtNombreEmpresa;
         private System.Windows.Forms.Label lblLogo;
-        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button btnSiguiente;
         private System.Windows.Forms.Label lblFormatos;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button btnSeleccionarLogo;
+        private System.Windows.Forms.PictureBox picLogo;
     }
 }

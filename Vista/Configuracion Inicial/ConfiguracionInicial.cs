@@ -3,9 +3,9 @@ using System.Windows.Forms;
 
 namespace Vista.Configuracion_Inicial
 {
-    public partial class Configuracion_Inicial : Form
+    public partial class ConfiguracionInicial : Form
     {
-        public Configuracion_Inicial()
+        public ConfiguracionInicial()
         {
             InitializeComponent();
         }
@@ -19,6 +19,7 @@ namespace Vista.Configuracion_Inicial
         {
             frmConfiguracionparte2 frm = new frmConfiguracionparte2();
             frm.Show();
+            this.Hide();
         }
     }
 }

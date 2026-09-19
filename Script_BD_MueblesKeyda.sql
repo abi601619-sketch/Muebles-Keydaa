@@ -1236,6 +1236,35 @@ BEGIN
 END;
 GO
 
+CREATE OR ALTER PROCEDURE sp_Usuario_CambiarContraseña
+    @IdUsuario INT,
+    @NuevaContraseña VARCHAR(255)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    UPDATE Usuario
+    SET Contraseña = @NuevaContraseña
+    WHERE IdUsuario = @IdUsuario;
+END;
+GO
+
+CREATE OR ALTER PROCEDURE sp_Recuperacion_MarcarUsado
+    @IdRecuperacion INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    UPDATE RecuperacionContraseña
+    SET Usado = 1
+    WHERE IdRecuperacion = @IdRecuperacion;
+END;
+GO
+
+
+
+GO
+
 
 
 

@@ -327,7 +327,7 @@
             // 
             this.btnGenerarFactura.BackColor = System.Drawing.Color.Silver;
             this.btnGenerarFactura.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGenerarFactura.Image = global::Vista.Properties.Resources.archivo_pdf;
+            this.btnGenerarFactura.Image = global::Vista.Properties.Resources.PDFIcono;
             this.btnGenerarFactura.Location = new System.Drawing.Point(584, 16);
             this.btnGenerarFactura.Margin = new System.Windows.Forms.Padding(2);
             this.btnGenerarFactura.Name = "btnGenerarFactura";
@@ -341,7 +341,7 @@
             // 
             this.btnGerarPdfModificado.BackColor = System.Drawing.Color.Silver;
             this.btnGerarPdfModificado.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGerarPdfModificado.Image = global::Vista.Properties.Resources.archivo_pdf;
+            this.btnGerarPdfModificado.Image = global::Vista.Properties.Resources.PDFIcono;
             this.btnGerarPdfModificado.Location = new System.Drawing.Point(11, 446);
             this.btnGerarPdfModificado.Margin = new System.Windows.Forms.Padding(2);
             this.btnGerarPdfModificado.Name = "btnGerarPdfModificado";

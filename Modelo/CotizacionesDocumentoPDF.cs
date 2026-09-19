@@ -1,461 +1,502 @@
-﻿using QuestPDF.Fluent;
+﻿using Modelo.Entidades;
+using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
 using System;
 using System.Data;
 using System.IO;
 
-public class CotizacionesDocumentoPDF : IDocument
+namespace Modelo
 {
-    private DataTable cotizaciones;
-    private DateTime fechaInicio;
-    private DateTime fechaFin;
-
-    private int cotizacionesRegistradas;
-    private int cotizacionesAprobadas;
-    private int cotizacionesRechazadas;
-
-
-    public CotizacionesDocumentoPDF(
-        DataTable cotizaciones,
-        DateTime fechaInicio,
-        DateTime fechaFin,
-        int cotizacionesRegistradas,
-        int cotizacionesAprobadas,
-        int cotizacionesRechazadas)
+    public class CotizacionesDocumentoPDF : IDocument
     {
-        this.cotizaciones = cotizaciones;
-        this.fechaInicio = fechaInicio;
-        this.fechaFin = fechaFin;
+        private DataTable cotizaciones;
+        private DateTime fechaInicio;
+        private DateTime fechaFin;
 
-        this.cotizacionesRegistradas = cotizacionesRegistradas;
-        this.cotizacionesAprobadas = cotizacionesAprobadas;
-        this.cotizacionesRechazadas = cotizacionesRechazadas;
-    }
+        private int cotizacionesRegistradas;
+        private int cotizacionesAprobadas;
+        private int cotizacionesRechazadas;
 
 
-    // ==========================================
-    // METADATOS
-    // ==========================================
+        // =========================================================
+        // CONSTRUCTOR
+        // =========================================================
 
-    public DocumentMetadata GetMetadata()
-    {
-        return new DocumentMetadata
+        public CotizacionesDocumentoPDF(
+            DataTable cotizaciones,
+            DateTime fechaInicio,
+            DateTime fechaFin,
+            int cotizacionesRegistradas,
+            int cotizacionesAprobadas,
+            int cotizacionesRechazadas)
         {
-            Title = "Reporte de Cotizaciones",
-            Author = "Muebles Keyda",
-            Subject = "Reporte de cotizaciones"
-        };
-    }
+            this.cotizaciones = cotizaciones;
+            this.fechaInicio = fechaInicio;
+            this.fechaFin = fechaFin;
 
-
-    // ==========================================
-    // CONFIGURACIÓN
-    // ==========================================
-
-    public DocumentSettings GetSettings()
-    {
-        return new DocumentSettings();
-    }
-
-
-    // ==========================================
-    // DOCUMENTO
-    // ==========================================
-
-    public void Compose(IDocumentContainer documento)
-    {
-        documento.Page(pagina =>
-        {
-            pagina.Size(PageSizes.A4.Landscape());
-
-            pagina.Margin(25);
-
-            pagina.DefaultTextStyle(estilo =>
-            {
-                estilo.FontFamily("Lato");
-                estilo.FontSize(9);
-                return estilo;
-            });
-
-            pagina.Header()
-                .Element(ConstruirEncabezado);
-
-            pagina.Content()
-                .Element(ConstruirContenido);
-
-            pagina.Footer()
-                .AlignCenter()
-                .Text("Muebles Keyda | Reporte de Cotizaciones")
-                .FontSize(8)
-                .FontColor("#777777");
-        });
-    }
-
-
-    // ==========================================
-    // ENCABEZADO
-    // ==========================================
-    private void ConstruirEncabezado(IContainer contenedorPrincipal)
-    {
-        string rutaLogo = Path.Combine(
-            @"C:\Documentos\Muebles Keyda en Git\Vista\Resources",
-            "Logo de la empresa png.png"
-        );
-
-        if (!File.Exists(rutaLogo))
-        {
-            throw new Exception(
-                "NO SE ENCONTRÓ EL LOGO EN:\n\n" +
-                rutaLogo
-            );
+            this.cotizacionesRegistradas = cotizacionesRegistradas;
+            this.cotizacionesAprobadas = cotizacionesAprobadas;
+            this.cotizacionesRechazadas = cotizacionesRechazadas;
         }
 
-        byte[] logo = File.ReadAllBytes(rutaLogo);
 
-        contenedorPrincipal
-            .Background("#4A2C1A")
-            .Padding(15)
-            .Row(fila =>
-            {
-                // ==========================================
-                // LOGO
-                // ==========================================
+        // =========================================================
+        // CONFIGURACIÓN DEL DOCUMENTO
+        // =========================================================
 
-                fila.RelativeItem()
-                    .Column(columna =>
-                    {
-                        columna.Item()
-                            .Height(55)
-                            .Width(180)
-                            .AlignLeft()
-                            .Image(logo)
-                            .FitArea();
-
-                        columna.Item()
-                            .PaddingTop(5)
-                            .Text("DISEÑO · CONFORT · ELEGANCIA")
-                            .FontSize(8)
-                            .Bold()
-                            .FontColor("#F4DDC5");
-                    });
-
-
-                // ==========================================
-                // TÍTULO
-                // ==========================================
-
-                fila.RelativeItem()
-                    .AlignRight()
-                    .Column(columna =>
-                    {
-                        columna.Item()
-                            .AlignRight()
-                            .Text("REPORTE DE COTIZACIONES")
-                            .FontSize(20)
-                            .Bold()
-                            .FontColor("#FFFFFF");
-
-                        columna.Item()
-                            .PaddingTop(5)
-                            .AlignRight()
-                            .Text("Registro de cotizaciones")
-                            .FontSize(10)
-                            .FontColor("#F4DDC5");
-                    });
-            });
-    }
-
-
-    // ==========================================
-    // CONTENIDO
-    // ==========================================
-
-    private void ConstruirContenido(IContainer contenedorPrincipal)
-    {
-        contenedorPrincipal.Column(columnaPrincipal =>
+        public DocumentMetadata GetMetadata()
         {
-            // ==========================================
-            // PERÍODO
-            // ==========================================
-
-            columnaPrincipal.Item()
-                .PaddingTop(10)
-                .Background("#F4DDC5")
-                .Padding(8)
-                .Text(
-                    "PERÍODO: " +
-                    fechaInicio.ToString("dd/MM/yyyy") +
-                    " - " +
-                    fechaFin.ToString("dd/MM/yyyy")
-                )
-                .Bold()
-                .FontSize(9)
-                .FontColor("#4A2C1A");
+            return new DocumentMetadata
+            {
+                Title = "Reporte de Cotizaciones",
+                Author = ConfiguracionEmpresa.Nombre,
+                Subject = "Reporte de cotizaciones"
+            };
+        }
 
 
-            // ==========================================
-            // ESTADÍSTICAS
-            // ==========================================
+        public DocumentSettings GetSettings()
+        {
+            return new DocumentSettings
+            {
+                CompressDocument = true
+            };
+        }
 
-            columnaPrincipal.Item()
-                .PaddingTop(10)
+
+        // =========================================================
+        // CREACIÓN DEL PDF
+        // =========================================================
+
+        public void Compose(IDocumentContainer container)
+        {
+            container.Page(pagina =>
+            {
+                pagina.Size(PageSizes.A4.Landscape());
+
+                pagina.Margin(25);
+
+                pagina.DefaultTextStyle(estilo =>
+                {
+                    estilo.FontSize(9);
+
+                    return estilo;
+                });
+
+
+                // ENCABEZADO
+                pagina.Header()
+                    .Element(ConstruirEncabezado);
+
+
+                // CONTENIDO
+                pagina.Content()
+                    .Element(ConstruirContenido);
+
+
+                // PIE DE PÁGINA
+                pagina.Footer()
+                    .AlignCenter()
+                    .Text(
+                        ConfiguracionEmpresa.Nombre +
+                        " | Reporte de Cotizaciones"
+                    )
+                    .FontSize(8)
+                    .FontColor("#777777");
+            });
+        }
+
+
+        // =========================================================
+        // ENCABEZADO
+        // =========================================================
+
+        private void ConstruirEncabezado(
+            IContainer contenedorPrincipal)
+        {
+            string rutaLogo = ConfiguracionEmpresa.Logo;
+
+
+            // -----------------------------------------------------
+            // COMPROBAR QUE EXISTA EL LOGO
+            // -----------------------------------------------------
+
+            if (string.IsNullOrWhiteSpace(rutaLogo) ||
+                !File.Exists(rutaLogo))
+            {
+                throw new Exception(
+                    "No se encontró el logo de la empresa.\n\n" +
+                    "Configure nuevamente el logo de la empresa."
+                );
+            }
+
+
+            byte[] logo = File.ReadAllBytes(rutaLogo);
+
+
+            // -----------------------------------------------------
+            // DISEÑO DEL ENCABEZADO
+            // -----------------------------------------------------
+
+            contenedorPrincipal
+                .Background("#4A2C1A")
+                .Padding(15)
                 .Row(fila =>
                 {
-                    fila.RelativeItem()
-                        .PaddingRight(5)
-                        .Element(elemento =>
-                            CrearTarjeta(
-                                elemento,
-                                "COTIZACIONES APROBADAS",
-                                cotizacionesAprobadas.ToString()
-                            )
-                        );
+
+                    // =================================================
+                    // INFORMACIÓN DE LA EMPRESA
+                    // =================================================
 
                     fila.RelativeItem()
-                        .PaddingHorizontal(5)
-                        .Element(elemento =>
-                            CrearTarjeta(
-                                elemento,
-                                "COTIZACIONES RECHAZADAS",
-                                cotizacionesRechazadas.ToString()
-                            )
-                        );
+                        .Column(columna =>
+                        {
+
+                            // LOGO
+                            columna.Item()
+                                .Height(55)
+                                .Width(180)
+                                .AlignLeft()
+                                .Image(logo)
+                                .FitArea();
+
+
+                            // NOMBRE
+                            columna.Item()
+                                .PaddingTop(5)
+                                .Text(
+                                    ConfiguracionEmpresa.Nombre
+                                )
+                                .FontSize(10)
+                                .Bold()
+                                .FontColor("#F4DDC5");
+
+
+                            // TELÉFONO
+                            columna.Item()
+                                .Text(
+                                    "Tel: " +
+                                    ConfiguracionEmpresa.Telefono
+                                )
+                                .FontSize(7)
+                                .FontColor("#F4DDC5");
+
+
+                            // CORREO
+                            columna.Item()
+                                .Text(
+                                    ConfiguracionEmpresa.Correo
+                                )
+                                .FontSize(7)
+                                .FontColor("#F4DDC5");
+
+
+                            // DIRECCIÓN
+                            columna.Item()
+                                .Text(
+                                    ConfiguracionEmpresa.Direccion
+                                )
+                                .FontSize(7)
+                                .FontColor("#F4DDC5");
+                        });
+
+
+                    // =================================================
+                    // TÍTULO DEL REPORTE
+                    // =================================================
 
                     fila.RelativeItem()
-                        .PaddingLeft(5)
-                        .Element(elemento =>
-                            CrearTarjeta(
-                                elemento,
-                                "COTIZACIONES REGISTRADAS",
-                                cotizacionesRegistradas.ToString()
-                            )
-                        );
+                        .AlignRight()
+                        .Column(columna =>
+                        {
+
+                            columna.Item()
+                                .AlignRight()
+                                .Text(
+                                    "REPORTE DE COTIZACIONES"
+                                )
+                                .FontSize(20)
+                                .Bold()
+                                .FontColor("#FFFFFF");
+
+
+                            columna.Item()
+                                .PaddingTop(5)
+                                .AlignRight()
+                                .Text(
+                                    "Registro de cotizaciones"
+                                )
+                                .FontSize(10)
+                                .FontColor("#F4DDC5");
+
+
+                            columna.Item()
+                                .PaddingTop(8)
+                                .AlignRight()
+                                .Text(
+                                    "Período: " +
+                                    fechaInicio.ToString("dd/MM/yyyy") +
+                                    " - " +
+                                    fechaFin.ToString("dd/MM/yyyy")
+                                )
+                                .FontSize(8)
+                                .FontColor("#FFFFFF");
+                        });
                 });
+        }
 
 
-            // ==========================================
-            // TÍTULO
-            // ==========================================
+        // =========================================================
+        // CONTENIDO DEL REPORTE
+        // =========================================================
 
-            columnaPrincipal.Item()
+        private void ConstruirContenido(IContainer contenedor)
+        {
+            contenedor
                 .PaddingTop(15)
-                .Text("DETALLE DE COTIZACIONES")
-                .FontSize(12)
-                .Bold()
-                .FontColor("#4A2C1A");
-
-
-            // ==========================================
-            // TABLA
-            // ==========================================
-
-            columnaPrincipal.Item()
-                .PaddingTop(5)
-                .Table(tabla =>
+                .Column(columna =>
                 {
-                    tabla.ColumnsDefinition(columnas =>
-                    {
-                        columnas.ConstantColumn(70);
-                        columnas.ConstantColumn(75);
-                        columnas.RelativeColumn(2);
-                        columnas.RelativeColumn(1.5f);
-                        columnas.RelativeColumn(1);
-                        columnas.ConstantColumn(85);
-                    });
 
+                    // =================================================
+                    // RESUMEN
+                    // =================================================
 
-                    // ENCABEZADOS
-
-                    EncabezadoTabla(
-                        tabla,
-                        "N° COTIZACIÓN"
-                    );
-
-                    EncabezadoTabla(
-                        tabla,
-                        "FECHA"
-                    );
-
-                    EncabezadoTabla(
-                        tabla,
-                        "CLIENTE"
-                    );
-
-                    EncabezadoTabla(
-                        tabla,
-                        "TIPO DE CLIENTE"
-                    );
-
-                    EncabezadoTabla(
-                        tabla,
-                        "ESTADO"
-                    );
-
-                    EncabezadoTabla(
-                        tabla,
-                        "TOTAL"
-                    );
-
-
-                    // ==========================================
-                    // FILAS
-                    // ==========================================
-
-                    foreach (DataRow fila in cotizaciones.Rows)
-                    {
-                        CeldaTabla(
-                            tabla,
-                            fila["IdCotizacion"]
-                        );
-
-
-                        string fecha = "";
-
-                        if (fila["Fecha"] != DBNull.Value)
+                    columna.Item()
+                        .Row(fila =>
                         {
-                            fecha =
-                                Convert.ToDateTime(
-                                    fila["Fecha"]
-                                ).ToString("dd/MM/yyyy");
-                        }
 
-                        CeldaTabla(
-                            tabla,
-                            fecha
-                        );
+                            // REGISTRADAS
+                            fila.RelativeItem()
+                                .Padding(5)
+                                .Background("#F4DDC5")
+                                .Padding(10)
+                                .Column(c =>
+                                {
+                                    c.Item()
+                                        .Text("COTIZACIONES REGISTRADAS")
+                                        .FontSize(8)
+                                        .Bold()
+                                        .FontColor("#4A2C1A");
 
-
-                        CeldaTabla(
-                            tabla,
-                            fila["Cliente"]
-                        );
-
-
-                        CeldaTabla(
-                            tabla,
-                            fila["Tipo de Cliente"]
-                        );
-
-
-                        CeldaTabla(
-                            tabla,
-                            fila["Estado"]
-                        );
+                                    c.Item()
+                                        .PaddingTop(5)
+                                        .Text(
+                                            cotizacionesRegistradas.ToString()
+                                        )
+                                        .FontSize(18)
+                                        .Bold()
+                                        .FontColor("#4A2C1A");
+                                });
 
 
-                        string total = "";
+                            // APROBADAS
+                            fila.RelativeItem()
+                                .Padding(5)
+                                .Background("#E8F5E9")
+                                .Padding(10)
+                                .Column(c =>
+                                {
+                                    c.Item()
+                                        .Text("COTIZACIONES APROBADAS")
+                                        .FontSize(8)
+                                        .Bold();
 
-                        if (fila["Total"] != DBNull.Value)
+                                    c.Item()
+                                        .PaddingTop(5)
+                                        .Text(
+                                            cotizacionesAprobadas.ToString()
+                                        )
+                                        .FontSize(18)
+                                        .Bold();
+                                });
+
+
+                            // RECHAZADAS
+                            fila.RelativeItem()
+                                .Padding(5)
+                                .Background("#FDECEC")
+                                .Padding(10)
+                                .Column(c =>
+                                {
+                                    c.Item()
+                                        .Text("COTIZACIONES RECHAZADAS")
+                                        .FontSize(8)
+                                        .Bold();
+
+                                    c.Item()
+                                        .PaddingTop(5)
+                                        .Text(
+                                            cotizacionesRechazadas.ToString()
+                                        )
+                                        .FontSize(18)
+                                        .Bold();
+                                });
+                        });
+
+
+                    // =================================================
+                    // ESPACIO
+                    // =================================================
+
+                    columna.Item()
+                        .PaddingTop(15);
+
+
+                    // =================================================
+                    // TABLA DE COTIZACIONES
+                    // =================================================
+
+                    columna.Item()
+                        .Table(tabla =>
                         {
-                            total =
-                                Convert.ToDecimal(
-                                    fila["Total"]
-                                ).ToString("$#,##0.00");
-                        }
 
-                        CeldaTabla(
-                            tabla,
-                            total
-                        );
-                    }
+                            // -------------------------------------------------
+                            // DEFINIR COLUMNAS
+                            // -------------------------------------------------
+
+                            tabla.ColumnsDefinition(columnas =>
+                            {
+                                columnas.RelativeColumn();
+                                columnas.RelativeColumn(2);
+                                columnas.RelativeColumn(2);
+                                columnas.RelativeColumn();
+                                columnas.RelativeColumn();
+                            });
+
+
+                            // -------------------------------------------------
+                            // ENCABEZADOS
+                            // -------------------------------------------------
+
+                            tabla.Header(encabezado =>
+                            {
+                                encabezado.Cell()
+                                    .Background("#4A2C1A")
+                                    .Padding(7)
+                                    .Text("ID")
+                                    .Bold()
+                                    .FontColor("#FFFFFF");
+
+                                encabezado.Cell()
+                                    .Background("#4A2C1A")
+                                    .Padding(7)
+                                    .Text("CLIENTE")
+                                    .Bold()
+                                    .FontColor("#FFFFFF");
+
+                                encabezado.Cell()
+                                    .Background("#4A2C1A")
+                                    .Padding(7)
+                                    .Text("CONDICIÓN DE PAGO")
+                                    .Bold()
+                                    .FontColor("#FFFFFF");
+
+                                encabezado.Cell()
+                                    .Background("#4A2C1A")
+                                    .Padding(7)
+                                    .Text("FECHA")
+                                    .Bold()
+                                    .FontColor("#FFFFFF");
+
+                                encabezado.Cell()
+                                    .Background("#4A2C1A")
+                                    .Padding(7)
+                                    .Text("ESTADO")
+                                    .Bold()
+                                    .FontColor("#FFFFFF");
+                            });
+
+
+                            // -------------------------------------------------
+                            // DATOS
+                            // -------------------------------------------------
+
+                            if (cotizaciones != null &&
+                                cotizaciones.Rows.Count > 0)
+                            {
+                                foreach (DataRow fila in cotizaciones.Rows)
+                                {
+                                    tabla.Cell()
+                                        .Padding(6)
+                                        .Text(
+                                            ObtenerDato(
+                                                fila,
+                                                "IdCotizacion"
+                                            )
+                                        );
+
+                                    tabla.Cell()
+                                        .Padding(6)
+                                        .Text(
+                                            ObtenerDato(
+                                                fila,
+                                                "Cliente"
+                                            )
+                                        );
+
+                                    tabla.Cell()
+                                        .Padding(6)
+                                        .Text(
+                                            ObtenerDato(
+                                                fila,
+                                                "CondicionPago"
+                                            )
+                                        );
+
+                                    tabla.Cell()
+                                        .Padding(6)
+                                        .Text(
+                                            ObtenerDato(
+                                                fila,
+                                                "Fecha"
+                                            )
+                                        );
+
+                                    tabla.Cell()
+                                        .Padding(6)
+                                        .Text(
+                                            ObtenerDato(
+                                                fila,
+                                                "Estado"
+                                            )
+                                        );
+                                }
+                            }
+                            else
+                            {
+                                tabla.Cell()
+                                    .ColumnSpan(5)
+                                    .Padding(15)
+                                    .AlignCenter()
+                                    .Text(
+                                        "No existen cotizaciones " +
+                                        "para el período seleccionado."
+                                    )
+                                    .Italic();
+                            }
+                        });
                 });
+        }
 
 
-            // ==========================================
-            // TOTAL DE COTIZACIONES
-            // ==========================================
+        // =========================================================
+        // OBTENER DATOS DEL DATATABLE
+        // =========================================================
 
-            columnaPrincipal.Item()
-                .PaddingTop(10)
-                .AlignRight()
-                .Background("#F4DDC5")
-                .Padding(8)
-                .Text(
-                    "COTIZACIONES REGISTRADAS: " +
-                    cotizacionesRegistradas
-                )
-                .Bold()
-                .FontSize(9)
-                .FontColor("#4A2C1A");
-        });
-    }
-
-
-    // ==========================================
-    // TARJETA
-    // ==========================================
-
-    private IContainer CrearTarjeta(
-        IContainer contenedor,
-        string titulo,
-        string valor)
-    {
-        contenedor
-            .Background("#F4DDC5")
-            .Border(1)
-            .BorderColor("#D4B08A")
-            .Padding(10)
-            .Column(columna =>
+        private string ObtenerDato(
+            DataRow fila,
+            string nombreColumna)
+        {
+            if (fila.Table.Columns.Contains(nombreColumna))
             {
-                columna.Item()
-                    .AlignCenter()
-                    .Text(titulo)
-                    .FontSize(8)
-                    .Bold()
-                    .FontColor("#6B452D");
+                if (fila[nombreColumna] != DBNull.Value)
+                {
+                    return fila[nombreColumna].ToString();
+                }
+            }
 
-                columna.Item()
-                    .PaddingTop(4)
-                    .AlignCenter()
-                    .Text(valor)
-                    .FontSize(18)
-                    .Bold()
-                    .FontColor("#4A2C1A");
-            });
-
-        return contenedor;
-    }
-
-
-    // ==========================================
-    // ENCABEZADO DE TABLA
-    // ==========================================
-
-    private void EncabezadoTabla(
-        TableDescriptor tabla,
-        string texto)
-    {
-        tabla.Cell()
-            .Background("#4A2C1A")
-            .Padding(5)
-            .AlignCenter()
-            .Text(texto)
-            .FontSize(7)
-            .Bold()
-            .FontColor("#FFFFFF");
-    }
-
-
-    // ==========================================
-    // CELDA DE TABLA
-    // ==========================================
-
-    private void CeldaTabla(
-        TableDescriptor tabla,
-        object valor)
-    {
-        string texto =
-            valor == DBNull.Value ||
-            valor == null
-                ? ""
-                : valor.ToString();
-
-        tabla.Cell()
-            .BorderBottom(1)
-            .BorderColor("#DDDDDD")
-            .Padding(5)
-            .Text(texto)
-            .FontSize(8);
+            return "-";
+        }
     }
 }

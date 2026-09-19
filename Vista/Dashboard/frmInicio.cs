@@ -1,6 +1,8 @@
 using Datos;
 using System;
 using System.Data;
+using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using Vista.Responsive;
@@ -28,6 +30,46 @@ namespace Vista.Dashboard
 
             // Inicializar acceso al Dashboard
             dbDashboard = new DbDashboard(cadena);
+        }
+
+        private void CargarLogoEmpresa()
+        {
+            try
+            {
+                string rutaLogo =
+                    Modelo.Properties.Settings.Default.LogoEmpresa;
+
+                if (!string.IsNullOrWhiteSpace(rutaLogo) &&
+                    File.Exists(rutaLogo))
+                {
+                    if (picLogo.Image != null)
+                    {
+                        picLogo.Image.Dispose();
+                        picLogo.Image = null;
+                    }
+
+                    using (Image imagenOriginal = Image.FromFile(rutaLogo))
+                    {
+                        picLogo.Image = new Bitmap(imagenOriginal);
+                    }
+
+                    picLogo.SizeMode = PictureBoxSizeMode.Zoom;
+                }
+                else
+                {
+                    // Si todavía no hay logo configurado
+                    picLogo.Image = null;
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(
+                    "ERR-DASH-001: No se pudo cargar el logo de la empresa.",
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
         }
 
         private void CargarIndicadores()
@@ -273,6 +315,8 @@ namespace Vista.Dashboard
                 CargarPedidosPorEstado();
 
                 CargarVentasPorMes();
+
+                CargarLogoEmpresa();
             }
             catch (Exception ex)
             {

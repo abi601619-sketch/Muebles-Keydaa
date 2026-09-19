@@ -62,7 +62,7 @@
             this.lblClientes = new System.Windows.Forms.Label();
             this.lblSubTexto = new System.Windows.Forms.Label();
             this.lblMensajeInformativoPrincipal = new System.Windows.Forms.Label();
-            this.pbLogo = new System.Windows.Forms.PictureBox();
+            this.picLogo = new System.Windows.Forms.PictureBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.pnlContenedor.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartCotizacionesEstado)).BeginInit();
@@ -78,7 +78,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbPedidos)).BeginInit();
             this.pnlpPedidosActivos.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbClientes)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picLogo)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlContenedor
@@ -94,7 +94,7 @@
             this.pnlContenedor.Controls.Add(this.pnlpPedidosActivos);
             this.pnlContenedor.Controls.Add(this.lblSubTexto);
             this.pnlContenedor.Controls.Add(this.lblMensajeInformativoPrincipal);
-            this.pnlContenedor.Controls.Add(this.pbLogo);
+            this.pnlContenedor.Controls.Add(this.picLogo);
             this.pnlContenedor.Controls.Add(this.panel3);
             this.pnlContenedor.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlContenedor.Location = new System.Drawing.Point(0, 0);
@@ -377,15 +377,14 @@
             this.lblMensajeInformativoPrincipal.TabIndex = 2;
             this.lblMensajeInformativoPrincipal.Text = "Dashboard";
             // 
-            // pbLogo
+            // picLogo
             // 
-            this.pbLogo.Image = global::Vista.Properties.Resources.Logo_de_la_empresa_png_removebg_preview;
-            this.pbLogo.Location = new System.Drawing.Point(918, 19);
-            this.pbLogo.Name = "pbLogo";
-            this.pbLogo.Size = new System.Drawing.Size(218, 116);
-            this.pbLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pbLogo.TabIndex = 10;
-            this.pbLogo.TabStop = false;
+            this.picLogo.Location = new System.Drawing.Point(918, 19);
+            this.picLogo.Name = "picLogo";
+            this.picLogo.Size = new System.Drawing.Size(218, 116);
+            this.picLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picLogo.TabIndex = 10;
+            this.picLogo.TabStop = false;
             // 
             // panel3
             // 
@@ -428,7 +427,7 @@
             this.pnlpPedidosActivos.ResumeLayout(false);
             this.pnlpPedidosActivos.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbClientes)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picLogo)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -450,7 +449,7 @@
         private System.Windows.Forms.Label lblCotizaciones;
         private System.Windows.Forms.Label lblSubTexto;
         private System.Windows.Forms.Label lblMensajeInformativoPrincipal;
-        private System.Windows.Forms.PictureBox pbLogo;
+        private System.Windows.Forms.PictureBox picLogo;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label1;

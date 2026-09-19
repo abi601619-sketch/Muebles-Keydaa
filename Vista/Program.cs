@@ -1,9 +1,8 @@
 using Modelo.Entidades;
 using QuestPDF.Infrastructure;
 using System;
-
 using System.Windows.Forms;
-using Vista.Dashboard;
+using Vista.Configuracion_Inicial;
 using Vista.Login;
 
 namespace Vista
@@ -41,7 +40,7 @@ namespace Vista
                 Application.Run(new ConfiguracionInicial());
             }
 
-            Application.Run(new frmDashboard());
+            Application.Run(new ConfiguracionInicial());
         }
     }
 }

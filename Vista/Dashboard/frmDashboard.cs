@@ -1,5 +1,6 @@
 using System;
 using System.Windows.Forms;
+using Vista.Ayuda;
 using Vista.Categorías;
 using Vista.Clientes;
 using Vista.Compras;
@@ -174,6 +175,11 @@ namespace Vista.Dashboard
         private void button1_Click(object sender, EventArgs e)
         {
             AbrirFormulario(new frmUsuarios());
+        }
+
+        private void btnAyuda_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario(new frmAyuda());
         }
     }
 }

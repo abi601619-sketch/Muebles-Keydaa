@@ -1,3 +1,4 @@
+using Modelo;
 using Modelo.Entidades;
 using QuestPDF.Fluent;
 using System;

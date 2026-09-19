@@ -339,7 +339,7 @@ namespace Vista.Facturación
             // 
             this.btnGenerarPDF.BackColor = System.Drawing.Color.Silver;
             this.btnGenerarPDF.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGenerarPDF.Image = global::Vista.Properties.Resources.archivo_pdf;
+            this.btnGenerarPDF.Image = global::Vista.Properties.Resources.PDFIcono;
             this.btnGenerarPDF.Location = new System.Drawing.Point(584, 16);
             this.btnGenerarPDF.Margin = new System.Windows.Forms.Padding(2);
             this.btnGenerarPDF.Name = "btnGenerarPDF";

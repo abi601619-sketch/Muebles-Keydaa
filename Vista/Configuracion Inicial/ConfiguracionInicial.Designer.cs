@@ -1,6 +1,6 @@
 ﻿namespace Vista.Configuracion_Inicial
 {
-    partial class Configuracion_Inicial
+    partial class ConfiguracionInicial
     {
         /// <summary>
         /// Required designer variable.
@@ -72,16 +72,18 @@
             // 
             // button1
             // 
+            this.button1.BackColor = System.Drawing.Color.PeachPuff;
             this.button1.Dock = System.Windows.Forms.DockStyle.Top;
             this.button1.FlatAppearance.BorderSize = 0;
             this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.PeachPuff;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.ForeColor = System.Drawing.Color.Black;
             this.button1.Location = new System.Drawing.Point(3, 3);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(175, 36);
             this.button1.TabIndex = 0;
             this.button1.Text = "Bienvenida";
-            this.button1.UseVisualStyleBackColor = true;
+            this.button1.UseVisualStyleBackColor = false;
             // 
             // button2
             // 
@@ -186,7 +188,7 @@
             this.btnSeguir.UseVisualStyleBackColor = false;
             this.btnSeguir.Click += new System.EventHandler(this.btnSeguir_Click);
             // 
-            // Configuracion_Inicial
+            // ConfiguracionInicial
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -197,7 +199,8 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lblBienvenida);
             this.Controls.Add(this.panel1);
-            this.Name = "Configuracion_Inicial";
+            this.Name = "ConfiguracionInicial";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Configuracion Inicial";
             this.Load += new System.EventHandler(this.ConfiguracionParte1_Load);
             this.panel1.ResumeLayout(false);
