@@ -5,6 +5,7 @@ using QuestPDF.Infrastructure;
 using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Windows.Forms;
 
 namespace Modelo.Entidades
@@ -54,9 +55,70 @@ namespace Modelo.Entidades
                         page.Header()
                             .Column(columna =>
                             {
-                                columna.Item().Text("FACTURA").FontSize(24).Bold();
+                                // LOGO DE LA EMPRESA
+                                string rutaLogo = ConfiguracionEmpresa.Logo;
+
+                                if (!string.IsNullOrWhiteSpace(rutaLogo) &&
+                                    File.Exists(rutaLogo))
+                                {
+                                    byte[] logo = File.ReadAllBytes(rutaLogo);
+
+                                    columna.Item()
+                                        .Height(70)
+                                        .Width(180)
+                                        .AlignLeft()
+                                        .Image(logo)
+                                        .FitArea();
+                                }
+                                else
+                                {
+                                    columna.Item()
+                                        .Text(ConfiguracionEmpresa.Nombre)
+                                        .FontSize(20)
+                                        .Bold();
+                                }
+
+                                columna.Item()
+                                    .PaddingTop(5)
+                                    .Text(ConfiguracionEmpresa.Nombre)
+                                    .FontSize(12)
+                                    .Bold();
+
+                                columna.Item()
+                                    .Text(
+                                        "Teléfono: " +
+                                        ConfiguracionEmpresa.Telefono
+                                    )
+                                    .FontSize(8);
+
+                                columna.Item()
+                                    .Text(
+                                        "Correo: " +
+                                        ConfiguracionEmpresa.Correo
+                                    )
+                                    .FontSize(8);
+
+                                columna.Item()
+                                    .Text(
+                                        "Dirección: " +
+                                        ConfiguracionEmpresa.Direccion
+                                    )
+                                    .FontSize(8);
+
+                                columna.Item()
+                                    .PaddingTop(5)
+                                    .Text("FACTURA")
+                                    .FontSize(24)
+                                    .Bold();
+
                                 //obtiene el numero de la factura y le da un tamaño adecuado
-                                columna.Item().Text($"N.º {datos["IdFactura"]}").FontSize(12);
+                                columna.Item()
+                                    .Text(
+                                        "N.º " +
+                                        datos["IdFactura"].ToString()
+                                    )
+                                    .FontSize(12);
+
                                 //Linea horinzontal como decorativo visual
                                 columna.Item().LineHorizontal(1);
                             });
@@ -81,16 +143,29 @@ namespace Modelo.Entidades
                                         fila.RelativeItem()
                                             .Column(col =>
                                             {
-                                                col.Item().Text($"Fecha de emisión: {Convert.ToDateTime(datos["FechaEmision"]):dd/MM/yyyy}");
+                                                col.Item().Text(
+                                                    "Fecha de emisión: " +
+                                                    Convert.ToDateTime(
+                                                        datos["FechaEmision"]
+                                                    ).ToString("dd/MM/yyyy")
+                                                );
 
-                                                col.Item().Text($"Fecha de vencimiento: {Convert.ToDateTime(datos["FechaVencimiento"]):dd/MM/yyyy}");
+                                                col.Item().Text(
+                                                    "Fecha de vencimiento: " +
+                                                    Convert.ToDateTime(
+                                                        datos["FechaVencimiento"]
+                                                    ).ToString("dd/MM/yyyy")
+                                                );
                                             });
 
                                         fila.RelativeItem()
                                         //Obtiene el ID de la venta y lo muestra
                                             .Column(col =>
                                             {
-                                                col.Item().Text($"N.º de venta: {datos["IdVenta"]}");
+                                                col.Item().Text(
+                                                    "N.º de venta: " +
+                                                    datos["IdVenta"].ToString()
+                                                );
                                             });
                                     });
                                 //Datos del clientes
@@ -142,31 +217,60 @@ namespace Modelo.Entidades
 
                                             tabla.Cell().Element(EstiloCelda).AlignCenter().Text(filaDetalle["Cantidad"].ToString());
 
-                                            tabla.Cell().Element(EstiloCelda).AlignRight().Text(Convert.ToDecimal(filaDetalle["PrecioUnitario"]).ToString("$ 0.00"));
+                                            tabla.Cell().Element(EstiloCelda)
+                                                .AlignRight()
+                                                .Text(
+                                                    "$ " +
+                                                    Convert.ToDecimal(
+                                                        filaDetalle["PrecioUnitario"]
+                                                    ).ToString("0.00")
+                                                );
 
-                                            tabla.Cell().Element(EstiloCelda).AlignRight().Text(Convert.ToDecimal(filaDetalle["SubTotal"]).ToString("$ 0.00"));
+                                            tabla.Cell().Element(EstiloCelda)
+                                                .AlignRight()
+                                                .Text(
+                                                    "$ " +
+                                                    Convert.ToDecimal(
+                                                        filaDetalle["SubTotal"]
+                                                    ).ToString("0.00")
+                                                );
                                         }
                                     });
 
                                 //Se convierten los totales
                                 columna.Item().AlignRight().Column(totales =>
-                                    {
-                                        decimal subtotal = Convert.ToDecimal(datos["SubTotal"]);
+                                {
+                                    decimal subtotal = Convert.ToDecimal(datos["SubTotal"]);
 
-                                        decimal descuento = Convert.ToDecimal(datos["Descuento"]);
+                                    decimal descuento = Convert.ToDecimal(datos["Descuento"]);
 
-                                        decimal iva = Convert.ToDecimal(datos["IVA"]);
+                                    decimal iva = Convert.ToDecimal(datos["IVA"]);
 
-                                        decimal total = Convert.ToDecimal(datos["Total"]);
-                                        //Se muestran los totales como elemntos de la factura
-                                        totales.Item().Text($"Subtotal: $ {subtotal:0.00}");
+                                    decimal total = Convert.ToDecimal(datos["Total"]);
+                                    //Se muestran los totales como elemntos de la factura
+                                    totales.Item().Text(
+                                        "Subtotal: $ " +
+                                        subtotal.ToString("0.00")
+                                    );
 
-                                        totales.Item().Text($"Descuento: $ {descuento:0.00}");
+                                    totales.Item().Text(
+                                        "Descuento: $ " +
+                                        descuento.ToString("0.00")
+                                    );
 
-                                        totales.Item().Text($"IVA (13%): $ {iva:0.00}");
-                                        //El total se muestra en negrita
-                                        totales.Item().Text($"TOTAL: $ {total:0.00}").FontSize(14).Bold();
-                                    });
+                                    totales.Item().Text(
+                                        "IVA (13%): $ " +
+                                        iva.ToString("0.00")
+                                    );
+                                    //El total se muestra en negrita
+                                    totales.Item()
+                                        .Text(
+                                            "TOTAL: $ " +
+                                            total.ToString("0.00")
+                                        )
+                                        .FontSize(14)
+                                        .Bold();
+                                });
 
 
                                 string observaciones = datos["Observaciones"] == DBNull.Value ? "" : datos["Observaciones"].ToString();
@@ -182,9 +286,12 @@ namespace Modelo.Entidades
 
                         //FOOTER DE LA PAGINA
                         page.Footer().AlignCenter().Text(texto =>
-                            {
-                                texto.Span("Factura generada por el sistema de Muebles Keyda");
-                            });
+                        {
+                            texto.Span(
+                                "Factura generada por el sistema de " +
+                                ConfiguracionEmpresa.Nombre
+                            );
+                        });
                     });
 
                 }).GeneratePdf(rutaArchivo);
