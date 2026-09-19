@@ -61,6 +61,101 @@ namespace Vista.Compras
 
         }
 
+        // CONFIGURAR TOOLTIPS
+        private void ConfigurarTooltips()
+        {
+            ToolTip toolTip = new ToolTip();
+
+            // Configuración del ToolTip
+            toolTip.AutoPopDelay = 5000;
+            toolTip.InitialDelay = 500;
+            toolTip.ReshowDelay = 200;
+            toolTip.ShowAlways = true;
+
+            // Búsqueda
+            toolTip.SetToolTip(
+                txtBuscar,
+                "Busca una compra por su número, fecha o proveedor."
+            );
+
+            // Datos de la compra
+            toolTip.SetToolTip(
+                cbProveedor,
+                "Seleccione el proveedor de la compra."
+            );
+
+            toolTip.SetToolTip(
+                dtpFechaDeCompra,
+                "Seleccione la fecha en que se realizó la compra."
+            );
+
+            // Datos del material
+            toolTip.SetToolTip(
+                cbMaterial,
+                "Seleccione el material que desea agregar a la compra."
+            );
+
+            toolTip.SetToolTip(
+                nudCantidad,
+                "Indique la cantidad de unidades del material."
+            );
+
+            toolTip.SetToolTip(
+                txtPrecioUnitario,
+                "Ingrese el precio de una unidad del material."
+            );
+
+            // Botones de materiales
+            toolTip.SetToolTip(
+                btnAgregarProductos,
+                "Agrega el material seleccionado a la compra."
+            );
+
+            toolTip.SetToolTip(
+                btnActualizar,
+                "Actualiza los datos del material seleccionado."
+            );
+
+            // Total
+            toolTip.SetToolTip(
+                txtTotalCompra,
+                "Muestra el total de la compra."
+            );
+
+            // Botones de compra
+            toolTip.SetToolTip(
+                btnNueva,
+                "Limpia el formulario para registrar una nueva compra."
+            );
+
+            toolTip.SetToolTip(
+                btnGuardar,
+                "Guarda la compra y sus materiales."
+            );
+
+            toolTip.SetToolTip(
+                btnActualizarCompra,
+                "Guarda los cambios realizados en la compra seleccionada."
+            );
+
+            toolTip.SetToolTip(
+                btnCancelar,
+                "Elimina la compra seleccionada y ajusta el inventario."
+            );
+
+            // Tabla de detalles
+            toolTip.SetToolTip(
+                dgvDetalleCompras,
+                "Muestra los materiales agregados a la compra. Haz doble clic en un material para modificarlo."
+            );
+
+            // Historial de compras
+            toolTip.SetToolTip(
+                dgvHistorialCompras,
+                "Muestra el historial de compras registradas. Haz doble clic en una compra para editarla."
+            );
+        }
+
         private void frmCompras_Load(object sender, EventArgs e)
         {
             MostrarCompras();
@@ -68,6 +163,9 @@ namespace Vista.Compras
             ConfigurarDetalleCompra();
             CargarComboBoxMateriales();
             CargarComboBoxProveedores();
+
+            //Configurar tooltips
+            ConfigurarTooltips();
 
             DesactivarCopiarPegar(this);
 

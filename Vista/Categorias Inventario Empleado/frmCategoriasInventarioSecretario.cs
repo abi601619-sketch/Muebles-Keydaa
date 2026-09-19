@@ -23,6 +23,9 @@ namespace Vista.Categorias_Inventario_Empleado
 
                 // Configura los encabezados del DataGridView
                 ConfigurarColumnas();
+
+                //Configurar tooltips
+                ConfigurarTooltips();
             }
             catch (Exception ex)
             {
@@ -54,6 +57,31 @@ namespace Vista.Categorias_Inventario_Empleado
                 );
             }
         }
+
+        //CONFIGURAR TOOLTIPS---------------------------
+        private void ConfigurarTooltips()
+        {
+
+            ToolTip toolTip = new ToolTip();
+
+            // Configuración del ToolTip
+            toolTip.AutoPopDelay = 5000;
+            toolTip.InitialDelay = 500;
+            toolTip.ReshowDelay = 200;
+            toolTip.ShowAlways = true;
+            // Buscador
+            toolTip.SetToolTip(
+                txtBuscarCategoria,
+                "Ingrese el nombre de una categoría para buscarla."
+            );
+
+            toolTip.SetToolTip(
+                btnBuscar,
+                "Busca la categoría ingresada."
+            );
+
+        }
+        //----------------------------------------------------------
 
         // Configura los encabezados del DataGridView
         private void ConfigurarColumnas()

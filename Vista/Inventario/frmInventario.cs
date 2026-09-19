@@ -48,12 +48,96 @@ namespace Vista.Inventario
             dgvMateriales.Columns["UnidadMedida"].HeaderText = "Unidad de medida";
         }
 
+        // CONFIGURAR TOOLTIPS
+        private void ConfigurarTooltips()
+        {
+            ToolTip toolTip = new ToolTip();
+
+
+
+            // Buscador
+            toolTip.SetToolTip(
+                txtBuscar,
+                "Busca un material por su nombre."
+            );
+
+            // Datos del material
+            toolTip.SetToolTip(
+                txtMaterial,
+                "Ingrese el nombre del material."
+            );
+
+            toolTip.SetToolTip(
+                cbCategorias,
+                "Seleccione la categoría a la que pertenece el material."
+            );
+
+            toolTip.SetToolTip(
+                cbUnidadMedida,
+                "Seleccione la unidad de medida del material."
+            );
+
+            toolTip.SetToolTip(
+                txtCantidad,
+                "Ingrese la cantidad disponible del material."
+            );
+
+            // Botones
+            toolTip.SetToolTip(
+                btnNuevo,
+                "Limpia el formulario para registrar un nuevo material."
+            );
+
+            toolTip.SetToolTip(
+                btnGuardar,
+                "Guarda el nuevo material en el inventario."
+            );
+
+            toolTip.SetToolTip(
+                btnEditar,
+                "Permite modificar los datos del material seleccionado."
+            );
+
+            toolTip.SetToolTip(
+                btnGuardarCambios,
+                "Guarda los cambios realizados al material."
+            );
+
+            // Tabla
+            toolTip.SetToolTip(
+                dgvMateriales,
+                "Muestra los materiales registrados en el inventario. Haz doble clic en un material para seleccionarlo."
+            );
+
+            // Estadísticas
+            toolTip.SetToolTip(
+                lblTotalRegistrados,
+                "Cantidad total de materiales registrados."
+            );
+
+            toolTip.SetToolTip(
+                lblAgotandose,
+                "Cantidad de materiales cuyo stock está próximo a agotarse."
+            );
+
+            toolTip.SetToolTip(
+                lblDisponibles,
+                "Cantidad de materiales disponibles actualmente."
+            );
+
+            toolTip.SetToolTip(
+                lblMaterialesAgotados,
+                "Cantidad de materiales que se encuentran agotados."
+            );
+        }
+
         private void frmInventario_Load(object sender, EventArgs e)
         {
             MostrarInventario();
             CargarComboBoxCategorias();
             CargarComboBoxUnidadDeMedida();
             DesactivarCopiarPegar(this);
+            ConfigurarTooltips();
             btnGuardarCambios.Visible = false;
             btnEditar.Visible = false;
 

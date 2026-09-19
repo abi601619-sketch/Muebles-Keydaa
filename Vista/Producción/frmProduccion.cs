@@ -31,6 +31,9 @@ namespace Vista.Producción
 
                 // Carga las estadísticas
                 ActualizarEstadisticas();
+
+                //Mostrar Tooltips
+                ConfigurarTooltips();
             }
             catch (Exception ex)
             {
@@ -41,6 +44,68 @@ namespace Vista.Producción
                     MessageBoxIcon.Error
                 );
             }
+        }
+        //CONFIGURAR TOOLTIPS----------------------------------------------------------
+        private void ConfigurarTooltips()
+        {
+            ToolTip toolTip = new ToolTip();
+
+            // Buscador
+            toolTip.SetToolTip(
+                txtBuscar,
+                "Busca una producción por código o nombre del cliente."
+            );
+
+            // Filtro por estado
+            toolTip.SetToolTip(
+                cbEstados,
+                "Selecciona un estado para filtrar las producciones."
+            );
+
+            // Limpiar filtros
+            toolTip.SetToolTip(
+                btnLimpiar,
+                "Limpia el buscador y los filtros aplicados."
+            );
+
+            // Editar producción
+            toolTip.SetToolTip(
+                btnEditar,
+                "Edita la producción seleccionada."
+            );
+
+            // Material utilizado
+            toolTip.SetToolTip(
+                btnMaterialUtilizado,
+                "Consulta los materiales utilizados en la producción seleccionada."
+            );
+
+            // Tabla de producciones
+            toolTip.SetToolTip(
+                dgvProduccion,
+                "Muestra las producciones registradas y su información."
+            );
+
+            // Estadísticas
+            toolTip.SetToolTip(
+                lblMostrarRegistrados,
+                "Cantidad total de producciones registradas."
+            );
+
+            toolTip.SetToolTip(
+                lblMostrarPendientes,
+                "Cantidad de producciones pendientes."
+            );
+
+            toolTip.SetToolTip(
+                lblMostrarEnProduccion,
+                "Cantidad de producciones que se encuentran en proceso."
+            );
+
+            toolTip.SetToolTip(
+                lblMostrarFinalizados,
+                "Cantidad de producciones finalizadas."
+            );
         }
         //---------------------------------------------------------
         // CONFIGURAR COLUMNAS

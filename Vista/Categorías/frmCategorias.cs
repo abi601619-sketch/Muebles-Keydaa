@@ -22,6 +22,9 @@ namespace Vista.Categorías
                 MostrarCategorias();
                 CargarEstadisticasCategorias();
 
+                //CONFIGURAR TOOLTIPS
+                ConfigurarTooltips();
+
                 // Desactiva copiar y pegar
                 DesactivarCopiarPegar(this);
 
@@ -48,6 +51,67 @@ namespace Vista.Categorías
             {
                 MessageBox.Show("Error al cargar las categorías: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+        //CONFIGURAR TOOLTIPS--------------------------------------
+        private void ConfigurarTooltips()
+        {
+            ToolTip toolTip = new ToolTip();
+
+            // Configuración del ToolTip
+            toolTip.AutoPopDelay = 5000;
+            toolTip.InitialDelay = 500;
+            toolTip.ReshowDelay = 200;
+            toolTip.ShowAlways = true;
+
+            // Campos de la categoría
+            toolTip.SetToolTip(
+                txtCategoria,
+                "Ingrese el nombre de la categoría."
+            );
+
+            toolTip.SetToolTip(
+                txtDescripcion,
+                "Ingrese una descripción para la categoría."
+            );
+
+            toolTip.SetToolTip(
+                cbEstado,
+                "Seleccione el estado de la categoría."
+            );
+
+            // Buscador
+            toolTip.SetToolTip(
+                txtBuscarCategoria,
+                "Ingrese el nombre de una categoría para buscarla."
+            );
+
+            toolTip.SetToolTip(
+                btnBuscar,
+                "Busca la categoría ingresada."
+            );
+
+            // Botones
+            toolTip.SetToolTip(
+                btnNueva,
+                "Limpia el formulario para registrar una nueva categoría."
+            );
+
+            toolTip.SetToolTip(
+                btnGuardar,
+                "Guarda la nueva categoría."
+            );
+
+            toolTip.SetToolTip(
+                btnEditar,
+                "Permite modificar la categoría seleccionada."
+            );
+
+            toolTip.SetToolTip(
+                btnGuardarCambios,
+                "Guarda los cambios realizados a la categoría."
+            );
+
+
         }
 
         //---------------------------------------------------------

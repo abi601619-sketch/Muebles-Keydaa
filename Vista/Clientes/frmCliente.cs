@@ -49,8 +49,7 @@ namespace Vista.Clientes
         {
             int registrosSaltar = (paginaActual - 1) * registrosPorPagina;
 
-            dgvClientesCorporativos.DataSource =
-                DbCliente.CargarCorporativos(registrosSaltar, registrosPorPagina);
+            dgvClientesCorporativos.DataSource = DbCliente.CargarCorporativos(registrosSaltar, registrosPorPagina);
 
             totalRegistros = DbCliente.ObtenerTotalCorporativos();
 
@@ -64,8 +63,8 @@ namespace Vista.Clientes
 
             lblPagina.Text = $"Página {paginaActual} de {totalPaginas}";
 
-            btnAnterior.Enabled = paginaActual > 1;
-            btnSiguiente.Enabled = paginaActual < totalPaginas;
+            btnAtrasC.Enabled = paginaActual > 1;
+            btnSiguienteC.Enabled = paginaActual < totalPaginas;
 
             ActualizarEstadisticas();
         }
@@ -294,9 +293,9 @@ namespace Vista.Clientes
         {
             foreach (Control elemento in control.Controls)
             {
-                if (elemento is TextBox)
+                if (elemento is System.Windows.Forms.TextBox)
                 {
-                    ((TextBox)elemento).ShortcutsEnabled = false;
+                    ((System.Windows.Forms.TextBox)elemento).ShortcutsEnabled = false;
                 }
 
                 if (elemento.HasChildren)
@@ -431,6 +430,65 @@ namespace Vista.Clientes
             txtBuscarCorporativo.Visible = true;
             txtBuscarIndividual.Visible = false;
         }
+        //---------------------------------------------------------------------------------------------
+        // CONFIGURAR TOOLTIPS
+        private void ConfigurarTooltips()
+        {
+            // Crea el ToolTip
+            toolTip1 = new ToolTip();
+
+            // Propiedades del ToolTip
+            toolTip1.AutoPopDelay = 5000;
+            toolTip1.InitialDelay = 500;
+            toolTip1.ReshowDelay = 200;
+            toolTip1.ShowAlways = true;
+
+            toolTip1.SetToolTip(txtBuscarCorporativo,
+                "Buscar un cliente por nombre, documento o teléfono.");
+
+            toolTip1.SetToolTip(txtBuscarIndividual,
+                "Buscar un cliente por nombre, documento o teléfono.");
+
+            toolTip1.SetToolTip(cbTipoCliente,
+                "Seleccione el tipo de cliente que desea registrar.");
+
+            toolTip1.SetToolTip(txtNombres,
+                "Ingrese el nombre del cliente.");
+
+            toolTip1.SetToolTip(txtApellidos,
+                "Ingrese los apellidos del cliente.");
+
+            toolTip1.SetToolTip(txtDUI,
+                "Ingrese el DUI del cliente en formato 00000000-0.");
+
+            toolTip1.SetToolTip(txtTelefono,
+                "Ingrese el número de teléfono del cliente.");
+
+            toolTip1.SetToolTip(txtCorreo,
+                "Ingrese el correo electrónico del cliente.");
+
+            toolTip1.SetToolTip(txtDireccion,
+                "Ingrese la dirección del cliente.");
+
+            toolTip1.SetToolTip(cbEstadoCliente,
+                "Seleccione el estado actual del cliente.");
+
+            toolTip1.SetToolTip(btnNuevoCliente,
+                "Limpia los campos para registrar un nuevo cliente.");
+
+            toolTip1.SetToolTip(btnEditar,
+                "Edita los datos del cliente seleccionado.");
+
+            toolTip1.SetToolTip(btnGuardarCorporativo,
+                "Guarda los datos del cliente corporativo.");
+
+            toolTip1.SetToolTip(btnGuardarIndividual,
+                "Guarda los datos del cliente individual.");
+
+            toolTip1.SetToolTip(btnGuardarCambios,
+                "Guarda los cambios realizados al cliente seleccionado.");
+        }
+
         //------------------------------------------------------------------------
         // CARGA DEL FORMULARIO
         private void frmClientes_Load(object sender, EventArgs e)
@@ -441,6 +499,9 @@ namespace Vista.Clientes
                 MostrarClientes();
                 MostrarClientes2();
                 ActualizarEstadisticas();
+
+                //Configura los tooltips
+                ConfigurarTooltips();
 
                 // Desactivar copiar y pegar
                 DesactivarCopiarPegar(this);

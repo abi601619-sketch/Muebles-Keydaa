@@ -35,6 +35,34 @@ namespace Vista.Pedidos
         private string estadoOriginal = "";
         private DateTime fechaEntregaOriginal;
 
+        private void ConfigurarTooltips()
+        {
+            ToolTip toolTip = new ToolTip();
+
+            // Datos del pedido
+            toolTip.SetToolTip(dtpFechaPedido, "Seleccione la fecha en que se realizó el pedido.");
+            toolTip.SetToolTip(dtpFechaDeEntrega, "Seleccione la fecha en que se entregará el pedido.");
+            toolTip.SetToolTip(cbEstado, "Seleccione el estado actual del pedido.");
+
+            // Detalles del producto
+            toolTip.SetToolTip(txtMuebleaRealizar, "Mueble que desea agregar al pedido o modificar del pedido.");
+            toolTip.SetToolTip(nudCantidad, "Indique la cantidad de muebles.");
+            toolTip.SetToolTip(btnDetallePedido, "Ingrese las medidas del producto.");
+            toolTip.SetToolTip(btnAgregar, "Agrega el producto a los detalles del pedido.");
+
+            // Botones principales
+            toolTip.SetToolTip(btnGuardar, "Guarda el pedido.");
+            toolTip.SetToolTip(btnCamcelar, "Cancela el registro del pedido.");
+
+
+            // Búsqueda
+            toolTip.SetToolTip(txtBuscar, "Ingrese el número o información del pedido que desea buscar.");
+
+            // Tablas
+            toolTip.SetToolTip(dgvPedidosRegistrados, "Aquí se muestran los productos agregados al pedido.");
+            toolTip.SetToolTip(dgvDetallesDePedido, "Aquí se muestran los pedidos registrados.");
+        }
+
         private void EliminarProducto_Click(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0 || e.ColumnIndex < 0 ||
@@ -71,6 +99,9 @@ namespace Vista.Pedidos
             }
         }
 
+
+
+
         private void txtBuscar_Enter(object sender, EventArgs e)
         {
             if (txtBuscar.Text == "Buscar Pedido...")
@@ -93,6 +124,7 @@ namespace Vista.Pedidos
         {
             MostrarPedidos();
             MostrarDetallesPedido();
+            ConfigurarTooltips();
 
             cbEstado.Items.Add("En proceso");
             cbEstado.Items.Add("Finalizado");
@@ -440,9 +472,7 @@ namespace Vista.Pedidos
             txtClienteSeleccionado.Enabled = false;
         }
 
-        private void dgvPedidosRegistrados_CellContentClick(
-            object sender,
-            DataGridViewCellEventArgs e)
+        private void dgvPedidosRegistrados_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             dgvDetallesDePedido.Columns["IdDetallePedido"].Visible = false;
             dgvDetallesDePedido.Columns["IdPedido"].HeaderText = "N.º de Pedido";
@@ -450,5 +480,7 @@ namespace Vista.Pedidos
             dgvDetallesDePedido.Columns["Cantidad"].HeaderText = "Cantidad";
             dgvDetallesDePedido.Columns["Medidas"].HeaderText = "Medidas";
         }
+
+
     }
 }

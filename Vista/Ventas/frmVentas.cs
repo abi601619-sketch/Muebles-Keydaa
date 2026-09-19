@@ -53,9 +53,77 @@ namespace Vista.Ventas
             dgvVentas.DataSource = DbVentas.CargarVentas();
         }
 
+        //-----------------------------------------------------------------
+        //CONFIGURAR TOOLTIPS
+        // CONFIGURAR TOOLTIPS
+        private void ConfigurarTooltips()
+        {
+            // Crear ToolTip
+            ToolTip toolTip1 = new ToolTip();
+
+            // Propiedades del ToolTip
+            toolTip1.AutoPopDelay = 5000;
+            toolTip1.InitialDelay = 500;
+            toolTip1.ReshowDelay = 200;
+            toolTip1.ShowAlways = true;
+
+            // Tooltips de búsqueda
+            toolTip1.SetToolTip(txtBuscar,
+                "Buscar una venta por número, cliente o información relacionada.");
+
+            toolTip1.SetToolTip(btnBuscarCliente,
+                "Buscar y seleccionar el cliente para la venta.");
+
+            toolTip1.SetToolTip(txtMostrarCliente,
+                "Muestra el cliente seleccionado para la venta.");
+
+            // Datos de la venta
+            toolTip1.SetToolTip(dtFechaVenta,
+                "Seleccione la fecha en que se realizó la venta.");
+
+            toolTip1.SetToolTip(cbMetodoPago,
+                "Seleccione el método de pago de la venta.");
+
+            // Productos
+            toolTip1.SetToolTip(btnAgregarProductos,
+                "Agregar productos a la venta.");
+
+            toolTip1.SetToolTip(dgvDetalleDeVenta,
+                "Muestra los productos agregados a la venta.");
+
+            // Totales
+            toolTip1.SetToolTip(txtSubTotal,
+                "Muestra el subtotal de los productos de la venta.");
+
+            toolTip1.SetToolTip(txtIVA,
+                "Muestra el IVA correspondiente al subtotal.");
+
+            toolTip1.SetToolTip(txtTotalPagar,
+                "Muestra el total a pagar de la venta.");
+
+            // Botones de venta
+            toolTip1.SetToolTip(btnGuardar,
+                "Guardar la nueva venta.");
+
+            toolTip1.SetToolTip(btnGuardarCambios,
+                "Guardar los cambios realizados a la venta seleccionada.");
+
+            toolTip1.SetToolTip(btnEditar,
+                "Editar la venta seleccionada.");
+
+            toolTip1.SetToolTip(btnEliminar,
+                "Eliminar la venta seleccionada.");
+
+            // Historial de ventas
+            toolTip1.SetToolTip(dgvVentas,
+                "Muestra las ventas registradas. Haz doble clic en una venta para editarla.");
+        }
+        //-------------------------------------------------------------------------------------
+
         private void frmVentas_Load(object sender, EventArgs e)
         {
-
+            //CONFIGURAR TOOLTIPS
+            ConfigurarTooltips();
 
             // Mostrar las ventas existentes
             MostrarVentas();
