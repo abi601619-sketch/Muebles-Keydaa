@@ -1,5 +1,6 @@
 ﻿using Modelo.Entidades;
 using System;
+using System.Data;
 using System.Drawing;
 using System.Net.Mail;
 using System.Windows.Forms;
@@ -21,7 +22,7 @@ namespace Vista.Clientes
         private int tipoClienteSeleccionado = 0;
 
         // Cantidad de clientes que se mostrarán por página.
-        private int registrosPorPagina = 20;
+        private int registrosPorPagina = 10;
 
         // Página en la que estamos actualmente.
         private int paginaActual = 1;
@@ -31,6 +32,15 @@ namespace Vista.Clientes
 
         // Cantidad total de páginas.
         private int totalPaginas = 0;
+
+        // PAGINACIÓN DE CLIENTES INDIVIDUALES
+        private int paginaActualIndividual = 1;
+        private int totalRegistrosIndividual = 0;
+        private int totalPaginasIndividual = 0;
+
+        // DATOS PARA LAS BÚSQUEDAS PAGINADAS
+        private DataTable dtCorporativosBusqueda;
+        private DataTable dtIndividualesBusqueda;
 
         //DATOS ORIGINALES DEL CLIENTE SELECCIONADO
         private string identificador1Original;
@@ -49,7 +59,10 @@ namespace Vista.Clientes
         {
             int registrosSaltar = (paginaActual - 1) * registrosPorPagina;
 
-            dgvClientesCorporativos.DataSource = DbCliente.CargarCorporativos(registrosSaltar, registrosPorPagina);
+            dgvClientesCorporativos.DataSource =
+                DbCliente.CargarCorporativos(
+                    registrosSaltar,
+                    registrosPorPagina);
 
             totalRegistros = DbCliente.ObtenerTotalCorporativos();
 
@@ -61,17 +74,61 @@ namespace Vista.Clientes
                 totalPaginas = 1;
             }
 
-            lblPagina.Text = $"Página {paginaActual} de {totalPaginas}";
+            // Evitar que la página actual quede fuera de rango.
+            if (paginaActual > totalPaginas)
+            {
+                paginaActual = totalPaginas;
+            }
 
-            btnAtrasC.Enabled = paginaActual > 1;
-            btnSiguienteC.Enabled = paginaActual < totalPaginas;
+            lblPaginaC.Text =
+                $"Página {paginaActual} de {totalPaginas}";
+
+            btnAtrasC.Enabled =
+                paginaActual > 1;
+
+            btnSiguienteC.Enabled =
+                paginaActual < totalPaginas;
 
             ActualizarEstadisticas();
         }
         private void MostrarClientes2()
         {
+            int registrosSaltar =
+        (paginaActualIndividual - 1) * registrosPorPagina;
 
-            dgvClientesIndividuales.DataSource = DbCliente.CargarIndividuales();
+            dgvClientesIndividuales.DataSource =
+                DbCliente.CargarIndividuales(
+                    registrosSaltar,
+                    registrosPorPagina);
+
+            totalRegistrosIndividual =
+                DbCliente.ObtenerTotalIndividuales();
+
+            totalPaginasIndividual =
+                (int)Math.Ceiling(
+                    (double)totalRegistrosIndividual /
+                    registrosPorPagina);
+
+            if (totalPaginasIndividual == 0)
+            {
+                totalPaginasIndividual = 1;
+            }
+
+            // Evitar que la página actual quede fuera de rango.
+            if (paginaActualIndividual > totalPaginasIndividual)
+            {
+                paginaActualIndividual = totalPaginasIndividual;
+            }
+
+            lblPagina.Text =
+                $"Página {paginaActualIndividual} de {totalPaginasIndividual}";
+
+            btnAnterior.Enabled =
+                paginaActualIndividual > 1;
+
+            btnSiguiente.Enabled =
+                paginaActualIndividual < totalPaginasIndividual;
+
             ActualizarEstadisticas();
         }
 
@@ -81,7 +138,14 @@ namespace Vista.Clientes
             {
                 paginaActual++;
 
-                MostrarClientes();
+                if (dtCorporativosBusqueda != null)
+                {
+                    MostrarPaginaCorporativosBusqueda();
+                }
+                else
+                {
+                    MostrarClientes();
+                }
             }
         }
 
@@ -91,7 +155,48 @@ namespace Vista.Clientes
             {
                 paginaActual--;
 
-                MostrarClientes();
+                if (dtCorporativosBusqueda != null)
+                {
+                    MostrarPaginaCorporativosBusqueda();
+                }
+                else
+                {
+                    MostrarClientes();
+                }
+            }
+        }
+
+        private void btnAnterior_Click(object sender, EventArgs e)
+        {
+            if (paginaActualIndividual > 1)
+            {
+                paginaActualIndividual--;
+
+                if (dtIndividualesBusqueda != null)
+                {
+                    MostrarPaginaIndividualesBusqueda();
+                }
+                else
+                {
+                    MostrarClientes2();
+                }
+            }
+        }
+
+        private void btnSiguiente_Click(object sender, EventArgs e)
+        {
+            if (paginaActualIndividual < totalPaginasIndividual)
+            {
+                paginaActualIndividual++;
+
+                if (dtIndividualesBusqueda != null)
+                {
+                    MostrarPaginaIndividualesBusqueda();
+                }
+                else
+                {
+                    MostrarClientes2();
+                }
             }
         }
 
@@ -694,8 +799,10 @@ namespace Vista.Clientes
             {
                 MessageBox.Show("Cliente individual registrado correctamente.", "Registro exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                MostrarClientes2();
+                paginaActualIndividual = 1;
+                dtIndividualesBusqueda = null;
 
+                MostrarClientes2();
 
                 LimpiarFormularioCliente();
             }
@@ -732,18 +839,19 @@ namespace Vista.Clientes
 
             try
             {
+                // Crear un objeto con los datos del cliente
                 DbCliente cliente = new DbCliente();
 
+                // Asignar los datos del formulario al objeto
                 cliente.TipoCliente1 = 1;
-                cliente.Identificador11 = txtNombreEmpresa.Text.Trim();
-                cliente.Identificador21 = txtNombreEncargado.Text.Trim();
-                cliente.Documento1 = txtNIT.Text.Trim();
-                cliente.Telefono1 = txtTelefono.Text.Trim();
-                cliente.Correo1 = txtCorreo.Text.Trim();
-                cliente.Direccion1 = txtDireccion.Text.Trim();
+                cliente.Identificador11 = txtNombreEmpresa.Text;
+                cliente.Identificador21 = txtNombreEncargado.Text;
+                cliente.Documento1 = txtNIT.Text;
+                cliente.Telefono1 = txtTelefono.Text;
+                cliente.Correo1 = txtCorreo.Text;
+                cliente.Direccion1 = txtDireccion.Text;
                 cliente.Estado1 = "Activo";
 
-                // Guardar cliente
                 if (cliente.InsertarClienteCorporativo())
                 {
                     MessageBox.Show(
@@ -753,7 +861,10 @@ namespace Vista.Clientes
                         MessageBoxIcon.Information
                     );
 
-                    MostrarClientes2();
+                    paginaActual = 1;
+                    dtCorporativosBusqueda = null;
+
+                    MostrarClientes();
                     LimpiarFormularioCliente();
                 }
             }
@@ -767,6 +878,8 @@ namespace Vista.Clientes
                 );
             }
         }
+
+
 
         //----------------------------------------------------------------------
         // SELECCIONAR CLIENTE CORPORATIVO
@@ -1212,12 +1325,78 @@ namespace Vista.Clientes
                 if (txtBuscarCorporativo.Text == "Buscar Cliente...")
                     return;
 
-                dgvClientesCorporativos.DataSource = DbCliente.BuscarClienteCorporativo(txtBuscarCorporativo.Text);
+                string buscar =
+                    txtBuscarCorporativo.Text.Trim();
+
+                if (string.IsNullOrWhiteSpace(buscar))
+                {
+                    paginaActual = 1;
+
+                    dtCorporativosBusqueda = null;
+
+                    MostrarClientes();
+
+                    return;
+                }
+
+                dtCorporativosBusqueda =
+                    DbCliente.BuscarClienteCorporativo(buscar);
+
+                int totalResultados =
+                    dtCorporativosBusqueda.Rows.Count;
+
+                totalPaginas =
+                    (int)Math.Ceiling(
+                        (double)totalResultados /
+                        registrosPorPagina);
+
+                if (totalPaginas == 0)
+                {
+                    totalPaginas = 1;
+                }
+
+                paginaActual = 1;
+
+                MostrarPaginaCorporativosBusqueda();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+        private void MostrarPaginaCorporativosBusqueda()
+        {
+            if (dtCorporativosBusqueda == null)
+                return;
+
+            DataTable dtPagina =
+                dtCorporativosBusqueda.Clone();
+
+            int inicio =
+                (paginaActual - 1) * registrosPorPagina;
+
+            int fin =
+                Math.Min(
+                    inicio + registrosPorPagina,
+                    dtCorporativosBusqueda.Rows.Count);
+
+            for (int i = inicio; i < fin; i++)
+            {
+                dtPagina.ImportRow(
+                    dtCorporativosBusqueda.Rows[i]);
+            }
+
+            dgvClientesCorporativos.DataSource = null;
+            dgvClientesCorporativos.DataSource = dtPagina;
+
+            lblPagina.Text =
+                $"Página {paginaActual} de {totalPaginas}";
+
+            btnAtrasC.Enabled =
+                paginaActual > 1;
+
+            btnSiguienteC.Enabled =
+                paginaActual < totalPaginas;
         }
 
         private void txtBuscarCorporativo_Leave(object sender, EventArgs e)
@@ -1245,12 +1424,80 @@ namespace Vista.Clientes
                 if (txtBuscarIndividual.Text == "Buscar Cliente...")
                     return;
 
-                dgvClientesIndividuales.DataSource = DbCliente.BuscarClienteIndividual(txtBuscarIndividual.Text);
+                string buscar =
+                    txtBuscarIndividual.Text.Trim();
+
+                if (string.IsNullOrWhiteSpace(buscar))
+                {
+                    paginaActualIndividual = 1;
+
+                    dtIndividualesBusqueda = null;
+
+                    MostrarClientes2();
+
+                    return;
+                }
+
+                dtIndividualesBusqueda =
+                    DbCliente.BuscarClienteIndividual(buscar);
+
+                int totalResultados =
+                    dtIndividualesBusqueda.Rows.Count;
+
+                totalPaginasIndividual =
+                    (int)Math.Ceiling(
+                        (double)totalResultados /
+                        registrosPorPagina);
+
+                if (totalPaginasIndividual == 0)
+                {
+                    totalPaginasIndividual = 1;
+                }
+
+                paginaActualIndividual = 1;
+
+                MostrarPaginaIndividualesBusqueda();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void MostrarPaginaIndividualesBusqueda()
+        {
+            if (dtIndividualesBusqueda == null)
+                return;
+
+            DataTable dtPagina =
+                dtIndividualesBusqueda.Clone();
+
+            int inicio =
+                (paginaActualIndividual - 1) *
+                registrosPorPagina;
+
+            int fin =
+                Math.Min(
+                    inicio + registrosPorPagina,
+                    dtIndividualesBusqueda.Rows.Count);
+
+            for (int i = inicio; i < fin; i++)
+            {
+                dtPagina.ImportRow(
+                    dtIndividualesBusqueda.Rows[i]);
+            }
+
+            dgvClientesIndividuales.DataSource = null;
+            dgvClientesIndividuales.DataSource = dtPagina;
+
+            lblPagina.Text =
+                $"Página {paginaActualIndividual} de {totalPaginasIndividual}";
+
+            btnAnterior.Enabled =
+                paginaActualIndividual > 1;
+
+            btnSiguiente.Enabled =
+                paginaActualIndividual < totalPaginasIndividual;
         }
 
         private void txtBuscarIndividual_Leave(object sender, EventArgs e)
@@ -1280,7 +1527,6 @@ namespace Vista.Clientes
             LimpiarFormularioCliente();
 
         }
-
 
     }
 }

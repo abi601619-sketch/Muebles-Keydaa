@@ -1,5 +1,6 @@
 ﻿using Modelo.Entidades;
 using System;
+using System.Data;
 using System.Windows.Forms;
 using Vista.Responsive;
 
@@ -13,6 +14,15 @@ namespace Vista.Usuarios
             ResponsiveHelper.Apply(this);
             ConfigurarTooltips();
         }
+
+        // VARIABLES PARA LA PAGINACIÓN
+        private DataTable dtUsuarios;
+        private int paginaActual = 1;
+        private int registrosPorPagina = 20;
+        private int totalPaginas = 0;
+
+
+
         //CONFIGURAR TOOLTIPS
         private void ConfigurarTooltips()
         {
@@ -229,9 +239,17 @@ namespace Vista.Usuarios
         {
             try
             {
-                dgvUsuariosRegistrados.DataSource = null;
+                // Cargar todos los usuarios
+                dtUsuarios = DbUsuarios.CargarUsuarios();
 
-                dgvUsuariosRegistrados.DataSource = DbUsuarios.CargarUsuarios();
+                // Volver a la primera página
+                paginaActual = 1;
+
+                // Calcular el total de páginas
+                CalcularPaginasUsuarios();
+
+                // Mostrar la primera página
+                MostrarPaginaUsuarios();
 
                 // El estado se controla desde la base de datos
                 // Los nuevos usuarios siempre se registran activos
@@ -244,6 +262,75 @@ namespace Vista.Usuarios
             }
         }
 
+        private void CalcularPaginasUsuarios()
+        {
+            if (dtUsuarios == null || dtUsuarios.Rows.Count == 0)
+            {
+                totalPaginas = 1;
+                paginaActual = 1;
+                return;
+            }
+
+            totalPaginas = (int)Math.Ceiling(
+                (double)dtUsuarios.Rows.Count / registrosPorPagina
+            );
+
+            if (totalPaginas == 0)
+                totalPaginas = 1;
+
+            if (paginaActual > totalPaginas)
+                paginaActual = totalPaginas;
+        }
+
+        private void MostrarPaginaUsuarios()
+        {
+            if (dtUsuarios == null)
+                return;
+
+            DataTable dtPagina = dtUsuarios.Clone();
+
+            int inicio = (paginaActual - 1) * registrosPorPagina;
+
+            int fin = Math.Min(
+                inicio + registrosPorPagina,
+                dtUsuarios.Rows.Count
+            );
+
+            for (int i = inicio; i < fin; i++)
+            {
+                dtPagina.ImportRow(dtUsuarios.Rows[i]);
+            }
+
+            // Mostrar únicamente los registros de la página actual
+            dgvUsuariosRegistrados.DataSource = null;
+            dgvUsuariosRegistrados.DataSource = dtPagina;
+
+            // Mostrar página actual
+            lblPagina.Text =
+                $"Página {paginaActual} de {totalPaginas}";
+
+            // Activar o desactivar botones
+            btnAnterior.Enabled = paginaActual > 1;
+            btnSiguiente.Enabled = paginaActual < totalPaginas;
+        }
+
+        private void btnAnterior_Click(object sender, EventArgs e)
+        {
+            if (paginaActual > 1)
+            {
+                paginaActual--;
+                MostrarPaginaUsuarios();
+            }
+        }
+
+        private void btnSiguiente_Click(object sender, EventArgs e)
+        {
+            if (paginaActual < totalPaginas)
+            {
+                paginaActual++;
+                MostrarPaginaUsuarios();
+            }
+        }
 
         // CARGAR FORMULARIO
         private void frmUsuarios_Load(object sender, EventArgs e)
@@ -327,5 +414,7 @@ namespace Vista.Usuarios
 
             chkEstado.Checked = false;
         }
+
+
     }
 }

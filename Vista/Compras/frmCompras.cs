@@ -31,6 +31,12 @@ namespace Vista.Compras
         // Detalles originales de una compra cuando se carga para editar.
         private List<DetalleCompraMaterial> detallesOriginales = new List<DetalleCompraMaterial>();
 
+        // VARIABLES PARA LA PAGINACIÓN
+        private DataTable dtCompras;
+        private int paginaActual = 1;
+        private int registrosPorPagina = 10;
+        private int totalPaginas = 0;
+
 
         private int idDetalleEditando = 0;
 
@@ -73,21 +79,12 @@ namespace Vista.Compras
             toolTip.ShowAlways = true;
 
             // Búsqueda
-            toolTip.SetToolTip(
-                txtBuscar,
-                "Busca una compra por su número, fecha o proveedor."
-            );
+            toolTip.SetToolTip(txtBuscar, "Busca una compra por su número, fecha o proveedor.");
 
             // Datos de la compra
-            toolTip.SetToolTip(
-                cbProveedor,
-                "Seleccione el proveedor de la compra."
-            );
+            toolTip.SetToolTip(cbProveedor, "Seleccione el proveedor de la compra.");
 
-            toolTip.SetToolTip(
-                dtpFechaDeCompra,
-                "Seleccione la fecha en que se realizó la compra."
-            );
+            toolTip.SetToolTip(dtpFechaDeCompra, "Seleccione la fecha en que se realizó la compra.");
 
             // Datos del material
             toolTip.SetToolTip(
@@ -204,10 +201,107 @@ namespace Vista.Compras
         }
         private void MostrarCompras()
         {
-            dgvHistorialCompras.DataSource = null;
-            dgvHistorialCompras.DataSource = ComprasDb.CargarComprasRegistradas();
+            try
+            {
+                // Cargar todas las compras
+                dtCompras = ComprasDb.CargarComprasRegistradas();
+
+                // Iniciar desde la primera página
+                paginaActual = 1;
+
+                // Calcular cantidad de páginas
+                CalcularPaginasCompras();
+
+                // Mostrar la primera página
+                MostrarPaginaCompras();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Error al mostrar las compras: " + ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
         }
 
+        private void CalcularPaginasCompras()
+        {
+            if (dtCompras == null || dtCompras.Rows.Count == 0)
+            {
+                totalPaginas = 1;
+                paginaActual = 1;
+                return;
+            }
+
+            totalPaginas = (int)Math.Ceiling(
+                (double)dtCompras.Rows.Count / registrosPorPagina
+            );
+
+            if (totalPaginas == 0)
+                totalPaginas = 1;
+
+            if (paginaActual > totalPaginas)
+                paginaActual = totalPaginas;
+        }
+
+        private void MostrarPaginaCompras()
+        {
+            if (dtCompras == null)
+                return;
+
+            DataTable dtPagina = dtCompras.Clone();
+
+            int inicio = (paginaActual - 1) * registrosPorPagina;
+
+            int fin = Math.Min(
+                inicio + registrosPorPagina,
+                dtCompras.Rows.Count
+            );
+
+            for (int i = inicio; i < fin; i++)
+            {
+                dtPagina.ImportRow(dtCompras.Rows[i]);
+            }
+
+            // Mostrar únicamente los registros de la página actual
+            dgvHistorialCompras.DataSource = null;
+            dgvHistorialCompras.DataSource = dtPagina;
+
+            // Configurar encabezados
+            dgvHistorialCompras.Columns["IdCompra"].HeaderText = "N.º de compra";
+            dgvHistorialCompras.Columns["FechaCompra"].HeaderText = "Fecha de compra";
+            dgvHistorialCompras.Columns["Proveedor"].HeaderText = "Proveedor";
+            dgvHistorialCompras.Columns["TotalCompra"].HeaderText = "Total de compra";
+
+            // Mostrar página actual
+            lblPagina.Text =
+                $"Página {paginaActual} de {totalPaginas}";
+
+            // Activar o desactivar botones
+            btnAnterior.Enabled = paginaActual > 1;
+            btnSiguiente.Enabled = paginaActual < totalPaginas;
+        }
+        private void btnAnterior_Click(object sender, EventArgs e)
+        {
+
+            if (paginaActual > 1)
+            {
+                paginaActual--;
+                MostrarPaginaCompras();
+            }
+        }
+
+        private void btnSiguiente_Click(object sender, EventArgs e)
+        {
+
+            if (paginaActual < totalPaginas)
+            {
+                paginaActual++;
+                MostrarPaginaCompras();
+            }
+        }
 
 
         private void CargarComboBoxMateriales()
@@ -722,36 +816,45 @@ namespace Vista.Compras
 
         private void txtBuscar_TextChanged(object sender, EventArgs e)
         {
-
             try
             {
                 // Si el texto no realiza alguna busqueda, recarga la tabla
                 if (txtBuscar.Text == "Buscar compra...")
                     return;
 
-                dgvHistorialCompras.DataSource = ComprasDb.Buscar(txtBuscar.Text);
+                string texto = txtBuscar.Text.Trim();
+
+                // Si la búsqueda está vacía,
+                // mostrar nuevamente todas las compras
+                if (string.IsNullOrWhiteSpace(texto))
+                {
+                    MostrarCompras();
+                    return;
+                }
+
+                // Buscar las compras
+                dtCompras = ComprasDb.Buscar(texto);
+
+                // Volver a la primera página
+                paginaActual = 1;
+
+                // Calcular páginas
+                CalcularPaginasCompras();
+
+                // Mostrar resultados paginados
+                MostrarPaginaCompras();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-        private void btnBuscar_Click(object sender, EventArgs e)
-        {
-
-        }
-
-
-
-
 
         private void btnActualizarCompra_Click(object sender, EventArgs e)
         {
             if (!modoEdicion || idCompraSeleccionada == 0)
             {
-                MessageBox.Show(
-                    "Primero selecciona una compra para editar.");
+                MessageBox.Show("Primero selecciona una compra para editar.");
                 return;
             }
 
@@ -763,26 +866,20 @@ namespace Vista.Compras
 
             if (detallesTemporales.Count == 0)
             {
-                MessageBox.Show(
-                    "La compra debe tener al menos un material.");
+                MessageBox.Show("La compra debe tener al menos un material.");
                 return;
             }
 
             try
             {
-                int idProveedor =
-                    Convert.ToInt32(cbProveedor.SelectedValue);
+                int idProveedor = Convert.ToInt32(cbProveedor.SelectedValue);
 
                 CalcularTotalCompra();
 
-                ComprasDb.GuardarCompleta(idCompraSeleccionada, dtpFechaDeCompra.Value,
-                    idProveedor, detallesTemporales);
+                ComprasDb.GuardarCompleta(idCompraSeleccionada, dtpFechaDeCompra.Value, idProveedor, detallesTemporales);
 
-                MessageBox.Show(
-                    "Compra actualizada correctamente.",
-                    "Compra",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
+                MessageBox.Show("Compra actualizada correctamente.", "Compra",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 MostrarCompras();
 
@@ -790,12 +887,8 @@ namespace Vista.Compras
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Ocurrió un error al actualizar la compra.\n\n" +
-                    ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                MessageBox.Show("Ocurrió un error al actualizar la compra.\n\n" + ex.Message, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -820,15 +913,10 @@ namespace Vista.Compras
 
             bool ultimo = detallesTemporales.Count == 1;
             // Confirmar eliminación
-            DialogResult resultado = MessageBox.Show(
-                ultimo && modoEdicion
-                    ? "Al eliminar el último material se eliminará automáticamente el registro de esta compra y se revertirá todo el inventario que sumó. Los demás movimientos de inventario se conservarán. ¿Desea continuar?"
-                    : "¿Está seguro de quitar este material? Los cambios se aplicarán al guardar o actualizar la compra.",
+            DialogResult resultado = MessageBox.Show(ultimo && modoEdicion ? "Al eliminar el último material se eliminará automáticamente el registro de esta compra y se revertirá todo el inventario que sumó. Los demás movimientos de inventario se conservarán. ¿Desea continuar?"
+                : "¿Está seguro de quitar este material? Los cambios se aplicarán al guardar o actualizar la compra.",
                 "Confirmar eliminación",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Warning,
-                MessageBoxDefaultButton.Button2
-            );
+                MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
 
             if (resultado != DialogResult.Yes)
                 return;
@@ -852,13 +940,13 @@ namespace Vista.Compras
             // Actualizar el DataGridView
             MostrarDetallesTemporales();
 
-            MessageBox.Show(
-                "Material quitado de la lista. Guarda o actualiza la compra para aplicar el cambio.",
-                "Eliminación",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information
-            );
+            MessageBox.Show("Material quitado de la lista. Guarda o actualiza la compra para aplicar el cambio.", "Eliminación",
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
+
+
+
     }
 
 }

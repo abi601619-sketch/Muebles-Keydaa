@@ -12,7 +12,7 @@ namespace Vista.Producción
         // PAGINACIÓN
         private DataTable dtProduccion;
         private int paginaActual = 1;
-        private int registrosPorPagina = 20;
+        private int registrosPorPagina = 10;
         private int totalPaginas = 0;
         private DataTable dtProduccionOriginal;
 
@@ -161,6 +161,27 @@ namespace Vista.Producción
             }
         }
 
+
+        private void btnAtrass_Click(object sender, EventArgs e)
+        {
+            if (paginaActual > 1)
+            {
+                paginaActual--;
+
+                MostrarPaginaProduccion();
+            }
+        }
+
+        private void btnSiguient_Click(object sender, EventArgs e)
+        {
+            if (paginaActual < totalPaginas)
+            {
+                paginaActual++;
+
+                MostrarPaginaProduccion();
+            }
+        }
+
         private void CalcularPaginas()
         {
             int totalRegistros = dtProduccion.Rows.Count;
@@ -208,14 +229,14 @@ namespace Vista.Producción
                 ConfigurarColumnasProduccion();
 
                 // Mostrar página actual
-                lblPagina.Text =
+                lblPage.Text =
                     $"Página {paginaActual} de {totalPaginas}";
 
                 // Activar/desactivar botones
-                btnAnterior.Enabled =
+                btnAtrass.Enabled =
                     paginaActual > 1;
 
-                btnSiguiente.Enabled =
+                btnSiguient.Enabled =
                     paginaActual < totalPaginas;
 
                 // Ajusta el texto y el tamaño de las filas
@@ -467,10 +488,8 @@ namespace Vista.Producción
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
 
-        }
+
     }
 }
 

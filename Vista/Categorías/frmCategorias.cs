@@ -1,5 +1,6 @@
 using Modelo.Entidades;
 using System;
+using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
 using Vista.Responsive;
@@ -13,6 +14,11 @@ namespace Vista.Categorías
             InitializeComponent();
             ResponsiveHelper.Apply(this);
         }
+        // Variables para la paginación
+        private DataTable dtCategorias;
+        private int paginaActual = 1;
+        private int registrosPorPagina = 10;
+        private int totalPaginas = 0;
         // CARGA INICIAL DEL FORMULARIO
         private void frmCategorias_Load(object sender, EventArgs e)
         {
@@ -120,8 +126,17 @@ namespace Vista.Categorías
         {
             try
             {
-                dgvCategorias.DataSource = null;
-                dgvCategorias.DataSource = Categorias.CargarCategorias();
+                // Cargar todas las categorías
+                dtCategorias = Categorias.CargarCategorias();
+
+                // Iniciar desde la primera página
+                paginaActual = 1;
+
+                // Calcular cantidad de páginas
+                CalcularPaginasCategorias();
+
+                // Mostrar la primera página
+                MostrarPaginaCategorias();
 
                 // Actualiza las estadísticas
                 CargarEstadisticasCategorias();
@@ -131,15 +146,63 @@ namespace Vista.Categorías
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error al mostrar las categorías: " + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Error al mostrar las categorías: " + ex.Message, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
+        private void CalcularPaginasCategorias()
+        {
+            if (dtCategorias == null || dtCategorias.Rows.Count == 0)
+            {
+                totalPaginas = 1;
+                paginaActual = 1;
+                return;
+            }
+
+            totalPaginas = (int)Math.Ceiling(
+                (double)dtCategorias.Rows.Count / registrosPorPagina);
+
+            if (totalPaginas == 0)
+                totalPaginas = 1;
+
+            if (paginaActual > totalPaginas)
+                paginaActual = totalPaginas;
+        }
+
+        private void MostrarPaginaCategorias()
+        {
+            if (dtCategorias == null)
+                return;
+
+            DataTable dtPagina = dtCategorias.Clone();
+
+            int inicio = (paginaActual - 1) * registrosPorPagina;
+
+            int fin = Math.Min(
+                inicio + registrosPorPagina,
+                dtCategorias.Rows.Count);
+
+            for (int i = inicio; i < fin; i++)
+            {
+                dtPagina.ImportRow(dtCategorias.Rows[i]);
+            }
+
+            // Mostrar únicamente los registros de la página actual
+            dgvCategorias.DataSource = null;
+            dgvCategorias.DataSource = dtPagina;
+
+            // Configura los nombres de las columnas
+            ConfigurarColumnas();
+
+            // Mostrar página actual
+            lblPagina.Text =
+                $"Página {paginaActual} de {totalPaginas}";
+
+            // Activar o desactivar botones
+            btnAnterior.Enabled = paginaActual > 1;
+            btnSiguiente.Enabled = paginaActual < totalPaginas;
+        }
         // Configura los encabezados del DataGridView
         private void ConfigurarColumnas()
         {
@@ -148,6 +211,26 @@ namespace Vista.Categorías
                 dgvCategorias.Columns["IdCategoria"].HeaderText = "#";
                 dgvCategorias.Columns["Nombre_Categoria"].HeaderText = "Categoría";
                 dgvCategorias.Columns["Descripcion"].HeaderText = "Descripción";
+            }
+        }
+        private void btnAnterior_Click(object sender, EventArgs e)
+        {
+            if (paginaActual > 1)
+            {
+                paginaActual--;
+
+                MostrarPaginaCategorias();
+            }
+        }
+
+        private void btnSiguiente_Click(object sender, EventArgs e)
+        {
+
+            if (paginaActual < totalPaginas)
+            {
+                paginaActual++;
+
+                MostrarPaginaCategorias();
             }
         }
         //--------------------------------------------------------------------------
@@ -160,9 +243,7 @@ namespace Vista.Categorías
                 // Valida el nombre de la categoría
                 if (string.IsNullOrWhiteSpace(txtCategoria.Text))
                 {
-                    MessageBox.Show(
-                        "Debe ingresar el nombre de la categoría."
-                    );
+                    MessageBox.Show("Debe ingresar el nombre de la categoría.");
 
                     txtCategoria.Focus();
                     return;
@@ -171,9 +252,7 @@ namespace Vista.Categorías
                 // Valida la descripción
                 if (string.IsNullOrWhiteSpace(txtDescripcion.Text))
                 {
-                    MessageBox.Show(
-                        "Debe ingresar la descripción de la categoría."
-                    );
+                    MessageBox.Show("Debe ingresar la descripción de la categoría.");
 
                     txtDescripcion.Focus();
                     return;
@@ -182,9 +261,7 @@ namespace Vista.Categorías
                 // Valida que se seleccione un estado
                 if (cbEstado.SelectedIndex == -1)
                 {
-                    MessageBox.Show(
-                        "Debe seleccionar el estado de la categoría."
-                    );
+                    MessageBox.Show("Debe seleccionar el estado de la categoría.");
 
                     cbEstado.Focus();
                     return;
@@ -193,11 +270,9 @@ namespace Vista.Categorías
                 // Crea el objeto categoría
                 Categorias categoria = new Categorias();
 
-                categoria.Nombre_Categoria1 =
-                    txtCategoria.Text.Trim();
+                categoria.Nombre_Categoria1 = txtCategoria.Text.Trim();
 
-                categoria.Descripción1 =
-                    txtDescripcion.Text.Trim();
+                categoria.Descripción1 = txtDescripcion.Text.Trim();
 
                 categoria.Estado1 = cbEstado.Text;
 
@@ -206,12 +281,8 @@ namespace Vista.Categorías
 
                 if (resultado)
                 {
-                    MessageBox.Show(
-                        "Categoría registrada correctamente.",
-                        "Registro exitoso",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information
-                    );
+                    MessageBox.Show("Categoría registrada correctamente.", "Registro exitoso",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     MostrarCategorias();
                     LimpiarFormulario();
@@ -219,12 +290,8 @@ namespace Vista.Categorías
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error al registrar la categoría: " + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Error al registrar la categoría: " + ex.Message, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -245,20 +312,12 @@ namespace Vista.Categorías
                 }
 
                 // Obtiene el ID de la categoría seleccionada
-                idCategoriaSeleccionada =
-                    Convert.ToInt32(
-                        dgvCategorias.Rows[e.RowIndex]
-                        .Cells["IdCategoria"].Value
-                    );
+                idCategoriaSeleccionada = Convert.ToInt32(dgvCategorias.Rows[e.RowIndex].Cells["IdCategoria"].Value);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error al seleccionar la categoría: " + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Error al seleccionar la categoría: " + ex.Message, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -278,23 +337,14 @@ namespace Vista.Categorías
                     dgvCategorias.Rows[e.RowIndex];
 
                 // Obtiene el ID de la categoría
-                idCategoriaSeleccionada =
-                    Convert.ToInt32(
-                        fila.Cells["IdCategoria"].Value
-                    );
+                idCategoriaSeleccionada = Convert.ToInt32(fila.Cells["IdCategoria"].Value);
 
                 // Carga los datos en los controles
-                txtCategoria.Text =
-                    fila.Cells["Nombre_Categoria"]
-                    .Value?.ToString() ?? "";
+                txtCategoria.Text = fila.Cells["Nombre_Categoria"].Value?.ToString() ?? "";
 
-                txtDescripcion.Text =
-                    fila.Cells["Descripcion"]
-                    .Value?.ToString() ?? "";
+                txtDescripcion.Text = fila.Cells["Descripcion"].Value?.ToString() ?? "";
 
-                cbEstado.Text =
-                    fila.Cells["Estado"]
-                    .Value?.ToString() ?? "";
+                cbEstado.Text = fila.Cells["Estado"].Value?.ToString() ?? "";
 
                 // Bloquea los campos hasta presionar Editar
                 BloquearCampos();
@@ -306,12 +356,8 @@ namespace Vista.Categorías
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error al cargar la categoría: " + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Error al cargar la categoría: " + ex.Message, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         }
@@ -340,12 +386,8 @@ namespace Vista.Categorías
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error al habilitar la edición: " + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Error al habilitar la edición: " + ex.Message, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         //-----------------------------------------------------------
@@ -376,9 +418,7 @@ namespace Vista.Categorías
                 // Verifica que exista una categoría seleccionada
                 if (idCategoriaSeleccionada == 0)
                 {
-                    MessageBox.Show(
-                        "No hay ninguna categoría seleccionada."
-                    );
+                    MessageBox.Show("No hay ninguna categoría seleccionada.");
 
                     return;
                 }
@@ -386,9 +426,7 @@ namespace Vista.Categorías
                 // Valida el nombre
                 if (string.IsNullOrWhiteSpace(txtCategoria.Text))
                 {
-                    MessageBox.Show(
-                        "Debe ingresar el nombre de la categoría."
-                    );
+                    MessageBox.Show("Debe ingresar el nombre de la categoría.");
 
                     txtCategoria.Focus();
                     return;
@@ -397,9 +435,7 @@ namespace Vista.Categorías
                 // Valida la descripción
                 if (string.IsNullOrWhiteSpace(txtDescripcion.Text))
                 {
-                    MessageBox.Show(
-                        "Debe ingresar la descripción de la categoría."
-                    );
+                    MessageBox.Show("Debe ingresar la descripción de la categoría.");
 
                     txtDescripcion.Focus();
                     return;
@@ -408,9 +444,7 @@ namespace Vista.Categorías
                 // Valida el estado
                 if (cbEstado.SelectedIndex == -1)
                 {
-                    MessageBox.Show(
-                        "Debe seleccionar el estado de la categoría."
-                    );
+                    MessageBox.Show("Debe seleccionar el estado de la categoría.");
 
                     cbEstado.Focus();
                     return;
@@ -429,12 +463,8 @@ namespace Vista.Categorías
 
                 if (resultado)
                 {
-                    MessageBox.Show(
-                        "Categoría actualizada correctamente.",
-                        "Actualización exitosa",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information
-                    );
+                    MessageBox.Show("Categoría actualizada correctamente.", "Actualización exitosa",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception ex)
@@ -480,21 +510,13 @@ namespace Vista.Categorías
 
                 dgvCategorias.DataSource = null;
 
-                dgvCategorias.DataSource =
-                    Categorias.Buscar(
-                        txtBuscarCategoria.Text.Trim()
-                    );
+                dgvCategorias.DataSource = Categorias.Buscar(txtBuscarCategoria.Text.Trim());
 
                 ConfigurarColumnas();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error al buscar la categoría: " + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Error al buscar la categoría: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
 
@@ -512,13 +534,8 @@ namespace Vista.Categorías
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error al actualizar la búsqueda: "
-                    + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Error al actualizar la búsqueda: " + ex.Message, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -531,29 +548,18 @@ namespace Vista.Categorías
             try
             {
                 // Cantidad total de categorías
-                lblCategoriasRegistradas.Text =
-                    Categorias.ContarCategoriasTotales()
-                    .ToString();
+                lblCategoriasRegistradas.Text = Categorias.ContarCategoriasTotales().ToString();
 
                 // Cantidad de categorías activas
-                lblCategoriasActivas.Text =
-                    Categorias.ContarCategoriasActivas()
-                    .ToString();
+                lblCategoriasActivas.Text = Categorias.ContarCategoriasActivas().ToString();
 
                 // Cantidad de categorías inactivas
-                lblCategoriasInactivas.Text =
-                    Categorias.ContarCategoriasInactivas()
-                    .ToString();
+                lblCategoriasInactivas.Text = Categorias.ContarCategoriasInactivas().ToString();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error al cargar las estadísticas: "
-                    + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Error al cargar las estadísticas: " + ex.Message, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         //-----------------------------------------------------------------------
@@ -628,10 +634,6 @@ namespace Vista.Categorías
                 }
             }
         }
-
-
-
-
 
 
     }

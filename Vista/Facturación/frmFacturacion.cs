@@ -15,7 +15,11 @@ namespace Vista.Facturación
             InitializeComponent();
             ResponsiveHelper.Apply(this);
         }
-
+        // VARIABLES PARA LA PAGINACIÓN
+        private DataTable dtFacturas;
+        private int paginaActual = 1;
+        private int registrosPorPagina = 10;
+        private int totalPaginas = 0;
 
         private void ConfigurarTooltips()
         {
@@ -116,18 +120,85 @@ namespace Vista.Facturación
         {
             try
             {
-                dgvFacturasRegistradas.DataSource = null;
-                dgvFacturasRegistradas.DataSource = DbFactura.CargarRegistrosFacturas();
+                // Cargar todas las facturas
+                dtFacturas = DbFactura.CargarRegistrosFacturas();
 
-                dgvFacturasRegistradas.Columns["IdFactura"].HeaderText = "N° de Factura";
-                dgvFacturasRegistradas.Columns["Fecha"].HeaderText = "Fecha de emisión";
+                // Iniciar desde la primera página
+                paginaActual = 1;
 
+                // Calcular cantidad de páginas
+                CalcularPaginasFacturas();
+
+                // Mostrar la primera página
+                MostrarPaginaFacturas();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al cargar las facturas: " + ex.Message);
+                MessageBox.Show(
+                    "Error al cargar las facturas: " + ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
             }
         }
+        private void CalcularPaginasFacturas()
+        {
+            if (dtFacturas == null || dtFacturas.Rows.Count == 0)
+            {
+                totalPaginas = 1;
+                paginaActual = 1;
+                return;
+            }
+
+            totalPaginas = (int)Math.Ceiling(
+                (double)dtFacturas.Rows.Count / registrosPorPagina
+            );
+
+            if (totalPaginas == 0)
+                totalPaginas = 1;
+
+            if (paginaActual > totalPaginas)
+                paginaActual = totalPaginas;
+        }
+
+        private void MostrarPaginaFacturas()
+        {
+            if (dtFacturas == null)
+                return;
+
+            DataTable dtPagina = dtFacturas.Clone();
+
+            int inicio = (paginaActual - 1) * registrosPorPagina;
+
+            int fin = Math.Min(
+                inicio + registrosPorPagina,
+                dtFacturas.Rows.Count
+            );
+
+            for (int i = inicio; i < fin; i++)
+            {
+                dtPagina.ImportRow(dtFacturas.Rows[i]);
+            }
+
+            // Mostrar únicamente los registros de la página actual
+            dgvFacturasRegistradas.DataSource = null;
+            dgvFacturasRegistradas.DataSource = dtPagina;
+
+            // Configurar encabezados
+            dgvFacturasRegistradas.Columns["IdFactura"].HeaderText = "N° de Factura";
+            dgvFacturasRegistradas.Columns["Fecha"].HeaderText = "Fecha de emisión";
+
+            // Mostrar página actual
+            lblPagina.Text =
+                $"Página {paginaActual} de {totalPaginas}";
+
+            // Activar o desactivar botones
+            btnAnterior.Enabled = paginaActual > 1;
+            btnSiguiente.Enabled = paginaActual < totalPaginas;
+        }
+
+
 
         private void MostrarDetalleFactura()
         {
@@ -341,14 +412,25 @@ namespace Vista.Facturación
 
                 string buscar = txtBuscar.Text.Trim();
 
+                // Si la búsqueda está vacía,
+                // mostrar nuevamente todas las facturas
                 if (string.IsNullOrWhiteSpace(buscar))
                 {
                     MostrarRegistrosFacturas();
                     return;
                 }
 
-                dgvFacturasRegistradas.DataSource =
-                    DbFactura.BuscarFacturas(buscar);
+                // Buscar las facturas
+                dtFacturas = DbFactura.BuscarFacturas(buscar);
+
+                // Volver a la primera página
+                paginaActual = 1;
+
+                // Calcular páginas
+                CalcularPaginasFacturas();
+
+                // Mostrar resultados paginados
+                MostrarPaginaFacturas();
             }
             catch (Exception ex)
             {
@@ -408,7 +490,7 @@ namespace Vista.Facturación
             txtBuscar.ForeColor = Color.Gray;
 
             // Recargar todas las facturas
-            dgvFacturasRegistradas.DataSource = DbFactura.CargarRegistrosFacturas();
+            MostrarRegistrosFacturas();
         }
 
         private void dgvFacturasRegistradas_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -592,6 +674,25 @@ namespace Vista.Facturación
             catch (Exception ex)
             {
                 MessageBox.Show("Error al generar el PDF:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnAnterior_Click(object sender, EventArgs e)
+        {
+            if (paginaActual > 1)
+            {
+                paginaActual--;
+                MostrarPaginaFacturas();
+            }
+        }
+
+        private void btnSiguiente_Click(object sender, EventArgs e)
+        {
+
+            if (paginaActual < totalPaginas)
+            {
+                paginaActual++;
+                MostrarPaginaFacturas();
             }
         }
     }

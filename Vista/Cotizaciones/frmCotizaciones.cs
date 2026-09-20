@@ -3,6 +3,7 @@ using Modelo;
 using Modelo.Entidades;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
@@ -29,6 +30,12 @@ namespace Vista.Cotizaciones
             pnlPDFPreview.Controls.Add(visorPDF);
 
         }
+        // VARIABLES PARA LA PAGINACIÓN
+        private DataTable dtCotizaciones;
+        private int paginaActual = 1;
+        private int registrosPorPagina = 10;
+        private int totalPaginas = 0;
+        //-----------------------------------
         private int idClienteSeleccionado = 0;
         private int idCotizacionGuardada = 0;
         private decimal subtotal = 0;
@@ -55,9 +62,84 @@ namespace Vista.Cotizaciones
 
         private void MostrarCotizacionesRegistradas()
         {
+            try
+            {
+                // Cargar todas las cotizaciones
+                dtCotizaciones = DbCotizacion.CargarCotizacion();
+
+                // Volver a la primera página
+                paginaActual = 1;
+
+                // Calcular el total de páginas
+                CalcularPaginasCotizaciones();
+
+                // Mostrar la primera página
+                MostrarPaginaCotizaciones();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
+        private void CalcularPaginasCotizaciones()
+        {
+            if (dtCotizaciones == null || dtCotizaciones.Rows.Count == 0)
+            {
+                totalPaginas = 1;
+                paginaActual = 1;
+                return;
+            }
+
+            totalPaginas = (int)Math.Ceiling(
+                (double)dtCotizaciones.Rows.Count / registrosPorPagina
+            );
+
+            if (totalPaginas == 0)
+                totalPaginas = 1;
+
+            if (paginaActual > totalPaginas)
+                paginaActual = totalPaginas;
+        }
+        private void MostrarPaginaCotizaciones()
+        {
+            if (dtCotizaciones == null)
+                return;
+
+            DataTable dtPagina = dtCotizaciones.Clone();
+
+            int inicio = (paginaActual - 1) * registrosPorPagina;
+
+            int fin = Math.Min(
+                inicio + registrosPorPagina,
+                dtCotizaciones.Rows.Count
+            );
+
+            for (int i = inicio; i < fin; i++)
+            {
+                dtPagina.ImportRow(dtCotizaciones.Rows[i]);
+            }
+
+            // Mostrar únicamente los registros de la página actual
             dgvCotizacionesRegistradas.DataSource = null;
-            dgvCotizacionesRegistradas.DataSource = DbCotizacion.CargarCotizacion();
-            dgvCotizacionesRegistradas.Columns["IdCotizacion"].HeaderText = "#";
+            dgvCotizacionesRegistradas.DataSource = dtPagina;
+
+            // Configurar encabezados
+            if (dgvCotizacionesRegistradas.Columns.Contains("IdCotizacion"))
+            {
+                dgvCotizacionesRegistradas.Columns["IdCotizacion"].HeaderText = "#";
+            }
+
+            // Mostrar página actual
+            lblPagina.Text =
+                $"Página {paginaActual} de {totalPaginas}";
+
+            // Activar o desactivar botones
+            btnAnterior.Enabled = paginaActual > 1;
+            btnSiguiente.Enabled = paginaActual < totalPaginas;
         }
 
         //CONFIGURACION DE TOOLTIPS
@@ -734,19 +816,33 @@ namespace Vista.Cotizaciones
 
                 string buscar = txtBuscar.Text.Trim();
 
+                // Si la búsqueda está vacía,
+                // mostrar nuevamente todas las cotizaciones
                 if (string.IsNullOrWhiteSpace(buscar))
                 {
                     MostrarCotizacionesRegistradas();
                     return;
                 }
 
-                dgvCotizacionesRegistradas.DataSource = null;
-                dgvCotizacionesRegistradas.DataSource = DbCotizacion.BuscarCotizacion(buscar);
+                // Buscar las cotizaciones
+                dtCotizaciones = DbCotizacion.BuscarCotizacion(buscar);
 
+                // Volver a la primera página
+                paginaActual = 1;
+
+                // Calcular páginas
+                CalcularPaginasCotizaciones();
+
+                // Mostrar resultados paginados
+                MostrarPaginaCotizaciones();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(
+                    ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
             }
         }
 
@@ -931,6 +1027,24 @@ namespace Vista.Cotizaciones
                     "Error",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnAnterior_Click(object sender, EventArgs e)
+        {
+            if (paginaActual > 1)
+            {
+                paginaActual--;
+                MostrarPaginaCotizaciones();
+            }
+        }
+
+        private void btnSiguiente_Click(object sender, EventArgs e)
+        {
+            if (paginaActual < totalPaginas)
+            {
+                paginaActual++;
+                MostrarPaginaCotizaciones();
             }
         }
     }

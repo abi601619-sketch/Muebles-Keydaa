@@ -28,10 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pnlPrincipalCompras = new System.Windows.Forms.Panel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnNueva = new System.Windows.Forms.Button();
             this.pnlComprasRegistradas = new System.Windows.Forms.Panel();
             this.lblComprasRegistradas = new System.Windows.Forms.Label();
@@ -66,8 +65,11 @@
             this.pblSuperior = new System.Windows.Forms.Panel();
             this.lblAdministrador = new System.Windows.Forms.Label();
             this.pbPerfil = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.lblPagina = new System.Windows.Forms.Label();
+            this.btnAnterior = new System.Windows.Forms.Button();
+            this.btnSiguiente = new System.Windows.Forms.Button();
             this.pnlPrincipalCompras.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.pnlComprasRegistradas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHistorialCompras)).BeginInit();
             this.pnlPedidaDeDatos.SuspendLayout();
@@ -76,6 +78,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetalleCompras)).BeginInit();
             this.pblSuperior.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbPerfil)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlPrincipalCompras
@@ -97,16 +100,6 @@
             this.pnlPrincipalCompras.Size = new System.Drawing.Size(1102, 627);
             this.pnlPrincipalCompras.TabIndex = 2;
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::Vista.Properties.Resources.zoom_5611171;
-            this.pictureBox1.Location = new System.Drawing.Point(1016, 54);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(39, 25);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 23;
-            this.pictureBox1.TabStop = false;
-            // 
             // btnNueva
             // 
             this.btnNueva.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(215)))), ((int)(((byte)(215)))));
@@ -121,12 +114,15 @@
             // pnlComprasRegistradas
             // 
             this.pnlComprasRegistradas.BackColor = System.Drawing.Color.Bisque;
+            this.pnlComprasRegistradas.Controls.Add(this.lblPagina);
+            this.pnlComprasRegistradas.Controls.Add(this.btnAnterior);
+            this.pnlComprasRegistradas.Controls.Add(this.btnSiguiente);
             this.pnlComprasRegistradas.Controls.Add(this.lblComprasRegistradas);
             this.pnlComprasRegistradas.Controls.Add(this.dgvHistorialCompras);
-            this.pnlComprasRegistradas.Location = new System.Drawing.Point(293, 385);
+            this.pnlComprasRegistradas.Location = new System.Drawing.Point(293, 361);
             this.pnlComprasRegistradas.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pnlComprasRegistradas.Name = "pnlComprasRegistradas";
-            this.pnlComprasRegistradas.Size = new System.Drawing.Size(771, 231);
+            this.pnlComprasRegistradas.Size = new System.Drawing.Size(771, 253);
             this.pnlComprasRegistradas.TabIndex = 4;
             // 
             // lblComprasRegistradas
@@ -151,21 +147,21 @@
             this.dgvHistorialCompras.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvHistorialCompras.BackgroundColor = System.Drawing.Color.White;
             this.dgvHistorialCompras.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Times New Roman", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.PeachPuff;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvHistorialCompras.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Times New Roman", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.PeachPuff;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvHistorialCompras.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.dgvHistorialCompras.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvHistorialCompras.GridColor = System.Drawing.Color.Black;
-            this.dgvHistorialCompras.Location = new System.Drawing.Point(8, 55);
+            this.dgvHistorialCompras.Location = new System.Drawing.Point(8, 43);
             this.dgvHistorialCompras.Name = "dgvHistorialCompras";
             this.dgvHistorialCompras.ReadOnly = true;
             this.dgvHistorialCompras.RowHeadersVisible = false;
-            this.dgvHistorialCompras.Size = new System.Drawing.Size(754, 163);
+            this.dgvHistorialCompras.Size = new System.Drawing.Size(754, 173);
             this.dgvHistorialCompras.TabIndex = 0;
             this.dgvHistorialCompras.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvHistorialCompras_CellDoubleClick);
             this.dgvHistorialCompras.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvHistorialCompras_CellDoubleClick);
@@ -402,17 +398,17 @@
             this.pnlDetalleCompra.Controls.Add(this.btnGuardar);
             this.pnlDetalleCompra.Controls.Add(this.lblDetallesCompra);
             this.pnlDetalleCompra.Controls.Add(this.dgvDetalleCompras);
-            this.pnlDetalleCompra.Location = new System.Drawing.Point(293, 116);
+            this.pnlDetalleCompra.Location = new System.Drawing.Point(293, 113);
             this.pnlDetalleCompra.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pnlDetalleCompra.Name = "pnlDetalleCompra";
-            this.pnlDetalleCompra.Size = new System.Drawing.Size(771, 259);
+            this.pnlDetalleCompra.Size = new System.Drawing.Size(771, 242);
             this.pnlDetalleCompra.TabIndex = 3;
             // 
             // btnActualizarCompra
             // 
             this.btnActualizarCompra.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnActualizarCompra.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnActualizarCompra.Location = new System.Drawing.Point(452, 218);
+            this.btnActualizarCompra.Location = new System.Drawing.Point(452, 204);
             this.btnActualizarCompra.Name = "btnActualizarCompra";
             this.btnActualizarCompra.Size = new System.Drawing.Size(183, 30);
             this.btnActualizarCompra.TabIndex = 4;
@@ -426,7 +422,7 @@
             this.txtTotalCompra.BackColor = System.Drawing.Color.PapayaWhip;
             this.txtTotalCompra.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtTotalCompra.Font = new System.Drawing.Font("Times New Roman", 14F);
-            this.txtTotalCompra.Location = new System.Drawing.Point(283, 219);
+            this.txtTotalCompra.Location = new System.Drawing.Point(283, 205);
             this.txtTotalCompra.Margin = new System.Windows.Forms.Padding(0);
             this.txtTotalCompra.Name = "txtTotalCompra";
             this.txtTotalCompra.ReadOnly = true;
@@ -438,7 +434,7 @@
             this.btnCancelar.BackColor = System.Drawing.Color.LightCoral;
             this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelar.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancelar.Location = new System.Drawing.Point(641, 218);
+            this.btnCancelar.Location = new System.Drawing.Point(641, 204);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(117, 30);
             this.btnCancelar.TabIndex = 3;
@@ -450,7 +446,7 @@
             // 
             this.lblTotalCompra.AutoSize = true;
             this.lblTotalCompra.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Bold);
-            this.lblTotalCompra.Location = new System.Drawing.Point(151, 226);
+            this.lblTotalCompra.Location = new System.Drawing.Point(151, 212);
             this.lblTotalCompra.Name = "lblTotalCompra";
             this.lblTotalCompra.Size = new System.Drawing.Size(129, 17);
             this.lblTotalCompra.TabIndex = 0;
@@ -460,7 +456,7 @@
             // 
             this.btnGuardar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGuardar.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGuardar.Location = new System.Drawing.Point(452, 218);
+            this.btnGuardar.Location = new System.Drawing.Point(452, 204);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(183, 30);
             this.btnGuardar.TabIndex = 2;
@@ -491,20 +487,20 @@
             this.dgvDetalleCompras.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvDetalleCompras.BackgroundColor = System.Drawing.Color.White;
             this.dgvDetalleCompras.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Times New Roman", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.PeachPuff;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvDetalleCompras.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Times New Roman", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.PeachPuff;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvDetalleCompras.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.dgvDetalleCompras.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvDetalleCompras.GridColor = System.Drawing.Color.Black;
-            this.dgvDetalleCompras.Location = new System.Drawing.Point(8, 55);
+            this.dgvDetalleCompras.Location = new System.Drawing.Point(8, 48);
             this.dgvDetalleCompras.Name = "dgvDetalleCompras";
             this.dgvDetalleCompras.ReadOnly = true;
-            this.dgvDetalleCompras.Size = new System.Drawing.Size(754, 153);
+            this.dgvDetalleCompras.Size = new System.Drawing.Size(754, 150);
             this.dgvDetalleCompras.TabIndex = 0;
             this.dgvDetalleCompras.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDetalleCompras_CellContentClick);
             this.dgvDetalleCompras.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDetalleCompras_CellDoubleClick);
@@ -542,6 +538,51 @@
             this.pbPerfil.TabIndex = 12;
             this.pbPerfil.TabStop = false;
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::Vista.Properties.Resources.zoom_5611171;
+            this.pictureBox1.Location = new System.Drawing.Point(1016, 54);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(39, 25);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 23;
+            this.pictureBox1.TabStop = false;
+            // 
+            // lblPagina
+            // 
+            this.lblPagina.AutoSize = true;
+            this.lblPagina.Font = new System.Drawing.Font("Times New Roman", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPagina.ForeColor = System.Drawing.Color.Black;
+            this.lblPagina.Location = new System.Drawing.Point(53, 229);
+            this.lblPagina.Name = "lblPagina";
+            this.lblPagina.Size = new System.Drawing.Size(39, 13);
+            this.lblPagina.TabIndex = 35;
+            this.lblPagina.Text = "label1";
+            // 
+            // btnAnterior
+            // 
+            this.btnAnterior.FlatAppearance.BorderSize = 0;
+            this.btnAnterior.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAnterior.Image = global::Vista.Properties.Resources.hacia_atras_negro2;
+            this.btnAnterior.Location = new System.Drawing.Point(16, 222);
+            this.btnAnterior.Name = "btnAnterior";
+            this.btnAnterior.Size = new System.Drawing.Size(30, 23);
+            this.btnAnterior.TabIndex = 34;
+            this.btnAnterior.UseVisualStyleBackColor = true;
+            this.btnAnterior.Click += new System.EventHandler(this.btnAnterior_Click);
+            // 
+            // btnSiguiente
+            // 
+            this.btnSiguiente.FlatAppearance.BorderSize = 0;
+            this.btnSiguiente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSiguiente.Image = global::Vista.Properties.Resources.hacia_adelante_negro;
+            this.btnSiguiente.Location = new System.Drawing.Point(140, 222);
+            this.btnSiguiente.Name = "btnSiguiente";
+            this.btnSiguiente.Size = new System.Drawing.Size(30, 23);
+            this.btnSiguiente.TabIndex = 33;
+            this.btnSiguiente.UseVisualStyleBackColor = true;
+            this.btnSiguiente.Click += new System.EventHandler(this.btnSiguiente_Click);
+            // 
             // frmCompras
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -556,7 +597,6 @@
             this.Load += new System.EventHandler(this.frmCompras_Load);
             this.pnlPrincipalCompras.ResumeLayout(false);
             this.pnlPrincipalCompras.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.pnlComprasRegistradas.ResumeLayout(false);
             this.pnlComprasRegistradas.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHistorialCompras)).EndInit();
@@ -569,6 +609,7 @@
             this.pblSuperior.ResumeLayout(false);
             this.pblSuperior.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbPerfil)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -611,5 +652,8 @@
         private System.Windows.Forms.Button btnActualizarCompra;
         private System.Windows.Forms.Button btnNueva;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label lblPagina;
+        private System.Windows.Forms.Button btnAnterior;
+        private System.Windows.Forms.Button btnSiguiente;
     }
 }

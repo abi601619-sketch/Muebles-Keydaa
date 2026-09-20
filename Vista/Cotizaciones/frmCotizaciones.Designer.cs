@@ -28,7 +28,7 @@ namespace Vista.Cotizaciones
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pnlContenedorPrincipalCotizaciones = new System.Windows.Forms.Panel();
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.pnlBarraCambioRegistros = new System.Windows.Forms.Panel();
@@ -116,6 +116,9 @@ namespace Vista.Cotizaciones
             this.lblCondicionesEntrega = new System.Windows.Forms.Label();
             this.lblObservaciones = new System.Windows.Forms.Label();
             this.lblCondicionesPago = new System.Windows.Forms.Label();
+            this.lblPagina = new System.Windows.Forms.Label();
+            this.btnAnterior = new System.Windows.Forms.Button();
+            this.btnSiguiente = new System.Windows.Forms.Button();
             this.pnlContenedorPrincipalCotizaciones.SuspendLayout();
             this.pnlHeader.SuspendLayout();
             this.pnlBarraSuperior.SuspendLayout();
@@ -332,6 +335,9 @@ namespace Vista.Cotizaciones
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlContenedorTabla.BackColor = System.Drawing.Color.White;
+            this.pnlContenedorTabla.Controls.Add(this.lblPagina);
+            this.pnlContenedorTabla.Controls.Add(this.btnAnterior);
+            this.pnlContenedorTabla.Controls.Add(this.btnSiguiente);
             this.pnlContenedorTabla.Controls.Add(this.button1);
             this.pnlContenedorTabla.Controls.Add(this.dgvCotizacionesRegistradas);
             this.pnlContenedorTabla.Controls.Add(this.pnlInformacionDelSeleccionado);
@@ -368,20 +374,19 @@ namespace Vista.Cotizaciones
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvCotizacionesRegistradas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvCotizacionesRegistradas.BackgroundColor = System.Drawing.Color.White;
-            this.dgvCotizacionesRegistradas.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvCotizacionesRegistradas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvCotizacionesRegistradas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.dgvCotizacionesRegistradas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvCotizacionesRegistradas.Location = new System.Drawing.Point(10, 8);
             this.dgvCotizacionesRegistradas.Name = "dgvCotizacionesRegistradas";
             this.dgvCotizacionesRegistradas.ReadOnly = true;
-            this.dgvCotizacionesRegistradas.Size = new System.Drawing.Size(744, 399);
+            this.dgvCotizacionesRegistradas.Size = new System.Drawing.Size(744, 376);
             this.dgvCotizacionesRegistradas.TabIndex = 34;
             // 
             // pnlInformacionDelSeleccionado
@@ -656,6 +661,7 @@ namespace Vista.Cotizaciones
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvDetalleDeCotizacion.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvDetalleDeCotizacion.BackgroundColor = System.Drawing.Color.White;
             this.dgvDetalleDeCotizacion.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvDetalleDeCotizacion.Location = new System.Drawing.Point(26, 127);
             this.dgvDetalleDeCotizacion.Name = "dgvDetalleDeCotizacion";
@@ -1165,6 +1171,41 @@ namespace Vista.Cotizaciones
             this.lblCondicionesPago.TabIndex = 3;
             this.lblCondicionesPago.Text = "Condiciones de pago:";
             // 
+            // lblPagina
+            // 
+            this.lblPagina.AutoSize = true;
+            this.lblPagina.Font = new System.Drawing.Font("Times New Roman", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPagina.ForeColor = System.Drawing.Color.Black;
+            this.lblPagina.Location = new System.Drawing.Point(55, 396);
+            this.lblPagina.Name = "lblPagina";
+            this.lblPagina.Size = new System.Drawing.Size(39, 13);
+            this.lblPagina.TabIndex = 41;
+            this.lblPagina.Text = "label1";
+            // 
+            // btnAnterior
+            // 
+            this.btnAnterior.FlatAppearance.BorderSize = 0;
+            this.btnAnterior.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAnterior.Image = global::Vista.Properties.Resources.hacia_atras_negro2;
+            this.btnAnterior.Location = new System.Drawing.Point(18, 389);
+            this.btnAnterior.Name = "btnAnterior";
+            this.btnAnterior.Size = new System.Drawing.Size(30, 23);
+            this.btnAnterior.TabIndex = 40;
+            this.btnAnterior.UseVisualStyleBackColor = true;
+            this.btnAnterior.Click += new System.EventHandler(this.btnAnterior_Click);
+            // 
+            // btnSiguiente
+            // 
+            this.btnSiguiente.FlatAppearance.BorderSize = 0;
+            this.btnSiguiente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSiguiente.Image = global::Vista.Properties.Resources.hacia_adelante_negro;
+            this.btnSiguiente.Location = new System.Drawing.Point(142, 389);
+            this.btnSiguiente.Name = "btnSiguiente";
+            this.btnSiguiente.Size = new System.Drawing.Size(30, 23);
+            this.btnSiguiente.TabIndex = 39;
+            this.btnSiguiente.UseVisualStyleBackColor = true;
+            this.btnSiguiente.Click += new System.EventHandler(this.btnSiguiente_Click);
+            // 
             // frmCotizaciones
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1189,6 +1230,7 @@ namespace Vista.Cotizaciones
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxBuscar)).EndInit();
             this.pnlContenedorTabla.ResumeLayout(false);
+            this.pnlContenedorTabla.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCotizacionesRegistradas)).EndInit();
             this.pnlInformacionDelSeleccionado.ResumeLayout(false);
             this.pnlInformacionDelSeleccionado.PerformLayout();
@@ -1298,6 +1340,9 @@ namespace Vista.Cotizaciones
         private System.Windows.Forms.Label lblObservaciones;
         private System.Windows.Forms.Label lblCondicionesPago;
         private System.Windows.Forms.Panel pnlPDFPreview;
+        private System.Windows.Forms.Label lblPagina;
+        private System.Windows.Forms.Button btnAnterior;
+        private System.Windows.Forms.Button btnSiguiente;
     }
 }
 

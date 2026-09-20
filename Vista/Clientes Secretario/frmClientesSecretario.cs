@@ -38,8 +38,7 @@ namespace Vista.Clientes_Secretario
         }
         private void MostrarClientesCorporativos()
         {
-            dgvClientesIndividuales.DataSource = null;
-            dgvClientesIndividuales.DataSource = DbCliente.CargarIndividuales();
+
         }
         //----------------------------------------------------------------------
         // ACTUALIZAR LAS ESTADISTICAS DE LOS CLIENTES

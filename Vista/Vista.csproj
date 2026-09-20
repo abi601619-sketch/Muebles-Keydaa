@@ -728,6 +728,10 @@
     <None Include="Resources\rechazar.png" />
     <None Include="Resources\hacia-adelante negro.png" />
     <None Include="Resources\hacia-atras negro.png" />
+    <None Include="Resources\hacia-atras negro1.png" />
+    <None Include="Resources\hacia-adelante negro1.png" />
+    <None Include="Resources\hacia-adelante negro2.png" />
+    <None Include="Resources\hacia-atras negro2.png" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

@@ -207,8 +207,7 @@ namespace Modelo.Entidades
             return total;
         }
 
-
-        public static DataTable CargarIndividuales()
+        public static DataTable CargarIndividuales(int registrosSaltar, int registrosPorPagina)
         {
             DataTable dt = new DataTable();
 
@@ -216,12 +215,31 @@ namespace Modelo.Entidades
             {
                 using (SqlConnection conectar = Conexion.Conectar())
                 {
-                    string comando = @"SELECT  IdCliente,Identificador1 AS Nombre,Identificador2 AS Apellidos,Documento AS DUI,Telefono, Correo, Direccion, Estado
-                               FROM Cliente WHERE IdTipoCliente = 2;";
+                    string comando = @"
+                SELECT
+                    IdCliente,
+                    Identificador1 AS Nombre,
+                    Identificador2 AS Apellidos,
+                    Documento AS DUI,
+                    Telefono,
+                    Correo,
+                    Direccion,
+                    Estado
+                FROM Cliente
+                WHERE IdTipoCliente = 2
+                ORDER BY IdCliente
+                OFFSET @RegistrosSaltar ROWS
+                FETCH NEXT @RegistrosPorPagina ROWS ONLY;";
 
-                    using (SqlDataAdapter adapter = new SqlDataAdapter(comando, conectar))
+                    using (SqlCommand cmd = new SqlCommand(comando, conectar))
                     {
-                        adapter.Fill(dt);
+                        cmd.Parameters.AddWithValue("@RegistrosSaltar", registrosSaltar);
+                        cmd.Parameters.AddWithValue("@RegistrosPorPagina", registrosPorPagina);
+
+                        using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                        {
+                            adapter.Fill(dt);
+                        }
                     }
                 }
             }
@@ -230,30 +248,124 @@ namespace Modelo.Entidades
                 switch (ex.Number)
                 {
                     case 53:
-                        MessageBox.Show("No se pudo establecer conexión con el servidor de base de datos.", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(
+                            "No se pudo establecer conexión con el servidor de base de datos.",
+                            "Error de conexión",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
                         break;
 
                     case 4060:
-                        MessageBox.Show("No se pudo acceder a la base de datos.", "Error de base de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(
+                            "No se pudo acceder a la base de datos.",
+                            "Error de base de datos",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
                         break;
 
                     case -2:
-                        MessageBox.Show("La operación tardó demasiado tiempo. Intente nuevamente.", "Tiempo de espera agotado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show(
+                            "La operación tardó demasiado tiempo. Intente nuevamente.",
+                            "Tiempo de espera agotado",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning);
                         break;
 
                     default:
-                        MessageBox.Show("Ocurrió un error al cargar los clientes individuales.\n\n" + "Código: " + ex.Number + "\nDetalle: " + ex.Message, "Error de base de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(
+                            "Ocurrió un error al cargar los clientes individuales.\n\n" +
+                            "Código: " + ex.Number +
+                            "\nDetalle: " + ex.Message,
+                            "Error de base de datos",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
                         break;
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ocurrió un error inesperado al cargar los clientes individuales.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(
+                    "Ocurrió un error inesperado al cargar los clientes individuales.\n\n" +
+                    ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
             }
 
             return dt;
         }
 
+        //OBTENER LOS TOTALES DE INDIVIDUALES, PARA SABER EL TOTAL DE REGISTROS DE ESA TABLA
+        public static int ObtenerTotalIndividuales()
+        {
+            int total = 0;
+
+            try
+            {
+                using (SqlConnection conectar = Conexion.Conectar())
+                {
+                    string comando = @"
+                SELECT COUNT(*)
+                FROM Cliente
+                WHERE IdTipoCliente = 2;";
+
+                    using (SqlCommand cmd = new SqlCommand(comando, conectar))
+                    {
+                        total = Convert.ToInt32(cmd.ExecuteScalar());
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                switch (ex.Number)
+                {
+                    case 53:
+                        MessageBox.Show(
+                            "No se pudo establecer conexión con el servidor de base de datos.",
+                            "Error de conexión",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
+
+                    case 4060:
+                        MessageBox.Show(
+                            "No se pudo acceder a la base de datos.",
+                            "Error de base de datos",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
+
+                    case -2:
+                        MessageBox.Show(
+                            "La operación tardó demasiado tiempo. Intente nuevamente.",
+                            "Tiempo de espera agotado",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning);
+                        break;
+
+                    default:
+                        MessageBox.Show(
+                            "Ocurrió un error al obtener el total de clientes individuales.\n\n" +
+                            "Código: " + ex.Number +
+                            "\nDetalle: " + ex.Message,
+                            "Error de base de datos",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Ocurrió un error inesperado al obtener el total de clientes individuales.\n\n" +
+                    ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+
+            return total;
+        }
         public bool InsertarClienteIndividual()
         {
             string comandoSQL = @"INSERT INTO Cliente(IdTipoCliente, Identificador1, Identificador2,Documento, Telefono, Correo, Direccion, Estado)

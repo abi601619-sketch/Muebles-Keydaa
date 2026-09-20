@@ -15,7 +15,11 @@ namespace Vista.Ventas
         // Lista temporal donde se guardarn los productos
         // antes de guardar la venta en la base de datos
         private List<DetalleVenta> detallesVenta = new List<DetalleVenta>();
-
+        // Variables para la paginación
+        private DataTable dtVentas;
+        private int paginaActual = 1;
+        private int registrosPorPagina = 20;
+        private int totalPaginas = 0;
         public frmVentas()
         {
             InitializeComponent();
@@ -49,10 +53,106 @@ namespace Vista.Ventas
         }
         public void MostrarVentas()
         {
-            dgvVentas.DataSource = null;
-            dgvVentas.DataSource = DbVentas.CargarVentas();
+            try
+            {
+                // Cargar todas las ventas
+                dtVentas = DbVentas.CargarVentas();
+
+                // Iniciar desde la primera página
+                paginaActual = 1;
+
+                // Calcular cantidad de páginas
+                CalcularPaginasVentas();
+
+                // Mostrar la primera página
+                MostrarPaginaVentas();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Error al cargar las ventas:\n" + ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
         }
 
+        private void MostrarPaginaVentas()
+        {
+            if (dtVentas == null)
+                return;
+
+            DataTable dtPagina = dtVentas.Clone();
+
+            int inicio = (paginaActual - 1) * registrosPorPagina;
+
+            int fin = Math.Min(
+                inicio + registrosPorPagina,
+                dtVentas.Rows.Count);
+
+            for (int i = inicio; i < fin; i++)
+            {
+                dtPagina.ImportRow(dtVentas.Rows[i]);
+            }
+
+            // Mostrar únicamente los registros de la página actual
+            dgvVentas.DataSource = null;
+            dgvVentas.DataSource = dtPagina;
+
+            // Configurar columna del número de venta
+            if (dgvVentas.Columns.Contains("IdVenta"))
+            {
+                dgvVentas.Columns["IdVenta"].HeaderText = "N° de Venta";
+            }
+
+            // Mostrar página actual
+            lblPagina.Text =
+                $"Página {paginaActual} de {totalPaginas}";
+
+            // Activar o desactivar botones
+            btnAnterior.Enabled = paginaActual > 1;
+            btnSiguiente.Enabled = paginaActual < totalPaginas;
+        }
+
+        private void CalcularPaginasVentas()
+        {
+            if (dtVentas == null || dtVentas.Rows.Count == 0)
+            {
+                totalPaginas = 1;
+                paginaActual = 1;
+                return;
+            }
+
+            totalPaginas = (int)Math.Ceiling(
+                (double)dtVentas.Rows.Count / registrosPorPagina);
+
+            if (totalPaginas == 0)
+                totalPaginas = 1;
+
+            if (paginaActual > totalPaginas)
+                paginaActual = totalPaginas;
+        }
+
+
+        private void btnAnterior_Click(object sender, EventArgs e)
+        {
+            if (paginaActual > 1)
+            {
+                paginaActual--;
+
+                MostrarPaginaVentas();
+            }
+        }
+
+        private void btnSiguiente_Click(object sender, EventArgs e)
+        {
+            if (paginaActual < totalPaginas)
+            {
+                paginaActual++;
+
+                MostrarPaginaVentas();
+            }
+        }
         //-----------------------------------------------------------------
         //CONFIGURAR TOOLTIPS
         // CONFIGURAR TOOLTIPS
@@ -680,11 +780,35 @@ namespace Vista.Ventas
                 if (txtBuscar.Text == "Buscar venta...")
                     return;
 
-                dgvVentas.DataSource = DbVentas.BuscarVenta(txtBuscar.Text);
+                string texto = txtBuscar.Text.Trim();
+
+                // Si la búsqueda está vacía,
+                // mostrar nuevamente todas las ventas
+                if (string.IsNullOrWhiteSpace(texto))
+                {
+                    MostrarVentas();
+                    return;
+                }
+
+                // Buscar las ventas
+                dtVentas = DbVentas.BuscarVenta(texto);
+
+                // Volver a la primera página
+                paginaActual = 1;
+
+                // Calcular páginas
+                CalcularPaginasVentas();
+
+                // Mostrar resultados paginados
+                MostrarPaginaVentas();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(
+                    "Error al buscar la venta:\n" + ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
             }
         }
 
@@ -769,5 +893,6 @@ namespace Vista.Ventas
                 }
             }
         }
+
     }
 }

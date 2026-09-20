@@ -503,9 +503,49 @@ namespace Vista.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap hacia_adelante_negro1 {
+            get {
+                object obj = ResourceManager.GetObject("hacia-adelante negro1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap hacia_adelante_negro2 {
+            get {
+                object obj = ResourceManager.GetObject("hacia-adelante negro2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap hacia_atras_negro {
             get {
                 object obj = ResourceManager.GetObject("hacia-atras negro", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap hacia_atras_negro1 {
+            get {
+                object obj = ResourceManager.GetObject("hacia-atras negro1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap hacia_atras_negro2 {
+            get {
+                object obj = ResourceManager.GetObject("hacia-atras negro2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

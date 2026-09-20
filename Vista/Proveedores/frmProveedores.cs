@@ -1,5 +1,6 @@
 using Modelo.Entidades;
 using System;
+using System.Data;
 using System.Drawing;
 using System.Net.Mail;
 using System.Windows.Forms;
@@ -16,6 +17,11 @@ namespace Vista.Proveedores
             ResponsiveHelper.Apply(this);
         }
 
+        // VARIABLES PARA LA PAGINACIÓN
+        private DataTable dtProveedores;
+        private int paginaActual = 1;
+        private int registrosPorPagina = 10;
+        private int totalPaginas = 0;
         private void txtBuscar_Enter(object sender, EventArgs e)
         {
             //Cuando el usuario de enter para escribir, se va a borrar el texto de indicacion
@@ -119,10 +125,106 @@ namespace Vista.Proveedores
         }
         private void MostrarProveedor()
         {
-            dgvProveedores.DataSource = null;
-            dgvProveedores.DataSource = DbProveedor.CargarProveedor();
+            try
+            {
+                // Cargar todos los proveedores
+                dtProveedores = DbProveedor.CargarProveedor();
+
+                // Iniciar desde la primera página
+                paginaActual = 1;
+
+                // Calcular cantidad de páginas
+                CalcularPaginasProveedores();
+
+                // Mostrar la primera página
+                MostrarPaginaProveedores();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Error al mostrar los proveedores: " + ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
         }
 
+        private void CalcularPaginasProveedores()
+        {
+            if (dtProveedores == null || dtProveedores.Rows.Count == 0)
+            {
+                totalPaginas = 1;
+                paginaActual = 1;
+                return;
+            }
+
+            totalPaginas = (int)Math.Ceiling(
+                (double)dtProveedores.Rows.Count / registrosPorPagina
+            );
+
+            if (totalPaginas == 0)
+                totalPaginas = 1;
+
+            if (paginaActual > totalPaginas)
+                paginaActual = totalPaginas;
+        }
+
+        private void MostrarPaginaProveedores()
+        {
+            if (dtProveedores == null)
+                return;
+
+            DataTable dtPagina = dtProveedores.Clone();
+
+            int inicio = (paginaActual - 1) * registrosPorPagina;
+
+            int fin = Math.Min(
+                inicio + registrosPorPagina,
+                dtProveedores.Rows.Count
+            );
+
+            for (int i = inicio; i < fin; i++)
+            {
+                dtPagina.ImportRow(dtProveedores.Rows[i]);
+            }
+
+            // Mostrar únicamente los registros de la página actual
+            dgvProveedores.DataSource = null;
+            dgvProveedores.DataSource = dtPagina;
+
+            // Ocultar el ID
+            if (dgvProveedores.Columns.Contains("IdProveedor"))
+            {
+                dgvProveedores.Columns["IdProveedor"].Visible = false;
+            }
+
+            // Mostrar página actual
+            lblPagina.Text =
+                $"Página {paginaActual} de {totalPaginas}";
+
+            // Activar o desactivar botones
+            btnAnterior.Enabled = paginaActual > 1;
+            btnSiguiente.Enabled = paginaActual < totalPaginas;
+        }
+
+        private void btnAnterior_Click(object sender, EventArgs e)
+        {
+            if (paginaActual > 1)
+            {
+                paginaActual--;
+                MostrarPaginaProveedores();
+            }
+        }
+
+        private void btnSiguiente_Click(object sender, EventArgs e)
+        {
+            if (paginaActual < totalPaginas)
+            {
+                paginaActual++;
+                MostrarPaginaProveedores();
+            }
+        }
         private void btnGuardar_Click(object sender, EventArgs e)
         {
             //Validar que el nombre del proveedor no quede vacío
@@ -314,13 +416,37 @@ namespace Vista.Proveedores
                 if (txtBuscar.Text == "Buscar proveedor...")
                     return;
 
-                dgvProveedores.DataSource = DbProveedor.BuscarProveedor(txtBuscar.Text);
+                string texto = txtBuscar.Text.Trim();
+
+                // Si la búsqueda está vacía,
+                // mostrar nuevamente todos los proveedores
+                if (string.IsNullOrWhiteSpace(texto))
+                {
+                    MostrarProveedor();
+                    return;
+                }
+
+                // Buscar los proveedores
+                dtProveedores = DbProveedor.BuscarProveedor(texto);
+
+                // Volver a la primera página
+                paginaActual = 1;
+
+                // Calcular páginas
+                CalcularPaginasProveedores();
+
+                // Mostrar resultados paginados
+                MostrarPaginaProveedores();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(
+                    ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
             }
-            dgvProveedores.Columns["IdProveedor"].Visible = false;
         }
 
         private void btnDesactivar_Click(object sender, EventArgs e)
@@ -400,5 +526,7 @@ namespace Vista.Proveedores
         {
             Limpiar();
         }
+
+
     }
 }
