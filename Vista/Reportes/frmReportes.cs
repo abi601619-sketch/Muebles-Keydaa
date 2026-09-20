@@ -113,6 +113,92 @@ namespace Vista.Reportes
 
         }
 
+        private void ConfigurarTooltips()
+        {
+            // Crear ToolTip
+            ToolTip toolTip1 = new ToolTip();
+
+            // Propiedades del ToolTip
+            toolTip1.AutoPopDelay = 5000;
+            toolTip1.InitialDelay = 500;
+            toolTip1.ReshowDelay = 200;
+            toolTip1.ShowAlways = true;
+
+            // Tipos de reportes
+            toolTip1.SetToolTip(btnClientes,
+                "Muestra el reporte de clientes registrados.");
+
+            toolTip1.SetToolTip(btnVentas,
+                "Muestra el reporte de ventas realizadas.");
+
+            toolTip1.SetToolTip(btnCotizaciones,
+                "Muestra el reporte de cotizaciones registradas.");
+
+            // Filtros por fecha
+            toolTip1.SetToolTip(dtpFechaInicio,
+                "Seleccione la fecha de inicio del período del reporte.");
+
+            toolTip1.SetToolTip(dtpFechaFin,
+                "Seleccione la fecha final del período del reporte.");
+
+            // Reporte de clientes
+            toolTip1.SetToolTip(btnConsultar,
+                "Consulta los clientes registrados durante el período seleccionado.");
+
+            toolTip1.SetToolTip(btnExportarReporteClientes,
+                "Genera y abre un PDF con el reporte de clientes.");
+
+            toolTip1.SetToolTip(dgvReporteClientes,
+                "Muestra los clientes registrados durante el período seleccionado.");
+
+            // Estadísticas de clientes
+            toolTip1.SetToolTip(lblContadorTotal,
+                "Cantidad total de clientes registrados.");
+
+            toolTip1.SetToolTip(lblContadorCorporativos,
+                "Cantidad de clientes corporativos registrados.");
+
+            toolTip1.SetToolTip(lblContadorIndividual,
+                "Cantidad de clientes individuales registrados.");
+
+            // Reporte de ventas
+            toolTip1.SetToolTip(btnConsultarVentas,
+                "Consulta las ventas realizadas durante el período seleccionado.");
+
+            toolTip1.SetToolTip(btnExportarReporteVentas,
+                "Genera y abre un PDF con el reporte de ventas.");
+
+            toolTip1.SetToolTip(dgvReporteVentas,
+                "Muestra las ventas registradas durante el período seleccionado.");
+
+            // Estadísticas de ventas
+            toolTip1.SetToolTip(lblContadorVentasTotales,
+                "Cantidad total de ventas registradas.");
+
+            toolTip1.SetToolTip(lblMostrarFacturasEmitidas,
+                "Cantidad de facturas emitidas durante el período seleccionado.");
+
+            // Reporte de cotizaciones
+            toolTip1.SetToolTip(btnConsultarCotizaciones,
+                "Consulta las cotizaciones registradas durante el período seleccionado.");
+
+            toolTip1.SetToolTip(btnExportarCotizaciones,
+                "Genera y abre un PDF con el reporte de cotizaciones.");
+
+            toolTip1.SetToolTip(dgvReporteCotizaciones,
+                "Muestra las cotizaciones registradas durante el período seleccionado.");
+
+            // Estadísticas de cotizaciones
+            toolTip1.SetToolTip(lblMostrarCotizacionesAprobadas,
+                "Cantidad de cotizaciones aprobadas.");
+
+            toolTip1.SetToolTip(lblMostrarCotizacionesRechazadas,
+                "Cantidad de cotizaciones rechazadas.");
+
+            toolTip1.SetToolTip(lblMostrarTotalCotizaciones,
+                "Cantidad total de cotizaciones registradas.");
+        }
+
         private void frmReportes_Load(object sender, EventArgs e)
         {
             CargarReporteClientes();
@@ -121,6 +207,9 @@ namespace Vista.Reportes
             ActualizarEstadisticasClientes();
             ActualizarEstadisticasVentas();
             ActualizarEstadisticasCotizaciones();
+
+            //CONFIGURACION DE TOOLTPS
+            ConfigurarTooltips();
 
             dtpFechaFin.MaxDate = DateTime.Today;
             dtpFechaInicio.MaxDate = DateTime.Now;

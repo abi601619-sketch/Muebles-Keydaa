@@ -11,11 +11,43 @@ namespace Vista.Usuarios
         {
             InitializeComponent();
             ResponsiveHelper.Apply(this);
+            ConfigurarTooltips();
+        }
+        //CONFIGURAR TOOLTIPS
+        private void ConfigurarTooltips()
+        {
+            // Crear ToolTip
+            ToolTip toolTip1 = new ToolTip();
+
+            // Propiedades del ToolTip
+            toolTip1.AutoPopDelay = 5000;
+            toolTip1.InitialDelay = 500;
+            toolTip1.ReshowDelay = 200;
+            toolTip1.ShowAlways = true;
+
+            // Datos del usuario
+            toolTip1.SetToolTip(txtUsuario, "Ingrese el nombre del usuario.");
+
+            toolTip1.SetToolTip(txtCorreo, "Ingrese el correo electrónico del usuario.");
+
+            toolTip1.SetToolTip(txtContrasena, "Ingrese la contraseña del usuario.");
+
+            toolTip1.SetToolTip(cmbRol, "Seleccione el rol que tendrá el usuario.");
+
+            toolTip1.SetToolTip(chkEstado, "Indica si el usuario se encuentra activo.");
+
+            // Botones
+            toolTip1.SetToolTip(btnNuevoUsuario, "Limpia el formulario para registrar un nuevo usuario.");
+
+            toolTip1.SetToolTip(btnGuardarUsuario, "Guarda el nuevo usuario en el sistema.");
+
+            toolTip1.SetToolTip(btnDesactivarUsuario, "Desactiva el usuario seleccionado.");
+
+            // Tabla de usuarios
+            toolTip1.SetToolTip(dgvUsuariosRegistrados, "Muestra los usuarios registrados. Haz doble clic en un usuario para consultar sus datos.");
         }
 
-        // =========================================================
         // REGISTRAR USUARIO
-        // =========================================================
         private void RegistrarUsuario()
         {
             try
@@ -28,49 +60,31 @@ namespace Vista.Usuarios
                 // Todo usuario nuevo inicia activo
                 bool estado = true;
 
-                // -------------------------------------------------
                 // VALIDAR NOMBRE
-                // -------------------------------------------------
                 if (string.IsNullOrWhiteSpace(nombre))
                 {
-                    MessageBox.Show(
-                        "Debe ingresar el nombre del usuario.",
-                        "Advertencia",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning
-                    );
+                    MessageBox.Show("Debe ingresar el nombre del usuario.", "Advertencia",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                     txtUsuario.Focus();
                     return;
                 }
 
-                // -------------------------------------------------
                 // VALIDAR NOMBRE DE USUARIO
-                // -------------------------------------------------
                 if (string.IsNullOrWhiteSpace(usuarioNombre))
                 {
-                    MessageBox.Show(
-                        "Debe ingresar un nombre de usuario.",
-                        "Advertencia",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning
-                    );
+                    MessageBox.Show("Debe ingresar un nombre de usuario.", "Advertencia",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                     txtUsuario.Focus();
                     return;
                 }
 
-                // -------------------------------------------------
                 // VALIDAR CORREO
-                // -------------------------------------------------
                 if (string.IsNullOrWhiteSpace(correo))
                 {
-                    MessageBox.Show(
-                        "Debe ingresar un correo electrónico.",
-                        "Advertencia",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning
-                    );
+                    MessageBox.Show("Debe ingresar un correo electrónico.", "Advertencia",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                     txtCorreo.Focus();
                     return;
@@ -79,44 +93,28 @@ namespace Vista.Usuarios
                 // Validación sencilla del correo
                 if (!correo.Contains("@") || !correo.Contains("."))
                 {
-                    MessageBox.Show(
-                        "Ingrese un correo electrónico válido.",
-                        "Correo inválido",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning
-                    );
+                    MessageBox.Show("Ingrese un correo electrónico válido.", "Correo inválido",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                     txtCorreo.Focus();
                     return;
                 }
 
-                // -------------------------------------------------
                 // VALIDAR CONTRASEÑA
-                // -------------------------------------------------
                 if (string.IsNullOrWhiteSpace(contraseña))
                 {
-                    MessageBox.Show(
-                        "Debe ingresar una contraseña.",
-                        "Advertencia",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning
-                    );
+                    MessageBox.Show("Debe ingresar una contraseña.", "Advertencia",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                     txtContrasena.Focus();
                     return;
                 }
 
-                // -------------------------------------------------
                 // VALIDAR ROL
-                // -------------------------------------------------
                 if (cmbRol.SelectedIndex == -1)
                 {
-                    MessageBox.Show(
-                        "Se debe seleccionar un rol.",
-                        "Advertencia",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning
-                    );
+                    MessageBox.Show("Se debe seleccionar un rol.", "Advertencia",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                     cmbRol.Focus();
                     return;
@@ -127,20 +125,14 @@ namespace Vista.Usuarios
                 if (rol != "Administrador" &&
                     rol != "Secretario")
                 {
-                    MessageBox.Show(
-                        "Se debe seleccionar un rol válido.",
-                        "Advertencia",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning
-                    );
+                    MessageBox.Show("Se debe seleccionar un rol válido.", "Advertencia",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                     cmbRol.Focus();
                     return;
                 }
 
-                // -------------------------------------------------
                 // CREAR OBJETO USUARIO
-                // -------------------------------------------------
                 DbUsuarios nuevoUsuario = new DbUsuarios();
 
                 nuevoUsuario.Nombre1 = nombre;
@@ -150,53 +142,34 @@ namespace Vista.Usuarios
                 nuevoUsuario.Rol1 = rol;
                 nuevoUsuario.Estado1 = estado;
 
-                // -------------------------------------------------
                 // INSERTAR EN LA BASE DE DATOS
-                // -------------------------------------------------
                 nuevoUsuario.InsertarUsuario();
 
-                MessageBox.Show(
-                    "Usuario registrado correctamente.",
-                    "Información",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information
-                );
+                MessageBox.Show("Usuario registrado correctamente.", "Información",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                // -------------------------------------------------
                 // LIMPIAR FORMULARIO
-                // -------------------------------------------------
                 LimpiarFormulario();
 
-                // -------------------------------------------------
                 // ACTUALIZAR TABLA
-                // -------------------------------------------------
                 MostrarUsuarios();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Ocurrió un error al registrar el usuario:\n\n" +
-                    ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Ocurrió un error al registrar el usuario:\n\n" + ex.Message, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
 
-        // =========================================================
         // BOTÓN GUARDAR
-        // =========================================================
         private void btnGuardarUsuario_Click(object sender, EventArgs e)
         {
             RegistrarUsuario();
         }
 
 
-        // =========================================================
         // DESACTIVAR USUARIO
-        // =========================================================
         private void btnDesactivarUsuario_Click(object sender, EventArgs e)
         {
             try
@@ -204,50 +177,28 @@ namespace Vista.Usuarios
                 // Verificar que haya una fila seleccionada
                 if (dgvUsuariosRegistrados.CurrentRow == null)
                 {
-                    MessageBox.Show(
-                        "Debe seleccionar un usuario.",
-                        "Advertencia",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning
-                    );
+                    MessageBox.Show("Debe seleccionar un usuario.", "Advertencia",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                     return;
                 }
 
                 // Obtener el IdUsuario
-                int idUsuario = Convert.ToInt32(
-                    dgvUsuariosRegistrados
-                    .CurrentRow
-                    .Cells["IdUsuario"]
-                    .Value
-                );
+                int idUsuario = Convert.ToInt32(dgvUsuariosRegistrados.CurrentRow.Cells["IdUsuario"].Value);
 
                 // Obtener el estado actual
-                string estado = dgvUsuariosRegistrados
-                    .CurrentRow
-                    .Cells["Estado"]
-                    .Value?
-                    .ToString();
+                string estado = dgvUsuariosRegistrados.CurrentRow.Cells["Estado"].Value?.ToString();
 
                 // Si ya está inactivo
                 if (estado == "Inactivo")
                 {
-                    MessageBox.Show(
-                        "El usuario seleccionado ya está inactivo.",
-                        "Información",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information
-                    );
+                    MessageBox.Show("El usuario seleccionado ya está inactivo.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     return;
                 }
 
-                // -------------------------------------------------
                 // CONFIRMAR DESACTIVACIÓN
-                // -------------------------------------------------
-                DialogResult respuesta = MessageBox.Show(
-                    "¿Está seguro de desactivar este usuario?",
-                    "Confirmar desactivación",
+                DialogResult respuesta = MessageBox.Show("¿Está seguro de desactivar este usuario?", "Confirmar desactivación",
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Question
                 );
@@ -258,12 +209,8 @@ namespace Vista.Usuarios
 
                     usuario.DesactivarUsuario(idUsuario);
 
-                    MessageBox.Show(
-                        "Usuario desactivado correctamente.",
-                        "Información",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information
-                    );
+                    MessageBox.Show("Usuario desactivado correctamente.", "Información",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     MostrarUsuarios();
                     LimpiarFormulario();
@@ -271,28 +218,20 @@ namespace Vista.Usuarios
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Ocurrió un error al desactivar el usuario:\n\n" +
-                    ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Ocurrió un error al desactivar el usuario:\n\n" + ex.Message, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
 
-        // =========================================================
         // MOSTRAR USUARIOS
-        // =========================================================
         private void MostrarUsuarios()
         {
             try
             {
                 dgvUsuariosRegistrados.DataSource = null;
 
-                dgvUsuariosRegistrados.DataSource =
-                    DbUsuarios.CargarUsuarios();
+                dgvUsuariosRegistrados.DataSource = DbUsuarios.CargarUsuarios();
 
                 // El estado se controla desde la base de datos
                 // Los nuevos usuarios siempre se registran activos
@@ -300,20 +239,13 @@ namespace Vista.Usuarios
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Ocurrió un error al cargar los usuarios:\n\n" +
-                    ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Ocurrió un error al cargar los usuarios:\n\n" + ex.Message, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
 
-        // =========================================================
         // CARGAR FORMULARIO
-        // =========================================================
         private void frmUsuarios_Load(object sender, EventArgs e)
         {
             MostrarUsuarios();
@@ -324,9 +256,7 @@ namespace Vista.Usuarios
         }
 
 
-        // =========================================================
         // DOBLE CLIC EN UN USUARIO
-        // =========================================================
         private void dgvUsuariosRegistrados_CellDoubleClick(
             object sender,
             DataGridViewCellEventArgs e)
@@ -339,36 +269,21 @@ namespace Vista.Usuarios
                     return;
                 }
 
-                DataGridViewRow fila =
-                    dgvUsuariosRegistrados.Rows[e.RowIndex];
+                DataGridViewRow fila = dgvUsuariosRegistrados.Rows[e.RowIndex];
 
-                // -------------------------------------------------
                 // CARGAR DATOS DEL USUARIO
-                // -------------------------------------------------
 
-                txtUsuario.Text =
-                    fila.Cells["Nombre"].Value?
-                    .ToString();
+                txtUsuario.Text = fila.Cells["Nombre"].Value?.ToString();
 
-                txtUsuario.Text =
-                    fila.Cells["Usuario"].Value?
-                    .ToString();
+                txtUsuario.Text = fila.Cells["Usuario"].Value?.ToString();
 
-                txtCorreo.Text =
-                    fila.Cells["Correo"].Value?
-                    .ToString();
+                txtCorreo.Text = fila.Cells["Correo"].Value?.ToString();
 
-                cmbRol.Text =
-                    fila.Cells["Rol"].Value?
-                    .ToString();
+                cmbRol.Text = fila.Cells["Rol"].Value?.ToString();
 
-                // -------------------------------------------------
                 // CARGAR ESTADO
-                // -------------------------------------------------
 
-                string estado =
-                    fila.Cells["Estado"].Value?
-                    .ToString();
+                string estado = fila.Cells["Estado"].Value?.ToString();
 
                 if (estado == "Activo")
                 {
@@ -379,28 +294,18 @@ namespace Vista.Usuarios
                     chkEstado.Checked = false;
                 }
 
-                // -------------------------------------------------
                 // NO MOSTRAR LA CONTRASEÑA
-                // -------------------------------------------------
 
                 txtContrasena.Clear();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Ocurrió un error al seleccionar el usuario:\n\n" +
-                    ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Ocurrió un error al seleccionar el usuario:\n\n" + ex.Message, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-
-        // =========================================================
         // BOTÓN NUEVO USUARIO
-        // =========================================================
         private void btnNuevoUsuario_Click(object sender, EventArgs e)
         {
             LimpiarFormulario();
@@ -409,9 +314,7 @@ namespace Vista.Usuarios
         }
 
 
-        // =========================================================
         // LIMPIAR FORMULARIO
-        // =========================================================
         private void LimpiarFormulario()
         {
             txtUsuario.Clear();

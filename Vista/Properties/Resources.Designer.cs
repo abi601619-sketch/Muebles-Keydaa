@@ -323,6 +323,16 @@ namespace Vista.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap contrato {
+            get {
+                object obj = ResourceManager.GetObject("contrato", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Cotizaciones16px {
             get {
                 object obj = ResourceManager.GetObject("Cotizaciones16px", resourceCulture);
@@ -346,6 +356,16 @@ namespace Vista.Properties {
         internal static System.Drawing.Bitmap documento1 {
             get {
                 object obj = ResourceManager.GetObject("documento1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap documentos {
+            get {
+                object obj = ResourceManager.GetObject("documentos", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -886,6 +906,16 @@ namespace Vista.Properties {
         internal static System.Drawing.Bitmap Proveedores16px {
             get {
                 object obj = ResourceManager.GetObject("Proveedores16px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap rechazar {
+            get {
+                object obj = ResourceManager.GetObject("rechazar", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -444,7 +444,7 @@
             // 
             // pbCotizacionesTotales
             // 
-            this.pbCotizacionesTotales.Image = global::Vista.Properties.Resources.Cliente_frecuente;
+            this.pbCotizacionesTotales.Image = global::Vista.Properties.Resources.documentos;
             this.pbCotizacionesTotales.Location = new System.Drawing.Point(4, 2);
             this.pbCotizacionesTotales.Name = "pbCotizacionesTotales";
             this.pbCotizacionesTotales.Size = new System.Drawing.Size(99, 72);
@@ -483,7 +483,7 @@
             // 
             // pbCotizacionesRechazadas
             // 
-            this.pbCotizacionesRechazadas.Image = global::Vista.Properties.Resources.Cliente_nuevo;
+            this.pbCotizacionesRechazadas.Image = global::Vista.Properties.Resources.contrato;
             this.pbCotizacionesRechazadas.Location = new System.Drawing.Point(15, 2);
             this.pbCotizacionesRechazadas.Name = "pbCotizacionesRechazadas";
             this.pbCotizacionesRechazadas.Size = new System.Drawing.Size(99, 72);
@@ -532,7 +532,7 @@
             // 
             // pbCotizacionesAprobadas
             // 
-            this.pbCotizacionesAprobadas.Image = global::Vista.Properties.Resources.Clientes_totales;
+            this.pbCotizacionesAprobadas.Image = global::Vista.Properties.Resources.rechazar;
             this.pbCotizacionesAprobadas.Location = new System.Drawing.Point(8, 4);
             this.pbCotizacionesAprobadas.Name = "pbCotizacionesAprobadas";
             this.pbCotizacionesAprobadas.Size = new System.Drawing.Size(106, 69);

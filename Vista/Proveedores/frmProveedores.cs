@@ -35,11 +35,65 @@ namespace Vista.Proveedores
                 txtBuscar.ForeColor = Color.Gray;
             }
         }
+        //------------------------------------------------------------------------------------------------------
+        //// CONFIGURAR TOOLTIPS
+        private void ConfigurarTooltips()
+        {
+            // Crear ToolTip
+            ToolTip toolTip1 = new ToolTip();
+
+            // Propiedades del ToolTip
+            toolTip1.AutoPopDelay = 5000;
+            toolTip1.InitialDelay = 500;
+            toolTip1.ReshowDelay = 200;
+            toolTip1.ShowAlways = true;
+
+            // Búsqueda
+            toolTip1.SetToolTip(txtBuscar,
+                "Buscar un proveedor por nombre, teléfono o correo.");
+
+            // Datos del proveedor
+            toolTip1.SetToolTip(txtNombreProveedor,
+                "Ingrese el nombre del proveedor.");
+
+            toolTip1.SetToolTip(txtCorreo,
+                "Ingrese el correo electrónico del proveedor.");
+
+            toolTip1.SetToolTip(txtTelefono,
+                "Ingrese el número de teléfono del proveedor.");
+
+            toolTip1.SetToolTip(txtUbicacion,
+                "Ingrese la ubicación o dirección del proveedor.");
+
+            // Estado
+            toolTip1.SetToolTip(chkEstado,
+                "Indica si el proveedor se encuentra activo.");
+
+            // Botones
+            toolTip1.SetToolTip(btnGuardar,
+                "Guarda el nuevo proveedor.");
+
+            toolTip1.SetToolTip(btnEditar,
+                "Permite editar los datos del proveedor seleccionado.");
+
+            toolTip1.SetToolTip(btnGuardarCambios,
+                "Guarda los cambios realizados al proveedor.");
+
+            toolTip1.SetToolTip(btnDesactivar,
+                "Desactiva el proveedor seleccionado.");
+
+            // Tabla
+            toolTip1.SetToolTip(dgvProveedores,
+                "Muestra los proveedores registrados. Haz doble clic en un proveedor para seleccionarlo.");
+        }
         //----------------------------------------------------------------------------------------------
         //----------------------EVENTO LOAD DEL FORMULARIO-------------------------------------------------//
         private void frmProveedores_Load(object sender, EventArgs e)
         {
             MostrarProveedor();
+
+            //CONFIGURACION DE TOOLTIPS
+            ConfigurarTooltips();
             //Maximo de caracteres admitidos
             txtNombreProveedor.MaxLength = 50;
             txtCorreo.MaxLength = 100;

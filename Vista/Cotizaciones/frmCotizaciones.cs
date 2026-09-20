@@ -60,6 +60,133 @@ namespace Vista.Cotizaciones
             dgvCotizacionesRegistradas.Columns["IdCotizacion"].HeaderText = "#";
         }
 
+        //CONFIGURACION DE TOOLTIPS
+        private void ConfigurarTooltips()
+        {
+            // Crear ToolTip
+            ToolTip toolTip1 = new ToolTip();
+
+            // Propiedades del ToolTip
+            toolTip1.AutoPopDelay = 5000;
+            toolTip1.InitialDelay = 500;
+            toolTip1.ReshowDelay = 200;
+            toolTip1.ShowAlways = true;
+
+            // Navegación de cotizaciones
+            toolTip1.SetToolTip(btnCotizacionDetalle,
+                "Muestra el formulario para crear una nueva cotización.");
+
+            toolTip1.SetToolTip(btnCotizacionesRegistradas,
+                "Muestra las cotizaciones registradas.");
+
+            // Datos del cliente
+            toolTip1.SetToolTip(btnBuscarCliente,
+                "Busca y selecciona un cliente para la cotización.");
+
+            toolTip1.SetToolTip(txtCliente,
+                "Muestra el nombre del cliente seleccionado.");
+
+            toolTip1.SetToolTip(txtTelefono,
+                "Muestra el número de teléfono del cliente seleccionado.");
+
+            toolTip1.SetToolTip(txtCorreo,
+                "Muestra el correo electrónico del cliente seleccionado.");
+
+            toolTip1.SetToolTip(txtDireccion,
+                "Muestra la dirección del cliente seleccionado.");
+
+            // Datos de la cotización
+            toolTip1.SetToolTip(dtpFechaCotizacion,
+                "Muestra la fecha de la cotización.");
+
+            toolTip1.SetToolTip(cbEstado,
+                "Muestra el estado actual de la cotización.");
+
+            toolTip1.SetToolTip(txtCondicionesPago,
+                "Ingrese las condiciones de pago de la cotización.");
+
+            toolTip1.SetToolTip(txtCondicionesEntrega,
+                "Ingrese las condiciones de entrega de la cotización.");
+
+            // Productos
+            toolTip1.SetToolTip(txtProductosCotizacion,
+                "Ingrese la descripción del producto que desea agregar.");
+
+            toolTip1.SetToolTip(txtLargo,
+                "Ingrese el largo del producto.");
+
+            toolTip1.SetToolTip(txtAncho,
+                "Ingrese el ancho del producto.");
+
+            toolTip1.SetToolTip(txtAlto,
+                "Ingrese el alto del producto.");
+
+            toolTip1.SetToolTip(nudCantidad,
+                "Indique la cantidad de unidades del producto.");
+
+            toolTip1.SetToolTip(txtPrecioUnitario,
+                "Ingrese el precio de una unidad del producto.");
+
+            toolTip1.SetToolTip(btnAgregar,
+                "Agrega el producto a la cotización.");
+
+            toolTip1.SetToolTip(dgvDetalleDeCotizacion,
+                "Muestra los productos agregados a la cotización.");
+
+            // Totales
+            toolTip1.SetToolTip(txtSubTotal,
+                "Muestra el subtotal de los productos de la cotización.");
+
+            toolTip1.SetToolTip(txtIVA,
+                "Muestra el IVA correspondiente a la cotización.");
+
+            toolTip1.SetToolTip(txtTotal,
+                "Muestra el total de la cotización.");
+
+            // Acciones de la cotización
+            toolTip1.SetToolTip(btnGuardar,
+                "Guarda la cotización y los productos agregados.");
+
+            toolTip1.SetToolTip(btnGenerarPDF,
+                "Genera y abre el PDF de la cotización guardada.");
+
+            // Búsqueda de cotizaciones
+            toolTip1.SetToolTip(txtBuscar,
+                "Busca una cotización por su código.");
+
+            // Cotizaciones registradas
+            toolTip1.SetToolTip(dgvCotizacionesRegistradas,
+                "Muestra las cotizaciones registradas. Haz clic en una cotización para consultar sus datos.");
+
+            toolTip1.SetToolTip(btnEditar,
+                "Permite cambiar el estado de la cotización seleccionada.");
+
+            toolTip1.SetToolTip(btnEliminar,
+                "Elimina la cotización seleccionada.");
+
+            toolTip1.SetToolTip(button1,
+                "Convierte la cotización aprobada seleccionada en un pedido.");
+
+            // Vista previa
+            toolTip1.SetToolTip(pnlPDFPreview,
+                "Muestra una vista previa del PDF de la cotización.");
+
+            toolTip1.SetToolTip(btnLimpiar,
+    "Limpia los campos del formulario para ingresar una nueva cotización.");
+
+            toolTip1.SetToolTip(button2,
+                "Limpia los filtros de búsqueda y muestra nuevamente todas las cotizaciones registradas.");
+
+            //Medidas
+            toolTip1.SetToolTip(txtLargo,
+    "Ingrese el largo del producto en centímetros.");
+
+            toolTip1.SetToolTip(txtAncho,
+                "Ingrese el ancho del producto en centímetros.");
+
+            toolTip1.SetToolTip(txtAlto,
+                "Ingrese el alto del producto en centímetros.");
+        }
 
         private async void frmCotizaciones_Load(object sender, EventArgs e)
         {
@@ -69,6 +196,9 @@ namespace Vista.Cotizaciones
 
             MostrarCotizacionesRegistradas();
             ConfigurarDetalleCotizacion();
+
+            //CONFIGURACION DE TOOLTIPS
+            ConfigurarTooltips();
 
             // Datos del cliente solamente lectura
             txtCliente.ReadOnly = true;

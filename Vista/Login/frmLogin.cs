@@ -16,14 +16,12 @@ namespace Vista.Login
         {
             InitializeComponent();
             ResponsiveHelper.Apply(this);
+            ConfigurarTooltips();
         }
 
 
 
 
-        private void btnIngresar_Click(object sender, EventArgs e)
-        {
-        }
 
         private void btnIngresar_Click_1(object sender, EventArgs e)
         {
@@ -34,6 +32,35 @@ namespace Vista.Login
         private void btnCerrarClientes_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void ConfigurarTooltips()
+        {
+            // Crear ToolTip
+            ToolTip toolTip1 = new ToolTip();
+
+            // Propiedades del ToolTip
+            toolTip1.AutoPopDelay = 5000;
+            toolTip1.InitialDelay = 500;
+            toolTip1.ReshowDelay = 200;
+            toolTip1.ShowAlways = true;
+
+            // Datos de inicio de sesión
+            toolTip1.SetToolTip(txtUsuario,
+                "Ingrese su nombre de usuario.");
+
+            toolTip1.SetToolTip(txtContraseña,
+                "Ingrese su contraseña.");
+
+            // Botones
+            toolTip1.SetToolTip(btnIngresar,
+                "Inicia sesión con el usuario y contraseña ingresados.");
+
+            toolTip1.SetToolTip(btnRecuperarContrasena,
+                "Permite recuperar su contraseña.");
+
+            toolTip1.SetToolTip(btnCerrarClientes,
+                "Cierra la aplicación.");
         }
 
         private void IniciarSesion()

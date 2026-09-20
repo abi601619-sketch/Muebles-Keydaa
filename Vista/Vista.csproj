@@ -723,6 +723,9 @@
     <None Include="Resources\atras %281%29.png" />
     <None Include="Resources\flecha-adelante.png" />
     <None Include="Resources\flecha-atras.png" />
+    <None Include="Resources\contrato.png" />
+    <None Include="Resources\documentos.png" />
+    <None Include="Resources\rechazar.png" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

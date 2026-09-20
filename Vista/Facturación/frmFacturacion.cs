@@ -17,12 +17,84 @@ namespace Vista.Facturación
         }
 
 
+        private void ConfigurarTooltips()
+        {
+            // Crear ToolTip
+            ToolTip toolTip1 = new ToolTip();
 
+            // Propiedades del ToolTip
+            toolTip1.AutoPopDelay = 5000;
+            toolTip1.InitialDelay = 500;
+            toolTip1.ReshowDelay = 200;
+            toolTip1.ShowAlways = true;
+
+            // Navegación de facturación
+            toolTip1.SetToolTip(btnNuevaFactura, "Muestra el formulario para crear una nueva factura.");
+
+            toolTip1.SetToolTip(btnRegistrosfacturas, "Muestra las facturas registradas.");
+
+            // Datos de la venta
+            toolTip1.SetToolTip(txtnVenta, "Ingrese el número de la venta que desea facturar.");
+
+            toolTip1.SetToolTip(btnBuscarVenta, "Busca la venta ingresada para utilizar sus datos en la factura.");
+
+            // Datos del cliente
+            toolTip1.SetToolTip(txtMostrarCliente, "Muestra el nombre del cliente asociado a la venta.");
+
+            toolTip1.SetToolTip(txtDui, "Muestra el documento de identidad del cliente.");
+
+            toolTip1.SetToolTip(txtTelefono, "Muestra el número de teléfono del cliente.");
+
+            toolTip1.SetToolTip(txtCorreo, "Muestra el correo electrónico del cliente.");
+
+            // Datos de la factura
+            toolTip1.SetToolTip(txtNumeroFactura, "Muestra el número de la factura. Se asigna al guardar la factura.");
+
+            toolTip1.SetToolTip(dtFechaDatosGeneralesFactura, "Muestra la fecha de emisión de la factura.");
+
+            toolTip1.SetToolTip(dtpFechaVencimiento, "Seleccione la fecha de vencimiento de la factura.");
+
+            // Detalle de la venta
+            toolTip1.SetToolTip(dgvDetalleVenta, "Muestra los productos incluidos en la venta seleccionada.");
+
+            toolTip1.SetToolTip(lblTotalDeProductos, "Muestra la cantidad total de productos incluidos en la venta.");
+
+            // Resumen de la factura
+            toolTip1.SetToolTip(txtSubTotal, "Muestra el subtotal de la venta.");
+
+            toolTip1.SetToolTip(txtDescuento, "Ingrese el descuento que desea aplicar a la factura.");
+
+            toolTip1.SetToolTip(txtIVA, "Muestra el IVA correspondiente después de aplicar el descuento.");
+
+            toolTip1.SetToolTip(txtTotal, "Muestra el total a pagar de la factura.");
+
+            toolTip1.SetToolTip(lblTotalAPagar, "Muestra el total final que debe pagar el cliente.");
+
+            // Observaciones
+            toolTip1.SetToolTip(txtObservaciones, "Ingrese observaciones adicionales relacionadas con la factura.");
+
+            // Botones de factura
+            toolTip1.SetToolTip(btnGuardarFactura, "Guarda la factura con los datos ingresados.");
+
+            toolTip1.SetToolTip(btnGenerarPDF, "Genera la factura en formato PDF.");
+
+            toolTip1.SetToolTip(btnLimpiarFactura, "Limpia los datos de la factura actual.");
+
+            // Búsqueda de facturas
+            toolTip1.SetToolTip(txtBuscar, "Busca una factura por su número.");
+
+            toolTip1.SetToolTip(btnLimpiar, "Limpia el buscador y muestra nuevamente todas las facturas.");
+
+            // Registro de facturas
+            toolTip1.SetToolTip(dgvFacturasRegistradas, "Muestra las facturas registradas. Haz doble clic en una factura para editarla.");
+        }
         private void frmFacturacion_Load(object sender, EventArgs e)
         {
             MostrarRegistrosFacturas();
             MostrarDetalleFactura();
             DesactivarCopiarPegar(this);
+
+            ConfigurarTooltips();
 
             //Validamos que las fechas ingresadas esten acorde a la lógica del negocio
             dtFechaDatosGeneralesFactura.Value = DateTime.Today;
