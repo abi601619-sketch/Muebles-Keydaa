@@ -493,6 +493,26 @@ namespace Vista.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap hacia_adelante_negro {
+            get {
+                object obj = ResourceManager.GetObject("hacia-adelante negro", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap hacia_atras_negro {
+            get {
+                object obj = ResourceManager.GetObject("hacia-atras negro", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Imagen_perfil {
             get {
                 object obj = ResourceManager.GetObject("Imagen perfil", resourceCulture);

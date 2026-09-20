@@ -9,10 +9,79 @@ namespace Vista.Inventario
 {
     public partial class frmInventario : Form
     {
+        // PAGINACIÓN
+        private DataTable dtInventario;
+        private int paginaActual = 1;
+        private int registrosPorPagina = 20;
+        private int totalPaginas = 0;
         public frmInventario()
         {
             InitializeComponent();
             ResponsiveHelper.Apply(this);
+        }
+
+        private void CargarPaginacion()
+        {
+            try
+            {
+                // Cargar todos los materiales
+                dtInventario = Material.CargarMateriales();
+
+                // Calcular el total de páginas
+                totalPaginas = (int)Math.Ceiling((double)dtInventario.Rows.Count / registrosPorPagina);
+
+                // Si no hay registros
+                if (totalPaginas == 0)
+                {
+                    totalPaginas = 1;
+                }
+
+                // Evitar que la página actual sea mayor al total
+                if (paginaActual > totalPaginas)
+                {
+                    paginaActual = totalPaginas;
+                }
+
+                MostrarPagina();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar el inventario: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void MostrarPagina()
+        {
+            if (dtInventario == null)
+                return;
+
+            DataTable dtPagina = dtInventario.Clone();
+
+            int inicio = (paginaActual - 1) * registrosPorPagina;
+
+            int fin = Math.Min(inicio + registrosPorPagina, dtInventario.Rows.Count);
+
+            for (int i = inicio; i < fin; i++)
+            {
+                dtPagina.ImportRow(dtInventario.Rows[i]);
+            }
+
+            dgvMateriales.DataSource = dtPagina;
+
+            // Encabezados de las columnas
+            if (dgvMateriales.Columns.Contains("IdMaterial"))
+                dgvMateriales.Columns["IdMaterial"].HeaderText = "#";
+
+            if (dgvMateriales.Columns.Contains("UnidadMedida"))
+                dgvMateriales.Columns["UnidadMedida"].HeaderText = "Unidad de medida";
+
+            // Mostrar página actual
+            lblPagina.Text = $"Página {paginaActual} de {totalPaginas}";
+
+            // Activar/desactivar botones
+            btnAnterior.Enabled = paginaActual > 1;
+            btnSiguiente.Enabled = paginaActual < totalPaginas;
         }
 
         private void txtBuscar_Enter(object sender, EventArgs e)
@@ -38,14 +107,29 @@ namespace Vista.Inventario
 
         private void MostrarInventario()
         {
-            dgvMateriales.DataSource = null;
+            paginaActual = 1;
 
-            dgvMateriales.DataSource = Material.CargarMateriales();
+            CargarPaginacion();
 
             CargarEstadisticasInventario();
-            //Encabezados de las columnas
-            dgvMateriales.Columns["IdMaterial"].HeaderText = "#";
-            dgvMateriales.Columns["UnidadMedida"].HeaderText = "Unidad de medida";
+        }
+
+        private void btnAnterior_Click(object sender, EventArgs e)
+        {
+            if (paginaActual > 1)
+            {
+                paginaActual--;
+                MostrarPagina();
+            }
+        }
+
+        private void btnSiguiente_Click(object sender, EventArgs e)
+        {
+            if (paginaActual < totalPaginas)
+            {
+                paginaActual++;
+                MostrarPagina();
+            }
         }
 
         // CONFIGURAR TOOLTIPS
@@ -153,9 +237,6 @@ namespace Vista.Inventario
             txtMaterial.MaxLength = 100;
 
             txtCantidad.MaxLength = 100000;
-
-            dgvMateriales.Columns["IdMaterial"].HeaderText = "#";
-            dgvMateriales.Columns["UnidadMedida"].HeaderText = "Unidad de medida";
 
             CargarEstadisticasInventario();
         }
@@ -446,6 +527,8 @@ namespace Vista.Inventario
 
             txtMaterial.Focus();
         }
+
+
     }
 }
 

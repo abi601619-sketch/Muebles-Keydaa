@@ -25,7 +25,12 @@ namespace Vista.Pedidos
             });
             dgvDetallesDePedido.CellContentClick += EliminarProducto_Click;
         }
-
+        // PAGINACIÓN
+        private DataTable dtPedidos;
+        private int paginaActual = 1;
+        private int registrosPorPagina = 10;
+        private bool buscandoPedidos = false;
+        private int totalPaginas = 0;
         string medidaLargo = "0";
         string medidaAncho = "0";
         string medidaAlto = "0";
@@ -119,7 +124,87 @@ namespace Vista.Pedidos
                 txtBuscar.ForeColor = Color.Gray;
             }
         }
+        private void CargarPaginacionPedidos()
+        {
+            try
+            {
+                // Cargar todos los pedidos
+                dtPedidos = DbPedidos.CargarRegistroPedidos();
 
+                // Calcular el total de páginas
+                totalPaginas = (int)Math.Ceiling(
+                    (double)dtPedidos.Rows.Count / registrosPorPagina
+                );
+
+                // Si no existen pedidos
+                if (totalPaginas == 0)
+                {
+                    totalPaginas = 1;
+                }
+
+                // Evitar que la página actual sea mayor al total
+                if (paginaActual > totalPaginas)
+                {
+                    paginaActual = totalPaginas;
+                }
+
+                MostrarPaginaPedidos();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Error al cargar los pedidos: " + ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
+        }
+
+        private void MostrarPaginaPedidos()
+        {
+            if (dtPedidos == null)
+                return;
+
+            DataTable dtPagina = dtPedidos.Clone();
+
+            int inicio = (paginaActual - 1) * registrosPorPagina;
+
+            int fin = Math.Min(
+                inicio + registrosPorPagina,
+                dtPedidos.Rows.Count
+            );
+
+            for (int i = inicio; i < fin; i++)
+            {
+                dtPagina.ImportRow(dtPedidos.Rows[i]);
+            }
+
+            dgvPedidosRegistrados.DataSource = dtPagina;
+
+            // Encabezados
+            if (dgvPedidosRegistrados.Columns.Contains("IdPedido"))
+                dgvPedidosRegistrados.Columns["IdPedido"].HeaderText = "N.º de Pedido";
+
+            if (dgvPedidosRegistrados.Columns.Contains("Cliente"))
+                dgvPedidosRegistrados.Columns["Cliente"].HeaderText = "Cliente";
+
+            if (dgvPedidosRegistrados.Columns.Contains("FechaDePedido"))
+                dgvPedidosRegistrados.Columns["FechaDePedido"].HeaderText = "Fecha del Pedido";
+
+            if (dgvPedidosRegistrados.Columns.Contains("FechaDeEntrega"))
+                dgvPedidosRegistrados.Columns["FechaDeEntrega"].HeaderText = "Fecha de Entrega";
+
+            if (dgvPedidosRegistrados.Columns.Contains("Estado"))
+                dgvPedidosRegistrados.Columns["Estado"].HeaderText = "Estado";
+
+            // Mostrar página actual
+            lblPagina.Text = $"Página {paginaActual} de {totalPaginas}";
+
+            // Habilitar o deshabilitar botones
+            btnAnterior.Enabled = paginaActual > 1;
+            btnSiguiente.Enabled = paginaActual < totalPaginas;
+        }
         private void frmPedidos_Load(object sender, EventArgs e)
         {
             MostrarPedidos();
@@ -169,8 +254,9 @@ namespace Vista.Pedidos
 
         private void MostrarPedidos()
         {
-            dgvPedidosRegistrados.DataSource = null;
-            dgvPedidosRegistrados.DataSource = DbPedidos.CargarRegistroPedidos();
+            paginaActual = 1;
+
+            CargarPaginacionPedidos();
         }
 
         private void btnDeatllePedido_Click(object sender, EventArgs e)
@@ -418,12 +504,46 @@ namespace Vista.Pedidos
                 if (txtBuscar.Text == "Buscar pedido...")
                     return;
 
-                dgvPedidosRegistrados.DataSource =
-                    DbPedidos.BuscarPedido(txtBuscar.Text);
+                string texto = txtBuscar.Text.Trim();
+
+                // Si el buscador está vacío
+                if (string.IsNullOrWhiteSpace(texto))
+                {
+                    buscandoPedidos = false;
+                    paginaActual = 1;
+
+                    CargarPaginacionPedidos();
+
+                    return;
+                }
+
+                buscandoPedidos = true;
+
+                // Buscar pedidos
+                dtPedidos = DbPedidos.BuscarPedido(texto);
+
+                paginaActual = 1;
+
+                // Calcular páginas de los resultados
+                totalPaginas = (int)Math.Ceiling(
+                    (double)dtPedidos.Rows.Count / registrosPorPagina
+                );
+
+                if (totalPaginas == 0)
+                {
+                    totalPaginas = 1;
+                }
+
+                MostrarPaginaPedidos();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(
+                    ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
             }
         }
 
@@ -481,6 +601,24 @@ namespace Vista.Pedidos
             dgvDetallesDePedido.Columns["Medidas"].HeaderText = "Medidas";
         }
 
+        private void btnAnterior_Click(object sender, EventArgs e)
+        {
+            if (paginaActual > 1)
+            {
+                paginaActual--;
 
+                MostrarPaginaPedidos();
+            }
+        }
+
+        private void btnSiguiente_Click(object sender, EventArgs e)
+        {
+            if (paginaActual < totalPaginas)
+            {
+                paginaActual++;
+
+                MostrarPaginaPedidos();
+            }
+        }
     }
 }

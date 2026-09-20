@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.lblSubTexto = new System.Windows.Forms.Label();
             this.btnCamcelar = new System.Windows.Forms.Button();
             this.btnAgregar = new System.Windows.Forms.Button();
@@ -69,6 +69,9 @@
             this.lblFechaEntrega = new System.Windows.Forms.Label();
             this.lblCliente = new System.Windows.Forms.Label();
             this.pnlContenedorPrincipalInventario = new System.Windows.Forms.Panel();
+            this.lblPagina = new System.Windows.Forms.Label();
+            this.btnAnterior = new System.Windows.Forms.Button();
+            this.btnSiguiente = new System.Windows.Forms.Button();
             this.pnlHeader.SuspendLayout();
             this.pnlRegistros.SuspendLayout();
             this.pnlTitulo2.SuspendLayout();
@@ -154,6 +157,9 @@
             // pnlRegistros
             // 
             this.pnlRegistros.BackColor = System.Drawing.Color.Bisque;
+            this.pnlRegistros.Controls.Add(this.lblPagina);
+            this.pnlRegistros.Controls.Add(this.btnAnterior);
+            this.pnlRegistros.Controls.Add(this.btnSiguiente);
             this.pnlRegistros.Controls.Add(this.pnlTitulo2);
             this.pnlRegistros.Controls.Add(this.dgvPedidosRegistrados);
             this.pnlRegistros.Location = new System.Drawing.Point(265, 344);
@@ -194,31 +200,31 @@
             this.dgvPedidosRegistrados.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvPedidosRegistrados.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvPedidosRegistrados.BackgroundColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.PeachPuff;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvPedidosRegistrados.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.PeachPuff;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvPedidosRegistrados.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvPedidosRegistrados.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvPedidosRegistrados.GridColor = System.Drawing.Color.Black;
             this.dgvPedidosRegistrados.Location = new System.Drawing.Point(11, 34);
             this.dgvPedidosRegistrados.Name = "dgvPedidosRegistrados";
             this.dgvPedidosRegistrados.ReadOnly = true;
             this.dgvPedidosRegistrados.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Peru;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvPedidosRegistrados.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.Peru;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvPedidosRegistrados.RowHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.dgvPedidosRegistrados.RowHeadersVisible = false;
             this.dgvPedidosRegistrados.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.dgvPedidosRegistrados.Size = new System.Drawing.Size(794, 226);
+            this.dgvPedidosRegistrados.Size = new System.Drawing.Size(794, 206);
             this.dgvPedidosRegistrados.TabIndex = 0;
             this.dgvPedidosRegistrados.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPedidosRegistrados_CellClick);
             this.dgvPedidosRegistrados.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPedidosRegistrados_CellContentClick);
@@ -354,14 +360,14 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvDetallesDePedido.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvDetallesDePedido.BackgroundColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.PeachPuff;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvDetallesDePedido.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.PeachPuff;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvDetallesDePedido.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.dgvDetallesDePedido.GridColor = System.Drawing.Color.Black;
             this.dgvDetallesDePedido.Location = new System.Drawing.Point(11, 35);
             this.dgvDetallesDePedido.Name = "dgvDetallesDePedido";
@@ -565,6 +571,41 @@
             this.pnlContenedorPrincipalInventario.Size = new System.Drawing.Size(1102, 627);
             this.pnlContenedorPrincipalInventario.TabIndex = 4;
             // 
+            // lblPagina
+            // 
+            this.lblPagina.AutoSize = true;
+            this.lblPagina.Font = new System.Drawing.Font("Times New Roman", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPagina.ForeColor = System.Drawing.Color.White;
+            this.lblPagina.Location = new System.Drawing.Point(59, 249);
+            this.lblPagina.Name = "lblPagina";
+            this.lblPagina.Size = new System.Drawing.Size(39, 13);
+            this.lblPagina.TabIndex = 10;
+            this.lblPagina.Text = "label1";
+            // 
+            // btnAnterior
+            // 
+            this.btnAnterior.FlatAppearance.BorderSize = 0;
+            this.btnAnterior.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAnterior.Image = global::Vista.Properties.Resources.flecha_atras;
+            this.btnAnterior.Location = new System.Drawing.Point(22, 244);
+            this.btnAnterior.Name = "btnAnterior";
+            this.btnAnterior.Size = new System.Drawing.Size(30, 23);
+            this.btnAnterior.TabIndex = 9;
+            this.btnAnterior.UseVisualStyleBackColor = true;
+            this.btnAnterior.Click += new System.EventHandler(this.btnAnterior_Click);
+            // 
+            // btnSiguiente
+            // 
+            this.btnSiguiente.FlatAppearance.BorderSize = 0;
+            this.btnSiguiente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSiguiente.Image = global::Vista.Properties.Resources.flecha_adelante;
+            this.btnSiguiente.Location = new System.Drawing.Point(146, 244);
+            this.btnSiguiente.Name = "btnSiguiente";
+            this.btnSiguiente.Size = new System.Drawing.Size(30, 23);
+            this.btnSiguiente.TabIndex = 8;
+            this.btnSiguiente.UseVisualStyleBackColor = true;
+            this.btnSiguiente.Click += new System.EventHandler(this.btnSiguiente_Click);
+            // 
             // frmPedidos
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -579,6 +620,7 @@
             this.pnlHeader.ResumeLayout(false);
             this.pnlHeader.PerformLayout();
             this.pnlRegistros.ResumeLayout(false);
+            this.pnlRegistros.PerformLayout();
             this.pnlTitulo2.ResumeLayout(false);
             this.pnlTitulo2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPedidosRegistrados)).EndInit();
@@ -643,6 +685,9 @@
         private System.Windows.Forms.Panel pnlTitulo1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtClienteSeleccionado;
+        private System.Windows.Forms.Label lblPagina;
+        private System.Windows.Forms.Button btnAnterior;
+        private System.Windows.Forms.Button btnSiguiente;
     }
 }
 

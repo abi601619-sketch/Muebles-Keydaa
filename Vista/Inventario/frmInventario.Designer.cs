@@ -69,6 +69,9 @@
             this.lblMensajeInformativoPrincipal = new System.Windows.Forms.Label();
             this.pnlPrincipal = new System.Windows.Forms.Panel();
             this.dgvMateriales = new System.Windows.Forms.DataGridView();
+            this.lblPagina = new System.Windows.Forms.Label();
+            this.btnAnterior = new System.Windows.Forms.Button();
+            this.btnSiguiente = new System.Windows.Forms.Button();
             this.pnlContenedorPrincipalInventario.SuspendLayout();
             this.pnlPedidaDeDatos.SuspendLayout();
             this.pnlHeader.SuspendLayout();
@@ -536,6 +539,9 @@
             // pnlPrincipal
             // 
             this.pnlPrincipal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(153)))), ((int)(((byte)(105)))));
+            this.pnlPrincipal.Controls.Add(this.lblPagina);
+            this.pnlPrincipal.Controls.Add(this.btnAnterior);
+            this.pnlPrincipal.Controls.Add(this.btnSiguiente);
             this.pnlPrincipal.Controls.Add(this.dgvMateriales);
             this.pnlPrincipal.Location = new System.Drawing.Point(257, 120);
             this.pnlPrincipal.Margin = new System.Windows.Forms.Padding(2);
@@ -555,15 +561,50 @@
             this.dgvMateriales.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvMateriales.ColumnHeadersHeight = 30;
             this.dgvMateriales.GridColor = System.Drawing.Color.Black;
-            this.dgvMateriales.Location = new System.Drawing.Point(10, 6);
+            this.dgvMateriales.Location = new System.Drawing.Point(10, 7);
             this.dgvMateriales.Name = "dgvMateriales";
             this.dgvMateriales.ReadOnly = true;
             this.dgvMateriales.RowHeadersWidth = 45;
             this.dgvMateriales.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.dgvMateriales.Size = new System.Drawing.Size(797, 371);
+            this.dgvMateriales.Size = new System.Drawing.Size(797, 347);
             this.dgvMateriales.TabIndex = 0;
             this.dgvMateriales.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvInventario_CellClick);
             this.dgvMateriales.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMateriales_CellDoubleClick);
+            // 
+            // lblPagina
+            // 
+            this.lblPagina.AutoSize = true;
+            this.lblPagina.Font = new System.Drawing.Font("Times New Roman", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPagina.ForeColor = System.Drawing.Color.White;
+            this.lblPagina.Location = new System.Drawing.Point(690, 366);
+            this.lblPagina.Name = "lblPagina";
+            this.lblPagina.Size = new System.Drawing.Size(39, 13);
+            this.lblPagina.TabIndex = 7;
+            this.lblPagina.Text = "label1";
+            // 
+            // btnAnterior
+            // 
+            this.btnAnterior.FlatAppearance.BorderSize = 0;
+            this.btnAnterior.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAnterior.Image = global::Vista.Properties.Resources.flecha_atras;
+            this.btnAnterior.Location = new System.Drawing.Point(653, 361);
+            this.btnAnterior.Name = "btnAnterior";
+            this.btnAnterior.Size = new System.Drawing.Size(30, 23);
+            this.btnAnterior.TabIndex = 6;
+            this.btnAnterior.UseVisualStyleBackColor = true;
+            this.btnAnterior.Click += new System.EventHandler(this.btnAnterior_Click);
+            // 
+            // btnSiguiente
+            // 
+            this.btnSiguiente.FlatAppearance.BorderSize = 0;
+            this.btnSiguiente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSiguiente.Image = global::Vista.Properties.Resources.flecha_adelante;
+            this.btnSiguiente.Location = new System.Drawing.Point(777, 359);
+            this.btnSiguiente.Name = "btnSiguiente";
+            this.btnSiguiente.Size = new System.Drawing.Size(30, 23);
+            this.btnSiguiente.TabIndex = 5;
+            this.btnSiguiente.UseVisualStyleBackColor = true;
+            this.btnSiguiente.Click += new System.EventHandler(this.btnSiguiente_Click);
             // 
             // frmInventario
             // 
@@ -598,6 +639,7 @@
             this.pnlIndicador1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbDisponibles)).EndInit();
             this.pnlPrincipal.ResumeLayout(false);
+            this.pnlPrincipal.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMateriales)).EndInit();
             this.ResumeLayout(false);
 
@@ -646,5 +688,8 @@
         private System.Windows.Forms.Label lblDisponibles;
         private System.Windows.Forms.Button btnNuevo;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label lblPagina;
+        private System.Windows.Forms.Button btnAnterior;
+        private System.Windows.Forms.Button btnSiguiente;
     }
 }

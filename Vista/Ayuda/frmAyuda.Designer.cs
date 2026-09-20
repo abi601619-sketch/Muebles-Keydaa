@@ -38,7 +38,7 @@
             this.pnlRecuperarContrasena = new System.Windows.Forms.Panel();
             this.label10 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
-            this.button6 = new System.Windows.Forms.Button();
+            this.btnVerTuTorialRecuperar = new System.Windows.Forms.Button();
             this.pictureBox9 = new System.Windows.Forms.PictureBox();
             this.pnlRegistrarVenta = new System.Windows.Forms.Panel();
             this.label12 = new System.Windows.Forms.Label();
@@ -184,7 +184,7 @@
             this.pnlRecuperarContrasena.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlRecuperarContrasena.Controls.Add(this.label10);
             this.pnlRecuperarContrasena.Controls.Add(this.label14);
-            this.pnlRecuperarContrasena.Controls.Add(this.button6);
+            this.pnlRecuperarContrasena.Controls.Add(this.btnVerTuTorialRecuperar);
             this.pnlRecuperarContrasena.Controls.Add(this.pictureBox9);
             this.pnlRecuperarContrasena.Location = new System.Drawing.Point(41, 56);
             this.pnlRecuperarContrasena.Margin = new System.Windows.Forms.Padding(3, 3, 3, 5);
@@ -214,18 +214,19 @@
             this.label14.TabIndex = 2;
             this.label14.Text = "Recuperar contraseña";
             // 
-            // button6
+            // btnVerTuTorialRecuperar
             // 
-            this.button6.BackColor = System.Drawing.Color.SaddleBrown;
-            this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button6.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button6.ForeColor = System.Drawing.Color.White;
-            this.button6.Location = new System.Drawing.Point(39, 154);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(140, 27);
-            this.button6.TabIndex = 1;
-            this.button6.Text = "Ver Tutorial";
-            this.button6.UseVisualStyleBackColor = false;
+            this.btnVerTuTorialRecuperar.BackColor = System.Drawing.Color.SaddleBrown;
+            this.btnVerTuTorialRecuperar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnVerTuTorialRecuperar.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnVerTuTorialRecuperar.ForeColor = System.Drawing.Color.White;
+            this.btnVerTuTorialRecuperar.Location = new System.Drawing.Point(39, 154);
+            this.btnVerTuTorialRecuperar.Name = "btnVerTuTorialRecuperar";
+            this.btnVerTuTorialRecuperar.Size = new System.Drawing.Size(140, 27);
+            this.btnVerTuTorialRecuperar.TabIndex = 1;
+            this.btnVerTuTorialRecuperar.Text = "Ver Tutorial";
+            this.btnVerTuTorialRecuperar.UseVisualStyleBackColor = false;
+            this.btnVerTuTorialRecuperar.Click += new System.EventHandler(this.btnVerTuTorialRecuperar_Click);
             // 
             // pictureBox9
             // 
@@ -282,6 +283,7 @@
             this.btnVerTutorialVenta.TabIndex = 1;
             this.btnVerTutorialVenta.Text = "Ver Tutorial";
             this.btnVerTutorialVenta.UseVisualStyleBackColor = false;
+            this.btnVerTutorialVenta.Click += new System.EventHandler(this.btnVerTutorialVenta_Click);
             // 
             // pictureBox8
             // 
@@ -338,6 +340,7 @@
             this.btnTutorialFactura.TabIndex = 1;
             this.btnTutorialFactura.Text = "Ver Tutorial";
             this.btnTutorialFactura.UseVisualStyleBackColor = false;
+            this.btnTutorialFactura.Click += new System.EventHandler(this.btnTutorialFactura_Click);
             // 
             // pictureBox6
             // 
@@ -393,6 +396,7 @@
             this.btnVerTutorialCotizacion.TabIndex = 1;
             this.btnVerTutorialCotizacion.Text = "Ver Tutorial";
             this.btnVerTutorialCotizacion.UseVisualStyleBackColor = false;
+            this.btnVerTutorialCotizacion.Click += new System.EventHandler(this.btnVerTutorialCotizacion_Click);
             // 
             // pictureBox5
             // 
@@ -480,6 +484,7 @@
             this.btnDescargarManualTecnico.TabIndex = 1;
             this.btnDescargarManualTecnico.Text = "Descargar Manual";
             this.btnDescargarManualTecnico.UseVisualStyleBackColor = false;
+            this.btnDescargarManualTecnico.Click += new System.EventHandler(this.btnDescargarManualTecnico_Click);
             // 
             // picpdf2
             // 
@@ -534,6 +539,7 @@
             this.btnDescargarManualUsuario.TabIndex = 1;
             this.btnDescargarManualUsuario.Text = "Descargar Manual";
             this.btnDescargarManualUsuario.UseVisualStyleBackColor = false;
+            this.btnDescargarManualUsuario.Click += new System.EventHandler(this.btnDescargarManualUsuario_Click);
             // 
             // picPdf
             // 
@@ -685,7 +691,7 @@
         private System.Windows.Forms.Panel pnlRecuperarContrasena;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button btnVerTuTorialRecuperar;
         private System.Windows.Forms.PictureBox pictureBox9;
     }
 }

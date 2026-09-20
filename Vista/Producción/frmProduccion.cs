@@ -9,6 +9,13 @@ namespace Vista.Producción
 {
     public partial class frmProduccion : Form
     {
+        // PAGINACIÓN
+        private DataTable dtProduccion;
+        private int paginaActual = 1;
+        private int registrosPorPagina = 20;
+        private int totalPaginas = 0;
+        private DataTable dtProduccionOriginal;
+
         public frmProduccion()
         {
             InitializeComponent();
@@ -127,24 +134,105 @@ namespace Vista.Producción
         // MOSTRAR PRODUCCIÓN
         public void MostrarProduccion()
         {
+
             try
             {
                 // Obtiene las producciones de la base de datos
-                DataTable datos =
-                    DbProducción.CargarProducción();
+                dtProduccionOriginal = DbProducción.CargarProducción();
 
-                dgvProduccion.DataSource = null;
-                dgvProduccion.DataSource = datos;
+                dtProduccion = dtProduccionOriginal.Copy();
 
-                // Configura las columnas
-                ConfigurarColumnasProduccion();
+                paginaActual = 1;
+
+                CalcularPaginas();
+
+                MostrarPaginaProduccion();
 
                 dgvProduccion.Refresh();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al mostrar las producciones: " + ex.Message, "Error", MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                MessageBox.Show(
+                    "Error al mostrar las producciones: " + ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
+        }
+
+        private void CalcularPaginas()
+        {
+            int totalRegistros = dtProduccion.Rows.Count;
+
+            totalPaginas = (int)Math.Ceiling(
+                (double)totalRegistros / registrosPorPagina
+            );
+
+            if (totalPaginas == 0)
+            {
+                totalPaginas = 1;
+            }
+
+            if (paginaActual > totalPaginas)
+            {
+                paginaActual = totalPaginas;
+            }
+        }
+
+        private void MostrarPaginaProduccion()
+        {
+            try
+            {
+                if (dtProduccion == null)
+                    return;
+
+                DataTable dtPagina = dtProduccion.Clone();
+
+                int inicio = (paginaActual - 1) * registrosPorPagina;
+
+                int fin = Math.Min(
+                    inicio + registrosPorPagina,
+                    dtProduccion.Rows.Count
+                );
+
+                for (int i = inicio; i < fin; i++)
+                {
+                    dtPagina.ImportRow(dtProduccion.Rows[i]);
+                }
+
+                dgvProduccion.DataSource = null;
+                dgvProduccion.DataSource = dtPagina;
+
+                // Configura las columnas
+                ConfigurarColumnasProduccion();
+
+                // Mostrar página actual
+                lblPagina.Text =
+                    $"Página {paginaActual} de {totalPaginas}";
+
+                // Activar/desactivar botones
+                btnAnterior.Enabled =
+                    paginaActual > 1;
+
+                btnSiguiente.Enabled =
+                    paginaActual < totalPaginas;
+
+                // Ajusta el texto y el tamaño de las filas
+                dgvProduccion.DefaultCellStyle.WrapMode =
+                    DataGridViewTriState.True;
+
+                dgvProduccion.AutoSizeRowsMode =
+                    DataGridViewAutoSizeRowsMode.AllCells;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Error al mostrar la página: " + ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
             }
         }
         //------------------------------------------------------------------
@@ -215,37 +303,66 @@ namespace Vista.Producción
         {
             try
             {
-                if (dgvProduccion.DataSource is DataTable dt)
+                if (dtProduccionOriginal == null)
+                    return;
+
+                string estado = cbEstados.Text;
+
+                string buscar =
+                    txtBuscar.Text == "Buscar por código o nombre de cliente..."
+                    ? ""
+                    : txtBuscar.Text.Trim();
+
+                string filtro = "1=1";
+
+                // Filtra por estado
+                if (!string.IsNullOrWhiteSpace(estado) && estado != "Todos")
                 {
-                    string estado = cbEstados.Text;
-
-                    string buscar = txtBuscar.Text == "Buscar por código o nombre de cliente..." ? "" : txtBuscar.Text.Trim();
-
-                    string filtro = "1=1";
-
-                    // Filtra por estado
-                    if (!string.IsNullOrWhiteSpace(estado) && estado != "Todos")
-                    {
-                        filtro += " AND Estado = '" + estado.Replace("'", "''") + "'";
-                    }
-
-                    // Filtra por cliente, producción o pedido
-                    if (!string.IsNullOrWhiteSpace(buscar))
-                    {
-                        buscar = buscar.Replace("'", "''");
-
-                        filtro += " AND (Cliente LIKE '%" + buscar + "%' OR " + "Convert(IdProduccion, 'System.String') LIKE '%" +
-                            buscar + "%' OR " + "Convert(IdPedido, 'System.String') LIKE '%" + buscar + "%')";
-                    }
-
-                    dt.DefaultView.RowFilter = filtro;
+                    filtro +=
+                        " AND Estado = '" +
+                        estado.Replace("'", "''") +
+                        "'";
                 }
+
+                // Filtra por cliente, producción o pedido
+                if (!string.IsNullOrWhiteSpace(buscar))
+                {
+                    buscar = buscar.Replace("'", "''");
+
+                    filtro +=
+                        " AND (Cliente LIKE '%" + buscar + "%' OR " +
+                        "Convert(IdProduccion, 'System.String') LIKE '%" + buscar + "%' OR " +
+                        "Convert(IdPedido, 'System.String') LIKE '%" + buscar + "%')";
+                }
+
+                // Aplicar filtro sobre los datos originales
+                DataView vista = new DataView(dtProduccionOriginal);
+
+                vista.RowFilter = filtro;
+
+                // Guardar resultados filtrados
+                dtProduccion = vista.ToTable();
+
+                // Volver a la primera página
+                paginaActual = 1;
+
+                // Calcular total de páginas
+                CalcularPaginas();
+
+                // Mostrar resultados
+                MostrarPaginaProduccion();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al filtrar las producciones: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(
+                    "Error al filtrar las producciones: " + ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
             }
         }
+
         // Ejecuta el filtro cuando cambia el estado
         private void cbEstados_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -348,6 +465,11 @@ namespace Vista.Producción
                     MessageBoxIcon.Error
                 );
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

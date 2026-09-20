@@ -34,7 +34,7 @@ namespace Vista.Producción
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.cbEstados = new System.Windows.Forms.ComboBox();
             this.pnlIndicador4 = new System.Windows.Forms.Panel();
-            this.pbTotalTrabajos = new System.Windows.Forms.PictureBox();
+            this.lblMostrarRegistrados = new System.Windows.Forms.Label();
             this.lblRegistrados = new System.Windows.Forms.Label();
             this.pnlContenedorTabla = new System.Windows.Forms.Panel();
             this.btnMaterialUtilizado = new System.Windows.Forms.Button();
@@ -42,37 +42,40 @@ namespace Vista.Producción
             this.btnEditar = new System.Windows.Forms.Button();
             this.lblMensajeInformativoPrincipal = new System.Windows.Forms.Label();
             this.pnlIndicador3 = new System.Windows.Forms.Panel();
-            this.pbPendientes = new System.Windows.Forms.PictureBox();
+            this.lblMostrarEnProduccion = new System.Windows.Forms.Label();
             this.lblEnProduccion = new System.Windows.Forms.Label();
             this.pnlBarraInformativa = new System.Windows.Forms.Panel();
             this.lblAdministrador = new System.Windows.Forms.Label();
-            this.pbPerfil = new System.Windows.Forms.PictureBox();
             this.pnlIndicador1 = new System.Windows.Forms.Panel();
-            this.pbCancelados = new System.Windows.Forms.PictureBox();
+            this.lblMostrarPendientes = new System.Windows.Forms.Label();
             this.lblPendientes = new System.Windows.Forms.Label();
             this.pnlIndicador2 = new System.Windows.Forms.Panel();
-            this.pbFinalizados = new System.Windows.Forms.PictureBox();
+            this.lblMostrarFinalizados = new System.Windows.Forms.Label();
             this.lblFinalizados = new System.Windows.Forms.Label();
             this.pnlHeader = new System.Windows.Forms.Panel();
+            this.lblPagina = new System.Windows.Forms.Label();
             this.pbxBuscar = new System.Windows.Forms.PictureBox();
-            this.lblMostrarPendientes = new System.Windows.Forms.Label();
-            this.lblMostrarFinalizados = new System.Windows.Forms.Label();
-            this.lblMostrarEnProduccion = new System.Windows.Forms.Label();
-            this.lblMostrarRegistrados = new System.Windows.Forms.Label();
+            this.pbPerfil = new System.Windows.Forms.PictureBox();
+            this.pbTotalTrabajos = new System.Windows.Forms.PictureBox();
+            this.pbPendientes = new System.Windows.Forms.PictureBox();
+            this.pbCancelados = new System.Windows.Forms.PictureBox();
+            this.pbFinalizados = new System.Windows.Forms.PictureBox();
+            this.btnAnterior = new System.Windows.Forms.Button();
+            this.btnSiguiente = new System.Windows.Forms.Button();
             this.pnlIndicador4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbTotalTrabajos)).BeginInit();
             this.pnlContenedorTabla.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProduccion)).BeginInit();
             this.pnlIndicador3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbPendientes)).BeginInit();
             this.pnlBarraInformativa.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbPerfil)).BeginInit();
             this.pnlIndicador1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbCancelados)).BeginInit();
             this.pnlIndicador2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbFinalizados)).BeginInit();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxBuscar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPerfil)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbTotalTrabajos)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPendientes)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbCancelados)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbFinalizados)).BeginInit();
             this.SuspendLayout();
             // 
             // txtBuscar
@@ -139,15 +142,14 @@ namespace Vista.Producción
             this.pnlIndicador4.Size = new System.Drawing.Size(232, 77);
             this.pnlIndicador4.TabIndex = 5;
             // 
-            // pbTotalTrabajos
+            // lblMostrarRegistrados
             // 
-            this.pbTotalTrabajos.Image = global::Vista.Properties.Resources.Total_de_trabajos;
-            this.pbTotalTrabajos.Location = new System.Drawing.Point(25, 5);
-            this.pbTotalTrabajos.Name = "pbTotalTrabajos";
-            this.pbTotalTrabajos.Size = new System.Drawing.Size(62, 66);
-            this.pbTotalTrabajos.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pbTotalTrabajos.TabIndex = 4;
-            this.pbTotalTrabajos.TabStop = false;
+            this.lblMostrarRegistrados.AutoSize = true;
+            this.lblMostrarRegistrados.Location = new System.Drawing.Point(113, 44);
+            this.lblMostrarRegistrados.Name = "lblMostrarRegistrados";
+            this.lblMostrarRegistrados.Size = new System.Drawing.Size(35, 13);
+            this.lblMostrarRegistrados.TabIndex = 5;
+            this.lblMostrarRegistrados.Text = "label4";
             // 
             // lblRegistrados
             // 
@@ -177,12 +179,12 @@ namespace Vista.Producción
             // btnMaterialUtilizado
             // 
             this.btnMaterialUtilizado.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnMaterialUtilizado.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnMaterialUtilizado.BackColor = System.Drawing.Color.Sienna;
             this.btnMaterialUtilizado.FlatAppearance.BorderSize = 0;
             this.btnMaterialUtilizado.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMaterialUtilizado.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMaterialUtilizado.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnMaterialUtilizado.Location = new System.Drawing.Point(811, 286);
+            this.btnMaterialUtilizado.Location = new System.Drawing.Point(245, 286);
             this.btnMaterialUtilizado.Name = "btnMaterialUtilizado";
             this.btnMaterialUtilizado.Size = new System.Drawing.Size(219, 40);
             this.btnMaterialUtilizado.TabIndex = 4;
@@ -212,12 +214,12 @@ namespace Vista.Producción
             this.dgvProduccion.ColumnHeadersHeight = 42;
             this.dgvProduccion.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvProduccion.GridColor = System.Drawing.Color.Black;
-            this.dgvProduccion.Location = new System.Drawing.Point(19, 12);
+            this.dgvProduccion.Location = new System.Drawing.Point(19, 6);
             this.dgvProduccion.Name = "dgvProduccion";
             this.dgvProduccion.ReadOnly = true;
             this.dgvProduccion.RowHeadersVisible = false;
             this.dgvProduccion.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.dgvProduccion.Size = new System.Drawing.Size(1011, 268);
+            this.dgvProduccion.Size = new System.Drawing.Size(1011, 274);
             this.dgvProduccion.TabIndex = 3;
             // 
             // btnEditar
@@ -259,15 +261,14 @@ namespace Vista.Producción
             this.pnlIndicador3.Size = new System.Drawing.Size(221, 77);
             this.pnlIndicador3.TabIndex = 6;
             // 
-            // pbPendientes
+            // lblMostrarEnProduccion
             // 
-            this.pbPendientes.Image = global::Vista.Properties.Resources.Reloj_Pendiente;
-            this.pbPendientes.Location = new System.Drawing.Point(26, 4);
-            this.pbPendientes.Name = "pbPendientes";
-            this.pbPendientes.Size = new System.Drawing.Size(62, 68);
-            this.pbPendientes.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pbPendientes.TabIndex = 3;
-            this.pbPendientes.TabStop = false;
+            this.lblMostrarEnProduccion.AutoSize = true;
+            this.lblMostrarEnProduccion.Location = new System.Drawing.Point(140, 46);
+            this.lblMostrarEnProduccion.Name = "lblMostrarEnProduccion";
+            this.lblMostrarEnProduccion.Size = new System.Drawing.Size(35, 13);
+            this.lblMostrarEnProduccion.TabIndex = 4;
+            this.lblMostrarEnProduccion.Text = "label3";
             // 
             // lblEnProduccion
             // 
@@ -301,17 +302,6 @@ namespace Vista.Producción
             this.lblAdministrador.TabIndex = 29;
             this.lblAdministrador.Text = "Admin";
             // 
-            // pbPerfil
-            // 
-            this.pbPerfil.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(177)))), ((int)(((byte)(114)))));
-            this.pbPerfil.Image = global::Vista.Properties.Resources.user_456283;
-            this.pbPerfil.Location = new System.Drawing.Point(1054, -1);
-            this.pbPerfil.Name = "pbPerfil";
-            this.pbPerfil.Size = new System.Drawing.Size(26, 24);
-            this.pbPerfil.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pbPerfil.TabIndex = 25;
-            this.pbPerfil.TabStop = false;
-            // 
             // pnlIndicador1
             // 
             this.pnlIndicador1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(162)))), ((int)(((byte)(147)))));
@@ -324,15 +314,14 @@ namespace Vista.Producción
             this.pnlIndicador1.Size = new System.Drawing.Size(219, 77);
             this.pnlIndicador1.TabIndex = 7;
             // 
-            // pbCancelados
+            // lblMostrarPendientes
             // 
-            this.pbCancelados.Image = global::Vista.Properties.Resources.Trabajo_cancelado;
-            this.pbCancelados.Location = new System.Drawing.Point(29, 5);
-            this.pbCancelados.Name = "pbCancelados";
-            this.pbCancelados.Size = new System.Drawing.Size(67, 67);
-            this.pbCancelados.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pbCancelados.TabIndex = 1;
-            this.pbCancelados.TabStop = false;
+            this.lblMostrarPendientes.AutoSize = true;
+            this.lblMostrarPendientes.Location = new System.Drawing.Point(122, 43);
+            this.lblMostrarPendientes.Name = "lblMostrarPendientes";
+            this.lblMostrarPendientes.Size = new System.Drawing.Size(35, 13);
+            this.lblMostrarPendientes.TabIndex = 2;
+            this.lblMostrarPendientes.Text = "label1";
             // 
             // lblPendientes
             // 
@@ -356,15 +345,14 @@ namespace Vista.Producción
             this.pnlIndicador2.Size = new System.Drawing.Size(221, 77);
             this.pnlIndicador2.TabIndex = 8;
             // 
-            // pbFinalizados
+            // lblMostrarFinalizados
             // 
-            this.pbFinalizados.Image = global::Vista.Properties.Resources.Trabajo_finalizado;
-            this.pbFinalizados.Location = new System.Drawing.Point(24, 1);
-            this.pbFinalizados.Name = "pbFinalizados";
-            this.pbFinalizados.Size = new System.Drawing.Size(68, 74);
-            this.pbFinalizados.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pbFinalizados.TabIndex = 2;
-            this.pbFinalizados.TabStop = false;
+            this.lblMostrarFinalizados.AutoSize = true;
+            this.lblMostrarFinalizados.Location = new System.Drawing.Point(125, 43);
+            this.lblMostrarFinalizados.Name = "lblMostrarFinalizados";
+            this.lblMostrarFinalizados.Size = new System.Drawing.Size(35, 13);
+            this.lblMostrarFinalizados.TabIndex = 3;
+            this.lblMostrarFinalizados.Text = "label2";
             // 
             // lblFinalizados
             // 
@@ -398,6 +386,17 @@ namespace Vista.Producción
             this.pnlHeader.Size = new System.Drawing.Size(1102, 627);
             this.pnlHeader.TabIndex = 3;
             // 
+            // lblPagina
+            // 
+            this.lblPagina.AutoSize = true;
+            this.lblPagina.Font = new System.Drawing.Font("Times New Roman", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPagina.ForeColor = System.Drawing.Color.White;
+            this.lblPagina.Location = new System.Drawing.Point(482, 162);
+            this.lblPagina.Name = "lblPagina";
+            this.lblPagina.Size = new System.Drawing.Size(39, 13);
+            this.lblPagina.TabIndex = 13;
+            this.lblPagina.Text = "label1";
+            // 
             // pbxBuscar
             // 
             this.pbxBuscar.BackColor = System.Drawing.Color.Transparent;
@@ -409,41 +408,78 @@ namespace Vista.Producción
             this.pbxBuscar.TabIndex = 27;
             this.pbxBuscar.TabStop = false;
             // 
-            // lblMostrarPendientes
+            // pbPerfil
             // 
-            this.lblMostrarPendientes.AutoSize = true;
-            this.lblMostrarPendientes.Location = new System.Drawing.Point(122, 43);
-            this.lblMostrarPendientes.Name = "lblMostrarPendientes";
-            this.lblMostrarPendientes.Size = new System.Drawing.Size(35, 13);
-            this.lblMostrarPendientes.TabIndex = 2;
-            this.lblMostrarPendientes.Text = "label1";
+            this.pbPerfil.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(177)))), ((int)(((byte)(114)))));
+            this.pbPerfil.Image = global::Vista.Properties.Resources.user_456283;
+            this.pbPerfil.Location = new System.Drawing.Point(1054, -1);
+            this.pbPerfil.Name = "pbPerfil";
+            this.pbPerfil.Size = new System.Drawing.Size(26, 24);
+            this.pbPerfil.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbPerfil.TabIndex = 25;
+            this.pbPerfil.TabStop = false;
             // 
-            // lblMostrarFinalizados
+            // pbTotalTrabajos
             // 
-            this.lblMostrarFinalizados.AutoSize = true;
-            this.lblMostrarFinalizados.Location = new System.Drawing.Point(125, 43);
-            this.lblMostrarFinalizados.Name = "lblMostrarFinalizados";
-            this.lblMostrarFinalizados.Size = new System.Drawing.Size(35, 13);
-            this.lblMostrarFinalizados.TabIndex = 3;
-            this.lblMostrarFinalizados.Text = "label2";
+            this.pbTotalTrabajos.Image = global::Vista.Properties.Resources.Total_de_trabajos;
+            this.pbTotalTrabajos.Location = new System.Drawing.Point(25, 5);
+            this.pbTotalTrabajos.Name = "pbTotalTrabajos";
+            this.pbTotalTrabajos.Size = new System.Drawing.Size(62, 66);
+            this.pbTotalTrabajos.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbTotalTrabajos.TabIndex = 4;
+            this.pbTotalTrabajos.TabStop = false;
             // 
-            // lblMostrarEnProduccion
+            // pbPendientes
             // 
-            this.lblMostrarEnProduccion.AutoSize = true;
-            this.lblMostrarEnProduccion.Location = new System.Drawing.Point(140, 46);
-            this.lblMostrarEnProduccion.Name = "lblMostrarEnProduccion";
-            this.lblMostrarEnProduccion.Size = new System.Drawing.Size(35, 13);
-            this.lblMostrarEnProduccion.TabIndex = 4;
-            this.lblMostrarEnProduccion.Text = "label3";
+            this.pbPendientes.Image = global::Vista.Properties.Resources.Reloj_Pendiente;
+            this.pbPendientes.Location = new System.Drawing.Point(26, 4);
+            this.pbPendientes.Name = "pbPendientes";
+            this.pbPendientes.Size = new System.Drawing.Size(62, 68);
+            this.pbPendientes.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbPendientes.TabIndex = 3;
+            this.pbPendientes.TabStop = false;
             // 
-            // lblMostrarRegistrados
+            // pbCancelados
             // 
-            this.lblMostrarRegistrados.AutoSize = true;
-            this.lblMostrarRegistrados.Location = new System.Drawing.Point(113, 44);
-            this.lblMostrarRegistrados.Name = "lblMostrarRegistrados";
-            this.lblMostrarRegistrados.Size = new System.Drawing.Size(35, 13);
-            this.lblMostrarRegistrados.TabIndex = 5;
-            this.lblMostrarRegistrados.Text = "label4";
+            this.pbCancelados.Image = global::Vista.Properties.Resources.Trabajo_cancelado;
+            this.pbCancelados.Location = new System.Drawing.Point(29, 5);
+            this.pbCancelados.Name = "pbCancelados";
+            this.pbCancelados.Size = new System.Drawing.Size(67, 67);
+            this.pbCancelados.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbCancelados.TabIndex = 1;
+            this.pbCancelados.TabStop = false;
+            // 
+            // pbFinalizados
+            // 
+            this.pbFinalizados.Image = global::Vista.Properties.Resources.Trabajo_finalizado;
+            this.pbFinalizados.Location = new System.Drawing.Point(24, 1);
+            this.pbFinalizados.Name = "pbFinalizados";
+            this.pbFinalizados.Size = new System.Drawing.Size(68, 74);
+            this.pbFinalizados.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbFinalizados.TabIndex = 2;
+            this.pbFinalizados.TabStop = false;
+            // 
+            // btnAnterior
+            // 
+            this.btnAnterior.FlatAppearance.BorderSize = 0;
+            this.btnAnterior.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAnterior.Image = global::Vista.Properties.Resources.flecha_atras;
+            this.btnAnterior.Location = new System.Drawing.Point(445, 157);
+            this.btnAnterior.Name = "btnAnterior";
+            this.btnAnterior.Size = new System.Drawing.Size(30, 23);
+            this.btnAnterior.TabIndex = 12;
+            this.btnAnterior.UseVisualStyleBackColor = true;
+            // 
+            // btnSiguiente
+            // 
+            this.btnSiguiente.FlatAppearance.BorderSize = 0;
+            this.btnSiguiente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSiguiente.Image = global::Vista.Properties.Resources.flecha_adelante;
+            this.btnSiguiente.Location = new System.Drawing.Point(569, 157);
+            this.btnSiguiente.Name = "btnSiguiente";
+            this.btnSiguiente.Size = new System.Drawing.Size(30, 23);
+            this.btnSiguiente.TabIndex = 11;
+            this.btnSiguiente.UseVisualStyleBackColor = true;
             // 
             // frmProduccion
             // 
@@ -460,24 +496,24 @@ namespace Vista.Producción
             this.Load += new System.EventHandler(this.frmProduccion_Load);
             this.pnlIndicador4.ResumeLayout(false);
             this.pnlIndicador4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbTotalTrabajos)).EndInit();
             this.pnlContenedorTabla.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvProduccion)).EndInit();
             this.pnlIndicador3.ResumeLayout(false);
             this.pnlIndicador3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbPendientes)).EndInit();
             this.pnlBarraInformativa.ResumeLayout(false);
             this.pnlBarraInformativa.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbPerfil)).EndInit();
             this.pnlIndicador1.ResumeLayout(false);
             this.pnlIndicador1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbCancelados)).EndInit();
             this.pnlIndicador2.ResumeLayout(false);
             this.pnlIndicador2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbFinalizados)).EndInit();
             this.pnlHeader.ResumeLayout(false);
             this.pnlHeader.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxBuscar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPerfil)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbTotalTrabajos)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPendientes)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbCancelados)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbFinalizados)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -514,5 +550,8 @@ namespace Vista.Producción
         private System.Windows.Forms.Label lblMostrarEnProduccion;
         private System.Windows.Forms.Label lblMostrarPendientes;
         private System.Windows.Forms.Label lblMostrarFinalizados;
+        private System.Windows.Forms.Label lblPagina;
+        private System.Windows.Forms.Button btnAnterior;
+        private System.Windows.Forms.Button btnSiguiente;
     }
 }
