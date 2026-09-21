@@ -163,5 +163,39 @@ namespace Datos
 
             return tabla;
         }
+
+        //INVENTARIO
+
+        public DataTable ObtenerInventarioEstado()
+        {
+            DataTable tabla = new DataTable();
+
+            try
+            {
+                using (SqlConnection conexion = Conexion.Conectar())
+                {
+                    using (SqlCommand comando =
+                           new SqlCommand(
+                               "sp_Dashboard_InventarioEstado",
+                               conexion))
+                    {
+                        comando.CommandType =
+                            CommandType.StoredProcedure;
+
+                        using (SqlDataAdapter adaptador =
+                               new SqlDataAdapter(comando))
+                        {
+                            adaptador.Fill(tabla);
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return tabla;
+        }
     }
 }
