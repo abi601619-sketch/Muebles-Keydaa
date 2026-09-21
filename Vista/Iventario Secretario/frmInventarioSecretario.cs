@@ -9,19 +9,314 @@ namespace Vista.Iventario_Secretario
 {
     public partial class frmInventarioSecretario : Form
     {
+        // CANTIDAD DE REGISTROS POR PÁGINA
+        private int registrosPorPagina = 10;
+
+        // PÁGINA ACTUAL
+        private int paginaActual = 1;
+
+        // TOTAL DE REGISTROS
+        private int totalRegistros = 0;
+
+        // TOTAL DE PÁGINAS
+        private int totalPaginas = 1;
+
+        // DATOS PARA LAS BÚSQUEDAS PAGINADAS
+        private DataTable dtInventario;
+        private DataTable dtInventarioBusqueda;
         // Guarda el ID del material seleccionado para poder editarlo
         private int idMaterialSeleccionado = 0;
         public frmInventarioSecretario()
         {
             InitializeComponent();
             ResponsiveHelper.Apply(this);
+            ConfigurarTablaInventario();
         }
+
+        //----------------------------------------------------------------------
+        // CONFIGURAR TABLA DE INVENTARIO
+
+        private void ConfigurarTablaInventario()
+        {
+            dgvMateriales.AutoGenerateColumns = true;
+
+            dgvMateriales.AllowUserToAddRows = false;
+            dgvMateriales.AllowUserToDeleteRows = false;
+            dgvMateriales.AllowUserToResizeRows = false;
+            dgvMateriales.AllowUserToResizeColumns = false;
+
+            dgvMateriales.ReadOnly = true;
+
+            dgvMateriales.MultiSelect = false;
+
+            dgvMateriales.SelectionMode =
+                DataGridViewSelectionMode.FullRowSelect;
+
+            dgvMateriales.RowHeadersVisible = false;
+
+            dgvMateriales.BorderStyle =
+                BorderStyle.None;
+
+            dgvMateriales.BackgroundColor =
+                Color.White;
+
+            dgvMateriales.CellBorderStyle =
+                DataGridViewCellBorderStyle.SingleHorizontal;
+
+            dgvMateriales.GridColor =
+                Color.FromArgb(
+                    225,
+                    225,
+                    225
+                );
+
+            dgvMateriales.EnableHeadersVisualStyles = false;
+
+            // Altura del encabezado
+            dgvMateriales.ColumnHeadersHeight = 40;
+
+            // Altura de las filas
+            dgvMateriales.RowTemplate.Height = 34;
+
+            // Ajustar columnas
+            dgvMateriales.AutoSizeColumnsMode =
+                DataGridViewAutoSizeColumnsMode.Fill;
+
+
+            //----------------------------------------------------------------------
+            // ENCABEZADO
+
+            dgvMateriales.ColumnHeadersDefaultCellStyle =
+                new DataGridViewCellStyle
+                {
+                    BackColor =
+                        Color.FromArgb(
+                            121,
+                            78,
+                            48
+                        ),
+
+                    ForeColor =
+                        Color.White,
+
+                    Font =
+                        new Font(
+                            "Segoe UI",
+                            10,
+                            FontStyle.Bold
+                        ),
+
+                    Alignment =
+                        DataGridViewContentAlignment.MiddleCenter,
+
+                    SelectionBackColor =
+                        Color.FromArgb(
+                            121,
+                            78,
+                            48
+                        ),
+
+                    SelectionForeColor =
+                        Color.White,
+
+                    Padding =
+                        new Padding(5)
+                };
+
+
+            //----------------------------------------------------------------------
+            // FILAS
+
+            dgvMateriales.DefaultCellStyle =
+                new DataGridViewCellStyle
+                {
+                    BackColor =
+                        Color.White,
+
+                    ForeColor =
+                        Color.FromArgb(
+                            55,
+                            55,
+                            55
+                        ),
+
+                    Font =
+                        new Font(
+                            "Segoe UI",
+                            10
+                        ),
+
+                    Alignment =
+                        DataGridViewContentAlignment.MiddleCenter,
+
+                    SelectionBackColor =
+                        Color.FromArgb(
+                            238,
+                            215,
+                            185
+                        ),
+
+                    SelectionForeColor =
+                        Color.FromArgb(
+                            60,
+                            45,
+                            35
+                        ),
+
+                    Padding =
+                        new Padding(5)
+                };
+
+
+            //----------------------------------------------------------------------
+            // FILAS ALTERNADAS
+
+            dgvMateriales.AlternatingRowsDefaultCellStyle =
+                new DataGridViewCellStyle
+                {
+                    BackColor =
+                        Color.FromArgb(
+                            250,
+                            246,
+                            240
+                        ),
+
+                    ForeColor =
+                        Color.FromArgb(
+                            55,
+                            55,
+                            55
+                        ),
+
+                    Font =
+                        new Font(
+                            "Segoe UI",
+                            10
+                        ),
+
+                    SelectionBackColor =
+                        Color.FromArgb(
+                            238,
+                            215,
+                            185
+                        ),
+
+                    SelectionForeColor =
+                        Color.FromArgb(
+                            60,
+                            45,
+                            35
+                        )
+                };
+
+
+            //----------------------------------------------------------------------
+            // FILA SELECCIONADA
+
+            dgvMateriales.RowsDefaultCellStyle.SelectionBackColor =
+                Color.FromArgb(
+                    238,
+                    215,
+                    185
+                );
+
+            dgvMateriales.RowsDefaultCellStyle.SelectionForeColor =
+                Color.FromArgb(
+                    60,
+                    45,
+                    35
+                );
+        }
+
+        //----------------------------------------------------------------------
+        // FORMATEAR TABLA DE INVENTARIO
+
+        private void FormatearTablaInventario()
+        {
+            if (dgvMateriales.Columns.Count == 0)
+                return;
+
+
+            // ID
+
+            if (dgvMateriales.Columns.Contains("IdMaterial"))
+            {
+                dgvMateriales.Columns["IdMaterial"].HeaderText = "#";
+            }
+
+
+            // MATERIAL
+
+            if (dgvMateriales.Columns.Contains("Material"))
+            {
+                dgvMateriales.Columns["Material"]
+                    .HeaderText = "Material";
+
+                dgvMateriales.Columns["Material"]
+                    .DefaultCellStyle.Alignment =
+                    DataGridViewContentAlignment.MiddleLeft;
+            }
+
+
+            // UNIDAD DE MEDIDA
+
+            if (dgvMateriales.Columns.Contains("UnidadMedida"))
+            {
+                dgvMateriales.Columns["UnidadMedida"]
+                    .HeaderText = "Unidad de medida";
+            }
+
+
+            // STOCK
+
+            if (dgvMateriales.Columns.Contains("Stock"))
+            {
+                dgvMateriales.Columns["Stock"]
+                    .HeaderText = "Stock";
+            }
+
+
+            // CATEGORÍA
+
+            if (dgvMateriales.Columns.Contains("Categoria"))
+            {
+                dgvMateriales.Columns["Categoria"]
+                    .HeaderText = "Categoría";
+
+                dgvMateriales.Columns["Categoria"]
+                    .DefaultCellStyle.Alignment =
+                    DataGridViewContentAlignment.MiddleLeft;
+            }
+
+
+            // No permitir ordenar las columnas
+
+            foreach (
+                DataGridViewColumn columna
+                in dgvMateriales.Columns)
+            {
+                columna.SortMode =
+                    DataGridViewColumnSortMode.NotSortable;
+            }
+
+
+            // Ajustar columnas
+
+            dgvMateriales.AutoSizeColumnsMode =
+                DataGridViewAutoSizeColumnsMode.Fill;
+        }
+
+
         // Evento LOAD Se ejecuta cuando se abre el formulario
         private void frmInventarioSecretario_Load(object sender, EventArgs e)
         {
             try
             {
                 // Carga los datos iniciales del formulario
+                paginaActual = 1;
+
+                dtInventarioBusqueda = null;
+
                 MostrarInventario();
                 CargarComboBoxCategorias();
                 CargarComboBoxUnidadDeMedida();
@@ -61,7 +356,6 @@ namespace Vista.Iventario_Secretario
         }
 
         //CONFIGURAR TOOLTIPS--------------------------
-        // CONFIGURAR TOOLTIPS
         private void ConfigurarTooltips()
         {
             ToolTip toolTip = new ToolTip();
@@ -147,28 +441,94 @@ namespace Vista.Iventario_Secretario
         {
             try
             {
-                dgvMateriales.DataSource = null;
-                dgvMateriales.DataSource = Material.CargarMateriales();
+                int registrosSaltar =
+                    (paginaActual - 1) *
+                    registrosPorPagina;
 
-                // Cambia los nombres de los encabezados
-                dgvMateriales.Columns["IdMaterial"].HeaderText = "#";
-                dgvMateriales.Columns["UnidadMedida"].HeaderText = "Unidad de medida";
+                dtInventario =
+                    Material.CargarMateriales();
 
-                // Actualiza las cantidades mostradas en las estadísticas
+                totalRegistros =
+                    dtInventario.Rows.Count;
+
+                totalPaginas =
+                    (int)Math.Ceiling(
+                        (double)totalRegistros /
+                        registrosPorPagina);
+
+                if (totalPaginas == 0)
+                {
+                    totalPaginas = 1;
+                }
+
+                if (paginaActual > totalPaginas)
+                {
+                    paginaActual = totalPaginas;
+                }
+
+                MostrarPaginaInventario();
+
+                // Actualiza las estadísticas
                 CargarEstadisticasInventario();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(
-                    "Error al mostrar los materiales: " + ex.Message,
+                    "Error al mostrar los materiales: "
+                    + ex.Message,
                     "Error",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error
                 );
             }
         }
+
+        //----------------------------------------------------------------------
+        // MOSTRAR PÁGINA ACTUAL DEL INVENTARIO
+
+        private void MostrarPaginaInventario()
+        {
+            if (dtInventario == null)
+                return;
+
+            DataTable dtPagina =
+                dtInventario.Clone();
+
+            int inicio =
+                (paginaActual - 1) *
+                registrosPorPagina;
+
+            int fin =
+                Math.Min(
+                    inicio + registrosPorPagina,
+                    dtInventario.Rows.Count
+                );
+
+            for (int i = inicio; i < fin; i++)
+            {
+                dtPagina.ImportRow(
+                    dtInventario.Rows[i]
+                );
+            }
+
+            dgvMateriales.DataSource = null;
+
+            dgvMateriales.DataSource =
+                dtPagina;
+
+            FormatearTablaInventario();
+
+            lblPagina.Text =
+                $"Página {paginaActual} de {totalPaginas}";
+
+            btnAnterior.Enabled =
+                paginaActual > 1;
+
+            btnSiguiente.Enabled =
+                paginaActual < totalPaginas;
+        }
         //------------------------------------------------------------------------
-        //COMO BOXS
+        //COMBO BOXS
 
         // Carga las categorías disponibles en el ComboBox de categorias
         private void CargarComboBoxCategorias()
@@ -292,6 +652,9 @@ namespace Vista.Iventario_Secretario
                         MessageBoxIcon.Information
                     );
 
+                    // Actualiza la tabla y limpia los campos
+                    paginaActual = 1;
+                    dtInventarioBusqueda = null;
                     // Actualiza la tabla y limpia los campos
                     MostrarInventario();
                     LimpiarFormulario();
@@ -495,6 +858,9 @@ namespace Vista.Iventario_Secretario
                     );
 
                     // Actualiza la tabla y limpia los controles
+                    paginaActual = 1;
+                    dtInventarioBusqueda = null;
+                    // Actualiza la tabla y limpia los controles
                     MostrarInventario();
                     LimpiarFormulario();
                 }
@@ -540,20 +906,109 @@ namespace Vista.Iventario_Secretario
                     return;
                 }
 
-                // Muestra los resultados encontrados
-                dgvMateriales.DataSource =
-                    Material.BuscarMaterial(txtBuscar.Text.Trim());
+                string buscar =
+                    txtBuscar.Text.Trim();
+
+                if (string.IsNullOrWhiteSpace(buscar))
+                {
+                    paginaActual = 1;
+
+                    dtInventarioBusqueda = null;
+
+                    MostrarInventario();
+
+                    return;
+                }
+
+
+                // Obtiene todos los resultados encontrados
+                dtInventarioBusqueda =
+                    Material.BuscarMaterial(buscar);
+
+
+                // Calcula el total de resultados
+                totalRegistros =
+                    dtInventarioBusqueda.Rows.Count;
+
+
+                // Calcula las páginas
+                totalPaginas =
+                    (int)Math.Ceiling(
+                        (double)totalRegistros /
+                        registrosPorPagina
+                    );
+
+
+                if (totalPaginas == 0)
+                {
+                    totalPaginas = 1;
+                }
+
+
+                // Regresa a la primera página
+                paginaActual = 1;
+
+
+                // Muestra la página
+                MostrarPaginaBusquedaInventario();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(
-                    "Error al buscar el material: " + ex.Message,
+                    "Error al buscar el material: "
+                    + ex.Message,
                     "Error",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error
                 );
             }
         }
+
+        //----------------------------------------------------------------------
+        // MOSTRAR PÁGINA DE RESULTADOS DE BÚSQUEDA
+
+        private void MostrarPaginaBusquedaInventario()
+        {
+            if (dtInventarioBusqueda == null)
+                return;
+
+            DataTable dtPagina =
+                dtInventarioBusqueda.Clone();
+
+            int inicio =
+                (paginaActual - 1) *
+                registrosPorPagina;
+
+            int fin =
+                Math.Min(
+                    inicio + registrosPorPagina,
+                    dtInventarioBusqueda.Rows.Count
+                );
+
+            for (int i = inicio; i < fin; i++)
+            {
+                dtPagina.ImportRow(
+                    dtInventarioBusqueda.Rows[i]
+                );
+            }
+
+            dgvMateriales.DataSource = null;
+
+            dgvMateriales.DataSource =
+                dtPagina;
+
+            FormatearTablaInventario();
+
+            lblPagina.Text =
+                $"Página {paginaActual} de {totalPaginas}";
+
+            btnAnterior.Enabled =
+                paginaActual > 1;
+
+            btnSiguiente.Enabled =
+                paginaActual < totalPaginas;
+        }
+
         //----------------------------------------------------------------------
         // Carga las estadísticas del inventario
         private void CargarEstadisticasInventario()
@@ -654,6 +1109,39 @@ namespace Vista.Iventario_Secretario
             }
         }
 
+        private void btnAnterior_Click(object sender, EventArgs e)
+        {
+            if (paginaActual > 1)
+            {
+                paginaActual--;
+
+                if (dtInventarioBusqueda != null)
+                {
+                    MostrarPaginaBusquedaInventario();
+                }
+                else
+                {
+                    MostrarPaginaInventario();
+                }
+            }
+        }
+
+        private void btnSiguiente_Click(object sender, EventArgs e)
+        {
+            if (paginaActual < totalPaginas)
+            {
+                paginaActual++;
+
+                if (dtInventarioBusqueda != null)
+                {
+                    MostrarPaginaBusquedaInventario();
+                }
+                else
+                {
+                    MostrarPaginaInventario();
+                }
+            }
+        }
     }
 
 }

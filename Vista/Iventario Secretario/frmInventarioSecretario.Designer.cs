@@ -34,9 +34,11 @@
             this.btnEditar = new System.Windows.Forms.Button();
             this.lblMedida = new System.Windows.Forms.Label();
             this.pnlIndicador = new System.Windows.Forms.Panel();
+            this.lblMaterialesAgotados = new System.Windows.Forms.Label();
             this.lblAgotados = new System.Windows.Forms.Label();
             this.pbAgotados = new System.Windows.Forms.PictureBox();
             this.pnlIndicador1 = new System.Windows.Forms.Panel();
+            this.lblDisponibles = new System.Windows.Forms.Label();
             this.lblMaterialDisponible = new System.Windows.Forms.Label();
             this.pbDisponibles = new System.Windows.Forms.PictureBox();
             this.txtCantidad = new System.Windows.Forms.TextBox();
@@ -44,12 +46,14 @@
             this.lblCategoria = new System.Windows.Forms.Label();
             this.lblMaterial = new System.Windows.Forms.Label();
             this.pnlIndicador2 = new System.Windows.Forms.Panel();
+            this.lblAgotandose = new System.Windows.Forms.Label();
             this.pbPocasUnidades = new System.Windows.Forms.PictureBox();
             this.txtMaterial = new System.Windows.Forms.TextBox();
             this.pnlPrincipal = new System.Windows.Forms.Panel();
             this.dgvMateriales = new System.Windows.Forms.DataGridView();
             this.lblDatosMaterial = new System.Windows.Forms.Label();
             this.pnlIndicador3 = new System.Windows.Forms.Panel();
+            this.lblTotalRegistrados = new System.Windows.Forms.Label();
             this.lblTotalInventario = new System.Windows.Forms.Label();
             this.pbTotalRegistros = new System.Windows.Forms.PictureBox();
             this.txtBuscar = new System.Windows.Forms.TextBox();
@@ -59,16 +63,15 @@
             this.lblSubTexto = new System.Windows.Forms.Label();
             this.lblMensajeInformativoPrincipal = new System.Windows.Forms.Label();
             this.pnlPedidaDeDatos = new System.Windows.Forms.Panel();
+            this.btnNuevo = new System.Windows.Forms.Button();
             this.btnGuardarCambios = new System.Windows.Forms.Button();
             this.cbCategorias = new System.Windows.Forms.ComboBox();
             this.pnlContenedorPrincipalInventario = new System.Windows.Forms.Panel();
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.pbBuscar = new System.Windows.Forms.PictureBox();
-            this.lblMaterialesAgotados = new System.Windows.Forms.Label();
-            this.lblDisponibles = new System.Windows.Forms.Label();
-            this.lblAgotandose = new System.Windows.Forms.Label();
-            this.lblTotalRegistrados = new System.Windows.Forms.Label();
-            this.btnNuevo = new System.Windows.Forms.Button();
+            this.lblPagina = new System.Windows.Forms.Label();
+            this.btnAnterior = new System.Windows.Forms.Button();
+            this.btnSiguiente = new System.Windows.Forms.Button();
             this.pnlIndicador.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbAgotados)).BeginInit();
             this.pnlIndicador1.SuspendLayout();
@@ -161,6 +164,15 @@
             this.pnlIndicador.Size = new System.Drawing.Size(201, 77);
             this.pnlIndicador.TabIndex = 4;
             // 
+            // lblMaterialesAgotados
+            // 
+            this.lblMaterialesAgotados.AutoSize = true;
+            this.lblMaterialesAgotados.Location = new System.Drawing.Point(121, 44);
+            this.lblMaterialesAgotados.Name = "lblMaterialesAgotados";
+            this.lblMaterialesAgotados.Size = new System.Drawing.Size(35, 13);
+            this.lblMaterialesAgotados.TabIndex = 6;
+            this.lblMaterialesAgotados.Text = "label1";
+            // 
             // lblAgotados
             // 
             this.lblAgotados.AutoSize = true;
@@ -192,6 +204,15 @@
             this.pnlIndicador1.Name = "pnlIndicador1";
             this.pnlIndicador1.Size = new System.Drawing.Size(201, 77);
             this.pnlIndicador1.TabIndex = 4;
+            // 
+            // lblDisponibles
+            // 
+            this.lblDisponibles.AutoSize = true;
+            this.lblDisponibles.Location = new System.Drawing.Point(133, 44);
+            this.lblDisponibles.Name = "lblDisponibles";
+            this.lblDisponibles.Size = new System.Drawing.Size(35, 13);
+            this.lblDisponibles.TabIndex = 7;
+            this.lblDisponibles.Text = "label2";
             // 
             // lblMaterialDisponible
             // 
@@ -269,6 +290,15 @@
             this.pnlIndicador2.Size = new System.Drawing.Size(201, 77);
             this.pnlIndicador2.TabIndex = 4;
             // 
+            // lblAgotandose
+            // 
+            this.lblAgotandose.AutoSize = true;
+            this.lblAgotandose.Location = new System.Drawing.Point(132, 44);
+            this.lblAgotandose.Name = "lblAgotandose";
+            this.lblAgotandose.Size = new System.Drawing.Size(35, 13);
+            this.lblAgotandose.TabIndex = 7;
+            this.lblAgotandose.Text = "label3";
+            // 
             // pbPocasUnidades
             // 
             this.pbPocasUnidades.Image = global::Vista.Properties.Resources.material_alerta;
@@ -293,6 +323,9 @@
             // pnlPrincipal
             // 
             this.pnlPrincipal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(153)))), ((int)(((byte)(105)))));
+            this.pnlPrincipal.Controls.Add(this.lblPagina);
+            this.pnlPrincipal.Controls.Add(this.btnAnterior);
+            this.pnlPrincipal.Controls.Add(this.btnSiguiente);
             this.pnlPrincipal.Controls.Add(this.dgvMateriales);
             this.pnlPrincipal.Location = new System.Drawing.Point(260, 104);
             this.pnlPrincipal.Margin = new System.Windows.Forms.Padding(2);
@@ -312,7 +345,7 @@
             this.dgvMateriales.Location = new System.Drawing.Point(12, 10);
             this.dgvMateriales.Name = "dgvMateriales";
             this.dgvMateriales.ReadOnly = true;
-            this.dgvMateriales.Size = new System.Drawing.Size(799, 366);
+            this.dgvMateriales.Size = new System.Drawing.Size(799, 345);
             this.dgvMateriales.TabIndex = 1;
             this.dgvMateriales.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvInventario_CellDoubleClick);
             // 
@@ -338,6 +371,15 @@
             this.pnlIndicador3.Name = "pnlIndicador3";
             this.pnlIndicador3.Size = new System.Drawing.Size(201, 77);
             this.pnlIndicador3.TabIndex = 4;
+            // 
+            // lblTotalRegistrados
+            // 
+            this.lblTotalRegistrados.AutoSize = true;
+            this.lblTotalRegistrados.Location = new System.Drawing.Point(120, 44);
+            this.lblTotalRegistrados.Name = "lblTotalRegistrados";
+            this.lblTotalRegistrados.Size = new System.Drawing.Size(35, 13);
+            this.lblTotalRegistrados.TabIndex = 8;
+            this.lblTotalRegistrados.Text = "label4";
             // 
             // lblTotalInventario
             // 
@@ -452,6 +494,16 @@
             this.pnlPedidaDeDatos.Size = new System.Drawing.Size(219, 398);
             this.pnlPedidaDeDatos.TabIndex = 2;
             // 
+            // btnNuevo
+            // 
+            this.btnNuevo.Location = new System.Drawing.Point(23, 62);
+            this.btnNuevo.Name = "btnNuevo";
+            this.btnNuevo.Size = new System.Drawing.Size(174, 28);
+            this.btnNuevo.TabIndex = 25;
+            this.btnNuevo.Text = "Nuevo Material";
+            this.btnNuevo.UseVisualStyleBackColor = true;
+            this.btnNuevo.Click += new System.EventHandler(this.btnNuevo_Click);
+            // 
             // btnGuardarCambios
             // 
             this.btnGuardarCambios.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
@@ -514,51 +566,40 @@
             this.pbBuscar.TabIndex = 10;
             this.pbBuscar.TabStop = false;
             // 
-            // lblMaterialesAgotados
+            // lblPagina
             // 
-            this.lblMaterialesAgotados.AutoSize = true;
-            this.lblMaterialesAgotados.Location = new System.Drawing.Point(121, 44);
-            this.lblMaterialesAgotados.Name = "lblMaterialesAgotados";
-            this.lblMaterialesAgotados.Size = new System.Drawing.Size(35, 13);
-            this.lblMaterialesAgotados.TabIndex = 6;
-            this.lblMaterialesAgotados.Text = "label1";
+            this.lblPagina.AutoSize = true;
+            this.lblPagina.Font = new System.Drawing.Font("Times New Roman", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPagina.ForeColor = System.Drawing.Color.White;
+            this.lblPagina.Location = new System.Drawing.Point(694, 366);
+            this.lblPagina.Name = "lblPagina";
+            this.lblPagina.Size = new System.Drawing.Size(39, 13);
+            this.lblPagina.TabIndex = 10;
+            this.lblPagina.Text = "label1";
             // 
-            // lblDisponibles
+            // btnAnterior
             // 
-            this.lblDisponibles.AutoSize = true;
-            this.lblDisponibles.Location = new System.Drawing.Point(133, 44);
-            this.lblDisponibles.Name = "lblDisponibles";
-            this.lblDisponibles.Size = new System.Drawing.Size(35, 13);
-            this.lblDisponibles.TabIndex = 7;
-            this.lblDisponibles.Text = "label2";
+            this.btnAnterior.FlatAppearance.BorderSize = 0;
+            this.btnAnterior.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAnterior.Image = global::Vista.Properties.Resources.flecha_atras;
+            this.btnAnterior.Location = new System.Drawing.Point(657, 361);
+            this.btnAnterior.Name = "btnAnterior";
+            this.btnAnterior.Size = new System.Drawing.Size(30, 23);
+            this.btnAnterior.TabIndex = 9;
+            this.btnAnterior.UseVisualStyleBackColor = true;
+            this.btnAnterior.Click += new System.EventHandler(this.btnAnterior_Click);
             // 
-            // lblAgotandose
+            // btnSiguiente
             // 
-            this.lblAgotandose.AutoSize = true;
-            this.lblAgotandose.Location = new System.Drawing.Point(132, 44);
-            this.lblAgotandose.Name = "lblAgotandose";
-            this.lblAgotandose.Size = new System.Drawing.Size(35, 13);
-            this.lblAgotandose.TabIndex = 7;
-            this.lblAgotandose.Text = "label3";
-            // 
-            // lblTotalRegistrados
-            // 
-            this.lblTotalRegistrados.AutoSize = true;
-            this.lblTotalRegistrados.Location = new System.Drawing.Point(120, 44);
-            this.lblTotalRegistrados.Name = "lblTotalRegistrados";
-            this.lblTotalRegistrados.Size = new System.Drawing.Size(35, 13);
-            this.lblTotalRegistrados.TabIndex = 8;
-            this.lblTotalRegistrados.Text = "label4";
-            // 
-            // btnNuevo
-            // 
-            this.btnNuevo.Location = new System.Drawing.Point(23, 62);
-            this.btnNuevo.Name = "btnNuevo";
-            this.btnNuevo.Size = new System.Drawing.Size(174, 28);
-            this.btnNuevo.TabIndex = 25;
-            this.btnNuevo.Text = "Nuevo Material";
-            this.btnNuevo.UseVisualStyleBackColor = true;
-            this.btnNuevo.Click += new System.EventHandler(this.btnNuevo_Click);
+            this.btnSiguiente.FlatAppearance.BorderSize = 0;
+            this.btnSiguiente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSiguiente.Image = global::Vista.Properties.Resources.flecha_adelante;
+            this.btnSiguiente.Location = new System.Drawing.Point(781, 359);
+            this.btnSiguiente.Name = "btnSiguiente";
+            this.btnSiguiente.Size = new System.Drawing.Size(30, 23);
+            this.btnSiguiente.TabIndex = 8;
+            this.btnSiguiente.UseVisualStyleBackColor = true;
+            this.btnSiguiente.Click += new System.EventHandler(this.btnSiguiente_Click);
             // 
             // frmInventarioSecretario
             // 
@@ -580,6 +621,7 @@
             this.pnlIndicador2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbPocasUnidades)).EndInit();
             this.pnlPrincipal.ResumeLayout(false);
+            this.pnlPrincipal.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMateriales)).EndInit();
             this.pnlIndicador3.ResumeLayout(false);
             this.pnlIndicador3.PerformLayout();
@@ -641,5 +683,8 @@
         private System.Windows.Forms.Label lblAgotandose;
         private System.Windows.Forms.Label lblTotalRegistrados;
         private System.Windows.Forms.Button btnNuevo;
+        private System.Windows.Forms.Label lblPagina;
+        private System.Windows.Forms.Button btnAnterior;
+        private System.Windows.Forms.Button btnSiguiente;
     }
 }
