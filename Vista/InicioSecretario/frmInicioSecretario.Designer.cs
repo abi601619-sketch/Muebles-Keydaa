@@ -28,12 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.pnlContenedor = new System.Windows.Forms.Panel();
             this.chartPedidosEstado = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -99,16 +99,16 @@
             // 
             // chartPedidosEstado
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chartPedidosEstado.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chartPedidosEstado.Legends.Add(legend1);
+            chartArea3.Name = "ChartArea1";
+            this.chartPedidosEstado.ChartAreas.Add(chartArea3);
+            legend3.Name = "Legend1";
+            this.chartPedidosEstado.Legends.Add(legend3);
             this.chartPedidosEstado.Location = new System.Drawing.Point(653, 428);
             this.chartPedidosEstado.Name = "chartPedidosEstado";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chartPedidosEstado.Series.Add(series1);
+            series3.ChartArea = "ChartArea1";
+            series3.Legend = "Legend1";
+            series3.Name = "Series1";
+            this.chartPedidosEstado.Series.Add(series3);
             this.chartPedidosEstado.Size = new System.Drawing.Size(438, 187);
             this.chartPedidosEstado.TabIndex = 36;
             this.chartPedidosEstado.Text = "char";
@@ -125,16 +125,16 @@
             // 
             // chartInventarioEstado
             // 
-            chartArea2.Name = "ChartArea1";
-            this.chartInventarioEstado.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.chartInventarioEstado.Legends.Add(legend2);
+            chartArea4.Name = "ChartArea1";
+            this.chartInventarioEstado.ChartAreas.Add(chartArea4);
+            legend4.Name = "Legend1";
+            this.chartInventarioEstado.Legends.Add(legend4);
             this.chartInventarioEstado.Location = new System.Drawing.Point(24, 13);
             this.chartInventarioEstado.Name = "chartInventarioEstado";
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.chartInventarioEstado.Series.Add(series2);
+            series4.ChartArea = "ChartArea1";
+            series4.Legend = "Legend1";
+            series4.Name = "Series1";
+            this.chartInventarioEstado.Series.Add(series4);
             this.chartInventarioEstado.Size = new System.Drawing.Size(573, 345);
             this.chartInventarioEstado.TabIndex = 0;
             this.chartInventarioEstado.Text = " chartPedidosEstado";
@@ -336,9 +336,9 @@
             this.dgvPedidosRecientes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvPedidosRecientes.BackgroundColor = System.Drawing.Color.White;
             this.dgvPedidosRecientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.dgvPedidosRecientes.Location = new System.Drawing.Point(17, 39);
+            this.dgvPedidosRecientes.Location = new System.Drawing.Point(17, 37);
             this.dgvPedidosRecientes.Name = "dgvPedidosRecientes";
-            this.dgvPedidosRecientes.Size = new System.Drawing.Size(399, 150);
+            this.dgvPedidosRecientes.Size = new System.Drawing.Size(399, 161);
             this.dgvPedidosRecientes.TabIndex = 0;
             // 
             // lblSubTexto

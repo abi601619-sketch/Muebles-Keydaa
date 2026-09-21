@@ -39,7 +39,279 @@ namespace Vista.Pedidos
         int idPedidoSeleccionado = 0;
         private string estadoOriginal = "";
         private DateTime fechaEntregaOriginal;
+        //------------------------------------------------------------------------
+        // CONFIGURAR TABLAS DE PEDIDOS
+        private void ConfigurarTablas()
+        {
+            // TABLA DE PEDIDOS REGISTRADOS
 
+            dgvPedidosRegistrados.EnableHeadersVisualStyles = false;
+
+            // Encabezado
+            dgvPedidosRegistrados.ColumnHeadersDefaultCellStyle.BackColor =
+                Color.FromArgb(121, 75, 45);
+
+            dgvPedidosRegistrados.ColumnHeadersDefaultCellStyle.ForeColor =
+                Color.White;
+
+            dgvPedidosRegistrados.ColumnHeadersDefaultCellStyle.Font =
+                new Font("Times New Roman", 9, FontStyle.Regular);
+
+            dgvPedidosRegistrados.ColumnHeadersDefaultCellStyle.Alignment =
+                DataGridViewContentAlignment.MiddleCenter;
+
+            // Filas
+            dgvPedidosRegistrados.DefaultCellStyle.BackColor =
+                Color.FromArgb(255, 255, 255);
+
+            dgvPedidosRegistrados.DefaultCellStyle.ForeColor =
+                Color.FromArgb(45, 45, 45);
+
+            dgvPedidosRegistrados.DefaultCellStyle.Font =
+                new Font("Segoe UI", 9, FontStyle.Regular);
+
+            dgvPedidosRegistrados.DefaultCellStyle.Alignment =
+                DataGridViewContentAlignment.MiddleLeft;
+
+            // Filas alternadas
+            dgvPedidosRegistrados.AlternatingRowsDefaultCellStyle.BackColor =
+                Color.FromArgb(248, 241, 232);
+
+            // Selección
+            dgvPedidosRegistrados.DefaultCellStyle.SelectionBackColor =
+                Color.FromArgb(224, 193, 157);
+
+            dgvPedidosRegistrados.DefaultCellStyle.SelectionForeColor =
+                Color.Black;
+
+            // Bordes
+            dgvPedidosRegistrados.CellBorderStyle =
+                DataGridViewCellBorderStyle.SingleHorizontal;
+
+            dgvPedidosRegistrados.GridColor =
+                Color.FromArgb(220, 220, 220);
+
+            // Alto de filas
+            dgvPedidosRegistrados.RowTemplate.Height = 32;
+
+            // Encabezado
+            dgvPedidosRegistrados.ColumnHeadersHeight = 30;
+
+            // No permitir modificar la tabla
+            dgvPedidosRegistrados.ReadOnly = true;
+            dgvPedidosRegistrados.AllowUserToAddRows = false;
+            dgvPedidosRegistrados.AllowUserToDeleteRows = false;
+
+            // Seleccionar una fila completa
+            dgvPedidosRegistrados.SelectionMode =
+                DataGridViewSelectionMode.FullRowSelect;
+
+            dgvPedidosRegistrados.MultiSelect = false;
+
+            // Quitar borde exterior
+            dgvPedidosRegistrados.BorderStyle =
+                BorderStyle.None;
+
+            // Ajustar columnas
+            if (dgvPedidosRegistrados.Columns.Contains("IdPedido"))
+            {
+                dgvPedidosRegistrados.Columns["IdPedido"].Visible = true;
+                dgvPedidosRegistrados.Columns["IdPedido"].Width = 100;
+                dgvPedidosRegistrados.Columns["IdPedido"].HeaderText = "N.º de Pedido";
+                dgvPedidosRegistrados.Columns["IdPedido"].DefaultCellStyle.Alignment =
+                    DataGridViewContentAlignment.MiddleCenter;
+            }
+
+            if (dgvPedidosRegistrados.Columns.Contains("Cliente"))
+            {
+                dgvPedidosRegistrados.Columns["Cliente"].AutoSizeMode =
+                    DataGridViewAutoSizeColumnMode.Fill;
+            }
+
+            if (dgvPedidosRegistrados.Columns.Contains("FechaDePedido"))
+            {
+                dgvPedidosRegistrados.Columns["FechaDePedido"].Width = 120;
+                dgvPedidosRegistrados.Columns["FechaDePedido"].HeaderText =
+                    "Fecha del Pedido";
+
+                dgvPedidosRegistrados.Columns["FechaDePedido"].DefaultCellStyle.Alignment =
+                    DataGridViewContentAlignment.MiddleCenter;
+            }
+
+            if (dgvPedidosRegistrados.Columns.Contains("FechaDeEntrega"))
+            {
+                dgvPedidosRegistrados.Columns["FechaDeEntrega"].Width = 120;
+                dgvPedidosRegistrados.Columns["FechaDeEntrega"].HeaderText =
+                    "Fecha de Entrega";
+
+                dgvPedidosRegistrados.Columns["FechaDeEntrega"].DefaultCellStyle.Alignment =
+                    DataGridViewContentAlignment.MiddleCenter;
+            }
+
+            if (dgvPedidosRegistrados.Columns.Contains("Estado"))
+            {
+                dgvPedidosRegistrados.Columns["Estado"].Width = 100;
+
+                dgvPedidosRegistrados.Columns["Estado"].DefaultCellStyle.Alignment =
+                    DataGridViewContentAlignment.MiddleCenter;
+            }
+
+
+
+            // TABLA DE DETALLES DEL PEDIDO
+
+
+            dgvDetallesDePedido.EnableHeadersVisualStyles = false;
+
+            // Encabezado
+            dgvDetallesDePedido.ColumnHeadersDefaultCellStyle.BackColor =
+                Color.FromArgb(121, 75, 45);
+
+            dgvDetallesDePedido.ColumnHeadersDefaultCellStyle.ForeColor =
+                Color.White;
+
+            dgvDetallesDePedido.ColumnHeadersDefaultCellStyle.Font =
+                new Font("Times New Roman", 9, FontStyle.Regular);
+
+            dgvDetallesDePedido.ColumnHeadersDefaultCellStyle.Alignment =
+                DataGridViewContentAlignment.MiddleCenter;
+
+            dgvPedidosRegistrados.ColumnHeadersDefaultCellStyle.SelectionBackColor =
+    Color.FromArgb(121, 75, 45);
+
+            dgvPedidosRegistrados.ColumnHeadersDefaultCellStyle.SelectionForeColor =
+                Color.White;
+
+            // Filas
+            dgvDetallesDePedido.DefaultCellStyle.BackColor =
+                Color.White;
+
+            dgvDetallesDePedido.DefaultCellStyle.ForeColor =
+                Color.FromArgb(45, 45, 45);
+
+            dgvDetallesDePedido.DefaultCellStyle.Font =
+                new Font("Times New Roman", 9, FontStyle.Regular);
+
+            dgvDetallesDePedido.DefaultCellStyle.Alignment =
+                DataGridViewContentAlignment.MiddleLeft;
+
+            // Filas alternadas
+            dgvDetallesDePedido.AlternatingRowsDefaultCellStyle.BackColor =
+                Color.FromArgb(248, 241, 232);
+
+            // Selección
+            dgvDetallesDePedido.DefaultCellStyle.SelectionBackColor =
+                Color.FromArgb(224, 193, 157);
+
+            dgvDetallesDePedido.DefaultCellStyle.SelectionForeColor =
+                Color.Black;
+
+            // Bordes
+            dgvDetallesDePedido.CellBorderStyle =
+                DataGridViewCellBorderStyle.SingleHorizontal;
+
+            dgvDetallesDePedido.GridColor =
+                Color.FromArgb(220, 220, 220);
+
+            // Alto de filas
+            dgvDetallesDePedido.RowTemplate.Height = 32;
+
+            // Encabezado
+            dgvDetallesDePedido.ColumnHeadersHeight = 30;
+
+            // No permitir modificar
+            dgvDetallesDePedido.ReadOnly = true;
+            dgvDetallesDePedido.AllowUserToAddRows = false;
+            dgvDetallesDePedido.AllowUserToDeleteRows = false;
+
+            // Seleccionar fila completa
+            dgvDetallesDePedido.SelectionMode =
+                DataGridViewSelectionMode.FullRowSelect;
+
+            dgvDetallesDePedido.MultiSelect = false;
+
+            // Quitar borde exterior
+            dgvDetallesDePedido.BorderStyle =
+                BorderStyle.None;
+
+            // COLUMNAS DE DETALLES
+
+            if (dgvDetallesDePedido.Columns.Contains("IdDetallePedido"))
+            {
+                dgvDetallesDePedido.Columns["IdDetallePedido"].Visible = false;
+            }
+
+            if (dgvDetallesDePedido.Columns.Contains("IdPedido"))
+            {
+                dgvDetallesDePedido.Columns["IdPedido"].Visible = false;
+            }
+
+            if (dgvDetallesDePedido.Columns.Contains("Mueble"))
+            {
+                dgvDetallesDePedido.Columns["Mueble"].HeaderText = "Mueble";
+
+                dgvDetallesDePedido.Columns["Mueble"].AutoSizeMode =
+                    DataGridViewAutoSizeColumnMode.Fill;
+            }
+
+            if (dgvDetallesDePedido.Columns.Contains("Cantidad"))
+            {
+                dgvDetallesDePedido.Columns["Cantidad"].HeaderText = "Cantidad";
+                dgvDetallesDePedido.Columns["Cantidad"].Width = 90;
+
+                dgvDetallesDePedido.Columns["Cantidad"].DefaultCellStyle.Alignment =
+                    DataGridViewContentAlignment.MiddleCenter;
+            }
+
+            if (dgvDetallesDePedido.Columns.Contains("Medidas"))
+            {
+                dgvDetallesDePedido.Columns["Medidas"].HeaderText = "Medidas";
+                dgvDetallesDePedido.Columns["Medidas"].Width = 150;
+
+                dgvDetallesDePedido.Columns["Medidas"].DefaultCellStyle.Alignment =
+                    DataGridViewContentAlignment.MiddleCenter;
+            }
+
+
+
+            // BOTÓN ELIMINAR
+
+
+            if (dgvDetallesDePedido.Columns.Contains("EliminarProducto"))
+            {
+                DataGridViewButtonColumn botonEliminar =
+                    dgvDetallesDePedido.Columns["EliminarProducto"]
+                    as DataGridViewButtonColumn;
+
+                if (botonEliminar != null)
+                {
+                    botonEliminar.HeaderText = "Eliminar";
+                    botonEliminar.Text = "Eliminar";
+                    botonEliminar.UseColumnTextForButtonValue = true;
+                    botonEliminar.Width = 90;
+
+                    botonEliminar.DefaultCellStyle.BackColor =
+                        Color.FromArgb(121, 75, 45);
+
+                    botonEliminar.DefaultCellStyle.ForeColor =
+                        Color.White;
+
+                    botonEliminar.DefaultCellStyle.SelectionBackColor =
+                        Color.FromArgb(94, 56, 33);
+
+                    botonEliminar.DefaultCellStyle.SelectionForeColor =
+                        Color.White;
+
+                    botonEliminar.DefaultCellStyle.Alignment =
+                        DataGridViewContentAlignment.MiddleCenter;
+                    dgvDetallesDePedido.ColumnHeadersDefaultCellStyle.SelectionBackColor =
+    Color.FromArgb(121, 75, 45);
+
+                    dgvDetallesDePedido.ColumnHeadersDefaultCellStyle.SelectionForeColor =
+                        Color.White;
+                }
+            }
+        }
         private void ConfigurarTooltips()
         {
             ToolTip toolTip = new ToolTip();
@@ -88,6 +360,7 @@ namespace Vista.Pedidos
                     return;
                 bool cancelado = DetallePedidos.EliminarDetalle(pedido, detalle, ultimo);
                 dgvDetallesDePedido.DataSource = DetallePedidos.CargarDetallesPorPedido(pedido);
+                ConfigurarColumnasDetalles();
                 MostrarPedidos();
                 if (cancelado && idPedidoSeleccionado == pedido)
                 {
@@ -209,6 +482,10 @@ namespace Vista.Pedidos
         {
             MostrarPedidos();
             MostrarDetallesPedido();
+
+            // Configurar el diseño de las tablas
+            ConfigurarTablas();
+
             ConfigurarTooltips();
 
             cbEstado.Items.Add("En proceso");
@@ -250,6 +527,8 @@ namespace Vista.Pedidos
         {
             dgvDetallesDePedido.DataSource = null;
             dgvDetallesDePedido.DataSource = DetallePedidos.CargarDetallesPedidos();
+
+            ConfigurarColumnasDetalles();
         }
 
         private void MostrarPedidos()
@@ -310,6 +589,7 @@ namespace Vista.Pedidos
                 dgvDetallesDePedido.DataSource = null;
                 dgvDetallesDePedido.DataSource =
                     DetallePedidos.CargarDetallesPorPedido(idPedidoSeleccionado);
+                ConfigurarColumnasDetalles();
             }
             else
             {
@@ -418,71 +698,132 @@ namespace Vista.Pedidos
 
         private void dgvPedidosRegistrados_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-
-
-            if (e.RowIndex < 0 ||
-                ((DataGridView)sender).Rows[e.RowIndex].IsNewRow)
+            try
             {
-                return;
-            }
+                // Verificar que sea una fila válida
+                if (e.RowIndex < 0)
+                    return;
 
-            DataGridViewRow row = dgvPedidosRegistrados.Rows[e.RowIndex];
+                DataGridViewRow fila =
+                    dgvPedidosRegistrados.Rows[e.RowIndex];
 
-            idPedidoSeleccionado = Convert.ToInt32(row.Cells["IdPedido"].Value);
+                if (fila.IsNewRow)
+                    return;
 
-            string estado = row.Cells["Estado"].Value?.ToString();
-
-            cbEstado.Text = estado;
-            estadoOriginal = estado;
-
-            string colPedido = "";
-            string colEntrega = "";
-
-            foreach (DataGridViewColumn col in dgvPedidosRegistrados.Columns)
-            {
-                if (col.Name.Contains("Fecha") &&
-                    col.Name.Contains("Pedido"))
+                // Obtener el ID del pedido seleccionado
+                if (fila.Cells["IdPedido"].Value == null ||
+                    fila.Cells["IdPedido"].Value == DBNull.Value)
                 {
-                    colPedido = col.Name;
+                    return;
                 }
 
-                if (col.Name.Contains("Fecha") &&
-                    col.Name.Contains("Entrega"))
+                idPedidoSeleccionado =
+                    Convert.ToInt32(fila.Cells["IdPedido"].Value);
+
+                // CARGAR ESTADO
+
+                string estado =
+                    fila.Cells["Estado"].Value?.ToString() ?? "";
+
+                cbEstado.Text = estado;
+
+                estadoOriginal = estado;
+
+                // CARGAR FECHA DEL PEDIDO              
+
+                if (fila.Cells["FechaDePedido"].Value != null &&
+                    fila.Cells["FechaDePedido"].Value != DBNull.Value)
                 {
-                    colEntrega = col.Name;
+                    dtpFechaPedido.Value =
+                        Convert.ToDateTime(
+                            fila.Cells["FechaDePedido"].Value);
                 }
-            }
 
-            if (!string.IsNullOrEmpty(colPedido) &&
-                row.Cells[colPedido].Value != DBNull.Value &&
-                row.Cells[colPedido].Value != null)
+
+                // CARGAR FECHA DE ENTREGA
+
+
+                if (fila.Cells["FechaDeEntrega"].Value != null &&
+                    fila.Cells["FechaDeEntrega"].Value != DBNull.Value)
+                {
+                    fechaEntregaOriginal =
+                        Convert.ToDateTime(
+                            fila.Cells["FechaDeEntrega"].Value);
+
+                    dtpFechaDeEntrega.Value =
+                        fechaEntregaOriginal;
+                }
+
+                // CARGAR CLIENTE
+
+                if (fila.Cells["Cliente"].Value != null)
+                {
+                    txtClienteSeleccionado.Text =
+                        fila.Cells["Cliente"].Value.ToString();
+
+                    txtClienteSeleccionado.ForeColor =
+                        Color.Black;
+
+                    txtClienteSeleccionado.Enabled = false;
+                }
+
+
+                // CARGAR DETALLES DEL PEDIDO
+
+                DataTable detalles =
+                    DetallePedidos.CargarDetallesPorPedido(
+                        idPedidoSeleccionado);
+
+                dgvDetallesDePedido.DataSource = null;
+
+                dgvDetallesDePedido.DataSource = detalles;
+
+                // CONFIGURAR TABLA DE DETALLES
+                ConfigurarColumnasDetalles();
+            }
+            catch (Exception ex)
             {
-                dtpFechaPedido.Value =
-                    Convert.ToDateTime(row.Cells[colPedido].Value);
+                MessageBox.Show(
+                    "Ocurrió un error al cargar los detalles del pedido.\n" +
+                    ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
             }
-
-            if (!string.IsNullOrEmpty(colEntrega) &&
-                row.Cells[colEntrega].Value != DBNull.Value &&
-                row.Cells[colEntrega].Value != null)
-            {
-                dtpFechaDeEntrega.Value =
-                    Convert.ToDateTime(row.Cells[colEntrega].Value);
-
-                fechaEntregaOriginal =
-                    Convert.ToDateTime(row.Cells[colEntrega].Value);
-            }
-
-            dgvDetallesDePedido.DataSource = null;
-
-            dgvDetallesDePedido.DataSource = DetallePedidos.CargarDetallesPorPedido(idPedidoSeleccionado);
-
-            dgvDetallesDePedido.Columns["IdDetallePedido"].Visible = false;
-            dgvDetallesDePedido.Columns["IdPedido"].Visible = false;
-            dgvDetallesDePedido.Columns["Mueble"].HeaderText = "Mueble";
-            dgvDetallesDePedido.Columns["Cantidad"].HeaderText = "Cantidad";
-            dgvDetallesDePedido.Columns["Medidas"].HeaderText = "Medidas";
         }
+        private void ConfigurarColumnasDetalles()
+        {
+            if (dgvDetallesDePedido.Columns.Contains("IdDetallePedido"))
+            {
+                dgvDetallesDePedido.Columns["IdDetallePedido"].Visible = false;
+            }
 
+            if (dgvDetallesDePedido.Columns.Contains("IdPedido"))
+            {
+                dgvDetallesDePedido.Columns["IdPedido"].Visible = false;
+            }
+
+            if (dgvDetallesDePedido.Columns.Contains("Mueble"))
+            {
+                dgvDetallesDePedido.Columns["Mueble"].HeaderText = "Mueble";
+            }
+
+            if (dgvDetallesDePedido.Columns.Contains("Cantidad"))
+            {
+                dgvDetallesDePedido.Columns["Cantidad"].HeaderText = "Cantidad";
+            }
+
+            if (dgvDetallesDePedido.Columns.Contains("Medidas"))
+            {
+                dgvDetallesDePedido.Columns["Medidas"].HeaderText = "Medidas";
+            }
+
+            if (dgvDetallesDePedido.Columns.Contains("EliminarProducto"))
+            {
+                dgvDetallesDePedido.Columns["EliminarProducto"].HeaderText =
+                    "Eliminar";
+            }
+        }
         private void txtMuebleaRealizar_KeyPress(
             object sender,
             KeyPressEventArgs e)
@@ -563,43 +904,9 @@ namespace Vista.Pedidos
             }
         }
 
-        private void dgvPedidosRegistrados_CellDoubleClick(
-            object sender,
-            DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex < 0)
-                return;
 
-            dgvDetallesDePedido.Columns["IdDetallePedido"].Visible = false;
-            dgvDetallesDePedido.Columns["IdPedido"].HeaderText = "N.º de Pedido";
-            dgvDetallesDePedido.Columns["Mueble"].HeaderText = "Mueble";
-            dgvDetallesDePedido.Columns["Cantidad"].HeaderText = "Cantidad";
-            dgvDetallesDePedido.Columns["Medidas"].HeaderText = "Medidas";
 
-            DataGridViewRow fila =
-                dgvPedidosRegistrados.Rows[e.RowIndex];
 
-            int idPedido =
-                Convert.ToInt32(fila.Cells["IdPedido"].Value);
-
-            string cliente =
-                fila.Cells["Cliente"].Value.ToString();
-
-            this.idPedidoSeleccionado = idPedido;
-
-            txtClienteSeleccionado.Text = cliente;
-            txtClienteSeleccionado.ForeColor = Color.Black;
-            txtClienteSeleccionado.Enabled = false;
-        }
-
-        private void dgvPedidosRegistrados_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            dgvDetallesDePedido.Columns["IdDetallePedido"].Visible = false;
-            dgvDetallesDePedido.Columns["IdPedido"].HeaderText = "N.º de Pedido";
-            dgvDetallesDePedido.Columns["Mueble"].HeaderText = "Mueble";
-            dgvDetallesDePedido.Columns["Cantidad"].HeaderText = "Cantidad";
-            dgvDetallesDePedido.Columns["Medidas"].HeaderText = "Medidas";
-        }
 
         private void btnAnterior_Click(object sender, EventArgs e)
         {
@@ -619,6 +926,27 @@ namespace Vista.Pedidos
 
                 MostrarPaginaPedidos();
             }
+        }
+
+        private void dgvPedidosRegistrados_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0)
+                return;
+
+            DataGridViewRow fila =
+                dgvPedidosRegistrados.Rows[e.RowIndex];
+
+            int idPedido =
+                Convert.ToInt32(fila.Cells["IdPedido"].Value);
+
+            string cliente =
+                fila.Cells["Cliente"].Value?.ToString() ?? "";
+
+            idPedidoSeleccionado = idPedido;
+
+            txtClienteSeleccionado.Text = cliente;
+            txtClienteSeleccionado.ForeColor = Color.Black;
+            txtClienteSeleccionado.Enabled = false;
         }
     }
 }

@@ -14,6 +14,7 @@ namespace Vista.Clientes
         {
             InitializeComponent();
             ResponsiveHelper.Apply(this);
+            ConfigurarTablasClientes();
 
         }
 
@@ -63,6 +64,7 @@ namespace Vista.Clientes
                 DbCliente.CargarCorporativos(
                     registrosSaltar,
                     registrosPorPagina);
+            FormatearTablaCorporativos();
 
             totalRegistros = DbCliente.ObtenerTotalCorporativos();
 
@@ -130,7 +132,520 @@ namespace Vista.Clientes
                 paginaActualIndividual < totalPaginasIndividual;
 
             ActualizarEstadisticas();
+            FormatearTablaIndividuales();
+
         }
+
+        //CONFIGURACION DEL DISEÑO DE LOS DATAGRID
+        //----------------------------------------------------------------------
+        // CONFIGURAR TABLAS DE CLIENTES
+
+        private void ConfigurarTablasClientes()
+        {
+            // TABLA DE CLIENTES CORPORATIVOS
+            ConfigurarEstiloTabla(dgvClientesCorporativos);
+
+            // TABLA DE CLIENTES INDIVIDUALES
+            ConfigurarEstiloTabla(dgvClientesIndividuales);
+        }
+
+
+        //----------------------------------------------------------------------
+        // CONFIGURAR ESTILO GENERAL DE LAS TABLAS
+
+        private void ConfigurarEstiloTabla(DataGridView tabla)
+        {
+            // Configuración general
+            tabla.AutoGenerateColumns = true;
+
+            tabla.AllowUserToAddRows = false;
+            tabla.AllowUserToDeleteRows = false;
+            tabla.AllowUserToResizeRows = false;
+            tabla.AllowUserToResizeColumns = false;
+
+            tabla.ReadOnly = true;
+
+            tabla.MultiSelect = false;
+
+            tabla.SelectionMode =
+                DataGridViewSelectionMode.FullRowSelect;
+
+            tabla.RowHeadersVisible = false;
+
+            tabla.BorderStyle =
+                BorderStyle.None;
+
+            tabla.BackgroundColor =
+                Color.White;
+
+            tabla.CellBorderStyle =
+                DataGridViewCellBorderStyle.SingleHorizontal;
+
+            tabla.GridColor =
+                Color.FromArgb(
+                    225,
+                    225,
+                    225
+                );
+
+            tabla.EnableHeadersVisualStyles = false;
+
+            // Altura del encabezado
+            tabla.ColumnHeadersHeight = 40;
+
+            // Altura de las filas
+            tabla.RowTemplate.Height = 34;
+
+            // Ajustar columnas al espacio disponible
+            tabla.AutoSizeColumnsMode =
+                DataGridViewAutoSizeColumnsMode.Fill;
+
+
+            //---------------------------------------------------------------------- 
+            // ENCABEZADO
+
+            tabla.ColumnHeadersDefaultCellStyle =
+                new DataGridViewCellStyle
+                {
+                    BackColor =
+                        Color.FromArgb(
+                            121,
+                            78,
+                            48
+                        ),
+
+                    ForeColor =
+                        Color.White,
+
+                    Font =
+                        new Font(
+                            "Times New Roman",
+                            10,
+                            FontStyle.Bold
+                        ),
+
+                    Alignment =
+                        DataGridViewContentAlignment.MiddleCenter,
+
+                    SelectionBackColor =
+                        Color.FromArgb(
+                            121,
+                            78,
+                            48
+                        ),
+
+                    SelectionForeColor =
+                        Color.White,
+
+                    Padding =
+                        new Padding(
+                            5
+                        )
+                };
+
+
+            //---------------------------------------------------------------------- 
+            // FILAS
+
+            tabla.DefaultCellStyle =
+                new DataGridViewCellStyle
+                {
+                    BackColor =
+                        Color.White,
+
+                    ForeColor =
+                        Color.FromArgb(
+                            55,
+                            55,
+                            55
+                        ),
+
+                    Font =
+                        new Font(
+                            "Times New Roman",
+                            10
+                        ),
+
+                    Alignment =
+                        DataGridViewContentAlignment.MiddleCenter,
+
+                    SelectionBackColor =
+                        Color.FromArgb(
+                            238,
+                            215,
+                            185
+                        ),
+
+                    SelectionForeColor =
+                        Color.FromArgb(
+                            60,
+                            45,
+                            35
+                        ),
+
+                    Padding =
+                        new Padding(
+                            5
+                        )
+                };
+
+
+            //---------------------------------------------------------------------- 
+            // FILAS ALTERNADAS
+
+            tabla.AlternatingRowsDefaultCellStyle =
+                new DataGridViewCellStyle
+                {
+                    BackColor =
+                        Color.FromArgb(
+                            250,
+                            246,
+                            240
+                        ),
+
+                    ForeColor =
+                        Color.FromArgb(
+                            55,
+                            55,
+                            55
+                        ),
+
+                    Font =
+                        new Font(
+                            "Times New Roman",
+                            10
+                        ),
+
+                    SelectionBackColor =
+                        Color.FromArgb(
+                            238,
+                            215,
+                            185
+                        ),
+
+                    SelectionForeColor =
+                        Color.FromArgb(
+                            60,
+                            45,
+                            35
+                        )
+                };
+
+
+            //---------------------------------------------------------------------- 
+            // FILA SELECCIONADA
+
+            tabla.RowsDefaultCellStyle.SelectionBackColor =
+                Color.FromArgb(
+                    238,
+                    215,
+                    185
+                );
+
+            tabla.RowsDefaultCellStyle.SelectionForeColor =
+                Color.FromArgb(
+                    60,
+                    45,
+                    35
+                );
+        }
+        //----------------------------------------------------------------------
+        // FORMATEAR TABLA DE CLIENTES INDIVIDUALES
+
+        private void FormatearTablaIndividuales()
+        {
+            if (dgvClientesIndividuales.Columns.Count == 0)
+                return;
+
+
+            // ID
+
+            if (dgvClientesIndividuales.Columns.Contains("IdCliente"))
+            {
+                dgvClientesIndividuales.Columns["IdCliente"].Visible = false;
+            }
+
+
+            // NOMBRE
+
+            if (dgvClientesIndividuales.Columns.Contains("Nombre"))
+            {
+                dgvClientesIndividuales.Columns["Nombre"]
+                    .HeaderText = "Nombre";
+            }
+
+
+            // APELLIDOS
+
+            if (dgvClientesIndividuales.Columns.Contains("Apellidos"))
+            {
+                dgvClientesIndividuales.Columns["Apellidos"]
+                    .HeaderText = "Apellidos";
+            }
+
+
+            // DUI
+
+            if (dgvClientesIndividuales.Columns.Contains("DUI"))
+            {
+                dgvClientesIndividuales.Columns["DUI"]
+                    .HeaderText = "DUI";
+            }
+
+
+            // TELÉFONO
+
+            if (dgvClientesIndividuales.Columns.Contains("Telefono"))
+            {
+                dgvClientesIndividuales.Columns["Telefono"]
+                    .HeaderText = "Teléfono";
+            }
+
+
+            // CORREO
+
+            if (dgvClientesIndividuales.Columns.Contains("Correo"))
+            {
+                dgvClientesIndividuales.Columns["Correo"]
+                    .HeaderText = "Correo";
+            }
+
+
+            // DIRECCIÓN
+
+            if (dgvClientesIndividuales.Columns.Contains("Direccion"))
+            {
+                dgvClientesIndividuales.Columns["Direccion"]
+                    .HeaderText = "Dirección";
+            }
+
+
+            // ESTADO
+
+            if (dgvClientesIndividuales.Columns.Contains("Estado"))
+            {
+                dgvClientesIndividuales.Columns["Estado"]
+                    .HeaderText = "Estado";
+            }
+
+
+            //---------------------------------------------------------------------- 
+            // ALINEACIÓN
+
+            if (dgvClientesIndividuales.Columns.Contains("Nombre"))
+            {
+                dgvClientesIndividuales.Columns["Nombre"]
+                    .DefaultCellStyle.Alignment =
+                    DataGridViewContentAlignment.MiddleLeft;
+            }
+
+
+            if (dgvClientesIndividuales.Columns.Contains("Apellidos"))
+            {
+                dgvClientesIndividuales.Columns["Apellidos"]
+                    .DefaultCellStyle.Alignment =
+                    DataGridViewContentAlignment.MiddleLeft;
+            }
+
+
+            if (dgvClientesIndividuales.Columns.Contains("Correo"))
+            {
+                dgvClientesIndividuales.Columns["Correo"]
+                    .DefaultCellStyle.Alignment =
+                    DataGridViewContentAlignment.MiddleLeft;
+            }
+
+
+            if (dgvClientesIndividuales.Columns.Contains("Direccion"))
+            {
+                dgvClientesIndividuales.Columns["Direccion"]
+                    .DefaultCellStyle.Alignment =
+                    DataGridViewContentAlignment.MiddleLeft;
+            }
+
+
+            //---------------------------------------------------------------------- 
+            // ESTADO
+
+            if (dgvClientesIndividuales.Columns.Contains("Estado"))
+            {
+                dgvClientesIndividuales.Columns["Estado"]
+                    .DefaultCellStyle.Font =
+                    new Font(
+                        "Times New Roman",
+                        10,
+                        FontStyle.Bold
+                    );
+            }
+
+
+            // No permitir ordenar las columnas
+
+            foreach (
+                DataGridViewColumn columna
+                in dgvClientesIndividuales.Columns)
+            {
+                columna.SortMode =
+                    DataGridViewColumnSortMode.NotSortable;
+            }
+
+
+            // Ajustar nuevamente las columnas
+
+            dgvClientesIndividuales.AutoSizeColumnsMode =
+                DataGridViewAutoSizeColumnsMode.Fill;
+        }
+
+        //----------------------------------------------------------------------
+        // FORMATEAR TABLA DE CLIENTES CORPORATIVOS
+
+        private void FormatearTablaCorporativos()
+        {
+            if (dgvClientesCorporativos.Columns.Count == 0)
+                return;
+
+
+            // ID
+
+            if (dgvClientesCorporativos.Columns.Contains("IdCliente"))
+            {
+                dgvClientesCorporativos.Columns["IdCliente"].Visible = false;
+            }
+
+
+            // EMPRESA
+
+            if (dgvClientesCorporativos.Columns.Contains("Nombre_De_Empresa"))
+            {
+                dgvClientesCorporativos.Columns["Nombre_De_Empresa"]
+                    .HeaderText = "Empresa";
+            }
+
+
+            // ENCARGADO
+
+            if (dgvClientesCorporativos.Columns.Contains("Nombre_Del_Encargado"))
+            {
+                dgvClientesCorporativos.Columns["Nombre_Del_Encargado"]
+                    .HeaderText = "Encargado";
+            }
+
+
+            // NIT
+
+            if (dgvClientesCorporativos.Columns.Contains("NIT"))
+            {
+                dgvClientesCorporativos.Columns["NIT"]
+                    .HeaderText = "NIT";
+            }
+
+
+            // TELÉFONO
+
+            if (dgvClientesCorporativos.Columns.Contains("Telefono"))
+            {
+                dgvClientesCorporativos.Columns["Telefono"]
+                    .HeaderText = "Teléfono";
+            }
+
+
+            // CORREO
+
+            if (dgvClientesCorporativos.Columns.Contains("Correo"))
+            {
+                dgvClientesCorporativos.Columns["Correo"]
+                    .HeaderText = "Correo";
+            }
+
+
+            // DIRECCIÓN
+
+            if (dgvClientesCorporativos.Columns.Contains("Direccion"))
+            {
+                dgvClientesCorporativos.Columns["Direccion"]
+                    .HeaderText = "Dirección";
+            }
+
+
+            // ESTADO
+
+            if (dgvClientesCorporativos.Columns.Contains("Estado"))
+            {
+                dgvClientesCorporativos.Columns["Estado"]
+                    .HeaderText = "Estado";
+            }
+
+
+            //---------------------------------------------------------------------- 
+            // ALINEACIÓN
+
+            if (dgvClientesCorporativos.Columns.Contains("Nombre_De_Empresa"))
+            {
+                dgvClientesCorporativos.Columns["Nombre_De_Empresa"]
+                    .DefaultCellStyle.Alignment =
+                    DataGridViewContentAlignment.MiddleLeft;
+            }
+
+
+            if (dgvClientesCorporativos.Columns.Contains("Nombre_Del_Encargado"))
+            {
+                dgvClientesCorporativos.Columns["Nombre_Del_Encargado"]
+                    .DefaultCellStyle.Alignment =
+                    DataGridViewContentAlignment.MiddleLeft;
+            }
+
+
+            if (dgvClientesCorporativos.Columns.Contains("Correo"))
+            {
+                dgvClientesCorporativos.Columns["Correo"]
+                    .DefaultCellStyle.Alignment =
+                    DataGridViewContentAlignment.MiddleLeft;
+            }
+
+
+            if (dgvClientesCorporativos.Columns.Contains("Direccion"))
+            {
+                dgvClientesCorporativos.Columns["Direccion"]
+                    .DefaultCellStyle.Alignment =
+                    DataGridViewContentAlignment.MiddleLeft;
+            }
+
+
+            //---------------------------------------------------------------------- 
+            // ESTADO
+
+            if (dgvClientesCorporativos.Columns.Contains("Estado"))
+            {
+                dgvClientesCorporativos.Columns["Estado"]
+                    .DefaultCellStyle.Font =
+                    new Font(
+                        "Times New Roman",
+                        10,
+                        FontStyle.Bold
+                    );
+            }
+
+
+            // No permitir ordenar las columnas
+
+            foreach (
+                DataGridViewColumn columna
+                in dgvClientesCorporativos.Columns)
+            {
+                columna.SortMode =
+                    DataGridViewColumnSortMode.NotSortable;
+            }
+
+
+            // Ajustar nuevamente las columnas
+
+            dgvClientesCorporativos.AutoSizeColumnsMode =
+                DataGridViewAutoSizeColumnsMode.Fill;
+        }
+
+
+        //------------------------------------------------------------------------------------
+        //CONFIGURACION DE PAGINACION DE LOS DATAGRD
 
         private void btnSiguienteC_Click(object sender, EventArgs e)
         {
@@ -632,32 +1147,6 @@ namespace Vista.Clientes
                 txtNIT.MaxLength = 14;
                 txtTelefono.MaxLength = 9;
                 txtCorreo.MaxLength = 50;
-
-
-                // TABLA DE PERSONAS NATURALES
-
-                dgvClientesIndividuales.Columns["IdCliente"].Visible = false;
-
-                dgvClientesIndividuales.Columns["Nombre"].HeaderText = "Nombre";
-                dgvClientesIndividuales.Columns["Apellidos"].HeaderText = "Apellidos";
-                dgvClientesIndividuales.Columns["DUI"].HeaderText = "DUI";
-                dgvClientesIndividuales.Columns["Telefono"].HeaderText = "Teléfono";
-                dgvClientesIndividuales.Columns["Correo"].HeaderText = "Correo";
-                dgvClientesIndividuales.Columns["Direccion"].HeaderText = "Dirección";
-                dgvClientesIndividuales.Columns["Estado"].HeaderText = "Estado";
-
-                // TABLA DE EMPRESAS
-
-
-                dgvClientesCorporativos.Columns["IdCliente"].Visible = false;
-
-                dgvClientesCorporativos.Columns["Nombre_De_Empresa"].HeaderText = "Empresa";
-                dgvClientesCorporativos.Columns["Nombre_Del_Encargado"].HeaderText = "Encargado";
-                dgvClientesCorporativos.Columns["NIT"].HeaderText = "NIT";
-                dgvClientesCorporativos.Columns["Telefono"].HeaderText = "Teléfono";
-                dgvClientesCorporativos.Columns["Correo"].HeaderText = "Correo";
-                dgvClientesCorporativos.Columns["Direccion"].HeaderText = "Dirección";
-                dgvClientesCorporativos.Columns["Estado"].HeaderText = "Estado";
 
                 // Estado desactivado al comenzar
                 cbEstadoCliente.Enabled = false;
@@ -1388,6 +1877,7 @@ namespace Vista.Clientes
 
             dgvClientesCorporativos.DataSource = null;
             dgvClientesCorporativos.DataSource = dtPagina;
+            FormatearTablaCorporativos();
 
             lblPagina.Text =
                 $"Página {paginaActual} de {totalPaginas}";
@@ -1457,6 +1947,8 @@ namespace Vista.Clientes
                 paginaActualIndividual = 1;
 
                 MostrarPaginaIndividualesBusqueda();
+
+
             }
             catch (Exception ex)
             {
@@ -1489,6 +1981,8 @@ namespace Vista.Clientes
 
             dgvClientesIndividuales.DataSource = null;
             dgvClientesIndividuales.DataSource = dtPagina;
+            FormatearTablaCorporativos();
+
 
             lblPagina.Text =
                 $"Página {paginaActualIndividual} de {totalPaginasIndividual}";
@@ -1498,6 +1992,8 @@ namespace Vista.Clientes
 
             btnSiguiente.Enabled =
                 paginaActualIndividual < totalPaginasIndividual;
+
+
         }
 
         private void txtBuscarIndividual_Leave(object sender, EventArgs e)
