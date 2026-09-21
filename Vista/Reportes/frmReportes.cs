@@ -350,55 +350,31 @@ namespace Vista.Reportes
                 DateTime fechaInicio = dtpFechaInicio.Value.Date;
                 DateTime fechaFin = dtpFechaFin.Value.Date;
 
-                // ==========================================
                 // VALIDAR PERÍODO
-                // ==========================================
 
                 if (fechaInicio > fechaFin)
                 {
-                    MessageBox.Show(
-                        "La fecha de inicio no puede ser mayor que la fecha final.",
-                        "Período inválido",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning
-                    );
+                    MessageBox.Show("La fecha de inicio no puede ser mayor que la fecha final.", "Período inválido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                     return;
                 }
 
-                // ==========================================
                 // OBTENER CLIENTES DEL PERÍODO
-                // ==========================================
 
                 ReportesClientes reporte = new ReportesClientes();
 
-                DataTable clientes =
-                    reporte.ObtenerClientesPorFecha(
-                        fechaInicio,
-                        fechaFin
-                    );
+                DataTable clientes = reporte.ObtenerClientesPorFecha(fechaInicio, fechaFin);
 
                 if (clientes == null || clientes.Rows.Count == 0)
                 {
-                    MessageBox.Show(
-                        "No existen clientes registrados durante el período seleccionado.",
-                        "Sin resultados",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information
-                    );
+                    MessageBox.Show("No existen clientes registrados durante el período seleccionado.", "Sin resultados", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     return;
                 }
 
-                // ==========================================
                 // OBTENER ESTADÍSTICAS
-                // ==========================================
 
-                DataTable estadisticas =
-                    ReportesClientes.ObtenerEstadisticasClientes(
-                        fechaInicio,
-                        fechaFin
-                    );
+                DataTable estadisticas = ReportesClientes.ObtenerEstadisticasClientes(fechaInicio, fechaFin);
 
                 int clientesTotales = 0;
                 int clientesCorporativos = 0;
@@ -407,86 +383,40 @@ namespace Vista.Reportes
                 if (estadisticas != null &&
                     estadisticas.Rows.Count > 0)
                 {
-                    clientesTotales =
-                        Convert.ToInt32(
-                            estadisticas.Rows[0]["ClientesTotales"]
-                        );
+                    clientesTotales = Convert.ToInt32(estadisticas.Rows[0]["ClientesTotales"]);
 
-                    clientesCorporativos =
-                        Convert.ToInt32(
-                            estadisticas.Rows[0]["ClientesCorporativos"]
-                        );
+                    clientesCorporativos = Convert.ToInt32(estadisticas.Rows[0]["ClientesCorporativos"]);
 
-                    clientesIndividuales =
-                        Convert.ToInt32(
-                            estadisticas.Rows[0]["ClientesIndividuales"]
-                        );
+                    clientesIndividuales = Convert.ToInt32(estadisticas.Rows[0]["ClientesIndividuales"]);
                 }
 
-                // ==========================================
                 // CREAR CARPETA DE REPORTES
-                // ==========================================
 
-                string carpetaReportes =
-                    Path.Combine(
-                        Application.StartupPath,
-                        "Reportes"
-                    );
+                string carpetaReportes = Path.Combine(Application.StartupPath, "Reportes");
 
                 if (!Directory.Exists(carpetaReportes))
                 {
                     Directory.CreateDirectory(carpetaReportes);
                 }
 
-                // ==========================================
                 // NOMBRE DEL ARCHIVO
-                // ==========================================
 
-                string nombreArchivo =
-                    $"Reporte_Clientes_{fechaInicio:dd-MM-yyyy}_{fechaFin:dd-MM-yyyy}.pdf";
+                string nombreArchivo = $"Reporte_Clientes_{fechaInicio:dd-MM-yyyy}_{fechaFin:dd-MM-yyyy}.pdf";
 
-                string rutaArchivo =
-                    Path.Combine(
-                        carpetaReportes,
-                        nombreArchivo
-                    );
+                string rutaArchivo = Path.Combine(carpetaReportes, nombreArchivo);
 
-                // ==========================================
                 // CREAR DOCUMENTO PDF
-                // ==========================================
 
-                ClientesDocumentoPDF documento =
-                    new ClientesDocumentoPDF(
-                        clientes,
-                        fechaInicio,
-                        fechaFin,
-                        clientesTotales,
-                        clientesCorporativos,
-                        clientesIndividuales
-                    );
+                ClientesDocumentoPDF documento = new ClientesDocumentoPDF(clientes, fechaInicio, fechaFin, clientesTotales, clientesCorporativos, clientesIndividuales);
 
                 documento.GeneratePdf(rutaArchivo);
 
-                // ==========================================
                 // MENSAJE
-                // ==========================================
 
-                MessageBox.Show(
-                    "El reporte de clientes se generó correctamente.\n\n" +
-                    $"Período: {fechaInicio:dd/MM/yyyy} - {fechaFin:dd/MM/yyyy}\n\n" +
-                    $"Clientes totales: {clientesTotales}\n" +
-                    $"Clientes corporativos: {clientesCorporativos}\n" +
-                    $"Clientes individuales: {clientesIndividuales}\n\n" +
-                    $"Guardado en:\n{rutaArchivo}",
-                    "Reporte generado",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information
-                );
-
-                // ==========================================
+                MessageBox.Show("El reporte de clientes se generó correctamente.\n\n" + $"Período: {fechaInicio:dd/MM/yyyy} - {fechaFin:dd/MM/yyyy}\n\n" + $"Clientes totales: {clientesTotales}\n" + $"Clientes corporativos: {clientesCorporativos}\n" +
+                    $"Clientes individuales: {clientesIndividuales}\n\n" + $"Guardado en:\n{rutaArchivo}", "Reporte generado",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
                 // ABRIR PDF
-                // ==========================================
-
                 Process.Start(new ProcessStartInfo
                 {
                     FileName = rutaArchivo,
@@ -495,13 +425,8 @@ namespace Vista.Reportes
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Ocurrió un error al generar el reporte de clientes:\n\n" +
-                    ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Ocurrió un error al generar el reporte de clientes:\n\n" + ex.Message, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -514,12 +439,8 @@ namespace Vista.Reportes
 
                 if (fechaInicio > fechaFin)
                 {
-                    MessageBox.Show(
-                        "La fecha de inicio no puede ser mayor que la fecha de fin.",
-                        "Rango de fechas",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning
-                    );
+                    MessageBox.Show("La fecha de inicio no puede ser mayor que la fecha de fin.", "Rango de fechas",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                     return;
                 }
@@ -532,13 +453,8 @@ namespace Vista.Reportes
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Ocurrió un error al consultar el reporte de ventas:\n\n" +
-                    ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Ocurrió un error al consultar el reporte de ventas:\n\n" + ex.Message, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -549,52 +465,31 @@ namespace Vista.Reportes
                 DateTime fechaInicio = dtpFechaInicio.Value.Date;
                 DateTime fechaFin = dtpFechaFin.Value.Date;
 
-                // ==========================================
                 // VALIDAR PERÍODO
-                // ==========================================
 
                 if (fechaInicio > fechaFin)
                 {
-                    MessageBox.Show(
-                        "La fecha de inicio no puede ser mayor que la fecha final.",
-                        "Período inválido",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning
-                    );
+                    MessageBox.Show("La fecha de inicio no puede ser mayor que la fecha final.", "Período inválido",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                     return;
                 }
 
-                // ==========================================
                 // OBTENER VENTAS DEL PERÍODO
-                // ==========================================
 
-                DataTable ventas = ReportesVentas.ObtenerVentasPorFecha(
-                    fechaInicio,
-                    fechaFin
-                );
+                DataTable ventas = ReportesVentas.ObtenerVentasPorFecha(fechaInicio, fechaFin);
 
                 if (ventas == null || ventas.Rows.Count == 0)
                 {
-                    MessageBox.Show(
-                        "No existen ventas registradas durante el período seleccionado.",
-                        "Sin resultados",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information
-                    );
+                    MessageBox.Show("No existen ventas registradas durante el período seleccionado.", "Sin resultados",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     return;
                 }
 
-                // ==========================================
                 // OBTENER ESTADÍSTICAS
-                // ==========================================
 
-                DataTable estadisticas =
-                    ReportesVentas.ObtenerEstadisticasVentas(
-                        fechaInicio,
-                        fechaFin
-                    );
+                DataTable estadisticas = ReportesVentas.ObtenerEstadisticasVentas(fechaInicio, fechaFin);
 
                 int facturasEmitidas = 0;
                 double totalVentas = 0;
@@ -615,9 +510,7 @@ namespace Vista.Reportes
                     );
                 }
 
-                // ==========================================
                 // CREAR CARPETA DE REPORTES
-                // ==========================================
 
                 string carpetaReportes = Path.Combine(
                     Application.StartupPath,
@@ -629,21 +522,16 @@ namespace Vista.Reportes
                     Directory.CreateDirectory(carpetaReportes);
                 }
 
-                // ==========================================
                 // NOMBRE DEL ARCHIVO
-                // ==========================================
 
-                string nombreArchivo =
-                    $"Reporte_Ventas_{fechaInicio:dd-MM-yyyy}_{fechaFin:dd-MM-yyyy}.pdf";
+                string nombreArchivo = $"Reporte_Ventas_{fechaInicio:dd-MM-yyyy}_{fechaFin:dd-MM-yyyy}.pdf";
 
                 string rutaArchivo = Path.Combine(
                     carpetaReportes,
                     nombreArchivo
                 );
 
-                // ==========================================
                 // CREAR DOCUMENTO
-                // ==========================================
 
                 VentasDocumentoPDF documento = new VentasDocumentoPDF(
                     ventas,
@@ -656,9 +544,7 @@ namespace Vista.Reportes
 
                 documento.GeneratePdf(rutaArchivo);
 
-                // ==========================================
                 // MENSAJE
-                // ==========================================
 
                 MessageBox.Show(
                     "El reporte de ventas se generó correctamente.\n\n" +
@@ -672,9 +558,7 @@ namespace Vista.Reportes
                     MessageBoxIcon.Information
                 );
 
-                // ==========================================
                 // ABRIR PDF
-                // ==========================================
 
                 Process.Start(new ProcessStartInfo
                 {
@@ -684,13 +568,8 @@ namespace Vista.Reportes
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Ocurrió un error al generar el reporte:\n\n" +
-                    ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Ocurrió un error al generar el reporte:\n\n" + ex.Message, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void ActualizarEstadisticasCotizaciones()
@@ -768,9 +647,7 @@ namespace Vista.Reportes
                     return;
                 }
 
-                // ==========================================
                 // OBTENER COTIZACIONES
-                // ==========================================
 
                 DataTable cotizaciones =
                     ReportesCotizaciones.ObtenerCotizacionesPorFecha(
@@ -778,9 +655,7 @@ namespace Vista.Reportes
                         fechaFin
                     );
 
-                // ==========================================
                 // VALIDAR RESULTADOS
-                // ==========================================
 
                 if (cotizaciones == null ||
                     cotizaciones.Rows.Count == 0)
@@ -801,16 +676,12 @@ namespace Vista.Reportes
                     return;
                 }
 
-                // ==========================================
                 // MOSTRAR COTIZACIONES
-                // ==========================================
 
                 dgvReporteCotizaciones.DataSource = null;
                 dgvReporteCotizaciones.DataSource = cotizaciones;
 
-                // ==========================================
                 // OBTENER ESTADÍSTICAS DEL MISMO PERÍODO
-                // ==========================================
 
                 DataTable estadisticas =
                     ReportesCotizaciones.ObtenerEstadisticasCotizaciones(
@@ -818,9 +689,7 @@ namespace Vista.Reportes
                         fechaFin
                     );
 
-                // ==========================================
                 // MOSTRAR ESTADÍSTICAS
-                // ==========================================
 
                 if (estadisticas != null &&
                     estadisticas.Rows.Count > 0)
@@ -863,9 +732,7 @@ namespace Vista.Reportes
         {
             try
             {
-                // ==========================================
                 // CREAR CARPETA DE REPORTES
-                // ==========================================
 
                 string carpetaReportes =
                     Path.Combine(
@@ -879,9 +746,7 @@ namespace Vista.Reportes
                 }
 
 
-                // ==========================================
                 // NOMBRE DEL ARCHIVO
-                // ==========================================
 
                 string nombreArchivo =
                     $"Reporte_Cotizaciones_{fechaInicio:dd-MM-yyyy}_{fechaFin:dd-MM-yyyy}.pdf";
@@ -908,16 +773,12 @@ namespace Vista.Reportes
                     );
 
 
-                // ==========================================
                 // GENERAR PDF
-                // ==========================================
 
                 documento.GeneratePdf(rutaArchivo);
 
 
-                // ==========================================
                 // MENSAJE
-                // ==========================================
 
                 MessageBox.Show(
                     "El reporte de cotizaciones se generó correctamente.\n\n" +
@@ -932,9 +793,7 @@ namespace Vista.Reportes
                 );
 
 
-                // ==========================================
                 // ABRIR PDF
-                // ==========================================
 
                 Process.Start(new ProcessStartInfo
                 {
@@ -961,9 +820,7 @@ namespace Vista.Reportes
                 DateTime fechaInicio = dtpFechaInicio.Value.Date;
                 DateTime fechaFin = dtpFechaFin.Value.Date;
 
-                // ==========================================
                 // VALIDAR FECHAS
-                // ==========================================
 
                 if (fechaInicio > fechaFin)
                 {
@@ -978,9 +835,7 @@ namespace Vista.Reportes
                 }
 
 
-                // ==========================================
                 // OBTENER COTIZACIONES
-                // ==========================================
 
                 DataTable cotizaciones =
                     ReportesCotizaciones.ObtenerCotizacionesPorFecha(
@@ -1003,9 +858,7 @@ namespace Vista.Reportes
                 }
 
 
-                // ==========================================
                 // OBTENER ESTADÍSTICAS
-                // ==========================================
 
                 DataTable estadisticas =
                     ReportesCotizaciones.ObtenerEstadisticasCotizaciones(
@@ -1039,9 +892,7 @@ namespace Vista.Reportes
                 }
 
 
-                // ==========================================
                 // GENERAR PDF
-                // ==========================================
 
                 GenerarReportePDF(
                     cotizaciones,

@@ -524,9 +524,7 @@ namespace Modelo.PDF
         // ENCABEZADO DE TABLA
         // ==========================================================
 
-        private void EncabezadoTabla(
-            TableCellDescriptor header,
-            string texto)
+        private void EncabezadoTabla(TableCellDescriptor header, string texto)
         {
             header.Cell()
                 .Background("#633719")
@@ -541,9 +539,7 @@ namespace Modelo.PDF
         // CELDA DE TABLA
         // ==========================================================
 
-        private void CeldaTabla(
-            TableDescriptor tabla,
-            object valor)
+        private void CeldaTabla(TableDescriptor tabla, object valor)
         {
             string texto = "";
 
