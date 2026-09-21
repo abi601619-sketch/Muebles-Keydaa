@@ -1,5 +1,6 @@
 using Modelo.Entidades;
 using System;
+using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
 using Vista.Responsive;
@@ -13,6 +14,13 @@ namespace Vista.Categorias_Inventario_Empleado
             InitializeComponent();
             ResponsiveHelper.Apply(this);
         }
+
+        // DATOS PARA LA PAGINACIÓN
+        private DataTable dtCategorias;
+        private int paginaActual = 1;
+        private int registrosPorPagina = 10;
+        private int totalPaginas = 0;
+
         // CARGA INICIAL DEL FORMULARIO
         private void frmCategoriasInventarioSecretario_Load(object sender, EventArgs e)
         {
@@ -20,26 +28,82 @@ namespace Vista.Categorias_Inventario_Empleado
             {
                 // Carga las categorías y estadísticas
                 MostrarCategorias();
+                CargarEstadisticasCategorias();
 
-                // Configura los encabezados del DataGridView
-                ConfigurarColumnas();
-
-                //Configurar tooltips
+                // CONFIGURAR TOOLTIPS
                 ConfigurarTooltips();
+
+                // Configuración inicial de la tabla
+                ConfigurarColumnas();
+                ConfigurarTablaCategorias();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error al cargar las categorías: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        } //-------------------------------------------------------------------------
+          // CONFIGURAR DISEÑO DE LA TABLA
+
+
+
+        // CONFIGURAR TOOLTIPS
+        private void ConfigurarTooltips()
+        {
+            ToolTip toolTip = new ToolTip();
+
+            // Configuración del ToolTip
+            toolTip.AutoPopDelay = 5000;
+            toolTip.InitialDelay = 500;
+            toolTip.ReshowDelay = 200;
+            toolTip.ShowAlways = true;
+
+            // Buscador
+            toolTip.SetToolTip(
+                txtBuscarCategoria,
+                "Ingrese el nombre de una categoría para buscarla."
+            );
+
+            toolTip.SetToolTip(
+                btnBuscar,
+                "Busca la categoría ingresada."
+            );
+
+            // Paginación
+            toolTip.SetToolTip(
+                btnAnterior,
+                "Muestra la página anterior."
+            );
+
+            toolTip.SetToolTip(
+                btnSiguiente,
+                "Muestra la página siguiente."
+            );
+
+            // Tabla
+            toolTip.SetToolTip(
+                dgvCategorias,
+                "Muestra las categorías registradas."
+            );
         }
+
         //---------------------------------------------------------
         // MOSTRAR CATEGORÍAS
+
         public void MostrarCategorias()
         {
             try
             {
-                dgvCategorias.DataSource = null;
-                dgvCategorias.DataSource = Categorias.CargarCategorias();
+                // Cargar todas las categorías
+                dtCategorias = Categorias.CargarCategorias();
+
+                // Iniciar desde la primera página
+                paginaActual = 1;
+
+                // Calcular cantidad de páginas
+                CalcularPaginasCategorias();
+
+                // Mostrar la primera página
+                MostrarPaginaCategorias();
 
                 // Actualiza las estadísticas
                 CargarEstadisticasCategorias();
@@ -58,32 +122,75 @@ namespace Vista.Categorias_Inventario_Empleado
             }
         }
 
-        //CONFIGURAR TOOLTIPS---------------------------
-        private void ConfigurarTooltips()
+        //---------------------------------------------------------
+        // CALCULAR PAGINACIÓN
+
+        private void CalcularPaginasCategorias()
         {
+            if (dtCategorias == null || dtCategorias.Rows.Count == 0)
+            {
+                totalPaginas = 1;
+                paginaActual = 1;
+                return;
+            }
 
-            ToolTip toolTip = new ToolTip();
+            totalPaginas = (int)Math.Ceiling(
+                (double)dtCategorias.Rows.Count / registrosPorPagina);
 
-            // Configuración del ToolTip
-            toolTip.AutoPopDelay = 5000;
-            toolTip.InitialDelay = 500;
-            toolTip.ReshowDelay = 200;
-            toolTip.ShowAlways = true;
-            // Buscador
-            toolTip.SetToolTip(
-                txtBuscarCategoria,
-                "Ingrese el nombre de una categoría para buscarla."
-            );
+            if (totalPaginas == 0)
+                totalPaginas = 1;
 
-            toolTip.SetToolTip(
-                btnBuscar,
-                "Busca la categoría ingresada."
-            );
-
+            if (paginaActual > totalPaginas)
+                paginaActual = totalPaginas;
         }
-        //----------------------------------------------------------
 
-        // Configura los encabezados del DataGridView
+        //---------------------------------------------------------
+        // MOSTRAR PÁGINA DE CATEGORÍAS
+
+        private void MostrarPaginaCategorias()
+        {
+            if (dtCategorias == null)
+                return;
+
+            DataTable dtPagina = dtCategorias.Clone();
+
+            int inicio =
+                (paginaActual - 1) * registrosPorPagina;
+
+            int fin = Math.Min(
+                inicio + registrosPorPagina,
+                dtCategorias.Rows.Count);
+
+            for (int i = inicio; i < fin; i++)
+            {
+                dtPagina.ImportRow(dtCategorias.Rows[i]);
+            }
+
+            // Mostrar únicamente los registros de la página actual
+            dgvCategorias.DataSource = null;
+            dgvCategorias.DataSource = dtPagina;
+
+            // Configura los nombres de las columnas
+            ConfigurarColumnas();
+
+            // Configurar diseño de la tabla
+            ConfigurarTablaCategorias();
+
+            // Mostrar página actual
+            lblPagina.Text =
+                $"Página {paginaActual} de {totalPaginas}";
+
+            // Activar o desactivar botones
+            btnAnterior.Enabled =
+                paginaActual > 1;
+
+            btnSiguiente.Enabled =
+                paginaActual < totalPaginas;
+        }
+
+        //---------------------------------------------------------
+        // CONFIGURAR COLUMNAS
+
         private void ConfigurarColumnas()
         {
             if (dgvCategorias.Columns.Count > 0)
@@ -91,8 +198,97 @@ namespace Vista.Categorias_Inventario_Empleado
                 dgvCategorias.Columns["IdCategoria"].HeaderText = "#";
                 dgvCategorias.Columns["Nombre_Categoria"].HeaderText = "Categoría";
                 dgvCategorias.Columns["Descripcion"].HeaderText = "Descripción";
+                dgvCategorias.Columns["Estado"].HeaderText = "Estado";
             }
         }
+
+
+        //---------------------------------------------------------
+        // CONFIGURAR DISEÑO DE LA TABLA
+        private void ConfigurarTablaCategorias()
+        {
+            // Encabezado
+            dgvCategorias.EnableHeadersVisualStyles = false;
+
+            dgvCategorias.ColumnHeadersDefaultCellStyle.BackColor =
+                Color.FromArgb(121, 75, 45);
+
+            dgvCategorias.ColumnHeadersDefaultCellStyle.ForeColor =
+                Color.White;
+
+            dgvCategorias.ColumnHeadersDefaultCellStyle.Font =
+                new Font("Times New Roman", 9, FontStyle.Regular);
+
+            dgvCategorias.ColumnHeadersDefaultCellStyle.Alignment =
+                DataGridViewContentAlignment.MiddleCenter;
+
+            dgvCategorias.ColumnHeadersDefaultCellStyle.SelectionBackColor =
+                Color.FromArgb(121, 75, 45);
+
+            dgvCategorias.ColumnHeadersDefaultCellStyle.SelectionForeColor =
+                Color.White;
+
+            // Filas
+            dgvCategorias.DefaultCellStyle.BackColor =
+                Color.White;
+
+            dgvCategorias.DefaultCellStyle.ForeColor =
+                Color.FromArgb(45, 45, 45);
+
+            dgvCategorias.DefaultCellStyle.Font =
+                new Font("Segoe UI", 9, FontStyle.Regular);
+
+            dgvCategorias.DefaultCellStyle.Alignment =
+                DataGridViewContentAlignment.MiddleLeft;
+
+            // Filas alternadas
+            dgvCategorias.AlternatingRowsDefaultCellStyle.BackColor =
+                Color.FromArgb(248, 241, 232);
+
+            // Selección
+            dgvCategorias.DefaultCellStyle.SelectionBackColor =
+                Color.FromArgb(224, 193, 157);
+
+            dgvCategorias.DefaultCellStyle.SelectionForeColor =
+                Color.Black;
+
+            // Bordes
+            dgvCategorias.CellBorderStyle =
+                DataGridViewCellBorderStyle.SingleHorizontal;
+
+            dgvCategorias.GridColor =
+                Color.FromArgb(220, 220, 220);
+
+            // Alto de las filas
+            dgvCategorias.RowTemplate.Height = 32;
+
+            // Alto del encabezado
+            dgvCategorias.ColumnHeadersHeight = 30;
+
+            // No permitir modificar
+            dgvCategorias.ReadOnly = true;
+
+            dgvCategorias.AllowUserToAddRows = false;
+
+            dgvCategorias.AllowUserToDeleteRows = false;
+
+            // Seleccionar fila completa
+            dgvCategorias.SelectionMode =
+                DataGridViewSelectionMode.FullRowSelect;
+
+            dgvCategorias.MultiSelect = false;
+
+            // Quitar borde exterior
+            dgvCategorias.BorderStyle =
+                BorderStyle.None;
+
+            dgvCategorias.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            // Ocultar cuadrito de la izquierda
+            dgvCategorias.RowHeadersVisible = false;
+        }
+
+
+
         //--------------------------------------------------------------------------
         //BUSQUEDA
 
@@ -130,12 +326,22 @@ namespace Vista.Categorias_Inventario_Empleado
                     return;
                 }
 
-                dgvCategorias.DataSource = null;
+                string textoBusqueda =
+                    txtBuscarCategoria.Text.Trim();
 
-                dgvCategorias.DataSource =
-                    Categorias.Buscar(
-                        txtBuscarCategoria.Text.Trim()
-                    );
+                if (string.IsNullOrWhiteSpace(textoBusqueda))
+                {
+                    MostrarCategorias();
+                    return;
+                }
+
+                dtCategorias = Categorias.Buscar(textoBusqueda);
+
+                paginaActual = 1;
+
+                CalcularPaginasCategorias();
+
+                MostrarPaginaCategorias();
 
                 ConfigurarColumnas();
             }
@@ -208,5 +414,24 @@ namespace Vista.Categorias_Inventario_Empleado
             }
         }
 
+        private void btnAnterior_Click(object sender, EventArgs e)
+        {
+            if (paginaActual > 1)
+            {
+                paginaActual--;
+
+                MostrarPaginaCategorias();
+            }
+        }
+
+        private void btnSiguiente_Click(object sender, EventArgs e)
+        {
+            if (paginaActual < totalPaginas)
+            {
+                paginaActual++;
+
+                MostrarPaginaCategorias();
+            }
+        }
     }
 }

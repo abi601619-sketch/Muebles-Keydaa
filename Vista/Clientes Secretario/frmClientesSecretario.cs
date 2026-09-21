@@ -1,9 +1,12 @@
 using Modelo.Entidades;
 using System;
+using System.Data;
 using System.Drawing;
 using System.Net.Mail;
 using System.Windows.Forms;
 using Vista.Responsive;
+using TextBox = System.Windows.Forms.TextBox;
+using ToolTip = System.Windows.Forms.ToolTip;
 
 namespace Vista.Clientes_Secretario
 {
@@ -13,47 +16,703 @@ namespace Vista.Clientes_Secretario
         {
             InitializeComponent();
             ResponsiveHelper.Apply(this);
+            ConfigurarTablasClientes();
         }
 
-        // VARIABLES
 
+        //VARIABLES
         private int idClienteSeleccionado = 0;
         private int tipoClienteSeleccionado = 0;
 
-        // Datos originales del cliente seleccionado
+        // Cantidad de clientes que se mostrarán por página.
+        private int registrosPorPagina = 10;
+
+        // Página en la que estamos actualmente.
+        private int paginaActual = 1;
+
+        // Cantidad total de clientes.
+        private int totalRegistros = 0;
+
+        // Cantidad total de páginas.
+        private int totalPaginas = 0;
+
+        // PAGINACIÓN DE CLIENTES INDIVIDUALES
+        private int paginaActualIndividual = 1;
+        private int totalRegistrosIndividual = 0;
+        private int totalPaginasIndividual = 0;
+
+        // DATOS PARA LAS BÚSQUEDAS PAGINADAS
+        private DataTable dtCorporativosBusqueda;
+        private DataTable dtIndividualesBusqueda;
+
+        //DATOS ORIGINALES DEL CLIENTE SELECCIONADO
         private string identificador1Original;
         private string identificador2Original;
         private string documentoOriginal;
         private string telefonoOriginal;
         private string correoOriginal;
         private string direccionOriginal;
+
         private string estadoOriginal;
 
         private bool modoEdicion = false;
 
-        // MOSTRAR CLIENTES
+
+        // MOSTRAR CLIENTES INDIVIDUALES
         private void MostrarClientesIndividuales()
         {
+            int registrosSaltar =
+        (paginaActualIndividual - 1) *
+        registrosPorPagina;
 
+            dgvClientesIndividuales.DataSource =
+                DbCliente.CargarIndividuales(
+                    registrosSaltar,
+                    registrosPorPagina);
+
+            totalRegistrosIndividual =
+                DbCliente.ObtenerTotalIndividuales();
+
+            totalPaginasIndividual =
+                (int)Math.Ceiling(
+                    (double)totalRegistrosIndividual /
+                    registrosPorPagina);
+
+            if (totalPaginasIndividual == 0)
+            {
+                totalPaginasIndividual = 1;
+            }
+
+            if (paginaActualIndividual > totalPaginasIndividual)
+            {
+                paginaActualIndividual =
+                    totalPaginasIndividual;
+            }
+
+            lblPagina.Text =
+                $"Página {paginaActualIndividual} de {totalPaginasIndividual}";
+
+            btnAnterior.Enabled =
+                paginaActualIndividual > 1;
+
+            btnSiguiente.Enabled =
+                paginaActualIndividual < totalPaginasIndividual;
+
+            FormatearTablaIndividuales();
+
+            ActualizarEstadisticas();
         }
+
+        // MOSTRAR CLIENTES CORPORATIVOS
         private void MostrarClientesCorporativos()
+        {
+            int registrosSaltar =
+                (paginaActual - 1) *
+                registrosPorPagina;
+
+            dgvClientesCorporativos.DataSource =
+                DbCliente.CargarCorporativos(
+                    registrosSaltar,
+                    registrosPorPagina);
+
+            totalRegistros =
+                DbCliente.ObtenerTotalCorporativos();
+
+            totalPaginas =
+                (int)Math.Ceiling(
+                    (double)totalRegistros /
+                    registrosPorPagina);
+
+            if (totalPaginas == 0)
+            {
+                totalPaginas = 1;
+            }
+
+            if (paginaActual > totalPaginas)
+            {
+                paginaActual = totalPaginas;
+            }
+
+            lblPaginaC.Text =
+                $"Página {paginaActual} de {totalPaginas}";
+
+            btnAtrasC.Enabled =
+                paginaActual > 1;
+
+            btnSiguienteC.Enabled =
+                paginaActual < totalPaginas;
+
+            FormatearTablaCorporativos();
+
+            ActualizarEstadisticas();
+        }
+        //----------------------------------------------------------------------
+        // CONFIGURAR TABLAS DE CLIENTES
+
+        private void ConfigurarTablasClientes()
+        {
+            // TABLA DE CLIENTES CORPORATIVOS
+            ConfigurarEstiloTabla(dgvClientesCorporativos);
+
+            // TABLA DE CLIENTES INDIVIDUALES
+            ConfigurarEstiloTabla(dgvClientesIndividuales);
+        }
+
+        //----------------------------------------------------------------------
+        // CONFIGURAR ESTILO GENERAL DE LAS TABLAS
+
+        private void ConfigurarEstiloTabla(DataGridView tabla)
+        {
+            // Configuración general
+            tabla.AutoGenerateColumns = true;
+
+            tabla.AllowUserToAddRows = false;
+            tabla.AllowUserToDeleteRows = false;
+            tabla.AllowUserToResizeRows = false;
+            tabla.AllowUserToResizeColumns = false;
+
+            tabla.ReadOnly = true;
+
+            tabla.MultiSelect = false;
+
+            tabla.SelectionMode =
+                DataGridViewSelectionMode.FullRowSelect;
+
+            tabla.RowHeadersVisible = false;
+
+            tabla.BorderStyle =
+                BorderStyle.None;
+
+            tabla.BackgroundColor =
+                Color.White;
+
+            tabla.CellBorderStyle =
+                DataGridViewCellBorderStyle.SingleHorizontal;
+
+            tabla.GridColor =
+                Color.FromArgb(
+                    225,
+                    225,
+                    225
+                );
+
+            tabla.EnableHeadersVisualStyles = false;
+
+            // Altura del encabezado
+            tabla.ColumnHeadersHeight = 40;
+
+            // Altura de las filas
+            tabla.RowTemplate.Height = 34;
+
+            // Ajustar columnas al espacio disponible
+            tabla.AutoSizeColumnsMode =
+                DataGridViewAutoSizeColumnsMode.Fill;
+
+
+            //---------------------------------------------------------------------- 
+            // ENCABEZADO
+
+            tabla.ColumnHeadersDefaultCellStyle =
+                new DataGridViewCellStyle
+                {
+                    BackColor =
+                        Color.FromArgb(
+                            121,
+                            78,
+                            48
+                        ),
+
+                    ForeColor =
+                        Color.White,
+
+                    Font =
+                        new Font(
+                            "Segoe UI",
+                            10,
+                            FontStyle.Bold
+                        ),
+
+                    Alignment =
+                        DataGridViewContentAlignment.MiddleCenter,
+
+                    SelectionBackColor =
+                        Color.FromArgb(
+                            121,
+                            78,
+                            48
+                        ),
+
+                    SelectionForeColor =
+                        Color.White,
+
+                    Padding =
+                        new Padding(
+                            5
+                        )
+                };
+
+
+            //---------------------------------------------------------------------- 
+            // FILAS
+
+            tabla.DefaultCellStyle =
+                new DataGridViewCellStyle
+                {
+                    BackColor =
+                        Color.White,
+
+                    ForeColor =
+                        Color.FromArgb(
+                            55,
+                            55,
+                            55
+                        ),
+
+                    Font =
+                        new Font(
+                            "Segoe UI",
+                            10
+                        ),
+
+                    Alignment =
+                        DataGridViewContentAlignment.MiddleCenter,
+
+                    SelectionBackColor =
+                        Color.FromArgb(
+                            238,
+                            215,
+                            185
+                        ),
+
+                    SelectionForeColor =
+                        Color.FromArgb(
+                            60,
+                            45,
+                            35
+                        ),
+
+                    Padding =
+                        new Padding(
+                            5
+                        )
+                };
+
+
+            //---------------------------------------------------------------------- 
+            // FILAS ALTERNADAS
+
+            tabla.AlternatingRowsDefaultCellStyle =
+                new DataGridViewCellStyle
+                {
+                    BackColor =
+                        Color.FromArgb(
+                            250,
+                            246,
+                            240
+                        ),
+
+                    ForeColor =
+                        Color.FromArgb(
+                            55,
+                            55,
+                            55
+                        ),
+
+                    Font =
+                        new Font(
+                            "Segoe UI",
+                            10
+                        ),
+
+                    SelectionBackColor =
+                        Color.FromArgb(
+                            238,
+                            215,
+                            185
+                        ),
+
+                    SelectionForeColor =
+                        Color.FromArgb(
+                            60,
+                            45,
+                            35
+                        )
+                };
+
+
+            //---------------------------------------------------------------------- 
+            // FILA SELECCIONADA
+
+            tabla.RowsDefaultCellStyle.SelectionBackColor =
+                Color.FromArgb(
+                    238,
+                    215,
+                    185
+                );
+
+            tabla.RowsDefaultCellStyle.SelectionForeColor =
+                Color.FromArgb(
+                    60,
+                    45,
+                    35
+                );
+        }
+        //----------------------------------------------------------------------
+        // FORMATEAR TABLA DE CLIENTES INDIVIDUALES
+
+        private void FormatearTablaIndividuales()
+        {
+            if (dgvClientesIndividuales.Columns.Count == 0)
+                return;
+
+
+            // ID
+
+            if (dgvClientesIndividuales.Columns.Contains("IdCliente"))
+            {
+                dgvClientesIndividuales.Columns["IdCliente"].Visible = false;
+            }
+
+
+            // NOMBRE
+
+            if (dgvClientesIndividuales.Columns.Contains("Nombre"))
+            {
+                dgvClientesIndividuales.Columns["Nombre"]
+                    .HeaderText = "Nombre";
+            }
+
+
+            // APELLIDOS
+
+            if (dgvClientesIndividuales.Columns.Contains("Apellidos"))
+            {
+                dgvClientesIndividuales.Columns["Apellidos"]
+                    .HeaderText = "Apellidos";
+            }
+
+
+            // DUI
+
+            if (dgvClientesIndividuales.Columns.Contains("DUI"))
+            {
+                dgvClientesIndividuales.Columns["DUI"]
+                    .HeaderText = "DUI";
+            }
+
+
+            // TELÉFONO
+
+            if (dgvClientesIndividuales.Columns.Contains("Telefono"))
+            {
+                dgvClientesIndividuales.Columns["Telefono"]
+                    .HeaderText = "Teléfono";
+            }
+
+
+            // CORREO
+
+            if (dgvClientesIndividuales.Columns.Contains("Correo"))
+            {
+                dgvClientesIndividuales.Columns["Correo"]
+                    .HeaderText = "Correo";
+            }
+
+
+            // DIRECCIÓN
+
+            if (dgvClientesIndividuales.Columns.Contains("Direccion"))
+            {
+                dgvClientesIndividuales.Columns["Direccion"]
+                    .HeaderText = "Dirección";
+            }
+
+
+            // ESTADO
+
+            if (dgvClientesIndividuales.Columns.Contains("Estado"))
+            {
+                dgvClientesIndividuales.Columns["Estado"]
+                    .HeaderText = "Estado";
+            }
+
+
+            //---------------------------------------------------------------------- 
+            // ALINEACIÓN
+
+            if (dgvClientesIndividuales.Columns.Contains("Nombre"))
+            {
+                dgvClientesIndividuales.Columns["Nombre"]
+                    .DefaultCellStyle.Alignment =
+                    DataGridViewContentAlignment.MiddleLeft;
+            }
+
+
+            if (dgvClientesIndividuales.Columns.Contains("Apellidos"))
+            {
+                dgvClientesIndividuales.Columns["Apellidos"]
+                    .DefaultCellStyle.Alignment =
+                    DataGridViewContentAlignment.MiddleLeft;
+            }
+
+
+            if (dgvClientesIndividuales.Columns.Contains("Correo"))
+            {
+                dgvClientesIndividuales.Columns["Correo"]
+                    .DefaultCellStyle.Alignment =
+                    DataGridViewContentAlignment.MiddleLeft;
+            }
+
+
+            if (dgvClientesIndividuales.Columns.Contains("Direccion"))
+            {
+                dgvClientesIndividuales.Columns["Direccion"]
+                    .DefaultCellStyle.Alignment =
+                    DataGridViewContentAlignment.MiddleLeft;
+            }
+
+
+            //---------------------------------------------------------------------- 
+            // ESTADO
+
+            if (dgvClientesIndividuales.Columns.Contains("Estado"))
+            {
+                dgvClientesIndividuales.Columns["Estado"]
+                    .DefaultCellStyle.Font =
+                    new Font(
+                        "Times New Roman",
+                        10,
+                        FontStyle.Bold
+                    );
+            }
+
+
+            // No permitir ordenar las columnas
+
+            foreach (
+                DataGridViewColumn columna
+                in dgvClientesIndividuales.Columns)
+            {
+                columna.SortMode =
+                    DataGridViewColumnSortMode.NotSortable;
+            }
+
+
+            // Ajustar nuevamente las columnas
+
+            dgvClientesIndividuales.AutoSizeColumnsMode =
+                DataGridViewAutoSizeColumnsMode.Fill;
+        }
+
+        //----------------------------------------------------------------------
+        // FORMATEAR TABLA DE CLIENTES CORPORATIVOS
+
+        private void FormatearTablaCorporativos()
+        {
+            if (dgvClientesCorporativos.Columns.Count == 0)
+                return;
+
+
+            // ID
+
+            if (dgvClientesCorporativos.Columns.Contains("IdCliente"))
+            {
+                dgvClientesCorporativos.Columns["IdCliente"].Visible = false;
+            }
+
+
+            // EMPRESA
+
+            if (dgvClientesCorporativos.Columns.Contains("Nombre_De_Empresa"))
+            {
+                dgvClientesCorporativos.Columns["Nombre_De_Empresa"]
+                    .HeaderText = "Empresa";
+            }
+
+
+            // ENCARGADO
+
+            if (dgvClientesCorporativos.Columns.Contains("Nombre_Del_Encargado"))
+            {
+                dgvClientesCorporativos.Columns["Nombre_Del_Encargado"]
+                    .HeaderText = "Encargado";
+            }
+
+
+            // NIT
+
+            if (dgvClientesCorporativos.Columns.Contains("NIT"))
+            {
+                dgvClientesCorporativos.Columns["NIT"]
+                    .HeaderText = "NIT";
+            }
+
+
+            // TELÉFONO
+
+            if (dgvClientesCorporativos.Columns.Contains("Telefono"))
+            {
+                dgvClientesCorporativos.Columns["Telefono"]
+                    .HeaderText = "Teléfono";
+            }
+
+
+            // CORREO
+
+            if (dgvClientesCorporativos.Columns.Contains("Correo"))
+            {
+                dgvClientesCorporativos.Columns["Correo"]
+                    .HeaderText = "Correo";
+            }
+
+
+            // DIRECCIÓN
+
+            if (dgvClientesCorporativos.Columns.Contains("Direccion"))
+            {
+                dgvClientesCorporativos.Columns["Direccion"]
+                    .HeaderText = "Dirección";
+            }
+
+
+            // ESTADO
+
+            if (dgvClientesCorporativos.Columns.Contains("Estado"))
+            {
+                dgvClientesCorporativos.Columns["Estado"]
+                    .HeaderText = "Estado";
+            }
+
+
+            //---------------------------------------------------------------------- 
+            // ALINEACIÓN
+
+            if (dgvClientesCorporativos.Columns.Contains("Nombre_De_Empresa"))
+            {
+                dgvClientesCorporativos.Columns["Nombre_De_Empresa"]
+                    .DefaultCellStyle.Alignment =
+                    DataGridViewContentAlignment.MiddleLeft;
+            }
+
+
+            if (dgvClientesCorporativos.Columns.Contains("Nombre_Del_Encargado"))
+            {
+                dgvClientesCorporativos.Columns["Nombre_Del_Encargado"]
+                    .DefaultCellStyle.Alignment =
+                    DataGridViewContentAlignment.MiddleLeft;
+            }
+
+
+            if (dgvClientesCorporativos.Columns.Contains("Correo"))
+            {
+                dgvClientesCorporativos.Columns["Correo"]
+                    .DefaultCellStyle.Alignment =
+                    DataGridViewContentAlignment.MiddleLeft;
+            }
+
+
+            if (dgvClientesCorporativos.Columns.Contains("Direccion"))
+            {
+                dgvClientesCorporativos.Columns["Direccion"]
+                    .DefaultCellStyle.Alignment =
+                    DataGridViewContentAlignment.MiddleLeft;
+            }
+
+
+            //---------------------------------------------------------------------- 
+            // ESTADO
+
+            if (dgvClientesCorporativos.Columns.Contains("Estado"))
+            {
+                dgvClientesCorporativos.Columns["Estado"]
+                    .DefaultCellStyle.Font =
+                    new Font(
+                        "Times New Roman",
+                        10,
+                        FontStyle.Bold
+                    );
+            }
+
+
+            // No permitir ordenar las columnas
+
+            foreach (
+                DataGridViewColumn columna
+                in dgvClientesCorporativos.Columns)
+            {
+                columna.SortMode =
+                    DataGridViewColumnSortMode.NotSortable;
+            }
+
+
+            // Ajustar nuevamente las columnas
+
+            dgvClientesCorporativos.AutoSizeColumnsMode =
+                DataGridViewAutoSizeColumnsMode.Fill;
+        }
+        //---------------------------------------------------------------------
+        //CONFIGURACION DE PAGINACION DE LOS DATA GRID
+
+        //BOTON DE ANTERIOR CLIENTES INDIVIDUALES
+        private void btnAnterior_Click(object sender, EventArgs e)
+        {
+
+            if (paginaActualIndividual > 1)
+            {
+                paginaActualIndividual--;
+
+                MostrarClientesIndividuales();
+            }
+        }
+
+        //BOTON DE ANTERIOR CLIENTES CORPORATIVOS
+        private void btnSiguiente_Click(object sender, EventArgs e)
+        {
+            if (paginaActualIndividual < totalPaginasIndividual)
+            {
+                paginaActualIndividual++;
+
+                MostrarClientesIndividuales();
+            }
+        }
+        // PÁGINA ANTERIOR CLIENTES CORPORATIVOS
+        private void btnAtrasC_Click(object sender, EventArgs e)
+        {
+
+            if (paginaActual > 1)
+            {
+                paginaActual--;
+
+                MostrarClientesCorporativos();
+            }
+        }
+        // PÁGINA SIGUIENTE CLIENTES CORPORATIVOS
+        private void btnSiguienteC_Click(object sender, EventArgs e)
+        {
+            if (paginaActual < totalPaginas)
+            {
+                paginaActual++;
+
+                MostrarClientesCorporativos();
+            }
+        }
+
+        private void lblPaginaC_Click(object sender, EventArgs e)
         {
 
         }
+
+
         //----------------------------------------------------------------------
         // ACTUALIZAR LAS ESTADISTICAS DE LOS CLIENTES
         private void ActualizarEstadisticas()
         {
+
             try
             {
-                lblTotalClientes.Text =
-                    DbCliente.ContarClientesTotales().ToString();
-
-                lblClientesActivos.Text =
-                    DbCliente.ContarClientesActivos().ToString();
-
-                lblClientesInactivos.Text =
-                    DbCliente.ContarClientesInactivos().ToString();
+                lblTotalClientes.Text = DbCliente.ContarClientesTotales().ToString();
+                lblClientesActivos.Text = DbCliente.ContarClientesActivos().ToString();
+                lblClientesInactivos.Text = DbCliente.ContarClientesInactivos().ToString();
             }
             catch (Exception ex)
             {
@@ -86,9 +745,6 @@ namespace Vista.Clientes_Secretario
             txtCorreo.Enabled = false;
             txtDireccion.Enabled = false;
 
-            // Estado
-            cbEstadoCliente.Enabled = false;
-
             // El tipo de cliente no se puede cambiar
             cbTipoCliente.Enabled = false;
         }
@@ -110,9 +766,6 @@ namespace Vista.Clientes_Secretario
             txtCorreo.Enabled = true;
             txtDireccion.Enabled = true;
 
-            // Estado
-            cbEstadoCliente.Enabled = true;
-
             // El tipo de cliente no se puede cambiar
             cbTipoCliente.Enabled = false;
         }
@@ -121,7 +774,7 @@ namespace Vista.Clientes_Secretario
 
         private bool ValidarCampos()
         {
-            // Al registrar se debe seleccionar un tipo de cliente
+            // Validar que haya seleccionado un tipo de cliente
             if (!modoEdicion)
             {
                 if (cbTipoCliente.SelectedIndex == -1)
@@ -130,9 +783,8 @@ namespace Vista.Clientes_Secretario
                     return false;
                 }
             }
-            // SI ES PERSONA NATURAL
 
-
+            // PERSONA NATURAL
             if (cbTipoCliente.Text == "Persona Natural")
             {
                 if (string.IsNullOrWhiteSpace(txtNombres.Text))
@@ -141,7 +793,6 @@ namespace Vista.Clientes_Secretario
                     txtNombres.Focus();
                     return false;
                 }
-
                 if (string.IsNullOrWhiteSpace(txtApellidos.Text))
                 {
                     MessageBox.Show("Debe ingresar los apellidos del cliente.");
@@ -151,7 +802,7 @@ namespace Vista.Clientes_Secretario
 
                 if (string.IsNullOrWhiteSpace(txtDUI.Text))
                 {
-                    MessageBox.Show("Debe ingresar el DUI del cliente.");
+                    MessageBox.Show("Debe ingresar el DUI del ciente.");
                     txtDUI.Focus();
                     return false;
                 }
@@ -163,13 +814,13 @@ namespace Vista.Clientes_Secretario
                     return false;
                 }
 
+
                 if (string.IsNullOrWhiteSpace(txtCorreo.Text))
                 {
-                    MessageBox.Show("Debe ingresar el correo del cliente.");
+                    MessageBox.Show("Debe ingresar el Correo del cliente.");
                     txtCorreo.Focus();
                     return false;
                 }
-
                 if (string.IsNullOrWhiteSpace(txtDireccion.Text))
                 {
                     MessageBox.Show("Debe ingresar la dirección del cliente.");
@@ -178,10 +829,7 @@ namespace Vista.Clientes_Secretario
                 }
             }
 
-
             // EMPRESA
-
-
             if (cbTipoCliente.Text == "Empresa")
             {
                 if (string.IsNullOrWhiteSpace(txtNombreEmpresa.Text))
@@ -214,15 +862,14 @@ namespace Vista.Clientes_Secretario
 
                 if (string.IsNullOrWhiteSpace(txtCorreo.Text))
                 {
-                    MessageBox.Show("Debe ingresar el correo.");
+                    MessageBox.Show("Debe ingresar el Correo.");
                     txtCorreo.Focus();
                     return false;
                 }
-
                 if (string.IsNullOrWhiteSpace(txtDireccion.Text))
                 {
                     MessageBox.Show("Debe ingresar la dirección de la empresa.");
-                    txtDireccion.Focus();
+                    txtCorreo.Focus();
                     return false;
                 }
             }
@@ -387,6 +1034,7 @@ namespace Vista.Clientes_Secretario
                 e.Handled = true;
             }
         }
+        //--------------------------  FIN VALIDACIONES -------------------------------------//
         //-------------------------------------------------------------------------
         // CAMBIAR ENTRE PERSONA NATURAL Y EMPRESA
 
@@ -420,6 +1068,56 @@ namespace Vista.Clientes_Secretario
             txtBuscarCorporativo.Visible = true;
             txtBuscarIndividual.Visible = false;
         }
+        //---------------------------------------------------------------------------------------------
+        // CONFIGURAR TOOLTIPS
+        private void ConfigurarTooltips()
+        {
+            // Crea el ToolTip
+            toolTip1 = new ToolTip();
+
+            // Propiedades del ToolTip
+            toolTip1.AutoPopDelay = 5000;
+            toolTip1.InitialDelay = 500;
+            toolTip1.ReshowDelay = 200;
+            toolTip1.ShowAlways = true;
+
+            toolTip1.SetToolTip(txtBuscarCorporativo,
+                "Buscar un cliente por nombre, documento o teléfono.");
+
+            toolTip1.SetToolTip(txtBuscarIndividual,
+                "Buscar un cliente por nombre, documento o teléfono.");
+
+            toolTip1.SetToolTip(cbTipoCliente,
+                "Seleccione el tipo de cliente que desea registrar.");
+
+            toolTip1.SetToolTip(txtNombres,
+                "Ingrese el nombre del cliente.");
+
+            toolTip1.SetToolTip(txtApellidos,
+                "Ingrese los apellidos del cliente.");
+
+            toolTip1.SetToolTip(txtDUI,
+                "Ingrese el DUI del cliente en formato 00000000-0.");
+
+            toolTip1.SetToolTip(txtTelefono,
+                "Ingrese el número de teléfono del cliente.");
+
+            toolTip1.SetToolTip(txtCorreo,
+                "Ingrese el correo electrónico del cliente.");
+
+            toolTip1.SetToolTip(txtDireccion,
+                "Ingrese la dirección del cliente.");
+
+            toolTip1.SetToolTip(btnNuevoCliente,
+                "Limpia los campos para registrar un nuevo cliente.");
+
+            toolTip1.SetToolTip(btnGuardarCorporativo,
+                "Guarda los datos del cliente corporativo.");
+
+            toolTip1.SetToolTip(btnGuardarIndividual,
+                "Guarda los datos del cliente individual.");
+        }
+
         //------------------------------------------------------------------------------
         // CARGA DEL FORMULARIO
         private void frmClientesSecretario_Load(object sender, EventArgs e)
@@ -427,63 +1125,18 @@ namespace Vista.Clientes_Secretario
             try
             {
                 // Cargar los clientes
+                paginaActual = 1;
+                paginaActualIndividual = 1;
+
                 MostrarClientesIndividuales();
                 MostrarClientesCorporativos();
+
                 ActualizarEstadisticas();
+                ConfigurarTooltips();
 
                 // Desactivar copiar y pegar
                 DesactivarCopiarPegar(this);
 
-                // Mostrar persona natural al iniciar
-                pnlRegistroClienteIndividual.Visible = true;
-                pnlRegistroClienteCorporativo.Visible = false;
-
-                pnlBarraClienteIndividual.Visible = true;
-                pnlBarraClienteCorporativo.Visible = false;
-
-                // Ocultar botones de edición
-                btnEditar.Visible = false;
-                btnGuardarCambios.Visible = false;
-
-                // Límites de los campos
-                txtDireccion.MaxLength = 200;
-                txtApellidos.MaxLength = 40;
-                txtNombres.MaxLength = 40;
-                txtNombreEmpresa.MaxLength = 40;
-                txtNombreEncargado.MaxLength = 40;
-                txtDUI.MaxLength = 10;
-                txtNIT.MaxLength = 14;
-                txtTelefono.MaxLength = 9;
-                txtCorreo.MaxLength = 50;
-
-
-                // TABLA DE PERSONAS NATURALES
-
-                dgvClientesIndividuales.Columns["IdCliente"].Visible = false;
-
-                dgvClientesIndividuales.Columns["Nombre"].HeaderText = "Nombre";
-                dgvClientesIndividuales.Columns["Apellidos"].HeaderText = "Apellidos";
-                dgvClientesIndividuales.Columns["DUI"].HeaderText = "DUI";
-                dgvClientesIndividuales.Columns["Telefono"].HeaderText = "Teléfono";
-                dgvClientesIndividuales.Columns["Correo"].HeaderText = "Correo";
-                dgvClientesIndividuales.Columns["Direccion"].HeaderText = "Dirección";
-                dgvClientesIndividuales.Columns["Estado"].HeaderText = "Estado";
-
-                // TABLA DE EMPRESAS
-
-
-                dgvClientesCorporativos.Columns["IdCliente"].Visible = false;
-
-                dgvClientesCorporativos.Columns["Nombre_De_Empresa"].HeaderText = "Empresa";
-                dgvClientesCorporativos.Columns["Nombre_Del_Encargado"].HeaderText = "Encargado";
-                dgvClientesCorporativos.Columns["NIT"].HeaderText = "NIT";
-                dgvClientesCorporativos.Columns["Telefono"].HeaderText = "Teléfono";
-                dgvClientesCorporativos.Columns["Correo"].HeaderText = "Correo";
-                dgvClientesCorporativos.Columns["Direccion"].HeaderText = "Dirección";
-                dgvClientesCorporativos.Columns["Estado"].HeaderText = "Estado";
-
-                // Estado desactivado al comenzar
-                cbEstadoCliente.Enabled = false;
             }
             catch (Exception ex)
             {
@@ -495,9 +1148,6 @@ namespace Vista.Clientes_Secretario
         // CAMBIO DE TIPO DE CLIENTE
         private void cbTipoCliente_SelectedIndexChanged_1(object sender, EventArgs e)
         {
-            // PERSONA NATURAL
-
-
             if (cbTipoCliente.Text == "Persona Natural")
             {
                 txtNombres.TabIndex = 1;
@@ -506,14 +1156,8 @@ namespace Vista.Clientes_Secretario
                 txtTelefono.TabIndex = 4;
                 txtCorreo.TabIndex = 5;
                 txtDireccion.TabIndex = 6;
-
-                btnEditar.TabIndex = 7;
                 btnGuardarIndividual.TabIndex = 8;
             }
-
-
-            // EMPRESA
-
             else if (cbTipoCliente.Text == "Empresa")
             {
                 txtNombreEmpresa.TabIndex = 1;
@@ -522,11 +1166,9 @@ namespace Vista.Clientes_Secretario
                 txtTelefono.TabIndex = 4;
                 txtCorreo.TabIndex = 5;
                 txtDireccion.TabIndex = 6;
-
-                btnEditar.TabIndex = 7;
                 btnGuardarCorporativo.TabIndex = 8;
             }
-            // EMPRESA
+
             if (cbTipoCliente.SelectedIndex == 0)
             {
                 // Paneles
@@ -547,7 +1189,6 @@ namespace Vista.Clientes_Secretario
                 gbDatosEmpresa.Visible = false;
 
             }
-            // PERSONA NATURAL
             else if (cbTipoCliente.SelectedIndex == 1)
             {
                 // Paneles
@@ -566,68 +1207,71 @@ namespace Vista.Clientes_Secretario
                 gbPersonaNatural.Visible = false;
                 gbDatosEmpresa.Visible = true;
 
-
             }
         }
         //--------------------------------------------------------------
         // REGISTRAR CLIENTE INDIVIDUAL
         private void btnGuardarIndividual_Click(object sender, EventArgs e)
         {
-
-            // Validar campos obligatorios
             if (!ValidarCampos())
+            {
                 return;
+            }
 
-            // Validar DUI
             if (txtDUI.Text.Length != 10 || txtDUI.Text[8] != '-')
             {
                 MessageBox.Show("El DUI debe tener el formato 12345678-9.");
-                txtDUI.Focus();
                 return;
             }
 
-            // Validar teléfono
             if (txtTelefono.Text.Length != 9 || txtTelefono.Text[4] != '-')
             {
                 MessageBox.Show("El teléfono debe tener el formato 1234-5678.");
-                txtTelefono.Focus();
                 return;
             }
 
-            // Validar correo
-            if (!ValidarCorreo())
+            //Validar Correo
+            if (string.IsNullOrWhiteSpace(txtCorreo.Text))
+            {
+                MessageBox.Show("El correo es obligatorio.");
+                txtCorreo.Focus();
                 return;
+            }
 
             try
             {
-                DbCliente cliente = new DbCliente();
-
-                cliente.TipoCliente1 = 2;
-                cliente.Identificador11 = txtNombres.Text.Trim();
-                cliente.Identificador21 = txtApellidos.Text.Trim();
-                cliente.Documento1 = txtDUI.Text.Trim();
-                cliente.Telefono1 = txtTelefono.Text.Trim();
-                cliente.Correo1 = txtCorreo.Text.Trim();
-                cliente.Direccion1 = txtDireccion.Text.Trim();
-                cliente.Estado1 = "Activo";
-
-                // Guardar cliente
-                if (cliente.InsertarClienteIndividual())
-                {
-                    MessageBox.Show("Cliente individual registrado correctamente.", "Registro exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information
-                    );
-
-                    MostrarClientesIndividuales();
-                    LimpiarFormularioCliente();
-                }
+                MailAddress correo = new MailAddress(txtCorreo.Text);
             }
-            catch (Exception ex)
+            catch
             {
-                MessageBox.Show("Ocurrió un error al registrar el cliente.\n" + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Ingrese un correo válido.");
+                txtCorreo.Focus();
+                return;
+            }
+
+
+            DbCliente cliente = new DbCliente();
+
+            cliente.TipoCliente1 = 2;
+            cliente.Identificador11 = txtNombres.Text;
+            cliente.Identificador21 = txtApellidos.Text;
+            cliente.Documento1 = txtDUI.Text;
+            cliente.Telefono1 = txtTelefono.Text;
+            cliente.Correo1 = txtCorreo.Text;
+            cliente.Direccion1 = txtDireccion.Text;
+            cliente.Estado1 = "Activo";
+
+
+            if (cliente.InsertarClienteIndividual())
+            {
+                MessageBox.Show("Cliente individual registrado correctamente.", "Registro exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                paginaActualIndividual = 1;
+                dtIndividualesBusqueda = null;
+
+                MostrarClientesIndividuales();
+
+                LimpiarFormularioCliente();
             }
         }
 
@@ -663,18 +1307,19 @@ namespace Vista.Clientes_Secretario
 
             try
             {
+                // Crear un objeto con los datos del cliente
                 DbCliente cliente = new DbCliente();
 
+                // Asignar los datos del formulario al objeto
                 cliente.TipoCliente1 = 1;
-                cliente.Identificador11 = txtNombreEmpresa.Text.Trim();
-                cliente.Identificador21 = txtNombreEncargado.Text.Trim();
-                cliente.Documento1 = txtNIT.Text.Trim();
-                cliente.Telefono1 = txtTelefono.Text.Trim();
-                cliente.Correo1 = txtCorreo.Text.Trim();
-                cliente.Direccion1 = txtDireccion.Text.Trim();
+                cliente.Identificador11 = txtNombreEmpresa.Text;
+                cliente.Identificador21 = txtNombreEncargado.Text;
+                cliente.Documento1 = txtNIT.Text;
+                cliente.Telefono1 = txtTelefono.Text;
+                cliente.Correo1 = txtCorreo.Text;
+                cliente.Direccion1 = txtDireccion.Text;
                 cliente.Estado1 = "Activo";
 
-                // Guardar cliente
                 if (cliente.InsertarClienteCorporativo())
                 {
                     MessageBox.Show(
@@ -683,6 +1328,9 @@ namespace Vista.Clientes_Secretario
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information
                     );
+
+                    paginaActual = 1;
+                    dtCorporativosBusqueda = null;
 
                     MostrarClientesCorporativos();
                     LimpiarFormularioCliente();
@@ -749,16 +1397,11 @@ namespace Vista.Clientes_Secretario
                 txtTelefono.Text = telefonoOriginal;
                 txtCorreo.Text = correoOriginal;
                 txtDireccion.Text = direccionOriginal;
-                cbEstadoCliente.Text = estadoOriginal;
 
                 // Bloquear campos hasta presionar Editar
                 BloquearCampos();
 
                 modoEdicion = false;
-
-                // Mostrar botones
-                btnEditar.Visible = true;
-                btnGuardarCambios.Visible = false;
 
                 btnGuardarCorporativo.Visible = false;
                 btnGuardarIndividual.Visible = false;
@@ -782,333 +1425,7 @@ namespace Vista.Clientes_Secretario
             }
         }
 
-        // SELECCIONAR CLIENTE INDIVIDUAL
-        private void dgvClientesIndividuales_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            try
-            {
-                // Revisar que se haya seleccionado una fila válida
-                if (e.RowIndex < 0 ||
-                    dgvClientesIndividuales.Rows[e.RowIndex].IsNewRow)
-                    return;
 
-                DataGridViewRow fila =
-                    dgvClientesIndividuales.Rows[e.RowIndex];
-
-                // Obtener el ID del cliente
-                idClienteSeleccionado =
-                    Convert.ToInt32(fila.Cells["IdCliente"].Value);
-
-                tipoClienteSeleccionado = 2;
-
-                // Guardar los datos originales
-                identificador1Original =
-                    fila.Cells[1].Value?.ToString() ?? "";
-
-                identificador2Original =
-                    fila.Cells[2].Value?.ToString() ?? "";
-
-                documentoOriginal =
-                    fila.Cells[3].Value?.ToString() ?? "";
-
-                telefonoOriginal =
-                    fila.Cells[4].Value?.ToString() ?? "";
-
-                correoOriginal =
-                    fila.Cells[5].Value?.ToString() ?? "";
-
-                direccionOriginal =
-                    fila.Cells[6].Value?.ToString() ?? "";
-
-                estadoOriginal =
-                    fila.Cells[7].Value?.ToString() ?? "";
-
-                // Mostrar los datos en el formulario
-                txtNombres.Text = identificador1Original;
-                txtApellidos.Text = identificador2Original;
-                txtDUI.Text = documentoOriginal;
-                txtTelefono.Text = telefonoOriginal;
-                txtCorreo.Text = correoOriginal;
-                txtDireccion.Text = direccionOriginal;
-                cbEstadoCliente.Text = estadoOriginal;
-
-                // Bloquear campos hasta presionar Editar
-                BloquearCampos();
-
-                modoEdicion = false;
-
-                // Mostrar botones
-                btnEditar.Visible = true;
-                btnGuardarIndividual.Visible = false;
-                btnGuardarCorporativo.Visible = false;
-                btnGuardarCambios.Visible = false;
-
-                // Mostrar datos de persona natural
-                gbDatosEmpresa.Visible = false;
-                gbPersonaNatural.Visible = true;
-
-                // Mostrar tabla individual
-                pnlRegistroClienteIndividual.Visible = true;
-                pnlRegistroClienteCorporativo.Visible = false;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(
-                    "Ocurrió un error al seleccionar el cliente.\n" + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
-            }
-        }
-
-        //-------------------------------------------------------------------------------
-        // BOTÓN EDITAR
-
-        private void btnEditar_Click_1(object sender, EventArgs e)
-        {
-            if (idClienteSeleccionado == 0)
-            {
-                MessageBox.Show("Seleccione un cliente primero.");
-                return;
-            }
-
-            // Activar modo edición
-            modoEdicion = true;
-
-            // Habilitar los campos
-            HabilitarCampos();
-
-            // Ocultar botón Editar
-            btnEditar.Visible = false;
-
-            // Mostrar botón Guardar cambios
-            btnGuardarCambios.Visible = true;
-
-            // Ocultar botones de registro
-            btnGuardarCorporativo.Visible = false;
-            btnGuardarIndividual.Visible = false;
-        }
-
-        //----------------------------------------------------------------------------------
-        //BOTON GUARDAR CAMBIOS
-        private void btnGuardarCambios_Click_1(object sender, EventArgs e)
-        {
-            if (idClienteSeleccionado == 0)
-            {
-                MessageBox.Show("Seleccione un cliente primero.");
-                return;
-            }
-
-            if (!modoEdicion)
-            {
-                MessageBox.Show(
-                    "Debe presionar Editar antes de guardar cambios."
-                );
-                return;
-            }
-
-            // Revisar si realmente se modificó algún dato
-            if (!HayCambios())
-            {
-                MessageBox.Show(
-                    "No se han realizado cambios en los datos del cliente.",
-                    "Sin cambios",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information
-                );
-                return;
-            }
-
-            // Validar campos
-            if (!ValidarCampos())
-                return;
-
-            // Validar correo
-            if (!ValidarCorreo())
-                return;
-
-            // VALIDAR SEGÚN EL TIPO DE CLIENTE
-
-            // Persona natural
-            if (tipoClienteSeleccionado == 2)
-            {
-                if (txtDUI.Text.Length != 10 ||
-                    txtDUI.Text[8] != '-')
-                {
-                    MessageBox.Show(
-                        "El DUI debe tener el formato 12345678-9."
-                    );
-                    txtDUI.Focus();
-                    return;
-                }
-            }
-
-            // Empresa
-            else if (tipoClienteSeleccionado == 1)
-            {
-                if (txtNIT.Text.Length != 14)
-                {
-                    MessageBox.Show(
-                        "El NIT debe tener 14 números."
-                    );
-                    txtNIT.Focus();
-                    return;
-                }
-            }
-
-            // Validar teléfono
-            if (txtTelefono.Text.Length != 9 ||
-                txtTelefono.Text[4] != '-')
-            {
-                MessageBox.Show(
-                    "El teléfono debe tener el formato 1234-5678."
-                );
-                txtTelefono.Focus();
-                return;
-            }
-
-            try
-            {
-                DbCliente cliente = new DbCliente();
-
-                cliente.IdCliente1 = idClienteSeleccionado;
-                cliente.TipoCliente1 = tipoClienteSeleccionado;
-
-                // PERSONA NATURAL
-
-
-                if (tipoClienteSeleccionado == 2)
-                {
-                    cliente.Identificador11 =
-                        txtNombres.Text.Trim();
-
-                    cliente.Identificador21 =
-                        txtApellidos.Text.Trim();
-
-                    cliente.Documento1 =
-                        txtDUI.Text.Trim();
-                }
-
-                // EMPRESA
-
-                else if (tipoClienteSeleccionado == 1)
-                {
-                    cliente.Identificador11 =
-                        txtNombreEmpresa.Text.Trim();
-
-                    cliente.Identificador21 =
-                        txtNombreEncargado.Text.Trim();
-
-                    cliente.Documento1 =
-                        txtNIT.Text.Trim();
-                }
-
-                // Datos que comparten ambos tipos
-                cliente.Telefono1 =
-                    txtTelefono.Text.Trim();
-
-                cliente.Correo1 =
-                    txtCorreo.Text.Trim();
-
-                cliente.Direccion1 =
-                    txtDireccion.Text.Trim();
-
-                cliente.Estado1 =
-                    cbEstadoCliente.Text.Trim();
-
-                // Actualizar los datos
-                if (cliente.ActualizarCliente())
-                {
-                    MessageBox.Show(
-                        "Cliente actualizado correctamente.",
-                        "Actualización exitosa",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information
-                    );
-
-                    // Actualizar la tabla correspondiente
-                    if (tipoClienteSeleccionado == 1)
-                    {
-                        MostrarClientesCorporativos();
-                    }
-                    else if (tipoClienteSeleccionado == 2)
-                    {
-                        MostrarClientesIndividuales();
-                    }
-
-                    // Dejar el formulario listo para otro cliente
-                    LimpiarFormularioCliente();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(
-                    "Ocurrió un error al actualizar el cliente.\n" + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
-            }
-        }
-
-        //------------------------------------------------------------------------
-
-        // COMPROBAR SI HUBO CAMBIOS
-        private bool HayCambios()
-        {
-            string identificador1Actual;
-            string identificador2Actual;
-            string documentoActual;
-
-            // Obtener los datos actuales
-            if (tipoClienteSeleccionado == 2)
-            {
-                // Persona natural
-                identificador1Actual =
-                    txtNombres.Text.Trim();
-
-                identificador2Actual =
-                    txtApellidos.Text.Trim();
-
-                documentoActual =
-                    txtDUI.Text.Trim();
-            }
-            else
-            {
-                // Empresa
-                identificador1Actual =
-                    txtNombreEmpresa.Text.Trim();
-
-                identificador2Actual =
-                    txtNombreEncargado.Text.Trim();
-
-                documentoActual =
-                    txtNIT.Text.Trim();
-            }
-
-            string telefonoActual =
-                txtTelefono.Text.Trim();
-
-            string correoActual =
-                txtCorreo.Text.Trim();
-
-            string direccionActual =
-                txtDireccion.Text.Trim();
-
-            string estadoActual =
-                cbEstadoCliente.Text.Trim();
-
-            // Comparar los datos actuales con los originales
-            return
-                identificador1Actual != identificador1Original ||
-                identificador2Actual != identificador2Original ||
-                documentoActual != documentoOriginal ||
-                telefonoActual != telefonoOriginal ||
-                correoActual != correoOriginal ||
-                direccionActual != direccionOriginal ||
-                estadoActual != estadoOriginal;
-        }
         //----------------------------------------------------------------
         //LIMPIAR FORMULARIO
         private void LimpiarFormularioCliente()
@@ -1134,18 +1451,10 @@ namespace Vista.Clientes_Secretario
             txtCorreo.Clear();
             txtDireccion.Clear();
 
-            // Reiniciar estado
-            cbEstadoCliente.Text = "Activo";
-            cbEstadoCliente.Enabled = false;
-
             // Reiniciar datos seleccionados
             idClienteSeleccionado = 0;
             tipoClienteSeleccionado = 0;
             modoEdicion = false;
-
-            // Ocultar botones de edición
-            btnEditar.Visible = false;
-            btnGuardarCambios.Visible = false;
 
             // Mostrar botón Guardar según el tipo seleccionado
             if (cbTipoCliente.SelectedIndex == 0)
@@ -1170,12 +1479,79 @@ namespace Vista.Clientes_Secretario
                 if (txtBuscarCorporativo.Text == "Buscar Cliente...")
                     return;
 
-                dgvClientesCorporativos.DataSource = DbCliente.BuscarClienteCorporativo(txtBuscarCorporativo.Text);
+                string buscar =
+                    txtBuscarCorporativo.Text.Trim();
+
+                if (string.IsNullOrWhiteSpace(buscar))
+                {
+                    paginaActual = 1;
+
+                    dtCorporativosBusqueda = null;
+
+                    MostrarClientesCorporativos();
+
+                    return;
+                }
+
+                dtCorporativosBusqueda =
+                    DbCliente.BuscarClienteCorporativo(buscar);
+
+                int totalResultados =
+                    dtCorporativosBusqueda.Rows.Count;
+
+                totalPaginas =
+                    (int)Math.Ceiling(
+                        (double)totalResultados /
+                        registrosPorPagina);
+
+                if (totalPaginas == 0)
+                {
+                    totalPaginas = 1;
+                }
+
+                paginaActual = 1;
+
+                MostrarPaginaCorporativosBusqueda();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+        private void MostrarPaginaCorporativosBusqueda()
+        {
+            if (dtCorporativosBusqueda == null)
+                return;
+
+            DataTable dtPagina =
+                dtCorporativosBusqueda.Clone();
+
+            int inicio =
+                (paginaActual - 1) * registrosPorPagina;
+
+            int fin =
+                Math.Min(
+                    inicio + registrosPorPagina,
+                    dtCorporativosBusqueda.Rows.Count);
+
+            for (int i = inicio; i < fin; i++)
+            {
+                dtPagina.ImportRow(
+                    dtCorporativosBusqueda.Rows[i]);
+            }
+
+            dgvClientesCorporativos.DataSource = null;
+            dgvClientesCorporativos.DataSource = dtPagina;
+            FormatearTablaCorporativos();
+
+            lblPagina.Text =
+                $"Página {paginaActual} de {totalPaginas}";
+
+            btnAtrasC.Enabled =
+                paginaActual > 1;
+
+            btnSiguienteC.Enabled =
+                paginaActual < totalPaginas;
         }
 
         private void txtBuscarCorporativo_Leave(object sender, EventArgs e)
@@ -1203,12 +1579,84 @@ namespace Vista.Clientes_Secretario
                 if (txtBuscarIndividual.Text == "Buscar Cliente...")
                     return;
 
-                dgvClientesIndividuales.DataSource = DbCliente.BuscarClienteIndividual(txtBuscarIndividual.Text);
+                string buscar =
+                    txtBuscarIndividual.Text.Trim();
+
+                if (string.IsNullOrWhiteSpace(buscar))
+                {
+                    paginaActualIndividual = 1;
+
+                    dtIndividualesBusqueda = null;
+
+                    return;
+                }
+
+                dtIndividualesBusqueda =
+                    DbCliente.BuscarClienteIndividual(buscar);
+
+                int totalResultados =
+                    dtIndividualesBusqueda.Rows.Count;
+
+                totalPaginasIndividual =
+                    (int)Math.Ceiling(
+                        (double)totalResultados /
+                        registrosPorPagina);
+
+                if (totalPaginasIndividual == 0)
+                {
+                    totalPaginasIndividual = 1;
+                }
+
+                paginaActualIndividual = 1;
+
+                MostrarPaginaIndividualesBusqueda();
+
+
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void MostrarPaginaIndividualesBusqueda()
+        {
+            if (dtIndividualesBusqueda == null)
+                return;
+
+            DataTable dtPagina =
+                dtIndividualesBusqueda.Clone();
+
+            int inicio =
+                (paginaActualIndividual - 1) *
+                registrosPorPagina;
+
+            int fin =
+                Math.Min(
+                    inicio + registrosPorPagina,
+                    dtIndividualesBusqueda.Rows.Count);
+
+            for (int i = inicio; i < fin; i++)
+            {
+                dtPagina.ImportRow(
+                    dtIndividualesBusqueda.Rows[i]);
+            }
+
+            dgvClientesIndividuales.DataSource = null;
+            dgvClientesIndividuales.DataSource = dtPagina;
+            MostrarClientesIndividuales();
+
+
+            lblPagina.Text =
+                $"Página {paginaActualIndividual} de {totalPaginasIndividual}";
+
+            btnAnterior.Enabled =
+                paginaActualIndividual > 1;
+
+            btnSiguiente.Enabled =
+                paginaActualIndividual < totalPaginasIndividual;
+
+
         }
 
         private void txtBuscarIndividual_Leave(object sender, EventArgs e)

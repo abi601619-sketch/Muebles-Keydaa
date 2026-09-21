@@ -148,6 +148,9 @@ namespace Vista.Categorías
 
             dgvCategorias.AutoSizeRowsMode =
                 DataGridViewAutoSizeRowsMode.AllCells;
+            dgvCategorias.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            // Ocultar cuadrito de la izquierda
+            dgvCategorias.RowHeadersVisible = false;
         }
 
         //CONFIGURAR TOOLTIPS--------------------------------------

@@ -92,6 +92,7 @@ namespace Vista.Clientes
                 paginaActual < totalPaginas;
 
             ActualizarEstadisticas();
+            FormatearTablaCorporativos();
         }
         private void MostrarClientes2()
         {
@@ -136,7 +137,6 @@ namespace Vista.Clientes
 
         }
 
-        //CONFIGURACION DEL DISEÑO DE LOS DATAGRID
         //----------------------------------------------------------------------
         // CONFIGURAR TABLAS DE CLIENTES
 
@@ -719,9 +719,21 @@ namespace Vista.Clientes
         // ACTUALIZAR LAS ESTADISTICAS DE LOS CLIENTES
         private void ActualizarEstadisticas()
         {
-            lblTotalClientes.Text = DbCliente.ContarClientesTotales().ToString();
-            lblClientesActivos.Text = DbCliente.ContarClientesActivos().ToString();
-            lblClientesInactivos.Text = DbCliente.ContarClientesInactivos().ToString();
+            try
+            {
+                lblTotalClientes.Text = DbCliente.ContarClientesTotales().ToString();
+                lblClientesActivos.Text = DbCliente.ContarClientesActivos().ToString();
+                lblClientesInactivos.Text = DbCliente.ContarClientesInactivos().ToString();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Ocurrió un error al actualizar las estadísticas.\n" + ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
         }
 
         //----------------------------------------------------------------------------
@@ -1804,8 +1816,6 @@ namespace Vista.Clientes
 
         //---------------------------------------------------------------------------------
         //Metodos de busqueda
-
-
 
         private void txtBuscarCorporativo_TextChanged(object sender, EventArgs e)
         {
