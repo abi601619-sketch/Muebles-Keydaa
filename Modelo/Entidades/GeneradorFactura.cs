@@ -73,9 +73,9 @@ namespace Modelo.Entidades
                                 else
                                 {
                                     columna.Item()
-                                        .Text(ConfiguracionEmpresa.Nombre)
-                                        .FontSize(20)
-                                        .Bold();
+                                    .Text(ConfiguracionEmpresa.Nombre)
+                                    .FontSize(20)
+                                    .Bold();
                                 }
 
                                 columna.Item()
@@ -253,23 +253,12 @@ namespace Modelo.Entidades
                                         subtotal.ToString("0.00")
                                     );
 
-                                    totales.Item().Text(
-                                        "Descuento: $ " +
-                                        descuento.ToString("0.00")
+                                    totales.Item().Text("Descuento: $ " + descuento.ToString("0.00")
                                     );
 
-                                    totales.Item().Text(
-                                        "IVA (13%): $ " +
-                                        iva.ToString("0.00")
-                                    );
+                                    totales.Item().Text("IVA (13%): $ " + iva.ToString("0.00"));
                                     //El total se muestra en negrita
-                                    totales.Item()
-                                        .Text(
-                                            "TOTAL: $ " +
-                                            total.ToString("0.00")
-                                        )
-                                        .FontSize(14)
-                                        .Bold();
+                                    totales.Item().Text("TOTAL: $ " + total.ToString("0.00")).FontSize(14).Bold();
                                 });
 
 
@@ -287,10 +276,7 @@ namespace Modelo.Entidades
                         //FOOTER DE LA PAGINA
                         page.Footer().AlignCenter().Text(texto =>
                         {
-                            texto.Span(
-                                "Factura generada por el sistema de " +
-                                ConfiguracionEmpresa.Nombre
-                            );
+                            texto.Span("Factura generada por el sistema de " + ConfiguracionEmpresa.Nombre);
                         });
                     });
 

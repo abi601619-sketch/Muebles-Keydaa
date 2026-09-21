@@ -172,7 +172,7 @@
             // 
             this.lblPagina.AutoSize = true;
             this.lblPagina.Font = new System.Drawing.Font("Times New Roman", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPagina.ForeColor = System.Drawing.Color.White;
+            this.lblPagina.ForeColor = System.Drawing.Color.Black;
             this.lblPagina.Location = new System.Drawing.Point(59, 249);
             this.lblPagina.Name = "lblPagina";
             this.lblPagina.Size = new System.Drawing.Size(39, 13);
@@ -183,7 +183,7 @@
             // 
             this.btnAnterior.FlatAppearance.BorderSize = 0;
             this.btnAnterior.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAnterior.Image = global::Vista.Properties.Resources.flecha_atras;
+            this.btnAnterior.Image = global::Vista.Properties.Resources.hacia_atras_negro2;
             this.btnAnterior.Location = new System.Drawing.Point(22, 244);
             this.btnAnterior.Name = "btnAnterior";
             this.btnAnterior.Size = new System.Drawing.Size(30, 23);
@@ -195,7 +195,7 @@
             // 
             this.btnSiguiente.FlatAppearance.BorderSize = 0;
             this.btnSiguiente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSiguiente.Image = global::Vista.Properties.Resources.flecha_adelante;
+            this.btnSiguiente.Image = global::Vista.Properties.Resources.hacia_adelante_negro;
             this.btnSiguiente.Location = new System.Drawing.Point(146, 244);
             this.btnSiguiente.Name = "btnSiguiente";
             this.btnSiguiente.Size = new System.Drawing.Size(30, 23);

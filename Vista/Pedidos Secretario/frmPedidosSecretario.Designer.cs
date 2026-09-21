@@ -28,8 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pnlContenedorPrincipalInventario = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblSubTexto = new System.Windows.Forms.Label();
@@ -51,24 +52,28 @@
             this.label2 = new System.Windows.Forms.Label();
             this.dgvDetallesDePedido = new System.Windows.Forms.DataGridView();
             this.pnlPedidaDeDatos = new System.Windows.Forms.Panel();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.nudCantidad = new System.Windows.Forms.NumericUpDown();
             this.lblCantidad = new System.Windows.Forms.Label();
             this.txtMuebleaRealizar = new System.Windows.Forms.TextBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.cbEstado = new System.Windows.Forms.ComboBox();
+            this.dtpFechaPedido = new System.Windows.Forms.DateTimePicker();
             this.lblFechaPedido = new System.Windows.Forms.Label();
             this.dtpFechaEntrega = new System.Windows.Forms.DateTimePicker();
             this.pnlTituloDetallesPedido = new System.Windows.Forms.Panel();
             this.lblDatosPedido = new System.Windows.Forms.Label();
             this.btnGuardar = new System.Windows.Forms.Button();
-            this.btnDeatllePedido = new System.Windows.Forms.Button();
-            this.btnSeleccionarCliente = new System.Windows.Forms.Button();
+            this.btnDetallePedido = new System.Windows.Forms.Button();
             this.btnCamcelar = new System.Windows.Forms.Button();
             this.btnAgregar = new System.Windows.Forms.Button();
             this.lblEstado = new System.Windows.Forms.Label();
             this.lblMuebleARealizar = new System.Windows.Forms.Label();
             this.lblFechaEntrega = new System.Windows.Forms.Label();
             this.lblCliente = new System.Windows.Forms.Label();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.txtClienteSeleccionado = new System.Windows.Forms.TextBox();
+            this.lblPagina = new System.Windows.Forms.Label();
+            this.btnAnterior = new System.Windows.Forms.Button();
+            this.btnSiguiente = new System.Windows.Forms.Button();
             this.pnlContenedorPrincipalInventario.SuspendLayout();
             this.panel1.SuspendLayout();
             this.pnlHeader.SuspendLayout();
@@ -83,7 +88,7 @@
             this.pnlTitulo1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetallesDePedido)).BeginInit();
             this.pnlPedidaDeDatos.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudCantidad)).BeginInit();
             this.pnlTituloDetallesPedido.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -132,16 +137,19 @@
             this.pnlHeader.Controls.Add(this.lblMensajeInformativoPedidos);
             this.pnlHeader.Controls.Add(this.pnlDEtalles);
             this.pnlHeader.Controls.Add(this.pnlPedidaDeDatos);
+            this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlHeader.Location = new System.Drawing.Point(0, 0);
             this.pnlHeader.Margin = new System.Windows.Forms.Padding(2);
             this.pnlHeader.Name = "pnlHeader";
-            this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlHeader.Size = new System.Drawing.Size(1102, 627);
             this.pnlHeader.TabIndex = 0;
             // 
             // pnlRegistros
             // 
             this.pnlRegistros.BackColor = System.Drawing.Color.Bisque;
+            this.pnlRegistros.Controls.Add(this.lblPagina);
+            this.pnlRegistros.Controls.Add(this.btnAnterior);
+            this.pnlRegistros.Controls.Add(this.btnSiguiente);
             this.pnlRegistros.Controls.Add(this.pnlTitulo2);
             this.pnlRegistros.Controls.Add(this.dgvPedidosRegistrados);
             this.pnlRegistros.Location = new System.Drawing.Point(265, 344);
@@ -173,21 +181,26 @@
             // 
             // dgvPedidosRegistrados
             // 
+            this.dgvPedidosRegistrados.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvPedidosRegistrados.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.PeachPuff;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvPedidosRegistrados.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvPedidosRegistrados.BackgroundColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.PeachPuff;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvPedidosRegistrados.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvPedidosRegistrados.Location = new System.Drawing.Point(11, 34);
             this.dgvPedidosRegistrados.Name = "dgvPedidosRegistrados";
             this.dgvPedidosRegistrados.ReadOnly = true;
-            this.dgvPedidosRegistrados.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvPedidosRegistrados.Size = new System.Drawing.Size(794, 226);
+            this.dgvPedidosRegistrados.Size = new System.Drawing.Size(794, 207);
             this.dgvPedidosRegistrados.TabIndex = 0;
+            this.dgvPedidosRegistrados.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPedidosRegistrados_CellClick);
+            this.dgvPedidosRegistrados.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPedidosRegistrados_CellDoubleClick);
             // 
             // pbxBuscar
             // 
@@ -263,6 +276,9 @@
             this.txtBuscar.Size = new System.Drawing.Size(488, 26);
             this.txtBuscar.TabIndex = 8;
             this.txtBuscar.Text = "Buscar Pedido...";
+            this.txtBuscar.TextChanged += new System.EventHandler(this.txtBuscar_TextChanged);
+            this.txtBuscar.Enter += new System.EventHandler(this.txtBuscar_Enter_1);
+            this.txtBuscar.Leave += new System.EventHandler(this.txtBuscar_Leave_1);
             // 
             // lblMensajeInformativoPedidos
             // 
@@ -309,19 +325,22 @@
             // 
             // dgvDetallesDePedido
             // 
+            this.dgvDetallesDePedido.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvDetallesDePedido.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.PeachPuff;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvDetallesDePedido.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.dgvDetallesDePedido.BackgroundColor = System.Drawing.Color.White;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.PeachPuff;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvDetallesDePedido.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvDetallesDePedido.Location = new System.Drawing.Point(11, 35);
             this.dgvDetallesDePedido.Name = "dgvDetallesDePedido";
             this.dgvDetallesDePedido.ReadOnly = true;
-            this.dgvDetallesDePedido.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvDetallesDePedido.Size = new System.Drawing.Size(793, 190);
             this.dgvDetallesDePedido.TabIndex = 0;
             // 
@@ -332,35 +351,35 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlPedidaDeDatos.AutoScroll = true;
             this.pnlPedidaDeDatos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(215)))), ((int)(((byte)(215)))));
-            this.pnlPedidaDeDatos.Controls.Add(this.numericUpDown1);
+            this.pnlPedidaDeDatos.Controls.Add(this.txtClienteSeleccionado);
+            this.pnlPedidaDeDatos.Controls.Add(this.nudCantidad);
             this.pnlPedidaDeDatos.Controls.Add(this.lblCantidad);
             this.pnlPedidaDeDatos.Controls.Add(this.txtMuebleaRealizar);
-            this.pnlPedidaDeDatos.Controls.Add(this.comboBox1);
-            this.pnlPedidaDeDatos.Controls.Add(this.dateTimePicker1);
+            this.pnlPedidaDeDatos.Controls.Add(this.cbEstado);
+            this.pnlPedidaDeDatos.Controls.Add(this.dtpFechaPedido);
             this.pnlPedidaDeDatos.Controls.Add(this.lblFechaPedido);
             this.pnlPedidaDeDatos.Controls.Add(this.dtpFechaEntrega);
             this.pnlPedidaDeDatos.Controls.Add(this.pnlTituloDetallesPedido);
-            this.pnlPedidaDeDatos.Controls.Add(this.btnGuardar);
-            this.pnlPedidaDeDatos.Controls.Add(this.btnDeatllePedido);
-            this.pnlPedidaDeDatos.Controls.Add(this.btnSeleccionarCliente);
+            this.pnlPedidaDeDatos.Controls.Add(this.btnDetallePedido);
             this.pnlPedidaDeDatos.Controls.Add(this.btnCamcelar);
             this.pnlPedidaDeDatos.Controls.Add(this.btnAgregar);
             this.pnlPedidaDeDatos.Controls.Add(this.lblEstado);
             this.pnlPedidaDeDatos.Controls.Add(this.lblMuebleARealizar);
             this.pnlPedidaDeDatos.Controls.Add(this.lblFechaEntrega);
             this.pnlPedidaDeDatos.Controls.Add(this.lblCliente);
+            this.pnlPedidaDeDatos.Controls.Add(this.btnGuardar);
             this.pnlPedidaDeDatos.Location = new System.Drawing.Point(20, 118);
             this.pnlPedidaDeDatos.Margin = new System.Windows.Forms.Padding(2);
             this.pnlPedidaDeDatos.Name = "pnlPedidaDeDatos";
             this.pnlPedidaDeDatos.Size = new System.Drawing.Size(228, 454);
             this.pnlPedidaDeDatos.TabIndex = 2;
             // 
-            // numericUpDown1
+            // nudCantidad
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(88, 297);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(113, 20);
-            this.numericUpDown1.TabIndex = 37;
+            this.nudCantidad.Location = new System.Drawing.Point(88, 297);
+            this.nudCantidad.Name = "nudCantidad";
+            this.nudCantidad.Size = new System.Drawing.Size(113, 20);
+            this.nudCantidad.TabIndex = 37;
             // 
             // lblCantidad
             // 
@@ -379,23 +398,24 @@
             this.txtMuebleaRealizar.Name = "txtMuebleaRealizar";
             this.txtMuebleaRealizar.Size = new System.Drawing.Size(187, 20);
             this.txtMuebleaRealizar.TabIndex = 35;
+            this.txtMuebleaRealizar.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtMuebleaRealizar_KeyPress);
             // 
-            // comboBox1
+            // cbEstado
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(95, 144);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(113, 21);
-            this.comboBox1.TabIndex = 33;
+            this.cbEstado.FormattingEnabled = true;
+            this.cbEstado.Location = new System.Drawing.Point(95, 144);
+            this.cbEstado.Name = "cbEstado";
+            this.cbEstado.Size = new System.Drawing.Size(113, 21);
+            this.cbEstado.TabIndex = 33;
             // 
-            // dateTimePicker1
+            // dtpFechaPedido
             // 
-            this.dateTimePicker1.Font = new System.Drawing.Font("Times New Roman", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker1.Location = new System.Drawing.Point(127, 108);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(82, 20);
-            this.dateTimePicker1.TabIndex = 32;
+            this.dtpFechaPedido.Font = new System.Drawing.Font("Times New Roman", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpFechaPedido.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpFechaPedido.Location = new System.Drawing.Point(127, 78);
+            this.dtpFechaPedido.Name = "dtpFechaPedido";
+            this.dtpFechaPedido.Size = new System.Drawing.Size(82, 20);
+            this.dtpFechaPedido.TabIndex = 32;
             // 
             // lblFechaPedido
             // 
@@ -412,7 +432,7 @@
             // 
             this.dtpFechaEntrega.Font = new System.Drawing.Font("Times New Roman", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpFechaEntrega.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpFechaEntrega.Location = new System.Drawing.Point(129, 76);
+            this.dtpFechaEntrega.Location = new System.Drawing.Point(129, 106);
             this.dtpFechaEntrega.Name = "dtpFechaEntrega";
             this.dtpFechaEntrega.Size = new System.Drawing.Size(80, 20);
             this.dtpFechaEntrega.TabIndex = 30;
@@ -442,33 +462,25 @@
             // 
             this.btnGuardar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.btnGuardar.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGuardar.Location = new System.Drawing.Point(13, 400);
+            this.btnGuardar.Location = new System.Drawing.Point(13, 399);
             this.btnGuardar.Margin = new System.Windows.Forms.Padding(2);
             this.btnGuardar.Name = "btnGuardar";
-            this.btnGuardar.Size = new System.Drawing.Size(101, 30);
+            this.btnGuardar.Size = new System.Drawing.Size(101, 39);
             this.btnGuardar.TabIndex = 28;
-            this.btnGuardar.Text = "Guardar";
+            this.btnGuardar.Text = "Guardar cambios";
             this.btnGuardar.UseVisualStyleBackColor = false;
+            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
             // 
-            // btnDeatllePedido
+            // btnDetallePedido
             // 
-            this.btnDeatllePedido.Font = new System.Drawing.Font("Times New Roman", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDeatllePedido.Location = new System.Drawing.Point(20, 330);
-            this.btnDeatllePedido.Name = "btnDeatllePedido";
-            this.btnDeatllePedido.Size = new System.Drawing.Size(178, 24);
-            this.btnDeatllePedido.TabIndex = 27;
-            this.btnDeatllePedido.Text = "Detalles del pedido";
-            this.btnDeatllePedido.UseVisualStyleBackColor = true;
-            // 
-            // btnSeleccionarCliente
-            // 
-            this.btnSeleccionarCliente.Font = new System.Drawing.Font("Times New Roman", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSeleccionarCliente.Location = new System.Drawing.Point(75, 43);
-            this.btnSeleccionarCliente.Name = "btnSeleccionarCliente";
-            this.btnSeleccionarCliente.Size = new System.Drawing.Size(134, 24);
-            this.btnSeleccionarCliente.TabIndex = 26;
-            this.btnSeleccionarCliente.Text = "Seleccionar Cliente";
-            this.btnSeleccionarCliente.UseVisualStyleBackColor = true;
+            this.btnDetallePedido.Font = new System.Drawing.Font("Times New Roman", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDetallePedido.Location = new System.Drawing.Point(20, 330);
+            this.btnDetallePedido.Name = "btnDetallePedido";
+            this.btnDetallePedido.Size = new System.Drawing.Size(178, 24);
+            this.btnDetallePedido.TabIndex = 27;
+            this.btnDetallePedido.Text = "Detalles del pedido";
+            this.btnDetallePedido.UseVisualStyleBackColor = true;
+            this.btnDetallePedido.Click += new System.EventHandler(this.btnDetallePedido_Click);
             // 
             // btnCamcelar
             // 
@@ -477,10 +489,11 @@
             this.btnCamcelar.Location = new System.Drawing.Point(118, 399);
             this.btnCamcelar.Margin = new System.Windows.Forms.Padding(2);
             this.btnCamcelar.Name = "btnCamcelar";
-            this.btnCamcelar.Size = new System.Drawing.Size(91, 31);
+            this.btnCamcelar.Size = new System.Drawing.Size(91, 39);
             this.btnCamcelar.TabIndex = 15;
             this.btnCamcelar.Text = "Cancelar";
             this.btnCamcelar.UseVisualStyleBackColor = false;
+            this.btnCamcelar.Click += new System.EventHandler(this.btnCamcelar_Click);
             // 
             // btnAgregar
             // 
@@ -494,6 +507,7 @@
             this.btnAgregar.TabIndex = 14;
             this.btnAgregar.Text = "Agregar Producto";
             this.btnAgregar.UseVisualStyleBackColor = false;
+            this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
             // 
             // lblEstado
             // 
@@ -539,6 +553,51 @@
             this.lblCliente.TabIndex = 1;
             this.lblCliente.Text = "Cliente:";
             // 
+            // txtClienteSeleccionado
+            // 
+            this.txtClienteSeleccionado.Enabled = false;
+            this.txtClienteSeleccionado.ForeColor = System.Drawing.SystemColors.ScrollBar;
+            this.txtClienteSeleccionado.Location = new System.Drawing.Point(76, 45);
+            this.txtClienteSeleccionado.Name = "txtClienteSeleccionado";
+            this.txtClienteSeleccionado.Size = new System.Drawing.Size(122, 20);
+            this.txtClienteSeleccionado.TabIndex = 39;
+            this.txtClienteSeleccionado.Text = "Selecciona un cliente";
+            // 
+            // lblPagina
+            // 
+            this.lblPagina.AutoSize = true;
+            this.lblPagina.Font = new System.Drawing.Font("Times New Roman", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPagina.ForeColor = System.Drawing.Color.Black;
+            this.lblPagina.Location = new System.Drawing.Point(53, 249);
+            this.lblPagina.Name = "lblPagina";
+            this.lblPagina.Size = new System.Drawing.Size(39, 13);
+            this.lblPagina.TabIndex = 13;
+            this.lblPagina.Text = "label1";
+            // 
+            // btnAnterior
+            // 
+            this.btnAnterior.FlatAppearance.BorderSize = 0;
+            this.btnAnterior.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAnterior.Image = global::Vista.Properties.Resources.hacia_atras_negro2;
+            this.btnAnterior.Location = new System.Drawing.Point(16, 244);
+            this.btnAnterior.Name = "btnAnterior";
+            this.btnAnterior.Size = new System.Drawing.Size(30, 23);
+            this.btnAnterior.TabIndex = 12;
+            this.btnAnterior.UseVisualStyleBackColor = true;
+            this.btnAnterior.Click += new System.EventHandler(this.btnAnterior_Click);
+            // 
+            // btnSiguiente
+            // 
+            this.btnSiguiente.FlatAppearance.BorderSize = 0;
+            this.btnSiguiente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSiguiente.Image = global::Vista.Properties.Resources.hacia_adelante_negro;
+            this.btnSiguiente.Location = new System.Drawing.Point(140, 244);
+            this.btnSiguiente.Name = "btnSiguiente";
+            this.btnSiguiente.Size = new System.Drawing.Size(30, 23);
+            this.btnSiguiente.TabIndex = 11;
+            this.btnSiguiente.UseVisualStyleBackColor = true;
+            this.btnSiguiente.Click += new System.EventHandler(this.btnSiguiente_Click);
+            // 
             // frmPedidosSecretario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -555,6 +614,7 @@
             this.pnlHeader.ResumeLayout(false);
             this.pnlHeader.PerformLayout();
             this.pnlRegistros.ResumeLayout(false);
+            this.pnlRegistros.PerformLayout();
             this.pnlTitulo2.ResumeLayout(false);
             this.pnlTitulo2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPedidosRegistrados)).EndInit();
@@ -570,7 +630,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetallesDePedido)).EndInit();
             this.pnlPedidaDeDatos.ResumeLayout(false);
             this.pnlPedidaDeDatos.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudCantidad)).EndInit();
             this.pnlTituloDetallesPedido.ResumeLayout(false);
             this.pnlTituloDetallesPedido.PerformLayout();
             this.ResumeLayout(false);
@@ -599,23 +659,27 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataGridView dgvDetallesDePedido;
         private System.Windows.Forms.Panel pnlPedidaDeDatos;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown nudCantidad;
         private System.Windows.Forms.Label lblCantidad;
         private System.Windows.Forms.TextBox txtMuebleaRealizar;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.ComboBox cbEstado;
+        private System.Windows.Forms.DateTimePicker dtpFechaPedido;
         private System.Windows.Forms.Label lblFechaPedido;
         private System.Windows.Forms.DateTimePicker dtpFechaEntrega;
         private System.Windows.Forms.Panel pnlTituloDetallesPedido;
         private System.Windows.Forms.Label lblDatosPedido;
         private System.Windows.Forms.Button btnGuardar;
-        private System.Windows.Forms.Button btnDeatllePedido;
-        private System.Windows.Forms.Button btnSeleccionarCliente;
+        private System.Windows.Forms.Button btnDetallePedido;
         private System.Windows.Forms.Button btnCamcelar;
         private System.Windows.Forms.Button btnAgregar;
         private System.Windows.Forms.Label lblEstado;
         private System.Windows.Forms.Label lblMuebleARealizar;
         private System.Windows.Forms.Label lblFechaEntrega;
         private System.Windows.Forms.Label lblCliente;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.TextBox txtClienteSeleccionado;
+        private System.Windows.Forms.Label lblPagina;
+        private System.Windows.Forms.Button btnAnterior;
+        private System.Windows.Forms.Button btnSiguiente;
     }
 }

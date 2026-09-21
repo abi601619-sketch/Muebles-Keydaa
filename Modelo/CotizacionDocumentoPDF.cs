@@ -25,9 +25,7 @@ namespace Modelo
         private readonly List<ProductoPDF> productos;
 
 
-        // =========================================================
         // CONSTRUCTOR
-        // =========================================================
 
         public CotizacionDocumentoPDF(
             int idCotizacion,
@@ -60,9 +58,7 @@ namespace Modelo
         }
 
 
-        // =========================================================
         // INFORMACIÓN DEL DOCUMENTO
-        // =========================================================
 
         public DocumentMetadata GetMetadata()
         {
@@ -77,9 +73,7 @@ namespace Modelo
         }
 
 
-        // =========================================================
         // CONFIGURACIÓN
-        // =========================================================
 
         public DocumentSettings GetSettings()
         {
@@ -87,9 +81,7 @@ namespace Modelo
         }
 
 
-        // =========================================================
         // CREAR DOCUMENTO
-        // =========================================================
 
         public void Compose(IDocumentContainer container)
         {
@@ -128,9 +120,7 @@ namespace Modelo
         }
 
 
-        // =========================================================
         // ENCABEZADO
-        // =========================================================
 
         private void ConstruirEncabezado(IContainer container)
         {
@@ -272,26 +262,20 @@ namespace Modelo
         }
 
 
-        // =========================================================
         // CONTENIDO
-        // =========================================================
 
         private void ConstruirContenido(IContainer container)
         {
             container.Column(column =>
             {
 
-                // =================================================
                 // DATOS DEL CLIENTE
-                // =================================================
 
                 column.Item()
                     .Element(ConstruirDatosCliente);
 
 
-                // =================================================
                 // TÍTULO
-                // =================================================
 
                 column.Item()
                     .PaddingTop(15)
@@ -300,18 +284,14 @@ namespace Modelo
                     .FontSize(12);
 
 
-                // =================================================
                 // TABLA DE PRODUCTOS
-                // =================================================
 
                 column.Item()
                     .PaddingTop(8)
                     .Element(ConstruirTablaProductos);
 
 
-                // =================================================
                 // TOTALES
-                // =================================================
 
                 column.Item()
                     .PaddingTop(15)
@@ -319,9 +299,7 @@ namespace Modelo
                     .Element(ConstruirTotales);
 
 
-                // =================================================
                 // CONDICIONES
-                // =================================================
 
                 column.Item()
                     .PaddingTop(20)
@@ -330,9 +308,7 @@ namespace Modelo
         }
 
 
-        // =========================================================
         // DATOS DEL CLIENTE
-        // =========================================================
 
         private void ConstruirDatosCliente(IContainer container)
         {
@@ -366,9 +342,7 @@ namespace Modelo
         }
 
 
-        // =========================================================
         // TABLA DE PRODUCTOS
-        // =========================================================
 
         private void ConstruirTablaProductos(IContainer container)
         {
@@ -469,10 +443,7 @@ namespace Modelo
             });
         }
 
-
-        // =========================================================
         // ESTILO ENCABEZADO TABLA
-        // =========================================================
 
         private IContainer EncabezadoTabla(IContainer container)
         {
@@ -482,10 +453,7 @@ namespace Modelo
                 .Background(Colors.Grey.Lighten2);
         }
 
-
-        // =========================================================
         // ESTILO CELDA
-        // =========================================================
 
         private IContainer CeldaTabla(IContainer container)
         {
@@ -494,10 +462,7 @@ namespace Modelo
                 .Padding(5);
         }
 
-
-        // =========================================================
         // TOTALES
-        // =========================================================
 
         private void ConstruirTotales(IContainer container)
         {
@@ -562,9 +527,7 @@ namespace Modelo
         }
 
 
-        // =========================================================
         // CONDICIONES
-        // =========================================================
 
         private void ConstruirCondiciones(IContainer container)
         {
@@ -595,9 +558,7 @@ namespace Modelo
         }
 
 
-        // =========================================================
         // GENERAR PDF
-        // =========================================================
 
         public static void Generar(
             string rutaPDF,
@@ -615,11 +576,7 @@ namespace Modelo
             decimal total,
             List<ProductoPDF> productos)
         {
-            CotizacionDocumentoPDF documento =
-                new CotizacionDocumentoPDF(
-                    idCotizacion,
-                    fecha,
-                    cliente,
+            CotizacionDocumentoPDF documento = new CotizacionDocumentoPDF(idCotizacion, fecha, cliente,
                     telefono,
                     correo,
                     direccion,
@@ -637,9 +594,7 @@ namespace Modelo
     }
 
 
-    // =============================================================
     // PRODUCTO PARA PDF
-    // =============================================================
 
     public class ProductoPDF
     {

@@ -125,7 +125,7 @@ namespace Vista.Produccion_Secretario
                     ForeColor = Color.White,
                     Font = new Font(
                         "Segoe UI",
-                        10,
+                        10F,
                         FontStyle.Bold
                     ),
                     Alignment =
@@ -146,7 +146,7 @@ namespace Vista.Produccion_Secretario
                     ForeColor = Color.FromArgb(55, 55, 55),
                     Font = new Font(
                         "Segoe UI",
-                        10
+                        10F
                     ),
                     Alignment =
                         DataGridViewContentAlignment.MiddleCenter,
@@ -166,7 +166,7 @@ namespace Vista.Produccion_Secretario
                     ForeColor = Color.FromArgb(55, 55, 55),
                     Font = new Font(
                         "Segoe UI",
-                        10
+                        10F
                     ),
                     SelectionBackColor =
                         Color.FromArgb(238, 215, 185),
@@ -413,6 +413,7 @@ namespace Vista.Produccion_Secretario
                 }
             }
         }
+
         // Filtra la tabla según el estado y búsqueda
         private void FiltrarTabla()
         {
@@ -604,10 +605,10 @@ namespace Vista.Produccion_Secretario
         // Ejecuta el filtro cuando cambia el estado
         private void cbEstados_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (txtBuscar.Text != "Buscar por código o nombre de cliente...")
-            {
-                FiltrarTabla();
-            }
+            if (dtProduccion == null)
+                return;
+
+            FiltrarTabla();
         }
         // Ejecuta el filtro cuando cambia el texto
         private void txtBuscar_TextChanged(object sender, EventArgs e)

@@ -28,15 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.lblFinalizados = new System.Windows.Forms.Label();
             this.pnlIndicador2 = new System.Windows.Forms.Panel();
             this.lblMostrarFinalizados = new System.Windows.Forms.Label();
             this.pbFinalizados = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.pnlContenedorTabla = new System.Windows.Forms.Panel();
+            this.lblPage = new System.Windows.Forms.Label();
+            this.btnAtrass = new System.Windows.Forms.Button();
+            this.btnSiguient = new System.Windows.Forms.Button();
             this.btnMaterialUtilizado = new System.Windows.Forms.Button();
-            this.dgvProduccion = new System.Windows.Forms.DataGridView();
             this.btnEditar = new System.Windows.Forms.Button();
             this.pnlIndicador1 = new System.Windows.Forms.Panel();
             this.lblMostrarPendientes = new System.Windows.Forms.Label();
@@ -59,13 +60,10 @@
             this.pnlBarraInformativa = new System.Windows.Forms.Panel();
             this.lblAdministrador = new System.Windows.Forms.Label();
             this.pbPerfil = new System.Windows.Forms.PictureBox();
-            this.lblPage = new System.Windows.Forms.Label();
-            this.btnAtrass = new System.Windows.Forms.Button();
-            this.btnSiguient = new System.Windows.Forms.Button();
+            this.dgvProduccion = new System.Windows.Forms.DataGridView();
             this.pnlIndicador2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbFinalizados)).BeginInit();
             this.pnlContenedorTabla.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvProduccion)).BeginInit();
             this.pnlIndicador1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbCancelados)).BeginInit();
             this.pnlIndicador3.SuspendLayout();
@@ -76,6 +74,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbxBuscar)).BeginInit();
             this.pnlBarraInformativa.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbPerfil)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvProduccion)).BeginInit();
             this.SuspendLayout();
             // 
             // lblFinalizados
@@ -135,17 +134,52 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlContenedorTabla.BackColor = System.Drawing.Color.White;
+            this.pnlContenedorTabla.Controls.Add(this.dgvProduccion);
             this.pnlContenedorTabla.Controls.Add(this.lblPage);
             this.pnlContenedorTabla.Controls.Add(this.btnAtrass);
             this.pnlContenedorTabla.Controls.Add(this.btnSiguient);
             this.pnlContenedorTabla.Controls.Add(this.btnMaterialUtilizado);
-            this.pnlContenedorTabla.Controls.Add(this.dgvProduccion);
             this.pnlContenedorTabla.Controls.Add(this.btnEditar);
             this.pnlContenedorTabla.Location = new System.Drawing.Point(29, 268);
             this.pnlContenedorTabla.Margin = new System.Windows.Forms.Padding(2);
             this.pnlContenedorTabla.Name = "pnlContenedorTabla";
             this.pnlContenedorTabla.Size = new System.Drawing.Size(1045, 337);
             this.pnlContenedorTabla.TabIndex = 3;
+            // 
+            // lblPage
+            // 
+            this.lblPage.AutoSize = true;
+            this.lblPage.Font = new System.Drawing.Font("Times New Roman", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPage.ForeColor = System.Drawing.Color.Black;
+            this.lblPage.Location = new System.Drawing.Point(905, 306);
+            this.lblPage.Name = "lblPage";
+            this.lblPage.Size = new System.Drawing.Size(39, 13);
+            this.lblPage.TabIndex = 13;
+            this.lblPage.Text = "label1";
+            // 
+            // btnAtrass
+            // 
+            this.btnAtrass.FlatAppearance.BorderSize = 0;
+            this.btnAtrass.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAtrass.Image = global::Vista.Properties.Resources.hacia_atras_negro2;
+            this.btnAtrass.Location = new System.Drawing.Point(868, 301);
+            this.btnAtrass.Name = "btnAtrass";
+            this.btnAtrass.Size = new System.Drawing.Size(30, 23);
+            this.btnAtrass.TabIndex = 12;
+            this.btnAtrass.UseVisualStyleBackColor = true;
+            this.btnAtrass.Click += new System.EventHandler(this.btnAtrass_Click);
+            // 
+            // btnSiguient
+            // 
+            this.btnSiguient.FlatAppearance.BorderSize = 0;
+            this.btnSiguient.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSiguient.Image = global::Vista.Properties.Resources.hacia_adelante_negro;
+            this.btnSiguient.Location = new System.Drawing.Point(992, 301);
+            this.btnSiguient.Name = "btnSiguient";
+            this.btnSiguient.Size = new System.Drawing.Size(30, 23);
+            this.btnSiguient.TabIndex = 11;
+            this.btnSiguient.UseVisualStyleBackColor = true;
+            this.btnSiguient.Click += new System.EventHandler(this.btnSiguient_Click);
             // 
             // btnMaterialUtilizado
             // 
@@ -162,29 +196,6 @@
             this.btnMaterialUtilizado.Text = "Gestion de Material Utilizado";
             this.btnMaterialUtilizado.UseVisualStyleBackColor = false;
             this.btnMaterialUtilizado.Click += new System.EventHandler(this.btnMaterialUtilizado_Click);
-            // 
-            // dgvProduccion
-            // 
-            this.dgvProduccion.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvProduccion.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvProduccion.BackgroundColor = System.Drawing.Color.White;
-            this.dgvProduccion.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.PeachPuff;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvProduccion.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
-            this.dgvProduccion.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.dgvProduccion.Location = new System.Drawing.Point(17, 14);
-            this.dgvProduccion.Name = "dgvProduccion";
-            this.dgvProduccion.ReadOnly = true;
-            this.dgvProduccion.Size = new System.Drawing.Size(1011, 258);
-            this.dgvProduccion.TabIndex = 4;
             // 
             // btnEditar
             // 
@@ -444,40 +455,15 @@
             this.pbPerfil.TabIndex = 25;
             this.pbPerfil.TabStop = false;
             // 
-            // lblPage
+            // dgvProduccion
             // 
-            this.lblPage.AutoSize = true;
-            this.lblPage.Font = new System.Drawing.Font("Times New Roman", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPage.ForeColor = System.Drawing.Color.Black;
-            this.lblPage.Location = new System.Drawing.Point(905, 306);
-            this.lblPage.Name = "lblPage";
-            this.lblPage.Size = new System.Drawing.Size(39, 13);
-            this.lblPage.TabIndex = 13;
-            this.lblPage.Text = "label1";
-            // 
-            // btnAtrass
-            // 
-            this.btnAtrass.FlatAppearance.BorderSize = 0;
-            this.btnAtrass.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAtrass.Image = global::Vista.Properties.Resources.hacia_atras_negro2;
-            this.btnAtrass.Location = new System.Drawing.Point(868, 301);
-            this.btnAtrass.Name = "btnAtrass";
-            this.btnAtrass.Size = new System.Drawing.Size(30, 23);
-            this.btnAtrass.TabIndex = 12;
-            this.btnAtrass.UseVisualStyleBackColor = true;
-            this.btnAtrass.Click += new System.EventHandler(this.btnAtrass_Click);
-            // 
-            // btnSiguient
-            // 
-            this.btnSiguient.FlatAppearance.BorderSize = 0;
-            this.btnSiguient.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSiguient.Image = global::Vista.Properties.Resources.hacia_adelante_negro;
-            this.btnSiguient.Location = new System.Drawing.Point(992, 301);
-            this.btnSiguient.Name = "btnSiguient";
-            this.btnSiguient.Size = new System.Drawing.Size(30, 23);
-            this.btnSiguient.TabIndex = 11;
-            this.btnSiguient.UseVisualStyleBackColor = true;
-            this.btnSiguient.Click += new System.EventHandler(this.btnSiguient_Click);
+            this.dgvProduccion.BackgroundColor = System.Drawing.Color.White;
+            this.dgvProduccion.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dgvProduccion.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvProduccion.Location = new System.Drawing.Point(15, 14);
+            this.dgvProduccion.Name = "dgvProduccion";
+            this.dgvProduccion.Size = new System.Drawing.Size(1014, 274);
+            this.dgvProduccion.TabIndex = 14;
             // 
             // frmProduccionSecretario
             // 
@@ -494,7 +480,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbFinalizados)).EndInit();
             this.pnlContenedorTabla.ResumeLayout(false);
             this.pnlContenedorTabla.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvProduccion)).EndInit();
             this.pnlIndicador1.ResumeLayout(false);
             this.pnlIndicador1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbCancelados)).EndInit();
@@ -510,6 +495,7 @@
             this.pnlBarraInformativa.ResumeLayout(false);
             this.pnlBarraInformativa.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbPerfil)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvProduccion)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -540,7 +526,6 @@
         private System.Windows.Forms.Panel pnlBarraInformativa;
         private System.Windows.Forms.Button btnEditar;
         private System.Windows.Forms.Label lblAdministrador;
-        private System.Windows.Forms.DataGridView dgvProduccion;
         private System.Windows.Forms.Button btnMaterialUtilizado;
         private System.Windows.Forms.Label lblMostrarPendientes;
         private System.Windows.Forms.Label lblMostrarFinalizados;
@@ -549,5 +534,6 @@
         private System.Windows.Forms.Label lblPage;
         private System.Windows.Forms.Button btnAtrass;
         private System.Windows.Forms.Button btnSiguient;
+        private System.Windows.Forms.DataGridView dgvProduccion;
     }
 }

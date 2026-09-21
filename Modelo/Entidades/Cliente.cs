@@ -56,12 +56,7 @@ namespace Modelo.Entidades
             {
                 using (SqlConnection conectar = Conexion.Conectar())
                 {
-                    string comando = @"
-                SELECT 
-                    IdCliente,
-                    Identificador1 AS Nombre_De_Empresa,
-                    Identificador2 AS Nombre_Del_Encargado,
-                    Documento AS NIT,
+                    string comando = @"SELECT IdCliente,Identificador1 AS Nombre_De_Empresa, Identificador2 AS Nombre_Del_Encargado, Documento AS NIT,
                     Telefono,
                     Correo,
                     Direccion,
