@@ -10,25 +10,193 @@ namespace Vista.Produccion_Secretario
 {
     public partial class frmProduccionSecretario : Form
     {
+        // DATOS PARA LA PAGINACIÓN
+        private int registrosPorPagina = 10;
+        private int paginaActual = 1;
+        private int totalRegistros = 0;
+        private int totalPaginas = 1;
+
+        private DataTable dtProduccion;
+        private DataTable dtProduccionFiltrada;
         public frmProduccionSecretario()
         {
             InitializeComponent();
             ResponsiveHelper.Apply(this);
+            ConfigurarTablaProduccion();
         }
+        // CONFIGURAR TOOLTIPS
+        private void ConfigurarTooltips()
+        {
+            ToolTip toolTip = new ToolTip();
+
+            toolTip.AutoPopDelay = 5000;
+            toolTip.InitialDelay = 500;
+            toolTip.ReshowDelay = 200;
+            toolTip.ShowAlways = true;
+
+            // Buscador
+            toolTip.SetToolTip(
+                txtBuscar,
+                "Busca una producción por código o nombre del cliente."
+            );
+
+            // Estados
+            toolTip.SetToolTip(
+                cbEstados,
+                "Filtra las producciones según su estado."
+            );
+
+            // Limpiar
+            toolTip.SetToolTip(
+                btnLimpiar,
+                "Limpia todos los filtros de producción."
+            );
+
+            // Editar
+            toolTip.SetToolTip(
+                btnEditar,
+                "Permite editar la producción seleccionada."
+            );
+
+            // Material utilizado
+            toolTip.SetToolTip(
+                btnMaterialUtilizado,
+                "Muestra los materiales utilizados en la producción seleccionada."
+            );
+
+            // Tabla
+            toolTip.SetToolTip(
+                dgvProduccion,
+                "Selecciona una producción para consultar sus opciones."
+            );
+
+            // Paginación
+            toolTip.SetToolTip(
+                btnAtrass,
+                "Muestra la página anterior."
+            );
+
+            toolTip.SetToolTip(
+                btnSiguient,
+                "Muestra la página siguiente."
+            );
+
+            toolTip.SetToolTip(
+                lblPage,
+                "Indica la página actual y el total de páginas."
+            );
+        }
+
+        // CONFIGURAR DISEÑO DE LA TABLA
+        private void ConfigurarTablaProduccion()
+        {
+            dgvProduccion.AutoGenerateColumns = true;
+
+            // Configuración general
+            dgvProduccion.AllowUserToAddRows = false;
+            dgvProduccion.AllowUserToDeleteRows = false;
+            dgvProduccion.AllowUserToResizeRows = false;
+            dgvProduccion.AllowUserToResizeColumns = false;
+
+            dgvProduccion.ReadOnly = true;
+            dgvProduccion.MultiSelect = false;
+            dgvProduccion.SelectionMode =
+                DataGridViewSelectionMode.FullRowSelect;
+
+            dgvProduccion.RowHeadersVisible = false;
+            dgvProduccion.BorderStyle = BorderStyle.None;
+            dgvProduccion.BackgroundColor = Color.White;
+
+            // Líneas de la tabla
+            dgvProduccion.CellBorderStyle =
+                DataGridViewCellBorderStyle.SingleHorizontal;
+
+            dgvProduccion.GridColor =
+                Color.FromArgb(225, 225, 225);
+
+            // Encabezados
+            dgvProduccion.EnableHeadersVisualStyles = false;
+            dgvProduccion.ColumnHeadersHeight = 40;
+
+            dgvProduccion.ColumnHeadersDefaultCellStyle =
+                new DataGridViewCellStyle
+                {
+                    BackColor = Color.FromArgb(121, 78, 48),
+                    ForeColor = Color.White,
+                    Font = new Font(
+                        "Segoe UI",
+                        10,
+                        FontStyle.Bold
+                    ),
+                    Alignment =
+                        DataGridViewContentAlignment.MiddleCenter,
+                    SelectionBackColor =
+                        Color.FromArgb(121, 78, 48),
+                    SelectionForeColor = Color.White,
+                    Padding = new Padding(5)
+                };
+
+            // Filas
+            dgvProduccion.RowTemplate.Height = 34;
+
+            dgvProduccion.DefaultCellStyle =
+                new DataGridViewCellStyle
+                {
+                    BackColor = Color.White,
+                    ForeColor = Color.FromArgb(55, 55, 55),
+                    Font = new Font(
+                        "Segoe UI",
+                        10
+                    ),
+                    Alignment =
+                        DataGridViewContentAlignment.MiddleCenter,
+                    SelectionBackColor =
+                        Color.FromArgb(238, 215, 185),
+                    SelectionForeColor =
+                        Color.FromArgb(60, 45, 35),
+                    Padding = new Padding(5),
+                    WrapMode = DataGridViewTriState.True
+                };
+
+            // Filas alternas
+            dgvProduccion.AlternatingRowsDefaultCellStyle =
+                new DataGridViewCellStyle
+                {
+                    BackColor = Color.FromArgb(250, 246, 240),
+                    ForeColor = Color.FromArgb(55, 55, 55),
+                    Font = new Font(
+                        "Segoe UI",
+                        10
+                    ),
+                    SelectionBackColor =
+                        Color.FromArgb(238, 215, 185),
+                    SelectionForeColor =
+                        Color.FromArgb(60, 45, 35),
+                    Padding = new Padding(5),
+                    WrapMode = DataGridViewTriState.True
+                };
+
+            dgvProduccion.RowsDefaultCellStyle.SelectionBackColor =
+                Color.FromArgb(238, 215, 185);
+
+            dgvProduccion.RowsDefaultCellStyle.SelectionForeColor =
+                Color.FromArgb(60, 45, 35);
+
+            // Ajuste de columnas
+            dgvProduccion.AutoSizeColumnsMode =
+                DataGridViewAutoSizeColumnsMode.Fill;
+        }
+
         // CARGA INICIAL DEL FORMULARIO
         private void frmProduccionSecretario_Load(object sender, EventArgs e)
         {
             try
             {
                 // Carga las producciones
+                ConfigurarTooltips();
+
+                // Carga las producciones
                 MostrarProduccion();
-
-                // Ajusta el texto y el tamaño de las filas
-                dgvProduccion.DefaultCellStyle.WrapMode =
-                    DataGridViewTriState.True;
-
-                dgvProduccion.AutoSizeRowsMode =
-                    DataGridViewAutoSizeRowsMode.AllCells;
 
                 // Carga las estadísticas
                 ActualizarEstadisticas();
@@ -47,17 +215,75 @@ namespace Vista.Produccion_Secretario
         // CONFIGURAR COLUMNAS
         private void ConfigurarColumnasProduccion()
         {
-            dgvProduccion.Columns["IdProduccion"].Visible = false;
+            if (dgvProduccion.Columns.Contains("IdProduccion"))
+            {
+                dgvProduccion.Columns["IdProduccion"].Visible = false;
+            }
 
-            dgvProduccion.Columns["IdPedido"].HeaderText = "N° Pedido";
-            dgvProduccion.Columns["Cliente"].HeaderText = "Cliente";
-            dgvProduccion.Columns["Producto"].HeaderText = "Producto";
-            dgvProduccion.Columns["Largo"].HeaderText = "Largo (cm)";
-            dgvProduccion.Columns["Ancho"].HeaderText = "Ancho (cm)";
-            dgvProduccion.Columns["Alto"].HeaderText = "Alto (cm)";
-            dgvProduccion.Columns["Cantidad"].HeaderText = "Cantidad";
-            dgvProduccion.Columns["Progreso"].HeaderText = "Progreso (%)";
-            dgvProduccion.Columns["Estado"].HeaderText = "Estado";
+            if (dgvProduccion.Columns.Contains("IdPedido"))
+            {
+                dgvProduccion.Columns["IdPedido"].HeaderText = "N° Pedido";
+            }
+
+            if (dgvProduccion.Columns.Contains("Cliente"))
+            {
+                dgvProduccion.Columns["Cliente"].HeaderText = "Cliente";
+                dgvProduccion.Columns["Cliente"].DefaultCellStyle.Alignment =
+                    DataGridViewContentAlignment.MiddleLeft;
+            }
+
+            if (dgvProduccion.Columns.Contains("Producto"))
+            {
+                dgvProduccion.Columns["Producto"].HeaderText = "Producto";
+                dgvProduccion.Columns["Producto"].DefaultCellStyle.Alignment =
+                    DataGridViewContentAlignment.MiddleLeft;
+            }
+
+            if (dgvProduccion.Columns.Contains("Largo"))
+            {
+                dgvProduccion.Columns["Largo"].HeaderText = "Largo (cm)";
+            }
+
+            if (dgvProduccion.Columns.Contains("Ancho"))
+            {
+                dgvProduccion.Columns["Ancho"].HeaderText = "Ancho (cm)";
+            }
+
+            if (dgvProduccion.Columns.Contains("Alto"))
+            {
+                dgvProduccion.Columns["Alto"].HeaderText = "Alto (cm)";
+            }
+
+            if (dgvProduccion.Columns.Contains("Cantidad"))
+            {
+                dgvProduccion.Columns["Cantidad"].HeaderText = "Cantidad";
+            }
+
+            if (dgvProduccion.Columns.Contains("Progreso"))
+            {
+                dgvProduccion.Columns["Progreso"].HeaderText = "Progreso (%)";
+            }
+
+            if (dgvProduccion.Columns.Contains("Estado"))
+            {
+                dgvProduccion.Columns["Estado"].HeaderText = "Estado";
+            }
+
+            if (dgvProduccion.Columns.Contains("Fecha de Entrega"))
+            {
+                dgvProduccion.Columns["Fecha de Entrega"].HeaderText =
+                    "Fecha de entrega";
+            }
+
+            // Desactivar ordenamiento manual
+            foreach (DataGridViewColumn columna in dgvProduccion.Columns)
+            {
+                columna.SortMode =
+                    DataGridViewColumnSortMode.NotSortable;
+            }
+
+            dgvProduccion.AutoSizeColumnsMode =
+                DataGridViewAutoSizeColumnsMode.Fill;
         }
 
         //---------------------------------------------------------------
@@ -66,24 +292,247 @@ namespace Vista.Produccion_Secretario
         {
             try
             {
-                // Obtiene las producciones de la base de datos
-                DataTable datos =
+                // Obtiene todas las producciones
+                dtProduccion =
                     DbProducción.CargarProducción();
 
-                dgvProduccion.DataSource = null;
-                dgvProduccion.DataSource = datos;
+                totalRegistros =
+                    dtProduccion.Rows.Count;
 
-                // Configura las columnas
-                ConfigurarColumnasProduccion();
+                totalPaginas =
+                    (int)Math.Ceiling(
+                        (double)totalRegistros /
+                        registrosPorPagina
+                    );
 
-                dgvProduccion.Refresh();
+                if (totalPaginas == 0)
+                {
+                    totalPaginas = 1;
+                }
+
+                paginaActual = 1;
+
+                dtProduccionFiltrada = null;
+
+                MostrarPaginaProduccion();
+
+                ActualizarEstadisticas();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al mostrar las producciones: " + ex.Message, "Error", MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                MessageBox.Show(
+                    "Error al mostrar las producciones: " +
+                    ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
             }
         }
+        //------------------------------------------------------------------------
+        // MOSTRAR PÁGINA ACTUAL
+        private void MostrarPaginaProduccion()
+        {
+            if (dtProduccion == null)
+                return;
+
+            DataTable dtPagina =
+                dtProduccion.Clone();
+
+            int inicio =
+                (paginaActual - 1) *
+                registrosPorPagina;
+
+            int fin =
+                Math.Min(
+                    inicio + registrosPorPagina,
+                    dtProduccion.Rows.Count
+                );
+
+            for (int i = inicio; i < fin; i++)
+            {
+                dtPagina.ImportRow(
+                    dtProduccion.Rows[i]
+                );
+            }
+
+            dgvProduccion.DataSource = null;
+            dgvProduccion.DataSource = dtPagina;
+
+            ConfigurarColumnasProduccion();
+
+            dgvProduccion.Refresh();
+
+            ActualizarControlesPaginacion();
+        }
+        //----------------------------------------------------
+        // ACTUALIZAR CONTROLES DE PAGINACIÓN
+        private void ActualizarControlesPaginacion()
+        {
+            lblPage.Text =
+                $"Página {paginaActual} de {totalPaginas}";
+
+            btnAtrass.Enabled =
+                paginaActual > 1;
+
+            btnSiguient.Enabled =
+                paginaActual < totalPaginas;
+        }
+        //---------------------------------------------------------
+        // PÁGINA ANTERIOR
+        private void btnAtrass_Click(object sender, EventArgs e)
+        {
+            if (paginaActual > 1)
+            {
+                paginaActual--;
+
+                if (dtProduccionFiltrada != null)
+                {
+                    MostrarPaginaBusquedaProduccion();
+                }
+                else
+                {
+                    MostrarPaginaProduccion();
+                }
+            }
+        }
+        // PÁGINA SIGUIENTE
+        private void btnSiguient_Click(object sender, EventArgs e)
+        {
+            if (paginaActual < totalPaginas)
+            {
+                paginaActual++;
+
+                if (dtProduccionFiltrada != null)
+                {
+                    MostrarPaginaBusquedaProduccion();
+                }
+                else
+                {
+                    MostrarPaginaProduccion();
+                }
+            }
+        }
+        // Filtra la tabla según el estado y búsqueda
+        private void FiltrarTabla()
+        {
+            try
+            {
+                if (dtProduccion == null)
+                    return;
+
+                string estado = cbEstados.Text;
+
+                string buscar =
+                    txtBuscar.Text ==
+                    "Buscar por código o nombre de cliente..."
+                        ? ""
+                        : txtBuscar.Text.Trim();
+
+                string filtro = "1=1";
+
+                // Filtra por estado
+                if (!string.IsNullOrWhiteSpace(estado) &&
+                    estado != "Todos")
+                {
+                    filtro +=
+                        " AND Estado = '" +
+                        estado.Replace("'", "''") +
+                        "'";
+                }
+
+                // Filtra por cliente, producción o pedido
+                if (!string.IsNullOrWhiteSpace(buscar))
+                {
+                    buscar =
+                        buscar.Replace("'", "''");
+
+                    filtro +=
+                        " AND (Cliente LIKE '%" +
+                        buscar +
+                        "%' OR " +
+                        "Convert(IdProduccion, 'System.String') LIKE '%" +
+                        buscar +
+                        "%' OR " +
+                        "Convert(IdPedido, 'System.String') LIKE '%" +
+                        buscar +
+                        "%')";
+                }
+
+                DataView vista =
+                    new DataView(dtProduccion);
+
+                vista.RowFilter = filtro;
+
+                dtProduccionFiltrada =
+                    vista.ToTable();
+
+                totalRegistros =
+                    dtProduccionFiltrada.Rows.Count;
+
+                totalPaginas =
+                    (int)Math.Ceiling(
+                        (double)totalRegistros /
+                        registrosPorPagina
+                    );
+
+                if (totalPaginas == 0)
+                {
+                    totalPaginas = 1;
+                }
+
+                paginaActual = 1;
+
+                MostrarPaginaBusquedaProduccion();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Error al filtrar las producciones: " +
+                    ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
+        }
+
+        // MOSTRAR PÁGINA DE RESULTADOS FILTRADOS
+        private void MostrarPaginaBusquedaProduccion()
+        {
+            if (dtProduccionFiltrada == null)
+                return;
+
+            DataTable dtPagina =
+                dtProduccionFiltrada.Clone();
+
+            int inicio =
+                (paginaActual - 1) *
+                registrosPorPagina;
+
+            int fin =
+                Math.Min(
+                    inicio + registrosPorPagina,
+                    dtProduccionFiltrada.Rows.Count
+                );
+
+            for (int i = inicio; i < fin; i++)
+            {
+                dtPagina.ImportRow(
+                    dtProduccionFiltrada.Rows[i]
+                );
+            }
+
+            dgvProduccion.DataSource = null;
+            dgvProduccion.DataSource = dtPagina;
+
+            ConfigurarColumnasProduccion();
+
+            dgvProduccion.Refresh();
+
+            ActualizarControlesPaginacion();
+        }
+
         //------------------------------------------------------------------
         // EDITAR PRODUCCIÓN
 
@@ -151,46 +600,14 @@ namespace Vista.Produccion_Secretario
             }
         }
 
-        // Filtra la tabla según el estado y búsqueda
-        private void FiltrarTabla()
-        {
-            try
-            {
-                if (dgvProduccion.DataSource is DataTable dt)
-                {
-                    string estado = cbEstados.Text;
 
-                    string buscar = txtBuscar.Text == "Buscar por código o nombre de cliente..." ? "" : txtBuscar.Text.Trim();
-
-                    string filtro = "1=1";
-
-                    // Filtra por estado
-                    if (!string.IsNullOrWhiteSpace(estado) && estado != "Todos")
-                    {
-                        filtro += " AND Estado = '" + estado.Replace("'", "''") + "'";
-                    }
-
-                    // Filtra por cliente, producción o pedido
-                    if (!string.IsNullOrWhiteSpace(buscar))
-                    {
-                        buscar = buscar.Replace("'", "''");
-
-                        filtro += " AND (Cliente LIKE '%" + buscar + "%' OR " + "Convert(IdProduccion, 'System.String') LIKE '%" +
-                            buscar + "%' OR " + "Convert(IdPedido, 'System.String') LIKE '%" + buscar + "%')";
-                    }
-
-                    dt.DefaultView.RowFilter = filtro;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error al filtrar las producciones: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
         // Ejecuta el filtro cuando cambia el estado
         private void cbEstados_SelectedIndexChanged(object sender, EventArgs e)
         {
-            FiltrarTabla();
+            if (txtBuscar.Text != "Buscar por código o nombre de cliente...")
+            {
+                FiltrarTabla();
+            }
         }
         // Ejecuta el filtro cuando cambia el texto
         private void txtBuscar_TextChanged(object sender, EventArgs e)
@@ -211,19 +628,29 @@ namespace Vista.Produccion_Secretario
                 cbEstados.SelectedIndex = -1;
 
                 // Reinicia el buscador
-                txtBuscar.Text = "Buscar por código o nombre de cliente...";
+                txtBuscar.Text =
+                    "Buscar por código o nombre de cliente...";
 
                 txtBuscar.ForeColor = Color.Gray;
 
-                // Elimina el filtro de la tabla
-                if (dgvProduccion.DataSource is DataTable dt)
-                {
-                    dt.DefaultView.RowFilter = "";
-                }
+                // Reinicia la paginación
+                paginaActual = 1;
+
+                // Elimina los datos filtrados
+                dtProduccionFiltrada = null;
+
+                // Muestra nuevamente todas las producciones
+                MostrarProduccion();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al limpiar los filtros: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(
+                    "Error al limpiar los filtros: " +
+                    ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
             }
         }
         //---------------------------------------------------------------------------
@@ -289,5 +716,7 @@ namespace Vista.Produccion_Secretario
                 );
             }
         }
+
+
     }
 }
