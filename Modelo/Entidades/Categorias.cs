@@ -57,13 +57,13 @@ namespace Modelo.Entidades
                 {
                     // Error: no existe la tabla o el objeto especificado
                     case 208:
-                        MessageBox.Show("La tabla Categoria no existe en la base de datos.", "Error",
+                        MessageBox.Show("La tabla Categoria no existe en la base de datos.", "ERR-SQL-004",
                             MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
 
                     // Error: no se pudo establecer conexión con SQL Server
                     case 53:
-                        MessageBox.Show("No se pudo establecer conexión con el servidor SQL.", "Error de Conexión",
+                        MessageBox.Show("No se pudo establecer conexión con el servidor SQL.", "ERR-SQL-001",
                             MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
 
@@ -107,7 +107,7 @@ namespace Modelo.Entidades
                         // Error: índice UNIQUE duplicado
                         case 2601:
 
-                            MessageBox.Show("La categoría ya existe en la base de datos.", "Registro Duplicado",
+                            MessageBox.Show("La categoría ya existe en la base de datos.", "ERR-SQL-006",
                                 MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             break;
 
@@ -115,7 +115,7 @@ namespace Modelo.Entidades
                         // en una columna NOT NULL
                         case 515:
 
-                            MessageBox.Show("No se pueden dejar campos obligatorios vacíos.", "Datos Obligatorios",
+                            MessageBox.Show("No se pueden dejar campos obligatorios vacíos.", "ERR-SQL-008",
                                 MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             break;
 
@@ -165,14 +165,14 @@ namespace Modelo.Entidades
                     case 2627:
                     case 2601:
 
-                        MessageBox.Show("Ya existe otra categoría con ese nombre.", "Registro Duplicado",
+                        MessageBox.Show("Ya existe otra categoría con ese nombre.", "ERR-SQL-006",
                             MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         break;
 
                     // Error: valor NULL en columna NOT NULL
                     case 515:
 
-                        MessageBox.Show("Uno de los campos obligatorios está vacío.", "Datos Obligatorios",
+                        MessageBox.Show("Uno de los campos obligatorios está vacío.", "ERR-SQL-008",
                             MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         break;
 
@@ -217,14 +217,14 @@ namespace Modelo.Entidades
                     // Error: la tabla Categoria no existe
                     case 208:
 
-                        MessageBox.Show("La tabla Categoria no existe en la base de datos.", "Error",
+                        MessageBox.Show("La tabla Categoria no existe en la base de datos.", "ERR-SQL-004",
                             MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
 
                     // Error: no se pudo establecer conexión
                     case 53:
 
-                        MessageBox.Show("No se pudo conectar con el servidor SQL.", "Error de Conexión",
+                        MessageBox.Show("No se pudo conectar con el servidor SQL.", "ERR-SQL-001",
                             MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
 
@@ -264,13 +264,13 @@ namespace Modelo.Entidades
                     // Error: la tabla Categoria no existe
                     case 208:
 
-                        MessageBox.Show("La tabla Categoria no existe.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("La tabla Categoria no existe.", "ERR-SQL-004", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
 
                     // Error: no se pudo conectar con SQL Server
                     case 53:
 
-                        MessageBox.Show("No se pudo establecer conexión con SQL Server.", "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("No se pudo establecer conexión con SQL Server.", "ERR-SQL-001", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
 
                     // Otros errores
@@ -310,14 +310,14 @@ namespace Modelo.Entidades
                     // Error: no existe la tabla Categoria
                     case 208:
 
-                        MessageBox.Show("La tabla Categoria no existe.", "Error",
+                        MessageBox.Show("La tabla Categoria no existe.", "ERR-SQL-004",
                             MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
 
                     // Error: conversión de datos
                     case 245:
 
-                        MessageBox.Show("El tipo de dato del campo Estado no es compatible " + "con la consulta.", "Error de Tipo de Dato",
+                        MessageBox.Show("El tipo de dato del campo Estado no es compatible " + "con la consulta.", "ERR-SQL-009",
                             MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
 
@@ -357,13 +357,13 @@ namespace Modelo.Entidades
                     // Error: no existe la tabla Categoria
                     case 208:
 
-                        MessageBox.Show("La tabla Categoria no existe.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("La tabla Categoria no existe.", "ERR-SQL-004", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
 
                     // Error: conversión de datos
                     case 245:
 
-                        MessageBox.Show("El tipo de dato del campo Estado no es compatible " + "con la consulta.", "Error de Tipo de Dato", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("El tipo de dato del campo Estado no es compatible " + "con la consulta.", "ERR-SQL-009", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
 
                     // Otros errores
