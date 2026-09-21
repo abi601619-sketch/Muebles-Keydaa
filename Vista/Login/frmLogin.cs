@@ -21,8 +21,6 @@ namespace Vista.Login
 
 
 
-
-
         private void btnIngresar_Click_1(object sender, EventArgs e)
         {
             IniciarSesion();
@@ -46,21 +44,16 @@ namespace Vista.Login
             toolTip1.ShowAlways = true;
 
             // Datos de inicio de sesión
-            toolTip1.SetToolTip(txtUsuario,
-                "Ingrese su nombre de usuario.");
+            toolTip1.SetToolTip(txtUsuario, "Ingrese su nombre de usuario.");
 
-            toolTip1.SetToolTip(txtContraseña,
-                "Ingrese su contraseña.");
+            toolTip1.SetToolTip(txtContraseña, "Ingrese su contraseña.");
 
             // Botones
-            toolTip1.SetToolTip(btnIngresar,
-                "Inicia sesión con el usuario y contraseña ingresados.");
+            toolTip1.SetToolTip(btnIngresar, "Inicia sesión con el usuario y contraseña ingresados.");
 
-            toolTip1.SetToolTip(btnRecuperarContrasena,
-                "Permite recuperar su contraseña.");
+            toolTip1.SetToolTip(btnRecuperarContrasena, "Permite recuperar su contraseña.");
 
-            toolTip1.SetToolTip(btnCerrarClientes,
-                "Cierra la aplicación.");
+            toolTip1.SetToolTip(btnCerrarClientes, "Cierra la aplicación.");
         }
 
         private void IniciarSesion()
@@ -87,7 +80,7 @@ namespace Vista.Login
             using (SqlConnection conexion = Conexion.Conectar())
             {
                 string consulta = @"SELECT IdUsuario, Nombre, Usuario, Contraseña, Rol, Estado FROM Usuario
-                WHERE Usuario = @Usuario";
+                    WHERE Usuario COLLATE Latin1_General_CS_AS = @Usuario";
 
                 using (SqlCommand comando = new SqlCommand(consulta, conexion))
                 {
@@ -95,8 +88,6 @@ namespace Vista.Login
 
                     try
                     {
-
-
                         using (SqlDataReader lector = comando.ExecuteReader())
                         {
                             if (!lector.Read())
@@ -108,8 +99,18 @@ namespace Vista.Login
 
                             // Obtener información del usuario
                             int idUsuario = Convert.ToInt32(lector["IdUsuario"]);
+
+
                             string nombre = lector["Nombre"].ToString();
                             string usuarioBD = lector["Usuario"].ToString();
+                            if (!string.Equals(usuario, usuarioBD, StringComparison.Ordinal))
+                            {
+                                MessageBox.Show("El usuario debe coincidir exactamente.\nRespete mayúsculas y minúsculas.", "Inicio de sesión", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                                txtUsuario.Focus();
+
+                                return;
+                            }
                             string hashGuardado = lector["Contraseña"].ToString();
                             string rol = lector["Rol"].ToString();
                             bool estado = Convert.ToBoolean(lector["Estado"]);

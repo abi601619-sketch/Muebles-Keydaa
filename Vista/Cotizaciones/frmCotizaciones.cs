@@ -85,6 +85,169 @@ namespace Vista.Cotizaciones
                     MessageBoxIcon.Error);
             }
         }
+        private void ConfigurarTablasCotizaciones()
+        {
+            // TABLA DE COTIZACIONES REGISTRADAS
+
+            dgvCotizacionesRegistradas.EnableHeadersVisualStyles = false;
+
+            // Encabezado
+            dgvCotizacionesRegistradas.ColumnHeadersDefaultCellStyle.BackColor =
+                Color.FromArgb(121, 75, 45);
+
+            dgvCotizacionesRegistradas.ColumnHeadersDefaultCellStyle.ForeColor =
+                Color.White;
+
+            dgvCotizacionesRegistradas.ColumnHeadersDefaultCellStyle.Font =
+                new Font("Segoe UI", 9, FontStyle.Regular);
+
+            dgvCotizacionesRegistradas.ColumnHeadersDefaultCellStyle.Alignment =
+                DataGridViewContentAlignment.MiddleCenter;
+
+            dgvCotizacionesRegistradas.ColumnHeadersDefaultCellStyle.SelectionBackColor =
+                Color.FromArgb(121, 75, 45);
+
+            dgvCotizacionesRegistradas.ColumnHeadersDefaultCellStyle.SelectionForeColor =
+                Color.White;
+
+            // Filas
+            dgvCotizacionesRegistradas.DefaultCellStyle.BackColor =
+                Color.White;
+
+            dgvCotizacionesRegistradas.DefaultCellStyle.ForeColor =
+                Color.FromArgb(45, 45, 45);
+
+            dgvCotizacionesRegistradas.DefaultCellStyle.Font =
+                new Font("Segoe UI", 9, FontStyle.Regular);
+
+            dgvCotizacionesRegistradas.DefaultCellStyle.Alignment =
+                DataGridViewContentAlignment.MiddleLeft;
+
+            // Filas alternadas
+            dgvCotizacionesRegistradas.AlternatingRowsDefaultCellStyle.BackColor =
+                Color.FromArgb(248, 241, 232);
+
+            // Selección
+            dgvCotizacionesRegistradas.DefaultCellStyle.SelectionBackColor =
+                Color.FromArgb(224, 193, 157);
+
+            dgvCotizacionesRegistradas.DefaultCellStyle.SelectionForeColor =
+                Color.Black;
+
+            // Bordes
+            dgvCotizacionesRegistradas.CellBorderStyle =
+                DataGridViewCellBorderStyle.SingleHorizontal;
+
+            dgvCotizacionesRegistradas.GridColor =
+                Color.FromArgb(220, 220, 220);
+
+            // Alto de las filas
+            dgvCotizacionesRegistradas.RowTemplate.Height = 32;
+
+            // Alto del encabezado
+            dgvCotizacionesRegistradas.ColumnHeadersHeight = 30;
+
+            // No permitir modificar
+            dgvCotizacionesRegistradas.ReadOnly = true;
+
+            dgvCotizacionesRegistradas.AllowUserToAddRows = false;
+
+            dgvCotizacionesRegistradas.AllowUserToDeleteRows = false;
+
+            // Seleccionar fila completa
+            dgvCotizacionesRegistradas.SelectionMode =
+                DataGridViewSelectionMode.FullRowSelect;
+
+            dgvCotizacionesRegistradas.MultiSelect = false;
+
+            // Quitar borde exterior
+            dgvCotizacionesRegistradas.BorderStyle =
+                BorderStyle.None;
+
+            // OCULTAR EL CUADRITO DE LA IZQUIERDA
+            dgvCotizacionesRegistradas.RowHeadersVisible = false;
+
+            //----------------------------------------------------------------
+            // TABLA DE DETALLE DE COTIZACIÓN
+
+            dgvDetalleDeCotizacion.EnableHeadersVisualStyles = false;
+
+            // Encabezado
+            dgvDetalleDeCotizacion.ColumnHeadersDefaultCellStyle.BackColor =
+                Color.FromArgb(121, 75, 45);
+
+            dgvDetalleDeCotizacion.ColumnHeadersDefaultCellStyle.ForeColor =
+                Color.White;
+
+            dgvDetalleDeCotizacion.ColumnHeadersDefaultCellStyle.Font =
+                new Font("Segoe UI", 9, FontStyle.Regular);
+
+            dgvDetalleDeCotizacion.ColumnHeadersDefaultCellStyle.Alignment =
+                DataGridViewContentAlignment.MiddleCenter;
+
+            dgvDetalleDeCotizacion.ColumnHeadersDefaultCellStyle.SelectionBackColor =
+                Color.FromArgb(121, 75, 45);
+
+            dgvDetalleDeCotizacion.ColumnHeadersDefaultCellStyle.SelectionForeColor =
+                Color.White;
+
+            // Filas
+            dgvDetalleDeCotizacion.DefaultCellStyle.BackColor =
+                Color.White;
+
+            dgvDetalleDeCotizacion.DefaultCellStyle.ForeColor =
+                Color.FromArgb(45, 45, 45);
+
+            dgvDetalleDeCotizacion.DefaultCellStyle.Font =
+                new Font("Segoe UI", 9, FontStyle.Regular);
+
+            dgvDetalleDeCotizacion.DefaultCellStyle.Alignment =
+                DataGridViewContentAlignment.MiddleLeft;
+
+            // Filas alternadas
+            dgvDetalleDeCotizacion.AlternatingRowsDefaultCellStyle.BackColor =
+                Color.FromArgb(248, 241, 232);
+
+            // Selección
+            dgvDetalleDeCotizacion.DefaultCellStyle.SelectionBackColor =
+                Color.FromArgb(224, 193, 157);
+
+            dgvDetalleDeCotizacion.DefaultCellStyle.SelectionForeColor =
+                Color.Black;
+
+            // Bordes
+            dgvDetalleDeCotizacion.CellBorderStyle =
+                DataGridViewCellBorderStyle.SingleHorizontal;
+
+            dgvDetalleDeCotizacion.GridColor =
+                Color.FromArgb(220, 220, 220);
+
+            // Alto de las filas
+            dgvDetalleDeCotizacion.RowTemplate.Height = 32;
+
+            // Alto del encabezado
+            dgvDetalleDeCotizacion.ColumnHeadersHeight = 30;
+
+            // No permitir modificar
+            dgvDetalleDeCotizacion.ReadOnly = true;
+
+            dgvDetalleDeCotizacion.AllowUserToAddRows = false;
+
+            dgvDetalleDeCotizacion.AllowUserToDeleteRows = false;
+
+            // Seleccionar fila completa
+            dgvDetalleDeCotizacion.SelectionMode =
+                DataGridViewSelectionMode.FullRowSelect;
+
+            dgvDetalleDeCotizacion.MultiSelect = false;
+
+            // Quitar borde exterior
+            dgvDetalleDeCotizacion.BorderStyle =
+                BorderStyle.None;
+
+            // OCULTAR EL CUADRITO DE LA IZQUIERDA
+            dgvDetalleDeCotizacion.RowHeadersVisible = false;
+        }
         private void CalcularPaginasCotizaciones()
         {
             if (dtCotizaciones == null || dtCotizaciones.Rows.Count == 0)
@@ -132,6 +295,9 @@ namespace Vista.Cotizaciones
             {
                 dgvCotizacionesRegistradas.Columns["IdCotizacion"].HeaderText = "#";
             }
+
+            // Aplicar diseño de la tabla
+            ConfigurarTablasCotizaciones();
 
             // Mostrar página actual
             lblPagina.Text =
@@ -281,6 +447,9 @@ namespace Vista.Cotizaciones
 
             //CONFIGURACION DE TOOLTIPS
             ConfigurarTooltips();
+
+            // CONFIGURACIÓN DE LAS TABLAS
+            ConfigurarTablasCotizaciones();
 
             // Datos del cliente solamente lectura
             txtCliente.ReadOnly = true;
@@ -1018,6 +1187,7 @@ namespace Vista.Cotizaciones
                     "Generar PDF",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
+                LimpiarFormulario();
             }
             catch (Exception ex)
             {

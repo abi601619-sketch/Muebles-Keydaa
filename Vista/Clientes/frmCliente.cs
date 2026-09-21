@@ -219,7 +219,7 @@ namespace Vista.Clientes
 
                     Font =
                         new Font(
-                            "Times New Roman",
+                            "Segoe UI",
                             10,
                             FontStyle.Bold
                         ),
@@ -262,7 +262,7 @@ namespace Vista.Clientes
 
                     Font =
                         new Font(
-                            "Times New Roman",
+                            "Segoe UI",
                             10
                         ),
 
@@ -312,7 +312,7 @@ namespace Vista.Clientes
 
                     Font =
                         new Font(
-                            "Times New Roman",
+                            "Segoe UI",
                             10
                         ),
 
@@ -645,7 +645,7 @@ namespace Vista.Clientes
 
 
         //------------------------------------------------------------------------------------
-        //CONFIGURACION DE PAGINACION DE LOS DATAGRD
+        //CONFIGURACION DE PAGINACION DE LOS DATAGRID
 
         private void btnSiguienteC_Click(object sender, EventArgs e)
         {

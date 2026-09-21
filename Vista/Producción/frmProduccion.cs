@@ -29,6 +29,9 @@ namespace Vista.Producción
                 // Carga las producciones
                 MostrarProduccion();
 
+                // Configura el diseño de la tabla
+                ConfigurarTablaProduccion();
+
                 // Ajusta el texto y el tamaño de las filas
                 dgvProduccion.DefaultCellStyle.WrapMode =
                     DataGridViewTriState.True;
@@ -51,6 +54,86 @@ namespace Vista.Producción
                     MessageBoxIcon.Error
                 );
             }
+        }
+        //---------------------------------------------------------------
+        // CONFIGURAR DISEÑO DE LA TABLA
+        private void ConfigurarTablaProduccion()
+        {
+            // Encabezado
+            dgvProduccion.EnableHeadersVisualStyles = false;
+
+            dgvProduccion.ColumnHeadersDefaultCellStyle.BackColor =
+                Color.FromArgb(121, 75, 45);
+
+            dgvProduccion.ColumnHeadersDefaultCellStyle.ForeColor =
+                Color.White;
+
+            dgvProduccion.ColumnHeadersDefaultCellStyle.Font =
+                new Font("Segoe UI", 9, FontStyle.Regular);
+
+            dgvProduccion.ColumnHeadersDefaultCellStyle.Alignment =
+                DataGridViewContentAlignment.MiddleCenter;
+
+            // Color del encabezado al seleccionar
+            dgvProduccion.ColumnHeadersDefaultCellStyle.SelectionBackColor =
+                Color.FromArgb(121, 75, 45);
+
+            dgvProduccion.ColumnHeadersDefaultCellStyle.SelectionForeColor =
+                Color.White;
+
+            // Filas
+            dgvProduccion.DefaultCellStyle.BackColor =
+                Color.White;
+
+            dgvProduccion.DefaultCellStyle.ForeColor =
+                Color.FromArgb(45, 45, 45);
+
+            dgvProduccion.DefaultCellStyle.Font =
+                new Font("Segoe UI", 9, FontStyle.Regular);
+
+            dgvProduccion.DefaultCellStyle.Alignment =
+                DataGridViewContentAlignment.MiddleLeft;
+
+            // Filas alternadas
+            dgvProduccion.AlternatingRowsDefaultCellStyle.BackColor =
+                Color.FromArgb(248, 241, 232);
+
+            // Selección
+            dgvProduccion.DefaultCellStyle.SelectionBackColor =
+                Color.FromArgb(224, 193, 157);
+
+            dgvProduccion.DefaultCellStyle.SelectionForeColor =
+                Color.Black;
+
+            // Bordes
+            dgvProduccion.CellBorderStyle =
+                DataGridViewCellBorderStyle.SingleHorizontal;
+
+            dgvProduccion.GridColor =
+                Color.FromArgb(220, 220, 220);
+
+            // Alto de las filas
+            dgvProduccion.RowTemplate.Height = 32;
+
+            // Alto del encabezado
+            dgvProduccion.ColumnHeadersHeight = 30;
+
+            // No permitir modificar
+            dgvProduccion.ReadOnly = true;
+
+            dgvProduccion.AllowUserToAddRows = false;
+
+            dgvProduccion.AllowUserToDeleteRows = false;
+
+            // Seleccionar fila completa
+            dgvProduccion.SelectionMode =
+                DataGridViewSelectionMode.FullRowSelect;
+
+            dgvProduccion.MultiSelect = false;
+
+            // Quitar borde exterior
+            dgvProduccion.BorderStyle =
+                BorderStyle.None;
         }
         //CONFIGURAR TOOLTIPS----------------------------------------------------------
         private void ConfigurarTooltips()
@@ -114,22 +197,42 @@ namespace Vista.Producción
                 "Cantidad de producciones finalizadas."
             );
         }
-        //---------------------------------------------------------
+
+        //---------------------------------------------------------------
         // CONFIGURAR COLUMNAS
         private void ConfigurarColumnasProduccion()
         {
-            dgvProduccion.Columns["IdProduccion"].Visible = false;
+            if (dgvProduccion.Columns.Contains("IdProduccion"))
+                dgvProduccion.Columns["IdProduccion"].Visible = false;
 
-            dgvProduccion.Columns["IdPedido"].HeaderText = "N° Pedido";
-            dgvProduccion.Columns["Cliente"].HeaderText = "Cliente";
-            dgvProduccion.Columns["Producto"].HeaderText = "Producto";
-            dgvProduccion.Columns["Largo"].HeaderText = "Largo (cm)";
-            dgvProduccion.Columns["Ancho"].HeaderText = "Ancho (cm)";
-            dgvProduccion.Columns["Alto"].HeaderText = "Alto (cm)";
-            dgvProduccion.Columns["Cantidad"].HeaderText = "Cantidad";
-            dgvProduccion.Columns["Progreso"].HeaderText = "Progreso (%)";
-            dgvProduccion.Columns["Estado"].HeaderText = "Estado";
+            if (dgvProduccion.Columns.Contains("IdPedido"))
+                dgvProduccion.Columns["IdPedido"].HeaderText = "N.º Pedido";
+
+            if (dgvProduccion.Columns.Contains("Cliente"))
+                dgvProduccion.Columns["Cliente"].HeaderText = "Cliente";
+
+            if (dgvProduccion.Columns.Contains("Producto"))
+                dgvProduccion.Columns["Producto"].HeaderText = "Producto";
+
+            if (dgvProduccion.Columns.Contains("Largo"))
+                dgvProduccion.Columns["Largo"].HeaderText = "Largo (cm)";
+
+            if (dgvProduccion.Columns.Contains("Ancho"))
+                dgvProduccion.Columns["Ancho"].HeaderText = "Ancho (cm)";
+
+            if (dgvProduccion.Columns.Contains("Alto"))
+                dgvProduccion.Columns["Alto"].HeaderText = "Alto (cm)";
+
+            if (dgvProduccion.Columns.Contains("Cantidad"))
+                dgvProduccion.Columns["Cantidad"].HeaderText = "Cantidad";
+
+            if (dgvProduccion.Columns.Contains("Progreso"))
+                dgvProduccion.Columns["Progreso"].HeaderText = "Progreso (%)";
+
+            if (dgvProduccion.Columns.Contains("Estado"))
+                dgvProduccion.Columns["Estado"].HeaderText = "Estado";
         }
+
         //---------------------------------------------------------------
         // MOSTRAR PRODUCCIÓN
         public void MostrarProduccion()
@@ -212,9 +315,7 @@ namespace Vista.Producción
 
                 int inicio = (paginaActual - 1) * registrosPorPagina;
 
-                int fin = Math.Min(
-                    inicio + registrosPorPagina,
-                    dtProduccion.Rows.Count
+                int fin = Math.Min(inicio + registrosPorPagina, dtProduccion.Rows.Count
                 );
 
                 for (int i = inicio; i < fin; i++)
@@ -228,9 +329,14 @@ namespace Vista.Producción
                 // Configura las columnas
                 ConfigurarColumnasProduccion();
 
+                // Configura el diseño
+                ConfigurarTablaProduccion();
+
+                // Configura las columnas
+                ConfigurarColumnasProduccion();
+
                 // Mostrar página actual
-                lblPage.Text =
-                    $"Página {paginaActual} de {totalPaginas}";
+                lblPage.Text = $"Página {paginaActual} de {totalPaginas}";
 
                 // Activar/desactivar botones
                 btnAtrass.Enabled =

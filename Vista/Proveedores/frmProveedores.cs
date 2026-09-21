@@ -92,11 +92,97 @@ namespace Vista.Proveedores
             toolTip1.SetToolTip(dgvProveedores,
                 "Muestra los proveedores registrados. Haz doble clic en un proveedor para seleccionarlo.");
         }
+
+        //------------------------------------------------------------------------------------------------------
+        //---------------------- CONFIGURAR TABLA DE PROVEEDORES -----------------------------------------------//
+        private void ConfigurarTablaProveedores()
+        {
+            // Encabezado
+            dgvProveedores.EnableHeadersVisualStyles = false;
+
+            dgvProveedores.ColumnHeadersDefaultCellStyle.BackColor =
+                Color.FromArgb(121, 75, 45);
+
+            dgvProveedores.ColumnHeadersDefaultCellStyle.ForeColor =
+                Color.White;
+
+            dgvProveedores.ColumnHeadersDefaultCellStyle.Font =
+                new Font("Times New Roman", 9, FontStyle.Regular);
+
+            dgvProveedores.ColumnHeadersDefaultCellStyle.Alignment =
+                DataGridViewContentAlignment.MiddleCenter;
+
+            dgvProveedores.ColumnHeadersDefaultCellStyle.SelectionBackColor =
+                Color.FromArgb(121, 75, 45);
+
+            dgvProveedores.ColumnHeadersDefaultCellStyle.SelectionForeColor =
+                Color.White;
+
+            // Filas
+            dgvProveedores.DefaultCellStyle.BackColor =
+                Color.White;
+
+            dgvProveedores.DefaultCellStyle.ForeColor =
+                Color.FromArgb(45, 45, 45);
+
+            dgvProveedores.DefaultCellStyle.Font =
+                new Font("Segoe UI", 9, FontStyle.Regular);
+
+            dgvProveedores.DefaultCellStyle.Alignment =
+                DataGridViewContentAlignment.MiddleLeft;
+
+            // Filas alternadas
+            dgvProveedores.AlternatingRowsDefaultCellStyle.BackColor =
+                Color.FromArgb(248, 241, 232);
+
+            // Selección
+            dgvProveedores.DefaultCellStyle.SelectionBackColor =
+                Color.FromArgb(224, 193, 157);
+
+            dgvProveedores.DefaultCellStyle.SelectionForeColor =
+                Color.Black;
+
+            // Bordes
+            dgvProveedores.CellBorderStyle =
+                DataGridViewCellBorderStyle.SingleHorizontal;
+
+            dgvProveedores.GridColor =
+                Color.FromArgb(220, 220, 220);
+
+            // Alto de las filas
+            dgvProveedores.RowTemplate.Height = 32;
+
+            // Alto del encabezado
+            dgvProveedores.ColumnHeadersHeight = 30;
+
+            // No permitir modificar
+            dgvProveedores.ReadOnly = true;
+
+            dgvProveedores.AllowUserToAddRows = false;
+
+            dgvProveedores.AllowUserToDeleteRows = false;
+
+            // Seleccionar fila completa
+            dgvProveedores.SelectionMode =
+                DataGridViewSelectionMode.FullRowSelect;
+
+            dgvProveedores.MultiSelect = false;
+
+            // Quitar borde exterior
+            dgvProveedores.BorderStyle =
+                BorderStyle.None;
+
+            // Quitar columna de selección de filas
+            dgvProveedores.RowHeadersVisible = false;
+        }
         //----------------------------------------------------------------------------------------------
         //----------------------EVENTO LOAD DEL FORMULARIO-------------------------------------------------//
         private void frmProveedores_Load(object sender, EventArgs e)
         {
             MostrarProveedor();
+
+            //CONFIGURACION DE TOOLTIPS
+            ConfigurarTooltips();
 
             //CONFIGURACION DE TOOLTIPS
             ConfigurarTooltips();
@@ -198,6 +284,9 @@ namespace Vista.Proveedores
             {
                 dgvProveedores.Columns["IdProveedor"].Visible = false;
             }
+
+            // CONFIGURAR DISEÑO DE LA TABLA
+            ConfigurarTablaProveedores();
 
             // Mostrar página actual
             lblPagina.Text =

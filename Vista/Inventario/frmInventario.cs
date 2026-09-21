@@ -76,6 +76,9 @@ namespace Vista.Inventario
             if (dgvMateriales.Columns.Contains("UnidadMedida"))
                 dgvMateriales.Columns["UnidadMedida"].HeaderText = "Unidad de medida";
 
+            // Configurar diseño de la tabla
+            ConfigurarTablaInventario();
+
             // Mostrar página actual
             lblPagina.Text = $"Página {paginaActual} de {totalPaginas}";
 
@@ -84,6 +87,96 @@ namespace Vista.Inventario
             btnSiguiente.Enabled = paginaActual < totalPaginas;
         }
 
+        //-------------------------------------------------------------------------
+        // CONFIGURAR DISEÑO DE LA TABLA
+
+        private void ConfigurarTablaInventario()
+        {
+            // Encabezado
+            dgvMateriales.EnableHeadersVisualStyles = false;
+
+            dgvMateriales.ColumnHeadersDefaultCellStyle.BackColor =
+                Color.FromArgb(121, 75, 45);
+
+            dgvMateriales.ColumnHeadersDefaultCellStyle.ForeColor =
+                Color.White;
+
+            dgvMateriales.ColumnHeadersDefaultCellStyle.Font =
+                new Font("Times New Roman", 9, FontStyle.Regular);
+
+            dgvMateriales.ColumnHeadersDefaultCellStyle.Alignment =
+                DataGridViewContentAlignment.MiddleCenter;
+
+            dgvMateriales.ColumnHeadersDefaultCellStyle.SelectionBackColor =
+                Color.FromArgb(121, 75, 45);
+
+            dgvMateriales.ColumnHeadersDefaultCellStyle.SelectionForeColor =
+                Color.White;
+
+            // Filas
+            dgvMateriales.DefaultCellStyle.BackColor =
+                Color.White;
+
+            dgvMateriales.DefaultCellStyle.ForeColor =
+                Color.FromArgb(45, 45, 45);
+
+            dgvMateriales.DefaultCellStyle.Font =
+                new Font("Segoe UI", 9, FontStyle.Regular);
+
+            dgvMateriales.DefaultCellStyle.Alignment =
+                DataGridViewContentAlignment.MiddleLeft;
+
+            // Filas alternadas
+            dgvMateriales.AlternatingRowsDefaultCellStyle.BackColor =
+                Color.FromArgb(248, 241, 232);
+
+            // Selección
+            dgvMateriales.DefaultCellStyle.SelectionBackColor =
+                Color.FromArgb(224, 193, 157);
+
+            dgvMateriales.DefaultCellStyle.SelectionForeColor =
+                Color.Black;
+
+            // Bordes
+            dgvMateriales.CellBorderStyle =
+                DataGridViewCellBorderStyle.SingleHorizontal;
+
+            dgvMateriales.GridColor =
+                Color.FromArgb(220, 220, 220);
+
+            // Alto de las filas
+            dgvMateriales.RowTemplate.Height = 32;
+
+            // Alto del encabezado
+            dgvMateriales.ColumnHeadersHeight = 30;
+
+            // No permitir modificar
+            dgvMateriales.ReadOnly = true;
+
+            dgvMateriales.AllowUserToAddRows = false;
+
+            dgvMateriales.AllowUserToDeleteRows = false;
+
+            // Seleccionar fila completa
+            dgvMateriales.SelectionMode =
+                DataGridViewSelectionMode.FullRowSelect;
+
+            dgvMateriales.MultiSelect = false;
+
+            // Quitar borde exterior
+            dgvMateriales.BorderStyle =
+                BorderStyle.None;
+
+            // Ajustar contenido
+            dgvMateriales.DefaultCellStyle.WrapMode =
+                DataGridViewTriState.True;
+
+            dgvMateriales.AutoSizeRowsMode =
+                DataGridViewAutoSizeRowsMode.AllCells;
+
+            // Quitar columna de selección de filas
+            dgvMateriales.RowHeadersVisible = false;
+        }
         private void txtBuscar_Enter(object sender, EventArgs e)
         {
             //Cuando el usuario de enter para escribir, se va a borrar el texto de indicacion
@@ -218,10 +311,19 @@ namespace Vista.Inventario
         private void frmInventario_Load(object sender, EventArgs e)
         {
             MostrarInventario();
+
             CargarComboBoxCategorias();
+
             CargarComboBoxUnidadDeMedida();
+
             DesactivarCopiarPegar(this);
+
+            //CONFIGURA LOS TOOLTIPS
             ConfigurarTooltips();
+
+            // Configurar diseño de la tabla
+            ConfigurarTablaInventario();
+
             btnGuardarCambios.Visible = false;
             btnEditar.Visible = false;
 

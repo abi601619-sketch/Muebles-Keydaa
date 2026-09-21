@@ -1,6 +1,7 @@
 ﻿using Modelo.Entidades;
 using System;
 using System.Data;
+using System.Drawing;
 using System.Windows.Forms;
 using Vista.Responsive;
 
@@ -55,6 +56,88 @@ namespace Vista.Usuarios
 
             // Tabla de usuarios
             toolTip1.SetToolTip(dgvUsuariosRegistrados, "Muestra los usuarios registrados. Haz doble clic en un usuario para consultar sus datos.");
+        }
+
+        //CONFIGURACION DEL DISEÑO DE LA TABLA
+        private void ConfigurarTablaUsuarios()
+        {
+            // Encabezado
+            dgvUsuariosRegistrados.EnableHeadersVisualStyles = false;
+
+            dgvUsuariosRegistrados.ColumnHeadersDefaultCellStyle.BackColor =
+                Color.FromArgb(121, 75, 45);
+
+            dgvUsuariosRegistrados.ColumnHeadersDefaultCellStyle.ForeColor =
+                Color.White;
+
+            dgvUsuariosRegistrados.ColumnHeadersDefaultCellStyle.Font =
+                new Font("Times New Roman", 9, FontStyle.Regular);
+
+            dgvUsuariosRegistrados.ColumnHeadersDefaultCellStyle.Alignment =
+                DataGridViewContentAlignment.MiddleCenter;
+
+            dgvUsuariosRegistrados.ColumnHeadersDefaultCellStyle.SelectionBackColor =
+                Color.FromArgb(121, 75, 45);
+
+            dgvUsuariosRegistrados.ColumnHeadersDefaultCellStyle.SelectionForeColor =
+                Color.White;
+
+            // Filas
+            dgvUsuariosRegistrados.DefaultCellStyle.BackColor =
+                Color.White;
+
+            dgvUsuariosRegistrados.DefaultCellStyle.ForeColor =
+                Color.FromArgb(45, 45, 45);
+
+            dgvUsuariosRegistrados.DefaultCellStyle.Font =
+                new Font("Segoe UI", 9, FontStyle.Regular);
+
+            dgvUsuariosRegistrados.DefaultCellStyle.Alignment =
+                DataGridViewContentAlignment.MiddleLeft;
+
+            // Filas alternadas
+            dgvUsuariosRegistrados.AlternatingRowsDefaultCellStyle.BackColor =
+                Color.FromArgb(248, 241, 232);
+
+            // Selección
+            dgvUsuariosRegistrados.DefaultCellStyle.SelectionBackColor =
+                Color.FromArgb(224, 193, 157);
+
+            dgvUsuariosRegistrados.DefaultCellStyle.SelectionForeColor =
+                Color.Black;
+
+            // Bordes
+            dgvUsuariosRegistrados.CellBorderStyle =
+                DataGridViewCellBorderStyle.SingleHorizontal;
+
+            dgvUsuariosRegistrados.GridColor =
+                Color.FromArgb(220, 220, 220);
+
+            // Alto de las filas
+            dgvUsuariosRegistrados.RowTemplate.Height = 32;
+
+            // Alto del encabezado
+            dgvUsuariosRegistrados.ColumnHeadersHeight = 30;
+
+            // No permitir modificar
+            dgvUsuariosRegistrados.ReadOnly = true;
+
+            dgvUsuariosRegistrados.AllowUserToAddRows = false;
+
+            dgvUsuariosRegistrados.AllowUserToDeleteRows = false;
+
+            // Seleccionar fila completa
+            dgvUsuariosRegistrados.SelectionMode =
+                DataGridViewSelectionMode.FullRowSelect;
+
+            dgvUsuariosRegistrados.MultiSelect = false;
+
+            // Quitar borde exterior
+            dgvUsuariosRegistrados.BorderStyle =
+                BorderStyle.None;
+
+            // OCULTAR EL CUADRITO DE LA IZQUIERDA
+            dgvUsuariosRegistrados.RowHeadersVisible = false;
         }
 
         // REGISTRAR USUARIO
@@ -305,6 +388,9 @@ namespace Vista.Usuarios
             dgvUsuariosRegistrados.DataSource = null;
             dgvUsuariosRegistrados.DataSource = dtPagina;
 
+            // Configurar diseño de la tabla
+            ConfigurarTablaUsuarios();
+
             // Mostrar página actual
             lblPagina.Text =
                 $"Página {paginaActual} de {totalPaginas}";
@@ -340,6 +426,9 @@ namespace Vista.Usuarios
             // Como los nuevos usuarios siempre comienzan activos,
             // no necesitamos mostrar este CheckBox.
             chkEstado.Visible = false;
+
+            // Configurar diseño de la tabla
+            ConfigurarTablaUsuarios();
         }
 
 

@@ -92,10 +92,185 @@ namespace Vista.Facturación
             // Registro de facturas
             toolTip1.SetToolTip(dgvFacturasRegistradas, "Muestra las facturas registradas. Haz doble clic en una factura para editarla.");
         }
+        //------------------------------------------------------------------------------------------------------
+        //---------------------- CONFIGURAR TABLAS DE FACTURACIÓN ----------------------------------------------//
+        private void ConfigurarTablasFacturacion()
+        {
+            // =========================
+            // TABLA DE FACTURAS
+            // =========================
+
+            // Encabezado
+            dgvFacturasRegistradas.EnableHeadersVisualStyles = false;
+
+            dgvFacturasRegistradas.ColumnHeadersDefaultCellStyle.BackColor =
+                Color.FromArgb(121, 75, 45);
+
+            dgvFacturasRegistradas.ColumnHeadersDefaultCellStyle.ForeColor =
+                Color.White;
+
+            dgvFacturasRegistradas.ColumnHeadersDefaultCellStyle.Font =
+                new System.Drawing.Font("Times New Roman", 9, System.Drawing.FontStyle.Regular);
+
+            dgvFacturasRegistradas.ColumnHeadersDefaultCellStyle.Alignment =
+                DataGridViewContentAlignment.MiddleCenter;
+
+            dgvFacturasRegistradas.ColumnHeadersDefaultCellStyle.SelectionBackColor =
+                Color.FromArgb(121, 75, 45);
+
+            dgvFacturasRegistradas.ColumnHeadersDefaultCellStyle.SelectionForeColor =
+                Color.White;
+
+            // Filas
+            dgvFacturasRegistradas.DefaultCellStyle.BackColor =
+                Color.White;
+
+            dgvFacturasRegistradas.DefaultCellStyle.ForeColor =
+                Color.FromArgb(45, 45, 45);
+
+            dgvFacturasRegistradas.DefaultCellStyle.Font =
+                new System.Drawing.Font("Segoe UI", 9, System.Drawing.FontStyle.Regular);
+
+            dgvFacturasRegistradas.DefaultCellStyle.Alignment =
+                DataGridViewContentAlignment.MiddleLeft;
+
+            // Filas alternadas
+            dgvFacturasRegistradas.AlternatingRowsDefaultCellStyle.BackColor =
+                Color.FromArgb(248, 241, 232);
+
+            // Selección
+            dgvFacturasRegistradas.DefaultCellStyle.SelectionBackColor =
+                Color.FromArgb(224, 193, 157);
+
+            dgvFacturasRegistradas.DefaultCellStyle.SelectionForeColor =
+                Color.Black;
+
+            // Bordes
+            dgvFacturasRegistradas.CellBorderStyle =
+                DataGridViewCellBorderStyle.SingleHorizontal;
+
+            dgvFacturasRegistradas.GridColor =
+                Color.FromArgb(220, 220, 220);
+
+            // Alto de las filas
+            dgvFacturasRegistradas.RowTemplate.Height = 32;
+
+            // Alto del encabezado
+            dgvFacturasRegistradas.ColumnHeadersHeight = 30;
+
+            // No permitir modificar
+            dgvFacturasRegistradas.ReadOnly = true;
+
+            dgvFacturasRegistradas.AllowUserToAddRows = false;
+
+            dgvFacturasRegistradas.AllowUserToDeleteRows = false;
+
+            // Seleccionar fila completa
+            dgvFacturasRegistradas.SelectionMode =
+                DataGridViewSelectionMode.FullRowSelect;
+
+            dgvFacturasRegistradas.MultiSelect = false;
+
+            // Quitar borde exterior
+            dgvFacturasRegistradas.BorderStyle =
+                BorderStyle.None;
+
+            // Quitar columna de selección de filas
+            dgvFacturasRegistradas.RowHeadersVisible = false;
+
+
+            // =========================
+            // TABLA DETALLE DE VENTA
+            // =========================
+
+            // Encabezado
+            dgvDetalleVenta.EnableHeadersVisualStyles = false;
+
+            dgvDetalleVenta.ColumnHeadersDefaultCellStyle.BackColor =
+                Color.FromArgb(121, 75, 45);
+
+            dgvDetalleVenta.ColumnHeadersDefaultCellStyle.ForeColor =
+                Color.White;
+
+            dgvDetalleVenta.ColumnHeadersDefaultCellStyle.Font =
+                new System.Drawing.Font("Times New Roman", 9, System.Drawing.FontStyle.Regular);
+
+            dgvDetalleVenta.ColumnHeadersDefaultCellStyle.Alignment =
+                DataGridViewContentAlignment.MiddleCenter;
+
+            dgvDetalleVenta.ColumnHeadersDefaultCellStyle.SelectionBackColor =
+                Color.FromArgb(121, 75, 45);
+
+            dgvDetalleVenta.ColumnHeadersDefaultCellStyle.SelectionForeColor =
+                Color.White;
+
+            // Filas
+            dgvDetalleVenta.DefaultCellStyle.BackColor =
+                Color.White;
+
+            dgvDetalleVenta.DefaultCellStyle.ForeColor =
+                Color.FromArgb(45, 45, 45);
+
+            dgvDetalleVenta.DefaultCellStyle.Font =
+                new System.Drawing.Font("Segoe UI", 9, System.Drawing.FontStyle.Regular);
+
+            dgvDetalleVenta.DefaultCellStyle.Alignment =
+                DataGridViewContentAlignment.MiddleLeft;
+
+            // Filas alternadas
+            dgvDetalleVenta.AlternatingRowsDefaultCellStyle.BackColor =
+                Color.FromArgb(248, 241, 232);
+
+            // Selección
+            dgvDetalleVenta.DefaultCellStyle.SelectionBackColor =
+                Color.FromArgb(224, 193, 157);
+
+            dgvDetalleVenta.DefaultCellStyle.SelectionForeColor =
+                Color.Black;
+
+            // Bordes
+            dgvDetalleVenta.CellBorderStyle =
+                DataGridViewCellBorderStyle.SingleHorizontal;
+
+            dgvDetalleVenta.GridColor =
+                Color.FromArgb(220, 220, 220);
+
+            // Alto de las filas
+            dgvDetalleVenta.RowTemplate.Height = 32;
+
+            // Alto del encabezado
+            dgvDetalleVenta.ColumnHeadersHeight = 30;
+
+            // No permitir modificar
+            dgvDetalleVenta.ReadOnly = true;
+
+            dgvDetalleVenta.AllowUserToAddRows = false;
+
+            dgvDetalleVenta.AllowUserToDeleteRows = false;
+
+            // Seleccionar fila completa
+            dgvDetalleVenta.SelectionMode =
+                DataGridViewSelectionMode.FullRowSelect;
+
+            dgvDetalleVenta.MultiSelect = false;
+
+            // Quitar borde exterior
+            dgvDetalleVenta.BorderStyle =
+                BorderStyle.None;
+
+            // Quitar columna de selección de filas
+            dgvDetalleVenta.RowHeadersVisible = false;
+        }
         private void frmFacturacion_Load(object sender, EventArgs e)
         {
             MostrarRegistrosFacturas();
+
             MostrarDetalleFactura();
+
+            // CONFIGURACION DE LAS TABLAS
+            ConfigurarTablasFacturacion();
+
+            //BLOQUEA LOS CONTROLES DE CORTAR COPIAR Y PEGAR
             DesactivarCopiarPegar(this);
 
             ConfigurarTooltips();
@@ -188,6 +363,9 @@ namespace Vista.Facturación
             // Configurar encabezados
             dgvFacturasRegistradas.Columns["IdFactura"].HeaderText = "N° de Factura";
             dgvFacturasRegistradas.Columns["Fecha"].HeaderText = "Fecha de emisión";
+
+            // CONFIGURAR DISEÑO DE LA TABLA
+            ConfigurarTablasFacturacion();
 
             // Mostrar página actual
             lblPagina.Text =
@@ -295,6 +473,9 @@ namespace Vista.Facturación
 
             dgvDetalleVenta.DataSource = null;
             dgvDetalleVenta.DataSource = detalle;
+
+            // CONFIGURAR DISEÑO DE LA TABLA
+            ConfigurarTablasFacturacion();
 
             // Calcular cantidad total de productos
             int cantidadProductos = CalcularCantidadProductos();

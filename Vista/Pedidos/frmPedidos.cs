@@ -55,7 +55,7 @@ namespace Vista.Pedidos
                 Color.White;
 
             dgvPedidosRegistrados.ColumnHeadersDefaultCellStyle.Font =
-                new Font("Times New Roman", 9, FontStyle.Regular);
+                new Font("Segoe UI", 9, FontStyle.Regular);
 
             dgvPedidosRegistrados.ColumnHeadersDefaultCellStyle.Alignment =
                 DataGridViewContentAlignment.MiddleCenter;
@@ -171,7 +171,7 @@ namespace Vista.Pedidos
                 Color.White;
 
             dgvDetallesDePedido.ColumnHeadersDefaultCellStyle.Font =
-                new Font("Times New Roman", 9, FontStyle.Regular);
+                new Font("Segoe UI", 9, FontStyle.Regular);
 
             dgvDetallesDePedido.ColumnHeadersDefaultCellStyle.Alignment =
                 DataGridViewContentAlignment.MiddleCenter;
@@ -190,7 +190,7 @@ namespace Vista.Pedidos
                 Color.FromArgb(45, 45, 45);
 
             dgvDetallesDePedido.DefaultCellStyle.Font =
-                new Font("Times New Roman", 9, FontStyle.Regular);
+                new Font("Segoe UI", 9, FontStyle.Regular);
 
             dgvDetallesDePedido.DefaultCellStyle.Alignment =
                 DataGridViewContentAlignment.MiddleLeft;

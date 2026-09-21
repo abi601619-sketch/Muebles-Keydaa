@@ -77,6 +77,165 @@ namespace Vista.Ventas
             }
         }
 
+        // CONFIGURAR DISEÑO DE LAS TABLAS
+        private void ConfigurarTablasVentas()
+        {
+
+            // TABLA DE VENTAS
+
+            // Encabezado
+            dgvVentas.EnableHeadersVisualStyles = false;
+
+            dgvVentas.ColumnHeadersDefaultCellStyle.BackColor =
+                Color.FromArgb(121, 75, 45);
+
+            dgvVentas.ColumnHeadersDefaultCellStyle.ForeColor =
+                Color.White;
+
+            dgvVentas.ColumnHeadersDefaultCellStyle.Font =
+                new Font("Times New Roman", 9, FontStyle.Regular);
+
+            dgvVentas.ColumnHeadersDefaultCellStyle.Alignment =
+                DataGridViewContentAlignment.MiddleCenter;
+
+            dgvVentas.ColumnHeadersDefaultCellStyle.SelectionBackColor =
+                Color.FromArgb(121, 75, 45);
+
+            dgvVentas.ColumnHeadersDefaultCellStyle.SelectionForeColor =
+                Color.White;
+
+            // Filas
+            dgvVentas.DefaultCellStyle.BackColor =
+                Color.White;
+
+            dgvVentas.DefaultCellStyle.ForeColor =
+                Color.FromArgb(45, 45, 45);
+
+            dgvVentas.DefaultCellStyle.Font =
+                new Font("Segoe UI", 9, FontStyle.Regular);
+
+            dgvVentas.DefaultCellStyle.Alignment =
+                DataGridViewContentAlignment.MiddleLeft;
+
+            // Filas alternadas
+            dgvVentas.AlternatingRowsDefaultCellStyle.BackColor =
+                Color.FromArgb(248, 241, 232);
+
+            // Selección
+            dgvVentas.DefaultCellStyle.SelectionBackColor =
+                Color.FromArgb(224, 193, 157);
+
+            dgvVentas.DefaultCellStyle.SelectionForeColor =
+                Color.Black;
+
+            // Bordes
+            dgvVentas.CellBorderStyle =
+                DataGridViewCellBorderStyle.SingleHorizontal;
+
+            dgvVentas.GridColor =
+                Color.FromArgb(220, 220, 220);
+
+            // Alto de las filas
+            dgvVentas.RowTemplate.Height = 32;
+
+            // Alto del encabezado
+            dgvVentas.ColumnHeadersHeight = 30;
+
+            // No permitir modificar
+            dgvVentas.ReadOnly = true;
+
+            dgvVentas.AllowUserToAddRows = false;
+
+            dgvVentas.AllowUserToDeleteRows = false;
+
+            // Seleccionar fila completa
+            dgvVentas.SelectionMode =
+                DataGridViewSelectionMode.FullRowSelect;
+
+            dgvVentas.MultiSelect = false;
+
+            // Quitar borde exterior
+            dgvVentas.BorderStyle =
+                BorderStyle.None;
+
+            // TABLA DETALLE DE VENTA
+
+            // Encabezado
+            dgvDetalleDeVenta.EnableHeadersVisualStyles = false;
+
+            dgvDetalleDeVenta.ColumnHeadersDefaultCellStyle.BackColor =
+                Color.FromArgb(121, 75, 45);
+
+            dgvDetalleDeVenta.ColumnHeadersDefaultCellStyle.ForeColor =
+                Color.White;
+
+            dgvDetalleDeVenta.ColumnHeadersDefaultCellStyle.Font =
+                new Font("Times New Roman", 9, FontStyle.Regular);
+
+            dgvDetalleDeVenta.ColumnHeadersDefaultCellStyle.Alignment =
+                DataGridViewContentAlignment.MiddleCenter;
+
+            dgvDetalleDeVenta.ColumnHeadersDefaultCellStyle.SelectionBackColor =
+                Color.FromArgb(121, 75, 45);
+
+            dgvDetalleDeVenta.ColumnHeadersDefaultCellStyle.SelectionForeColor =
+                Color.White;
+
+            // Filas
+            dgvDetalleDeVenta.DefaultCellStyle.BackColor =
+                Color.White;
+
+            dgvDetalleDeVenta.DefaultCellStyle.ForeColor =
+                Color.FromArgb(45, 45, 45);
+
+            dgvDetalleDeVenta.DefaultCellStyle.Font =
+                new Font("Segoe UI", 9, FontStyle.Regular);
+
+            dgvDetalleDeVenta.DefaultCellStyle.Alignment =
+                DataGridViewContentAlignment.MiddleLeft;
+
+            // Filas alternadas
+            dgvDetalleDeVenta.AlternatingRowsDefaultCellStyle.BackColor =
+                Color.FromArgb(248, 241, 232);
+
+            // Selección
+            dgvDetalleDeVenta.DefaultCellStyle.SelectionBackColor =
+                Color.FromArgb(224, 193, 157);
+
+            dgvDetalleDeVenta.DefaultCellStyle.SelectionForeColor =
+                Color.Black;
+
+            // Bordes
+            dgvDetalleDeVenta.CellBorderStyle =
+                DataGridViewCellBorderStyle.SingleHorizontal;
+
+            dgvDetalleDeVenta.GridColor =
+                Color.FromArgb(220, 220, 220);
+
+            // Alto de las filas
+            dgvDetalleDeVenta.RowTemplate.Height = 32;
+
+            // Alto del encabezado
+            dgvDetalleDeVenta.ColumnHeadersHeight = 30;
+
+            // No permitir modificar
+            dgvDetalleDeVenta.ReadOnly = true;
+
+            dgvDetalleDeVenta.AllowUserToAddRows = false;
+
+            dgvDetalleDeVenta.AllowUserToDeleteRows = false;
+
+            // Seleccionar fila completa
+            dgvDetalleDeVenta.SelectionMode =
+                DataGridViewSelectionMode.FullRowSelect;
+
+            dgvDetalleDeVenta.MultiSelect = false;
+
+            // Quitar borde exterior
+            dgvDetalleDeVenta.BorderStyle =
+                BorderStyle.None;
+        }
+
         private void MostrarPaginaVentas()
         {
             if (dtVentas == null)
@@ -95,6 +254,7 @@ namespace Vista.Ventas
                 dtPagina.ImportRow(dtVentas.Rows[i]);
             }
 
+
             // Mostrar únicamente los registros de la página actual
             dgvVentas.DataSource = null;
             dgvVentas.DataSource = dtPagina;
@@ -104,6 +264,9 @@ namespace Vista.Ventas
             {
                 dgvVentas.Columns["IdVenta"].HeaderText = "N° de Venta";
             }
+
+            // Aplicar diseño
+            ConfigurarTablasVentas();
 
             // Mostrar página actual
             lblPagina.Text =
@@ -154,7 +317,6 @@ namespace Vista.Ventas
             }
         }
         //-----------------------------------------------------------------
-        //CONFIGURAR TOOLTIPS
         // CONFIGURAR TOOLTIPS
         private void ConfigurarTooltips()
         {
@@ -263,6 +425,9 @@ namespace Vista.Ventas
 
             dgvDetalleDeVenta.Columns["ProductoVendido"].HeaderText = "Producto Vendido";
             dgvDetalleDeVenta.Columns["PrecioUnitario"].HeaderText = "Precio unitario";
+
+            // Aplicar diseño de las tablas
+            ConfigurarTablasVentas();
         }
 
         int idVentaSeleccionada = 0;
@@ -313,12 +478,13 @@ namespace Vista.Ventas
                     CultureInfo.InvariantCulture);
 
 
-
                 // Cargar los productos de la venta seleccionada
                 dgvDetalleDeVenta.DataSource =
                     DetalleVenta.CargarDetalleVenta(idVentaSeleccionada);
                 CalcularSubtotalVenta();
 
+                //Mantiene el diseño de las tablas
+                ConfigurarTablasVentas();
 
                 // Configurar columnas del detalle
                 dgvDetalleDeVenta.Columns["IdDetalleVenta"].Visible = false;
@@ -398,9 +564,7 @@ namespace Vista.Ventas
                     CultureInfo.InvariantCulture);
 
                 // Verificar si hubo cambios
-                if (idMetodoPago == metodoPagoOriginal &&
-     dtFechaVenta.Value.Date == fechaOriginal.Date &&
-     subtotal == subtotalOriginal)
+                if (idMetodoPago == metodoPagoOriginal && dtFechaVenta.Value.Date == fechaOriginal.Date && subtotal == subtotalOriginal)
                 {
                     MessageBox.Show(
                         "No se realizaron cambios en la venta.",
@@ -681,6 +845,10 @@ namespace Vista.Ventas
 
             // Asignar nuevamente la lista actualizada
             dgvDetalleDeVenta.DataSource = detallesVenta;
+
+
+            // Aplicar diseño
+            ConfigurarTablasVentas();
 
             // CALCULAR SUBTOTAL
 

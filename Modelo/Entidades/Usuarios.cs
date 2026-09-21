@@ -30,7 +30,6 @@ namespace Modelo.Entidades
         {
 
         }
-
         public int IdUsuario1 { get => IdUsuario; set => IdUsuario = value; }
         public string Nombre1 { get => Nombre; set => Nombre = value; }
         public string Usuario1 { get => Usuario; set => Usuario = value; }
@@ -193,23 +192,15 @@ namespace Modelo.Entidades
                     // TIEMPO DE ESPERA
                     case -2:
 
-                        MessageBox.Show(
-                            "Error -2: La operación tardó demasiado.",
-                            "Tiempo de espera agotado",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Warning
-                        );
+                        MessageBox.Show("Error -2: La operación tardó demasiado.", "Tiempo de espera agotado",
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                         break;
                     // TABLA NO EXISTE
                     case 208:
 
-                        MessageBox.Show(
-                            "Error 208: La tabla Usuario no existe.",
-                            "Error de base de datos",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error
-                        );
+                        MessageBox.Show("Error 208: La tabla Usuario no existe.", "Error de base de datos",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                         break;
 
@@ -371,52 +362,28 @@ namespace Modelo.Entidades
             }
         }
 
-        public bool CrearAdministradorInicial(
-      string nombre,
-      string usuario,
-      string contraseña)
+        public bool CrearAdministradorInicial(string nombre, string usuario, string contraseña)
         {
             try
             {
                 // Genera el hash de la contraseña.
-                string contraseñaHash =
-                    BCrypt.Net.BCrypt.HashPassword(contraseña);
+                string contraseñaHash = BCrypt.Net.BCrypt.HashPassword(contraseña);
 
-                string comandoSQL = @"
-            INSERT INTO Usuario
-            (
-                Nombre,
-                Usuario,
-                Contraseña,
-                Rol,
-                Estado
-            )
-            VALUES
-            (
-                @Nombre,
-                @Usuario,
-                @Contraseña,
-                'Administrador',
-                1
-            );";
+                string comandoSQL = @"  INSERT INTO Usuario (Nombre, Usuario, Contraseña, Rol, Estado)
+                     VALUES (@Nombre,@Usuario,@Contraseña,'Administrador', 1);";
 
                 using (SqlConnection conexion = Conexion.Conectar())
                 {
-                    using (SqlCommand comandoObjeto =
-                        new SqlCommand(comandoSQL, conexion))
+                    using (SqlCommand comandoObjeto = new SqlCommand(comandoSQL, conexion))
                     {
-                        comandoObjeto.Parameters.AddWithValue(
-                            "@Nombre", nombre);
+                        comandoObjeto.Parameters.AddWithValue("@Nombre", nombre);
 
-                        comandoObjeto.Parameters.AddWithValue(
-                            "@Usuario", usuario);
+                        comandoObjeto.Parameters.AddWithValue("@Usuario", usuario);
 
-                        comandoObjeto.Parameters.AddWithValue(
-                            "@Contraseña", contraseñaHash);
+                        comandoObjeto.Parameters.AddWithValue("@Contraseña", contraseñaHash);
 
                         // Ejecuta el INSERT.
-                        int filasAfectadas =
-                            comandoObjeto.ExecuteNonQuery();
+                        int filasAfectadas = comandoObjeto.ExecuteNonQuery();
 
                         // Si se insertó correctamente.
                         if (filasAfectadas > 0)
@@ -435,100 +402,58 @@ namespace Modelo.Entidades
                 {
                     case 53:
 
-                        MessageBox.Show(
-                            "Error 53: No se pudo conectar con el servidor SQL.",
-                            "Error de conexión",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error
-                        );
+                        MessageBox.Show("Error 53: No se pudo conectar con el servidor SQL.", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                         break;
 
                     case 4060:
 
-                        MessageBox.Show(
-                            "Error 4060: No se pudo acceder a la base de datos.",
-                            "Error de base de datos",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error
-                        );
+                        MessageBox.Show("Error 4060: No se pudo acceder a la base de datos.", "Error de base de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                         break;
 
                     case -2:
 
-                        MessageBox.Show(
-                            "Error -2: La operación tardó demasiado.",
-                            "Tiempo de espera agotado",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Warning
-                        );
+                        MessageBox.Show("Error -2: La operación tardó demasiado.", "Tiempo de espera agotado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                         break;
 
                     case 208:
 
-                        MessageBox.Show(
-                            "Error 208: La tabla Usuario no existe.",
-                            "Error de base de datos",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error
-                        );
+                        MessageBox.Show("Error 208: La tabla Usuario no existe.", "Error de base de datos", MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
 
                         break;
 
                     case 2627:
 
-                        MessageBox.Show(
-                            "Error 2627: El nombre de usuario ya existe.",
-                            "Usuario duplicado",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Warning
-                        );
+                        MessageBox.Show("Error 2627: El nombre de usuario ya existe.", "Usuario duplicado",
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                         break;
 
                     case 2601:
 
-                        MessageBox.Show(
-                            "Error 2601: El nombre de usuario ya existe.",
-                            "Usuario duplicado",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Warning
-                        );
+                        MessageBox.Show("Error 2601: El nombre de usuario ya existe.", "Usuario duplicado",
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                         break;
 
                     case 515:
 
-                        MessageBox.Show(
-                            "Error 515: Falta un dato obligatorio.",
-                            "Datos incompletos",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Warning
-                        );
+                        MessageBox.Show("Error 515: Falta un dato obligatorio.", "Datos incompletos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                         break;
 
                     case 8152:
 
-                        MessageBox.Show(
-                            "Error 8152: Uno de los datos ingresados es demasiado largo.",
-                            "Dato demasiado largo",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Warning
-                        );
+                        MessageBox.Show("Error 8152: Uno de los datos ingresados es demasiado largo.", "Dato demasiado largo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                         break;
 
                     default:
 
-                        MessageBox.Show(
-                            "Error SQL " + ex.Number + ": " + ex.Message,
-                            "Error al crear administrador",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error
-                        );
+                        MessageBox.Show("Error SQL " + ex.Number + ": " + ex.Message, "Error al crear administrador", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                         break;
                 }
@@ -538,12 +463,7 @@ namespace Modelo.Entidades
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error inesperado: " + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Error inesperado: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 // Si ocurrió un error inesperado, devuelve false.
                 return false;

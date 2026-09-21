@@ -52,12 +52,104 @@ namespace Vista.Categorías
 
                 // Configura los encabezados del DataGridView
                 ConfigurarColumnas();
+
+                // Configurar diseño de la tabla
+                ConfigurarTablaCategorias();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error al cargar las categorías: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        //-------------------------------------------------------------------------
+        // CONFIGURAR DISEÑO DE LA TABLA
+
+        private void ConfigurarTablaCategorias()
+        {
+            // Encabezado
+            dgvCategorias.EnableHeadersVisualStyles = false;
+
+            dgvCategorias.ColumnHeadersDefaultCellStyle.BackColor =
+                Color.FromArgb(121, 75, 45);
+
+            dgvCategorias.ColumnHeadersDefaultCellStyle.ForeColor =
+                Color.White;
+
+            dgvCategorias.ColumnHeadersDefaultCellStyle.Font =
+                new Font("Segoe UI", 9, FontStyle.Regular);
+
+            dgvCategorias.ColumnHeadersDefaultCellStyle.Alignment =
+                DataGridViewContentAlignment.MiddleCenter;
+
+            dgvCategorias.ColumnHeadersDefaultCellStyle.SelectionBackColor =
+                Color.FromArgb(121, 75, 45);
+
+            dgvCategorias.ColumnHeadersDefaultCellStyle.SelectionForeColor =
+                Color.White;
+
+            // Filas
+            dgvCategorias.DefaultCellStyle.BackColor =
+                Color.White;
+
+            dgvCategorias.DefaultCellStyle.ForeColor =
+                Color.FromArgb(45, 45, 45);
+
+            dgvCategorias.DefaultCellStyle.Font =
+                new Font("Segoe UI", 9, FontStyle.Regular);
+
+            dgvCategorias.DefaultCellStyle.Alignment =
+                DataGridViewContentAlignment.MiddleLeft;
+
+            // Filas alternadas
+            dgvCategorias.AlternatingRowsDefaultCellStyle.BackColor =
+                Color.FromArgb(248, 241, 232);
+
+            // Selección
+            dgvCategorias.DefaultCellStyle.SelectionBackColor =
+                Color.FromArgb(224, 193, 157);
+
+            dgvCategorias.DefaultCellStyle.SelectionForeColor =
+                Color.Black;
+
+            // Bordes
+            dgvCategorias.CellBorderStyle =
+                DataGridViewCellBorderStyle.SingleHorizontal;
+
+            dgvCategorias.GridColor =
+                Color.FromArgb(220, 220, 220);
+
+            // Alto de las filas
+            dgvCategorias.RowTemplate.Height = 32;
+
+            // Alto del encabezado
+            dgvCategorias.ColumnHeadersHeight = 30;
+
+            // No permitir modificar
+            dgvCategorias.ReadOnly = true;
+
+            dgvCategorias.AllowUserToAddRows = false;
+
+            dgvCategorias.AllowUserToDeleteRows = false;
+
+            // Seleccionar fila completa
+            dgvCategorias.SelectionMode =
+                DataGridViewSelectionMode.FullRowSelect;
+
+            dgvCategorias.MultiSelect = false;
+
+            // Quitar borde exterior
+            dgvCategorias.BorderStyle =
+                BorderStyle.None;
+
+            // Ajustar contenido
+            dgvCategorias.DefaultCellStyle.WrapMode =
+                DataGridViewTriState.True;
+
+            dgvCategorias.AutoSizeRowsMode =
+                DataGridViewAutoSizeRowsMode.AllCells;
+        }
+
         //CONFIGURAR TOOLTIPS--------------------------------------
         private void ConfigurarTooltips()
         {
@@ -169,7 +261,8 @@ namespace Vista.Categorías
             if (paginaActual > totalPaginas)
                 paginaActual = totalPaginas;
         }
-
+        //-----------------------------------------------------------------------------------
+        //MOSTRAR PAGINA POR CATEGORIA
         private void MostrarPaginaCategorias()
         {
             if (dtCategorias == null)
@@ -194,6 +287,9 @@ namespace Vista.Categorías
 
             // Configura los nombres de las columnas
             ConfigurarColumnas();
+
+            // Configurar diseño de la tabla
+            ConfigurarTablaCategorias();
 
             // Mostrar página actual
             lblPagina.Text =
@@ -513,6 +609,9 @@ namespace Vista.Categorías
                 dgvCategorias.DataSource = Categorias.Buscar(txtBuscarCategoria.Text.Trim());
 
                 ConfigurarColumnas();
+
+                // Mantener el diseño después de buscar
+                ConfigurarTablaCategorias();
             }
             catch (Exception ex)
             {
