@@ -32,8 +32,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.lblSubTexto = new System.Windows.Forms.Label();
-            this.btnCamcelar = new System.Windows.Forms.Button();
-            this.btnAgregar = new System.Windows.Forms.Button();
             this.lblEstado = new System.Windows.Forms.Label();
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.pnlRegistros = new System.Windows.Forms.Panel();
@@ -47,8 +45,6 @@
             this.pnlBarraInformativa = new System.Windows.Forms.Panel();
             this.lblAdministrador = new System.Windows.Forms.Label();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.pnlDivisor = new System.Windows.Forms.Panel();
-            this.lblDetallesPedidos = new System.Windows.Forms.Label();
             this.txtBuscar = new System.Windows.Forms.TextBox();
             this.lblMensajeInformativoPedidos = new System.Windows.Forms.Label();
             this.pnlDEtalles = new System.Windows.Forms.Panel();
@@ -57,21 +53,17 @@
             this.dgvDetallesDePedido = new System.Windows.Forms.DataGridView();
             this.pnlPedidaDeDatos = new System.Windows.Forms.Panel();
             this.txtClienteSeleccionado = new System.Windows.Forms.TextBox();
-            this.nudCantidad = new System.Windows.Forms.NumericUpDown();
-            this.lblCantidad = new System.Windows.Forms.Label();
-            this.txtMuebleaRealizar = new System.Windows.Forms.TextBox();
-            this.cbEstado = new System.Windows.Forms.ComboBox();
             this.dtpFechaDeEntrega = new System.Windows.Forms.DateTimePicker();
             this.lblFechaPedido = new System.Windows.Forms.Label();
             this.dtpFechaPedido = new System.Windows.Forms.DateTimePicker();
             this.pnlTituloDetallesPedido = new System.Windows.Forms.Panel();
             this.lblDatosPedido = new System.Windows.Forms.Label();
-            this.btnGuardar = new System.Windows.Forms.Button();
-            this.btnDetallePedido = new System.Windows.Forms.Button();
-            this.lblMuebleARealizar = new System.Windows.Forms.Label();
             this.lblFechaEntrega = new System.Windows.Forms.Label();
             this.lblCliente = new System.Windows.Forms.Label();
             this.pnlContenedorPrincipalInventario = new System.Windows.Forms.Panel();
+            this.btnCancelar = new System.Windows.Forms.Button();
+            this.btnGuardar = new System.Windows.Forms.Button();
+            this.txtEstado = new System.Windows.Forms.TextBox();
             this.pnlHeader.SuspendLayout();
             this.pnlRegistros.SuspendLayout();
             this.pnlTitulo2.SuspendLayout();
@@ -79,12 +71,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbxBuscar)).BeginInit();
             this.pnlBarraInformativa.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
-            this.pnlDivisor.SuspendLayout();
             this.pnlDEtalles.SuspendLayout();
             this.pnlTitulo1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetallesDePedido)).BeginInit();
             this.pnlPedidaDeDatos.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudCantidad)).BeginInit();
             this.pnlTituloDetallesPedido.SuspendLayout();
             this.pnlContenedorPrincipalInventario.SuspendLayout();
             this.SuspendLayout();
@@ -100,37 +90,11 @@
             this.lblSubTexto.TabIndex = 1;
             this.lblSubTexto.Text = "Administración y registro de pedidos.";
             // 
-            // btnCamcelar
-            // 
-            this.btnCamcelar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.btnCamcelar.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCamcelar.Location = new System.Drawing.Point(118, 399);
-            this.btnCamcelar.Margin = new System.Windows.Forms.Padding(2);
-            this.btnCamcelar.Name = "btnCamcelar";
-            this.btnCamcelar.Size = new System.Drawing.Size(91, 31);
-            this.btnCamcelar.TabIndex = 15;
-            this.btnCamcelar.Text = "Cancelar";
-            this.btnCamcelar.UseVisualStyleBackColor = false;
-            this.btnCamcelar.Click += new System.EventHandler(this.btnCamcelar_Click);
-            // 
-            // btnAgregar
-            // 
-            this.btnAgregar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.btnAgregar.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAgregar.Location = new System.Drawing.Point(17, 367);
-            this.btnAgregar.Margin = new System.Windows.Forms.Padding(2);
-            this.btnAgregar.Name = "btnAgregar";
-            this.btnAgregar.Size = new System.Drawing.Size(184, 25);
-            this.btnAgregar.TabIndex = 14;
-            this.btnAgregar.Text = "Agregar Producto";
-            this.btnAgregar.UseVisualStyleBackColor = false;
-            this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
-            // 
             // lblEstado
             // 
             this.lblEstado.AutoSize = true;
             this.lblEstado.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEstado.Location = new System.Drawing.Point(22, 147);
+            this.lblEstado.Location = new System.Drawing.Point(21, 203);
             this.lblEstado.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblEstado.Name = "lblEstado";
             this.lblEstado.Size = new System.Drawing.Size(52, 16);
@@ -142,7 +106,6 @@
             this.pnlHeader.Controls.Add(this.pnlRegistros);
             this.pnlHeader.Controls.Add(this.pbxBuscar);
             this.pnlHeader.Controls.Add(this.pnlBarraInformativa);
-            this.pnlHeader.Controls.Add(this.pnlDivisor);
             this.pnlHeader.Controls.Add(this.txtBuscar);
             this.pnlHeader.Controls.Add(this.lblMensajeInformativoPedidos);
             this.pnlHeader.Controls.Add(this.pnlDEtalles);
@@ -308,26 +271,6 @@
             this.pictureBox4.TabIndex = 25;
             this.pictureBox4.TabStop = false;
             // 
-            // pnlDivisor
-            // 
-            this.pnlDivisor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.pnlDivisor.Controls.Add(this.lblDetallesPedidos);
-            this.pnlDivisor.Location = new System.Drawing.Point(19, 306);
-            this.pnlDivisor.Name = "pnlDivisor";
-            this.pnlDivisor.Size = new System.Drawing.Size(229, 28);
-            this.pnlDivisor.TabIndex = 34;
-            // 
-            // lblDetallesPedidos
-            // 
-            this.lblDetallesPedidos.AutoSize = true;
-            this.lblDetallesPedidos.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDetallesPedidos.ForeColor = System.Drawing.Color.White;
-            this.lblDetallesPedidos.Location = new System.Drawing.Point(7, 5);
-            this.lblDetallesPedidos.Name = "lblDetallesPedidos";
-            this.lblDetallesPedidos.Size = new System.Drawing.Size(154, 19);
-            this.lblDetallesPedidos.TabIndex = 1;
-            this.lblDetallesPedidos.Text = "Detalles de productos";
-            // 
             // txtBuscar
             // 
             this.txtBuscar.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -418,87 +361,47 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlPedidaDeDatos.AutoScroll = true;
             this.pnlPedidaDeDatos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(215)))), ((int)(((byte)(215)))));
+            this.pnlPedidaDeDatos.Controls.Add(this.txtEstado);
+            this.pnlPedidaDeDatos.Controls.Add(this.btnCancelar);
+            this.pnlPedidaDeDatos.Controls.Add(this.btnGuardar);
             this.pnlPedidaDeDatos.Controls.Add(this.txtClienteSeleccionado);
-            this.pnlPedidaDeDatos.Controls.Add(this.nudCantidad);
-            this.pnlPedidaDeDatos.Controls.Add(this.lblCantidad);
-            this.pnlPedidaDeDatos.Controls.Add(this.txtMuebleaRealizar);
-            this.pnlPedidaDeDatos.Controls.Add(this.cbEstado);
             this.pnlPedidaDeDatos.Controls.Add(this.dtpFechaDeEntrega);
             this.pnlPedidaDeDatos.Controls.Add(this.lblFechaPedido);
             this.pnlPedidaDeDatos.Controls.Add(this.dtpFechaPedido);
             this.pnlPedidaDeDatos.Controls.Add(this.pnlTituloDetallesPedido);
-            this.pnlPedidaDeDatos.Controls.Add(this.btnGuardar);
-            this.pnlPedidaDeDatos.Controls.Add(this.btnDetallePedido);
-            this.pnlPedidaDeDatos.Controls.Add(this.btnCamcelar);
-            this.pnlPedidaDeDatos.Controls.Add(this.btnAgregar);
             this.pnlPedidaDeDatos.Controls.Add(this.lblEstado);
-            this.pnlPedidaDeDatos.Controls.Add(this.lblMuebleARealizar);
             this.pnlPedidaDeDatos.Controls.Add(this.lblFechaEntrega);
             this.pnlPedidaDeDatos.Controls.Add(this.lblCliente);
-            this.pnlPedidaDeDatos.Location = new System.Drawing.Point(20, 118);
+            this.pnlPedidaDeDatos.Location = new System.Drawing.Point(20, 109);
             this.pnlPedidaDeDatos.Margin = new System.Windows.Forms.Padding(2);
             this.pnlPedidaDeDatos.Name = "pnlPedidaDeDatos";
-            this.pnlPedidaDeDatos.Size = new System.Drawing.Size(228, 454);
+            this.pnlPedidaDeDatos.Size = new System.Drawing.Size(228, 316);
             this.pnlPedidaDeDatos.TabIndex = 2;
             // 
             // txtClienteSeleccionado
             // 
             this.txtClienteSeleccionado.Enabled = false;
             this.txtClienteSeleccionado.ForeColor = System.Drawing.SystemColors.ScrollBar;
-            this.txtClienteSeleccionado.Location = new System.Drawing.Point(75, 48);
+            this.txtClienteSeleccionado.Location = new System.Drawing.Point(14, 71);
             this.txtClienteSeleccionado.Name = "txtClienteSeleccionado";
-            this.txtClienteSeleccionado.Size = new System.Drawing.Size(122, 20);
+            this.txtClienteSeleccionado.Size = new System.Drawing.Size(195, 20);
             this.txtClienteSeleccionado.TabIndex = 38;
             this.txtClienteSeleccionado.Text = "Selecciona un cliente";
-            // 
-            // nudCantidad
-            // 
-            this.nudCantidad.Location = new System.Drawing.Point(88, 297);
-            this.nudCantidad.Name = "nudCantidad";
-            this.nudCantidad.Size = new System.Drawing.Size(113, 20);
-            this.nudCantidad.TabIndex = 37;
-            // 
-            // lblCantidad
-            // 
-            this.lblCantidad.AutoSize = true;
-            this.lblCantidad.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCantidad.Location = new System.Drawing.Point(17, 298);
-            this.lblCantidad.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblCantidad.Name = "lblCantidad";
-            this.lblCantidad.Size = new System.Drawing.Size(63, 16);
-            this.lblCantidad.TabIndex = 36;
-            this.lblCantidad.Text = "Cantidad :";
-            // 
-            // txtMuebleaRealizar
-            // 
-            this.txtMuebleaRealizar.Location = new System.Drawing.Point(17, 264);
-            this.txtMuebleaRealizar.Name = "txtMuebleaRealizar";
-            this.txtMuebleaRealizar.Size = new System.Drawing.Size(187, 20);
-            this.txtMuebleaRealizar.TabIndex = 35;
-            this.txtMuebleaRealizar.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtMuebleaRealizar_KeyPress);
-            // 
-            // cbEstado
-            // 
-            this.cbEstado.FormattingEnabled = true;
-            this.cbEstado.Location = new System.Drawing.Point(95, 144);
-            this.cbEstado.Name = "cbEstado";
-            this.cbEstado.Size = new System.Drawing.Size(113, 21);
-            this.cbEstado.TabIndex = 33;
             // 
             // dtpFechaDeEntrega
             // 
             this.dtpFechaDeEntrega.Font = new System.Drawing.Font("Times New Roman", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpFechaDeEntrega.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpFechaDeEntrega.Location = new System.Drawing.Point(127, 108);
+            this.dtpFechaDeEntrega.Location = new System.Drawing.Point(20, 174);
             this.dtpFechaDeEntrega.Name = "dtpFechaDeEntrega";
-            this.dtpFechaDeEntrega.Size = new System.Drawing.Size(82, 20);
+            this.dtpFechaDeEntrega.Size = new System.Drawing.Size(188, 20);
             this.dtpFechaDeEntrega.TabIndex = 32;
             // 
             // lblFechaPedido
             // 
             this.lblFechaPedido.AutoSize = true;
             this.lblFechaPedido.Font = new System.Drawing.Font("Times New Roman", 10F);
-            this.lblFechaPedido.Location = new System.Drawing.Point(16, 78);
+            this.lblFechaPedido.Location = new System.Drawing.Point(16, 97);
             this.lblFechaPedido.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblFechaPedido.Name = "lblFechaPedido";
             this.lblFechaPedido.Size = new System.Drawing.Size(105, 16);
@@ -510,9 +413,9 @@
             this.dtpFechaPedido.Enabled = false;
             this.dtpFechaPedido.Font = new System.Drawing.Font("Times New Roman", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpFechaPedido.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpFechaPedido.Location = new System.Drawing.Point(129, 76);
+            this.dtpFechaPedido.Location = new System.Drawing.Point(18, 118);
             this.dtpFechaPedido.Name = "dtpFechaPedido";
-            this.dtpFechaPedido.Size = new System.Drawing.Size(80, 20);
+            this.dtpFechaPedido.Size = new System.Drawing.Size(191, 20);
             this.dtpFechaPedido.TabIndex = 30;
             // 
             // pnlTituloDetallesPedido
@@ -536,46 +439,11 @@
             this.lblDatosPedido.TabIndex = 0;
             this.lblDatosPedido.Text = "Datos del Pedido";
             // 
-            // btnGuardar
-            // 
-            this.btnGuardar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnGuardar.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGuardar.Location = new System.Drawing.Point(13, 400);
-            this.btnGuardar.Margin = new System.Windows.Forms.Padding(2);
-            this.btnGuardar.Name = "btnGuardar";
-            this.btnGuardar.Size = new System.Drawing.Size(101, 30);
-            this.btnGuardar.TabIndex = 28;
-            this.btnGuardar.Text = "Guardar";
-            this.btnGuardar.UseVisualStyleBackColor = false;
-            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
-            // 
-            // btnDetallePedido
-            // 
-            this.btnDetallePedido.Font = new System.Drawing.Font("Times New Roman", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDetallePedido.Location = new System.Drawing.Point(20, 330);
-            this.btnDetallePedido.Name = "btnDetallePedido";
-            this.btnDetallePedido.Size = new System.Drawing.Size(178, 24);
-            this.btnDetallePedido.TabIndex = 27;
-            this.btnDetallePedido.Text = "Medidas del producto";
-            this.btnDetallePedido.UseVisualStyleBackColor = true;
-            this.btnDetallePedido.Click += new System.EventHandler(this.btnDeatllePedido_Click);
-            // 
-            // lblMuebleARealizar
-            // 
-            this.lblMuebleARealizar.AutoSize = true;
-            this.lblMuebleARealizar.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMuebleARealizar.Location = new System.Drawing.Point(17, 237);
-            this.lblMuebleARealizar.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblMuebleARealizar.Name = "lblMuebleARealizar";
-            this.lblMuebleARealizar.Size = new System.Drawing.Size(109, 16);
-            this.lblMuebleARealizar.TabIndex = 5;
-            this.lblMuebleARealizar.Text = "Mueble a Realizar:";
-            // 
             // lblFechaEntrega
             // 
             this.lblFechaEntrega.AutoSize = true;
             this.lblFechaEntrega.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFechaEntrega.Location = new System.Drawing.Point(16, 110);
+            this.lblFechaEntrega.Location = new System.Drawing.Point(16, 147);
             this.lblFechaEntrega.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblFechaEntrega.Name = "lblFechaEntrega";
             this.lblFechaEntrega.Size = new System.Drawing.Size(112, 16);
@@ -586,7 +454,7 @@
             // 
             this.lblCliente.AutoSize = true;
             this.lblCliente.Font = new System.Drawing.Font("Times New Roman", 12F);
-            this.lblCliente.Location = new System.Drawing.Point(16, 46);
+            this.lblCliente.Location = new System.Drawing.Point(16, 47);
             this.lblCliente.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblCliente.Name = "lblCliente";
             this.lblCliente.Size = new System.Drawing.Size(54, 19);
@@ -604,6 +472,41 @@
             this.pnlContenedorPrincipalInventario.Name = "pnlContenedorPrincipalInventario";
             this.pnlContenedorPrincipalInventario.Size = new System.Drawing.Size(1102, 627);
             this.pnlContenedorPrincipalInventario.TabIndex = 4;
+            // 
+            // btnCancelar
+            // 
+            this.btnCancelar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.btnCancelar.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancelar.Location = new System.Drawing.Point(119, 259);
+            this.btnCancelar.Margin = new System.Windows.Forms.Padding(2);
+            this.btnCancelar.Name = "btnCancelar";
+            this.btnCancelar.Size = new System.Drawing.Size(91, 39);
+            this.btnCancelar.TabIndex = 39;
+            this.btnCancelar.Text = "Cancelar";
+            this.btnCancelar.UseVisualStyleBackColor = false;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
+            // 
+            // btnGuardar
+            // 
+            this.btnGuardar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.btnGuardar.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGuardar.Location = new System.Drawing.Point(14, 259);
+            this.btnGuardar.Margin = new System.Windows.Forms.Padding(2);
+            this.btnGuardar.Name = "btnGuardar";
+            this.btnGuardar.Size = new System.Drawing.Size(101, 39);
+            this.btnGuardar.TabIndex = 40;
+            this.btnGuardar.Text = "Guardar cambios";
+            this.btnGuardar.UseVisualStyleBackColor = false;
+            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
+            // 
+            // txtEstado
+            // 
+            this.txtEstado.Location = new System.Drawing.Point(19, 229);
+            this.txtEstado.Name = "txtEstado";
+            this.txtEstado.ReadOnly = true;
+            this.txtEstado.Size = new System.Drawing.Size(190, 20);
+            this.txtEstado.TabIndex = 41;
+            this.txtEstado.TabStop = false;
             // 
             // frmPedidos
             // 
@@ -627,15 +530,12 @@
             this.pnlBarraInformativa.ResumeLayout(false);
             this.pnlBarraInformativa.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
-            this.pnlDivisor.ResumeLayout(false);
-            this.pnlDivisor.PerformLayout();
             this.pnlDEtalles.ResumeLayout(false);
             this.pnlTitulo1.ResumeLayout(false);
             this.pnlTitulo1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetallesDePedido)).EndInit();
             this.pnlPedidaDeDatos.ResumeLayout(false);
             this.pnlPedidaDeDatos.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudCantidad)).EndInit();
             this.pnlTituloDetallesPedido.ResumeLayout(false);
             this.pnlTituloDetallesPedido.PerformLayout();
             this.pnlContenedorPrincipalInventario.ResumeLayout(false);
@@ -647,13 +547,10 @@
         #endregion
 
         private System.Windows.Forms.Label lblSubTexto;
-        private System.Windows.Forms.Button btnCamcelar;
-        private System.Windows.Forms.Button btnAgregar;
         private System.Windows.Forms.Label lblEstado;
         private System.Windows.Forms.Panel pnlHeader;
         private System.Windows.Forms.Label lblMensajeInformativoPedidos;
         private System.Windows.Forms.Panel pnlDEtalles;
-        private System.Windows.Forms.Label lblMuebleARealizar;
         private System.Windows.Forms.Label lblFechaEntrega;
         private System.Windows.Forms.Label lblCliente;
         private System.Windows.Forms.Panel pnlPedidaDeDatos;
@@ -662,23 +559,15 @@
         private System.Windows.Forms.TextBox txtBuscar;
         private System.Windows.Forms.PictureBox pbxBuscar;
         private System.Windows.Forms.DataGridView dgvDetallesDePedido;
-        private System.Windows.Forms.Button btnDetallePedido;
         private System.Windows.Forms.PictureBox pictureBox4;
         private System.Windows.Forms.Label lblAdministrador;
-        private System.Windows.Forms.Button btnGuardar;
         private System.Windows.Forms.Panel pnlTituloDetallesPedido;
         private System.Windows.Forms.Label lblDatosPedido;
         private System.Windows.Forms.DateTimePicker dtpFechaDeEntrega;
         private System.Windows.Forms.Label lblFechaPedido;
         private System.Windows.Forms.DateTimePicker dtpFechaPedido;
-        private System.Windows.Forms.ComboBox cbEstado;
-        private System.Windows.Forms.Panel pnlDivisor;
-        private System.Windows.Forms.TextBox txtMuebleaRealizar;
-        private System.Windows.Forms.NumericUpDown nudCantidad;
-        private System.Windows.Forms.Label lblCantidad;
         private System.Windows.Forms.Panel pnlRegistros;
         private System.Windows.Forms.DataGridView dgvPedidosRegistrados;
-        private System.Windows.Forms.Label lblDetallesPedidos;
         private System.Windows.Forms.Panel pnlTitulo2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel pnlTitulo1;
@@ -687,6 +576,9 @@
         private System.Windows.Forms.Label lblPagina;
         private System.Windows.Forms.Button btnAnterior;
         private System.Windows.Forms.Button btnSiguiente;
+        private System.Windows.Forms.Button btnCancelar;
+        private System.Windows.Forms.Button btnGuardar;
+        private System.Windows.Forms.TextBox txtEstado;
     }
 }
 

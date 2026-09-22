@@ -416,30 +416,14 @@ namespace Modelo.Entidades
         }
 
 
-        public static bool ActualizarPedidoEstado(
-            int idPedido,
-            string nuevoEstado)
+        public static bool ActualizarPedidoEstado(int idPedido, string nuevoEstado)
         {
-            using (SqlConnection conexion =
-                Conexion.Conectar())
+            using (SqlConnection conexion = Conexion.Conectar())
             {
-                string query = @"
-                    UPDATE Pedido
-                    SET Estado = @Estado
-                    WHERE IdPedido = @IdPedido
-                    AND
-                    (
-                        @Estado = 'Cancelado'
-                        OR EXISTS
-                        (
-                            SELECT 1
-                            FROM DetallePedido
-                            WHERE IdPedido = @IdPedido
-                        )
-                    );";
+                string query = @" UPDATE Pedido SET Estado = @Estado
+                    WHERE IdPedido = @IdPedido AND(@Estado = 'Cancelado'OR EXISTS(SELECT 1 FROM DetallePedido WHERE IdPedido = @IdPedido));";
 
-                using (SqlCommand cmd =
-                    new SqlCommand(query, conexion))
+                using (SqlCommand cmd = new SqlCommand(query, conexion))
                 {
                     cmd.Parameters.AddWithValue(
                         "@Estado",
@@ -535,20 +519,14 @@ namespace Modelo.Entidades
         }
 
 
-        public static bool ActualizarPedidoFecha(
-            int idPedido,
-            DateTime fechaEntrega)
+        public static bool ActualizarPedidoFecha(int idPedido, DateTime fechaEntrega)
         {
-            using (SqlConnection conexion =
-                Conexion.Conectar())
+            using (SqlConnection conexion = Conexion.Conectar())
             {
-                string query = @"
-                    UPDATE Pedido
-                    SET FechaDeEntrega = @FechaEntrega
-                    WHERE IdPedido = @IdPedido;";
+                string query = @" UPDATE Pedido
+                    SET FechaDeEntrega = @FechaEntrega WHERE IdPedido = @IdPedido;";
 
-                using (SqlCommand cmd =
-                    new SqlCommand(query, conexion))
+                using (SqlCommand cmd = new SqlCommand(query, conexion))
                 {
                     cmd.Parameters.AddWithValue(
                         "@FechaEntrega",

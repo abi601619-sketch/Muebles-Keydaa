@@ -155,7 +155,6 @@
             this.btnAgregarProducto.TabIndex = 14;
             this.btnAgregarProducto.Text = "Agregar Producto";
             this.btnAgregarProducto.UseVisualStyleBackColor = false;
-            this.btnAgregarProducto.Click += new System.EventHandler(this.btnAgregarProducto_Click);
             // 
             // btnSalir
             // 

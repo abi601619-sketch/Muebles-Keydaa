@@ -319,18 +319,7 @@ namespace Vista.Pedidos
             // Datos del pedido
             toolTip.SetToolTip(dtpFechaPedido, "Seleccione la fecha en que se realizó el pedido.");
             toolTip.SetToolTip(dtpFechaDeEntrega, "Seleccione la fecha en que se entregará el pedido.");
-            toolTip.SetToolTip(cbEstado, "Seleccione el estado actual del pedido.");
-
-            // Detalles del producto
-            toolTip.SetToolTip(txtMuebleaRealizar, "Mueble que desea agregar al pedido o modificar del pedido.");
-            toolTip.SetToolTip(nudCantidad, "Indique la cantidad de muebles.");
-            toolTip.SetToolTip(btnDetallePedido, "Ingrese las medidas del producto.");
-            toolTip.SetToolTip(btnAgregar, "Agrega el producto a los detalles del pedido.");
-
-            // Botones principales
-            toolTip.SetToolTip(btnGuardar, "Guarda el pedido.");
-            toolTip.SetToolTip(btnCamcelar, "Cancela el registro del pedido.");
-
+            toolTip.SetToolTip(txtEstado, "Estado del pedido seleccionado.");
 
             // Búsqueda
             toolTip.SetToolTip(txtBuscar, "Ingrese el número o información del pedido que desea buscar.");
@@ -342,8 +331,7 @@ namespace Vista.Pedidos
 
         private void EliminarProducto_Click(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex < 0 || e.ColumnIndex < 0 ||
-                dgvDetallesDePedido.Columns[e.ColumnIndex].Name != "EliminarProducto")
+            if (e.RowIndex < 0 || e.ColumnIndex < 0 || dgvDetallesDePedido.Columns[e.ColumnIndex].Name != "EliminarProducto")
                 return;
             var fila = dgvDetallesDePedido.Rows[e.RowIndex];
             if (fila.IsNewRow) return;
@@ -364,7 +352,7 @@ namespace Vista.Pedidos
                 MostrarPedidos();
                 if (cancelado && idPedidoSeleccionado == pedido)
                 {
-                    cbEstado.Text = "Cancelado";
+                    txtEstado.Text = "Cancelado";
                     estadoOriginal = "Cancelado";
                 }
                 MessageBox.Show(cancelado ? "Producto eliminado. El pedido quedó Cancelado."
@@ -376,8 +364,8 @@ namespace Vista.Pedidos
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-
+        //--------------------------------------------------------------------------------
+        //SECCION DE BUSQUEDA
 
 
         private void txtBuscar_Enter(object sender, EventArgs e)
@@ -393,10 +381,63 @@ namespace Vista.Pedidos
         {
             if (string.IsNullOrWhiteSpace(txtBuscar.Text))
             {
-                txtBuscar.Text = "Buscar pedido...";
+                txtBuscar.Text = "Buscar Pedido...";
                 txtBuscar.ForeColor = Color.Gray;
             }
         }
+
+        private void txtBuscar_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (txtBuscar.Text == "Buscar Pedido...")
+                    return;
+
+                string texto = txtBuscar.Text.Trim();
+
+                // Si el buscador está vacío
+                if (string.IsNullOrWhiteSpace(texto))
+                {
+                    buscandoPedidos = false;
+                    paginaActual = 1;
+
+                    CargarPaginacionPedidos();
+
+                    return;
+                }
+
+                buscandoPedidos = true;
+
+                // Buscar pedidos
+                dtPedidos = DbPedidos.BuscarPedido(texto);
+
+                paginaActual = 1;
+
+                // Calcular páginas de los resultados
+                totalPaginas = (int)Math.Ceiling(
+                    (double)dtPedidos.Rows.Count / registrosPorPagina
+                );
+
+                if (totalPaginas == 0)
+                {
+                    totalPaginas = 1;
+                }
+
+                MostrarPaginaPedidos();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
+        }
+        //------------------------------------------------------------------
+        //SECCION DE PAGINACION DE PEDIDOS
+
         private void CargarPaginacionPedidos()
         {
             try
@@ -488,25 +529,13 @@ namespace Vista.Pedidos
 
             ConfigurarTooltips();
 
-            cbEstado.Items.Add("En proceso");
-            cbEstado.Items.Add("Finalizado");
-            cbEstado.Items.Add("Cancelado");
-            cbEstado.SelectedIndex = 0;
-
             dtpFechaDeEntrega.Value = DateTime.Today;
-
-            txtMuebleaRealizar.MaxLength = 150;
 
             txtClienteSeleccionado.TabIndex = 1;
             dtpFechaPedido.TabIndex = 2;
             dtpFechaDeEntrega.TabIndex = 3;
-            cbEstado.TabIndex = 4;
-            txtMuebleaRealizar.TabIndex = 5;
-            nudCantidad.TabIndex = 6;
-            btnDetallePedido.TabIndex = 7;
-            btnAgregar.TabIndex = 8;
-            btnGuardar.TabIndex = 9;
-            btnCamcelar.TabIndex = 10;
+            txtEstado.TabIndex = 4;
+
 
             // Encabezados visibles
             dgvDetallesDePedido.Columns["IdDetallePedido"].Visible = false;
@@ -538,163 +567,27 @@ namespace Vista.Pedidos
             CargarPaginacionPedidos();
         }
 
-        private void btnDeatllePedido_Click(object sender, EventArgs e)
+        private void btnAnterior_Click(object sender, EventArgs e)
         {
-            frmDetallePedido modal = new frmDetallePedido();
-
-            if (modal.ShowDialog() == DialogResult.OK)
+            if (paginaActual > 1)
             {
-                medidaLargo = modal.Largo;
-                medidaAncho = modal.Ancho;
-                medidaAlto = modal.Alto;
-                observaciones = modal.Observaciones;
+                paginaActual--;
+
+                MostrarPaginaPedidos();
             }
         }
 
-        private void btnAgregar_Click(object sender, EventArgs e)
+        private void btnSiguiente_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtMuebleaRealizar.Text))
+            if (paginaActual < totalPaginas)
             {
-                MessageBox.Show("Ingresa el nombre del mueble.");
-                return;
-            }
+                paginaActual++;
 
-            if (string.IsNullOrWhiteSpace(nudCantidad.Text))
-            {
-                MessageBox.Show("Ingrese la cantidad de productos que desea agregar.");
-                return;
+                MostrarPaginaPedidos();
             }
-
-            if (medidaLargo == "0" && medidaAncho == "0" && medidaAlto == "0")
-            {
-                MessageBox.Show("Por favor ingresa las medidas del producto dando clic en 'Medidas del producto'.");
-                return;
-            }
-
-            if (idPedidoSeleccionado <= 0)
-            {
-                MessageBox.Show("Seleccione un pedido primero.");
-                return;
-            }
-
-            string medidas = medidaLargo + "x" + medidaAncho + "x" + medidaAlto;
-
-            if (DetallePedidos.InsertarDetalle(
-                idPedidoSeleccionado,
-                txtMuebleaRealizar.Text,
-                Convert.ToInt32(nudCantidad.Value),
-                medidas))
-            {
-                MessageBox.Show("Detalle agregado correctamente.");
-                dgvDetallesDePedido.DataSource = null;
-                dgvDetallesDePedido.DataSource =
-                    DetallePedidos.CargarDetallesPorPedido(idPedidoSeleccionado);
-                ConfigurarColumnasDetalles();
-            }
-            else
-            {
-                MessageBox.Show("Error al agregar el detalle.");
-            }
-
-            txtMuebleaRealizar.Clear();
-            nudCantidad.Value = 0;
-            medidaLargo = "0";
-            medidaAncho = "0";
-            medidaAlto = "0";
-            observaciones = "";
         }
-
-        private void btnGuardar_Click(object sender, EventArgs e)
-        {
-            if (dtpFechaDeEntrega.Value.Date < dtpFechaPedido.Value.Date)
-            {
-                MessageBox.Show("La fecha de entrega no puede ser anterior a la fecha del pedido.");
-                return;
-            }
-
-            if (idPedidoSeleccionado <= 0)
-            {
-                MessageBox.Show("Para actualizar el estado o la fecha, selecciona un pedido de la lista y presiona Guardar.");
-                return;
-            }
-
-            string nuevoEstado = cbEstado.Text;
-            DateTime nuevaFechaEntrega = dtpFechaDeEntrega.Value;
-
-            bool estadoCambio = estadoOriginal != nuevoEstado;
-            bool fechaCambio = fechaEntregaOriginal != nuevaFechaEntrega;
-
-            if (!estadoCambio && !fechaCambio)
-            {
-                MessageBox.Show(
-                    "No se realizaron cambios en el pedido.",
-                    "Sin cambios",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information
-                );
-
-                return;
-            }
-
-            if (estadoCambio)
-            {
-                if (DbPedidos.ActualizarPedidoEstado(idPedidoSeleccionado, nuevoEstado))
-                {
-                    MessageBox.Show(
-                        "El estado del pedido se modificó correctamente a: " + nuevoEstado,
-                        "Estado actualizado",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information
-                    );
-                }
-                else
-                {
-                    MessageBox.Show(
-                        "Error al actualizar el estado del pedido.",
-                        "Error",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Error
-                    );
-                }
-            }
-
-            if (fechaCambio)
-            {
-                if (DbPedidos.ActualizarPedidoFecha(idPedidoSeleccionado, nuevaFechaEntrega))
-                {
-                    MessageBox.Show(
-                        "La fecha de entrega del pedido se modificó correctamente a: " +
-                        nuevaFechaEntrega.ToString("dd/MM/yyyy"),
-                        "Fecha actualizada",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information
-                    );
-                }
-                else
-                {
-                    MessageBox.Show(
-                        "Error al actualizar la fecha del pedido.",
-                        "Error",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Error
-                    );
-                }
-            }
-
-            estadoOriginal = nuevoEstado;
-            fechaEntregaOriginal = nuevaFechaEntrega;
-
-            MostrarPedidos();
-        }
-
-        private void btnCamcelar_Click(object sender, EventArgs e)
-        {
-            ((DataTable)dgvDetallesDePedido.DataSource)?.RejectChanges();
-
-            txtClienteSeleccionado.Text = "Seleccionar Cliente";
-            txtMuebleaRealizar.Clear();
-            nudCantidad.Value = 0;
-        }
+        //------------------------------------------------------------------------------
+        //EVENTO CLICK EN LAS CELDAS DE LA TABLA DE PEDIDOS REGISTRADOS
 
         private void dgvPedidosRegistrados_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -721,11 +614,9 @@ namespace Vista.Pedidos
                     Convert.ToInt32(fila.Cells["IdPedido"].Value);
 
                 // CARGAR ESTADO
+                string estado = fila.Cells["Estado"].Value?.ToString() ?? "";
 
-                string estado =
-                    fila.Cells["Estado"].Value?.ToString() ?? "";
-
-                cbEstado.Text = estado;
+                txtEstado.Text = estado;
 
                 estadoOriginal = estado;
 
@@ -734,24 +625,18 @@ namespace Vista.Pedidos
                 if (fila.Cells["FechaDePedido"].Value != null &&
                     fila.Cells["FechaDePedido"].Value != DBNull.Value)
                 {
-                    dtpFechaPedido.Value =
-                        Convert.ToDateTime(
-                            fila.Cells["FechaDePedido"].Value);
+                    dtpFechaPedido.Value = Convert.ToDateTime(fila.Cells["FechaDePedido"].Value);
                 }
 
 
                 // CARGAR FECHA DE ENTREGA
 
 
-                if (fila.Cells["FechaDeEntrega"].Value != null &&
-                    fila.Cells["FechaDeEntrega"].Value != DBNull.Value)
+                if (fila.Cells["FechaDeEntrega"].Value != null && fila.Cells["FechaDeEntrega"].Value != DBNull.Value)
                 {
-                    fechaEntregaOriginal =
-                        Convert.ToDateTime(
-                            fila.Cells["FechaDeEntrega"].Value);
+                    fechaEntregaOriginal = Convert.ToDateTime(fila.Cells["FechaDeEntrega"].Value);
 
-                    dtpFechaDeEntrega.Value =
-                        fechaEntregaOriginal;
+                    dtpFechaDeEntrega.Value = fechaEntregaOriginal;
                 }
 
                 // CARGAR CLIENTE
@@ -770,9 +655,7 @@ namespace Vista.Pedidos
 
                 // CARGAR DETALLES DEL PEDIDO
 
-                DataTable detalles =
-                    DetallePedidos.CargarDetallesPorPedido(
-                        idPedidoSeleccionado);
+                DataTable detalles = DetallePedidos.CargarDetallesPorPedido(idPedidoSeleccionado);
 
                 dgvDetallesDePedido.DataSource = null;
 
@@ -791,6 +674,27 @@ namespace Vista.Pedidos
                     MessageBoxIcon.Error);
             }
         }
+
+        //EVENTO DOBLE CLICK DE PEDIDOS REGISTRADOS
+        private void dgvPedidosRegistrados_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0)
+                return;
+
+            DataGridViewRow fila = dgvPedidosRegistrados.Rows[e.RowIndex];
+
+            int idPedido = Convert.ToInt32(fila.Cells["IdPedido"].Value);
+
+            string cliente = fila.Cells["Cliente"].Value?.ToString() ?? "";
+
+            idPedidoSeleccionado = idPedido;
+
+            txtClienteSeleccionado.Text = cliente;
+            txtClienteSeleccionado.ForeColor = Color.Black;
+            txtClienteSeleccionado.Enabled = false;
+        }
+        //--------------------------------------------------------------------------------------
+        //CONFIGURACION DE LAS COLUMNAS DE TABLA DE DETALLES
         private void ConfigurarColumnasDetalles()
         {
             if (dgvDetallesDePedido.Columns.Contains("IdDetallePedido"))
@@ -824,69 +728,8 @@ namespace Vista.Pedidos
                     "Eliminar";
             }
         }
-        private void txtMuebleaRealizar_KeyPress(
-            object sender,
-            KeyPressEventArgs e)
-        {
-            if (!char.IsLetter(e.KeyChar) &&
-                !char.IsControl(e.KeyChar) &&
-                e.KeyChar != ' ')
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void txtBuscar_TextChanged(
-            object sender,
-            EventArgs e)
-        {
-            try
-            {
-                if (txtBuscar.Text == "Buscar pedido...")
-                    return;
-
-                string texto = txtBuscar.Text.Trim();
-
-                // Si el buscador está vacío
-                if (string.IsNullOrWhiteSpace(texto))
-                {
-                    buscandoPedidos = false;
-                    paginaActual = 1;
-
-                    CargarPaginacionPedidos();
-
-                    return;
-                }
-
-                buscandoPedidos = true;
-
-                // Buscar pedidos
-                dtPedidos = DbPedidos.BuscarPedido(texto);
-
-                paginaActual = 1;
-
-                // Calcular páginas de los resultados
-                totalPaginas = (int)Math.Ceiling(
-                    (double)dtPedidos.Rows.Count / registrosPorPagina
-                );
-
-                if (totalPaginas == 0)
-                {
-                    totalPaginas = 1;
-                }
-
-                MostrarPaginaPedidos();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(
-                    ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
-            }
-        }
+        //-----------------------------------------------------------------------------------
+        //-------------------DESACTIVAR COPIAR Y PEGAR--------------------------------------//
 
         private void DesactivarCopiarPegar(Control control)
         {
@@ -903,50 +746,112 @@ namespace Vista.Pedidos
                 }
             }
         }
+        //---------------------------------------------------------------------------------------------------------
+        //------------------BOTON DE GUARDAR LOS CAMBIOS PARA ACTUALIZAR UN PEDIDO-------------------------------//
 
-
-
-
-
-        private void btnAnterior_Click(object sender, EventArgs e)
+        private void btnGuardar_Click(object sender, EventArgs e)
         {
-            if (paginaActual > 1)
+            if (dtpFechaDeEntrega.Value.Date < dtpFechaPedido.Value.Date)
             {
-                paginaActual--;
+                MessageBox.Show(
+                    "La fecha de entrega no puede ser anterior a la fecha del pedido.",
+                    "Fecha inválida",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
 
-                MostrarPaginaPedidos();
-            }
-        }
-
-        private void btnSiguiente_Click(object sender, EventArgs e)
-        {
-            if (paginaActual < totalPaginas)
-            {
-                paginaActual++;
-
-                MostrarPaginaPedidos();
-            }
-        }
-
-        private void dgvPedidosRegistrados_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex < 0)
                 return;
+            }
 
-            DataGridViewRow fila =
-                dgvPedidosRegistrados.Rows[e.RowIndex];
+            if (idPedidoSeleccionado <= 0)
+            {
+                MessageBox.Show(
+                    "Para actualizar la fecha de entrega, selecciona un pedido de la lista y presiona Guardar.",
+                    "Pedido no seleccionado",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
 
-            int idPedido =
-                Convert.ToInt32(fila.Cells["IdPedido"].Value);
+                return;
+            }
 
-            string cliente =
-                fila.Cells["Cliente"].Value?.ToString() ?? "";
+            DateTime nuevaFechaEntrega = dtpFechaDeEntrega.Value;
 
-            idPedidoSeleccionado = idPedido;
+            bool fechaCambio =
+                fechaEntregaOriginal.Date != nuevaFechaEntrega.Date;
 
-            txtClienteSeleccionado.Text = cliente;
-            txtClienteSeleccionado.ForeColor = Color.Black;
-            txtClienteSeleccionado.Enabled = false;
+            if (!fechaCambio)
+            {
+                MessageBox.Show(
+                    "No se realizaron cambios en el pedido.",
+                    "Sin cambios",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+
+                return;
+            }
+
+            if (DbPedidos.ActualizarPedidoFecha(
+                idPedidoSeleccionado,
+                nuevaFechaEntrega))
+            {
+                MessageBox.Show(
+                    "La fecha de entrega del pedido se modificó correctamente a: " +
+                    nuevaFechaEntrega.ToString("dd/MM/yyyy"),
+                    "Fecha actualizada",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+
+                fechaEntregaOriginal = nuevaFechaEntrega;
+
+                MostrarPedidos();
+            }
+            else
+            {
+                MessageBox.Show(
+                    "Error al actualizar la fecha del pedido.",
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            // Limpiar selección del pedido
+            idPedidoSeleccionado = 0;
+
+            // Limpiar estado
+            txtEstado.Clear();
+
+            // Restablecer fecha del pedido
+            dtpFechaPedido.Value = DateTime.Today;
+
+            // Restablecer fecha de entrega
+            dtpFechaDeEntrega.Value = DateTime.Today;
+
+            // Limpiar cliente seleccionado
+            txtClienteSeleccionado.Clear();
+            txtClienteSeleccionado.ForeColor = Color.Gray;
+            txtClienteSeleccionado.Enabled = true;
+
+            // Restablecer valores originales
+            estadoOriginal = "";
+            fechaEntregaOriginal = DateTime.MinValue;
+
+            // Quitar selección de la tabla de pedidos
+            dgvPedidosRegistrados.ClearSelection();
+
+            // Limpiar tabla de detalles conservando los encabezados
+            DataTable dtVacio = DetallePedidos.CargarDetallesPedidos().Clone();
+
+            dgvDetallesDePedido.DataSource = dtVacio;
+
+            // Volver a mostrar los pedidos
+            MostrarPedidos();
         }
     }
 }
