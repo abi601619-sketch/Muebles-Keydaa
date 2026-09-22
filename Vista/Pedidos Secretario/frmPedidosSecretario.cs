@@ -24,6 +24,10 @@ namespace Vista.Pedidos_Secretario
                 UseColumnTextForButtonValue = true
             });
             dgvDetallesDePedido.CellContentClick += EliminarProducto_Click;
+
+            // Evento para cargar los detalles del pedido seleccionado
+            dgvPedidosRegistrados.CellClick += dgvPedidosRegistrados_CellClick;
+
         }
 
 
@@ -482,11 +486,10 @@ namespace Vista.Pedidos_Secretario
         {
             try
             {
-                if (txtBuscar.Text == "Buscar Pedido...")
+                if (txtBuscar.Text == "Buscar pedido...")
                     return;
 
-                string texto =
-                    txtBuscar.Text.Trim();
+                string texto = txtBuscar.Text.Trim();
 
                 // Si el buscador está vacío
                 if (string.IsNullOrWhiteSpace(texto))
@@ -502,15 +505,13 @@ namespace Vista.Pedidos_Secretario
                 buscandoPedidos = true;
 
                 // Buscar pedidos
-                dtPedidos =
-                    DbPedidos.BuscarPedido(texto);
+                dtPedidos = DbPedidos.BuscarPedido(texto);
 
                 paginaActual = 1;
 
                 // Calcular páginas de los resultados
                 totalPaginas = (int)Math.Ceiling(
-                    (double)dtPedidos.Rows.Count /
-                    registrosPorPagina
+                    (double)dtPedidos.Rows.Count / registrosPorPagina
                 );
 
                 if (totalPaginas == 0)
@@ -529,6 +530,7 @@ namespace Vista.Pedidos_Secretario
                     MessageBoxIcon.Error
                 );
             }
+
         }
 
         //------------------------------------------------------------------------
@@ -959,9 +961,7 @@ namespace Vista.Pedidos_Secretario
                 }
 
                 idPedidoSeleccionado =
-                    Convert.ToInt32(
-                        fila.Cells["IdPedido"].Value
-                    );
+                    Convert.ToInt32(fila.Cells["IdPedido"].Value);
 
                 // CARGAR ESTADO
 
@@ -972,32 +972,30 @@ namespace Vista.Pedidos_Secretario
 
                 estadoOriginal = estado;
 
-                // CARGAR FECHA DEL PEDIDO
+                // CARGAR FECHA DEL PEDIDO              
 
                 if (fila.Cells["FechaDePedido"].Value != null &&
                     fila.Cells["FechaDePedido"].Value != DBNull.Value)
                 {
                     dtpFechaPedido.Value =
                         Convert.ToDateTime(
-                            fila.Cells["FechaDePedido"].Value
-                        );
+                            fila.Cells["FechaDePedido"].Value);
                 }
 
 
                 // CARGAR FECHA DE ENTREGA
+
 
                 if (fila.Cells["FechaDeEntrega"].Value != null &&
                     fila.Cells["FechaDeEntrega"].Value != DBNull.Value)
                 {
                     fechaEntregaOriginal =
                         Convert.ToDateTime(
-                            fila.Cells["FechaDeEntrega"].Value
-                        );
+                            fila.Cells["FechaDeEntrega"].Value);
 
                     dtpFechaEntrega.Value =
                         fechaEntregaOriginal;
                 }
-
 
                 // CARGAR CLIENTE
 
@@ -1009,8 +1007,7 @@ namespace Vista.Pedidos_Secretario
                     txtClienteSeleccionado.ForeColor =
                         Color.Black;
 
-                    txtClienteSeleccionado.Enabled =
-                        false;
+                    txtClienteSeleccionado.Enabled = false;
                 }
 
 
@@ -1018,13 +1015,11 @@ namespace Vista.Pedidos_Secretario
 
                 DataTable detalles =
                     DetallePedidos.CargarDetallesPorPedido(
-                        idPedidoSeleccionado
-                    );
+                        idPedidoSeleccionado);
 
                 dgvDetallesDePedido.DataSource = null;
 
-                dgvDetallesDePedido.DataSource =
-                    detalles;
+                dgvDetallesDePedido.DataSource = detalles;
 
                 // CONFIGURAR TABLA DE DETALLES
                 ConfigurarColumnasDetalles();
@@ -1036,11 +1031,8 @@ namespace Vista.Pedidos_Secretario
                     ex.Message,
                     "Error",
                     MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                    MessageBoxIcon.Error);
             }
-
-
         }
 
         //------------------------------------------------------------------------
@@ -1157,24 +1149,16 @@ namespace Vista.Pedidos_Secretario
                 dgvPedidosRegistrados.Rows[e.RowIndex];
 
             int idPedido =
-                Convert.ToInt32(
-                    fila.Cells["IdPedido"].Value
-                );
+                Convert.ToInt32(fila.Cells["IdPedido"].Value);
 
             string cliente =
                 fila.Cells["Cliente"].Value?.ToString() ?? "";
 
-            idPedidoSeleccionado =
-                idPedido;
+            idPedidoSeleccionado = idPedido;
 
-            txtClienteSeleccionado.Text =
-                cliente;
-
-            txtClienteSeleccionado.ForeColor =
-                Color.Black;
-
-            txtClienteSeleccionado.Enabled =
-                false;
+            txtClienteSeleccionado.Text = cliente;
+            txtClienteSeleccionado.ForeColor = Color.Black;
+            txtClienteSeleccionado.Enabled = false;
         }
     }
 }

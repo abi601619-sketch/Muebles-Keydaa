@@ -3,6 +3,7 @@ using Modelo.Entidades;
 using System;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using Vista.Responsive;
@@ -40,20 +41,6 @@ namespace Vista.InicioSecretario
             ConfigurarGraficoInventario();
 
             ResponsiveHelper.Apply(this);
-        }
-
-        private void AbrirFormulario(Form formulario)
-        {
-            pnlContenedor.Controls.Clear();
-
-            formulario.TopLevel = false;
-            formulario.FormBorderStyle = FormBorderStyle.None;
-            formulario.Dock = DockStyle.Fill;
-
-            pnlContenedor.Controls.Add(formulario);
-            pnlContenedor.Tag = formulario;
-
-            formulario.Show();
         }
 
         //PEDIDOS RECIENTES
@@ -307,6 +294,46 @@ namespace Vista.InicioSecretario
 
             chartInventarioEstado.Titles.Add(titulo);
         }
+        private void CargarIndicadores()
+        {
+            try
+            {
+                DataTable datos =
+                    dbDashboard.ObtenerIndicadores();
+
+                if (datos.Rows.Count > 0)
+                {
+                    DataRow fila = datos.Rows[0];
+
+                    // Materiales registrados
+                    lblMateriales.Text =
+                        Convert.ToInt32(
+                            fila["MaterialesRegistrados"]
+                        ).ToString();
+
+                    // Clientes registrados
+                    lblClientess.Text =
+                        Convert.ToInt32(
+                            fila["ClientesRegistrados"]
+                        ).ToString();
+
+                    //Pedidos Activos
+                    lblPedidosActivos.Text = DbDashboard.ContarPedidosActivos().ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Error al cargar los indicadores: "
+                    + ex.Message,
+                    "Dashboard",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
+        }
+
+
 
         //CARGAR PEDIDOS POR ESTADO
 
@@ -314,7 +341,7 @@ namespace Vista.InicioSecretario
         {
             try
             {
-                DataTable datos = dbDashboard.ObtenerPedidosPorEstado();
+                DataTable datos = DbDashboard.ObtenerPedidosPorEstado();
 
 
                 chartPedidosEstado.Series.Clear();
@@ -476,14 +503,66 @@ namespace Vista.InicioSecretario
             tooltip.SetToolTip(chartInventarioEstado, "Muestra los materiales agotados, por agotarse y disponibles.");
         }
 
+        private void CargarLogoEmpresa()
+        {
+            try
+            {
+                string rutaLogo =
+                    Modelo.Properties.Settings.Default.LogoEmpresa;
+
+                if (!string.IsNullOrWhiteSpace(rutaLogo) &&
+                    File.Exists(rutaLogo))
+                {
+                    if (picLogo.Image != null)
+                    {
+                        picLogo.Image.Dispose();
+                        picLogo.Image = null;
+                    }
+
+                    using (Image imagenOriginal = Image.FromFile(rutaLogo))
+                    {
+                        picLogo.Image = new Bitmap(imagenOriginal);
+                    }
+
+                    picLogo.SizeMode = PictureBoxSizeMode.Zoom;
+                }
+                else
+                {
+                    // Si todavía no hay logo configurado
+                    picLogo.Image = null;
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(
+                    "ERR-DASH-001: No se pudo cargar el logo de la empresa.",
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
+        }
+
         //LOAD
         private void frmInicioSecretario_Load(object sender, EventArgs e)
         {
-            MostrarPedidosRecientes();
+            try
+            {
+                MostrarPedidosRecientes();
 
-            CargarPedidosPorEstado();
+                CargarPedidosPorEstado();
+                CargarIndicadores();
 
-            CargarInventarioPorEstado();
+                CargarInventarioPorEstado();
+
+                CargarPedidosPorEstado();
+
+                CargarLogoEmpresa();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar el Dashboard: " + ex.Message, "Dashboard", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
     }

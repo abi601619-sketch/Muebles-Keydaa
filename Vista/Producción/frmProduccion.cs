@@ -134,6 +134,7 @@ namespace Vista.Producción
             // Quitar borde exterior
             dgvProduccion.BorderStyle =
                 BorderStyle.None;
+
         }
         //CONFIGURAR TOOLTIPS----------------------------------------------------------
         private void ConfigurarTooltips()

@@ -129,57 +129,71 @@ namespace Vista.Dashboard
         {
             try
             {
-                DataTable datos = dbDashboard.ObtenerPedidosPorEstado();
+                DataTable datos = DbDashboard.ObtenerPedidosPorEstado();
 
                 chartPedidosEstado.Series.Clear();
-                chartPedidosEstado.Titles.Clear();
 
-                chartPedidosEstado.Titles.Add("Pedidos por Estado");
+                chartPedidosEstado.Legends.Clear();
 
-                Series serie =
-                    new Series("Pedidos");
+                if (datos.Rows.Count == 0)
+                {
+                    return;
+                }
 
-                serie.ChartType =
-                    SeriesChartType.Doughnut;
+                Series serie = new Series("Pedidos");
 
-                serie.IsValueShownAsLabel = true;
+                serie.ChartType = SeriesChartType.Doughnut;
+
+                serie.IsValueShownAsLabel = false;
+
+                serie["DoughnutRadius"] = "60";
+
+                serie["PieLabelStyle"] = "Disabled";
+
+                serie.BorderWidth = 2;
+
+                serie.BorderColor = Color.White;
 
                 foreach (DataRow fila in datos.Rows)
                 {
-                    string estado =
-                        fila["Estado"].ToString();
+                    string estado = fila["Estado"].ToString();
 
-                    int cantidad =
-                        Convert.ToInt32(
-                            fila["Cantidad"]
-                        );
+                    int cantidad = Convert.ToInt32(fila["Cantidad"]);
 
-                    serie.Points.AddXY(
-                        estado,
-                        cantidad
-                    );
+                    DataPoint punto = new DataPoint();
+
+                    punto.SetValueXY(estado, cantidad);
+
+                    punto.LegendText = estado + ": " + cantidad;
+
+                    punto.ToolTip = estado + ": " + cantidad + " pedidos";
+
+                    serie.Points.Add(punto);
                 }
 
                 chartPedidosEstado.Series.Add(serie);
 
-                chartPedidosEstado.Legends.Clear();
+                Legend leyenda = new Legend("Estados");
 
-                Legend leyenda =
-                    new Legend("Estados");
+                leyenda.Docking = Docking.Bottom;
+
+                leyenda.Alignment = StringAlignment.Center;
+
+                leyenda.BackColor = Color.Transparent;
+
+                leyenda.Font = new Font("Times New Roman", 9);
 
                 chartPedidosEstado.Legends.Add(leyenda);
-                // Vincular la serie con la leyenda
+
                 serie.Legend = "Estados";
             }
             catch (Exception ex)
             {
                 MessageBox.Show(
-                    "Error al cargar el gráfico de pedidos: "
-                    + ex.Message,
+                    "Error al cargar el gráfico de pedidos:\n\n" + ex.Message,
                     "Dashboard",
                     MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                    MessageBoxIcon.Error);
             }
         }
         private void CargarVentasPorMes()
@@ -244,8 +258,7 @@ namespace Vista.Dashboard
         {
             try
             {
-                DataTable datos =
-                    dbDashboard.ObtenerCotizacionesPorEstado();
+                DataTable datos = DbDashboard.ObtenerCotizacionesPorEstado();
 
                 chartCotizacionesEstado.Series.Clear();
                 chartCotizacionesEstado.Titles.Clear();
