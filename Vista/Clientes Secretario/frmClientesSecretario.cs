@@ -1401,7 +1401,7 @@ namespace Vista.Clientes_Secretario
                 // Bloquear campos hasta presionar Editar
                 BloquearCampos();
 
-                modoEdicion = false;
+                modoEdicion = true;
 
                 btnGuardarCorporativo.Visible = false;
                 btnGuardarIndividual.Visible = false;
@@ -1520,38 +1520,51 @@ namespace Vista.Clientes_Secretario
         }
         private void MostrarPaginaCorporativosBusqueda()
         {
-            if (dtCorporativosBusqueda == null)
-                return;
-
-            DataTable dtPagina =
-                dtCorporativosBusqueda.Clone();
-
-            int inicio =
-                (paginaActual - 1) * registrosPorPagina;
-
-            int fin =
-                Math.Min(
-                    inicio + registrosPorPagina,
-                    dtCorporativosBusqueda.Rows.Count);
-
-            for (int i = inicio; i < fin; i++)
+            try
             {
-                dtPagina.ImportRow(
-                    dtCorporativosBusqueda.Rows[i]);
+                if (dtCorporativosBusqueda == null)
+                    return;
+
+                DataTable dtPagina =
+                    dtCorporativosBusqueda.Clone();
+
+                int inicio =
+                    (paginaActual - 1) * registrosPorPagina;
+
+                int fin =
+                    Math.Min(
+                        inicio + registrosPorPagina,
+                        dtCorporativosBusqueda.Rows.Count);
+
+                for (int i = inicio; i < fin; i++)
+                {
+                    dtPagina.ImportRow(
+                        dtCorporativosBusqueda.Rows[i]);
+                }
+
+                dgvClientesCorporativos.DataSource = null;
+                dgvClientesCorporativos.DataSource = dtPagina;
+
+                FormatearTablaCorporativos();
+
+                lblPaginaC.Text =
+                    $"Página {paginaActual} de {totalPaginas}";
+
+                btnAtrasC.Enabled =
+                    paginaActual > 1;
+
+                btnSiguienteC.Enabled =
+                    paginaActual < totalPaginas;
             }
-
-            dgvClientesCorporativos.DataSource = null;
-            dgvClientesCorporativos.DataSource = dtPagina;
-            FormatearTablaCorporativos();
-
-            lblPagina.Text =
-                $"Página {paginaActual} de {totalPaginas}";
-
-            btnAtrasC.Enabled =
-                paginaActual > 1;
-
-            btnSiguienteC.Enabled =
-                paginaActual < totalPaginas;
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Ocurrió un error al mostrar los clientes.\n" + ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
         }
 
         private void txtBuscarCorporativo_Leave(object sender, EventArgs e)
@@ -1588,6 +1601,8 @@ namespace Vista.Clientes_Secretario
 
                     dtIndividualesBusqueda = null;
 
+                    MostrarClientesIndividuales();
+
                     return;
                 }
 
@@ -1621,40 +1636,51 @@ namespace Vista.Clientes_Secretario
 
         private void MostrarPaginaIndividualesBusqueda()
         {
-            if (dtIndividualesBusqueda == null)
-                return;
-
-            DataTable dtPagina =
-                dtIndividualesBusqueda.Clone();
-
-            int inicio =
-                (paginaActualIndividual - 1) *
-                registrosPorPagina;
-
-            int fin =
-                Math.Min(
-                    inicio + registrosPorPagina,
-                    dtIndividualesBusqueda.Rows.Count);
-
-            for (int i = inicio; i < fin; i++)
+            try
             {
-                dtPagina.ImportRow(
-                    dtIndividualesBusqueda.Rows[i]);
+                if (dtIndividualesBusqueda == null)
+                    return;
+
+                DataTable dtPagina =
+                    dtIndividualesBusqueda.Clone();
+
+                int inicio =
+                    (paginaActualIndividual - 1) * registrosPorPagina;
+
+                int fin =
+                    Math.Min(
+                        inicio + registrosPorPagina,
+                        dtIndividualesBusqueda.Rows.Count);
+
+                for (int i = inicio; i < fin; i++)
+                {
+                    dtPagina.ImportRow(
+                        dtIndividualesBusqueda.Rows[i]);
+                }
+
+                dgvClientesIndividuales.DataSource = null;
+                dgvClientesIndividuales.DataSource = dtPagina;
+
+                FormatearTablaIndividuales();
+
+                lblPagina.Text =
+                    $"Página {paginaActualIndividual} de {totalPaginasIndividual}";
+
+                btnAnterior.Enabled =
+                    paginaActualIndividual > 1;
+
+                btnSiguiente.Enabled =
+                    paginaActualIndividual < totalPaginasIndividual;
             }
-
-            dgvClientesIndividuales.DataSource = null;
-            dgvClientesIndividuales.DataSource = dtPagina;
-            MostrarClientesIndividuales();
-
-
-            lblPagina.Text =
-                $"Página {paginaActualIndividual} de {totalPaginasIndividual}";
-
-            btnAnterior.Enabled =
-                paginaActualIndividual > 1;
-
-            btnSiguiente.Enabled =
-                paginaActualIndividual < totalPaginasIndividual;
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Ocurrió un error al mostrar los clientes.\n" + ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
 
 
         }

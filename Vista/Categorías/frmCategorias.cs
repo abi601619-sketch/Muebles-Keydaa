@@ -397,7 +397,10 @@ namespace Vista.Categorías
         //----------------------------------------------------------------------
         // SELECCIONAR CATEGORÍA
         private int idCategoriaSeleccionada = 0;
-
+        // Valores originales de la categoría seleccionada
+        private string nombreCategoriaOriginal = "";
+        private string descripcionOriginal = "";
+        private string estadoOriginal = "";
 
         private void dgvCategorias_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -444,6 +447,11 @@ namespace Vista.Categorías
                 txtDescripcion.Text = fila.Cells["Descripcion"].Value?.ToString() ?? "";
 
                 cbEstado.Text = fila.Cells["Estado"].Value?.ToString() ?? "";
+
+                // Guarda los valores originales para detectar cambios
+                nombreCategoriaOriginal = txtCategoria.Text;
+                descripcionOriginal = txtDescripcion.Text;
+                estadoOriginal = cbEstado.Text;
 
                 // Bloquea los campos hasta presionar Editar
                 BloquearCampos();
@@ -518,7 +526,6 @@ namespace Vista.Categorías
                 if (idCategoriaSeleccionada == 0)
                 {
                     MessageBox.Show("No hay ninguna categoría seleccionada.");
-
                     return;
                 }
 
@@ -549,29 +556,91 @@ namespace Vista.Categorías
                     return;
                 }
 
+                // Obtener los nuevos valores
+                string nuevoNombre = txtCategoria.Text.Trim();
+                string nuevaDescripcion = txtDescripcion.Text.Trim();
+                string nuevoEstado = cbEstado.Text;
+
+                // Verificar si realmente hubo cambios
+                bool cambioNombre = nuevoNombre != nombreCategoriaOriginal;
+                bool cambioDescripcion = nuevaDescripcion != descripcionOriginal;
+                bool cambioEstado = nuevoEstado != estadoOriginal;
+
+                if (!cambioNombre && !cambioDescripcion && !cambioEstado)
+                {
+                    MessageBox.Show(
+                        "No se detectaron cambios en la categoría.",
+                        "Sin cambios",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information
+                    );
+
+                    return;
+                }
+
+                // Crear objeto categoría
                 Categorias categoria = new Categorias();
 
                 // Envía los datos de la categoría seleccionada
                 categoria.IdCategoria1 = idCategoriaSeleccionada;
-                categoria.Nombre_Categoria1 = txtCategoria.Text.Trim();
-                categoria.Descripción1 = txtDescripcion.Text.Trim();
-                categoria.Estado1 = cbEstado.Text;
+                categoria.Nombre_Categoria1 = nuevoNombre;
+                categoria.Descripción1 = nuevaDescripcion;
+                categoria.Estado1 = nuevoEstado;
 
                 // Llama al método ActualizarCategoria
                 bool resultado = categoria.ActualizarCategoria();
 
                 if (resultado)
                 {
-                    MessageBox.Show("Categoría actualizada correctamente.", "Actualización exitosa",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    // Crear mensaje indicando qué se modificó
+                    string cambios = "Se modificó:\n";
+
+                    if (cambioNombre)
+                    {
+                        cambios += "• Nombre de la categoría\n";
+                    }
+
+                    if (cambioDescripcion)
+                    {
+                        cambios += "• Descripción\n";
+                    }
+
+                    if (cambioEstado)
+                    {
+                        cambios += "• Estado: " + estadoOriginal + " → " + nuevoEstado + "\n";
+                    }
+
+                    MessageBox.Show(
+                        "Categoría actualizada correctamente.\n\n" + cambios,
+                        "Actualización exitosa",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information
+                    );
+
+                    // Actualizar tabla
+                    MostrarCategorias();
+
+                    // Actualizar estadísticas
+                    CargarEstadisticasCategorias();
+
+                    // Limpiar formulario
+                    LimpiarFormulario();
+
+                    // Limpiar valores originales
+                    nombreCategoriaOriginal = "";
+                    descripcionOriginal = "";
+                    estadoOriginal = "";
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al actualizar la categoría: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error
+                MessageBox.Show(
+                    "Error al actualizar la categoría: " + ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
                 );
             }
-
 
         }
         //------------------------------------------------------

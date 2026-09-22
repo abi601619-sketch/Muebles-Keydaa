@@ -26,6 +26,12 @@ namespace Vista.Iventario_Secretario
         private DataTable dtInventarioBusqueda;
         // Guarda el ID del material seleccionado para poder editarlo
         private int idMaterialSeleccionado = 0;
+
+        // Valores originales del material seleccionado
+        private string nombreMaterialOriginal = "";
+        private string unidadMedidaOriginal = "";
+        private string stockOriginal = "";
+        private string categoriaOriginal = "";
         public frmInventarioSecretario()
         {
             InitializeComponent();
@@ -662,12 +668,8 @@ namespace Vista.Iventario_Secretario
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error al registrar el material: " + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Error al registrar el material: " + ex.Message, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         //------------------------------------------------------------------
@@ -677,8 +679,7 @@ namespace Vista.Iventario_Secretario
             try
             {
                 // Evita seleccionar el encabezado o una fila nueva
-                if (e.RowIndex < 0 ||
-                    dgvMateriales.Rows[e.RowIndex].IsNewRow)
+                if (e.RowIndex < 0 || dgvMateriales.Rows[e.RowIndex].IsNewRow)
                 {
                     return;
                 }
@@ -686,21 +687,22 @@ namespace Vista.Iventario_Secretario
                 DataGridViewRow fila = dgvMateriales.Rows[e.RowIndex];
 
                 // Obtiene el ID del material seleccionado
-                idMaterialSeleccionado =
-                    Convert.ToInt32(fila.Cells["IdMaterial"].Value);
+                idMaterialSeleccionado = Convert.ToInt32(fila.Cells["IdMaterial"].Value);
 
                 // Muestra los datos del material en los controles
-                txtMaterial.Text =
-                    fila.Cells["Material"].Value?.ToString() ?? "";
+                txtMaterial.Text = fila.Cells["Material"].Value?.ToString() ?? "";
 
-                cbUnidadMedida.Text =
-                    fila.Cells["UnidadMedida"].Value?.ToString() ?? "";
+                cbUnidadMedida.Text = fila.Cells["UnidadMedida"].Value?.ToString() ?? "";
 
-                txtCantidad.Text =
-                    fila.Cells["Stock"].Value?.ToString() ?? "";
+                txtCantidad.Text = fila.Cells["Stock"].Value?.ToString() ?? "";
 
-                cbCategorias.Text =
-                    fila.Cells["Categoria"].Value?.ToString() ?? "";
+                cbCategorias.Text = fila.Cells["Categoria"].Value?.ToString() ?? "";
+
+                // Guardar los valores originales para detectar cambios
+                nombreMaterialOriginal = txtMaterial.Text;
+                unidadMedidaOriginal = cbUnidadMedida.Text;
+                stockOriginal = txtCantidad.Text;
+                categoriaOriginal = cbCategorias.Text;
 
                 // Muestra el botón para editar
                 btnEditar.Visible = true;
@@ -710,12 +712,8 @@ namespace Vista.Iventario_Secretario
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error al seleccionar el material: " + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Error al seleccionar el material: " + ex.Message, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         // Permite modificar el material seleccionado

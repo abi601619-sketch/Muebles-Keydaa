@@ -437,6 +437,11 @@ namespace Vista.Inventario
 
         }
         private int idMaterialSeleccionado = 0;
+        // Valores originales del material seleccionado
+        private string nombreMaterialOriginal = "";
+        private string unidadMedidaOriginal = "";
+        private string stockOriginal = "";
+        private string categoriaOriginal = "";
         private void dgvInventario_CellClick(object sender, DataGridViewCellEventArgs e)
         {
 
@@ -488,6 +493,17 @@ namespace Vista.Inventario
                 MessageBox.Show("No hay ningun material seleccionado.");
                 return;
             }
+            // Verificar si realmente hubo cambios
+            bool huboCambios = txtMaterial.Text != nombreMaterialOriginal || cbUnidadMedida.Text != unidadMedidaOriginal || txtCantidad.Text != stockOriginal ||
+                cbCategorias.Text != categoriaOriginal;
+
+            if (!huboCambios)
+            {
+                MessageBox.Show("No se detectaron cambios en el material.", "Sin cambios",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                return;
+            }
 
             Material material = new Material();
 
@@ -535,6 +551,12 @@ namespace Vista.Inventario
             txtCantidad.Text = fila.Cells["Stock"].Value?.ToString() ?? "";
 
             cbCategorias.Text = fila.Cells["Categoria"].Value?.ToString() ?? "";
+
+            // Guardar los valores originales para detectar cambios
+            nombreMaterialOriginal = txtMaterial.Text;
+            unidadMedidaOriginal = cbUnidadMedida.Text;
+            stockOriginal = txtCantidad.Text;
+            categoriaOriginal = cbCategorias.Text;
 
             btnEditar.Visible = true;
 
@@ -623,6 +645,7 @@ namespace Vista.Inventario
             txtCantidad.Clear();
 
             btnEditar.Visible = false;
+            btnGuardar.Visible = true;
             btnGuardarCambios.Visible = false;
             cbCategorias.SelectedIndex = -1;
             cbUnidadMedida.SelectedIndex = -1;
