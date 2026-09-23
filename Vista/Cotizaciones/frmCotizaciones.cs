@@ -1122,12 +1122,15 @@ namespace Vista.Cotizaciones
                 // Recalcular totales
                 CalcularTotalCotizacion();
 
-                // Crear carpeta
+                // Crear carpeta de Cotizaciones
                 string carpeta = Path.Combine(
-                    Environment.GetFolderPath(
-                        Environment.SpecialFolder.MyDocuments),
-                    "Muebles Keyda",
+                    Application.StartupPath,
                     "Cotizaciones");
+
+                if (!Directory.Exists(carpeta))
+                {
+                    Directory.CreateDirectory(carpeta);
+                }
 
                 Directory.CreateDirectory(carpeta);
 

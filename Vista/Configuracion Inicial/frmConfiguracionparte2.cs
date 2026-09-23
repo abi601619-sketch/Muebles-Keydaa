@@ -165,7 +165,7 @@ namespace Vista.Configuracion_Inicial
                 // GUARDAR PERMANENTEMENTE
                 // ==========================================
 
-                global::Vista.Properties.Settings.Default.Save();
+                global::Modelo.Properties.Settings.Default.Save();
 
                 MessageBox.Show(
                     "La configuración se guardó correctamente.",
