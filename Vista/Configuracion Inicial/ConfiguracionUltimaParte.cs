@@ -17,10 +17,11 @@ namespace Vista.Configuracion_Inicial
 
         private void btnInicioLogin_Click(object sender, EventArgs e)
         {
+            this.Hide();
             frmLogin frm = new frmLogin();
 
             frm.ShowDialog();
-            this.Hide();
+
         }
 
         private void lblAAdministrador_Click(object sender, EventArgs e)
@@ -30,7 +31,6 @@ namespace Vista.Configuracion_Inicial
 
         private void CargarInformacionEmpresa()
         {
-            // ==========================================
             // INFORMACIÓN DE LA EMPRESA
             // ==========================================
 
@@ -108,6 +108,7 @@ namespace Vista.Configuracion_Inicial
 
                                     lblUsuarioAdmin.Text =
                                         lector["Usuario"].ToString();
+
                                 }
                                 else
                                 {

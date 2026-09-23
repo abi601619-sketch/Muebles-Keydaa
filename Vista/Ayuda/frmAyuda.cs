@@ -138,7 +138,7 @@ namespace Vista.Ayuda
         {
             try
             {
-                AbrirTutorial("https://www.youtube.com/");
+                AbrirTutorial("https://youtu.be/rTF1JbZRBHU?si=JfCeQHd22z3K_PSy");
             }
             catch (Exception)
             {

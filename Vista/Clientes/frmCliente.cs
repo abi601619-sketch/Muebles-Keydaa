@@ -16,6 +16,8 @@ namespace Vista.Clientes
             ResponsiveHelper.Apply(this);
             ConfigurarTablasClientes();
 
+            errorProvider.BlinkStyle = ErrorBlinkStyle.NeverBlink;
+
         }
         //VARIABLES
         private int idClienteSeleccionado = 0;
@@ -53,6 +55,9 @@ namespace Vista.Clientes
         private string estadoOriginal;
 
         private bool modoEdicion = false;
+
+        // Manejo visual de errores de validación
+        private ErrorProvider errorProvider = new ErrorProvider();
 
         //MOSTRAR CLIENTES
         private void MostrarClientes()
@@ -490,14 +495,15 @@ namespace Vista.Clientes
 
         private bool ValidarCampos()
         {
+            errorProvider.Clear();
+
             // Validar que haya seleccionado un tipo de cliente
-            if (!modoEdicion)
+            if (!modoEdicion && cbTipoCliente.SelectedIndex == -1)
             {
-                if (cbTipoCliente.SelectedIndex == -1)
-                {
-                    MessageBox.Show("Seleccione un tipo de cliente.");
-                    return false;
-                }
+                errorProvider.SetError(
+                    cbTipoCliente, "ERR-VAL-001: Seleccione un tipo de cliente.");
+                cbTipoCliente.Focus();
+                return false;
             }
 
             // PERSONA NATURAL
@@ -505,41 +511,42 @@ namespace Vista.Clientes
             {
                 if (string.IsNullOrWhiteSpace(txtNombres.Text))
                 {
-                    MessageBox.Show("Debe ingresar el nombre del cliente.");
+                    errorProvider.SetError(txtNombres, "ERR-VAL-001: Debe ingresar el nombre del cliente.");
                     txtNombres.Focus();
                     return false;
                 }
+
                 if (string.IsNullOrWhiteSpace(txtApellidos.Text))
                 {
-                    MessageBox.Show("Debe ingresar los apellidos del cliente.");
+                    errorProvider.SetError(txtApellidos, "ERR-VAL-001: Debe ingresar los apellidos del cliente.");
                     txtApellidos.Focus();
                     return false;
                 }
 
                 if (string.IsNullOrWhiteSpace(txtDUI.Text))
                 {
-                    MessageBox.Show("Debe ingresar el DUI del ciente.");
+                    errorProvider.SetError(txtDUI, "ERR-VAL-001: Debe ingresar el DUI del cliente.");
                     txtDUI.Focus();
                     return false;
                 }
 
                 if (string.IsNullOrWhiteSpace(txtTelefono.Text))
                 {
-                    MessageBox.Show("Debe ingresar el teléfono del cliente.");
+                    errorProvider.SetError(txtTelefono, "ERR-VAL-001: Debe ingresar el teléfono del cliente.");
                     txtTelefono.Focus();
                     return false;
                 }
 
-
                 if (string.IsNullOrWhiteSpace(txtCorreo.Text))
                 {
-                    MessageBox.Show("Debe ingresar el Correo del cliente.");
+                    errorProvider.SetError(txtCorreo, "ERR-VAL-001: Debe ingresar el correo del cliente.");
                     txtCorreo.Focus();
                     return false;
                 }
+
                 if (string.IsNullOrWhiteSpace(txtDireccion.Text))
                 {
-                    MessageBox.Show("Debe ingresar la dirección del cliente.");
+                    errorProvider.SetError(txtDireccion, "ERR-VAL-001: Debe ingresar la dirección del cliente.");
                     txtDireccion.Focus();
                     return false;
                 }
@@ -550,42 +557,43 @@ namespace Vista.Clientes
             {
                 if (string.IsNullOrWhiteSpace(txtNombreEmpresa.Text))
                 {
-                    MessageBox.Show("Debe ingresar el nombre de la empresa.");
+                    errorProvider.SetError(txtNombreEmpresa, "ERR-VAL-001: Debe ingresar el nombre de la empresa.");
                     txtNombreEmpresa.Focus();
                     return false;
                 }
 
                 if (string.IsNullOrWhiteSpace(txtNombreEncargado.Text))
                 {
-                    MessageBox.Show("Debe ingresar el nombre del encargado.");
+                    errorProvider.SetError(txtNombreEncargado, "ERR-VAL-001: Debe ingresar el nombre del encargado.");
                     txtNombreEncargado.Focus();
                     return false;
                 }
 
                 if (string.IsNullOrWhiteSpace(txtNIT.Text))
                 {
-                    MessageBox.Show("Debe ingresar el documento de la empresa.");
+                    errorProvider.SetError(txtNIT, "ERR-VAL-001: Debe ingresar el NIT de la empresa.");
                     txtNIT.Focus();
                     return false;
                 }
 
                 if (string.IsNullOrWhiteSpace(txtTelefono.Text))
                 {
-                    MessageBox.Show("Debe ingresar el teléfono.");
+                    errorProvider.SetError(txtTelefono, "ERR-VAL-001: Debe ingresar el teléfono.");
                     txtTelefono.Focus();
                     return false;
                 }
 
                 if (string.IsNullOrWhiteSpace(txtCorreo.Text))
                 {
-                    MessageBox.Show("Debe ingresar el Correo.");
+                    errorProvider.SetError(txtCorreo, "ERR-VAL-001: Debe ingresar el correo.");
                     txtCorreo.Focus();
                     return false;
                 }
+
                 if (string.IsNullOrWhiteSpace(txtDireccion.Text))
                 {
-                    MessageBox.Show("Debe ingresar la dirección de la empresa.");
-                    txtCorreo.Focus();
+                    errorProvider.SetError(txtDireccion, "ERR-VAL-001: Debe ingresar la dirección de la empresa.");
+                    txtDireccion.Focus();
                     return false;
                 }
             }
@@ -995,9 +1003,7 @@ namespace Vista.Clientes
             if (txtTelefono.Text.Length != 9 ||
                 txtTelefono.Text[4] != '-')
             {
-                MessageBox.Show(
-                    "El teléfono debe tener el formato 1234-5678."
-                );
+                MessageBox.Show("El teléfono debe tener el formato 1234-5678.");
                 txtTelefono.Focus();
                 return;
             }
@@ -1229,8 +1235,7 @@ namespace Vista.Clientes
             // Revisar si realmente se modificó algún dato
             if (!HayCambios())
             {
-                MessageBox.Show("No se han realizado cambios en los datos del cliente.", "Sin cambios",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("No se han realizado cambios en los datos del cliente.", "Sin cambios", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 

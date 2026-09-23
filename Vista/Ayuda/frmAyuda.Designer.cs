@@ -32,68 +32,68 @@
             this.lblSubTexto = new System.Windows.Forms.Label();
             this.pnlSuperior = new System.Windows.Forms.Panel();
             this.lblAdministrador = new System.Windows.Forms.Label();
-            this.pbPerfil = new System.Windows.Forms.PictureBox();
             this.pnlContenedorPrincipal = new System.Windows.Forms.Panel();
             this.pnlContainerVideos = new System.Windows.Forms.Panel();
             this.pnlRecuperarContrasena = new System.Windows.Forms.Panel();
             this.label10 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.btnVerTuTorialRecuperar = new System.Windows.Forms.Button();
-            this.pictureBox9 = new System.Windows.Forms.PictureBox();
             this.pnlRegistrarVenta = new System.Windows.Forms.Panel();
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.btnVerTutorialVenta = new System.Windows.Forms.Button();
-            this.pictureBox8 = new System.Windows.Forms.PictureBox();
             this.panel6 = new System.Windows.Forms.Panel();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.btnTutorialFactura = new System.Windows.Forms.Button();
-            this.pictureBox6 = new System.Windows.Forms.PictureBox();
             this.panel5 = new System.Windows.Forms.Panel();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.btnVerTutorialCotizacion = new System.Windows.Forms.Button();
-            this.pictureBox5 = new System.Windows.Forms.PictureBox();
-            this.pictureBox7 = new System.Windows.Forms.PictureBox();
             this.lblTutoriales = new System.Windows.Forms.Label();
             this.pnlContenedorManuales = new System.Windows.Forms.Panel();
             this.pnlManualTecnico = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.lblManualTecnico = new System.Windows.Forms.Label();
             this.btnDescargarManualTecnico = new System.Windows.Forms.Button();
-            this.picpdf2 = new System.Windows.Forms.PictureBox();
             this.pnlMnaualUsuario = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.lblManualUsuario = new System.Windows.Forms.Label();
             this.btnDescargarManualUsuario = new System.Windows.Forms.Button();
-            this.picPdf = new System.Windows.Forms.PictureBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.pnlTitulo = new System.Windows.Forms.Panel();
+            this.pictureBox9 = new System.Windows.Forms.PictureBox();
+            this.pictureBox8 = new System.Windows.Forms.PictureBox();
+            this.pictureBox6 = new System.Windows.Forms.PictureBox();
+            this.pictureBox5 = new System.Windows.Forms.PictureBox();
+            this.pictureBox7 = new System.Windows.Forms.PictureBox();
+            this.picpdf2 = new System.Windows.Forms.PictureBox();
+            this.picPdf = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.pbPerfil = new System.Windows.Forms.PictureBox();
             this.pnlSuperior.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbPerfil)).BeginInit();
             this.pnlContenedorPrincipal.SuspendLayout();
             this.pnlContainerVideos.SuspendLayout();
             this.pnlRecuperarContrasena.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).BeginInit();
             this.pnlRegistrarVenta.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
             this.panel6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
             this.panel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
             this.pnlContenedorManuales.SuspendLayout();
             this.pnlManualTecnico.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picpdf2)).BeginInit();
             this.pnlMnaualUsuario.SuspendLayout();
+            this.pnlTitulo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picpdf2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picPdf)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.pnlTitulo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPerfil)).BeginInit();
             this.SuspendLayout();
             // 
             // lblMensajeInformativoPrincipal
@@ -139,17 +139,6 @@
             this.lblAdministrador.Size = new System.Drawing.Size(38, 14);
             this.lblAdministrador.TabIndex = 29;
             this.lblAdministrador.Text = "Admin";
-            // 
-            // pbPerfil
-            // 
-            this.pbPerfil.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(177)))), ((int)(((byte)(114)))));
-            this.pbPerfil.Image = global::Vista.Properties.Resources.user_456283;
-            this.pbPerfil.Location = new System.Drawing.Point(1054, -1);
-            this.pbPerfil.Name = "pbPerfil";
-            this.pbPerfil.Size = new System.Drawing.Size(26, 24);
-            this.pbPerfil.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pbPerfil.TabIndex = 25;
-            this.pbPerfil.TabStop = false;
             // 
             // pnlContenedorPrincipal
             // 
@@ -228,14 +217,6 @@
             this.btnVerTuTorialRecuperar.UseVisualStyleBackColor = false;
             this.btnVerTuTorialRecuperar.Click += new System.EventHandler(this.btnVerTuTorialRecuperar_Click);
             // 
-            // pictureBox9
-            // 
-            this.pictureBox9.Location = new System.Drawing.Point(15, 3);
-            this.pictureBox9.Name = "pictureBox9";
-            this.pictureBox9.Size = new System.Drawing.Size(197, 78);
-            this.pictureBox9.TabIndex = 0;
-            this.pictureBox9.TabStop = false;
-            // 
             // pnlRegistrarVenta
             // 
             this.pnlRegistrarVenta.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -284,14 +265,6 @@
             this.btnVerTutorialVenta.Text = "Ver Tutorial";
             this.btnVerTutorialVenta.UseVisualStyleBackColor = false;
             this.btnVerTutorialVenta.Click += new System.EventHandler(this.btnVerTutorialVenta_Click);
-            // 
-            // pictureBox8
-            // 
-            this.pictureBox8.Location = new System.Drawing.Point(15, 3);
-            this.pictureBox8.Name = "pictureBox8";
-            this.pictureBox8.Size = new System.Drawing.Size(197, 78);
-            this.pictureBox8.TabIndex = 0;
-            this.pictureBox8.TabStop = false;
             // 
             // panel6
             // 
@@ -342,14 +315,6 @@
             this.btnTutorialFactura.UseVisualStyleBackColor = false;
             this.btnTutorialFactura.Click += new System.EventHandler(this.btnTutorialFactura_Click);
             // 
-            // pictureBox6
-            // 
-            this.pictureBox6.Location = new System.Drawing.Point(15, 3);
-            this.pictureBox6.Name = "pictureBox6";
-            this.pictureBox6.Size = new System.Drawing.Size(197, 78);
-            this.pictureBox6.TabIndex = 0;
-            this.pictureBox6.TabStop = false;
-            // 
             // panel5
             // 
             this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -397,24 +362,6 @@
             this.btnVerTutorialCotizacion.Text = "Ver Tutorial";
             this.btnVerTutorialCotizacion.UseVisualStyleBackColor = false;
             this.btnVerTutorialCotizacion.Click += new System.EventHandler(this.btnVerTutorialCotizacion_Click);
-            // 
-            // pictureBox5
-            // 
-            this.pictureBox5.Location = new System.Drawing.Point(15, 3);
-            this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Size = new System.Drawing.Size(197, 78);
-            this.pictureBox5.TabIndex = 0;
-            this.pictureBox5.TabStop = false;
-            // 
-            // pictureBox7
-            // 
-            this.pictureBox7.Image = global::Vista.Properties.Resources.youtube;
-            this.pictureBox7.Location = new System.Drawing.Point(7, 7);
-            this.pictureBox7.Name = "pictureBox7";
-            this.pictureBox7.Size = new System.Drawing.Size(51, 39);
-            this.pictureBox7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox7.TabIndex = 6;
-            this.pictureBox7.TabStop = false;
             // 
             // lblTutoriales
             // 
@@ -486,14 +433,6 @@
             this.btnDescargarManualTecnico.UseVisualStyleBackColor = false;
             this.btnDescargarManualTecnico.Click += new System.EventHandler(this.btnDescargarManualTecnico_Click);
             // 
-            // picpdf2
-            // 
-            this.picpdf2.Location = new System.Drawing.Point(24, 37);
-            this.picpdf2.Name = "picpdf2";
-            this.picpdf2.Size = new System.Drawing.Size(107, 87);
-            this.picpdf2.TabIndex = 0;
-            this.picpdf2.TabStop = false;
-            // 
             // pnlMnaualUsuario
             // 
             this.pnlMnaualUsuario.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -541,14 +480,6 @@
             this.btnDescargarManualUsuario.UseVisualStyleBackColor = false;
             this.btnDescargarManualUsuario.Click += new System.EventHandler(this.btnDescargarManualUsuario_Click);
             // 
-            // picPdf
-            // 
-            this.picPdf.Location = new System.Drawing.Point(24, 37);
-            this.picPdf.Name = "picPdf";
-            this.picPdf.Size = new System.Drawing.Size(107, 87);
-            this.picPdf.TabIndex = 0;
-            this.picPdf.TabStop = false;
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -559,16 +490,6 @@
             this.label2.Size = new System.Drawing.Size(212, 19);
             this.label2.TabIndex = 5;
             this.label2.Text = "Documentación oficial del sistema";
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::Vista.Properties.Resources.google_docs;
-            this.pictureBox1.Location = new System.Drawing.Point(14, 11);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(52, 47);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 6;
-            this.pictureBox1.TabStop = false;
             // 
             // label1
             // 
@@ -592,6 +513,76 @@
             this.pnlTitulo.Size = new System.Drawing.Size(1049, 79);
             this.pnlTitulo.TabIndex = 24;
             // 
+            // pictureBox9
+            // 
+            this.pictureBox9.Location = new System.Drawing.Point(15, 3);
+            this.pictureBox9.Name = "pictureBox9";
+            this.pictureBox9.Size = new System.Drawing.Size(197, 78);
+            this.pictureBox9.TabIndex = 0;
+            this.pictureBox9.TabStop = false;
+            // 
+            // pictureBox8
+            // 
+            this.pictureBox8.Location = new System.Drawing.Point(15, 3);
+            this.pictureBox8.Name = "pictureBox8";
+            this.pictureBox8.Size = new System.Drawing.Size(197, 78);
+            this.pictureBox8.TabIndex = 0;
+            this.pictureBox8.TabStop = false;
+            // 
+            // pictureBox6
+            // 
+            this.pictureBox6.Location = new System.Drawing.Point(15, 3);
+            this.pictureBox6.Name = "pictureBox6";
+            this.pictureBox6.Size = new System.Drawing.Size(197, 78);
+            this.pictureBox6.TabIndex = 0;
+            this.pictureBox6.TabStop = false;
+            // 
+            // pictureBox5
+            // 
+            this.pictureBox5.Image = global::Vista.Properties.Resources.Captura_Para_tutorial_cotizacion;
+            this.pictureBox5.Location = new System.Drawing.Point(33, 3);
+            this.pictureBox5.Name = "pictureBox5";
+            this.pictureBox5.Size = new System.Drawing.Size(162, 81);
+            this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox5.TabIndex = 0;
+            this.pictureBox5.TabStop = false;
+            // 
+            // pictureBox7
+            // 
+            this.pictureBox7.Image = global::Vista.Properties.Resources.youtube;
+            this.pictureBox7.Location = new System.Drawing.Point(7, 7);
+            this.pictureBox7.Name = "pictureBox7";
+            this.pictureBox7.Size = new System.Drawing.Size(51, 39);
+            this.pictureBox7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox7.TabIndex = 6;
+            this.pictureBox7.TabStop = false;
+            // 
+            // picpdf2
+            // 
+            this.picpdf2.Location = new System.Drawing.Point(24, 37);
+            this.picpdf2.Name = "picpdf2";
+            this.picpdf2.Size = new System.Drawing.Size(107, 87);
+            this.picpdf2.TabIndex = 0;
+            this.picpdf2.TabStop = false;
+            // 
+            // picPdf
+            // 
+            this.picPdf.Location = new System.Drawing.Point(24, 37);
+            this.picPdf.Name = "picPdf";
+            this.picPdf.Size = new System.Drawing.Size(107, 87);
+            this.picPdf.TabIndex = 0;
+            this.picPdf.TabStop = false;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::Vista.Properties.Resources.google_docs;
+            this.pictureBox1.Location = new System.Drawing.Point(14, 11);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(52, 47);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 6;
+            this.pictureBox1.TabStop = false;
+            // 
             // pictureBox3
             // 
             this.pictureBox3.Image = global::Vista.Properties.Resources.pregunta;
@@ -601,6 +592,17 @@
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox3.TabIndex = 6;
             this.pictureBox3.TabStop = false;
+            // 
+            // pbPerfil
+            // 
+            this.pbPerfil.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(177)))), ((int)(((byte)(114)))));
+            this.pbPerfil.Image = global::Vista.Properties.Resources.user_456283;
+            this.pbPerfil.Location = new System.Drawing.Point(1054, -1);
+            this.pbPerfil.Name = "pbPerfil";
+            this.pbPerfil.Size = new System.Drawing.Size(26, 24);
+            this.pbPerfil.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbPerfil.TabIndex = 25;
+            this.pbPerfil.TabStop = false;
             // 
             // frmAyuda
             // 
@@ -613,35 +615,35 @@
             this.Text = "Ayuda";
             this.pnlSuperior.ResumeLayout(false);
             this.pnlSuperior.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbPerfil)).EndInit();
             this.pnlContenedorPrincipal.ResumeLayout(false);
             this.pnlContainerVideos.ResumeLayout(false);
             this.pnlContainerVideos.PerformLayout();
             this.pnlRecuperarContrasena.ResumeLayout(false);
             this.pnlRecuperarContrasena.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).EndInit();
             this.pnlRegistrarVenta.ResumeLayout(false);
             this.pnlRegistrarVenta.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
             this.pnlContenedorManuales.ResumeLayout(false);
             this.pnlContenedorManuales.PerformLayout();
             this.pnlManualTecnico.ResumeLayout(false);
             this.pnlManualTecnico.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picpdf2)).EndInit();
             this.pnlMnaualUsuario.ResumeLayout(false);
             this.pnlMnaualUsuario.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picPdf)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.pnlTitulo.ResumeLayout(false);
             this.pnlTitulo.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picpdf2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picPdf)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPerfil)).EndInit();
             this.ResumeLayout(false);
 
         }
