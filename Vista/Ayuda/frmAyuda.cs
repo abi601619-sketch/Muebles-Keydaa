@@ -197,12 +197,7 @@ namespace Vista.Ayuda
                     break;
             }
 
-            MessageBox.Show(
-                mensaje,
-                "Centro de Ayuda",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Error
-            );
+            MessageBox.Show(mensaje, "Centro de Ayuda", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
     }

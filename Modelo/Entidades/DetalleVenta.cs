@@ -7,7 +7,6 @@ using System.Windows.Forms;
 namespace Modelo.Entidades
 {
     public class DetalleVenta
-
     {
         private int IdDetalleVenta;
         private int IdVenta;
@@ -29,10 +28,9 @@ namespace Modelo.Entidades
             PrecioUnitario1 = precioUnitario;
         }
 
-        public DetalleVenta()
-        {
+        public DetalleVenta() { }
 
-        }
+        // CARGAR DETALLE DE VENTA
 
         public static DataTable CargarDetalleVenta(int idVenta)
         {
@@ -40,22 +38,13 @@ namespace Modelo.Entidades
             {
                 using (SqlConnection conectar = Conexion.Conectar())
                 {
-                    string comando = @"
-                SELECT *
-                FROM VerDetalleVenta
-                WHERE IdVenta = @IdVenta;";
+                    string comando = @"SELECT * FROM VerDetalleVenta WHERE IdVenta = @IdVenta;";
 
-                    using (SqlDataAdapter adapter =
-                        new SqlDataAdapter(comando, conectar))
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(comando, conectar))
                     {
-                        adapter.SelectCommand.Parameters.AddWithValue(
-                            "@IdVenta",
-                            idVenta);
-
+                        adapter.SelectCommand.Parameters.AddWithValue("@IdVenta", idVenta);
                         DataTable dt = new DataTable();
-
                         adapter.Fill(dt);
-
                         return dt;
                     }
                 }
@@ -65,43 +54,19 @@ namespace Modelo.Entidades
                 switch (ex.Number)
                 {
                     case 208:
-                        MessageBox.Show(
-                            "No se encontró la vista VerDetalleVenta.",
-                            "Error 208",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error);
+                        MessageBox.Show("No se encontró la vista VerDetalleVenta.", "Error 208", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
-
                     case 53:
-                        MessageBox.Show(
-                            "No se pudo conectar con el servidor SQL.",
-                            "Error 53",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error);
+                        MessageBox.Show("No se pudo conectar con el servidor SQL.", "Error 53", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
-
                     case 4060:
-                        MessageBox.Show(
-                            "No se pudo acceder a la base de datos.",
-                            "Error 4060",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error);
+                        MessageBox.Show("No se pudo acceder a la base de datos.", "Error 4060", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
-
                     case -2:
-                        MessageBox.Show(
-                            "La operación tardó demasiado tiempo.",
-                            "Error -2",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error);
+                        MessageBox.Show("La operación tardó demasiado tiempo.", "Error -2", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
-
                     default:
-                        MessageBox.Show(
-                            "Ocurrió un error al cargar el detalle de venta.",
-                            "Error " + ex.Number,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error);
+                        MessageBox.Show("Ocurrió un error al cargar el detalle de venta.", "Error " + ex.Number, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                 }
 
@@ -109,15 +74,9 @@ namespace Modelo.Entidades
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Ocurrió un error inesperado al cargar el detalle:\n" + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-
+                MessageBox.Show("Ocurrió un error inesperado al cargar el detalle:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return new DataTable();
             }
         }
-
     }
 }

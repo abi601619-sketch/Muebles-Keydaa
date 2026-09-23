@@ -189,8 +189,7 @@ namespace Modelo.Entidades
                     {
                     }
 
-                    MessageBox.Show("Ocurrió un error inesperado al eliminar el detalle.",
-                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Ocurrió un error inesperado al eliminar el detalle.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                     return false;
                 }

@@ -165,54 +165,19 @@ namespace Vista.Categorías
             toolTip.ShowAlways = true;
 
             // Campos de la categoría
-            toolTip.SetToolTip(
-                txtCategoria,
-                "Ingrese el nombre de la categoría."
-            );
-
-            toolTip.SetToolTip(
-                txtDescripcion,
-                "Ingrese una descripción para la categoría."
-            );
-
-            toolTip.SetToolTip(
-                cbEstado,
-                "Seleccione el estado de la categoría."
-            );
+            toolTip.SetToolTip(txtCategoria, "Ingrese el nombre de la categoría.");
+            toolTip.SetToolTip(txtDescripcion, "Ingrese una descripción para la categoría.");
+            toolTip.SetToolTip(cbEstado, "Seleccione el estado de la categoría.");
 
             // Buscador
-            toolTip.SetToolTip(
-                txtBuscarCategoria,
-                "Ingrese el nombre de una categoría para buscarla."
-            );
-
-            toolTip.SetToolTip(
-                btnBuscar,
-                "Busca la categoría ingresada."
-            );
+            toolTip.SetToolTip(txtBuscarCategoria, "Ingrese el nombre de una categoría para buscarla.");
+            toolTip.SetToolTip(btnBuscar, "Busca la categoría ingresada.");
 
             // Botones
-            toolTip.SetToolTip(
-                btnNueva,
-                "Limpia el formulario para registrar una nueva categoría."
-            );
-
-            toolTip.SetToolTip(
-                btnGuardar,
-                "Guarda la nueva categoría."
-            );
-
-            toolTip.SetToolTip(
-                btnEditar,
-                "Permite modificar la categoría seleccionada."
-            );
-
-            toolTip.SetToolTip(
-                btnGuardarCambios,
-                "Guarda los cambios realizados a la categoría."
-            );
-
-
+            toolTip.SetToolTip(btnNueva, "Limpia el formulario para registrar una nueva categoría.");
+            toolTip.SetToolTip(btnGuardar, "Guarda la nueva categoría.");
+            toolTip.SetToolTip(btnEditar, "Permite modificar la categoría seleccionada.");
+            toolTip.SetToolTip(btnGuardarCambios, "Guarda los cambios realizados a la categoría.");
         }
 
         //---------------------------------------------------------
@@ -255,8 +220,7 @@ namespace Vista.Categorías
                 return;
             }
 
-            totalPaginas = (int)Math.Ceiling(
-                (double)dtCategorias.Rows.Count / registrosPorPagina);
+            totalPaginas = (int)Math.Ceiling((double)dtCategorias.Rows.Count / registrosPorPagina);
 
             if (totalPaginas == 0)
                 totalPaginas = 1;
@@ -275,9 +239,7 @@ namespace Vista.Categorías
 
             int inicio = (paginaActual - 1) * registrosPorPagina;
 
-            int fin = Math.Min(
-                inicio + registrosPorPagina,
-                dtCategorias.Rows.Count);
+            int fin = Math.Min(inicio + registrosPorPagina, dtCategorias.Rows.Count);
 
             for (int i = inicio; i < fin; i++)
             {
@@ -295,8 +257,7 @@ namespace Vista.Categorías
             ConfigurarTablaCategorias();
 
             // Mostrar página actual
-            lblPagina.Text =
-                $"Página {paginaActual} de {totalPaginas}";
+            lblPagina.Text = $"Página {paginaActual} de {totalPaginas}";
 
             // Activar o desactivar botones
             btnAnterior.Enabled = paginaActual > 1;
@@ -568,12 +529,8 @@ namespace Vista.Categorías
 
                 if (!cambioNombre && !cambioDescripcion && !cambioEstado)
                 {
-                    MessageBox.Show(
-                        "No se detectaron cambios en la categoría.",
-                        "Sin cambios",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information
-                    );
+                    MessageBox.Show("No se detectaron cambios en la categoría.", "Sin cambios",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     return;
                 }
@@ -610,12 +567,8 @@ namespace Vista.Categorías
                         cambios += "• Estado: " + estadoOriginal + " → " + nuevoEstado + "\n";
                     }
 
-                    MessageBox.Show(
-                        "Categoría actualizada correctamente.\n\n" + cambios,
-                        "Actualización exitosa",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information
-                    );
+                    MessageBox.Show("Categoría actualizada correctamente.\n\n" + cambios, "Actualización exitosa",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     // Actualizar tabla
                     MostrarCategorias();
@@ -634,12 +587,8 @@ namespace Vista.Categorías
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error al actualizar la categoría: " + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Error al actualizar la categoría: " + ex.Message, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         }
@@ -805,8 +754,6 @@ namespace Vista.Categorías
                 }
             }
         }
-
-
     }
 }
 

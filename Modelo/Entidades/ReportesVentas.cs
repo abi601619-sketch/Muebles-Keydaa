@@ -8,10 +8,6 @@ namespace Modelo.Entidades
 {
     public class ReportesVentas
     {
-        // =========================================================
-        // PROPIEDADES DEL REPORTE
-        // =========================================================
-
         private int IdVenta;
         private int? N_Factura;
         private string Nombre_De_Cliente;
@@ -19,11 +15,9 @@ namespace Modelo.Entidades
         private double Subtotal;
         private double TotalAPagar;
 
-
         public ReportesVentas()
         {
         }
-
 
         public ReportesVentas(
             int idVenta,
@@ -41,52 +35,12 @@ namespace Modelo.Entidades
             TotalAPagar = totalAPagar;
         }
 
-
-        public int IdVenta1
-        {
-            get => IdVenta;
-            set => IdVenta = value;
-        }
-
-
-        public int? N_Factura1
-        {
-            get => N_Factura;
-            set => N_Factura = value;
-        }
-
-
-        public string Nombre_De_Cliente1
-        {
-            get => Nombre_De_Cliente;
-            set => Nombre_De_Cliente = value;
-        }
-
-
-        public DateTime FechaVenta1
-        {
-            get => FechaVenta;
-            set => FechaVenta = value;
-        }
-
-
-        public double Subtotal1
-        {
-            get => Subtotal;
-            set => Subtotal = value;
-        }
-
-
-        public double TotalAPagar1
-        {
-            get => TotalAPagar;
-            set => TotalAPagar = value;
-        }
-
-
-        // =========================================================
-        // CARGAR TODAS LAS VENTAS
-        // =========================================================
+        public int IdVenta1 { get => IdVenta; set => IdVenta = value; }
+        public int? N_Factura1 { get => N_Factura; set => N_Factura = value; }
+        public string Nombre_De_Cliente1 { get => Nombre_De_Cliente; set => Nombre_De_Cliente = value; }
+        public DateTime FechaVenta1 { get => FechaVenta; set => FechaVenta = value; }
+        public double Subtotal1 { get => Subtotal; set => Subtotal = value; }
+        public double TotalAPagar1 { get => TotalAPagar; set => TotalAPagar = value; }
 
         public static DataTable CargarReporteVentas()
         {
@@ -96,12 +50,9 @@ namespace Modelo.Entidades
             {
                 using (SqlConnection conectar = Conexion.Conectar())
                 {
-                    string comando = @"
-                        SELECT *
-                        FROM VerReporteVentas;";
+                    string comando = @"SELECT * FROM VerReporteVentas;";
 
-                    using (SqlDataAdapter adapter =
-                        new SqlDataAdapter(comando, conectar))
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(comando, conectar))
                     {
                         adapter.Fill(dt);
                     }
@@ -109,57 +60,52 @@ namespace Modelo.Entidades
             }
             catch (SqlException ex)
             {
-                MessageBox.Show(
-                    "Error SQL " + ex.Number + ": " + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                switch (ex.Number)
+                {
+                    case 208:
+                        MessageBox.Show("Error 208: La vista VerReporteVentas no existe.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 53:
+                        MessageBox.Show("Error 53: No se pudo conectar con el servidor.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 4060:
+                        MessageBox.Show("Error 4060: No se pudo acceder a la base de datos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case -2:
+                        MessageBox.Show("Error -2: La operación tardó demasiado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+
+                    default:
+                        MessageBox.Show("Error SQL " + ex.Number + ": " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error inesperado: " + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                MessageBox.Show("Error inesperado: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             return dt;
         }
 
-
-        // =========================================================
-        // OBTENER VENTAS POR RANGO DE FECHAS
-        // =========================================================
-
-        public static DataTable ObtenerVentasPorFecha(
-            DateTime fechaInicio,
-            DateTime fechaFin)
+        public static DataTable ObtenerVentasPorFecha(DateTime fechaInicio, DateTime fechaFin)
         {
             DataTable tabla = new DataTable();
 
             try
             {
-                string consulta = @"
-                    SELECT *
-                    FROM VerReporteVentas
-                    WHERE FechaVenta >= @FechaInicio
-                      AND FechaVenta < @FechaFin;";
+                string consulta = @"SELECT * FROM VerReporteVentas
+                    WHERE FechaVenta >= @FechaInicio AND FechaVenta < @FechaFin;";
 
                 using (SqlConnection conexion = Conexion.Conectar())
                 {
-                    using (SqlDataAdapter adaptador =
-                        new SqlDataAdapter(consulta, conexion))
+                    using (SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexion))
                     {
-                        adaptador.SelectCommand.Parameters.Add(
-                            "@FechaInicio",
-                            SqlDbType.DateTime
-                        ).Value = fechaInicio.Date;
-
-                        adaptador.SelectCommand.Parameters.Add(
-                            "@FechaFin",
-                            SqlDbType.DateTime
-                        ).Value = fechaFin.Date.AddDays(1);
+                        adaptador.SelectCommand.Parameters.Add("@FechaInicio", SqlDbType.DateTime).Value = fechaInicio.Date;
+                        adaptador.SelectCommand.Parameters.Add("@FechaFin", SqlDbType.DateTime).Value = fechaFin.Date.AddDays(1);
 
                         adaptador.Fill(tabla);
                     }
@@ -167,66 +113,56 @@ namespace Modelo.Entidades
             }
             catch (SqlException ex)
             {
-                MessageBox.Show(
-                    "Error SQL " + ex.Number + ": " + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                switch (ex.Number)
+                {
+                    case 208:
+                        MessageBox.Show("Error 208: La vista VerReporteVentas no existe.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 53:
+                        MessageBox.Show("Error 53: No se pudo conectar con el servidor.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 4060:
+                        MessageBox.Show("Error 4060: No se pudo acceder a la base de datos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case -2:
+                        MessageBox.Show("Error -2: La consulta tardó demasiado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+
+                    case 245:
+                        MessageBox.Show("Error 245: Existe un valor con formato incorrecto.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+
+                    default:
+                        MessageBox.Show("Error SQL " + ex.Number + ": " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error inesperado: " + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                MessageBox.Show("Error inesperado: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             return tabla;
         }
 
-
-        // =========================================================
-        // OBTENER ESTADÍSTICAS DEL REPORTE
-        // =========================================================
-
-        public static DataTable ObtenerEstadisticasVentas(
-            DateTime fechaInicio,
-            DateTime fechaFin)
+        public static DataTable ObtenerEstadisticasVentas(DateTime fechaInicio, DateTime fechaFin)
         {
             DataTable tabla = new DataTable();
 
             try
             {
-                string consulta = @"
-                    SELECT
-                        COUNT(*) AS FacturasEmitidas,
-
-                        ISNULL(SUM(TotalAPagar), 0)
-                            AS TotalVentas,
-
-                        ISNULL(MAX(TotalAPagar), 0)
-                            AS VentaMasAlta
-
-                    FROM VerReporteVentas
-
-                    WHERE FechaVenta >= @FechaInicio
-                      AND FechaVenta < @FechaFin;";
+                string consulta = @"SELECT COUNT(*) AS FacturasEmitidas, ISNULL(SUM(TotalAPagar), 0) AS TotalVentas, ISNULL(MAX(TotalAPagar), 0) AS VentaMasAlta
+                    FROM VerReporteVentas WHERE FechaVenta >= @FechaInicio AND FechaVenta < @FechaFin;";
 
                 using (SqlConnection conexion = Conexion.Conectar())
                 {
-                    using (SqlDataAdapter adaptador =
-                        new SqlDataAdapter(consulta, conexion))
+                    using (SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexion))
                     {
-                        adaptador.SelectCommand.Parameters.Add(
-                            "@FechaInicio",
-                            SqlDbType.DateTime
-                        ).Value = fechaInicio.Date;
-
-                        adaptador.SelectCommand.Parameters.Add(
-                            "@FechaFin",
-                            SqlDbType.DateTime
-                        ).Value = fechaFin.Date.AddDays(1);
+                        adaptador.SelectCommand.Parameters.Add("@FechaInicio", SqlDbType.DateTime).Value = fechaInicio.Date;
+                        adaptador.SelectCommand.Parameters.Add("@FechaFin", SqlDbType.DateTime).Value = fechaFin.Date.AddDays(1);
 
                         adaptador.Fill(tabla);
                     }
@@ -234,19 +170,36 @@ namespace Modelo.Entidades
             }
             catch (SqlException ex)
             {
-                MessageBox.Show(
-                    "Error SQL " + ex.Number + ": " + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                switch (ex.Number)
+                {
+                    case 208:
+                        MessageBox.Show("Error 208: La vista VerReporteVentas no existe.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 53:
+                        MessageBox.Show("Error 53: No se pudo conectar con el servidor.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 4060:
+                        MessageBox.Show("Error 4060: No se pudo acceder a la base de datos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case -2:
+                        MessageBox.Show("Error -2: La consulta tardó demasiado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+
+                    case 245:
+                        MessageBox.Show("Error 245: Existe un valor con formato incorrecto.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+
+                    default:
+                        MessageBox.Show("Error SQL " + ex.Number + ": " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error inesperado: " + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                MessageBox.Show("Error inesperado: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             return tabla;
@@ -260,32 +213,42 @@ namespace Modelo.Entidades
             {
                 using (SqlConnection conexion = Conexion.Conectar())
                 {
-                    string comandoSQL =
-                        "SELECT COUNT(*) FROM Factura;";
+                    string comandoSQL = "SELECT COUNT(*) FROM Factura;";
 
-                    using (SqlCommand comandoObjeto =
-                        new SqlCommand(comandoSQL, conexion))
+                    using (SqlCommand comandoObjeto = new SqlCommand(comandoSQL, conexion))
                     {
-                        total = Convert.ToInt32(
-                            comandoObjeto.ExecuteScalar());
+                        total = Convert.ToInt32(comandoObjeto.ExecuteScalar());
                     }
                 }
             }
             catch (SqlException ex)
             {
-                MessageBox.Show(
-                    "Error SQL " + ex.Number + ": " + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                switch (ex.Number)
+                {
+                    case 208:
+                        MessageBox.Show("Error 208: La tabla Factura no existe.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 53:
+                        MessageBox.Show("Error 53: No se pudo conectar con el servidor.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 4060:
+                        MessageBox.Show("Error 4060: No se pudo acceder a la base de datos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case -2:
+                        MessageBox.Show("Error -2: La consulta tardó demasiado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+
+                    default:
+                        MessageBox.Show("Error SQL " + ex.Number + ": " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error inesperado: " + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                MessageBox.Show("Error inesperado: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             return total;
@@ -299,32 +262,42 @@ namespace Modelo.Entidades
             {
                 using (SqlConnection conexion = Conexion.Conectar())
                 {
-                    string comandoSQL =
-                        "SELECT COUNT(*) FROM Venta;";
+                    string comandoSQL = "SELECT COUNT(*) FROM Venta;";
 
-                    using (SqlCommand comandoObjeto =
-                        new SqlCommand(comandoSQL, conexion))
+                    using (SqlCommand comandoObjeto = new SqlCommand(comandoSQL, conexion))
                     {
-                        total = Convert.ToInt32(
-                            comandoObjeto.ExecuteScalar());
+                        total = Convert.ToInt32(comandoObjeto.ExecuteScalar());
                     }
                 }
             }
             catch (SqlException ex)
             {
-                MessageBox.Show(
-                    "Error SQL " + ex.Number + ": " + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                switch (ex.Number)
+                {
+                    case 208:
+                        MessageBox.Show("Error 208: La tabla Venta no existe.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 53:
+                        MessageBox.Show("Error 53: No se pudo conectar con el servidor.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 4060:
+                        MessageBox.Show("Error 4060: No se pudo acceder a la base de datos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case -2:
+                        MessageBox.Show("Error -2: La consulta tardó demasiado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+
+                    default:
+                        MessageBox.Show("Error SQL " + ex.Number + ": " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error inesperado: " + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                MessageBox.Show("Error inesperado: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             return total;

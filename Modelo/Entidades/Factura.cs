@@ -159,12 +159,7 @@ namespace Modelo.Entidades
                         break;
 
                     default:
-                        MessageBox.Show(
-     "Error al insertar la factura:\n\n" + ex.Message,
-     "Error " + ex.Number,
-     MessageBoxButtons.OK,
-     MessageBoxIcon.Error
- );
+                        MessageBox.Show("Error al insertar la factura:\n\n" + ex.Message, "Error " + ex.Number, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                 }
 

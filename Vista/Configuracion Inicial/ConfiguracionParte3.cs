@@ -22,12 +22,8 @@ namespace Vista.Configuracion_Inicial
             // Verifica que se haya escrito el nombre.
             if (string.IsNullOrWhiteSpace(txtNombreAdministrador.Text))
             {
-                MessageBox.Show(
-                    "Ingrese el nombre completo del administrador.",
-                    "Campo obligatorio",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning
-                );
+                MessageBox.Show("Ingrese el nombre completo del administrador.", "Campo obligatorio",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                 txtNombreAdministrador.Focus();
                 return;
@@ -36,12 +32,8 @@ namespace Vista.Configuracion_Inicial
             // Verifica que se haya escrito el usuario.
             if (string.IsNullOrWhiteSpace(txtUsuario.Text))
             {
-                MessageBox.Show(
-                    "Ingrese un nombre de usuario.",
-                    "Campo obligatorio",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning
-                );
+                MessageBox.Show("Ingrese un nombre de usuario.", "Campo obligatorio",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                 txtUsuario.Focus();
                 return;
@@ -50,12 +42,8 @@ namespace Vista.Configuracion_Inicial
             // Verifica que se haya escrito una contraseña.
             if (string.IsNullOrWhiteSpace(txtContrasena.Text))
             {
-                MessageBox.Show(
-                    "Ingrese una contraseña.",
-                    "Campo obligatorio",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning
-                );
+                MessageBox.Show("Ingrese una contraseña.", "Campo obligatorio",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                 txtContrasena.Focus();
                 return;
@@ -64,12 +52,8 @@ namespace Vista.Configuracion_Inicial
             // Verifica que se haya confirmado la contraseña.
             if (string.IsNullOrWhiteSpace(txtConfirmarContrasena.Text))
             {
-                MessageBox.Show(
-                    "Confirme la contraseña.",
-                    "Campo obligatorio",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning
-                );
+                MessageBox.Show("Confirme la contraseña.", "Campo obligatorio",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                 txtConfirmarContrasena.Focus();
                 return;
@@ -78,12 +62,8 @@ namespace Vista.Configuracion_Inicial
             // Verifica que ambas contraseñas sean iguales.
             if (txtContrasena.Text != txtConfirmarContrasena.Text)
             {
-                MessageBox.Show(
-                    "Las contraseñas no coinciden.",
-                    "Contraseña incorrecta",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning
-                );
+                MessageBox.Show("Las contraseñas no coinciden.", "Contraseña incorrecta",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                 txtConfirmarContrasena.Focus();
                 return;
@@ -92,12 +72,8 @@ namespace Vista.Configuracion_Inicial
             // Verifica que el usuario haya aceptado crear la cuenta.
             if (!chkAceptarCondiciones.Checked)
             {
-                MessageBox.Show(
-                    "Debe aceptar la creación de la cuenta principal para continuar.",
-                    "Confirmación requerida",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning
-                );
+                MessageBox.Show("Debe aceptar la creación de la cuenta principal para continuar.", "Confirmación requerida",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                 chkAceptarCondiciones.Focus();
                 return;
@@ -116,12 +92,8 @@ namespace Vista.Configuracion_Inicial
             // Si el administrador se creó correctamente...
             if (creado)
             {
-                MessageBox.Show(
-                    "La cuenta de administrador se creó correctamente.\n\nAhora puede iniciar sesión.",
-                    "Configuración completada",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information
-                );
+                MessageBox.Show("La cuenta de administrador se creó correctamente.\n\nAhora puede iniciar sesión.", "Configuración completada",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 // Oculta este formulario.
                 this.Hide();

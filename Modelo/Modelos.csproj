@@ -116,7 +116,6 @@
     <Compile Include="Entidades\GeneradorFactura.cs" />
     <Compile Include="Entidades\Material.cs" />
     <Compile Include="Entidades\MaterialUtilizado.cs" />
-    <Compile Include="Entidades\MetodoPago.cs" />
     <Compile Include="Entidades\Pedidos.cs" />
     <Compile Include="Entidades\Cliente.cs" />
     <Compile Include="Conexión_DB\Conexion.cs" />

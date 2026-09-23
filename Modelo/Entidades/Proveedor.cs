@@ -13,7 +13,6 @@ namespace Modelo.Entidades
         private string Telefono;
         private string Correo;
         private string Ubicacion;
-
         private bool Estado;
 
         public DbProveedor(int idProveedor, string nombre_Proveedor, string telefono, string correo, string ubicacion)
@@ -25,107 +24,53 @@ namespace Modelo.Entidades
             Ubicacion = ubicacion;
         }
 
-        public DbProveedor()
-        {
-        }
+        public DbProveedor() { }
 
-        public int IdProveedor1
-        {
-            get => IdProveedor;
-            set => IdProveedor = value;
-        }
-
-        public string Nombre_Proveedor1
-        {
-            get => Nombre_Proveedor;
-            set => Nombre_Proveedor = value;
-        }
-
-        public string Telefono1
-        {
-            get => Telefono;
-            set => Telefono = value;
-        }
-
-        public string Correo1
-        {
-            get => Correo;
-            set => Correo = value;
-        }
-
-        public string Ubicacion1
-        {
-            get => Ubicacion;
-            set => Ubicacion = value;
-        }
-
-        public bool Estado1
-        {
-            get => Estado;
-            set => Estado = value;
-        }
+        public int IdProveedor1 { get => IdProveedor; set => IdProveedor = value; }
+        public string Nombre_Proveedor1 { get => Nombre_Proveedor; set => Nombre_Proveedor = value; }
+        public string Telefono1 { get => Telefono; set => Telefono = value; }
+        public string Correo1 { get => Correo; set => Correo = value; }
+        public string Ubicacion1 { get => Ubicacion; set => Ubicacion = value; }
+        public bool Estado1 { get => Estado; set => Estado = value; }
 
 
         public static DataTable CargarProveedor()
         {
-            SqlConnection conectar = null;
-
             try
             {
-                conectar = Conexion.Conectar();
+                using (SqlConnection conectar = Conexion.Conectar())
+                {
+                    string comando = "SELECT * FROM VerProveedores;";
 
-                string comando = "SELECT * FROM VerProveedores;";
+                    SqlDataAdapter adapter = new SqlDataAdapter(comando, conectar);
+                    DataTable dt = new DataTable();
 
-                SqlDataAdapter adapter = new SqlDataAdapter(comando, conectar);
-
-                DataTable dt = new DataTable();
-
-                adapter.Fill(dt);
-
-                return dt;
+                    adapter.Fill(dt);
+                    return dt;
+                }
             }
             catch (SqlException ex)
             {
                 switch (ex.Number)
                 {
-                    case 208:
-                        MessageBox.Show(
-                            "Error 208: La tabla o vista de proveedores no existe.",
-                            "Error",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error);
-                        break;
-
                     case 53:
-                        MessageBox.Show(
-                            "Error 53: No se pudo conectar con el servidor.",
-                            "Error",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error);
+                        MessageBox.Show("No se pudo establecer conexión con el servidor.", "ERR-SQL-001", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
 
                     case 4060:
-                        MessageBox.Show(
-                            "Error 4060: No se pudo acceder a la base de datos.",
-                            "Error",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error);
+                        MessageBox.Show("No se pudo acceder a la base de datos.", "ERR-SQL-002", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
 
                     case -2:
-                        MessageBox.Show(
-                            "Error -2: La operación tardó demasiado.",
-                            "Error",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Warning);
+                        MessageBox.Show("La consulta tardó demasiado tiempo.", "ERR-SQL-003", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+
+                    case 208:
+                        MessageBox.Show("La vista VerProveedores no existe en la base de datos.", "ERR-SQL-004", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
 
                     default:
-                        MessageBox.Show(
-                            "Error SQL " + ex.Number + ": " + ex.Message,
-                            "Error",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error);
+                        MessageBox.Show("Ocurrió un error al cargar los proveedores.\n" + ex.Message, "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                 }
 
@@ -133,20 +78,8 @@ namespace Modelo.Entidades
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error inesperado: " + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-
+                MessageBox.Show("Ocurrió un error inesperado.\n" + ex.Message, "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return new DataTable();
-            }
-            finally
-            {
-                if (conectar != null)
-                {
-                    conectar.Dispose();
-                }
             }
         }
 
@@ -154,40 +87,21 @@ namespace Modelo.Entidades
         public bool InsertarProveedor()
         {
             string comandoSQL = @"INSERT INTO Proveedor
-                                  (Nombre_Proveedor, Telefono, Correo, Ubicacion, Estado)
-                                  VALUES
-                                  (@Nombre_Proveedor, @Telefono, @Correo, @Ubicacion, @Estado);";
+                (Nombre_Proveedor, Telefono, Correo, Ubicacion, Estado)
+                VALUES (@Nombre, @Telefono, @Correo, @Ubicacion, @Estado);";
 
             try
             {
                 using (SqlConnection conexion = Conexion.Conectar())
+                using (SqlCommand comando = new SqlCommand(comandoSQL, conexion))
                 {
-                    using (SqlCommand comandoObjeto = new SqlCommand(comandoSQL, conexion))
-                    {
-                        comandoObjeto.Parameters.AddWithValue(
-                            "@Nombre_Proveedor",
-                            Nombre_Proveedor);
+                    comando.Parameters.AddWithValue("@Nombre", Nombre_Proveedor);
+                    comando.Parameters.AddWithValue("@Telefono", Telefono);
+                    comando.Parameters.AddWithValue("@Correo", Correo);
+                    comando.Parameters.AddWithValue("@Ubicacion", Ubicacion);
+                    comando.Parameters.AddWithValue("@Estado", Estado);
 
-                        comandoObjeto.Parameters.AddWithValue(
-                            "@Telefono",
-                            Telefono);
-
-                        comandoObjeto.Parameters.AddWithValue(
-                            "@Correo",
-                            Correo);
-
-                        comandoObjeto.Parameters.AddWithValue(
-                            "@Ubicacion",
-                            Ubicacion);
-
-                        comandoObjeto.Parameters.AddWithValue(
-                            "@Estado",
-                            Estado);
-
-                        int filaAfectada = comandoObjeto.ExecuteNonQuery();
-
-                        return filaAfectada > 0;
-                    }
+                    return comando.ExecuteNonQuery() > 0;
                 }
             }
             catch (SqlException ex)
@@ -195,60 +109,51 @@ namespace Modelo.Entidades
                 switch (ex.Number)
                 {
                     case 2627:
-                    case 2601:
-                        MessageBox.Show(
-                            "Error 2627/2601: El proveedor ya existe en la base de datos.",
-                            "Registro Duplicado",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Warning);
+                        MessageBox.Show("El proveedor ya existe por una clave primaria o restricción UNIQUE.", "ERR-SQL-005", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         break;
 
-                    case 515:
-                        MessageBox.Show(
-                            "Error 515: Hay campos obligatorios sin completar.",
-                            "Error",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Warning);
+                    case 2601:
+                        MessageBox.Show("El proveedor ya existe por un índice UNIQUE.", "ERR-SQL-006", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         break;
 
                     case 547:
-                        MessageBox.Show(
-                            "Error 547: No se puede registrar el proveedor por una restricción.",
-                            "Error",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Warning);
+                        MessageBox.Show("No se puede registrar el proveedor debido a una restricción de la base de datos.", "ERR-SQL-007", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+
+                    case 515:
+                        MessageBox.Show("Hay campos obligatorios sin completar.", "ERR-SQL-008", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+
+                    case 245:
+                        MessageBox.Show("Uno de los datos ingresados tiene un formato incorrecto.", "ERR-SQL-009", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+
+                    case 8115:
+                        MessageBox.Show("Uno de los valores numéricos excede el límite permitido.", "ERR-SQL-010", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+
+                    case 8152:
+                        MessageBox.Show("Uno de los datos es demasiado largo para la columna correspondiente.", "ERR-SQL-011", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         break;
 
                     case 53:
-                        MessageBox.Show(
-                            "Error 53: No se pudo conectar con el servidor.",
-                            "Error",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error);
+                        MessageBox.Show("No se pudo establecer conexión con el servidor.", "ERR-SQL-001", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
 
                     case 4060:
-                        MessageBox.Show(
-                            "Error 4060: No se pudo acceder a la base de datos.",
-                            "Error",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error);
+                        MessageBox.Show("No se pudo acceder a la base de datos.", "ERR-SQL-002", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
 
                     case -2:
-                        MessageBox.Show(
-                            "Error -2: La operación tardó demasiado.",
-                            "Error",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Warning);
+                        MessageBox.Show("La operación tardó demasiado tiempo.", "ERR-SQL-003", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+
+                    case 208:
+                        MessageBox.Show("La tabla Proveedor no existe en la base de datos.", "ERR-SQL-004", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
 
                     default:
-                        MessageBox.Show(
-                            "Error SQL " + ex.Number + ": " + ex.Message,
-                            "Error",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error);
+                        MessageBox.Show("Ocurrió un error al registrar el proveedor.\n" + ex.Message, "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                 }
 
@@ -256,12 +161,7 @@ namespace Modelo.Entidades
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error inesperado: " + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-
+                MessageBox.Show("Ocurrió un error inesperado.\n" + ex.Message, "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
         }
@@ -269,54 +169,25 @@ namespace Modelo.Entidades
 
         public bool ActualizarProveedor()
         {
-            string comandoSQL = @"UPDATE Proveedor 
-                                  SET Nombre_Proveedor = @Nombre,
-                                      Telefono = @Telefono,
-                                      Correo = @Correo,
-                                      Ubicacion = @Ubicacion
-                                  WHERE IdProveedor = @IdProveedor;";
+            string comandoSQL = @"UPDATE Proveedor SET Nombre_Proveedor = @Nombre, Telefono = @Telefono,
+                Correo = @Correo, Ubicacion = @Ubicacion WHERE IdProveedor = @IdProveedor;";
 
             try
             {
                 using (SqlConnection conexion = Conexion.Conectar())
+                using (SqlCommand comando = new SqlCommand(comandoSQL, conexion))
                 {
-                    using (SqlCommand cmd = new SqlCommand(comandoSQL, conexion))
-                    {
-                        cmd.Parameters.AddWithValue(
-                            "@IdProveedor",
-                            IdProveedor1);
+                    comando.Parameters.AddWithValue("@IdProveedor", IdProveedor1);
+                    comando.Parameters.AddWithValue("@Nombre", Nombre_Proveedor1);
+                    comando.Parameters.AddWithValue("@Telefono", Telefono1);
+                    comando.Parameters.AddWithValue("@Correo", Correo1);
+                    comando.Parameters.AddWithValue("@Ubicacion", Ubicacion1);
 
-                        cmd.Parameters.AddWithValue(
-                            "@Nombre",
-                            Nombre_Proveedor1);
+                    if (comando.ExecuteNonQuery() > 0)
+                        return true;
 
-                        cmd.Parameters.AddWithValue(
-                            "@Telefono",
-                            Telefono1);
-
-                        cmd.Parameters.AddWithValue(
-                            "@Correo",
-                            Correo1);
-
-                        cmd.Parameters.AddWithValue(
-                            "@Ubicacion",
-                            Ubicacion1);
-
-                        int filasAfectadas = cmd.ExecuteNonQuery();
-
-                        if (filasAfectadas > 0)
-                        {
-                            return true;
-                        }
-
-                        MessageBox.Show(
-                            "No se encontró el proveedor que desea actualizar.",
-                            "Aviso",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Warning);
-
-                        return false;
-                    }
+                    MessageBox.Show("No se encontró el proveedor que desea actualizar.", "Proveedor no encontrado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return false;
                 }
             }
             catch (SqlException ex)
@@ -324,68 +195,51 @@ namespace Modelo.Entidades
                 switch (ex.Number)
                 {
                     case 2627:
-                    case 2601:
-                        MessageBox.Show(
-                            "Error 2627/2601: Los datos del proveedor ya existen.",
-                            "Registro Duplicado",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Warning);
+                        MessageBox.Show("Los datos del proveedor ya existen por una clave primaria o restricción UNIQUE.", "ERR-SQL-005", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         break;
 
-                    case 515:
-                        MessageBox.Show(
-                            "Error 515: Hay campos obligatorios sin completar.",
-                            "Error",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Warning);
+                    case 2601:
+                        MessageBox.Show("Los datos del proveedor ya existen por un índice UNIQUE.", "ERR-SQL-006", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         break;
 
                     case 547:
-                        MessageBox.Show(
-                            "Error 547: No se puede actualizar por una restricción.",
-                            "Error",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Warning);
+                        MessageBox.Show("No se puede actualizar el proveedor debido a una restricción.", "ERR-SQL-007", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+
+                    case 515:
+                        MessageBox.Show("Hay campos obligatorios sin completar.", "ERR-SQL-008", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+
+                    case 245:
+                        MessageBox.Show("Uno de los datos ingresados tiene un formato incorrecto.", "ERR-SQL-009", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+
+                    case 8115:
+                        MessageBox.Show("Uno de los valores numéricos excede el límite permitido.", "ERR-SQL-010", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+
+                    case 8152:
+                        MessageBox.Show("Uno de los datos es demasiado largo para la columna correspondiente.", "ERR-SQL-011", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         break;
 
                     case 53:
-                        MessageBox.Show(
-                            "Error 53: No se pudo conectar con el servidor.",
-                            "Error",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error);
+                        MessageBox.Show("No se pudo establecer conexión con el servidor.", "ERR-SQL-001", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
 
                     case 4060:
-                        MessageBox.Show(
-                            "Error 4060: No se pudo acceder a la base de datos.",
-                            "Error",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error);
+                        MessageBox.Show("No se pudo acceder a la base de datos.", "ERR-SQL-002", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
 
                     case -2:
-                        MessageBox.Show(
-                            "Error -2: La operación tardó demasiado.",
-                            "Error",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Warning);
+                        MessageBox.Show("La operación tardó demasiado tiempo.", "ERR-SQL-003", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         break;
 
                     case 208:
-                        MessageBox.Show(
-                            "Error 208: La tabla de proveedores no existe.",
-                            "Error",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error);
+                        MessageBox.Show("La tabla Proveedor no existe en la base de datos.", "ERR-SQL-004", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
 
                     default:
-                        MessageBox.Show(
-                            "Error SQL " + ex.Number + ": " + ex.Message,
-                            "Error",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error);
+                        MessageBox.Show("Ocurrió un error al actualizar el proveedor.\n" + ex.Message, "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                 }
 
@@ -393,12 +247,7 @@ namespace Modelo.Entidades
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error inesperado: " + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-
+                MessageBox.Show("Ocurrió un error inesperado.\n" + ex.Message, "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
         }
@@ -410,64 +259,33 @@ namespace Modelo.Entidades
             {
                 using (SqlConnection conexion = Conexion.Conectar())
                 {
-                    // Primero verificamos el estado actual
-                    string consultaEstado = @"SELECT Estado 
-                                              FROM Proveedor 
-                                              WHERE IdProveedor = @IdProveedor;";
+                    string consultaEstado = "SELECT Estado FROM Proveedor WHERE IdProveedor = @IdProveedor;";
 
                     using (SqlCommand cmdEstado = new SqlCommand(consultaEstado, conexion))
                     {
-                        cmdEstado.Parameters.AddWithValue(
-                            "@IdProveedor",
-                            idProveedor);
+                        cmdEstado.Parameters.AddWithValue("@IdProveedor", idProveedor);
 
-                        // Obtiene un solo valor con ExecuteScalar
                         object resultado = cmdEstado.ExecuteScalar();
 
-                        // Si no existe retorna false
                         if (resultado == null)
                         {
-                            MessageBox.Show(
-                                "No se encontró el proveedor indicado.",
-                                "Aviso",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Warning);
-
+                            MessageBox.Show("No se encontró el proveedor indicado.", "Proveedor no encontrado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return false;
                         }
 
-                        // Convierte el estado en true o false
-                        bool estadoActual = Convert.ToBoolean(resultado);
-
-                        // Si ya está en 0, el proveedor está inactivo
-                        if (!estadoActual)
+                        if (!Convert.ToBoolean(resultado))
                         {
-                            MessageBox.Show(
-                                "El proveedor ya se encuentra inactivo.",
-                                "Aviso",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Warning);
-
+                            MessageBox.Show("El proveedor ya se encuentra inactivo.", "Proveedor inactivo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return false;
                         }
                     }
 
-                    // Si estaba activo, lo desactivamos
-                    string consultaDesactivar = @"UPDATE Proveedor 
-                                                  SET Estado = 0 
-                                                  WHERE IdProveedor = @IdProveedor;";
+                    string consultaDesactivar = "UPDATE Proveedor SET Estado = 0 WHERE IdProveedor = @IdProveedor;";
 
-                    using (SqlCommand cmd = new SqlCommand(
-                        consultaDesactivar,
-                        conexion))
+                    using (SqlCommand comando = new SqlCommand(consultaDesactivar, conexion))
                     {
-                        cmd.Parameters.AddWithValue(
-                            "@IdProveedor",
-                            idProveedor);
-
-                        int filasAfectadas = cmd.ExecuteNonQuery();
-
-                        return filasAfectadas > 0;
+                        comando.Parameters.AddWithValue("@IdProveedor", idProveedor);
+                        return comando.ExecuteNonQuery() > 0;
                     }
                 }
             }
@@ -476,67 +294,35 @@ namespace Modelo.Entidades
                 switch (ex.Number)
                 {
                     case 547:
-                        MessageBox.Show(
-                            "Error 547: No se puede desactivar el proveedor por una restricción.",
-                            "Error",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Warning);
+                        MessageBox.Show("No se puede desactivar el proveedor debido a una restricción.", "ERR-SQL-007", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         break;
 
                     case 515:
-                        MessageBox.Show(
-                            "Error 515: El estado del proveedor no puede quedar vacío.",
-                            "Error",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Warning);
+                        MessageBox.Show("El estado del proveedor no puede quedar vacío.", "ERR-SQL-008", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         break;
 
                     case 245:
-                        MessageBox.Show(
-                            "Error 245: El ID del proveedor no es válido.",
-                            "Error",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Warning);
+                        MessageBox.Show("El ID del proveedor no tiene un formato válido.", "ERR-SQL-009", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         break;
 
                     case 53:
-                        MessageBox.Show(
-                            "Error 53: No se pudo conectar con el servidor.",
-                            "Error",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error);
+                        MessageBox.Show("No se pudo establecer conexión con el servidor.", "ERR-SQL-001", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
 
                     case 4060:
-                        MessageBox.Show(
-                            "Error 4060: No se pudo acceder a la base de datos.",
-                            "Error",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error);
+                        MessageBox.Show("No se pudo acceder a la base de datos.", "ERR-SQL-002", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
 
                     case -2:
-                        MessageBox.Show(
-                            "Error -2: La operación tardó demasiado.",
-                            "Error",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Warning);
+                        MessageBox.Show("La operación tardó demasiado tiempo.", "ERR-SQL-003", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         break;
 
                     case 208:
-                        MessageBox.Show(
-                            "Error 208: La tabla de proveedores no existe.",
-                            "Error",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error);
+                        MessageBox.Show("La tabla Proveedor no existe en la base de datos.", "ERR-SQL-004", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
 
                     default:
-                        MessageBox.Show(
-                            "Error SQL " + ex.Number + ": " + ex.Message,
-                            "Error",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error);
+                        MessageBox.Show("Ocurrió un error al desactivar el proveedor.\n" + ex.Message, "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                 }
 
@@ -544,12 +330,7 @@ namespace Modelo.Entidades
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error inesperado: " + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-
+                MessageBox.Show("Ocurrió un error inesperado.\n" + ex.Message, "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
         }
@@ -557,79 +338,48 @@ namespace Modelo.Entidades
 
         public static DataTable BuscarProveedor(string termino)
         {
-            SqlConnection con = null;
-
             try
             {
-                con = Conexion.Conectar();
+                using (SqlConnection conexion = Conexion.Conectar())
+                {
+                    string comando = @"SELECT * FROM VerProveedores
+                        WHERE CAST(IdProveedor AS VARCHAR) LIKE @Buscar OR Proveedor LIKE @Buscar;";
 
-                string comando = @"SELECT * 
-                                   FROM VerProveedores 
-                                   WHERE CAST(IdProveedor AS VARCHAR) LIKE @buscar 
-                                      OR Proveedor LIKE @buscar;";
+                    SqlDataAdapter adapter = new SqlDataAdapter(comando, conexion);
+                    adapter.SelectCommand.Parameters.AddWithValue("@Buscar", "%" + (termino ?? "") + "%");
 
-                SqlDataAdapter ad = new SqlDataAdapter(comando, con);
+                    DataTable dt = new DataTable();
+                    adapter.Fill(dt);
 
-                ad.SelectCommand.Parameters.AddWithValue(
-                    "@buscar",
-                    "%" + termino + "%");
-
-                DataTable dt = new DataTable();
-
-                ad.Fill(dt);
-
-                return dt;
+                    return dt;
+                }
             }
             catch (SqlException ex)
             {
                 switch (ex.Number)
                 {
                     case 208:
-                        MessageBox.Show(
-                            "Error 208: La vista VerProveedores no existe.",
-                            "Error",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error);
+                        MessageBox.Show("La vista VerProveedores no existe en la base de datos.", "ERR-SQL-004", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
 
                     case 53:
-                        MessageBox.Show(
-                            "Error 53: No se pudo conectar con el servidor.",
-                            "Error",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error);
+                        MessageBox.Show("No se pudo establecer conexión con el servidor.", "ERR-SQL-001", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
 
                     case 4060:
-                        MessageBox.Show(
-                            "Error 4060: No se pudo acceder a la base de datos.",
-                            "Error",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error);
+                        MessageBox.Show("No se pudo acceder a la base de datos.", "ERR-SQL-002", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
 
                     case -2:
-                        MessageBox.Show(
-                            "Error -2: La búsqueda tardó demasiado.",
-                            "Error",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Warning);
+                        MessageBox.Show("La búsqueda tardó demasiado tiempo.", "ERR-SQL-003", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         break;
 
                     case 245:
-                        MessageBox.Show(
-                            "Error 245: El valor de búsqueda no es válido.",
-                            "Error",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Warning);
+                        MessageBox.Show("El valor de búsqueda no tiene un formato válido.", "ERR-SQL-009", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         break;
 
                     default:
-                        MessageBox.Show(
-                            "Error SQL " + ex.Number + ": " + ex.Message,
-                            "Error",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error);
+                        MessageBox.Show("Ocurrió un error al buscar los proveedores.\n" + ex.Message, "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                 }
 
@@ -637,20 +387,8 @@ namespace Modelo.Entidades
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error inesperado: " + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-
+                MessageBox.Show("Ocurrió un error inesperado.\n" + ex.Message, "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return new DataTable();
-            }
-            finally
-            {
-                if (con != null)
-                {
-                    con.Dispose();
-                }
             }
         }
     }

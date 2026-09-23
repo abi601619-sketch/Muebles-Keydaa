@@ -10,76 +10,54 @@ namespace Modelo.Entidades
     {
         private int IdVenta;
 
-        public int IdVenta1 { get => IdVenta; set => IdVenta = value; }
-
         public DbVentas()
         {
+        }
 
+        public int IdVenta1
+        {
+            get => IdVenta;
+            set => IdVenta = value;
         }
 
         public static DataTable CargarVentas()
         {
             try
             {
-                SqlConnection conectar = Conexion.Conectar();
+                using (SqlConnection conexion = Conexion.Conectar())
+                {
+                    string consulta = "SELECT * FROM VerVentas;";
 
-                string comando = "SELECT * FROM VerVentas;";
-
-                SqlDataAdapter adapter = new SqlDataAdapter(comando, conectar);
-
-                DataTable dt = new DataTable();
-
-                adapter.Fill(dt);
-
-                return dt;
+                    using (SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexion))
+                    {
+                        DataTable tabla = new DataTable();
+                        adaptador.Fill(tabla);
+                        return tabla;
+                    }
+                }
             }
             catch (SqlException ex)
             {
                 switch (ex.Number)
                 {
                     case 208:
-                        MessageBox.Show(
-                            "Error 208: La vista VerVentas no existe.",
-                            "Error de base de datos",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error
-                        );
+                        MessageBox.Show("Error 208: La vista VerVentas no existe.", "Error 208", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
 
                     case 53:
-                        MessageBox.Show(
-                            "Error 53: No se pudo conectar con el servidor SQL.",
-                            "Error de conexión",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error
-                        );
+                        MessageBox.Show("Error 53: No se pudo conectar con el servidor SQL.", "Error 53", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
 
                     case 4060:
-                        MessageBox.Show(
-                            "Error 4060: No se pudo acceder a la base de datos.",
-                            "Error de base de datos",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error
-                        );
+                        MessageBox.Show("Error 4060: No se pudo acceder a la base de datos.", "Error 4060", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
 
                     case -2:
-                        MessageBox.Show(
-                            "Error -2: La operación tardó demasiado.",
-                            "Tiempo de espera agotado",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Warning
-                        );
+                        MessageBox.Show("Error -2: La operación tardó demasiado.", "Error -2", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         break;
 
                     default:
-                        MessageBox.Show(
-                            "Error SQL " + ex.Number + ": " + ex.Message,
-                            "Error de base de datos",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error
-                        );
+                        MessageBox.Show("Error SQL " + ex.Number + ": " + ex.Message, "Error " + ex.Number, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                 }
 
@@ -87,71 +65,51 @@ namespace Modelo.Entidades
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error inesperado: " + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
-
+                MessageBox.Show("Error inesperado: " + ex.Message, "Error inesperado", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return new DataTable();
             }
         }
 
-
         public static DataTable CargarDetalleVenta(int idVenta)
         {
-            DataTable dt = new DataTable();
+            DataTable tabla = new DataTable();
 
             try
             {
-                using (SqlConnection conectar = Conexion.Conectar())
+                using (SqlConnection conexion = Conexion.Conectar())
                 {
-                    string comando = @"
-                SELECT
-                    IdDetalleVenta,
-                    IdVenta,
-                    ProductoVendido,
-                    Cantidad,
-                    PrecioUnitario,
-                    (Cantidad * PrecioUnitario) AS SubTotal
-                FROM DetalleVenta
-                WHERE IdVenta = @IdVenta;";
+                    string consulta = @"
+                        SELECT IdDetalleVenta, IdVenta, ProductoVendido,
+                               Cantidad, PrecioUnitario,
+                               (Cantidad * PrecioUnitario) AS SubTotal
+                        FROM DetalleVenta
+                        WHERE IdVenta = @IdVenta;";
 
-                    using (SqlCommand cmd = new SqlCommand(comando, conectar))
+                    using (SqlCommand comando = new SqlCommand(consulta, conexion))
                     {
-                        cmd.Parameters.AddWithValue("@IdVenta", idVenta);
+                        comando.Parameters.AddWithValue("@IdVenta", idVenta);
 
-                        using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                        using (SqlDataAdapter adaptador = new SqlDataAdapter(comando))
                         {
-                            adapter.Fill(dt);
+                            adaptador.Fill(tabla);
                         }
                     }
                 }
 
-                return dt;
+                return tabla;
             }
             catch (SqlException ex)
             {
-                MessageBox.Show(
-                    "Error SQL al cargar los detalles de la venta:\n" + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-
+                MessageBox.Show("Error SQL " + ex.Number + ": " + ex.Message, "Error " + ex.Number, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return new DataTable();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error al cargar los detalles de la venta:\n" + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-
+                MessageBox.Show("Error inesperado: " + ex.Message, "Error inesperado", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return new DataTable();
             }
         }
+
         public bool EliminarVenta()
         {
             using (SqlConnection conexion = Conexion.Conectar())
@@ -162,69 +120,48 @@ namespace Modelo.Entidades
                 {
                     transaccion = conexion.BeginTransaction();
 
-                    // Eliminar factura si existe.
-                    string cmdFactura =
-                        "DELETE FROM Factura WHERE IdVenta = @IdVenta;";
+                    string eliminarFactura = "DELETE FROM Factura WHERE IdVenta = @IdVenta;";
 
-                    using (SqlCommand cmd =
-                        new SqlCommand(cmdFactura, conexion, transaccion))
+                    using (SqlCommand comando = new SqlCommand(eliminarFactura, conexion, transaccion))
                     {
-                        cmd.Parameters.AddWithValue("@IdVenta", IdVenta1);
-
-                        cmd.ExecuteNonQuery();
+                        comando.Parameters.AddWithValue("@IdVenta", IdVenta1);
+                        comando.ExecuteNonQuery();
                     }
 
-                    // Eliminar detalle de venta.
-                    string cmdDetalle =
-                        "DELETE FROM DetalleVenta WHERE IdVenta = @IdVenta;";
+                    string eliminarDetalle = "DELETE FROM DetalleVenta WHERE IdVenta = @IdVenta;";
 
-                    using (SqlCommand cmd =
-                        new SqlCommand(cmdDetalle, conexion, transaccion))
+                    using (SqlCommand comando = new SqlCommand(eliminarDetalle, conexion, transaccion))
                     {
-                        cmd.Parameters.AddWithValue("@IdVenta", IdVenta1);
-
-                        cmd.ExecuteNonQuery();
+                        comando.Parameters.AddWithValue("@IdVenta", IdVenta1);
+                        comando.ExecuteNonQuery();
                     }
 
-                    // Eliminar venta.
-                    string cmdVenta =
-                        "DELETE FROM Venta WHERE IdVenta = @IdVenta;";
+                    string eliminarVenta = "DELETE FROM Venta WHERE IdVenta = @IdVenta;";
 
-                    using (SqlCommand cmd =
-                        new SqlCommand(cmdVenta, conexion, transaccion))
+                    using (SqlCommand comando = new SqlCommand(eliminarVenta, conexion, transaccion))
                     {
-                        cmd.Parameters.AddWithValue("@IdVenta", IdVenta1);
+                        comando.Parameters.AddWithValue("@IdVenta", IdVenta1);
 
-                        int filas = cmd.ExecuteNonQuery();
+                        int filasAfectadas = comando.ExecuteNonQuery();
 
-                        if (filas > 0)
+                        if (filasAfectadas > 0)
                         {
                             transaccion.Commit();
                             return true;
                         }
-                        else
-                        {
-                            transaccion.Rollback();
 
-                            MessageBox.Show(
-                                "No se encontró la venta indicada.",
-                                "Venta no encontrada",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Warning
-                            );
+                        transaccion.Rollback();
 
-                            return false;
-                        }
+                        MessageBox.Show("No se encontró la venta indicada.", "Venta no encontrada", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                        return false;
                     }
                 }
                 catch (SqlException ex)
                 {
                     try
                     {
-                        if (transaccion != null)
-                        {
-                            transaccion.Rollback();
-                        }
+                        transaccion?.Rollback();
                     }
                     catch
                     {
@@ -233,66 +170,31 @@ namespace Modelo.Entidades
                     switch (ex.Number)
                     {
                         case 547:
-                            MessageBox.Show(
-                                "Error 547: La venta tiene registros relacionados.",
-                                "Error al eliminar",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Warning
-                            );
+                            MessageBox.Show("Error 547: La venta tiene registros relacionados.", "Error 547", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             break;
 
                         case 515:
-                            MessageBox.Show(
-                                "Error 515: Hay campos obligatorios sin completar.",
-                                "Datos incompletos",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Warning
-                            );
+                            MessageBox.Show("Error 515: Hay campos obligatorios sin completar.", "Error 515", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             break;
 
                         case 53:
-                            MessageBox.Show(
-                                "Error 53: No se pudo conectar con el servidor SQL.",
-                                "Error de conexión",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Error
-                            );
+                            MessageBox.Show("Error 53: No se pudo conectar con el servidor SQL.", "Error 53", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             break;
 
                         case 4060:
-                            MessageBox.Show(
-                                "Error 4060: No se pudo acceder a la base de datos.",
-                                "Error de base de datos",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Error
-                            );
+                            MessageBox.Show("Error 4060: No se pudo acceder a la base de datos.", "Error 4060", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             break;
 
                         case -2:
-                            MessageBox.Show(
-                                "Error -2: La operación tardó demasiado.",
-                                "Tiempo de espera agotado",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Warning
-                            );
+                            MessageBox.Show("Error -2: La operación tardó demasiado.", "Error -2", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             break;
 
                         case 208:
-                            MessageBox.Show(
-                                "Error 208: Una tabla relacionada no existe.",
-                                "Error de base de datos",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Error
-                            );
+                            MessageBox.Show("Error 208: Una tabla relacionada no existe.", "Error 208", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             break;
 
                         default:
-                            MessageBox.Show(
-                                "Error SQL " + ex.Number + ": " + ex.Message,
-                                "Error al eliminar venta",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Error
-                            );
+                            MessageBox.Show("Error SQL " + ex.Number + ": " + ex.Message, "Error " + ex.Number, MessageBoxButtons.OK, MessageBoxIcon.Error);
                             break;
                     }
 
@@ -302,22 +204,13 @@ namespace Modelo.Entidades
                 {
                     try
                     {
-                        if (transaccion != null)
-                        {
-                            transaccion.Rollback();
-                        }
+                        transaccion?.Rollback();
                     }
                     catch
                     {
                     }
 
-                    MessageBox.Show(
-                        "Error inesperado: " + ex.Message,
-                        "Error",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Error
-                    );
-
+                    MessageBox.Show("Error inesperado: " + ex.Message, "Error inesperado", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
             }
@@ -327,82 +220,47 @@ namespace Modelo.Entidades
         {
             try
             {
-                SqlConnection con = Conexion.Conectar();
+                using (SqlConnection conexion = Conexion.Conectar())
+                {
+                    string consulta = @"SELECT * FROM VerVentas
+                        WHERE CAST(IdVenta AS VARCHAR) LIKE @buscar OR Cliente LIKE @buscar;";
 
-                string comando = @"SELECT * 
-                    FROM VerVentas 
-                    WHERE CAST(IdVenta AS VARCHAR) LIKE @buscar
-                    OR Cliente LIKE @buscar;";
+                    using (SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexion))
+                    {
+                        adaptador.SelectCommand.Parameters.AddWithValue("@buscar", "%" + termino + "%");
 
-                SqlDataAdapter ad = new SqlDataAdapter(comando, con);
-
-                ad.SelectCommand.Parameters.AddWithValue(
-                    "@buscar",
-                    "%" + termino + "%"
-                );
-
-                DataTable dt = new DataTable();
-
-                ad.Fill(dt);
-
-                return dt;
+                        DataTable tabla = new DataTable();
+                        adaptador.Fill(tabla);
+                        return tabla;
+                    }
+                }
             }
             catch (SqlException ex)
             {
                 switch (ex.Number)
                 {
                     case 208:
-                        MessageBox.Show(
-                            "Error 208: La vista VerVentas no existe.",
-                            "Error de base de datos",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error
-                        );
+                        MessageBox.Show("Error 208: La vista VerVentas no existe.", "Error 208", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
 
                     case 53:
-                        MessageBox.Show(
-                            "Error 53: No se pudo conectar con el servidor SQL.",
-                            "Error de conexión",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error
-                        );
+                        MessageBox.Show("Error 53: No se pudo conectar con el servidor SQL.", "Error 53", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
 
                     case 4060:
-                        MessageBox.Show(
-                            "Error 4060: No se pudo acceder a la base de datos.",
-                            "Error de base de datos",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error
-                        );
+                        MessageBox.Show("Error 4060: No se pudo acceder a la base de datos.", "Error 4060", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
 
                     case -2:
-                        MessageBox.Show(
-                            "Error -2: La operación tardó demasiado.",
-                            "Tiempo de espera agotado",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Warning
-                        );
+                        MessageBox.Show("Error -2: La operación tardó demasiado.", "Error -2", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         break;
 
                     case 245:
-                        MessageBox.Show(
-                            "Error 245: No se pudo convertir el identificador.",
-                            "Error de conversión",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Warning
-                        );
+                        MessageBox.Show("Error 245: No se pudo convertir el identificador.", "Error 245", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         break;
 
                     default:
-                        MessageBox.Show(
-                            "Error SQL " + ex.Number + ": " + ex.Message,
-                            "Error al buscar venta",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error
-                        );
+                        MessageBox.Show("Error SQL " + ex.Number + ": " + ex.Message, "Error " + ex.Number, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                 }
 
@@ -410,13 +268,7 @@ namespace Modelo.Entidades
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error inesperado: " + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
-
+                MessageBox.Show("Error inesperado: " + ex.Message, "Error inesperado", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return new DataTable();
             }
         }

@@ -284,8 +284,6 @@ namespace Modelo.Entidades
             }
         }
 
-
-
         // Categorías activas
         public static int ContarCategoriasActivas()
         {
@@ -332,8 +330,6 @@ namespace Modelo.Entidades
                 return 0;
             }
         }
-
-
 
         // Categorías inactivas
         public static int ContarCategoriasInactivas()

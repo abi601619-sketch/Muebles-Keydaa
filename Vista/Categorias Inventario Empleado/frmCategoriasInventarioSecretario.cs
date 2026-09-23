@@ -41,11 +41,8 @@ namespace Vista.Categorias_Inventario_Empleado
             {
                 MessageBox.Show("Error al cargar las categorías: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        } //-------------------------------------------------------------------------
-          // CONFIGURAR DISEÑO DE LA TABLA
-
-
-
+        }
+        //-------------------------------------------------------------------------
         // CONFIGURAR TOOLTIPS
         private void ConfigurarTooltips()
         {
@@ -58,32 +55,15 @@ namespace Vista.Categorias_Inventario_Empleado
             toolTip.ShowAlways = true;
 
             // Buscador
-            toolTip.SetToolTip(
-                txtBuscarCategoria,
-                "Ingrese el nombre de una categoría para buscarla."
-            );
-
-            toolTip.SetToolTip(
-                btnBuscar,
-                "Busca la categoría ingresada."
-            );
+            toolTip.SetToolTip(txtBuscarCategoria, "Ingrese el nombre de una categoría para buscarla.");
+            toolTip.SetToolTip(btnBuscar, "Busca la categoría ingresada.");
 
             // Paginación
-            toolTip.SetToolTip(
-                btnAnterior,
-                "Muestra la página anterior."
-            );
-
-            toolTip.SetToolTip(
-                btnSiguiente,
-                "Muestra la página siguiente."
-            );
+            toolTip.SetToolTip(btnAnterior, "Muestra la página anterior.");
+            toolTip.SetToolTip(btnSiguiente, "Muestra la página siguiente.");
 
             // Tabla
-            toolTip.SetToolTip(
-                dgvCategorias,
-                "Muestra las categorías registradas."
-            );
+            toolTip.SetToolTip(dgvCategorias, "Muestra las categorías registradas.");
         }
 
         //---------------------------------------------------------
@@ -113,12 +93,8 @@ namespace Vista.Categorias_Inventario_Empleado
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error al mostrar las categorías: " + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Error al mostrar las categorías: " + ex.Message, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -134,8 +110,7 @@ namespace Vista.Categorias_Inventario_Empleado
                 return;
             }
 
-            totalPaginas = (int)Math.Ceiling(
-                (double)dtCategorias.Rows.Count / registrosPorPagina);
+            totalPaginas = (int)Math.Ceiling((double)dtCategorias.Rows.Count / registrosPorPagina);
 
             if (totalPaginas == 0)
                 totalPaginas = 1;
@@ -154,12 +129,9 @@ namespace Vista.Categorias_Inventario_Empleado
 
             DataTable dtPagina = dtCategorias.Clone();
 
-            int inicio =
-                (paginaActual - 1) * registrosPorPagina;
+            int inicio = (paginaActual - 1) * registrosPorPagina;
 
-            int fin = Math.Min(
-                inicio + registrosPorPagina,
-                dtCategorias.Rows.Count);
+            int fin = Math.Min(inicio + registrosPorPagina, dtCategorias.Rows.Count);
 
             for (int i = inicio; i < fin; i++)
             {
@@ -177,15 +149,12 @@ namespace Vista.Categorias_Inventario_Empleado
             ConfigurarTablaCategorias();
 
             // Mostrar página actual
-            lblPagina.Text =
-                $"Página {paginaActual} de {totalPaginas}";
+            lblPagina.Text = $"Página {paginaActual} de {totalPaginas}";
 
             // Activar o desactivar botones
-            btnAnterior.Enabled =
-                paginaActual > 1;
+            btnAnterior.Enabled = paginaActual > 1;
 
-            btnSiguiente.Enabled =
-                paginaActual < totalPaginas;
+            btnSiguiente.Enabled = paginaActual < totalPaginas;
         }
 
         //---------------------------------------------------------
@@ -302,8 +271,6 @@ namespace Vista.Categorias_Inventario_Empleado
                 txtBuscarCategoria.ForeColor = Color.Black;
 
             }
-
-
         }
 
         private void txtBuscarCategoria_Leave(object sender, EventArgs e)
@@ -347,12 +314,8 @@ namespace Vista.Categorias_Inventario_Empleado
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error al buscar la categoría: " + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Error al buscar la categoría: " + ex.Message, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         }
@@ -370,13 +333,8 @@ namespace Vista.Categorias_Inventario_Empleado
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error al actualizar la búsqueda: "
-                    + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Error al actualizar la búsqueda: " + ex.Message, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -387,33 +345,15 @@ namespace Vista.Categorias_Inventario_Empleado
         {
             try
             {
-                // Cantidad total de categorías
-                lblCategoriasRegistradas.Text =
-                    Categorias.ContarCategoriasTotales()
-                    .ToString();
-
-                // Cantidad de categorías activas
-                lblCategoriasActivas.Text =
-                    Categorias.ContarCategoriasActivas()
-                    .ToString();
-
-                // Cantidad de categorías inactivas
-                lblCategoriasInactivas.Text =
-                    Categorias.ContarCategoriasInactivas()
-                    .ToString();
+                lblCategoriasRegistradas.Text = Categorias.ContarCategoriasTotales().ToString();
+                lblCategoriasActivas.Text = Categorias.ContarCategoriasActivas().ToString();
+                lblCategoriasInactivas.Text = Categorias.ContarCategoriasInactivas().ToString();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error al cargar las estadísticas: "
-                    + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Error al cargar las estadísticas: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         private void btnAnterior_Click(object sender, EventArgs e)
         {
             if (paginaActual > 1)
@@ -423,7 +363,6 @@ namespace Vista.Categorias_Inventario_Empleado
                 MostrarPaginaCategorias();
             }
         }
-
         private void btnSiguiente_Click(object sender, EventArgs e)
         {
             if (paginaActual < totalPaginas)

@@ -19,8 +19,6 @@ namespace Vista.Clientes
             // TOOLTIPS
             ConfigurarTooltips();
         }
-
-
         public int IdClienteSeleccionado { get; private set; }
         public string NombreClienteSeleccionado { get; private set; }
         public string TelefonoClienteSeleccionado { get; private set; }
@@ -29,154 +27,60 @@ namespace Vista.Clientes
 
         public string DireccionClienteSeleccionado { get; private set; }
 
-
-        // ----------------------------------------------------------------------
+        //----------------------------------------------------------------------
         // CONFIGURACIÓN DEL DATA GRID
-
         private void ConfigurarDataGrid()
         {
             dgvClientes.AutoGenerateColumns = true;
-
             dgvClientes.AllowUserToAddRows = false;
             dgvClientes.AllowUserToDeleteRows = false;
             dgvClientes.AllowUserToResizeRows = false;
-
             dgvClientes.ReadOnly = true;
-
             dgvClientes.MultiSelect = false;
-
-            dgvClientes.SelectionMode =
-                DataGridViewSelectionMode.FullRowSelect;
-
+            dgvClientes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvClientes.RowHeadersVisible = false;
-
-            dgvClientes.BackgroundColor =
-                Color.White;
-
-            dgvClientes.BorderStyle =
-                BorderStyle.None;
-
-            dgvClientes.CellBorderStyle =
-                DataGridViewCellBorderStyle.SingleHorizontal;
-
-            dgvClientes.GridColor =
-                Color.FromArgb(225, 225, 225);
-
+            dgvClientes.BackgroundColor = Color.White;
+            dgvClientes.BorderStyle = BorderStyle.None;
+            dgvClientes.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            dgvClientes.GridColor = Color.FromArgb(225, 225, 225);
             dgvClientes.EnableHeadersVisualStyles = false;
-
             dgvClientes.ColumnHeadersHeight = 38;
-
             dgvClientes.RowTemplate.Height = 32;
+            dgvClientes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
-            dgvClientes.AutoSizeColumnsMode =
-                DataGridViewAutoSizeColumnsMode.Fill;
-
-
-            // ------------------------------------------------------------------
             // ENCABEZADO
+            dgvClientes.ColumnHeadersDefaultCellStyle = new DataGridViewCellStyle
+            {
+                BackColor = Color.FromArgb(121, 78, 48),
+                ForeColor = Color.White,
+                Font = new Font("Times New Roman", 10, FontStyle.Bold),
+                Alignment = DataGridViewContentAlignment.MiddleCenter,
+                SelectionBackColor = Color.FromArgb(121, 78, 48),
+                SelectionForeColor = Color.White
+            };
 
-            dgvClientes.ColumnHeadersDefaultCellStyle =
-                new DataGridViewCellStyle
-                {
-                    BackColor =
-                        Color.FromArgb(121, 78, 48),
-
-                    ForeColor =
-                        Color.White,
-
-                    Font =
-                        new Font(
-                            "Times New Roman",
-                            10,
-                            FontStyle.Bold
-                        ),
-
-                    Alignment =
-                        DataGridViewContentAlignment.MiddleCenter,
-
-                    SelectionBackColor =
-                        Color.FromArgb(121, 78, 48),
-
-                    SelectionForeColor =
-                        Color.White
-                };
-
-
-            // ------------------------------------------------------------------
             // FILAS
+            dgvClientes.DefaultCellStyle = new DataGridViewCellStyle
+            {
+                BackColor = Color.White,
+                ForeColor = Color.FromArgb(55, 55, 55),
+                Font = new Font("Times New Roman", 10),
+                Alignment = DataGridViewContentAlignment.MiddleCenter,
+                SelectionBackColor = Color.FromArgb(238, 215, 185),
+                SelectionForeColor = Color.FromArgb(60, 45, 35),
+                Padding = new Padding(5)
+            };
 
-            dgvClientes.DefaultCellStyle =
-                new DataGridViewCellStyle
-                {
-                    BackColor =
-                        Color.White,
-
-                    ForeColor =
-                        Color.FromArgb(55, 55, 55),
-
-                    Font =
-                        new Font(
-                            "Times New Roman",
-                            10
-                        ),
-
-                    Alignment =
-                        DataGridViewContentAlignment.MiddleCenter,
-
-                    SelectionBackColor =
-                        Color.FromArgb(238, 215, 185),
-
-                    SelectionForeColor =
-                        Color.FromArgb(60, 45, 35),
-
-                    Padding =
-                        new Padding(5)
-                };
-
-
-            // ------------------------------------------------------------------
             // FILAS ALTERNADAS
-
-            dgvClientes.AlternatingRowsDefaultCellStyle =
-                new DataGridViewCellStyle
-                {
-                    BackColor =
-                        Color.FromArgb(
-                            250,
-                            246,
-                            240
-                        ),
-
-                    ForeColor =
-                        Color.FromArgb(
-                            55,
-                            55,
-                            55
-                        ),
-
-                    Font =
-                        new Font(
-                            "Times New Roman",
-                            10
-                        ),
-
-                    SelectionBackColor =
-                        Color.FromArgb(
-                            238,
-                            215,
-                            185
-                        ),
-
-                    SelectionForeColor =
-                        Color.FromArgb(
-                            60,
-                            45,
-                            35
-                        )
-                };
+            dgvClientes.AlternatingRowsDefaultCellStyle = new DataGridViewCellStyle
+            {
+                BackColor = Color.FromArgb(250, 246, 240),
+                ForeColor = Color.FromArgb(55, 55, 55),
+                Font = new Font("Times New Roman", 10),
+                SelectionBackColor = Color.FromArgb(238, 215, 185),
+                SelectionForeColor = Color.FromArgb(60, 45, 35)
+            };
         }
-
-
         // ----------------------------------------------------------------------
         // FORMATEAR DATA GRID
 
@@ -184,29 +88,20 @@ namespace Vista.Clientes
         {
             if (dgvClientes.Columns.Count == 0)
                 return;
-
-
             // Ocultar ID
 
             if (dgvClientes.Columns.Contains("#"))
             {
                 dgvClientes.Columns["#"].Visible = false;
             }
-
-
             // ------------------------------------------------------------------
             // CLIENTE
-
             if (dgvClientes.Columns.Contains("Cliente"))
             {
-                dgvClientes.Columns["Cliente"].HeaderText =
-                    "Cliente";
+                dgvClientes.Columns["Cliente"].HeaderText = "Cliente";
 
-                dgvClientes.Columns["Cliente"].AutoSizeMode =
-                    DataGridViewAutoSizeColumnMode.Fill;
+                dgvClientes.Columns["Cliente"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             }
-
-
             // ------------------------------------------------------------------
             // TELÉFONO
 
@@ -215,52 +110,37 @@ namespace Vista.Clientes
                 dgvClientes.Columns["Telefono"].HeaderText =
                     "Teléfono";
             }
-
-
             // ------------------------------------------------------------------
             // CORREO
 
             if (dgvClientes.Columns.Contains("Correo"))
             {
-                dgvClientes.Columns["Correo"].HeaderText =
-                    "Correo";
+                dgvClientes.Columns["Correo"].HeaderText = "Correo";
             }
-
-
             // ------------------------------------------------------------------
             // DIRECCIÓN
 
             if (dgvClientes.Columns.Contains("Direccion"))
             {
-                dgvClientes.Columns["Direccion"].HeaderText =
-                    "Dirección";
+                dgvClientes.Columns["Direccion"].HeaderText = "Dirección";
             }
-
-
             // ------------------------------------------------------------------
             // ESTADO
 
             if (dgvClientes.Columns.Contains("Estado"))
             {
-                dgvClientes.Columns["Estado"].HeaderText =
-                    "Estado";
+                dgvClientes.Columns["Estado"].HeaderText = "Estado";
             }
 
 
             // ------------------------------------------------------------------
             // EVITAR ORDENAMIENTO
 
-            foreach (
-                DataGridViewColumn columna
-                in dgvClientes.Columns)
+            foreach (DataGridViewColumn columna in dgvClientes.Columns)
             {
-                columna.SortMode =
-                    DataGridViewColumnSortMode.NotSortable;
+                columna.SortMode = DataGridViewColumnSortMode.NotSortable;
             }
-
-
-            dgvClientes.AutoSizeColumnsMode =
-                DataGridViewAutoSizeColumnsMode.Fill;
+            dgvClientes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
 
@@ -290,61 +170,26 @@ namespace Vista.Clientes
             }
         }
 
-
         // ----------------------------------------------------------------------
         // TOOLTIP
-
         private void ConfigurarTooltips()
         {
-            ToolTip tooltip =
-                new ToolTip();
+            ToolTip tooltip = new ToolTip();
+            tooltip.AutoPopDelay = 5000;
+            tooltip.InitialDelay = 500;
+            tooltip.ReshowDelay = 200;
+            tooltip.ShowAlways = true;
 
-            tooltip.AutoPopDelay =
-                5000;
-
-            tooltip.InitialDelay =
-                500;
-
-            tooltip.ReshowDelay =
-                200;
-
-            tooltip.ShowAlways =
-                true;
-
-
-            tooltip.SetToolTip(
-                txtBuscarCliente,
-                "Buscar un cliente por nombre, teléfono, correo o dirección."
-            );
-
-
-            tooltip.SetToolTip(
-                dgvClientes,
-                "Seleccione el cliente que desea utilizar."
-            );
-
-
-            tooltip.SetToolTip(
-                btnSeleccionarCliente,
-                "Seleccionar el cliente marcado."
-            );
-
-
-            tooltip.SetToolTip(
-                btnSlir,
-                "Cerrar esta ventana."
-            );
+            tooltip.SetToolTip(txtBuscarCliente, "Buscar un cliente por nombre, teléfono, correo o dirección.");
+            tooltip.SetToolTip(dgvClientes, "Seleccione el cliente que desea utilizar.");
+            tooltip.SetToolTip(btnSeleccionarCliente, "Seleccionar el cliente marcado.");
+            tooltip.SetToolTip(btnSlir, "Cerrar esta ventana.");
         }
-
-
-
-
         private void frmBuscarCliente_Load(object sender, EventArgs e)
         {
             MostrarClientes();
 
         }
-
         private void btnSeleccionarCliente_Click(object sender, EventArgs e)
         {
             try
@@ -406,7 +251,6 @@ namespace Vista.Clientes
             txtBuscarCliente.Text = "Buscar Cliente...";
             txtBuscarCliente.ForeColor = Color.Gray;
         }
-
         private void txtBuscarCliente_Enter(object sender, EventArgs e)
         {
             //Cuando el usuario de enter para escribir, se va a borrar el texto de indicacion
@@ -415,7 +259,6 @@ namespace Vista.Clientes
             {
                 txtBuscarCliente.Text = "";
                 txtBuscarCliente.ForeColor = Color.Black;
-
             }
         }
     }

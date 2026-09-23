@@ -17,7 +17,6 @@ namespace Vista.Clientes
             ConfigurarTablasClientes();
 
         }
-
         //VARIABLES
         private int idClienteSeleccionado = 0;
         private int tipoClienteSeleccionado = 0;
@@ -60,16 +59,12 @@ namespace Vista.Clientes
         {
             int registrosSaltar = (paginaActual - 1) * registrosPorPagina;
 
-            dgvClientesCorporativos.DataSource =
-                DbCliente.CargarCorporativos(
-                    registrosSaltar,
-                    registrosPorPagina);
+            dgvClientesCorporativos.DataSource = DbCliente.CargarCorporativos(registrosSaltar, registrosPorPagina);
             FormatearTablaCorporativos();
 
             totalRegistros = DbCliente.ObtenerTotalCorporativos();
 
-            totalPaginas = (int)Math.Ceiling(
-                (double)totalRegistros / registrosPorPagina);
+            totalPaginas = (int)Math.Ceiling((double)totalRegistros / registrosPorPagina);
 
             if (totalPaginas == 0)
             {
@@ -82,35 +77,23 @@ namespace Vista.Clientes
                 paginaActual = totalPaginas;
             }
 
-            lblPaginaC.Text =
-                $"Página {paginaActual} de {totalPaginas}";
+            lblPaginaC.Text = $"Página {paginaActual} de {totalPaginas}";
 
-            btnAtrasC.Enabled =
-                paginaActual > 1;
+            btnAtrasC.Enabled = paginaActual > 1;
 
-            btnSiguienteC.Enabled =
-                paginaActual < totalPaginas;
-
+            btnSiguienteC.Enabled = paginaActual < totalPaginas;
             ActualizarEstadisticas();
             FormatearTablaCorporativos();
         }
         private void MostrarClientes2()
         {
-            int registrosSaltar =
-        (paginaActualIndividual - 1) * registrosPorPagina;
+            int registrosSaltar = (paginaActualIndividual - 1) * registrosPorPagina;
 
-            dgvClientesIndividuales.DataSource =
-                DbCliente.CargarIndividuales(
-                    registrosSaltar,
-                    registrosPorPagina);
+            dgvClientesIndividuales.DataSource = DbCliente.CargarIndividuales(registrosSaltar, registrosPorPagina);
 
-            totalRegistrosIndividual =
-                DbCliente.ObtenerTotalIndividuales();
+            totalRegistrosIndividual = DbCliente.ObtenerTotalIndividuales();
 
-            totalPaginasIndividual =
-                (int)Math.Ceiling(
-                    (double)totalRegistrosIndividual /
-                    registrosPorPagina);
+            totalPaginasIndividual = (int)Math.Ceiling((double)totalRegistrosIndividual / registrosPorPagina);
 
             if (totalPaginasIndividual == 0)
             {
@@ -123,20 +106,16 @@ namespace Vista.Clientes
                 paginaActualIndividual = totalPaginasIndividual;
             }
 
-            lblPagina.Text =
-                $"Página {paginaActualIndividual} de {totalPaginasIndividual}";
+            lblPagina.Text = $"Página {paginaActualIndividual} de {totalPaginasIndividual}";
 
-            btnAnterior.Enabled =
-                paginaActualIndividual > 1;
+            btnAnterior.Enabled = paginaActualIndividual > 1;
 
-            btnSiguiente.Enabled =
-                paginaActualIndividual < totalPaginasIndividual;
+            btnSiguiente.Enabled = paginaActualIndividual < totalPaginasIndividual;
 
             ActualizarEstadisticas();
             FormatearTablaIndividuales();
 
         }
-
         //----------------------------------------------------------------------
         // CONFIGURAR TABLAS DE CLIENTES
 
@@ -148,11 +127,8 @@ namespace Vista.Clientes
             // TABLA DE CLIENTES INDIVIDUALES
             ConfigurarEstiloTabla(dgvClientesIndividuales);
         }
-
-
         //----------------------------------------------------------------------
         // CONFIGURAR ESTILO GENERAL DE LAS TABLAS
-
         private void ConfigurarEstiloTabla(DataGridView tabla)
         {
             // Configuración general
@@ -167,26 +143,17 @@ namespace Vista.Clientes
 
             tabla.MultiSelect = false;
 
-            tabla.SelectionMode =
-                DataGridViewSelectionMode.FullRowSelect;
+            tabla.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
             tabla.RowHeadersVisible = false;
 
-            tabla.BorderStyle =
-                BorderStyle.None;
+            tabla.BorderStyle = BorderStyle.None;
 
-            tabla.BackgroundColor =
-                Color.White;
+            tabla.BackgroundColor = Color.White;
 
-            tabla.CellBorderStyle =
-                DataGridViewCellBorderStyle.SingleHorizontal;
+            tabla.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
 
-            tabla.GridColor =
-                Color.FromArgb(
-                    225,
-                    225,
-                    225
-                );
+            tabla.GridColor = Color.FromArgb(225, 225, 225);
 
             tabla.EnableHeadersVisualStyles = false;
 
@@ -197,305 +164,122 @@ namespace Vista.Clientes
             tabla.RowTemplate.Height = 34;
 
             // Ajustar columnas al espacio disponible
-            tabla.AutoSizeColumnsMode =
-                DataGridViewAutoSizeColumnsMode.Fill;
-
-
+            tabla.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             //---------------------------------------------------------------------- 
             // ENCABEZADO
+            tabla.ColumnHeadersDefaultCellStyle = new DataGridViewCellStyle
+            {
+                BackColor = Color.FromArgb(121, 78, 48),
+                ForeColor = Color.White,
+                Font = new Font("Segoe UI", 10, FontStyle.Bold),
+                Alignment = DataGridViewContentAlignment.MiddleCenter,
+                SelectionBackColor = Color.FromArgb(121, 78, 48),
+                SelectionForeColor = Color.White,
+                Padding = new Padding(5)
+            };
 
-            tabla.ColumnHeadersDefaultCellStyle =
-                new DataGridViewCellStyle
-                {
-                    BackColor =
-                        Color.FromArgb(
-                            121,
-                            78,
-                            48
-                        ),
-
-                    ForeColor =
-                        Color.White,
-
-                    Font =
-                        new Font(
-                            "Segoe UI",
-                            10,
-                            FontStyle.Bold
-                        ),
-
-                    Alignment =
-                        DataGridViewContentAlignment.MiddleCenter,
-
-                    SelectionBackColor =
-                        Color.FromArgb(
-                            121,
-                            78,
-                            48
-                        ),
-
-                    SelectionForeColor =
-                        Color.White,
-
-                    Padding =
-                        new Padding(
-                            5
-                        )
-                };
-
-
-            //---------------------------------------------------------------------- 
             // FILAS
+            tabla.DefaultCellStyle = new DataGridViewCellStyle
+            {
+                BackColor = Color.White,
+                ForeColor = Color.FromArgb(55, 55, 55),
+                Font = new Font("Segoe UI", 10),
+                Alignment = DataGridViewContentAlignment.MiddleCenter,
+                SelectionBackColor = Color.FromArgb(238, 215, 185),
+                SelectionForeColor = Color.FromArgb(60, 45, 35),
+                Padding = new Padding(5)
+            };
 
-            tabla.DefaultCellStyle =
-                new DataGridViewCellStyle
-                {
-                    BackColor =
-                        Color.White,
-
-                    ForeColor =
-                        Color.FromArgb(
-                            55,
-                            55,
-                            55
-                        ),
-
-                    Font =
-                        new Font(
-                            "Segoe UI",
-                            10
-                        ),
-
-                    Alignment =
-                        DataGridViewContentAlignment.MiddleCenter,
-
-                    SelectionBackColor =
-                        Color.FromArgb(
-                            238,
-                            215,
-                            185
-                        ),
-
-                    SelectionForeColor =
-                        Color.FromArgb(
-                            60,
-                            45,
-                            35
-                        ),
-
-                    Padding =
-                        new Padding(
-                            5
-                        )
-                };
-
-
-            //---------------------------------------------------------------------- 
             // FILAS ALTERNADAS
+            tabla.AlternatingRowsDefaultCellStyle = new DataGridViewCellStyle
+            {
+                BackColor = Color.FromArgb(250, 246, 240),
+                ForeColor = Color.FromArgb(55, 55, 55),
+                Font = new Font("Segoe UI", 10),
+                SelectionBackColor = Color.FromArgb(238, 215, 185),
+                SelectionForeColor = Color.FromArgb(60, 45, 35)
+            };
 
-            tabla.AlternatingRowsDefaultCellStyle =
-                new DataGridViewCellStyle
-                {
-                    BackColor =
-                        Color.FromArgb(
-                            250,
-                            246,
-                            240
-                        ),
-
-                    ForeColor =
-                        Color.FromArgb(
-                            55,
-                            55,
-                            55
-                        ),
-
-                    Font =
-                        new Font(
-                            "Segoe UI",
-                            10
-                        ),
-
-                    SelectionBackColor =
-                        Color.FromArgb(
-                            238,
-                            215,
-                            185
-                        ),
-
-                    SelectionForeColor =
-                        Color.FromArgb(
-                            60,
-                            45,
-                            35
-                        )
-                };
-
-
-            //---------------------------------------------------------------------- 
             // FILA SELECCIONADA
-
-            tabla.RowsDefaultCellStyle.SelectionBackColor =
-                Color.FromArgb(
-                    238,
-                    215,
-                    185
-                );
-
-            tabla.RowsDefaultCellStyle.SelectionForeColor =
-                Color.FromArgb(
-                    60,
-                    45,
-                    35
-                );
+            tabla.RowsDefaultCellStyle.SelectionBackColor = Color.FromArgb(238, 215, 185);
+            tabla.RowsDefaultCellStyle.SelectionForeColor = Color.FromArgb(60, 45, 35);
         }
         //----------------------------------------------------------------------
         // FORMATEAR TABLA DE CLIENTES INDIVIDUALES
-
         private void FormatearTablaIndividuales()
         {
             if (dgvClientesIndividuales.Columns.Count == 0)
                 return;
-
-
             // ID
 
             if (dgvClientesIndividuales.Columns.Contains("IdCliente"))
             {
                 dgvClientesIndividuales.Columns["IdCliente"].Visible = false;
             }
-
-
             // NOMBRE
 
             if (dgvClientesIndividuales.Columns.Contains("Nombre"))
             {
-                dgvClientesIndividuales.Columns["Nombre"]
-                    .HeaderText = "Nombre";
+                dgvClientesIndividuales.Columns["Nombre"].HeaderText = "Nombre";
             }
-
-
             // APELLIDOS
-
             if (dgvClientesIndividuales.Columns.Contains("Apellidos"))
             {
-                dgvClientesIndividuales.Columns["Apellidos"]
-                    .HeaderText = "Apellidos";
+                dgvClientesIndividuales.Columns["Apellidos"].HeaderText = "Apellidos";
             }
-
-
             // DUI
-
             if (dgvClientesIndividuales.Columns.Contains("DUI"))
             {
-                dgvClientesIndividuales.Columns["DUI"]
-                    .HeaderText = "DUI";
+                dgvClientesIndividuales.Columns["DUI"].HeaderText = "DUI";
             }
-
-
             // TELÉFONO
-
             if (dgvClientesIndividuales.Columns.Contains("Telefono"))
             {
-                dgvClientesIndividuales.Columns["Telefono"]
-                    .HeaderText = "Teléfono";
+                dgvClientesIndividuales.Columns["Telefono"].HeaderText = "Teléfono";
             }
-
-
             // CORREO
-
             if (dgvClientesIndividuales.Columns.Contains("Correo"))
             {
-                dgvClientesIndividuales.Columns["Correo"]
-                    .HeaderText = "Correo";
+                dgvClientesIndividuales.Columns["Correo"].HeaderText = "Correo";
             }
-
-
             // DIRECCIÓN
 
             if (dgvClientesIndividuales.Columns.Contains("Direccion"))
             {
-                dgvClientesIndividuales.Columns["Direccion"]
-                    .HeaderText = "Dirección";
+                dgvClientesIndividuales.Columns["Direccion"].HeaderText = "Dirección";
             }
-
-
             // ESTADO
 
             if (dgvClientesIndividuales.Columns.Contains("Estado"))
             {
-                dgvClientesIndividuales.Columns["Estado"]
-                    .HeaderText = "Estado";
+                dgvClientesIndividuales.Columns["Estado"].HeaderText = "Estado";
             }
-
-
             //---------------------------------------------------------------------- 
             // ALINEACIÓN
-
             if (dgvClientesIndividuales.Columns.Contains("Nombre"))
-            {
-                dgvClientesIndividuales.Columns["Nombre"]
-                    .DefaultCellStyle.Alignment =
-                    DataGridViewContentAlignment.MiddleLeft;
-            }
-
+                dgvClientesIndividuales.Columns["Nombre"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
 
             if (dgvClientesIndividuales.Columns.Contains("Apellidos"))
-            {
-                dgvClientesIndividuales.Columns["Apellidos"]
-                    .DefaultCellStyle.Alignment =
-                    DataGridViewContentAlignment.MiddleLeft;
-            }
-
+                dgvClientesIndividuales.Columns["Apellidos"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
 
             if (dgvClientesIndividuales.Columns.Contains("Correo"))
-            {
-                dgvClientesIndividuales.Columns["Correo"]
-                    .DefaultCellStyle.Alignment =
-                    DataGridViewContentAlignment.MiddleLeft;
-            }
-
+                dgvClientesIndividuales.Columns["Correo"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
 
             if (dgvClientesIndividuales.Columns.Contains("Direccion"))
-            {
-                dgvClientesIndividuales.Columns["Direccion"]
-                    .DefaultCellStyle.Alignment =
-                    DataGridViewContentAlignment.MiddleLeft;
-            }
-
+                dgvClientesIndividuales.Columns["Direccion"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
 
             //---------------------------------------------------------------------- 
             // ESTADO
-
             if (dgvClientesIndividuales.Columns.Contains("Estado"))
-            {
-                dgvClientesIndividuales.Columns["Estado"]
-                    .DefaultCellStyle.Font =
-                    new Font(
-                        "Times New Roman",
-                        10,
-                        FontStyle.Bold
-                    );
-            }
-
+                dgvClientesIndividuales.Columns["Estado"].DefaultCellStyle.Font = new Font("Times New Roman", 10, FontStyle.Bold);
 
             // No permitir ordenar las columnas
-
-            foreach (
-                DataGridViewColumn columna
-                in dgvClientesIndividuales.Columns)
-            {
-                columna.SortMode =
-                    DataGridViewColumnSortMode.NotSortable;
-            }
-
+            foreach (DataGridViewColumn columna in dgvClientesIndividuales.Columns)
+                columna.SortMode = DataGridViewColumnSortMode.NotSortable;
 
             // Ajustar nuevamente las columnas
-
-            dgvClientesIndividuales.AutoSizeColumnsMode =
-                DataGridViewAutoSizeColumnsMode.Fill;
+            dgvClientesIndividuales.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
-
         //----------------------------------------------------------------------
         // FORMATEAR TABLA DE CLIENTES CORPORATIVOS
 
@@ -503,144 +287,67 @@ namespace Vista.Clientes
         {
             if (dgvClientesCorporativos.Columns.Count == 0)
                 return;
-
-
             // ID
-
             if (dgvClientesCorporativos.Columns.Contains("IdCliente"))
-            {
                 dgvClientesCorporativos.Columns["IdCliente"].Visible = false;
-            }
-
 
             // EMPRESA
-
             if (dgvClientesCorporativos.Columns.Contains("Nombre_De_Empresa"))
-            {
-                dgvClientesCorporativos.Columns["Nombre_De_Empresa"]
-                    .HeaderText = "Empresa";
-            }
-
+                dgvClientesCorporativos.Columns["Nombre_De_Empresa"].HeaderText = "Empresa";
 
             // ENCARGADO
-
             if (dgvClientesCorporativos.Columns.Contains("Nombre_Del_Encargado"))
-            {
-                dgvClientesCorporativos.Columns["Nombre_Del_Encargado"]
-                    .HeaderText = "Encargado";
-            }
-
+                dgvClientesCorporativos.Columns["Nombre_Del_Encargado"].HeaderText = "Encargado";
 
             // NIT
-
             if (dgvClientesCorporativos.Columns.Contains("NIT"))
-            {
-                dgvClientesCorporativos.Columns["NIT"]
-                    .HeaderText = "NIT";
-            }
-
+                dgvClientesCorporativos.Columns["NIT"].HeaderText = "NIT";
 
             // TELÉFONO
-
             if (dgvClientesCorporativos.Columns.Contains("Telefono"))
-            {
-                dgvClientesCorporativos.Columns["Telefono"]
-                    .HeaderText = "Teléfono";
-            }
-
+                dgvClientesCorporativos.Columns["Telefono"].HeaderText = "Teléfono";
 
             // CORREO
-
             if (dgvClientesCorporativos.Columns.Contains("Correo"))
-            {
-                dgvClientesCorporativos.Columns["Correo"]
-                    .HeaderText = "Correo";
-            }
-
+                dgvClientesCorporativos.Columns["Correo"].HeaderText = "Correo";
 
             // DIRECCIÓN
-
             if (dgvClientesCorporativos.Columns.Contains("Direccion"))
-            {
-                dgvClientesCorporativos.Columns["Direccion"]
-                    .HeaderText = "Dirección";
-            }
-
+                dgvClientesCorporativos.Columns["Direccion"].HeaderText = "Dirección";
 
             // ESTADO
-
             if (dgvClientesCorporativos.Columns.Contains("Estado"))
-            {
-                dgvClientesCorporativos.Columns["Estado"]
-                    .HeaderText = "Estado";
-            }
-
+                dgvClientesCorporativos.Columns["Estado"].HeaderText = "Estado";
 
             //---------------------------------------------------------------------- 
             // ALINEACIÓN
-
             if (dgvClientesCorporativos.Columns.Contains("Nombre_De_Empresa"))
-            {
-                dgvClientesCorporativos.Columns["Nombre_De_Empresa"]
-                    .DefaultCellStyle.Alignment =
-                    DataGridViewContentAlignment.MiddleLeft;
-            }
-
+                dgvClientesCorporativos.Columns["Nombre_De_Empresa"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
 
             if (dgvClientesCorporativos.Columns.Contains("Nombre_Del_Encargado"))
-            {
-                dgvClientesCorporativos.Columns["Nombre_Del_Encargado"]
-                    .DefaultCellStyle.Alignment =
-                    DataGridViewContentAlignment.MiddleLeft;
-            }
-
+                dgvClientesCorporativos.Columns["Nombre_Del_Encargado"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
 
             if (dgvClientesCorporativos.Columns.Contains("Correo"))
-            {
-                dgvClientesCorporativos.Columns["Correo"]
-                    .DefaultCellStyle.Alignment =
-                    DataGridViewContentAlignment.MiddleLeft;
-            }
-
+                dgvClientesCorporativos.Columns["Correo"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
 
             if (dgvClientesCorporativos.Columns.Contains("Direccion"))
-            {
-                dgvClientesCorporativos.Columns["Direccion"]
-                    .DefaultCellStyle.Alignment =
-                    DataGridViewContentAlignment.MiddleLeft;
-            }
-
+                dgvClientesCorporativos.Columns["Direccion"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
 
             //---------------------------------------------------------------------- 
             // ESTADO
 
             if (dgvClientesCorporativos.Columns.Contains("Estado"))
             {
-                dgvClientesCorporativos.Columns["Estado"]
-                    .DefaultCellStyle.Font =
-                    new Font(
-                        "Times New Roman",
-                        10,
-                        FontStyle.Bold
-                    );
+                dgvClientesCorporativos.Columns["Estado"].DefaultCellStyle.Font = new Font("Times New Roman", 10, FontStyle.Bold);
             }
-
-
             // No permitir ordenar las columnas
 
-            foreach (
-                DataGridViewColumn columna
-                in dgvClientesCorporativos.Columns)
+            foreach (DataGridViewColumn columna in dgvClientesCorporativos.Columns)
             {
-                columna.SortMode =
-                    DataGridViewColumnSortMode.NotSortable;
+                columna.SortMode = DataGridViewColumnSortMode.NotSortable;
             }
-
-
             // Ajustar nuevamente las columnas
-
-            dgvClientesCorporativos.AutoSizeColumnsMode =
-                DataGridViewAutoSizeColumnsMode.Fill;
+            dgvClientesCorporativos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
 
@@ -680,7 +387,6 @@ namespace Vista.Clientes
                 }
             }
         }
-
         private void btnAnterior_Click(object sender, EventArgs e)
         {
             if (paginaActualIndividual > 1)
@@ -727,19 +433,12 @@ namespace Vista.Clientes
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Ocurrió un error al actualizar las estadísticas.\n" + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Ocurrió un error al actualizar las estadísticas.\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         //----------------------------------------------------------------------------
         //METODOS DE BLOQUEAR Y HABILITAR CAMPOS
-
-
         private void BloquearCampos()
         {
             // CLIENTE CORPORATIVO
@@ -763,7 +462,6 @@ namespace Vista.Clientes
             // TIPO DE CLIENTE
             cbTipoCliente.Enabled = false;
         }
-
         private void HabilitarCampos()
         {
             // CLIENTE CORPORATIVO
@@ -788,7 +486,6 @@ namespace Vista.Clientes
             cbTipoCliente.Enabled = false;
 
         }
-
         //-------------------------------------------------VALIDACIONES-----------------------------------------------------------------------//
 
         private bool ValidarCampos()
@@ -1075,50 +772,21 @@ namespace Vista.Clientes
             toolTip1.ReshowDelay = 200;
             toolTip1.ShowAlways = true;
 
-            toolTip1.SetToolTip(txtBuscarCorporativo,
-                "Buscar un cliente por nombre, documento o teléfono.");
-
-            toolTip1.SetToolTip(txtBuscarIndividual,
-                "Buscar un cliente por nombre, documento o teléfono.");
-
-            toolTip1.SetToolTip(cbTipoCliente,
-                "Seleccione el tipo de cliente que desea registrar.");
-
-            toolTip1.SetToolTip(txtNombres,
-                "Ingrese el nombre del cliente.");
-
-            toolTip1.SetToolTip(txtApellidos,
-                "Ingrese los apellidos del cliente.");
-
-            toolTip1.SetToolTip(txtDUI,
-                "Ingrese el DUI del cliente en formato 00000000-0.");
-
-            toolTip1.SetToolTip(txtTelefono,
-                "Ingrese el número de teléfono del cliente.");
-
-            toolTip1.SetToolTip(txtCorreo,
-                "Ingrese el correo electrónico del cliente.");
-
-            toolTip1.SetToolTip(txtDireccion,
-                "Ingrese la dirección del cliente.");
-
-            toolTip1.SetToolTip(cbEstadoCliente,
-                "Seleccione el estado actual del cliente.");
-
-            toolTip1.SetToolTip(btnNuevoCliente,
-                "Limpia los campos para registrar un nuevo cliente.");
-
-            toolTip1.SetToolTip(btnEditar,
-                "Edita los datos del cliente seleccionado.");
-
-            toolTip1.SetToolTip(btnGuardarCorporativo,
-                "Guarda los datos del cliente corporativo.");
-
-            toolTip1.SetToolTip(btnGuardarIndividual,
-                "Guarda los datos del cliente individual.");
-
-            toolTip1.SetToolTip(btnGuardarCambios,
-                "Guarda los cambios realizados al cliente seleccionado.");
+            toolTip1.SetToolTip(txtBuscarCorporativo, "Buscar un cliente por nombre, documento o teléfono.");
+            toolTip1.SetToolTip(txtBuscarIndividual, "Buscar un cliente por nombre, documento o teléfono.");
+            toolTip1.SetToolTip(cbTipoCliente, "Seleccione el tipo de cliente que desea registrar.");
+            toolTip1.SetToolTip(txtNombres, "Ingrese el nombre del cliente.");
+            toolTip1.SetToolTip(txtApellidos, "Ingrese los apellidos del cliente.");
+            toolTip1.SetToolTip(txtDUI, "Ingrese el DUI del cliente en formato 00000000-0.");
+            toolTip1.SetToolTip(txtTelefono, "Ingrese el número de teléfono del cliente.");
+            toolTip1.SetToolTip(txtCorreo, "Ingrese el correo electrónico del cliente.");
+            toolTip1.SetToolTip(txtDireccion, "Ingrese la dirección del cliente.");
+            toolTip1.SetToolTip(cbEstadoCliente, "Seleccione el estado actual del cliente.");
+            toolTip1.SetToolTip(btnNuevoCliente, "Limpia los campos para registrar un nuevo cliente.");
+            toolTip1.SetToolTip(btnEditar, "Edita los datos del cliente seleccionado.");
+            toolTip1.SetToolTip(btnGuardarCorporativo, "Guarda los datos del cliente corporativo.");
+            toolTip1.SetToolTip(btnGuardarIndividual, "Guarda los datos del cliente individual.");
+            toolTip1.SetToolTip(btnGuardarCambios, "Guarda los cambios realizados al cliente seleccionado.");
         }
 
         //------------------------------------------------------------------------
@@ -1380,8 +1048,6 @@ namespace Vista.Clientes
             }
         }
 
-
-
         //----------------------------------------------------------------------
         // SELECCIONAR CLIENTE CORPORATIVO
 
@@ -1390,40 +1056,30 @@ namespace Vista.Clientes
             try
             {
                 // Revisar que se haya seleccionado una fila válida
-                if (e.RowIndex < 0 ||
-                    dgvClientesCorporativos.Rows[e.RowIndex].IsNewRow)
+                if (e.RowIndex < 0 || dgvClientesCorporativos.Rows[e.RowIndex].IsNewRow)
                     return;
 
-                DataGridViewRow fila =
-                    dgvClientesCorporativos.Rows[e.RowIndex];
+                DataGridViewRow fila = dgvClientesCorporativos.Rows[e.RowIndex];
 
                 // Obtener el ID del cliente
-                idClienteSeleccionado =
-                    Convert.ToInt32(fila.Cells["IdCliente"].Value);
+                idClienteSeleccionado = Convert.ToInt32(fila.Cells["IdCliente"].Value);
 
                 tipoClienteSeleccionado = 1;
 
                 // Guardar los datos originales
-                identificador1Original =
-                    fila.Cells["Nombre_De_Empresa"].Value?.ToString() ?? "";
+                identificador1Original = fila.Cells["Nombre_De_Empresa"].Value?.ToString() ?? "";
 
-                identificador2Original =
-                    fila.Cells["Nombre_Del_Encargado"].Value?.ToString() ?? "";
+                identificador2Original = fila.Cells["Nombre_Del_Encargado"].Value?.ToString() ?? "";
 
-                documentoOriginal =
-                    fila.Cells["NIT"].Value?.ToString() ?? "";
+                documentoOriginal = fila.Cells["NIT"].Value?.ToString() ?? "";
 
-                telefonoOriginal =
-                    fila.Cells["Telefono"].Value?.ToString() ?? "";
+                telefonoOriginal = fila.Cells["Telefono"].Value?.ToString() ?? "";
 
-                correoOriginal =
-                    fila.Cells["Correo"].Value?.ToString() ?? "";
+                correoOriginal = fila.Cells["Correo"].Value?.ToString() ?? "";
 
-                direccionOriginal =
-                    fila.Cells["Direccion"].Value?.ToString() ?? "";
+                direccionOriginal = fila.Cells["Direccion"].Value?.ToString() ?? "";
 
-                estadoOriginal =
-                    fila.Cells["Estado"].Value?.ToString() ?? "";
+                estadoOriginal = fila.Cells["Estado"].Value?.ToString() ?? "";
 
                 // Mostrar los datos en el formulario
                 txtNombreEmpresa.Text = identificador1Original;
@@ -1456,12 +1112,8 @@ namespace Vista.Clientes
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Ocurrió un error al seleccionar el cliente.\n" + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Ocurrió un error al seleccionar el cliente.\n" + ex.Message, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -1475,36 +1127,27 @@ namespace Vista.Clientes
                     dgvClientesIndividuales.Rows[e.RowIndex].IsNewRow)
                     return;
 
-                DataGridViewRow fila =
-                    dgvClientesIndividuales.Rows[e.RowIndex];
+                DataGridViewRow fila = dgvClientesIndividuales.Rows[e.RowIndex];
 
                 // Obtener el ID del cliente
-                idClienteSeleccionado =
-                    Convert.ToInt32(fila.Cells["IdCliente"].Value);
+                idClienteSeleccionado = Convert.ToInt32(fila.Cells["IdCliente"].Value);
 
                 tipoClienteSeleccionado = 2;
 
                 // Guardar los datos originales
-                identificador1Original =
-                    fila.Cells[1].Value?.ToString() ?? "";
+                identificador1Original = fila.Cells[1].Value?.ToString() ?? "";
 
-                identificador2Original =
-                    fila.Cells[2].Value?.ToString() ?? "";
+                identificador2Original = fila.Cells[2].Value?.ToString() ?? "";
 
-                documentoOriginal =
-                    fila.Cells[3].Value?.ToString() ?? "";
+                documentoOriginal = fila.Cells[3].Value?.ToString() ?? "";
 
-                telefonoOriginal =
-                    fila.Cells[4].Value?.ToString() ?? "";
+                telefonoOriginal = fila.Cells[4].Value?.ToString() ?? "";
 
-                correoOriginal =
-                    fila.Cells[5].Value?.ToString() ?? "";
+                correoOriginal = fila.Cells[5].Value?.ToString() ?? "";
 
-                direccionOriginal =
-                    fila.Cells[6].Value?.ToString() ?? "";
+                direccionOriginal = fila.Cells[6].Value?.ToString() ?? "";
 
-                estadoOriginal =
-                    fila.Cells[7].Value?.ToString() ?? "";
+                estadoOriginal = fila.Cells[7].Value?.ToString() ?? "";
 
                 // Mostrar los datos en el formulario
                 txtNombres.Text = identificador1Original;
@@ -1536,12 +1179,8 @@ namespace Vista.Clientes
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Ocurrió un error al seleccionar el cliente.\n" + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Ocurrió un error al seleccionar el cliente.\n" + ex.Message, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         //-------------------------------------------------------------------------------
@@ -1590,12 +1229,8 @@ namespace Vista.Clientes
             // Revisar si realmente se modificó algún dato
             if (!HayCambios())
             {
-                MessageBox.Show(
-                    "No se han realizado cambios en los datos del cliente.",
-                    "Sin cambios",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information
-                );
+                MessageBox.Show("No se han realizado cambios en los datos del cliente.", "Sin cambios",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
@@ -1615,9 +1250,7 @@ namespace Vista.Clientes
                 if (txtDUI.Text.Length != 10 ||
                     txtDUI.Text[8] != '-')
                 {
-                    MessageBox.Show(
-                        "El DUI debe tener el formato 12345678-9."
-                    );
+                    MessageBox.Show("El DUI debe tener el formato 12345678-9.");
                     txtDUI.Focus();
                     return;
                 }
@@ -1628,9 +1261,7 @@ namespace Vista.Clientes
             {
                 if (txtNIT.Text.Length != 14)
                 {
-                    MessageBox.Show(
-                        "El NIT debe tener 14 números."
-                    );
+                    MessageBox.Show("El NIT debe tener 14 números.");
                     txtNIT.Focus();
                     return;
                 }
@@ -1640,9 +1271,7 @@ namespace Vista.Clientes
             if (txtTelefono.Text.Length != 9 ||
                 txtTelefono.Text[4] != '-')
             {
-                MessageBox.Show(
-                    "El teléfono debe tener el formato 1234-5678."
-                );
+                MessageBox.Show("El teléfono debe tener el formato 1234-5678.");
                 txtTelefono.Focus();
                 return;
             }
@@ -1659,51 +1288,38 @@ namespace Vista.Clientes
 
                 if (tipoClienteSeleccionado == 2)
                 {
-                    cliente.Identificador11 =
-                        txtNombres.Text.Trim();
+                    cliente.Identificador11 = txtNombres.Text.Trim();
 
-                    cliente.Identificador21 =
-                        txtApellidos.Text.Trim();
+                    cliente.Identificador21 = txtApellidos.Text.Trim();
 
-                    cliente.Documento1 =
-                        txtDUI.Text.Trim();
+                    cliente.Documento1 = txtDUI.Text.Trim();
                 }
 
                 // EMPRESA
 
                 else if (tipoClienteSeleccionado == 1)
                 {
-                    cliente.Identificador11 =
-                        txtNombreEmpresa.Text.Trim();
+                    cliente.Identificador11 = txtNombreEmpresa.Text.Trim();
 
-                    cliente.Identificador21 =
-                        txtNombreEncargado.Text.Trim();
+                    cliente.Identificador21 = txtNombreEncargado.Text.Trim();
 
-                    cliente.Documento1 =
-                        txtNIT.Text.Trim();
+                    cliente.Documento1 = txtNIT.Text.Trim();
                 }
 
                 // Datos que comparten ambos tipos
-                cliente.Telefono1 =
-                    txtTelefono.Text.Trim();
+                cliente.Telefono1 = txtTelefono.Text.Trim();
 
-                cliente.Correo1 =
-                    txtCorreo.Text.Trim();
+                cliente.Correo1 = txtCorreo.Text.Trim();
 
-                cliente.Direccion1 =
-                    txtDireccion.Text.Trim();
+                cliente.Direccion1 = txtDireccion.Text.Trim();
 
-                cliente.Estado1 =
-                    cbEstadoCliente.Text.Trim();
+                cliente.Estado1 = cbEstadoCliente.Text.Trim();
 
                 // Actualizar los datos
                 if (cliente.ActualizarCliente())
                 {
-                    MessageBox.Show(
-                        "Cliente actualizado correctamente.",
-                        "Actualización exitosa",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information
+                    MessageBox.Show("Cliente actualizado correctamente.", "Actualización exitosa",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information
                     );
 
                     // Actualizar la tabla correspondiente
@@ -1722,12 +1338,8 @@ namespace Vista.Clientes
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Ocurrió un error al actualizar el cliente.\n" + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Ocurrió un error al actualizar el cliente.\n" + ex.Message, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         //------------------------------------------------------------------------
@@ -1838,16 +1450,11 @@ namespace Vista.Clientes
                     return;
                 }
 
-                dtCorporativosBusqueda =
-                    DbCliente.BuscarClienteCorporativo(buscar);
+                dtCorporativosBusqueda = DbCliente.BuscarClienteCorporativo(buscar);
 
-                int totalResultados =
-                    dtCorporativosBusqueda.Rows.Count;
+                int totalResultados = dtCorporativosBusqueda.Rows.Count;
 
-                totalPaginas =
-                    (int)Math.Ceiling(
-                        (double)totalResultados /
-                        registrosPorPagina);
+                totalPaginas = (int)Math.Ceiling((double)totalResultados / registrosPorPagina);
 
                 if (totalPaginas == 0)
                 {
@@ -1868,35 +1475,26 @@ namespace Vista.Clientes
             if (dtCorporativosBusqueda == null)
                 return;
 
-            DataTable dtPagina =
-                dtCorporativosBusqueda.Clone();
+            DataTable dtPagina = dtCorporativosBusqueda.Clone();
 
-            int inicio =
-                (paginaActual - 1) * registrosPorPagina;
+            int inicio = (paginaActual - 1) * registrosPorPagina;
 
-            int fin =
-                Math.Min(
-                    inicio + registrosPorPagina,
-                    dtCorporativosBusqueda.Rows.Count);
+            int fin = Math.Min(inicio + registrosPorPagina, dtCorporativosBusqueda.Rows.Count);
 
             for (int i = inicio; i < fin; i++)
             {
-                dtPagina.ImportRow(
-                    dtCorporativosBusqueda.Rows[i]);
+                dtPagina.ImportRow(dtCorporativosBusqueda.Rows[i]);
             }
 
             dgvClientesCorporativos.DataSource = null;
             dgvClientesCorporativos.DataSource = dtPagina;
             FormatearTablaCorporativos();
 
-            lblPagina.Text =
-                $"Página {paginaActual} de {totalPaginas}";
+            lblPagina.Text = $"Página {paginaActual} de {totalPaginas}";
 
-            btnAtrasC.Enabled =
-                paginaActual > 1;
+            btnAtrasC.Enabled = paginaActual > 1;
 
-            btnSiguienteC.Enabled =
-                paginaActual < totalPaginas;
+            btnSiguienteC.Enabled = paginaActual < totalPaginas;
         }
 
         private void txtBuscarCorporativo_Leave(object sender, EventArgs e)
@@ -1913,7 +1511,6 @@ namespace Vista.Clientes
             {
                 txtBuscarCorporativo.Text = "";
                 txtBuscarCorporativo.ForeColor = Color.Black;
-
             }
         }
 
@@ -1924,8 +1521,7 @@ namespace Vista.Clientes
                 if (txtBuscarIndividual.Text == "Buscar Cliente...")
                     return;
 
-                string buscar =
-                    txtBuscarIndividual.Text.Trim();
+                string buscar = txtBuscarIndividual.Text.Trim();
 
                 if (string.IsNullOrWhiteSpace(buscar))
                 {
@@ -1938,16 +1534,11 @@ namespace Vista.Clientes
                     return;
                 }
 
-                dtIndividualesBusqueda =
-                    DbCliente.BuscarClienteIndividual(buscar);
+                dtIndividualesBusqueda = DbCliente.BuscarClienteIndividual(buscar);
 
-                int totalResultados =
-                    dtIndividualesBusqueda.Rows.Count;
+                int totalResultados = dtIndividualesBusqueda.Rows.Count;
 
-                totalPaginasIndividual =
-                    (int)Math.Ceiling(
-                        (double)totalResultados /
-                        registrosPorPagina);
+                totalPaginasIndividual = (int)Math.Ceiling((double)totalResultados / registrosPorPagina);
 
                 if (totalPaginasIndividual == 0)
                 {
@@ -1971,22 +1562,15 @@ namespace Vista.Clientes
             if (dtIndividualesBusqueda == null)
                 return;
 
-            DataTable dtPagina =
-                dtIndividualesBusqueda.Clone();
+            DataTable dtPagina = dtIndividualesBusqueda.Clone();
 
-            int inicio =
-                (paginaActualIndividual - 1) *
-                registrosPorPagina;
+            int inicio = (paginaActualIndividual - 1) * registrosPorPagina;
 
-            int fin =
-                Math.Min(
-                    inicio + registrosPorPagina,
-                    dtIndividualesBusqueda.Rows.Count);
+            int fin = Math.Min(inicio + registrosPorPagina, dtIndividualesBusqueda.Rows.Count);
 
             for (int i = inicio; i < fin; i++)
             {
-                dtPagina.ImportRow(
-                    dtIndividualesBusqueda.Rows[i]);
+                dtPagina.ImportRow(dtIndividualesBusqueda.Rows[i]);
             }
 
             dgvClientesIndividuales.DataSource = null;
@@ -1994,14 +1578,11 @@ namespace Vista.Clientes
             FormatearTablaCorporativos();
 
 
-            lblPagina.Text =
-                $"Página {paginaActualIndividual} de {totalPaginasIndividual}";
+            lblPagina.Text = $"Página {paginaActualIndividual} de {totalPaginasIndividual}";
 
-            btnAnterior.Enabled =
-                paginaActualIndividual > 1;
+            btnAnterior.Enabled = paginaActualIndividual > 1;
 
-            btnSiguiente.Enabled =
-                paginaActualIndividual < totalPaginasIndividual;
+            btnSiguiente.Enabled = paginaActualIndividual < totalPaginasIndividual;
 
 
         }
