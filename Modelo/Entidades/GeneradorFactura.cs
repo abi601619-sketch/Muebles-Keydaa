@@ -16,46 +16,104 @@ namespace Modelo.Entidades
         {
             try
             {
-                //OBTENER LOS DATOS GENERALES DE LA FACTURA
-                //Manda los datos generales de la factura segun el ID de la factura
+                // =====================================================
+                // VALIDAR LA RUTA DEL ARCHIVO
+                // =====================================================
 
-                DataTable factura = ObtenerFactura(idFactura);
-                //Comprueba que la factura si exista
-                if (factura.Rows.Count == 0)
+                if (string.IsNullOrWhiteSpace(rutaArchivo))
                 {
-                    MessageBox.Show("No se encontró la factura.", "Factura", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(
+                        "La ruta del archivo PDF está vacía.",
+                        "Error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
 
                     return;
                 }
-                //Aqui pide la ultima fila, es decir el ID de la factura
+
+                // Obtiene la carpeta donde se guardará el PDF
+                string carpeta = Path.GetDirectoryName(rutaArchivo);
+
+                // Si la carpeta no existe, se crea
+                if (!Directory.Exists(carpeta))
+                {
+                    Directory.CreateDirectory(carpeta);
+                }
+
+
+                // =====================================================
+                // OBTENER LOS DATOS GENERALES DE LA FACTURA
+                // =====================================================
+
+                DataTable factura = ObtenerFactura(idFactura);
+
+                // Comprueba que la factura exista
+                if (factura.Rows.Count == 0)
+                {
+                    MessageBox.Show(
+                        "No se encontró la factura.",
+                        "Factura",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+
+                    return;
+                }
+
+                // Obtiene la primera fila
                 DataRow datos = factura.Rows[0];
 
-                //Aqui se obtiene el id de la venta para poder guardar los productos de esa venta
+
+                // =====================================================
+                // OBTENER EL ID DE LA VENTA
+                // =====================================================
+
                 int idVenta = Convert.ToInt32(datos["IdVenta"]);
 
-                //Aqui ya se obtienen los productos que se vendieron en esa venta
+
+                // =====================================================
+                // OBTENER DETALLE DE LA VENTA
+                // =====================================================
+
                 DataTable detalle = ObtenerDetalleVenta(idVenta);
 
-                //Configura la licencia del QuestPDF
+
+                // =====================================================
+                // CONFIGURAR QUESTPDF
+                // =====================================================
+
                 QuestPDF.Settings.License = LicenseType.Community;
 
-                //Crea el documento PDF
+
+                // =====================================================
+                // CREAR DOCUMENTO PDF
+                // =====================================================
+
                 Document.Create(documento =>
                 {
                     documento.Page(page =>
                     {
-                        //Establece el tamaño de la pagina, en este caso es Carta
+                        // =================================================
+                        // CONFIGURACIÓN DE LA PÁGINA
+                        // =================================================
+
+                        // Tamaño Carta
                         page.Size(PageSizes.Letter);
 
-                        //MARGEN
+                        // Margen
                         page.Margin(40);
 
-                        //Luego configuramos el encabezado de esta pagina, es  decir todo lo que este dentro de este bloque será el encabezado visible
-                        //en el documento PDF
+
+                        // =================================================
+                        // ENCABEZADO
+                        // =================================================
+
                         page.Header()
                             .Column(columna =>
                             {
+                                // -------------------------------------------------
                                 // LOGO DE LA EMPRESA
+                                // -------------------------------------------------
+
                                 string rutaLogo = ConfiguracionEmpresa.Logo;
 
                                 if (!string.IsNullOrWhiteSpace(rutaLogo) &&
@@ -73,16 +131,26 @@ namespace Modelo.Entidades
                                 else
                                 {
                                     columna.Item()
-                                    .Text(ConfiguracionEmpresa.Nombre)
-                                    .FontSize(20)
-                                    .Bold();
+                                        .Text(ConfiguracionEmpresa.Nombre)
+                                        .FontSize(20)
+                                        .Bold();
                                 }
+
+
+                                // -------------------------------------------------
+                                // NOMBRE DE LA EMPRESA
+                                // -------------------------------------------------
 
                                 columna.Item()
                                     .PaddingTop(5)
                                     .Text(ConfiguracionEmpresa.Nombre)
                                     .FontSize(12)
                                     .Bold();
+
+
+                                // -------------------------------------------------
+                                // TELÉFONO
+                                // -------------------------------------------------
 
                                 columna.Item()
                                     .Text(
@@ -91,12 +159,22 @@ namespace Modelo.Entidades
                                     )
                                     .FontSize(8);
 
+
+                                // -------------------------------------------------
+                                // CORREO
+                                // -------------------------------------------------
+
                                 columna.Item()
                                     .Text(
                                         "Correo: " +
                                         ConfiguracionEmpresa.Correo
                                     )
                                     .FontSize(8);
+
+
+                                // -------------------------------------------------
+                                // DIRECCIÓN
+                                // -------------------------------------------------
 
                                 columna.Item()
                                     .Text(
@@ -105,13 +183,22 @@ namespace Modelo.Entidades
                                     )
                                     .FontSize(8);
 
+
+                                // -------------------------------------------------
+                                // TÍTULO
+                                // -------------------------------------------------
+
                                 columna.Item()
                                     .PaddingTop(5)
                                     .Text("FACTURA")
                                     .FontSize(24)
                                     .Bold();
 
-                                //obtiene el numero de la factura y le da un tamaño adecuado
+
+                                // -------------------------------------------------
+                                // NÚMERO DE FACTURA
+                                // -------------------------------------------------
+
                                 columna.Item()
                                     .Text(
                                         "N.º " +
@@ -119,191 +206,447 @@ namespace Modelo.Entidades
                                     )
                                     .FontSize(12);
 
-                                //Linea horinzontal como decorativo visual
-                                columna.Item().LineHorizontal(1);
+
+                                // -------------------------------------------------
+                                // LÍNEA HORIZONTAL
+                                // -------------------------------------------------
+
+                                columna.Item()
+                                    .LineHorizontal(1);
                             });
 
-                        // LUEGO SE CONFIGURA EL CUERPO DE LA FACTURA, YA QUE YA SE TIENE EL ENCABEZADO
+
+                        // =================================================
+                        // CONTENIDO
+                        // =================================================
+
                         page.Content()
                             .Column(columna =>
                             {
-                                //Coloca un espacio entre los elementos
+                                // Espacio entre elementos
                                 columna.Spacing(10);
 
-                                // INFORMACIÓN DE LA FACTURA
 
-                                columna.Item().Text("Información de la factura").FontSize(14).Bold();
+                                // =================================================
+                                // INFORMACIÓN DE LA FACTURA
+                                // =================================================
 
                                 columna.Item()
+                                    .Text("Información de la factura")
+                                    .FontSize(14)
+                                    .Bold();
 
-                                //Row permite que los elementos se coloquen de forma horizontal
+
+                                columna.Item()
                                     .Row(fila =>
                                     {
-                                        //Divide el espacio de forma proporcional
+                                        // -------------------------------------------------
+                                        // PRIMERA COLUMNA
+                                        // -------------------------------------------------
+
                                         fila.RelativeItem()
                                             .Column(col =>
                                             {
-                                                col.Item().Text(
-                                                    "Fecha de emisión: " +
-                                                    Convert.ToDateTime(
-                                                        datos["FechaEmision"]
-                                                    ).ToString("dd/MM/yyyy")
-                                                );
+                                                // Fecha de emisión
 
-                                                col.Item().Text(
-                                                    "Fecha de vencimiento: " +
-                                                    Convert.ToDateTime(
-                                                        datos["FechaVencimiento"]
-                                                    ).ToString("dd/MM/yyyy")
-                                                );
+                                                col.Item()
+                                                    .Text(
+                                                        "Fecha de emisión: " +
+                                                        Convert.ToDateTime(
+                                                            datos["FechaEmision"]
+                                                        ).ToString("dd/MM/yyyy")
+                                                    );
+
+
+                                                // Fecha de vencimiento
+
+                                                if (datos["FechaVencimiento"] != DBNull.Value)
+                                                {
+                                                    col.Item()
+                                                        .Text(
+                                                            "Fecha de vencimiento: " +
+                                                            Convert.ToDateTime(
+                                                                datos["FechaVencimiento"]
+                                                            ).ToString("dd/MM/yyyy")
+                                                        );
+                                                }
                                             });
 
+
+                                        // -------------------------------------------------
+                                        // SEGUNDA COLUMNA
+                                        // -------------------------------------------------
+
                                         fila.RelativeItem()
-                                        //Obtiene el ID de la venta y lo muestra
                                             .Column(col =>
                                             {
-                                                col.Item().Text(
-                                                    "N.º de venta: " +
-                                                    datos["IdVenta"].ToString()
-                                                );
+                                                col.Item()
+                                                    .Text(
+                                                        "N.º de venta: " +
+                                                        datos["IdVenta"].ToString()
+                                                    );
                                             });
                                     });
-                                //Datos del clientes
-                                columna.Item().Text("Datos del cliente").FontSize(14).Bold();
+
+
+                                // =================================================
+                                // DATOS DEL CLIENTE
+                                // =================================================
+
+                                columna.Item()
+                                    .Text("Datos del cliente")
+                                    .FontSize(14)
+                                    .Bold();
+
 
                                 columna.Item()
                                     .Column(col =>
                                     {
-                                        //Obtiene todos los datos del cliente y configuramos como se vera el texto en el PDF
-                                        col.Item().Text($"Cliente: {datos["Cliente"]}");
-                                        col.Item().Text($"Documento: {datos["Documento"]}");
-                                        col.Item().Text($"Teléfono: {datos["Telefono"]}");
-                                        col.Item().Text($"Correo: {datos["Correo"]}");
+                                        // Cliente
+
+                                        col.Item()
+                                            .Text(
+                                                $"Cliente: {datos["Cliente"]}"
+                                            );
+
+
+                                        // Documento
+
+                                        col.Item()
+                                            .Text(
+                                                $"Documento: {datos["Documento"]}"
+                                            );
+
+
+                                        // Teléfono
+
+                                        col.Item()
+                                            .Text(
+                                                $"Teléfono: {datos["Telefono"]}"
+                                            );
+
+
+                                        // Correo
+
+                                        col.Item()
+                                            .Text(
+                                                $"Correo: {datos["Correo"]}"
+                                            );
                                     });
 
-                                //DETALLE DE LOS PRODUCTOS DE LA VENTA, PARA MOSTRARLOS EN LA FACTURA
-                                columna.Item().Text("Detalle de la venta").FontSize(14).Bold();
+
+                                // =================================================
+                                // DETALLE DE LA VENTA
+                                // =================================================
+
+                                columna.Item()
+                                    .Text("Detalle de la venta")
+                                    .FontSize(14)
+                                    .Bold();
+
 
                                 columna.Item()
                                     .Table(tabla =>
                                     {
-                                        //Crea una tabla con sus columnas dandoles un tamaño, con los números de RELATIVE
-                                        //Segun el numero es el espacio que cada encabezado tendra
+                                        // -------------------------------------------------
+                                        // DEFINICIÓN DE COLUMNAS
+                                        // -------------------------------------------------
+
                                         tabla.ColumnsDefinition(columnas =>
                                         {
+                                            // Producto
                                             columnas.RelativeColumn(4);
+
+                                            // Cantidad
                                             columnas.RelativeColumn(1);
+
+                                            // Precio
                                             columnas.RelativeColumn(2);
+
+                                            // Subtotal
                                             columnas.RelativeColumn(2);
                                         });
 
-                                        // Encabezados
+
+                                        // -------------------------------------------------
+                                        // ENCABEZADOS
+                                        // -------------------------------------------------
+
                                         tabla.Header(encabezado =>
                                         {
-                                            encabezado.Cell().Element(EstiloCeldaEncabezado).Text("Producto");
+                                            encabezado.Cell()
+                                                .BorderBottom(1)
+                                                .Padding(5)
+                                                .Text("Producto");
 
-                                            encabezado.Cell().Element(EstiloCeldaEncabezado).AlignCenter().Text("Cantidad");
 
-                                            encabezado.Cell().Element(EstiloCeldaEncabezado).AlignRight().Text("Precio");
+                                            encabezado.Cell()
+                                                .BorderBottom(1)
+                                                .Padding(5)
+                                                .AlignCenter()
+                                                .Text("Cantidad");
 
-                                            encabezado.Cell().Element(EstiloCeldaEncabezado).AlignRight().Text("Subtotal");
+
+                                            encabezado.Cell()
+                                                .BorderBottom(1)
+                                                .Padding(5)
+                                                .AlignRight()
+                                                .Text("Precio");
+
+
+                                            encabezado.Cell()
+                                                .BorderBottom(1)
+                                                .Padding(5)
+                                                .AlignRight()
+                                                .Text("Subtotal");
                                         });
 
-                                        // Productos
-                                        //Con el bucle se recorren todos los productos, Y todos se convierten en string
+
+                                        // -------------------------------------------------
+                                        // PRODUCTOS
+                                        // -------------------------------------------------
+
                                         foreach (DataRow filaDetalle in detalle.Rows)
                                         {
-                                            tabla.Cell().Element(EstiloCelda).Text(filaDetalle["ProductoVendido"].ToString());
+                                            // Producto
 
-                                            tabla.Cell().Element(EstiloCelda).AlignCenter().Text(filaDetalle["Cantidad"].ToString());
+                                            tabla.Cell()
+                                                .Element(EstiloCelda)
+                                                .Text(
+                                                    filaDetalle[
+                                                        "ProductoVendido"
+                                                    ].ToString()
+                                                );
 
-                                            tabla.Cell().Element(EstiloCelda)
+
+                                            // Cantidad
+
+                                            tabla.Cell()
+                                                .Element(EstiloCelda)
+                                                .AlignCenter()
+                                                .Text(
+                                                    filaDetalle[
+                                                        "Cantidad"
+                                                    ].ToString()
+                                                );
+
+
+                                            // Precio unitario
+
+                                            tabla.Cell()
+                                                .Element(EstiloCelda)
                                                 .AlignRight()
                                                 .Text(
                                                     "$ " +
                                                     Convert.ToDecimal(
-                                                        filaDetalle["PrecioUnitario"]
+                                                        filaDetalle[
+                                                            "PrecioUnitario"
+                                                        ]
                                                     ).ToString("0.00")
                                                 );
 
-                                            tabla.Cell().Element(EstiloCelda)
+
+                                            // Subtotal
+
+                                            tabla.Cell()
+                                                .Element(EstiloCelda)
                                                 .AlignRight()
                                                 .Text(
                                                     "$ " +
                                                     Convert.ToDecimal(
-                                                        filaDetalle["SubTotal"]
+                                                        filaDetalle[
+                                                            "SubTotal"
+                                                        ]
                                                     ).ToString("0.00")
                                                 );
                                         }
                                     });
 
-                                //Se convierten los totales
-                                columna.Item().AlignRight().Column(totales =>
-                                {
-                                    decimal subtotal = Convert.ToDecimal(datos["SubTotal"]);
 
-                                    decimal descuento = Convert.ToDecimal(datos["Descuento"]);
+                                // =================================================
+                                // TOTALES
+                                // =================================================
 
-                                    decimal iva = Convert.ToDecimal(datos["IVA"]);
+                                columna.Item()
+                                    .AlignRight()
+                                    .Column(totales =>
+                                    {
+                                        // Obtiene los valores
 
-                                    decimal total = Convert.ToDecimal(datos["Total"]);
-                                    //Se muestran los totales como elemntos de la factura
-                                    totales.Item().Text(
-                                        "Subtotal: $ " +
-                                        subtotal.ToString("0.00")
-                                    );
-
-                                    totales.Item().Text("Descuento: $ " + descuento.ToString("0.00")
-                                    );
-
-                                    totales.Item().Text("IVA (13%): $ " + iva.ToString("0.00"));
-                                    //El total se muestra en negrita
-                                    totales.Item().Text("TOTAL: $ " + total.ToString("0.00")).FontSize(14).Bold();
-                                });
+                                        decimal subtotal =
+                                            Convert.ToDecimal(
+                                                datos["SubTotal"]
+                                            );
 
 
-                                string observaciones = datos["Observaciones"] == DBNull.Value ? "" : datos["Observaciones"].ToString();
+                                        decimal descuento =
+                                            Convert.ToDecimal(
+                                                datos["Descuento"]
+                                            );
 
-                                //SI EXITE LA FACTURA SE VA A MOSTRAR, SINO EXISTE NO SE VA A MOSTRAR
+
+                                        decimal iva =
+                                            Convert.ToDecimal(
+                                                datos["IVA"]
+                                            );
+
+
+                                        decimal total =
+                                            Convert.ToDecimal(
+                                                datos["Total"]
+                                            );
+
+
+                                        // -------------------------------------------------
+                                        // SUBTOTAL
+                                        // -------------------------------------------------
+
+                                        totales.Item()
+                                            .Text(
+                                                "Subtotal: $ " +
+                                                subtotal.ToString("0.00")
+                                            );
+
+
+                                        // -------------------------------------------------
+                                        // DESCUENTO
+                                        // -------------------------------------------------
+
+                                        totales.Item()
+                                            .Text(
+                                                "Descuento: $ " +
+                                                descuento.ToString("0.00")
+                                            );
+
+
+                                        // -------------------------------------------------
+                                        // IVA
+                                        // -------------------------------------------------
+
+                                        totales.Item()
+                                            .Text(
+                                                "IVA (13%): $ " +
+                                                iva.ToString("0.00")
+                                            );
+
+
+                                        // -------------------------------------------------
+                                        // TOTAL
+                                        // -------------------------------------------------
+
+                                        totales.Item()
+                                            .Text(
+                                                "TOTAL: $ " +
+                                                total.ToString("0.00")
+                                            )
+                                            .FontSize(14)
+                                            .Bold();
+                                    });
+
+
+                                // =================================================
+                                // OBSERVACIONES
+                                // =================================================
+
+                                string observaciones =
+                                    datos["Observaciones"] == DBNull.Value
+                                    ? ""
+                                    : datos["Observaciones"].ToString();
+
+
                                 if (!string.IsNullOrWhiteSpace(observaciones))
                                 {
-                                    columna.Item().Text("Observaciones").FontSize(14).Bold();
+                                    columna.Item()
+                                        .Text("Observaciones")
+                                        .FontSize(14)
+                                        .Bold();
 
-                                    columna.Item().Text(observaciones);
+
+                                    columna.Item()
+                                        .Text(observaciones);
                                 }
                             });
 
-                        //FOOTER DE LA PAGINA
-                        page.Footer().AlignCenter().Text(texto =>
-                        {
-                            texto.Span("Factura generada por el sistema de " + ConfiguracionEmpresa.Nombre);
-                        });
+
+                        // =================================================
+                        // PIE DE PÁGINA
+                        // =================================================
+
+                        page.Footer()
+                            .AlignCenter()
+                            .Text(texto =>
+                            {
+                                texto.Span(
+                                    "Factura generada por el sistema de " +
+                                    ConfiguracionEmpresa.Nombre
+                                );
+                            });
                     });
 
                 }).GeneratePdf(rutaArchivo);
 
-                MessageBox.Show("PDF generado correctamente.", "PDF", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // =========================================================
+                // COMPROBAR QUE EL PDF REALMENTE SE CREÓ
+                // =========================================================
+
+                if (File.Exists(rutaArchivo))
+                {
+                    MessageBox.Show(
+                        "PDF generado correctamente.\n\n" +
+                        "Ubicación:\n" +
+                        rutaArchivo,
+                        "PDF",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show(
+                        "El PDF no se encontró después de generarlo.\n\n" +
+                        "Ruta esperada:\n" +
+                        rutaArchivo,
+                        "Error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al generar el PDF:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(
+                    "Error al generar el PDF:\n\n" +
+                    ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
             }
         }
 
-        //METODO PARA OBTENER LA FACTURA
+
+        // =========================================================
+        // MÉTODO PARA OBTENER LOS DATOS DE LA FACTURA
+        // =========================================================
+
         private static DataTable ObtenerFactura(int idFactura)
         {
             DataTable dt = new DataTable();
 
             using (SqlConnection conexion = Conexion.Conectar())
             {
-                string sql = @"SELECT * FROM VerFacturaEditar WHERE IdFactura = @IdFactura";
+                string sql = @"
+                    SELECT *
+                    FROM VerFacturaEditar
+                    WHERE IdFactura = @IdFactura";
 
                 using (SqlCommand comando = new SqlCommand(sql, conexion))
                 {
-                    comando.Parameters.AddWithValue("@IdFactura", idFactura);
+                    comando.Parameters.AddWithValue(
+                        "@IdFactura",
+                        idFactura
+                    );
 
-                    using (SqlDataAdapter adapter = new SqlDataAdapter(comando))
+                    using (SqlDataAdapter adapter =
+                           new SqlDataAdapter(comando))
                     {
                         adapter.Fill(dt);
                     }
@@ -313,20 +656,31 @@ namespace Modelo.Entidades
             return dt;
         }
 
-        //METODO PARA OBTENER DETALLE DE VENTA
+
+        // =========================================================
+        // MÉTODO PARA OBTENER EL DETALLE DE LA VENTA
+        // =========================================================
+
         private static DataTable ObtenerDetalleVenta(int idVenta)
         {
             DataTable dt = new DataTable();
 
             using (SqlConnection conexion = Conexion.Conectar())
             {
-                string sql = @"SELECT * FROM VerDetalleVenta WHERE IdVenta = @IdVenta";
+                string sql = @"
+                    SELECT *
+                    FROM VerDetalleVenta
+                    WHERE IdVenta = @IdVenta";
 
                 using (SqlCommand comando = new SqlCommand(sql, conexion))
                 {
-                    comando.Parameters.AddWithValue("@IdVenta", idVenta);
+                    comando.Parameters.AddWithValue(
+                        "@IdVenta",
+                        idVenta
+                    );
 
-                    using (SqlDataAdapter adapter = new SqlDataAdapter(comando))
+                    using (SqlDataAdapter adapter =
+                           new SqlDataAdapter(comando))
                     {
                         adapter.Fill(dt);
                     }
@@ -336,18 +690,32 @@ namespace Modelo.Entidades
             return dt;
         }
 
+
+        // =========================================================
         // ESTILO DEL ENCABEZADO DE LA TABLA
-        private static IContainer EstiloCeldaEncabezado(IContainer container)
+        // =========================================================
+
+        private static IContainer EstiloCeldaEncabezado(
+            IContainer container)
         {
-            //Se asigna el diseño de darlle una linea bajo cada Titulo con un espacio entre el texto y la linea separadora
-            return container.BorderBottom(1).Padding(5);
+            return container
+                .BorderBottom(1)
+                .Padding(5);
         }
 
-        //ESTILO DE LAS CELDAS
-        private static IContainer EstiloCelda(IContainer container)
+
+        // =========================================================
+        // ESTILO DE LAS CELDAS
+        // =========================================================
+
+        private static IContainer EstiloCelda(
+            IContainer container)
         {
-            //Se asigna el diseño de darlle una linea bajo cada Celda con un espacio entre el texto y la linea separadora
-            return container.BorderBottom(1).Padding(5);
+            return container
+                .BorderBottom(1)
+                .Padding(5);
         }
     }
 }
+
+

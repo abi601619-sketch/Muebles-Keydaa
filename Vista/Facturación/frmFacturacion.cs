@@ -1,6 +1,7 @@
 using Modelo.Entidades;
 using System;
 using System.Data;
+using System.Data.SqlClient;
 using System.Windows.Forms;
 using Vista.Responsive;
 using Color = System.Drawing.Color;
@@ -132,7 +133,8 @@ namespace Vista.Facturación
                 new System.Drawing.Font("Segoe UI", 9, System.Drawing.FontStyle.Regular);
 
             dgvFacturasRegistradas.DefaultCellStyle.Alignment =
-                DataGridViewContentAlignment.MiddleLeft;
+                DataGridViewContentAlignment.MiddleCenter;
+
 
             // Filas alternadas
             dgvFacturasRegistradas.AlternatingRowsDefaultCellStyle.BackColor =
@@ -156,7 +158,7 @@ namespace Vista.Facturación
             dgvFacturasRegistradas.RowTemplate.Height = 32;
 
             // Alto del encabezado
-            dgvFacturasRegistradas.ColumnHeadersHeight = 30;
+            dgvFacturasRegistradas.ColumnHeadersHeight = 40;
 
             // No permitir modificar
             dgvFacturasRegistradas.ReadOnly = true;
@@ -239,7 +241,7 @@ namespace Vista.Facturación
             dgvDetalleVenta.RowTemplate.Height = 32;
 
             // Alto del encabezado
-            dgvDetalleVenta.ColumnHeadersHeight = 30;
+            dgvDetalleVenta.ColumnHeadersHeight = 40;
 
             // No permitir modificar
             dgvDetalleVenta.ReadOnly = true;
@@ -546,8 +548,7 @@ namespace Vista.Facturación
             txtDescuento.Text = null;
             txtTotal.Text = null;
             txtObservaciones.Text = null;
-            //Limpia la tabla
-            dgvDetalleVenta.Rows.Clear();
+
         }
 
         private void txtTotal_TextChanged(object sender, EventArgs e)
@@ -763,10 +764,13 @@ namespace Vista.Facturación
                 MessageBox.Show($"La factura N.º {idFactura} se guardó correctamente.\n\n" + "Ahora puedes presionar 'Generar PDF'.", "Factura guardada", MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
-                MessageBox.Show("Ocurrió un error al guardar la factura:\n" + ex.Message, "Error", MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                MessageBox.Show(
+                    "Error al insertar la factura:\n\n" + ex.Message, "Error " + ex.Number,
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
             }
         }
         private void LimpiarFormulario()

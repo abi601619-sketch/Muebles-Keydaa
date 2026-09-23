@@ -6,546 +6,576 @@ using System;
 using System.Data;
 using System.IO;
 
-public class VentasDocumentoPDF : IDocument
+namespace Modelo.PDF
 {
-    private readonly DataTable ventas;
-    private readonly DateTime fechaInicio;
-    private readonly DateTime fechaFin;
-    private readonly int facturasEmitidas;
-    private readonly double totalVentas;
-    private readonly double ventaMasAlta;
-
-    public VentasDocumentoPDF(
-        DataTable ventas,
-        DateTime fechaInicio,
-        DateTime fechaFin,
-        int facturasEmitidas,
-        double totalVentas,
-        double ventaMasAlta)
+    public class VentasDocumentoPDF : IDocument
     {
-        this.ventas = ventas;
-        this.fechaInicio = fechaInicio;
-        this.fechaFin = fechaFin;
-        this.facturasEmitidas = facturasEmitidas;
-        this.totalVentas = totalVentas;
-        this.ventaMasAlta = ventaMasAlta;
-    }
+        private readonly DataTable ventas;
+        private readonly DataTable estadisticas;
+        private readonly DateTime fechaInicio;
+        private readonly DateTime fechaFin;
 
 
-    // ==========================================================
-    // INFORMACIÓN DEL DOCUMENTO
-    // ==========================================================
+        // =========================================================
+        // CONSTRUCTOR
+        // =========================================================
 
-    public DocumentMetadata GetMetadata()
-    {
-        return new DocumentMetadata
+        public VentasDocumentoPDF(
+            DataTable ventas,
+            DataTable estadisticas,
+            DateTime fechaInicio,
+            DateTime fechaFin,
+            string rutaLogo)
         {
-            Title =
-                "Reporte de Ventas - " +
-                ConfiguracionEmpresa.Nombre,
-
-            Author =
-                ConfiguracionEmpresa.Nombre,
-
-            Subject = "Reporte de ventas"
-        };
-    }
+            this.ventas = ventas;
+            this.estadisticas = estadisticas;
+            this.fechaInicio = fechaInicio;
+            this.fechaFin = fechaFin;
+        }
 
 
-    // ==========================================================
-    // CONFIGURACIÓN DEL DOCUMENTO
-    // ==========================================================
+        // =========================================================
+        // METADATA
+        // =========================================================
 
-    public DocumentSettings GetSettings()
-    {
-        return new DocumentSettings();
-    }
-
-
-    // ==========================================================
-    // COMPOSICIÓN DEL PDF
-    // ==========================================================
-
-    public void Compose(IDocumentContainer documento)
-    {
-        documento.Page(pagina =>
+        public DocumentMetadata GetMetadata()
         {
-            pagina.Size(PageSizes.A4);
-
-            pagina.Margin(30);
-
-            pagina.DefaultTextStyle(x =>
-                x.FontFamily("Lato")
-                 .FontSize(9)
-            );
+            return DocumentMetadata.Default;
+        }
 
 
-            // ==================================================
-            // ENCABEZADO
-            // ==================================================
+        public DocumentSettings GetSettings()
+        {
+            return DocumentSettings.Default;
+        }
 
-            pagina.Header()
-                .Column(header =>
+
+        // =========================================================
+        // COMPOSE
+        // =========================================================
+
+        public void Compose(IDocumentContainer container)
+        {
+            container.Page(page =>
+            {
+                page.Size(PageSizes.A4);
+
+                page.Margin(32);
+
+                page.Header()
+                    .Element(ConstruirEncabezado);
+
+                page.Content()
+                    .Element(ConstruirContenido);
+
+                page.Footer()
+                    .Element(ConstruirPie);
+            });
+        }
+
+
+        private void ConstruirEncabezado(IContainer contenedorPrincipal)
+        {
+            string rutaLogo = ConfiguracionEmpresa.Logo;
+
+            if (string.IsNullOrWhiteSpace(rutaLogo) ||
+                !File.Exists(rutaLogo))
+            {
+                throw new Exception(
+                    "No se encontró el logo de la empresa.\n\n" +
+                    "Configure nuevamente el logo de la empresa."
+                );
+            }
+
+            byte[] logo = File.ReadAllBytes(rutaLogo);
+
+            contenedorPrincipal
+                .Column(contenedor =>
                 {
+                    // =================================================
+                    // ENCABEZADO PRINCIPAL
+                    // =================================================
 
-                    // ==================================================
-                    // LOGO Y TÍTULO
-                    // ==================================================
-
-                    header.Item()
-                        .Background("#633719")
-                        .Padding(10)
-                        .Row(row =>
+                    contenedor.Item()
+                        .Background("#6B3517")
+                        .Padding(15)
+                        .Row(fila =>
                         {
+                            // -----------------------------------------
+                            // EMPRESA
+                            // -----------------------------------------
 
-                            // ==================================================
-                            // LOGO Y ESLOGAN
-                            // ==================================================
-
-                            row.RelativeItem()
-                                .Column(col =>
+                            fila.RelativeItem()
+                                .Column(columna =>
                                 {
+                                    columna.Item()
+                                        .Height(55)
+                                        .Width(180)
+                                        .AlignLeft()
+                                        .Image(logo)
+                                        .FitArea();
 
-                                    string rutaLogo =
-                                        ConfiguracionEmpresa.Logo;
-
-
-                                    // Verificamos que exista un logo configurado
-                                    if (!string.IsNullOrWhiteSpace(rutaLogo) &&
-                                        File.Exists(rutaLogo))
-                                    {
-                                        byte[] logo =
-                                            File.ReadAllBytes(rutaLogo);
-
-
-                                        col.Item()
-                                            .Height(80)
-                                            .Width(180)
-                                            .AlignLeft()
-                                            .Image(logo)
-                                            .FitArea();
-                                    }
-                                    else
-                                    {
-                                        // Si no existe logo,
-                                        // mostramos el nombre de la empresa
-                                        col.Item()
-                                            .Height(80)
-                                            .Width(180)
-                                            .AlignLeft()
-                                            .AlignMiddle()
-                                            .Text(
-                                                ConfiguracionEmpresa.Nombre
-                                            )
-                                            .FontSize(18)
-                                            .Bold()
-                                            .FontColor("#FFFFFF");
-                                    }
-
-
-                                    // ==================================================
-                                    // ESLOGAN
-                                    // ==================================================
-
-                                    col.Item()
-                                        .PaddingTop(3)
-                                        .Text(
-                                            "DISEÑO · CONFORT · ELEGANCIA"
-                                        )
-                                        .FontSize(8)
+                                    columna.Item()
+                                        .PaddingTop(5)
+                                        .Text(ConfiguracionEmpresa.Nombre)
+                                        .FontSize(10)
                                         .Bold()
+                                        .FontColor("#F4DDC5");
+
+                                    columna.Item()
+                                        .Text(
+                                            "Tel: " +
+                                            ConfiguracionEmpresa.Telefono
+                                        )
+                                        .FontSize(7)
+                                        .FontColor("#F4DDC5");
+
+                                    columna.Item()
+                                        .Text(
+                                            ConfiguracionEmpresa.Correo
+                                        )
+                                        .FontSize(7)
+                                        .FontColor("#F4DDC5");
+
+                                    columna.Item()
+                                        .Text(
+                                            ConfiguracionEmpresa.Direccion
+                                        )
+                                        .FontSize(7)
                                         .FontColor("#F4DDC5");
                                 });
 
+                            // -----------------------------------------
+                            // TÍTULO DEL REPORTE
+                            // -----------------------------------------
 
-                            // ==================================================
-                            // INFORMACIÓN DEL REPORTE
-                            // ==================================================
-
-                            row.RelativeItem()
-                                .AlignRight()
-                                .Column(col =>
+                            fila.RelativeItem()
+                                .AlignMiddle()
+                                .Column(columna =>
                                 {
-
-                                    col.Item()
+                                    columna.Item()
+                                        .AlignRight()
                                         .Text("REPORTE DE VENTAS")
                                         .FontSize(19)
                                         .Bold()
-                                        .FontColor("#FFFFFF");
+                                        .FontColor(Colors.White);
 
-
-                                    col.Item()
+                                    columna.Item()
+                                        .PaddingTop(5)
+                                        .AlignRight()
                                         .Text("Resumen de ventas")
-                                        .FontSize(10)
-                                        .FontColor("#F4DDC5");
-
+                                        .FontSize(9)
+                                        .FontColor(Colors.White);
                                 });
-
                         });
 
+                    // =================================================
+                    // RANGO DE FECHAS
+                    // =================================================
 
-                    // ==================================================
-                    // PERÍODO
-                    // ==================================================
-
-                    header.Item()
+                    contenedor.Item()
                         .PaddingTop(10)
-                        .Background("#F1E2D2")
-                        .Padding(10)
+                        .Height(32)
+                        .Background("#F1E2D1")
                         .AlignCenter()
-                        .Text(
-                            $"Del: {fechaInicio:dd/MM/yyyy}     " +
-                            $"Al: {fechaFin:dd/MM/yyyy}"
-                        )
-                        .Bold()
-                        .FontSize(10)
-                        .FontColor("#633719");
+                        .AlignMiddle()
+                        .DefaultTextStyle(x => x
+                            .FontSize(9)
+                            .FontColor("#6B3517"))
+                        .Text(texto =>
+                        {
+                            texto.Span("Del: ")
+                                .Bold();
 
+                            texto.Span(
+                                fechaInicio.ToString("dd/MM/yyyy")
+                            );
+
+                            texto.Span("    Al: ")
+                                .Bold();
+
+                            texto.Span(
+                                fechaFin.ToString("dd/MM/yyyy")
+                            );
+                        });
+                });
+        }
+
+        // =========================================================
+        // CONTENIDO
+        // =========================================================
+
+        private void ConstruirContenido(IContainer container)
+        {
+            container
+                .PaddingTop(18)
+                .Column(column =>
+                {
+                    column.Item()
+                        .Element(ConstruirEstadisticas);
+
+
+                    column.Item()
+                        .PaddingTop(20)
+                        .Element(ConstruirDetalle);
+
+
+                    column.Item()
+                        .PaddingTop(12)
+                        .AlignRight()
+                        .Element(ConstruirTotalGeneral);
+                });
+        }
+
+
+        // =========================================================
+        // ESTADÍSTICAS
+        // =========================================================
+
+        private void ConstruirEstadisticas(IContainer container)
+        {
+            int facturas = 0;
+            decimal totalVentas = 0;
+            decimal ventaMasAlta = 0;
+
+
+            if (estadisticas != null &&
+                estadisticas.Rows.Count > 0)
+            {
+                DataRow fila =
+                    estadisticas.Rows[0];
+
+                facturas =
+                    Convert.ToInt32(
+                        fila["FacturasEmitidas"]);
+
+                totalVentas =
+                    Convert.ToDecimal(
+                        fila["TotalVentas"]);
+
+                ventaMasAlta =
+                    Convert.ToDecimal(
+                        fila["VentaMasAlta"]);
+            }
+
+
+            container.Row(row =>
+            {
+                row.RelativeItem()
+                    .Element(c =>
+                        CrearTarjeta(
+                            c,
+                            "FACTURAS EMITIDAS",
+                            facturas.ToString()));
+
+
+                row.ConstantItem(8);
+
+
+                row.RelativeItem()
+                    .Element(c =>
+                        CrearTarjeta(
+                            c,
+                            "TOTAL DE VENTAS",
+                            $"${totalVentas:N2}"));
+
+
+                row.ConstantItem(8);
+
+
+                row.RelativeItem()
+                    .Element(c =>
+                        CrearTarjeta(
+                            c,
+                            "VENTA MÁS ALTA",
+                            $"${ventaMasAlta:N2}"));
+            });
+        }
+
+
+        // =========================================================
+        // TARJETA
+        // =========================================================
+
+        private void CrearTarjeta(
+            IContainer container,
+            string titulo,
+            string valor)
+        {
+            container
+                .Height(62)
+                .Background("#F1E2D1")
+                .Border(1)
+                .BorderColor("#D9BFA5")
+                .Padding(10)
+                .Column(column =>
+                {
+                    column.Item()
+                        .Text(titulo)
+                        .FontSize(7)
+                        .Bold()
+                        .FontColor("#6B3517");
+
+                    column.Item()
+                        .PaddingTop(5)
+                        .Text(valor)
+                        .FontSize(15)
+                        .Bold()
+                        .FontColor("#6B3517");
+                });
+        }
+
+
+        // =========================================================
+        // DETALLE
+        // =========================================================
+
+        private void ConstruirDetalle(IContainer container)
+        {
+            container.Column(column =>
+            {
+                column.Item()
+                    .Text("DETALLE DE VENTAS")
+                    .FontSize(10)
+                    .Bold()
+                    .FontColor("#6B3517");
+
+
+                column.Item()
+                    .PaddingTop(7)
+                    .Element(ConstruirTabla);
+            });
+        }
+
+
+        // =========================================================
+        // TABLA
+        // =========================================================
+
+        private void ConstruirTabla(IContainer container)
+        {
+            container.Table(table =>
+            {
+                table.ColumnsDefinition(columns =>
+                {
+                    columns.ConstantColumn(45);
+
+                    columns.RelativeColumn(3);
+
+                    columns.ConstantColumn(75);
+
+                    columns.ConstantColumn(85);
+
+                    columns.ConstantColumn(85);
                 });
 
 
-            // ==================================================
-            // CONTENIDO
-            // ==================================================
-
-            pagina.Content()
-                .PaddingTop(15)
-                .Column(contenido =>
+                // ENCABEZADOS
+                table.Header(header =>
                 {
+                    CeldaEncabezado(
+                        header.Cell(),
+                        "FACT.");
 
-                    // ==================================================
-                    // ESTADÍSTICAS
-                    // ==================================================
+                    CeldaEncabezado(
+                        header.Cell(),
+                        "CLIENTE");
 
-                    contenido.Item()
-                        .Row(row =>
-                        {
+                    CeldaEncabezado(
+                        header.Cell(),
+                        "FECHA");
 
-                            CrearTarjeta(
-                                row,
-                                "FACTURAS EMITIDAS",
-                                facturasEmitidas.ToString()
-                            );
+                    CeldaEncabezado(
+                        header.Cell(),
+                        "SUBTOTAL");
 
-
-                            CrearTarjeta(
-                                row,
-                                "TOTAL DE VENTAS",
-                                $"${totalVentas:N2}"
-                            );
-
-
-                            CrearTarjeta(
-                                row,
-                                "VENTA MÁS ALTA",
-                                $"${ventaMasAlta:N2}"
-                            );
-
-                        });
+                    CeldaEncabezado(
+                        header.Cell(),
+                        "TOTAL");
+                });
 
 
-                    // ==================================================
-                    // TÍTULO DE LA TABLA
-                    // ==================================================
+                // FILAS
+                foreach (DataRow fila in ventas.Rows)
+                {
+                    string factura =
+                        fila["N° FACTURA"] == DBNull.Value
+                        ? "-"
+                        : fila["N° FACTURA"].ToString();
 
-                    contenido.Item()
-                        .PaddingTop(20)
-                        .Text("DETALLE DE VENTAS")
+
+                    string cliente =
+                        fila["Nombre De Cliente"].ToString();
+
+
+                    string fecha =
+                        Convert.ToDateTime(
+                            fila["FechaVenta"])
+                        .ToString("dd/MM/yyyy");
+
+
+                    decimal subtotal =
+                        Convert.ToDecimal(
+                            fila["SubTotal"]);
+
+
+                    decimal total =
+                        Convert.ToDecimal(
+                            fila["TotalAPagar"]);
+
+
+                    CeldaDato(
+                        table.Cell(),
+                        factura);
+
+
+                    CeldaDato(
+                        table.Cell(),
+                        cliente);
+
+
+                    CeldaDato(
+                        table.Cell(),
+                        fecha);
+
+
+                    CeldaDatoDerecha(
+                        table.Cell(),
+                        $"${subtotal:N2}");
+
+
+                    CeldaDatoDerecha(
+                        table.Cell(),
+                        $"${total:N2}");
+                }
+            });
+        }
+
+
+        // =========================================================
+        // ENCABEZADO DE TABLA
+        // =========================================================
+
+        private void CeldaEncabezado(
+            IContainer container,
+            string texto)
+        {
+            container
+                .Background("#6B3517")
+                .PaddingVertical(5)
+                .PaddingHorizontal(5)
+                .Text(texto)
+                .FontSize(7)
+                .Bold()
+                .FontColor(Colors.White);
+        }
+
+
+        // =========================================================
+        // CELDA
+        // =========================================================
+
+        private void CeldaDato(
+            IContainer container,
+            string texto)
+        {
+            container
+                .BorderBottom(1)
+                .BorderColor("#E2D1C1")
+                .PaddingVertical(4)
+                .PaddingHorizontal(5)
+                .Text(texto)
+                .FontSize(7);
+        }
+
+
+        // =========================================================
+        // CELDA NUMÉRICA
+        // =========================================================
+
+        private void CeldaDatoDerecha(
+            IContainer container,
+            string texto)
+        {
+            container
+                .BorderBottom(1)
+                .BorderColor("#E2D1C1")
+                .PaddingVertical(4)
+                .PaddingHorizontal(5)
+                .AlignRight()
+                .Text(texto)
+                .FontSize(7);
+        }
+
+
+        // =========================================================
+        // TOTAL GENERAL
+        // =========================================================
+
+        private void ConstruirTotalGeneral(IContainer container)
+        {
+            decimal totalGeneral = 0;
+
+
+            foreach (DataRow fila in ventas.Rows)
+            {
+                totalGeneral +=
+                    Convert.ToDecimal(
+                        fila["TotalAPagar"]);
+            }
+
+
+            container
+                .Background("#F1E2D1")
+                .PaddingVertical(10)
+                .PaddingHorizontal(14)
+                .Row(row =>
+                {
+                    row.AutoItem()
+                        .Text("TOTAL GENERAL:")
+                        .FontSize(9)
+                        .Bold()
+                        .FontColor("#6B3517");
+
+
+                    row.ConstantItem(15);
+
+
+                    row.AutoItem()
+                        .Text($"${totalGeneral:N2}")
                         .FontSize(12)
                         .Bold()
-                        .FontColor("#633719");
-
-
-                    // ==================================================
-                    // TABLA DE VENTAS
-                    // ==================================================
-
-                    contenido.Item()
-                        .PaddingTop(8)
-                        .Table(tabla =>
-                        {
-
-                            // ==================================================
-                            // COLUMNAS
-                            // ==================================================
-
-                            tabla.ColumnsDefinition(columnas =>
-                            {
-                                columnas.ConstantColumn(45);    // Factura
-                                columnas.RelativeColumn(2.5f);  // Cliente
-                                columnas.ConstantColumn(65);    // Fecha
-                                columnas.RelativeColumn(1.2f);  // Método
-                                columnas.ConstantColumn(65);    // Subtotal
-                                columnas.ConstantColumn(70);    // Total
-                            });
-
-
-                            // ==================================================
-                            // ENCABEZADOS
-                            // ==================================================
-
-                            tabla.Header(header =>
-                            {
-
-                                EncabezadoTabla(
-                                    header,
-                                    "FACT."
-                                );
-
-
-                                EncabezadoTabla(
-                                    header,
-                                    "CLIENTE"
-                                );
-
-
-                                EncabezadoTabla(
-                                    header,
-                                    "FECHA"
-                                );
-
-
-                                EncabezadoTabla(
-                                    header,
-                                    "MÉTODO"
-                                );
-
-
-                                EncabezadoTabla(
-                                    header,
-                                    "SUBTOTAL"
-                                );
-
-
-                                EncabezadoTabla(
-                                    header,
-                                    "TOTAL"
-                                );
-
-                            });
-
-
-                            // ==================================================
-                            // FILAS DE VENTAS
-                            // ==================================================
-
-                            foreach (DataRow fila in ventas.Rows)
-                            {
-
-                                // ==================================================
-                                // FACTURA
-                                // ==================================================
-
-                                tabla.Cell()
-                                    .BorderBottom(1)
-                                    .BorderColor("#E2D2C2")
-                                    .Padding(6)
-                                    .Text(
-                                        fila["N° FACTURA"]?.ToString() ?? ""
-                                    )
-                                    .FontSize(8);
-
-
-                                // ==================================================
-                                // CLIENTE
-                                // ==================================================
-
-                                tabla.Cell()
-                                    .BorderBottom(1)
-                                    .BorderColor("#E2D2C2")
-                                    .Padding(6)
-                                    .Text(
-                                        fila["Nombre De Cliente"]?.ToString() ?? ""
-                                    )
-                                    .FontSize(8);
-
-
-                                // ==================================================
-                                // FECHA
-                                // ==================================================
-
-                                tabla.Cell()
-                                    .BorderBottom(1)
-                                    .BorderColor("#E2D2C2")
-                                    .Padding(6)
-                                    .Text(
-                                        Convert.ToDateTime(
-                                            fila["FechaVenta"]
-                                        ).ToString("dd/MM/yyyy")
-                                    )
-                                    .FontSize(8);
-
-
-                                // ==================================================
-                                // MÉTODO DE PAGO
-                                // ==================================================
-
-                                tabla.Cell()
-                                    .BorderBottom(1)
-                                    .BorderColor("#E2D2C2")
-                                    .Padding(6)
-                                    .Text(
-                                        fila["MetodoPago"]?.ToString() ?? ""
-                                    )
-                                    .FontSize(8);
-
-
-                                // ==================================================
-                                // SUBTOTAL
-                                // ==================================================
-
-                                tabla.Cell()
-                                    .BorderBottom(1)
-                                    .BorderColor("#E2D2C2")
-                                    .Padding(6)
-                                    .AlignRight()
-                                    .Text(
-                                       "$" + totalVentas.ToString("N2")
-                                    )
-                                    .FontSize(8);
-
-
-                                // ==================================================
-                                // TOTAL
-                                // ==================================================
-
-                                tabla.Cell()
-                                    .BorderBottom(1)
-                                    .BorderColor("#E2D2C2")
-                                    .Padding(6)
-                                    .AlignRight()
-                                    .Text(
-                                       "$" + totalVentas.ToString("N2")
-                                    )
-                                    .Bold()
-                                    .FontSize(8);
-
-                            }
-
-                        });
-
-
-                    // ==================================================
-                    // TOTAL GENERAL
-                    // ==================================================
-
-                    contenido.Item()
-                        .PaddingTop(15)
-                        .AlignRight()
-                        .Background("#F1E2D2")
-                        .Padding(12)
-                        .Row(row =>
-                        {
-
-                            row.AutoItem()
-                                .Text("TOTAL GENERAL:")
-                                .Bold()
-                                .FontSize(11)
-                                .FontColor("#633719");
-
-
-                            row.AutoItem()
-                                .PaddingLeft(15)
-                                .Text(
-                                    $"${totalVentas:N2}"
-                                )
-                                .Bold()
-                                .FontSize(13)
-                                .FontColor("#633719");
-
-                        });
-
+                        .FontColor("#6B3517");
                 });
+        }
 
 
-            // ==================================================
-            // PIE DE PÁGINA
-            // ==================================================
+        // =========================================================
+        // PIE
+        // =========================================================
 
-            pagina.Footer()
+        private void ConstruirPie(IContainer container)
+        {
+            container
                 .AlignCenter()
-                .Text(text =>
-                {
-
-                    text.Span(
-                        ConfiguracionEmpresa.Nombre +
-                        " | Reporte de Ventas"
-                    )
-                    .FontFamily("Lato")
-                    .FontSize(8)
-                    .FontColor("#633719");
+                .Text(
+                    $"Muebles Keyda | Reporte de Ventas | Generado: " +
+                    $"{DateTime.Now:dd/MM/yyyy HH:mm}"
+                )
+                .FontSize(7)
+                .FontColor("#6B3517");
+        }
 
 
-                    text.Span(
-                        $"  |  Generado: " +
-                        $"{DateTime.Now:dd/MM/yyyy HH:mm}"
-                    )
-                    .FontFamily("Lato")
-                    .FontSize(8)
-                    .FontColor("#633719");
+        // =========================================================
+        // GENERAR PDF
+        // =========================================================
 
-                });
-
-        });
-    }
-
-
-    // ==========================================================
-    // TARJETA DE ESTADÍSTICA
-    // ==========================================================
-
-    private void CrearTarjeta(
-        RowDescriptor row,
-        string titulo,
-        string valor)
-    {
-
-        row.RelativeItem()
-            .Padding(5)
-            .Background("#F1E2D2")
-            .Border(1)
-            .BorderColor("#D5BFA8")
-            .Padding(12)
-            .Column(col =>
-            {
-
-                col.Item()
-                    .Text(titulo)
-                    .FontFamily("Lato")
-                    .FontSize(8)
-                    .Bold()
-                    .FontColor("#633719");
-
-
-                col.Item()
-                    .PaddingTop(5)
-                    .Text(valor)
-                    .FontFamily("Lato")
-                    .FontSize(18)
-                    .Bold()
-                    .FontColor("#633719");
-
-            });
-
-    }
-
-
-    // ==========================================================
-    // ENCABEZADO DE TABLA
-    // ==========================================================
-
-    private void EncabezadoTabla(
-        TableCellDescriptor header,
-        string texto)
-    {
-
-        header.Cell()
-            .Background("#633719")
-            .Padding(6)
-            .Text(texto)
-            .Bold()
-            .FontColor("#FFFFFF")
-            .FontSize(7);
-
+        public void GenerarPDF(string ruta)
+        {
+            Document
+                .Create(Compose)
+                .GeneratePdf(ruta);
+        }
     }
 }

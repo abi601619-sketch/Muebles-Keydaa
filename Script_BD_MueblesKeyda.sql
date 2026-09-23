@@ -981,7 +981,7 @@ INNER JOIN TipoCliente tc
 GO
 
 ----------------------------------REPORTE DE VENTAS---------------------------------------------
-CREATE VIEW VerReporteVentas AS
+ALTER VIEW VerReporteVentas AS
 SELECT
     v.IdVenta,
     f.IdFactura AS [N° FACTURA],
@@ -993,7 +993,6 @@ SELECT
     END AS [Nombre De Cliente],
 
     v.FechaVenta,
-    mp.MetodoPago AS [MetodoPago],
     v.SubTotal,
     v.SubTotal AS [TotalAPagar]
 
@@ -1004,9 +1003,6 @@ INNER JOIN Cliente c
 
 INNER JOIN TipoCliente tc
     ON c.IdTipoCliente = tc.IdTipoCliente
-
-INNER JOIN MetodoPago mp
-    ON v.IdMetodoPago = mp.IdMetodoPago
 
 LEFT JOIN Factura f
     ON v.IdVenta = f.IdVenta;
@@ -1263,7 +1259,107 @@ GO
 
 
 
+----------------TRIGGER PARA CONTROLAR QUE UN PEDIDO FINALIZADO PASE A SER REGISTRO DE VENTAS------------
+
+CREATE TRIGGER TR_Pedido_Finalizado_Venta
+ON Pedido
+AFTER UPDATE
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Tabla temporal para relacionar cada venta
+    -- nueva con su cotizacion correspondiente
+    DECLARE @VentasCreadas TABLE
+    (
+        IdVenta INT,
+        IdCotizacion INT
+    );
+
+    -- 1. Insertar las ventas
+    MERGE INTO Venta AS destino
+    USING
+    (
+        SELECT
+            i.IdCotizacion,
+            c.IdCliente,
+            c.Total
+        FROM inserted i
+        INNER JOIN deleted d
+            ON i.IdPedido = d.IdPedido
+        INNER JOIN Cotizacion c
+            ON i.IdCotizacion = c.IdCotizacion
+        WHERE i.Estado = 'Finalizado'
+          AND d.Estado <> 'Finalizado'
+    ) AS origen
+    ON 1 = 0
+
+    WHEN NOT MATCHED THEN
+        INSERT
+        (
+            FechaVenta,
+            IdCliente,
+            SubTotal
+        )
+        VALUES
+        (
+            GETDATE(),
+            origen.IdCliente,
+            origen.Total
+        )
+
+    OUTPUT
+        inserted.IdVenta,
+        origen.IdCotizacion
+    INTO @VentasCreadas
+    (
+        IdVenta,
+        IdCotizacion
+    );
+
+    -- 2. Insertar los productos de cada cotizacion
+    -- en el detalle de la venta correspondiente
+    INSERT INTO DetalleVenta
+    (
+        IdVenta,
+        ProductoVendido,
+        Cantidad,
+        PrecioUnitario
+    )
+    SELECT
+        vc.IdVenta,
+        pc.DescripcionMueble,
+        pc.Cantidad,
+        pc.PrecioUnitario
+    FROM @VentasCreadas vc
+    INNER JOIN Productos_Cotizacion pc
+        ON vc.IdCotizacion = pc.IdCotizacion;
+
+END;
 GO
+
+
+
+SELECT *
+FROM Productos_Cotizacion
+WHERE IdCotizacion = 5;
+
+
+SELECT
+    v.IdVenta,
+    v.FechaVenta,
+    v.IdCliente,
+    v.SubTotal,
+    dv.ProductoVendido,
+    dv.Cantidad,
+    dv.PrecioUnitario
+FROM Venta v
+LEFT JOIN DetalleVenta dv
+    ON v.IdVenta = dv.IdVenta
+ORDER BY v.IdVenta DESC;
+
+
+SELECT *FROM VerReporteVentas
 
 
 

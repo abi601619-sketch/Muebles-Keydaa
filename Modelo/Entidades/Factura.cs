@@ -108,12 +108,7 @@ namespace Modelo.Entidades
                     cmd.Parameters.AddWithValue("@IdVenta", IdVenta);
                     cmd.Parameters.AddWithValue("@Descuento", Descuento);
 
-                    cmd.Parameters.AddWithValue(
-                        "@Observaciones",
-                        string.IsNullOrWhiteSpace(Observaciones)
-                            ? (object)DBNull.Value
-                            : Observaciones
-                    );
+                    cmd.Parameters.AddWithValue("@Observaciones", string.IsNullOrWhiteSpace(Observaciones) ? (object)DBNull.Value : Observaciones);
 
                     return Convert.ToInt32(cmd.ExecuteScalar());
                 }
@@ -164,8 +159,12 @@ namespace Modelo.Entidades
                         break;
 
                     default:
-                        MessageBox.Show("Ocurrió un error al insertar la factura.",
-                            "Error " + ex.Number, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(
+     "Error al insertar la factura:\n\n" + ex.Message,
+     "Error " + ex.Number,
+     MessageBoxButtons.OK,
+     MessageBoxIcon.Error
+ );
                         break;
                 }
 

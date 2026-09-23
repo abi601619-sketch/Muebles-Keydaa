@@ -11,12 +11,11 @@ using Vista.Responsive;
 
 
 
-
-
 namespace Vista.Reportes
 {
     public partial class frmReportes : Form
     {
+        private string rutaLogo;
         public frmReportes()
         {
             InitializeComponent();
@@ -512,10 +511,7 @@ namespace Vista.Reportes
 
                 // CREAR CARPETA DE REPORTES
 
-                string carpetaReportes = Path.Combine(
-                    Application.StartupPath,
-                    "Reportes"
-                );
+                string carpetaReportes = Path.Combine(Application.StartupPath, "Reportes");
 
                 if (!Directory.Exists(carpetaReportes))
                 {
@@ -526,23 +522,20 @@ namespace Vista.Reportes
 
                 string nombreArchivo = $"Reporte_Ventas_{fechaInicio:dd-MM-yyyy}_{fechaFin:dd-MM-yyyy}.pdf";
 
-                string rutaArchivo = Path.Combine(
-                    carpetaReportes,
-                    nombreArchivo
-                );
+                string rutaArchivo = Path.Combine(carpetaReportes, nombreArchivo);
 
                 // CREAR DOCUMENTO
 
                 VentasDocumentoPDF documento = new VentasDocumentoPDF(
                     ventas,
+                    estadisticas,
                     fechaInicio,
                     fechaFin,
-                    facturasEmitidas,
-                    totalVentas,
-                    ventaMasAlta
-                );
+                    rutaLogo);
 
-                documento.GeneratePdf(rutaArchivo);
+                // GENERAR PDF
+                documento.GenerarPDF(rutaArchivo);
+
 
                 // MENSAJE
 
@@ -558,6 +551,19 @@ namespace Vista.Reportes
                     MessageBoxIcon.Information
                 );
 
+                // VERIFICAR QUE EL PDF EXISTA
+
+                if (!File.Exists(rutaArchivo))
+                {
+                    MessageBox.Show(
+                        "El PDF se generó, pero no se encontró en:\n\n" + rutaArchivo,
+                        "Archivo no encontrado",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+
+                    return;
+                }
+
                 // ABRIR PDF
 
                 Process.Start(new ProcessStartInfo
@@ -565,13 +571,23 @@ namespace Vista.Reportes
                     FileName = rutaArchivo,
                     UseShellExecute = true
                 });
+
             }
+
             catch (Exception ex)
             {
-                MessageBox.Show("Ocurrió un error al generar el reporte:\n\n" + ex.Message, "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(
+                    "ERROR:\n\n" +
+                    ex.ToString(),
+                    "Error al generar el reporte",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
             }
         }
+
+
+
+
         private void ActualizarEstadisticasCotizaciones()
         {
             try

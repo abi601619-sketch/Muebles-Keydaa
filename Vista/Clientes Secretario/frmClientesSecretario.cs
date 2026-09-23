@@ -657,6 +657,24 @@ namespace Vista.Clientes_Secretario
         private void btnAnterior_Click(object sender, EventArgs e)
         {
 
+
+        }
+
+        //BOTON DE ANTERIOR CLIENTES CORPORATIVOS
+        private void btnSiguiente_Click(object sender, EventArgs e)
+        {
+
+        }
+        // PÁGINA ANTERIOR CLIENTES CORPORATIVOS
+        private void btnAtrasC_Click(object sender, EventArgs e)
+        {
+
+
+        }
+
+
+        private void btnAnterior_Click_1(object sender, EventArgs e)
+        {
             if (paginaActualIndividual > 1)
             {
                 paginaActualIndividual--;
@@ -665,8 +683,7 @@ namespace Vista.Clientes_Secretario
             }
         }
 
-        //BOTON DE ANTERIOR CLIENTES CORPORATIVOS
-        private void btnSiguiente_Click(object sender, EventArgs e)
+        private void btnSiguiente_Click_1(object sender, EventArgs e)
         {
             if (paginaActualIndividual < totalPaginasIndividual)
             {
@@ -675,10 +692,10 @@ namespace Vista.Clientes_Secretario
                 MostrarClientesIndividuales();
             }
         }
-        // PÁGINA ANTERIOR CLIENTES CORPORATIVOS
-        private void btnAtrasC_Click(object sender, EventArgs e)
-        {
+        // PÁGINA SIGUIENTE CLIENTES CORPORATIVOS
 
+        private void btnAtrasC_Click_1(object sender, EventArgs e)
+        {
             if (paginaActual > 1)
             {
                 paginaActual--;
@@ -686,19 +703,16 @@ namespace Vista.Clientes_Secretario
                 MostrarClientesCorporativos();
             }
         }
-        // PÁGINA SIGUIENTE CLIENTES CORPORATIVOS
-        private void btnSiguienteC_Click(object sender, EventArgs e)
+
+        private void btnSiguienteC_Click_1(object sender, EventArgs e)
         {
+
             if (paginaActual < totalPaginas)
             {
                 paginaActual++;
 
                 MostrarClientesCorporativos();
             }
-        }
-
-        private void lblPaginaC_Click(object sender, EventArgs e)
-        {
 
         }
 
