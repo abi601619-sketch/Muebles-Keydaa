@@ -21,126 +21,58 @@ namespace Vista.Usuarios
         private int paginaActual = 1;
         private int registrosPorPagina = 20;
         private int totalPaginas = 0;
-
-
-
-        //CONFIGURAR TOOLTIPS
         private void ConfigurarTooltips()
         {
-            // Crear ToolTip
-            ToolTip toolTip1 = new ToolTip();
+            ToolTip toolTip1 = new ToolTip
+            {
+                AutoPopDelay = 5000,
+                InitialDelay = 500,
+                ReshowDelay = 200,
+                ShowAlways = true
+            };
 
-            // Propiedades del ToolTip
-            toolTip1.AutoPopDelay = 5000;
-            toolTip1.InitialDelay = 500;
-            toolTip1.ReshowDelay = 200;
-            toolTip1.ShowAlways = true;
-
-            // Datos del usuario
-            toolTip1.SetToolTip(txtUsuario, "Ingrese el nombre del usuario.");
-
+            toolTip1.SetToolTip(txtUsuario, "Ingrese el nombre de usuario.");
             toolTip1.SetToolTip(txtCorreo, "Ingrese el correo electrónico del usuario.");
-
             toolTip1.SetToolTip(txtContrasena, "Ingrese la contraseña del usuario.");
-
             toolTip1.SetToolTip(cmbRol, "Seleccione el rol que tendrá el usuario.");
-
             toolTip1.SetToolTip(chkEstado, "Indica si el usuario se encuentra activo.");
-
-            // Botones
             toolTip1.SetToolTip(btnNuevoUsuario, "Limpia el formulario para registrar un nuevo usuario.");
-
             toolTip1.SetToolTip(btnGuardarUsuario, "Guarda el nuevo usuario en el sistema.");
-
             toolTip1.SetToolTip(btnDesactivarUsuario, "Desactiva el usuario seleccionado.");
-
-            // Tabla de usuarios
-            toolTip1.SetToolTip(dgvUsuariosRegistrados, "Muestra los usuarios registrados. Haz doble clic en un usuario para consultar sus datos.");
+            toolTip1.SetToolTip(dgvUsuariosRegistrados, "Muestra los usuarios registrados. Haz doble clic para consultar sus datos.");
         }
 
-        //CONFIGURACION DEL DISEÑO DE LA TABLA
         private void ConfigurarTablaUsuarios()
         {
-            // Encabezado
             dgvUsuariosRegistrados.EnableHeadersVisualStyles = false;
+            dgvUsuariosRegistrados.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(121, 75, 45);
+            dgvUsuariosRegistrados.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dgvUsuariosRegistrados.ColumnHeadersDefaultCellStyle.Font = new Font("Times New Roman", 9, FontStyle.Regular);
+            dgvUsuariosRegistrados.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvUsuariosRegistrados.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(121, 75, 45);
+            dgvUsuariosRegistrados.ColumnHeadersDefaultCellStyle.SelectionForeColor = Color.White;
 
-            dgvUsuariosRegistrados.ColumnHeadersDefaultCellStyle.BackColor =
-                Color.FromArgb(121, 75, 45);
+            dgvUsuariosRegistrados.DefaultCellStyle.BackColor = Color.White;
+            dgvUsuariosRegistrados.DefaultCellStyle.ForeColor = Color.FromArgb(45, 45, 45);
+            dgvUsuariosRegistrados.DefaultCellStyle.Font = new Font("Segoe UI", 9, FontStyle.Regular);
+            dgvUsuariosRegistrados.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dgvUsuariosRegistrados.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(248, 241, 232);
+            dgvUsuariosRegistrados.DefaultCellStyle.SelectionBackColor = Color.FromArgb(224, 193, 157);
+            dgvUsuariosRegistrados.DefaultCellStyle.SelectionForeColor = Color.Black;
 
-            dgvUsuariosRegistrados.ColumnHeadersDefaultCellStyle.ForeColor =
-                Color.White;
-
-            dgvUsuariosRegistrados.ColumnHeadersDefaultCellStyle.Font =
-                new Font("Times New Roman", 9, FontStyle.Regular);
-
-            dgvUsuariosRegistrados.ColumnHeadersDefaultCellStyle.Alignment =
-                DataGridViewContentAlignment.MiddleCenter;
-
-            dgvUsuariosRegistrados.ColumnHeadersDefaultCellStyle.SelectionBackColor =
-                Color.FromArgb(121, 75, 45);
-
-            dgvUsuariosRegistrados.ColumnHeadersDefaultCellStyle.SelectionForeColor =
-                Color.White;
-
-            // Filas
-            dgvUsuariosRegistrados.DefaultCellStyle.BackColor =
-                Color.White;
-
-            dgvUsuariosRegistrados.DefaultCellStyle.ForeColor =
-                Color.FromArgb(45, 45, 45);
-
-            dgvUsuariosRegistrados.DefaultCellStyle.Font =
-                new Font("Segoe UI", 9, FontStyle.Regular);
-
-            dgvUsuariosRegistrados.DefaultCellStyle.Alignment =
-                DataGridViewContentAlignment.MiddleLeft;
-
-            // Filas alternadas
-            dgvUsuariosRegistrados.AlternatingRowsDefaultCellStyle.BackColor =
-                Color.FromArgb(248, 241, 232);
-
-            // Selección
-            dgvUsuariosRegistrados.DefaultCellStyle.SelectionBackColor =
-                Color.FromArgb(224, 193, 157);
-
-            dgvUsuariosRegistrados.DefaultCellStyle.SelectionForeColor =
-                Color.Black;
-
-            // Bordes
-            dgvUsuariosRegistrados.CellBorderStyle =
-                DataGridViewCellBorderStyle.SingleHorizontal;
-
-            dgvUsuariosRegistrados.GridColor =
-                Color.FromArgb(220, 220, 220);
-
-            // Alto de las filas
+            dgvUsuariosRegistrados.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            dgvUsuariosRegistrados.GridColor = Color.FromArgb(220, 220, 220);
             dgvUsuariosRegistrados.RowTemplate.Height = 32;
-
-            // Alto del encabezado
             dgvUsuariosRegistrados.ColumnHeadersHeight = 30;
-
-            // No permitir modificar
             dgvUsuariosRegistrados.ReadOnly = true;
-
             dgvUsuariosRegistrados.AllowUserToAddRows = false;
-
             dgvUsuariosRegistrados.AllowUserToDeleteRows = false;
-
-            // Seleccionar fila completa
-            dgvUsuariosRegistrados.SelectionMode =
-                DataGridViewSelectionMode.FullRowSelect;
-
+            dgvUsuariosRegistrados.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvUsuariosRegistrados.MultiSelect = false;
-
-            // Quitar borde exterior
-            dgvUsuariosRegistrados.BorderStyle =
-                BorderStyle.None;
-
-            // OCULTAR EL CUADRITO DE LA IZQUIERDA
+            dgvUsuariosRegistrados.BorderStyle = BorderStyle.None;
             dgvUsuariosRegistrados.RowHeadersVisible = false;
         }
 
-        // REGISTRAR USUARIO
         private void RegistrarUsuario()
         {
             try
@@ -149,116 +81,93 @@ namespace Vista.Usuarios
                 string usuarioNombre = txtUsuario.Text.Trim();
                 string correo = txtCorreo.Text.Trim();
                 string contraseña = txtContrasena.Text;
-
-                // Todo usuario nuevo inicia activo
                 bool estado = true;
 
-                // VALIDAR NOMBRE
                 if (string.IsNullOrWhiteSpace(nombre))
                 {
-                    MessageBox.Show("Debe ingresar el nombre del usuario.", "Advertencia",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
+                    MessageBox.Show("Debe ingresar el nombre del usuario.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     txtUsuario.Focus();
                     return;
                 }
 
-                // VALIDAR NOMBRE DE USUARIO
                 if (string.IsNullOrWhiteSpace(usuarioNombre))
                 {
-                    MessageBox.Show("Debe ingresar un nombre de usuario.", "Advertencia",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
+                    MessageBox.Show("Debe ingresar un nombre de usuario.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     txtUsuario.Focus();
                     return;
                 }
 
-                // VALIDAR CORREO
                 if (string.IsNullOrWhiteSpace(correo))
                 {
-                    MessageBox.Show("Debe ingresar un correo electrónico.", "Advertencia",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
+                    MessageBox.Show("Debe ingresar un correo electrónico.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     txtCorreo.Focus();
                     return;
                 }
 
-                // Validación sencilla del correo
                 if (!correo.Contains("@") || !correo.Contains("."))
                 {
-                    MessageBox.Show("Ingrese un correo electrónico válido.", "Correo inválido",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
+                    MessageBox.Show("Ingrese un correo electrónico válido.", "Correo inválido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     txtCorreo.Focus();
                     return;
                 }
 
-                // VALIDAR CONTRASEÑA
                 if (string.IsNullOrWhiteSpace(contraseña))
                 {
-                    MessageBox.Show("Debe ingresar una contraseña.", "Advertencia",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
+                    MessageBox.Show("Debe ingresar una contraseña.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     txtContrasena.Focus();
                     return;
                 }
 
-                // VALIDAR ROL
                 if (cmbRol.SelectedIndex == -1)
                 {
-                    MessageBox.Show("Se debe seleccionar un rol.", "Advertencia",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
+                    MessageBox.Show("Se debe seleccionar un rol.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     cmbRol.Focus();
                     return;
                 }
 
                 string rol = cmbRol.Text.Trim();
 
-                if (rol != "Administrador" &&
-                    rol != "Secretario")
+                if (rol != "Administrador" && rol != "Secretario")
                 {
-                    MessageBox.Show("Se debe seleccionar un rol válido.", "Advertencia",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
+                    MessageBox.Show("Se debe seleccionar un rol válido.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     cmbRol.Focus();
                     return;
                 }
 
-                // CREAR OBJETO USUARIO
-                DbUsuarios nuevoUsuario = new DbUsuarios();
+                DbUsuarios nuevoUsuario = new DbUsuarios
+                {
+                    Nombre1 = nombre,
+                    Usuario1 = usuarioNombre,
+                    Correo1 = correo,
+                    Contraseña1 = contraseña,
+                    Rol1 = rol,
+                    Estado1 = estado
+                };
 
-                nuevoUsuario.Nombre1 = nombre;
-                nuevoUsuario.Usuario1 = usuarioNombre;
-                nuevoUsuario.Correo = correo;
-                nuevoUsuario.Contraseña1 = contraseña;
-                nuevoUsuario.Rol1 = rol;
-                nuevoUsuario.Estado1 = estado;
-
-                // INSERTAR EN LA BASE DE DATOS
                 nuevoUsuario.InsertarUsuario();
 
-                MessageBox.Show("Usuario registrado correctamente.", "Información",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Usuario registrado correctamente.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                // LIMPIAR FORMULARIO
                 LimpiarFormulario();
-
-                // ACTUALIZAR TABLA
                 MostrarUsuarios();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ocurrió un error al registrar el usuario:\n\n" + ex.Message, "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error inesperado al registrar el usuario: " + ex.Message, "Error inesperado", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
 
         // BOTÓN GUARDAR
         private void btnGuardarUsuario_Click(object sender, EventArgs e)
         {
-            RegistrarUsuario();
+            try
+            {
+                RegistrarUsuario();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error inesperado: " + ex.Message, "Error inesperado", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
 
@@ -267,56 +176,43 @@ namespace Vista.Usuarios
         {
             try
             {
-                // Verificar que haya una fila seleccionada
                 if (dgvUsuariosRegistrados.CurrentRow == null)
                 {
-                    MessageBox.Show("Debe seleccionar un usuario.", "Advertencia",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
+                    MessageBox.Show("Debe seleccionar un usuario.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
-                // Obtener el IdUsuario
                 int idUsuario = Convert.ToInt32(dgvUsuariosRegistrados.CurrentRow.Cells["IdUsuario"].Value);
-
-                // Obtener el estado actual
                 string estado = dgvUsuariosRegistrados.CurrentRow.Cells["Estado"].Value?.ToString();
 
-                // Si ya está inactivo
                 if (estado == "Inactivo")
                 {
                     MessageBox.Show("El usuario seleccionado ya está inactivo.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
                     return;
                 }
 
-                // CONFIRMAR DESACTIVACIÓN
-                DialogResult respuesta = MessageBox.Show("¿Está seguro de desactivar este usuario?", "Confirmar desactivación",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Question
-                );
+                DialogResult respuesta = MessageBox.Show("¿Está seguro de desactivar este usuario?", "Confirmar desactivación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (respuesta == DialogResult.Yes)
                 {
                     DbUsuarios usuario = new DbUsuarios();
-
                     usuario.DesactivarUsuario(idUsuario);
 
-                    MessageBox.Show("Usuario desactivado correctamente.", "Información",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Usuario desactivado correctamente.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     MostrarUsuarios();
                     LimpiarFormulario();
                 }
             }
+            catch (FormatException)
+            {
+                MessageBox.Show("Error 245: El identificador del usuario no es válido.", "Error 245", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
             catch (Exception ex)
             {
-                MessageBox.Show("Ocurrió un error al desactivar el usuario:\n\n" + ex.Message, "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error inesperado al desactivar el usuario: " + ex.Message, "Error inesperado", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-
         // MOSTRAR USUARIOS
         private void MostrarUsuarios()
         {
@@ -344,60 +240,58 @@ namespace Vista.Usuarios
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         private void CalcularPaginasUsuarios()
         {
-            if (dtUsuarios == null || dtUsuarios.Rows.Count == 0)
+            try
             {
-                totalPaginas = 1;
-                paginaActual = 1;
-                return;
+                if (dtUsuarios == null || dtUsuarios.Rows.Count == 0)
+                {
+                    totalPaginas = 1;
+                    paginaActual = 1;
+                    return;
+                }
+
+                totalPaginas = (int)Math.Ceiling((double)dtUsuarios.Rows.Count / registrosPorPagina);
+
+                if (totalPaginas == 0)
+                    totalPaginas = 1;
+
+                if (paginaActual > totalPaginas)
+                    paginaActual = totalPaginas;
             }
-
-            totalPaginas = (int)Math.Ceiling(
-                (double)dtUsuarios.Rows.Count / registrosPorPagina
-            );
-
-            if (totalPaginas == 0)
-                totalPaginas = 1;
-
-            if (paginaActual > totalPaginas)
-                paginaActual = totalPaginas;
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error inesperado al calcular las páginas: " + ex.Message, "Error inesperado", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
-
         private void MostrarPaginaUsuarios()
         {
-            if (dtUsuarios == null)
-                return;
-
-            DataTable dtPagina = dtUsuarios.Clone();
-
-            int inicio = (paginaActual - 1) * registrosPorPagina;
-
-            int fin = Math.Min(
-                inicio + registrosPorPagina,
-                dtUsuarios.Rows.Count
-            );
-
-            for (int i = inicio; i < fin; i++)
+            try
             {
-                dtPagina.ImportRow(dtUsuarios.Rows[i]);
+                if (dtUsuarios == null)
+                    return;
+
+                DataTable dtPagina = dtUsuarios.Clone();
+
+                int inicio = (paginaActual - 1) * registrosPorPagina;
+                int fin = Math.Min(inicio + registrosPorPagina, dtUsuarios.Rows.Count);
+
+                for (int i = inicio; i < fin; i++)
+                    dtPagina.ImportRow(dtUsuarios.Rows[i]);
+
+                dgvUsuariosRegistrados.DataSource = null;
+                dgvUsuariosRegistrados.DataSource = dtPagina;
+
+                ConfigurarTablaUsuarios();
+
+                lblPagina.Text = $"Página {paginaActual} de {totalPaginas}";
+                btnAnterior.Enabled = paginaActual > 1;
+                btnSiguiente.Enabled = paginaActual < totalPaginas;
             }
-
-            // Mostrar únicamente los registros de la página actual
-            dgvUsuariosRegistrados.DataSource = null;
-            dgvUsuariosRegistrados.DataSource = dtPagina;
-
-            // Configurar diseño de la tabla
-            ConfigurarTablaUsuarios();
-
-            // Mostrar página actual
-            lblPagina.Text =
-                $"Página {paginaActual} de {totalPaginas}";
-
-            // Activar o desactivar botones
-            btnAnterior.Enabled = paginaActual > 1;
-            btnSiguiente.Enabled = paginaActual < totalPaginas;
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error inesperado al mostrar los usuarios: " + ex.Message, "Error inesperado", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnAnterior_Click(object sender, EventArgs e)
@@ -421,14 +315,16 @@ namespace Vista.Usuarios
         // CARGAR FORMULARIO
         private void frmUsuarios_Load(object sender, EventArgs e)
         {
-            MostrarUsuarios();
-
-            // Como los nuevos usuarios siempre comienzan activos,
-            // no necesitamos mostrar este CheckBox.
-            chkEstado.Visible = false;
-
-            // Configurar diseño de la tabla
-            ConfigurarTablaUsuarios();
+            try
+            {
+                MostrarUsuarios();
+                chkEstado.Visible = false;
+                ConfigurarTablaUsuarios();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error inesperado al cargar el formulario: " + ex.Message, "Error inesperado", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
 
