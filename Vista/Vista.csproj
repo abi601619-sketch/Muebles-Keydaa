@@ -725,6 +725,8 @@
     <None Include="Resources\hacia-adelante negro2.png" />
     <None Include="Resources\hacia-atras negro2.png" />
     <None Include="Resources\Captura Para tutorial cotizacion.png" />
+    <None Include="Resources\controlar.png" />
+    <None Include="Resources\error.png" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

@@ -19,6 +19,7 @@ namespace Vista.Ventas
         {
             InitializeComponent();
             ResponsiveHelper.Apply(this);
+            pnlFacturaRegistrada.Visible = false;
         }
 
         private void panel6_Paint(object sender, PaintEventArgs e)
@@ -416,6 +417,21 @@ namespace Vista.Ventas
                 // Cargar detalle de la venta
                 DataTable detalle = DetalleVenta.CargarDetalleVenta(idVenta);
 
+                // Verificar si la venta ya tiene factura
+                bool tieneFactura = DbVentas.VentaTieneFactura(idVenta);
+                if (tieneFactura)
+                {
+                    pnlFacturaRegistrada.Visible = false;
+                    btnRegistrarFactura.Enabled = false;
+                }
+                else
+                {
+                    pnlFacturaRegistrada.Visible = true;
+                    btnRegistrarFactura.Enabled = true;
+                }
+
+
+
                 dgvDetalleDeVenta.DataSource = null;
                 dgvDetalleDeVenta.DataSource = detalle;
 
@@ -604,6 +620,11 @@ namespace Vista.Ventas
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

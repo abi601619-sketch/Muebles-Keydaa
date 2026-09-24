@@ -272,5 +272,85 @@ namespace Modelo.Entidades
                 return new DataTable();
             }
         }
+        public static bool VentaTieneFactura(int idVenta)
+        {
+            try
+            {
+                using (SqlConnection conectar = Conexion.Conectar())
+                {
+                    string consulta = @" SELECT COUNT(*) FROM Factura
+                WHERE IdVenta = @IdVenta";
+
+                    using (SqlCommand comando = new SqlCommand(consulta, conectar))
+                    {
+                        comando.Parameters.AddWithValue("@IdVenta", idVenta);
+
+                        int cantidad = Convert.ToInt32(comando.ExecuteScalar());
+
+                        return cantidad > 0;
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                switch (ex.Number)
+                {
+                    case 53:
+                        MessageBox.Show("No se pudo establecer conexión con el servidor de base de datos.", "ERR-SQL-001: Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 4060:
+                        MessageBox.Show("No se pudo acceder a la base de datos especificada.", "ERR-SQL-002: Acceso a la base de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case -2:
+                        MessageBox.Show("La operación excedió el tiempo de espera permitido.", "ERR-SQL-003: Tiempo de espera agotado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+
+                    case 208:
+                        MessageBox.Show("No se encontró la tabla o el objeto requerido en la base de datos.", "ERR-SQL-004: Objeto inexistente", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 2627:
+                        MessageBox.Show("Se intentó registrar un valor duplicado que debe ser único.", "ERR-SQL-005: Clave duplicada", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+
+                    case 2601:
+                        MessageBox.Show("Se intentó registrar un valor duplicado en un índice único.", "ERR-SQL-006: Índice UNIQUE duplicado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+
+                    case 547:
+                        MessageBox.Show("La operación no puede realizarse porque viola una restricción de integridad de la base de datos.", "ERR-SQL-007: Restricción de integridad", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+
+                    case 515:
+                        MessageBox.Show("No se puede completar la operación porque falta un dato obligatorio.", "ERR-SQL-008: Campo obligatorio", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+
+                    case 245:
+                        MessageBox.Show("Se produjo un error al convertir un dato al tipo requerido.", "ERR-SQL-009: Error de conversión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 8115:
+                        MessageBox.Show("El valor ingresado excede el rango permitido para el tipo de dato.", "ERR-SQL-010: Desbordamiento numérico", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 8152:
+                        MessageBox.Show("Uno de los datos ingresados supera la longitud permitida.", "ERR-SQL-011: Longitud de datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+
+                    default:
+                        MessageBox.Show("Se produjo un error inesperado al consultar la base de datos. Código SQL: " + ex.Number, "ERR-SQL-999: Otro error SQL", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                }
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Se produjo un error inesperado al verificar si la venta tiene una factura registrada. " + ex.Message, "ERR-C#-001: Error inesperado", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+        }
     }
 }

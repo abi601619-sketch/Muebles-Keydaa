@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMaterialUtilizado));
             this.gbInformacionGeneral = new System.Windows.Forms.GroupBox();
             this.dtpFechaEntrega = new System.Windows.Forms.DateTimePicker();
             this.txtMuebleProduccion = new System.Windows.Forms.TextBox();
@@ -36,6 +37,7 @@
             this.txtIdProduccion = new System.Windows.Forms.TextBox();
             this.lblProduccion = new System.Windows.Forms.Label();
             this.gbAgregarMateriales = new System.Windows.Forms.GroupBox();
+            this.txtUnidadMedida = new System.Windows.Forms.TextBox();
             this.btnAgregarMaterialUtilizado = new System.Windows.Forms.Button();
             this.lblCantidadUtilizada = new System.Windows.Forms.Label();
             this.cbMateriales = new System.Windows.Forms.ComboBox();
@@ -49,7 +51,6 @@
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnSalir = new System.Windows.Forms.Button();
             this.btnGuardarConsumo = new System.Windows.Forms.Button();
-            this.txtUnidadMedida = new System.Windows.Forms.TextBox();
             this.gbInformacionGeneral.SuspendLayout();
             this.gbAgregarMateriales.SuspendLayout();
             this.gbMaterialesAgregados.SuspendLayout();
@@ -136,6 +137,14 @@
             this.gbAgregarMateriales.TabIndex = 5;
             this.gbAgregarMateriales.TabStop = false;
             this.gbAgregarMateriales.Text = "AGREGAR MATERIAL";
+            // 
+            // txtUnidadMedida
+            // 
+            this.txtUnidadMedida.Font = new System.Drawing.Font("Times New Roman", 11F);
+            this.txtUnidadMedida.Location = new System.Drawing.Point(327, 25);
+            this.txtUnidadMedida.Name = "txtUnidadMedida";
+            this.txtUnidadMedida.Size = new System.Drawing.Size(107, 24);
+            this.txtUnidadMedida.TabIndex = 9;
             // 
             // btnAgregarMaterialUtilizado
             // 
@@ -295,14 +304,6 @@
             this.btnGuardarConsumo.UseVisualStyleBackColor = false;
             this.btnGuardarConsumo.Click += new System.EventHandler(this.btnGuardarConsumo_Click);
             // 
-            // txtUnidadMedida
-            // 
-            this.txtUnidadMedida.Font = new System.Drawing.Font("Times New Roman", 11F);
-            this.txtUnidadMedida.Location = new System.Drawing.Point(327, 25);
-            this.txtUnidadMedida.Name = "txtUnidadMedida";
-            this.txtUnidadMedida.Size = new System.Drawing.Size(107, 24);
-            this.txtUnidadMedida.TabIndex = 9;
-            // 
             // frmMaterialUtilizado
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -315,7 +316,8 @@
             this.Controls.Add(this.gbMaterialesAgregados);
             this.Controls.Add(this.gbAgregarMateriales);
             this.Controls.Add(this.gbInformacionGeneral);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmMaterialUtilizado";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmMaterialUtilizado";

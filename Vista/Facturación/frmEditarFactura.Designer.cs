@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmEditarFactura));
             this.pnlDatosGeneralesFactura = new System.Windows.Forms.Panel();
             this.dtpFechaVencimiento = new System.Windows.Forms.DateTimePicker();
             this.lblNFactura = new System.Windows.Forms.Label();
@@ -341,7 +342,7 @@
             // 
             this.btnGerarPdfModificado.BackColor = System.Drawing.Color.Silver;
             this.btnGerarPdfModificado.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGerarPdfModificado.Image = global::Vista.Properties.Resources.PDFIcono;
+            this.btnGerarPdfModificado.Image = global::Vista.Properties.Resources.archivo_pdfIconoManuales;
             this.btnGerarPdfModificado.Location = new System.Drawing.Point(11, 446);
             this.btnGerarPdfModificado.Margin = new System.Windows.Forms.Padding(2);
             this.btnGerarPdfModificado.Name = "btnGerarPdfModificado";
@@ -375,6 +376,7 @@
             this.Controls.Add(this.pnlObservacion);
             this.Controls.Add(this.pnlResumenDePagoFactura);
             this.Controls.Add(this.pnlDatosGeneralesFactura);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmEditarFactura";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmEditarFactura";

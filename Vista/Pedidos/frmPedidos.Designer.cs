@@ -52,6 +52,9 @@
             this.label2 = new System.Windows.Forms.Label();
             this.dgvDetallesDePedido = new System.Windows.Forms.DataGridView();
             this.pnlPedidaDeDatos = new System.Windows.Forms.Panel();
+            this.txtEstado = new System.Windows.Forms.TextBox();
+            this.btnCancelar = new System.Windows.Forms.Button();
+            this.btnGuardar = new System.Windows.Forms.Button();
             this.txtClienteSeleccionado = new System.Windows.Forms.TextBox();
             this.dtpFechaDeEntrega = new System.Windows.Forms.DateTimePicker();
             this.lblFechaPedido = new System.Windows.Forms.Label();
@@ -61,9 +64,6 @@
             this.lblFechaEntrega = new System.Windows.Forms.Label();
             this.lblCliente = new System.Windows.Forms.Label();
             this.pnlContenedorPrincipalInventario = new System.Windows.Forms.Panel();
-            this.btnCancelar = new System.Windows.Forms.Button();
-            this.btnGuardar = new System.Windows.Forms.Button();
-            this.txtEstado = new System.Windows.Forms.TextBox();
             this.pnlHeader.SuspendLayout();
             this.pnlRegistros.SuspendLayout();
             this.pnlTitulo2.SuspendLayout();
@@ -375,8 +375,43 @@
             this.pnlPedidaDeDatos.Location = new System.Drawing.Point(20, 109);
             this.pnlPedidaDeDatos.Margin = new System.Windows.Forms.Padding(2);
             this.pnlPedidaDeDatos.Name = "pnlPedidaDeDatos";
-            this.pnlPedidaDeDatos.Size = new System.Drawing.Size(228, 316);
+            this.pnlPedidaDeDatos.Size = new System.Drawing.Size(228, 377);
             this.pnlPedidaDeDatos.TabIndex = 2;
+            // 
+            // txtEstado
+            // 
+            this.txtEstado.Location = new System.Drawing.Point(19, 229);
+            this.txtEstado.Name = "txtEstado";
+            this.txtEstado.ReadOnly = true;
+            this.txtEstado.Size = new System.Drawing.Size(190, 20);
+            this.txtEstado.TabIndex = 41;
+            this.txtEstado.TabStop = false;
+            // 
+            // btnCancelar
+            // 
+            this.btnCancelar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.btnCancelar.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancelar.Location = new System.Drawing.Point(119, 323);
+            this.btnCancelar.Margin = new System.Windows.Forms.Padding(2);
+            this.btnCancelar.Name = "btnCancelar";
+            this.btnCancelar.Size = new System.Drawing.Size(91, 39);
+            this.btnCancelar.TabIndex = 39;
+            this.btnCancelar.Text = "Cancelar";
+            this.btnCancelar.UseVisualStyleBackColor = false;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
+            // 
+            // btnGuardar
+            // 
+            this.btnGuardar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.btnGuardar.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGuardar.Location = new System.Drawing.Point(14, 323);
+            this.btnGuardar.Margin = new System.Windows.Forms.Padding(2);
+            this.btnGuardar.Name = "btnGuardar";
+            this.btnGuardar.Size = new System.Drawing.Size(101, 39);
+            this.btnGuardar.TabIndex = 40;
+            this.btnGuardar.Text = "Guardar cambios";
+            this.btnGuardar.UseVisualStyleBackColor = false;
+            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
             // 
             // txtClienteSeleccionado
             // 
@@ -472,41 +507,6 @@
             this.pnlContenedorPrincipalInventario.Name = "pnlContenedorPrincipalInventario";
             this.pnlContenedorPrincipalInventario.Size = new System.Drawing.Size(1102, 627);
             this.pnlContenedorPrincipalInventario.TabIndex = 4;
-            // 
-            // btnCancelar
-            // 
-            this.btnCancelar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.btnCancelar.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancelar.Location = new System.Drawing.Point(119, 259);
-            this.btnCancelar.Margin = new System.Windows.Forms.Padding(2);
-            this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(91, 39);
-            this.btnCancelar.TabIndex = 39;
-            this.btnCancelar.Text = "Cancelar";
-            this.btnCancelar.UseVisualStyleBackColor = false;
-            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
-            // 
-            // btnGuardar
-            // 
-            this.btnGuardar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnGuardar.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGuardar.Location = new System.Drawing.Point(14, 259);
-            this.btnGuardar.Margin = new System.Windows.Forms.Padding(2);
-            this.btnGuardar.Name = "btnGuardar";
-            this.btnGuardar.Size = new System.Drawing.Size(101, 39);
-            this.btnGuardar.TabIndex = 40;
-            this.btnGuardar.Text = "Guardar cambios";
-            this.btnGuardar.UseVisualStyleBackColor = false;
-            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
-            // 
-            // txtEstado
-            // 
-            this.txtEstado.Location = new System.Drawing.Point(19, 229);
-            this.txtEstado.Name = "txtEstado";
-            this.txtEstado.ReadOnly = true;
-            this.txtEstado.Size = new System.Drawing.Size(190, 20);
-            this.txtEstado.TabIndex = 41;
-            this.txtEstado.TabStop = false;
             // 
             // frmPedidos
             // 
