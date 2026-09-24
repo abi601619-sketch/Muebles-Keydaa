@@ -55,42 +55,31 @@ namespace Vista.Proveedores
             toolTip1.ShowAlways = true;
 
             // Búsqueda
-            toolTip1.SetToolTip(txtBuscar,
-                "Buscar un proveedor por nombre, teléfono o correo.");
+            toolTip1.SetToolTip(txtBuscar, "Buscar un proveedor por nombre, teléfono o correo.");
 
             // Datos del proveedor
-            toolTip1.SetToolTip(txtNombreProveedor,
-                "Ingrese el nombre del proveedor.");
+            toolTip1.SetToolTip(txtNombreProveedor, "Ingrese el nombre del proveedor.");
 
-            toolTip1.SetToolTip(txtCorreo,
-                "Ingrese el correo electrónico del proveedor.");
+            toolTip1.SetToolTip(txtCorreo, "Ingrese el correo electrónico del proveedor.");
 
-            toolTip1.SetToolTip(txtTelefono,
-                "Ingrese el número de teléfono del proveedor.");
+            toolTip1.SetToolTip(txtTelefono, "Ingrese el número de teléfono del proveedor.");
 
-            toolTip1.SetToolTip(txtUbicacion,
-                "Ingrese la ubicación o dirección del proveedor.");
+            toolTip1.SetToolTip(txtUbicacion, "Ingrese la ubicación o dirección del proveedor.");
 
             // Estado
-            toolTip1.SetToolTip(chkEstado,
-                "Indica si el proveedor se encuentra activo.");
+            toolTip1.SetToolTip(chkEstado, "Indica si el proveedor se encuentra activo.");
 
             // Botones
-            toolTip1.SetToolTip(btnGuardar,
-                "Guarda el nuevo proveedor.");
+            toolTip1.SetToolTip(btnGuardar, "Guarda el nuevo proveedor.");
 
-            toolTip1.SetToolTip(btnEditar,
-                "Permite editar los datos del proveedor seleccionado.");
+            toolTip1.SetToolTip(btnEditar, "Permite editar los datos del proveedor seleccionado.");
 
-            toolTip1.SetToolTip(btnGuardarCambios,
-                "Guarda los cambios realizados al proveedor.");
+            toolTip1.SetToolTip(btnGuardarCambios, "Guarda los cambios realizados al proveedor.");
 
-            toolTip1.SetToolTip(btnDesactivar,
-                "Desactiva el proveedor seleccionado.");
+            toolTip1.SetToolTip(btnDesactivar, "Desactiva o vuelve a activar el proveedor el proveedor seleccionado.");
 
             // Tabla
-            toolTip1.SetToolTip(dgvProveedores,
-                "Muestra los proveedores registrados. Haz doble clic en un proveedor para seleccionarlo.");
+            toolTip1.SetToolTip(dgvProveedores, "Muestra los proveedores registrados. Haz doble clic en un proveedor para seleccionarlo.");
         }
 
         //------------------------------------------------------------------------------------------------------
@@ -99,6 +88,8 @@ namespace Vista.Proveedores
         {
             // Encabezado
             dgvProveedores.EnableHeadersVisualStyles = false;
+
+            dgvProveedores.AllowUserToResizeRows = false;
 
             dgvProveedores.ColumnHeadersDefaultCellStyle.BackColor =
                 Color.FromArgb(121, 75, 45);
@@ -132,25 +123,21 @@ namespace Vista.Proveedores
                 DataGridViewContentAlignment.MiddleLeft;
 
             // Filas alternadas
-            dgvProveedores.AlternatingRowsDefaultCellStyle.BackColor =
-                Color.FromArgb(248, 241, 232);
+            dgvProveedores.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(248, 241, 232);
 
             // Selección
             dgvProveedores.DefaultCellStyle.SelectionBackColor =
                 Color.FromArgb(224, 193, 157);
 
-            dgvProveedores.DefaultCellStyle.SelectionForeColor =
-                Color.Black;
+            dgvProveedores.DefaultCellStyle.SelectionForeColor = Color.Black;
 
             // Bordes
-            dgvProveedores.CellBorderStyle =
-                DataGridViewCellBorderStyle.SingleHorizontal;
+            dgvProveedores.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
 
-            dgvProveedores.GridColor =
-                Color.FromArgb(220, 220, 220);
+            dgvProveedores.GridColor = Color.FromArgb(220, 220, 220);
 
             // Alto de las filas
-            dgvProveedores.RowTemplate.Height = 32;
+            dgvProveedores.RowTemplate.Height = 40;
 
             // Alto del encabezado
             dgvProveedores.ColumnHeadersHeight = 30;
@@ -540,25 +527,34 @@ namespace Vista.Proveedores
 
         private void btnDesactivar_Click(object sender, EventArgs e)
         {
-            if (idProveedorSeleccionado == 0)
+            try
             {
-                MessageBox.Show("Seleccione un proveedor.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
+                if (dgvProveedores.CurrentRow == null)
+                {
+                    MessageBox.Show("Seleccione un proveedor.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                int idProveedor = Convert.ToInt32(dgvProveedores.CurrentRow.Cells["IdProveedor"].Value);
+                string estadoActual = dgvProveedores.CurrentRow.Cells["Estado"].Value?.ToString();
+
+                bool activar = estadoActual == "Inactivo";
+
+                string mensaje = activar ? "¿Desea volver a activar este proveedor?" : "¿Desea desactivar este proveedor?";
+
+                if (MessageBox.Show(mensaje, activar ? "Activar proveedor" : "Desactivar proveedor", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+                    return;
+
+                if (DbProveedor.CambiarEstadoProveedor(idProveedor, activar))
+                {
+                    MessageBox.Show(activar ? "El proveedor ha sido activado correctamente." : "El proveedor ha sido desactivado correctamente.", "Operación completada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    MostrarProveedor();
+                }
             }
-
-            DbProveedor proveedor = new DbProveedor();
-
-            bool resultado = proveedor.DesactivarProveedor(idProveedorSeleccionado);
-
-            if (resultado)
+            catch (Exception ex)
             {
-                MessageBox.Show("El proveedor fue desactivado correctamente.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                MostrarProveedor();
-            }
-            else
-            {
-                MessageBox.Show("El proveedor ya está inactivo.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("No se pudo cambiar el estado del proveedor.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -608,7 +604,26 @@ namespace Vista.Proveedores
             }
             dgvProveedores.Columns["IdProveedor"].Visible = false;
         }
+        private void ActualizarBotonEstado()
+        {
+            if (dgvProveedores.CurrentRow == null)
+                return;
 
+            string estado = dgvProveedores.CurrentRow.Cells["Estado"].Value?.ToString();
+
+            if (estado == "Activo")
+            {
+                btnDesactivar.Text = "Desactivar";
+                btnDesactivar.BackColor = Color.FromArgb(220, 53, 69);
+                btnDesactivar.ForeColor = Color.White;
+            }
+            else
+            {
+                btnDesactivar.Text = "Activar";
+                btnDesactivar.BackColor = Color.FromArgb(40, 167, 69);
+                btnDesactivar.ForeColor = Color.White;
+            }
+        }
 
 
         private void btnNuevo_Click(object sender, EventArgs e)
@@ -616,6 +631,16 @@ namespace Vista.Proveedores
             Limpiar();
         }
 
-
+        private void dgvProveedores_SelectionChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                ActualizarBotonEstado();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("No se pudo actualizar el botón de estado.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }

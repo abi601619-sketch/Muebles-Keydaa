@@ -143,6 +143,8 @@ namespace Vista.Clientes
             tabla.AllowUserToDeleteRows = false;
             tabla.AllowUserToResizeRows = false;
             tabla.AllowUserToResizeColumns = false;
+            dgvClientesIndividuales.RowTemplate.Height = 36;
+            dgvClientesCorporativos.RowTemplate.Height = 36;
 
             tabla.ReadOnly = true;
 
@@ -193,6 +195,7 @@ namespace Vista.Clientes
                 SelectionBackColor = Color.FromArgb(238, 215, 185),
                 SelectionForeColor = Color.FromArgb(60, 45, 35),
                 Padding = new Padding(5)
+
             };
 
             // FILAS ALTERNADAS
@@ -208,6 +211,7 @@ namespace Vista.Clientes
             // FILA SELECCIONADA
             tabla.RowsDefaultCellStyle.SelectionBackColor = Color.FromArgb(238, 215, 185);
             tabla.RowsDefaultCellStyle.SelectionForeColor = Color.FromArgb(60, 45, 35);
+
         }
         //----------------------------------------------------------------------
         // FORMATEAR TABLA DE CLIENTES INDIVIDUALES

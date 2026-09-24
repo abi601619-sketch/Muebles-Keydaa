@@ -47,6 +47,8 @@ namespace Vista.Pedidos
 
             dgvPedidosRegistrados.EnableHeadersVisualStyles = false;
 
+
+
             // Encabezado
             dgvPedidosRegistrados.ColumnHeadersDefaultCellStyle.BackColor =
                 Color.FromArgb(121, 75, 45);
@@ -92,7 +94,7 @@ namespace Vista.Pedidos
                 Color.FromArgb(220, 220, 220);
 
             // Alto de filas
-            dgvPedidosRegistrados.RowTemplate.Height = 32;
+            dgvPedidosRegistrados.RowTemplate.Height = 40;
 
             // Encabezado
             dgvPedidosRegistrados.ColumnHeadersHeight = 30;
@@ -109,8 +111,7 @@ namespace Vista.Pedidos
             dgvPedidosRegistrados.MultiSelect = false;
 
             // Quitar borde exterior
-            dgvPedidosRegistrados.BorderStyle =
-                BorderStyle.None;
+            dgvPedidosRegistrados.BorderStyle = BorderStyle.None;
 
             // Ajustar columnas
             if (dgvPedidosRegistrados.Columns.Contains("IdPedido"))
@@ -162,6 +163,7 @@ namespace Vista.Pedidos
 
 
             dgvDetallesDePedido.EnableHeadersVisualStyles = false;
+            dgvDetallesDePedido.RowTemplate.Height = 36;
 
             // Encabezado
             dgvDetallesDePedido.ColumnHeadersDefaultCellStyle.BackColor =
@@ -724,8 +726,7 @@ namespace Vista.Pedidos
 
             if (dgvDetallesDePedido.Columns.Contains("EliminarProducto"))
             {
-                dgvDetallesDePedido.Columns["EliminarProducto"].HeaderText =
-                    "Eliminar";
+                dgvDetallesDePedido.Columns["EliminarProducto"].HeaderText = "Eliminar";
             }
         }
         //-----------------------------------------------------------------------------------
@@ -753,24 +754,15 @@ namespace Vista.Pedidos
         {
             if (dtpFechaDeEntrega.Value.Date < dtpFechaPedido.Value.Date)
             {
-                MessageBox.Show(
-                    "La fecha de entrega no puede ser anterior a la fecha del pedido.",
-                    "Fecha inválida",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning
-                );
+                MessageBox.Show("La fecha de entrega no puede ser anterior a la fecha del pedido.", "Fecha inválida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                 return;
             }
 
             if (idPedidoSeleccionado <= 0)
             {
-                MessageBox.Show(
-                    "Para actualizar la fecha de entrega, selecciona un pedido de la lista y presiona Guardar.",
-                    "Pedido no seleccionado",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning
-                );
+                MessageBox.Show("Para actualizar la fecha de entrega, selecciona un pedido de la lista y presiona Guardar.", "Pedido no seleccionado",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                 return;
             }

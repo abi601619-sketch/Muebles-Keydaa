@@ -253,60 +253,27 @@ namespace Modelo.Entidades
         }
 
 
-        public bool DesactivarProveedor(int idProveedor)
+        public static bool CambiarEstadoProveedor(int idProveedor, bool activar)
         {
+            string comandoSQL = @" UPDATE Proveedor SET Estado = @Estado  WHERE IdProveedor = @IdProveedor;";
+
             try
             {
                 using (SqlConnection conexion = Conexion.Conectar())
+                using (SqlCommand comando = new SqlCommand(comandoSQL, conexion))
                 {
-                    string consultaEstado = "SELECT Estado FROM Proveedor WHERE IdProveedor = @IdProveedor;";
+                    comando.Parameters.AddWithValue("@IdProveedor", idProveedor);
+                    comando.Parameters.AddWithValue("@Estado", activar);
 
-                    using (SqlCommand cmdEstado = new SqlCommand(consultaEstado, conexion))
-                    {
-                        cmdEstado.Parameters.AddWithValue("@IdProveedor", idProveedor);
-
-                        object resultado = cmdEstado.ExecuteScalar();
-
-                        if (resultado == null)
-                        {
-                            MessageBox.Show("No se encontró el proveedor indicado.", "Proveedor no encontrado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            return false;
-                        }
-
-                        if (!Convert.ToBoolean(resultado))
-                        {
-                            MessageBox.Show("El proveedor ya se encuentra inactivo.", "Proveedor inactivo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            return false;
-                        }
-                    }
-
-                    string consultaDesactivar = "UPDATE Proveedor SET Estado = 0 WHERE IdProveedor = @IdProveedor;";
-
-                    using (SqlCommand comando = new SqlCommand(consultaDesactivar, conexion))
-                    {
-                        comando.Parameters.AddWithValue("@IdProveedor", idProveedor);
-                        return comando.ExecuteNonQuery() > 0;
-                    }
+                    return comando.ExecuteNonQuery() > 0;
                 }
             }
             catch (SqlException ex)
             {
                 switch (ex.Number)
                 {
-                    case 547:
-                        MessageBox.Show("No se puede desactivar el proveedor debido a una restricción.", "ERR-SQL-007", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        break;
-
-                    case 515:
-                        MessageBox.Show("El estado del proveedor no puede quedar vacío.", "ERR-SQL-008", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        break;
-
-                    case 245:
-                        MessageBox.Show("El ID del proveedor no tiene un formato válido.", "ERR-SQL-009", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        break;
-
                     case 53:
-                        MessageBox.Show("No se pudo establecer conexión con el servidor.", "ERR-SQL-001", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("No se pudo establecer conexión con el servidor SQL.", "ERR-SQL-001", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
 
                     case 4060:
@@ -314,26 +281,25 @@ namespace Modelo.Entidades
                         break;
 
                     case -2:
-                        MessageBox.Show("La operación tardó demasiado tiempo.", "ERR-SQL-003", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("La operación tardó demasiado tiempo.", "ERR-SQL-003", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
 
                     case 208:
                         MessageBox.Show("La tabla Proveedor no existe en la base de datos.", "ERR-SQL-004", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
 
+                    case 547:
+                        MessageBox.Show("No se puede cambiar el estado del proveedor debido a una restricción de la base de datos.", "ERR-SQL-007", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+
                     default:
-                        MessageBox.Show("Ocurrió un error al desactivar el proveedor.\n" + ex.Message, "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Ocurrió un error al cambiar el estado del proveedor.\n" + ex.Message, "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                 }
-
-                return false;
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Ocurrió un error inesperado.\n" + ex.Message, "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
+            return false;
         }
+
 
 
         public static DataTable BuscarProveedor(string termino)
