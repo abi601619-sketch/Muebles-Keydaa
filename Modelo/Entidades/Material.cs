@@ -51,15 +51,54 @@ namespace Modelo.Entidades
             }
             catch (SqlException ex)
             {
-                MostrarErrorSql(ex, "cargar los materiales");
+                switch (ex.Number)
+                {
+                    case 53:
+                        MessageBox.Show("No se pudo establecer conexión con el servidor SQL.", "ERR-SQL-001", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 4060:
+                        MessageBox.Show("No se pudo acceder a la base de datos.", "ERR-SQL-002", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case -2:
+                        MessageBox.Show("La operación tardó demasiado tiempo.", "ERR-SQL-003", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 208:
+                        MessageBox.Show("La vista VerMaterial no existe en la base de datos.", "ERR-SQL-004", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    default:
+                        MessageBox.Show("Ocurrió un error al cargar los materiales.\n" + ex.Message, "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                }
+
                 return new DataTable();
             }
         }
 
         public bool InsertarMateriales()
         {
-            string comandoSQL = @"INSERT INTO Material (NombreDelMaterial, IdUnidadDeMedida, Stock, Categoria)
-                                  VALUES (@NombreDelMaterial, @IdUnidadDeMedida, @Stock, (SELECT TOP 1 IdCategoria  FROM Categoria WHERE Nombre_Categoria = @Categoria));";
+            string comandoSQL = @"
+                INSERT INTO Material
+                (
+                    NombreDelMaterial,
+                    IdUnidadDeMedida,
+                    Stock,
+                    Categoria
+                )
+                VALUES
+                (
+                    @NombreDelMaterial,
+                    @IdUnidadDeMedida,
+                    @Stock,
+                    (
+                        SELECT TOP 1 IdCategoria
+                        FROM Categoria
+                        WHERE Nombre_Categoria = @Categoria
+                    )
+                );";
 
             try
             {
@@ -133,8 +172,19 @@ namespace Modelo.Entidades
 
         public bool ActualizarMaterial()
         {
-            string comandoSQL = @"UPDATE Material  SET NombreDelMaterial = @NombreDelMaterial,  IdUnidadDeMedida = @IdUnidadDeMedida,  Stock = @Stock,  Categoria = (SELECT TOP 1 IdCategoria
-                                 FROM Categoria WHERE Nombre_Categoria = @Categoria) WHERE IdMaterial = @IdMaterial;";
+            string comandoSQL = @"
+                UPDATE Material
+                SET
+                    NombreDelMaterial = @NombreDelMaterial,
+                    IdUnidadDeMedida = @IdUnidadDeMedida,
+                    Stock = @Stock,
+                    Categoria =
+                    (
+                        SELECT TOP 1 IdCategoria
+                        FROM Categoria
+                        WHERE Nombre_Categoria = @Categoria
+                    )
+                WHERE IdMaterial = @IdMaterial;";
 
             try
             {
@@ -219,8 +269,13 @@ namespace Modelo.Entidades
             {
                 using (SqlConnection conectar = Conexion.Conectar())
                 {
-                    string comando = @"SELECT * FROM VerMaterial  WHERE CAST(IdMaterial AS VARCHAR) LIKE @Texto OR Material LIKE @Texto
-                                       OR Categoria LIKE @Texto ORDER BY IdMaterial;";
+                    string comando = @"
+                        SELECT *
+                        FROM VerMaterial
+                        WHERE CAST(IdMaterial AS VARCHAR) LIKE @Texto
+                           OR Material LIKE @Texto
+                           OR Categoria LIKE @Texto
+                        ORDER BY IdMaterial;";
 
                     using (SqlDataAdapter adapter = new SqlDataAdapter(comando, conectar))
                     {
@@ -274,7 +329,29 @@ namespace Modelo.Entidades
             }
             catch (SqlException ex)
             {
-                MostrarErrorSql(ex, "contar los materiales totales");
+                switch (ex.Number)
+                {
+                    case 53:
+                        MessageBox.Show("No se pudo establecer conexión con el servidor SQL.", "ERR-SQL-001", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 4060:
+                        MessageBox.Show("No se pudo acceder a la base de datos.", "ERR-SQL-002", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case -2:
+                        MessageBox.Show("La operación tardó demasiado tiempo.", "ERR-SQL-003", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 208:
+                        MessageBox.Show("La vista VerMaterial no existe en la base de datos.", "ERR-SQL-004", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    default:
+                        MessageBox.Show("Ocurrió un error al contar los materiales totales.\n" + ex.Message, "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                }
+
                 return 0;
             }
         }
@@ -291,7 +368,29 @@ namespace Modelo.Entidades
             }
             catch (SqlException ex)
             {
-                MostrarErrorSql(ex, "contar los materiales que se están agotando");
+                switch (ex.Number)
+                {
+                    case 53:
+                        MessageBox.Show("No se pudo establecer conexión con el servidor SQL.", "ERR-SQL-001", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 4060:
+                        MessageBox.Show("No se pudo acceder a la base de datos.", "ERR-SQL-002", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case -2:
+                        MessageBox.Show("La operación tardó demasiado tiempo.", "ERR-SQL-003", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 208:
+                        MessageBox.Show("La vista VerMaterial no existe en la base de datos.", "ERR-SQL-004", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    default:
+                        MessageBox.Show("Ocurrió un error al contar los materiales que se están agotando.\n" + ex.Message, "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                }
+
                 return 0;
             }
         }
@@ -308,7 +407,29 @@ namespace Modelo.Entidades
             }
             catch (SqlException ex)
             {
-                MostrarErrorSql(ex, "contar los materiales disponibles");
+                switch (ex.Number)
+                {
+                    case 53:
+                        MessageBox.Show("No se pudo establecer conexión con el servidor SQL.", "ERR-SQL-001", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 4060:
+                        MessageBox.Show("No se pudo acceder a la base de datos.", "ERR-SQL-002", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case -2:
+                        MessageBox.Show("La operación tardó demasiado tiempo.", "ERR-SQL-003", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 208:
+                        MessageBox.Show("La vista VerMaterial no existe en la base de datos.", "ERR-SQL-004", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    default:
+                        MessageBox.Show("Ocurrió un error al contar los materiales disponibles.\n" + ex.Message, "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                }
+
                 return 0;
             }
         }
@@ -325,62 +446,30 @@ namespace Modelo.Entidades
             }
             catch (SqlException ex)
             {
-                MostrarErrorSql(ex, "contar los materiales agotados");
+                switch (ex.Number)
+                {
+                    case 53:
+                        MessageBox.Show("No se pudo establecer conexión con el servidor SQL.", "ERR-SQL-001", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 4060:
+                        MessageBox.Show("No se pudo acceder a la base de datos.", "ERR-SQL-002", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case -2:
+                        MessageBox.Show("La operación tardó demasiado tiempo.", "ERR-SQL-003", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 208:
+                        MessageBox.Show("La vista VerMaterial no existe en la base de datos.", "ERR-SQL-004", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    default:
+                        MessageBox.Show("Ocurrió un error al contar los materiales agotados.\n" + ex.Message, "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                }
+
                 return 0;
-            }
-        }
-
-        private static void MostrarErrorSql(SqlException ex, string operacion)
-        {
-            switch (ex.Number)
-            {
-                case 53:
-                    MessageBox.Show("No se pudo establecer conexión con el servidor SQL.", "ERR-SQL-001", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    break;
-
-                case 4060:
-                    MessageBox.Show("No se pudo acceder a la base de datos.", "ERR-SQL-002", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    break;
-
-                case -2:
-                    MessageBox.Show("La operación tardó demasiado tiempo.", "ERR-SQL-003", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    break;
-
-                case 208:
-                    MessageBox.Show("La tabla, vista o procedimiento utilizado no existe.", "ERR-SQL-004", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    break;
-
-                case 2627:
-                    MessageBox.Show("El registro ya existe por una clave primaria o restricción UNIQUE.", "ERR-SQL-005", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    break;
-
-                case 2601:
-                    MessageBox.Show("El registro ya existe por un índice UNIQUE.", "ERR-SQL-006", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    break;
-
-                case 547:
-                    MessageBox.Show("Se produjo una violación de una clave foránea o restricción CHECK.", "ERR-SQL-007", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    break;
-
-                case 515:
-                    MessageBox.Show("Falta un valor obligatorio en un campo NOT NULL.", "ERR-SQL-008", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    break;
-
-                case 245:
-                    MessageBox.Show("Uno de los datos ingresados tiene un formato o conversión incorrecta.", "ERR-SQL-009", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    break;
-
-                case 8115:
-                    MessageBox.Show("El valor ingresado excede el límite numérico permitido.", "ERR-SQL-010", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    break;
-
-                case 8152:
-                    MessageBox.Show("Uno de los datos ingresados es demasiado largo para la columna.", "ERR-SQL-011", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    break;
-
-                default:
-                    MessageBox.Show("Ocurrió un error inesperado de SQL al " + operacion + ".\n" + ex.Message, "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    break;
             }
         }
     }
