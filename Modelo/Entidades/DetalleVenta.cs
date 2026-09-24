@@ -28,9 +28,9 @@ namespace Modelo.Entidades
             PrecioUnitario1 = precioUnitario;
         }
 
-        public DetalleVenta() { }
-
-        // CARGAR DETALLE DE VENTA
+        public DetalleVenta()
+        {
+        }
 
         public static DataTable CargarDetalleVenta(int idVenta)
         {
@@ -38,13 +38,18 @@ namespace Modelo.Entidades
             {
                 using (SqlConnection conectar = Conexion.Conectar())
                 {
-                    string comando = @"SELECT * FROM VerDetalleVenta WHERE IdVenta = @IdVenta;";
+                    string comando = @"SELECT * 
+                                       FROM VerDetalleVenta 
+                                       WHERE IdVenta = @IdVenta;";
 
                     using (SqlDataAdapter adapter = new SqlDataAdapter(comando, conectar))
                     {
                         adapter.SelectCommand.Parameters.AddWithValue("@IdVenta", idVenta);
+
                         DataTable dt = new DataTable();
+
                         adapter.Fill(dt);
+
                         return dt;
                     }
                 }
@@ -53,28 +58,60 @@ namespace Modelo.Entidades
             {
                 switch (ex.Number)
                 {
-                    case 208:
-                        MessageBox.Show("No se encontró la vista VerDetalleVenta.", "Error 208", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        break;
                     case 53:
-                        MessageBox.Show("No se pudo conectar con el servidor SQL.", "Error 53", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("No se puede conectar al servidor SQL.", "ERR-SQL-001", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
+
                     case 4060:
-                        MessageBox.Show("No se pudo acceder a la base de datos.", "Error 4060", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("No se puede acceder a la base de datos.", "ERR-SQL-002", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
+
                     case -2:
-                        MessageBox.Show("La operación tardó demasiado tiempo.", "Error -2", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Tiempo de espera agotado.", "ERR-SQL-003", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
+
+                    case 208:
+                        MessageBox.Show("Tabla, vista o procedimiento no encontrado.", "ERR-SQL-004", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 2627:
+                        MessageBox.Show("Registro duplicado por clave primaria/UNIQUE.", "ERR-SQL-005", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 2601:
+                        MessageBox.Show("Registro duplicado por índice UNIQUE.", "ERR-SQL-006", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 547:
+                        MessageBox.Show("Violación de FK/CHECK.", "ERR-SQL-007", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 515:
+                        MessageBox.Show("Campo NOT NULL sin valor.", "ERR-SQL-008", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 245:
+                        MessageBox.Show("Conversión o formato de datos incorrecto.", "ERR-SQL-009", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 8115:
+                        MessageBox.Show("Desbordamiento numérico.", "ERR-SQL-010", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 8152:
+                        MessageBox.Show("Datos demasiado largos para la columna.", "ERR-SQL-011", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
                     default:
-                        MessageBox.Show("Ocurrió un error al cargar el detalle de venta.", "Error " + ex.Number, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Error inesperado de SQL.", "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                 }
 
                 return new DataTable();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                MessageBox.Show("Ocurrió un error inesperado al cargar el detalle:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Ocurrió un error inesperado.", "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return new DataTable();
             }
         }

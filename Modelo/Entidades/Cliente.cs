@@ -22,7 +22,15 @@ namespace Modelo.Entidades
 
         public DbCliente(int idCliente, int tipoCliente, string identificador1, string identificador2, string documento, string telefono, string correo, string direccion, string estado)
         {
-            IdCliente = idCliente; TipoCliente = tipoCliente; Identificador1 = identificador1; Identificador2 = identificador2; Documento = documento; Telefono = telefono; Correo = correo; Direccion = direccion; Estado1 = estado;
+            IdCliente = idCliente;
+            TipoCliente = tipoCliente;
+            Identificador1 = identificador1;
+            Identificador2 = identificador2;
+            Documento = documento;
+            Telefono = telefono;
+            Correo = correo;
+            Direccion = direccion;
+            Estado1 = estado;
         }
 
         public int IdCliente1 { get => IdCliente; set => IdCliente = value; }
@@ -43,7 +51,11 @@ namespace Modelo.Entidades
             {
                 using (SqlConnection conectar = Conexion.Conectar())
                 {
-                    string comando = @"SELECT IdCliente,Identificador1 AS Nombre_De_Empresa, Identificador2 AS Nombre_Del_Encargado, Documento AS NIT, Telefono, Correo, Direccion, Estado FROM Cliente WHERE IdTipoCliente = 1 ORDER BY IdCliente OFFSET @RegistrosSaltar ROWS FETCH NEXT @RegistrosPorPagina ROWS ONLY;";
+                    string comando = @"SELECT IdCliente, Identificador1 AS Nombre_De_Empresa, Identificador2 AS Nombre_Del_Encargado, Documento AS NIT, Telefono, Correo, Direccion, Estado 
+                                       FROM Cliente 
+                                       WHERE IdTipoCliente = 1 
+                                       ORDER BY IdCliente 
+                                       OFFSET @RegistrosSaltar ROWS FETCH NEXT @RegistrosPorPagina ROWS ONLY;";
 
                     using (SqlCommand cmd = new SqlCommand(comando, conectar))
                     {
@@ -60,28 +72,34 @@ namespace Modelo.Entidades
                 switch (ex.Number)
                 {
                     case 53:
-                        MessageBox.Show("No se pudo establecer conexión con el servidor de base de datos.", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("No se puede conectar al servidor SQL.", "ERR-SQL-001", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
+
                     case 4060:
-                        MessageBox.Show("No se pudo acceder a la base de datos.", "Error de base de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("No se puede acceder a la base de datos.", "ERR-SQL-002", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
+
                     case -2:
-                        MessageBox.Show("La operación tardó demasiado tiempo. Intente nuevamente.", "Tiempo de espera agotado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Tiempo de espera agotado.", "ERR-SQL-003", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
+
+                    case 208:
+                        MessageBox.Show("Tabla, vista o procedimiento no encontrado.", "ERR-SQL-004", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
                     default:
-                        MessageBox.Show("Ocurrió un error al cargar los clientes corporativos.\n\nCódigo: " + ex.Number + "\nDetalle: " + ex.Message, "Error de base de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Error inesperado de SQL.", "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                MessageBox.Show("Ocurrió un error inesperado al cargar los clientes corporativos.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error inesperado de SQL.", "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             return dt;
         }
 
-        //OBTENER LOS TOTALES DE CORPORATIVOS , PARA SABER EL TOTAL DE REGISTROS DE ESA TABLA
         public static int ObtenerTotalCorporativos()
         {
             int total = 0;
@@ -101,22 +119,29 @@ namespace Modelo.Entidades
                 switch (ex.Number)
                 {
                     case 53:
-                        MessageBox.Show("No se pudo establecer conexión con el servidor de base de datos.", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("No se puede conectar al servidor SQL.", "ERR-SQL-001", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
+
                     case 4060:
-                        MessageBox.Show("No se pudo acceder a la base de datos.", "Error de base de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("No se puede acceder a la base de datos.", "ERR-SQL-002", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
+
                     case -2:
-                        MessageBox.Show("La operación tardó demasiado tiempo. Intente nuevamente.", "Tiempo de espera agotado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Tiempo de espera agotado.", "ERR-SQL-003", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
+
+                    case 208:
+                        MessageBox.Show("Tabla, vista o procedimiento no encontrado.", "ERR-SQL-004", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
                     default:
-                        MessageBox.Show("Ocurrió un error al obtener el total de clientes corporativos.\n\nCódigo: " + ex.Number + "\nDetalle: " + ex.Message, "Error de base de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Error inesperado de SQL.", "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                MessageBox.Show("Ocurrió un error inesperado al obtener el total de clientes corporativos.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error inesperado de SQL.", "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             return total;
@@ -130,7 +155,11 @@ namespace Modelo.Entidades
             {
                 using (SqlConnection conectar = Conexion.Conectar())
                 {
-                    string comando = @"SELECT IdCliente, Identificador1 AS Nombre, Identificador2 AS Apellidos, Documento AS DUI, Telefono, Correo, Direccion, Estado FROM Cliente WHERE IdTipoCliente = 2 ORDER BY IdCliente OFFSET @RegistrosSaltar ROWS FETCH NEXT @RegistrosPorPagina ROWS ONLY;";
+                    string comando = @"SELECT IdCliente, Identificador1 AS Nombre, Identificador2 AS Apellidos, Documento AS DUI, Telefono, Correo, Direccion, Estado 
+                                       FROM Cliente 
+                                       WHERE IdTipoCliente = 2 
+                                       ORDER BY IdCliente 
+                                       OFFSET @RegistrosSaltar ROWS FETCH NEXT @RegistrosPorPagina ROWS ONLY;";
 
                     using (SqlCommand cmd = new SqlCommand(comando, conectar))
                     {
@@ -147,28 +176,34 @@ namespace Modelo.Entidades
                 switch (ex.Number)
                 {
                     case 53:
-                        MessageBox.Show("No se pudo establecer conexión con el servidor de base de datos.", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("No se puede conectar al servidor SQL.", "ERR-SQL-001", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
+
                     case 4060:
-                        MessageBox.Show("No se pudo acceder a la base de datos.", "Error de base de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("No se puede acceder a la base de datos.", "ERR-SQL-002", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
+
                     case -2:
-                        MessageBox.Show("La operación tardó demasiado tiempo. Intente nuevamente.", "Tiempo de espera agotado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Tiempo de espera agotado.", "ERR-SQL-003", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
+
+                    case 208:
+                        MessageBox.Show("Tabla, vista o procedimiento no encontrado.", "ERR-SQL-004", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
                     default:
-                        MessageBox.Show("Ocurrió un error al cargar los clientes individuales.\n\nCódigo: " + ex.Number + "\nDetalle: " + ex.Message, "Error de base de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Error inesperado de SQL.", "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                MessageBox.Show("Ocurrió un error inesperado al cargar los clientes individuales.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error inesperado de SQL.", "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             return dt;
         }
 
-        //OBTENER LOS TOTALES DE INDIVIDUALES, PARA SABER EL TOTAL DE REGISTROS DE ESA TABLA
         public static int ObtenerTotalIndividuales()
         {
             int total = 0;
@@ -188,22 +223,29 @@ namespace Modelo.Entidades
                 switch (ex.Number)
                 {
                     case 53:
-                        MessageBox.Show("No se pudo establecer conexión con el servidor de base de datos.", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("No se puede conectar al servidor SQL.", "ERR-SQL-001", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
+
                     case 4060:
-                        MessageBox.Show("No se pudo acceder a la base de datos.", "Error de base de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("No se puede acceder a la base de datos.", "ERR-SQL-002", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
+
                     case -2:
-                        MessageBox.Show("La operación tardó demasiado tiempo. Intente nuevamente.", "Tiempo de espera agotado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Tiempo de espera agotado.", "ERR-SQL-003", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
+
+                    case 208:
+                        MessageBox.Show("Tabla, vista o procedimiento no encontrado.", "ERR-SQL-004", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
                     default:
-                        MessageBox.Show("Ocurrió un error al obtener el total de clientes individuales.\n\nCódigo: " + ex.Number + "\nDetalle: " + ex.Message, "Error de base de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Error inesperado de SQL.", "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                MessageBox.Show("Ocurrió un error inesperado al obtener el total de clientes individuales.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error inesperado de SQL.", "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             return total;
@@ -211,7 +253,10 @@ namespace Modelo.Entidades
 
         public bool InsertarClienteIndividual()
         {
-            string comandoSQL = @"INSERT INTO Cliente(IdTipoCliente, Identificador1, Identificador2,Documento, Telefono, Correo, Direccion, Estado) VALUES(@IdTipoCliente, @Identificador1, @Identificador2, @Documento, @Telefono, @Correo, @Direccion, @Estado);";
+            string comandoSQL = @"INSERT INTO Cliente
+                                  (IdTipoCliente, Identificador1, Identificador2, Documento, Telefono, Correo, Direccion, Estado) 
+                                  VALUES
+                                  (@IdTipoCliente, @Identificador1, @Identificador2, @Documento, @Telefono, @Correo, @Direccion, @Estado);";
 
             try
             {
@@ -226,7 +271,9 @@ namespace Modelo.Entidades
                     comandoObjeto.Parameters.AddWithValue("@Correo", Correo);
                     comandoObjeto.Parameters.AddWithValue("@Direccion", Direccion);
                     comandoObjeto.Parameters.AddWithValue("@Estado", Estado);
+
                     int filaAfectada = comandoObjeto.ExecuteNonQuery();
+
                     return filaAfectada > 0;
                 }
             }
@@ -235,49 +282,73 @@ namespace Modelo.Entidades
                 switch (ex.Number)
                 {
                     case 2627:
+                        MessageBox.Show("Registro duplicado por clave primaria/UNIQUE.", "ERR-SQL-005", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+
                     case 2601:
-                        MessageBox.Show("El identificador o documento del cliente ya existe en la base de datos.", "Registro duplicado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Registro duplicado por índice UNIQUE.", "ERR-SQL-006", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         break;
+
                     case 547:
-                        MessageBox.Show("No se puede registrar el cliente porque el tipo de cliente seleccionado no existe.", "Error de relación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Violación de FK/CHECK.", "ERR-SQL-007", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         break;
+
                     case 515:
-                        MessageBox.Show("No se puede registrar el cliente porque uno de los campos obligatorios está vacío.", "Datos incompletos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Campo NOT NULL sin valor.", "ERR-SQL-008", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         break;
+
                     case 245:
-                        MessageBox.Show("Uno de los datos proporcionados tiene un formato incorrecto.", "Error de formato", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Conversión o formato de datos incorrecto.", "ERR-SQL-009", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         break;
+
+                    case 8115:
+                        MessageBox.Show("Desbordamiento numérico.", "ERR-SQL-010", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 8152:
+                        MessageBox.Show("Datos demasiado largos para la columna.", "ERR-SQL-011", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
                     case 53:
-                        MessageBox.Show("No se pudo establecer conexión con el servidor de base de datos.", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("No se puede conectar al servidor SQL.", "ERR-SQL-001", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
+
                     case 4060:
-                        MessageBox.Show("No se pudo acceder a la base de datos.", "Error de base de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("No se puede acceder a la base de datos.", "ERR-SQL-002", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
+
                     case -2:
-                        MessageBox.Show("La operación tardó demasiado tiempo. Intente nuevamente.", "Tiempo de espera agotado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Tiempo de espera agotado.", "ERR-SQL-003", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
+
+                    case 208:
+                        MessageBox.Show("Tabla, vista o procedimiento no encontrado.", "ERR-SQL-004", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
                     default:
-                        MessageBox.Show("Ocurrió un error inesperado en la base de datos.\n\nCódigo: " + ex.Number + "\nDetalle: " + ex.Message, "Error de base de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Error inesperado de SQL.", "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                 }
 
                 return false;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                MessageBox.Show("Ocurrió un error inesperado al registrar el cliente.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error inesperado de SQL.", "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
         }
 
         public bool InsertarClienteCorporativo()
         {
-            string comandoSQL = "INSERT INTO Cliente(IdTipoCliente,Identificador1,Identificador2,Documento,Telefono,Correo,Direccion,Estado)" + "VALUES (@IdTipoCliente,@Identificador1,@Identificador2,@Documento,@Telefono,@Correo,@Direccion,@Estado);";
+            string comandoSQL = @"INSERT INTO Cliente
+                                  (IdTipoCliente, Identificador1, Identificador2, Documento, Telefono, Correo, Direccion, Estado)
+                                  VALUES
+                                  (@IdTipoCliente, @Identificador1, @Identificador2, @Documento, @Telefono, @Correo, @Direccion, @Estado);";
 
             using (SqlConnection conexion = Conexion.Conectar())
             using (SqlCommand comandoObjeto = new SqlCommand(comandoSQL, conexion))
             {
-                // Agregan los parámetros
                 comandoObjeto.Parameters.AddWithValue("@IdTipoCliente", TipoCliente);
                 comandoObjeto.Parameters.AddWithValue("@Identificador1", Identificador1);
                 comandoObjeto.Parameters.AddWithValue("@Identificador2", Identificador2);
@@ -289,12 +360,8 @@ namespace Modelo.Entidades
 
                 try
                 {
-                    // Se ejecuta una sola vez
-                    // y se guarda la cantidad de filas afectadas
                     int filaAfectada = comandoObjeto.ExecuteNonQuery();
 
-                    // Si se afectó más de 0 filas retorna true
-                    // y sino false
                     return filaAfectada > 0;
                 }
                 catch (SqlException ex)
@@ -302,38 +369,59 @@ namespace Modelo.Entidades
                     switch (ex.Number)
                     {
                         case 2627:
-                        case 2601:
-                            MessageBox.Show("El identificador o documento del cliente ya existe.", "Registro duplicado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            MessageBox.Show("Registro duplicado por clave primaria/UNIQUE.", "ERR-SQL-005", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             break;
-                        case 547:
-                            MessageBox.Show("No se puede actualizar el cliente porque el tipo de cliente seleccionado no existe.", "Error de relación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            break;
-                        case 515:
-                            MessageBox.Show("No se puede actualizar el cliente porque uno de los campos obligatorios está vacío.", "Datos incompletos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            break;
-                        case 245:
-                            MessageBox.Show("Uno de los datos proporcionados tiene un formato incorrecto.", "Error de formato", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            break;
-                        case 53:
-                            MessageBox.Show("No se pudo establecer conexión con el servidor de base de datos.", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            break;
-                        case 4060:
-                            MessageBox.Show("No se pudo acceder a la base de datos.", "Error de base de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            break;
-                        case -2:
-                            MessageBox.Show("La operación tardó demasiado tiempo.", "Tiempo de espera agotado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            break;
-                        default:
-                            MessageBox.Show("Ocurrió un error inesperado en la base de datos.\n\nCódigo: " + ex.Number + "\nDetalle: " + ex.Message, "Error de base de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
+                        case 2601:
+                            MessageBox.Show("Registro duplicado por índice UNIQUE.", "ERR-SQL-006", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            break;
+
+                        case 547:
+                            MessageBox.Show("Violación de FK/CHECK.", "ERR-SQL-007", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            break;
+
+                        case 515:
+                            MessageBox.Show("Campo NOT NULL sin valor.", "ERR-SQL-008", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            break;
+
+                        case 245:
+                            MessageBox.Show("Conversión o formato de datos incorrecto.", "ERR-SQL-009", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            break;
+
+                        case 8115:
+                            MessageBox.Show("Desbordamiento numérico.", "ERR-SQL-010", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+
+                        case 8152:
+                            MessageBox.Show("Datos demasiado largos para la columna.", "ERR-SQL-011", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+
+                        case 53:
+                            MessageBox.Show("No se puede conectar al servidor SQL.", "ERR-SQL-001", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+
+                        case 4060:
+                            MessageBox.Show("No se puede acceder a la base de datos.", "ERR-SQL-002", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+
+                        case -2:
+                            MessageBox.Show("Tiempo de espera agotado.", "ERR-SQL-003", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+
+                        case 208:
+                            MessageBox.Show("Tabla, vista o procedimiento no encontrado.", "ERR-SQL-004", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+
+                        default:
+                            MessageBox.Show("Error inesperado de SQL.", "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             break;
                     }
 
                     return false;
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
-                    MessageBox.Show("Ocurrió un error inesperado al actualizar el cliente.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Error inesperado de SQL.", "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
             }
@@ -341,17 +429,66 @@ namespace Modelo.Entidades
 
         public static DataTable CargarClientesParaSeleccionar()
         {
-            SqlConnection conectar = Conexion.Conectar();
-            string comando = "SELECT * FROM SeleccionClientes";
-            SqlDataAdapter adapter = new SqlDataAdapter(comando, conectar);
-            DataTable dt = new DataTable();
-            adapter.Fill(dt);
-            return dt;
+            try
+            {
+                using (SqlConnection conectar = Conexion.Conectar())
+                {
+                    string comando = "SELECT * FROM SeleccionClientes";
+
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(comando, conectar))
+                    {
+                        DataTable dt = new DataTable();
+                        adapter.Fill(dt);
+                        return dt;
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                switch (ex.Number)
+                {
+                    case 53:
+                        MessageBox.Show("No se puede conectar al servidor SQL.", "ERR-SQL-001", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 4060:
+                        MessageBox.Show("No se puede acceder a la base de datos.", "ERR-SQL-002", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case -2:
+                        MessageBox.Show("Tiempo de espera agotado.", "ERR-SQL-003", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 208:
+                        MessageBox.Show("Tabla, vista o procedimiento no encontrado.", "ERR-SQL-004", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    default:
+                        MessageBox.Show("Error inesperado de SQL.", "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                }
+
+                return new DataTable();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error inesperado de SQL.", "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return new DataTable();
+            }
         }
 
         public bool ActualizarCliente()
         {
-            string comandoSQL = @"UPDATE Cliente SET IdTipoCliente = @IdTipoCliente, Identificador1 = @Identificador1, Identificador2 = @Identificador2, Documento = @Documento, Telefono = @Telefono, Correo = @Correo, Direccion = @Direccion, Estado = @Estado WHERE IdCliente = @IdCliente;";
+            string comandoSQL = @"UPDATE Cliente 
+                                  SET IdTipoCliente = @IdTipoCliente,
+                                      Identificador1 = @Identificador1,
+                                      Identificador2 = @Identificador2,
+                                      Documento = @Documento, 
+                                      Telefono = @Telefono,
+                                      Correo = @Correo,
+                                      Direccion = @Direccion,
+                                      Estado = @Estado 
+                                  WHERE IdCliente = @IdCliente;";
 
             try
             {
@@ -367,7 +504,9 @@ namespace Modelo.Entidades
                     comandoObjeto.Parameters.AddWithValue("@Correo", Correo);
                     comandoObjeto.Parameters.AddWithValue("@Direccion", Direccion);
                     comandoObjeto.Parameters.AddWithValue("@Estado", Estado);
+
                     int filaAfectada = comandoObjeto.ExecuteNonQuery();
+
                     return filaAfectada > 0;
                 }
             }
@@ -376,36 +515,59 @@ namespace Modelo.Entidades
                 switch (ex.Number)
                 {
                     case 2627:
-                    case 2601:
-                        MessageBox.Show("El identificador o documento del cliente ya existe.", "Registro duplicado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Registro duplicado por clave primaria/UNIQUE.", "ERR-SQL-005", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         break;
-                    case 547:
-                        MessageBox.Show("No se puede actualizar el cliente porque el tipo de cliente seleccionado no existe.", "Error de relación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
-                        MessageBox.Show("No se puede actualizar el cliente porque uno de los campos obligatorios está vacío.", "Datos incompletos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    case 2601:
+                        MessageBox.Show("Registro duplicado por índice UNIQUE.", "ERR-SQL-006", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         break;
+
+                    case 547:
+                        MessageBox.Show("Violación de FK/CHECK.", "ERR-SQL-007", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+
+                    case 515:
+                        MessageBox.Show("Campo NOT NULL sin valor.", "ERR-SQL-008", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+
                     case 245:
-                        MessageBox.Show("Uno de los datos proporcionados tiene un formato incorrecto.", "Error de formato", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Conversión o formato de datos incorrecto.", "ERR-SQL-009", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         break;
+
+                    case 8115:
+                        MessageBox.Show("Desbordamiento numérico.", "ERR-SQL-010", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 8152:
+                        MessageBox.Show("Datos demasiado largos para la columna.", "ERR-SQL-011", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
                     case 53:
-                        MessageBox.Show("No se pudo establecer conexión con el servidor de base de datos.", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("No se puede conectar al servidor SQL.", "ERR-SQL-001", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
+
                     case 4060:
-                        MessageBox.Show("No se pudo acceder a la base de datos.", "Error de base de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("No se puede acceder a la base de datos.", "ERR-SQL-002", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
+
                     case -2:
-                        MessageBox.Show("La operación tardó demasiado tiempo.", "Tiempo de espera agotado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Tiempo de espera agotado.", "ERR-SQL-003", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
+
+                    case 208:
+                        MessageBox.Show("Tabla, vista o procedimiento no encontrado.", "ERR-SQL-004", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
                     default:
-                        MessageBox.Show("Ocurrió un error inesperado en la base de datos.\n\nCódigo: " + ex.Number + "\nDetalle: " + ex.Message, "Error de base de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Error inesperado de SQL.", "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                 }
 
                 return false;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                MessageBox.Show("Ocurrió un error inesperado al actualizar el cliente.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error inesperado de SQL.", "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
         }
@@ -419,6 +581,7 @@ namespace Modelo.Entidades
                 using (SqlConnection conexion = Conexion.Conectar())
                 {
                     string comandoSQL = "SELECT COUNT(*) FROM Cliente;";
+
                     using (SqlCommand comandoObjeto = new SqlCommand(comandoSQL, conexion))
                         total = Convert.ToInt32(comandoObjeto.ExecuteScalar());
                 }
@@ -428,22 +591,29 @@ namespace Modelo.Entidades
                 switch (ex.Number)
                 {
                     case 53:
-                        MessageBox.Show("No se pudo establecer conexión con el servidor.", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("No se puede conectar al servidor SQL.", "ERR-SQL-001", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
+
                     case 4060:
-                        MessageBox.Show("No se pudo acceder a la base de datos.", "Error de base de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("No se puede acceder a la base de datos.", "ERR-SQL-002", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
+
                     case -2:
-                        MessageBox.Show("La consulta tardó demasiado tiempo.", "Tiempo de espera agotado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Tiempo de espera agotado.", "ERR-SQL-003", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
+
+                    case 208:
+                        MessageBox.Show("Tabla, vista o procedimiento no encontrado.", "ERR-SQL-004", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
                     default:
-                        MessageBox.Show("Ocurrió un error al contar los clientes.\n\nCódigo: " + ex.Number + "\nDetalle: " + ex.Message, "Error de base de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Error inesperado de SQL.", "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                MessageBox.Show("Ocurrió un error inesperado al contar los clientes.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error inesperado de SQL.", "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             return total;
@@ -458,6 +628,7 @@ namespace Modelo.Entidades
                 using (SqlConnection conexion = Conexion.Conectar())
                 {
                     string comandoSQL = "SELECT COUNT(*) FROM Cliente WHERE Estado = 'Activo';";
+
                     using (SqlCommand comandoObjeto = new SqlCommand(comandoSQL, conexion))
                         total = Convert.ToInt32(comandoObjeto.ExecuteScalar());
                 }
@@ -467,22 +638,33 @@ namespace Modelo.Entidades
                 switch (ex.Number)
                 {
                     case 53:
-                        MessageBox.Show("No se pudo establecer conexión con el servidor.", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("No se puede conectar al servidor SQL.", "ERR-SQL-001", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
+
                     case 4060:
-                        MessageBox.Show("No se pudo acceder a la base de datos.", "Error de base de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("No se puede acceder a la base de datos.", "ERR-SQL-002", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
+
                     case -2:
-                        MessageBox.Show("La consulta tardó demasiado tiempo.", "Tiempo de espera agotado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Tiempo de espera agotado.", "ERR-SQL-003", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
+
+                    case 208:
+                        MessageBox.Show("Tabla, vista o procedimiento no encontrado.", "ERR-SQL-004", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 245:
+                        MessageBox.Show("Conversión o formato de datos incorrecto.", "ERR-SQL-009", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
                     default:
-                        MessageBox.Show("Ocurrió un error al contar los clientes activos.\n\nCódigo: " + ex.Number + "\nDetalle: " + ex.Message, "Error de base de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Error inesperado de SQL.", "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                MessageBox.Show("Ocurrió un error inesperado al contar los clientes activos.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error inesperado de SQL.", "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             return total;
@@ -497,6 +679,7 @@ namespace Modelo.Entidades
                 using (SqlConnection conexion = Conexion.Conectar())
                 {
                     string comandoSQL = "SELECT COUNT(*) FROM Cliente WHERE Estado = 'Inactivo';";
+
                     using (SqlCommand comandoObjeto = new SqlCommand(comandoSQL, conexion))
                         total = Convert.ToInt32(comandoObjeto.ExecuteScalar());
                 }
@@ -506,22 +689,33 @@ namespace Modelo.Entidades
                 switch (ex.Number)
                 {
                     case 53:
-                        MessageBox.Show("No se pudo establecer conexión con el servidor.", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("No se puede conectar al servidor SQL.", "ERR-SQL-001", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
+
                     case 4060:
-                        MessageBox.Show("No se pudo acceder a la base de datos.", "Error de base de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("No se puede acceder a la base de datos.", "ERR-SQL-002", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
+
                     case -2:
-                        MessageBox.Show("La consulta tardó demasiado tiempo.", "Tiempo de espera agotado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Tiempo de espera agotado.", "ERR-SQL-003", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
+
+                    case 208:
+                        MessageBox.Show("Tabla, vista o procedimiento no encontrado.", "ERR-SQL-004", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 245:
+                        MessageBox.Show("Conversión o formato de datos incorrecto.", "ERR-SQL-009", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
                     default:
-                        MessageBox.Show("Ocurrió un error al contar los clientes inactivos.\n\nCódigo: " + ex.Number + "\nDetalle: " + ex.Message, "Error de base de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Error inesperado de SQL.", "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                MessageBox.Show("Ocurrió un error inesperado al contar los clientes inactivos.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error inesperado de SQL.", "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             return total;
@@ -535,7 +729,13 @@ namespace Modelo.Entidades
             {
                 using (SqlConnection conexion = Conexion.Conectar())
                 {
-                    string consulta = @"SELECT * FROM BuscarClientesIndividuales WHERE Nombre LIKE '%' + @Texto + '%' OR Apellidos LIKE '%' + @Texto + '%' OR DUI LIKE '%' + @Texto + '%' OR Telefono LIKE '%' + @Texto + '%' OR Correo LIKE '%' + @Texto + '%' OR Direccion LIKE '%' + @Texto + '%';";
+                    string consulta = @"SELECT * FROM BuscarClientesIndividuales 
+                                        WHERE Nombre LIKE '%' + @Texto + '%' 
+                                        OR Apellidos LIKE '%' + @Texto + '%' 
+                                        OR DUI LIKE '%' + @Texto + '%' 
+                                        OR Telefono LIKE '%' + @Texto + '%' 
+                                        OR Correo LIKE '%' + @Texto + '%' 
+                                        OR Direccion LIKE '%' + @Texto + '%';";
 
                     using (SqlDataAdapter adapter = new SqlDataAdapter(consulta, conexion))
                     {
@@ -549,25 +749,29 @@ namespace Modelo.Entidades
                 switch (ex.Number)
                 {
                     case 53:
-                        MessageBox.Show("No se pudo establecer conexión con el servidor.", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("No se puede conectar al servidor SQL.", "ERR-SQL-001", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
+
                     case 4060:
-                        MessageBox.Show("No se pudo acceder a la base de datos.", "Error de base de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("No se puede acceder a la base de datos.", "ERR-SQL-002", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
+
                     case -2:
-                        MessageBox.Show("La búsqueda tardó demasiado tiempo.", "Tiempo de espera agotado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Tiempo de espera agotado.", "ERR-SQL-003", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
+
                     case 208:
-                        MessageBox.Show("No se encontró la vista BuscarClientesIndividuales en la base de datos.", "Objeto no encontrado", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Tabla, vista o procedimiento no encontrado.", "ERR-SQL-004", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
+
                     default:
-                        MessageBox.Show("Ocurrió un error al buscar clientes individuales.\n\nCódigo: " + ex.Number + "\nDetalle: " + ex.Message, "Error de base de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Error inesperado de SQL.", "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                MessageBox.Show("Ocurrió un error inesperado al buscar clientes individuales.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error inesperado de SQL.", "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             return dt;
@@ -581,7 +785,13 @@ namespace Modelo.Entidades
             {
                 using (SqlConnection conexion = Conexion.Conectar())
                 {
-                    string consulta = @"SELECT * FROM BuscarClientesCorporativos WHERE [Empresa] LIKE '%' + @Texto + '%' OR Encargado LIKE '%' + @Texto + '%' OR NIT LIKE '%' + @Texto + '%' OR Telefono LIKE '%' + @Texto + '%' OR Correo LIKE '%' + @Texto + '%' OR Direccion LIKE '%' + @Texto + '%';";
+                    string consulta = @"SELECT * FROM BuscarClientesCorporativos 
+                                        WHERE [Empresa] LIKE '%' + @Texto + '%' 
+                                        OR Encargado LIKE '%' + @Texto + '%' 
+                                        OR NIT LIKE '%' + @Texto + '%' 
+                                        OR Telefono LIKE '%' + @Texto + '%' 
+                                        OR Correo LIKE '%' + @Texto + '%' 
+                                        OR Direccion LIKE '%' + @Texto + '%';";
 
                     using (SqlDataAdapter adapter = new SqlDataAdapter(consulta, conexion))
                     {
@@ -595,25 +805,29 @@ namespace Modelo.Entidades
                 switch (ex.Number)
                 {
                     case 53:
-                        MessageBox.Show("No se pudo establecer conexión con el servidor.", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("No se puede conectar al servidor SQL.", "ERR-SQL-001", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
+
                     case 4060:
-                        MessageBox.Show("No se pudo acceder a la base de datos.", "Error de base de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("No se puede acceder a la base de datos.", "ERR-SQL-002", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
+
                     case -2:
-                        MessageBox.Show("La búsqueda tardó demasiado tiempo.", "Tiempo de espera agotado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Tiempo de espera agotado.", "ERR-SQL-003", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
+
                     case 208:
-                        MessageBox.Show("No se encontró la vista BuscarClientesCorporativos en la base de datos.", "Objeto no encontrado", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Tabla, vista o procedimiento no encontrado.", "ERR-SQL-004", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
+
                     default:
-                        MessageBox.Show("Ocurrió un error al buscar clientes corporativos.\n\nCódigo: " + ex.Number + "\nDetalle: " + ex.Message, "Error de base de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Error inesperado de SQL.", "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                MessageBox.Show("Ocurrió un error inesperado al buscar clientes corporativos.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error inesperado de SQL.", "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             return dt;
@@ -627,7 +841,11 @@ namespace Modelo.Entidades
             {
                 using (SqlConnection conexion = Conexion.Conectar())
                 {
-                    string consulta = @"SELECT * FROM SeleccionClientes WHERE Cliente LIKE '%' + @Texto + '%' OR Telefono LIKE '%' + @Texto + '%' OR Correo LIKE '%' + @Texto + '%' OR Direccion LIKE '%' + @Texto + '%';";
+                    string consulta = @"SELECT * FROM SeleccionClientes 
+                                        WHERE Cliente LIKE '%' + @Texto + '%' 
+                                        OR Telefono LIKE '%' + @Texto + '%' 
+                                        OR Correo LIKE '%' + @Texto + '%' 
+                                        OR Direccion LIKE '%' + @Texto + '%';";
 
                     using (SqlDataAdapter adapter = new SqlDataAdapter(consulta, conexion))
                     {
@@ -641,25 +859,29 @@ namespace Modelo.Entidades
                 switch (ex.Number)
                 {
                     case 53:
-                        MessageBox.Show("No se pudo establecer conexión con el servidor.", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("No se puede conectar al servidor SQL.", "ERR-SQL-001", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
+
                     case 4060:
-                        MessageBox.Show("No se pudo acceder a la base de datos.", "Error de base de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("No se puede acceder a la base de datos.", "ERR-SQL-002", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
+
                     case -2:
-                        MessageBox.Show("La búsqueda tardó demasiado tiempo.", "Tiempo de espera agotado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Tiempo de espera agotado.", "ERR-SQL-003", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
+
                     case 208:
-                        MessageBox.Show("No se encontró la vista SeleccionClientes en la base de datos.", "Objeto no encontrado", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Tabla, vista o procedimiento no encontrado.", "ERR-SQL-004", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
+
                     default:
-                        MessageBox.Show("Ocurrió un error al buscar clientes.\n\nCódigo: " + ex.Number + "\nDetalle: " + ex.Message, "Error de base de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Error inesperado de SQL.", "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                MessageBox.Show("Ocurrió un error inesperado al buscar clientes.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error inesperado de SQL.", "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             return dt;

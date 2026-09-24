@@ -13,10 +13,8 @@ namespace Modelo.Entidades
         private string Descripcion;
         private string Estado;
 
-
         public Categorias()
         {
-
         }
 
         public Categorias(int idCategoria, string nombre_Categoria, string descripcion, string estado)
@@ -32,224 +30,292 @@ namespace Modelo.Entidades
         public string Descripción1 { get => Descripcion; set => Descripcion = value; }
         public string Estado1 { get => Estado; set => Estado = value; }
 
-        //METODO PARA CARGAR LOS REGISTROS DE GATEGORIAS
         public static DataTable CargarCategorias()
         {
             try
             {
-                SqlConnection conectar = Conexion.Conectar();
+                using (SqlConnection conectar = Conexion.Conectar())
+                {
+                    string comando = @"SELECT IdCategoria, Nombre_Categoria, Descripcion, Estado 
+                                       FROM Categoria;";
 
-                string comando = @" SELECT IdCategoria, Nombre_Categoria, Descripcion, Estado FROM Categoria;";
-
-                SqlDataAdapter adapter = new SqlDataAdapter(comando, conectar);
-
-                DataTable dt = new DataTable();
-
-                adapter.Fill(dt);
-
-                conectar.Close();
-
-                return dt;
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(comando, conectar))
+                    {
+                        DataTable dt = new DataTable();
+                        adapter.Fill(dt);
+                        return dt;
+                    }
+                }
             }
             catch (SqlException ex)
             {
                 switch (ex.Number)
                 {
-                    // Error: no existe la tabla o el objeto especificado
-                    case 208:
-                        MessageBox.Show("La tabla Categoria no existe en la base de datos.", "ERR-SQL-004",
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        break;
-
-                    // Error: no se pudo establecer conexión con SQL Server
                     case 53:
-                        MessageBox.Show("No se pudo establecer conexión con el servidor SQL.", "ERR-SQL-001",
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("No se pudo conectar con el servidor SQL.", "ERR-SQL-001", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
 
-                    // Otros errores SQL
+                    case 4060:
+                        MessageBox.Show("No se pudo acceder a la base de datos.", "ERR-SQL-002", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case -2:
+                        MessageBox.Show("Tiempo de espera agotado.", "ERR-SQL-003", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 208:
+                        MessageBox.Show("La tabla Categoria no fue encontrada.", "ERR-SQL-004", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
                     default:
-                        MessageBox.Show("Error al cargar las categorías: " + ex.Message, "Error " + ex.Number,
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Ocurrió un error inesperado de SQL al cargar las categorías.", "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                 }
 
+                return new DataTable();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Ocurrió un error inesperado al cargar las categorías.", "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return new DataTable();
             }
         }
 
         public bool InsertarCategoria()
         {
-            string comandoSQL = @"INSERT INTO Categoria (Nombre_Categoria, Descripcion, Estado)VALUES( @Nombre_Categoria, @Descripcion,@Estado );";
+            string comandoSQL = @"INSERT INTO Categoria 
+                                  (Nombre_Categoria, Descripcion, Estado) 
+                                  VALUES 
+                                  (@Nombre_Categoria, @Descripcion, @Estado);";
 
-            using (SqlConnection conexion = Conexion.Conectar())
-            using (SqlCommand comandoObjeto = new SqlCommand(comandoSQL, conexion))
+            try
             {
-                comandoObjeto.Parameters.AddWithValue("@Nombre_Categoria", Nombre_Categoria);
-
-                comandoObjeto.Parameters.AddWithValue("@Descripcion", Descripcion);
-
-                comandoObjeto.Parameters.AddWithValue("@Estado", Estado);
-
-                try
+                using (SqlConnection conexion = Conexion.Conectar())
+                using (SqlCommand comandoObjeto = new SqlCommand(comandoSQL, conexion))
                 {
+                    comandoObjeto.Parameters.AddWithValue("@Nombre_Categoria", Nombre_Categoria);
+                    comandoObjeto.Parameters.AddWithValue("@Descripcion", Descripcion);
+                    comandoObjeto.Parameters.AddWithValue("@Estado", Estado);
+
                     int filaAfectada = comandoObjeto.ExecuteNonQuery();
 
                     return filaAfectada > 0;
                 }
-                catch (SqlException ex)
-                {
-                    switch (ex.Number)
-                    {
-                        // Error: clave primaria o restricción UNIQUE duplicada
-                        case 2627:
-
-                        // Error: índice UNIQUE duplicado
-                        case 2601:
-
-                            MessageBox.Show("La categoría ya existe en la base de datos.", "ERR-SQL-006",
-                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            break;
-
-                        // Error: se está intentando insertar NULL
-                        // en una columna NOT NULL
-                        case 515:
-
-                            MessageBox.Show("No se pueden dejar campos obligatorios vacíos.", "ERR-SQL-008",
-                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            break;
-
-                        // Otros errores
-                        default:
-
-                            MessageBox.Show("Ocurrió un error al registrar la categoría: " + ex.Message, "Error " + ex.Number,
-                                MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            break;
-                    }
-
-                    return false;
-                }
-            }
-        }
-
-        //METODO PARA ACTUALIZAR CATEGORIA
-        public bool ActualizarCategoria()
-        {
-            try
-            {
-                SqlConnection conectar = Conexion.Conectar();
-
-                string comando = @" UPDATE Categoria SET Nombre_Categoria = @Nombre,Descripcion = @Descripcion, Estado = @Estado WHERE IdCategoria = @IdCategoria";
-
-                SqlCommand cmd = new SqlCommand(comando, conectar);
-
-                cmd.Parameters.AddWithValue("@Nombre", Nombre_Categoria1);
-
-                cmd.Parameters.AddWithValue("@Descripcion", Descripción1);
-
-                cmd.Parameters.AddWithValue("@Estado", Estado1);
-
-                cmd.Parameters.AddWithValue("@IdCategoria", IdCategoria1);
-
-                int filasAfectadas = cmd.ExecuteNonQuery();
-
-                conectar.Close();
-
-                return filasAfectadas > 0;
             }
             catch (SqlException ex)
             {
                 switch (ex.Number)
                 {
-                    // Error: nombre de categoría duplicado
+                    case 53:
+                        MessageBox.Show("No se pudo conectar con el servidor SQL.", "ERR-SQL-001", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 4060:
+                        MessageBox.Show("No se pudo acceder a la base de datos.", "ERR-SQL-002", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case -2:
+                        MessageBox.Show("Tiempo de espera agotado.", "ERR-SQL-003", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 208:
+                        MessageBox.Show("La tabla Categoria no fue encontrada.", "ERR-SQL-004", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
                     case 2627:
+                        MessageBox.Show("La categoría ya existe por una clave primaria o restricción UNIQUE.", "ERR-SQL-005", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+
                     case 2601:
-
-                        MessageBox.Show("Ya existe otra categoría con ese nombre.", "ERR-SQL-006",
-                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("La categoría ya existe por un índice UNIQUE.", "ERR-SQL-006", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         break;
 
-                    // Error: valor NULL en columna NOT NULL
+                    case 547:
+                        MessageBox.Show("No se puede realizar la operación porque existe una restricción relacionada.", "ERR-SQL-007", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+
                     case 515:
-
-                        MessageBox.Show("Uno de los campos obligatorios está vacío.", "ERR-SQL-008",
-                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Uno de los campos obligatorios no tiene valor.", "ERR-SQL-008", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         break;
 
-                    // Otros errores SQL
-                    default:
+                    case 245:
+                        MessageBox.Show("Uno de los datos tiene un formato incorrecto.", "ERR-SQL-009", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
 
-                        MessageBox.Show("Error al actualizar la categoría: " + ex.Message, "Error " + ex.Number,
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    case 8115:
+                        MessageBox.Show("Uno de los valores ingresados supera el límite permitido.", "ERR-SQL-010", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 8152:
+                        MessageBox.Show("Uno de los datos es demasiado largo para la columna correspondiente.", "ERR-SQL-011", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+
+                    default:
+                        MessageBox.Show("Ocurrió un error inesperado de SQL al registrar la categoría.", "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                 }
 
                 return false;
             }
+            catch (Exception)
+            {
+                MessageBox.Show("Ocurrió un error inesperado al registrar la categoría.", "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
         }
 
-
-        public static DataTable Buscar(string termino)
+        public bool ActualizarCategoria()
         {
+            string comando = @"UPDATE Categoria 
+                               SET Nombre_Categoria = @Nombre,
+                                   Descripcion = @Descripcion,
+                                   Estado = @Estado 
+                               WHERE IdCategoria = @IdCategoria;";
+
             try
             {
-                SqlConnection con = Conexion.Conectar();
+                using (SqlConnection conectar = Conexion.Conectar())
+                using (SqlCommand cmd = new SqlCommand(comando, conectar))
+                {
+                    cmd.Parameters.AddWithValue("@Nombre", Nombre_Categoria1);
+                    cmd.Parameters.AddWithValue("@Descripcion", Descripción1);
+                    cmd.Parameters.AddWithValue("@Estado", Estado1);
+                    cmd.Parameters.AddWithValue("@IdCategoria", IdCategoria1);
 
-                string comando = @"SELECT IdCategoria, Nombre_Categoria,  Descripcion, Estado
-            FROM Categoria WHERE CAST(IdCategoria AS VARCHAR) LIKE @buscar OR Nombre_Categoria LIKE @buscar;";
+                    int filasAfectadas = cmd.ExecuteNonQuery();
 
-                SqlDataAdapter ad = new SqlDataAdapter(comando, con);
-
-                ad.SelectCommand.Parameters.AddWithValue("@buscar", "%" + termino + "%");
-
-                DataTable dt = new DataTable();
-
-                ad.Fill(dt);
-
-                con.Close();
-
-                return dt;
+                    return filasAfectadas > 0;
+                }
             }
             catch (SqlException ex)
             {
                 switch (ex.Number)
                 {
-                    // Error: la tabla Categoria no existe
-                    case 208:
-
-                        MessageBox.Show("La tabla Categoria no existe en la base de datos.", "ERR-SQL-004",
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        break;
-
-                    // Error: no se pudo establecer conexión
                     case 53:
-
-                        MessageBox.Show("No se pudo conectar con el servidor SQL.", "ERR-SQL-001",
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("No se pudo conectar con el servidor SQL.", "ERR-SQL-001", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
 
-                    // Otros errores SQL
-                    default:
+                    case 4060:
+                        MessageBox.Show("No se pudo acceder a la base de datos.", "ERR-SQL-002", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
 
-                        MessageBox.Show("Error al buscar categorías: " + ex.Message, "Error " + ex.Number,
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    case -2:
+                        MessageBox.Show("Tiempo de espera agotado.", "ERR-SQL-003", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 208:
+                        MessageBox.Show("La tabla Categoria no fue encontrada.", "ERR-SQL-004", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 2627:
+                        MessageBox.Show("Ya existe otra categoría con los mismos datos por una clave primaria o restricción UNIQUE.", "ERR-SQL-005", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+
+                    case 2601:
+                        MessageBox.Show("Ya existe otra categoría con los mismos datos por un índice UNIQUE.", "ERR-SQL-006", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+
+                    case 547:
+                        MessageBox.Show("No se puede actualizar la categoría porque existe una restricción relacionada.", "ERR-SQL-007", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+
+                    case 515:
+                        MessageBox.Show("Uno de los campos obligatorios no tiene valor.", "ERR-SQL-008", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+
+                    case 245:
+                        MessageBox.Show("Uno de los datos tiene un formato incorrecto.", "ERR-SQL-009", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+
+                    case 8115:
+                        MessageBox.Show("Uno de los valores ingresados supera el límite permitido.", "ERR-SQL-010", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 8152:
+                        MessageBox.Show("Uno de los datos es demasiado largo para la columna correspondiente.", "ERR-SQL-011", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+
+                    default:
+                        MessageBox.Show("Ocurrió un error inesperado de SQL al actualizar la categoría.", "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                }
+
+                return false;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Ocurrió un error inesperado al actualizar la categoría.", "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+        }
+
+        public static DataTable Buscar(string termino)
+        {
+            try
+            {
+                using (SqlConnection con = Conexion.Conectar())
+                {
+                    string comando = @"SELECT IdCategoria, Nombre_Categoria, Descripcion, Estado 
+                                       FROM Categoria 
+                                       WHERE CAST(IdCategoria AS VARCHAR) LIKE @buscar 
+                                       OR Nombre_Categoria LIKE @buscar;";
+
+                    using (SqlDataAdapter ad = new SqlDataAdapter(comando, con))
+                    {
+                        ad.SelectCommand.Parameters.AddWithValue("@buscar", "%" + (termino ?? "") + "%");
+
+                        DataTable dt = new DataTable();
+                        ad.Fill(dt);
+
+                        return dt;
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                switch (ex.Number)
+                {
+                    case 53:
+                        MessageBox.Show("No se pudo conectar con el servidor SQL.", "ERR-SQL-001", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 4060:
+                        MessageBox.Show("No se pudo acceder a la base de datos.", "ERR-SQL-002", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case -2:
+                        MessageBox.Show("Tiempo de espera agotado.", "ERR-SQL-003", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 208:
+                        MessageBox.Show("La tabla Categoria no fue encontrada.", "ERR-SQL-004", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 245:
+                        MessageBox.Show("Uno de los datos tiene un formato incorrecto.", "ERR-SQL-009", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+
+                    default:
+                        MessageBox.Show("Ocurrió un error inesperado de SQL al buscar categorías.", "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                 }
 
                 return new DataTable();
             }
+            catch (Exception)
+            {
+                MessageBox.Show("Ocurrió un error inesperado al buscar categorías.", "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return new DataTable();
+            }
         }
 
-        // CALCULAR ESTADÍSTICAS DE CATEGORÍAS
-
-        // Total de categorías
         public static int ContarCategoriasTotales()
         {
             try
             {
                 using (SqlConnection conexion = Conexion.Conectar())
                 {
-                    string query = "SELECT COUNT(*) FROM Categoria";
+                    string query = "SELECT COUNT(*) FROM Categoria;";
 
                     using (SqlCommand comando = new SqlCommand(query, conexion))
                     {
@@ -261,84 +327,45 @@ namespace Modelo.Entidades
             {
                 switch (ex.Number)
                 {
-                    // Error: la tabla Categoria no existe
-                    case 208:
-
-                        MessageBox.Show("La tabla Categoria no existe.", "ERR-SQL-004", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        break;
-
-                    // Error: no se pudo conectar con SQL Server
                     case 53:
-
-                        MessageBox.Show("No se pudo establecer conexión con SQL Server.", "ERR-SQL-001", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("No se pudo conectar con el servidor SQL.", "ERR-SQL-001", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
 
-                    // Otros errores
-                    default:
+                    case 4060:
+                        MessageBox.Show("No se pudo acceder a la base de datos.", "ERR-SQL-002", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
 
-                        MessageBox.Show("Error al contar las categorías: " + ex.Message, "Error " + ex.Number, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    case -2:
+                        MessageBox.Show("Tiempo de espera agotado.", "ERR-SQL-003", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 208:
+                        MessageBox.Show("La tabla Categoria no fue encontrada.", "ERR-SQL-004", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    default:
+                        MessageBox.Show("Ocurrió un error inesperado de SQL al obtener el total de categorías.", "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                 }
 
                 return 0;
             }
+            catch (Exception)
+            {
+                MessageBox.Show("Ocurrió un error inesperado al obtener el total de categorías.", "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return 0;
+            }
         }
 
-        // Categorías activas
         public static int ContarCategoriasActivas()
         {
             try
             {
                 using (SqlConnection conexion = Conexion.Conectar())
                 {
-                    string query = @"SELECT COUNT(*) FROM Categoria WHERE Estado = 'Activa'";
-
-                    using (SqlCommand comando = new SqlCommand(query, conexion))
-                    {
-                        return Convert.ToInt32(
-                            comando.ExecuteScalar()
-                        );
-                    }
-                }
-            }
-            catch (SqlException ex)
-            {
-                switch (ex.Number)
-                {
-                    // Error: no existe la tabla Categoria
-                    case 208:
-
-                        MessageBox.Show("La tabla Categoria no existe.", "ERR-SQL-004",
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        break;
-
-                    // Error: conversión de datos
-                    case 245:
-
-                        MessageBox.Show("El tipo de dato del campo Estado no es compatible " + "con la consulta.", "ERR-SQL-009",
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        break;
-
-                    // Otros errores
-                    default:
-
-                        MessageBox.Show("Error al contar las categorías activas: " + ex.Message, "Error " + ex.Number,
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        break;
-                }
-
-                return 0;
-            }
-        }
-
-        // Categorías inactivas
-        public static int ContarCategoriasInactivas()
-        {
-            try
-            {
-                using (SqlConnection conexion = Conexion.Conectar())
-                {
-                    string query = @" SELECT COUNT(*)  FROM Categoria  WHERE Estado = 'Inactiva'";
+                    string query = @"SELECT COUNT(*) 
+                                     FROM Categoria 
+                                     WHERE Estado = 'Activa';";
 
                     using (SqlCommand comando = new SqlCommand(query, conexion))
                     {
@@ -350,25 +377,90 @@ namespace Modelo.Entidades
             {
                 switch (ex.Number)
                 {
-                    // Error: no existe la tabla Categoria
+                    case 53:
+                        MessageBox.Show("No se pudo conectar con el servidor SQL.", "ERR-SQL-001", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 4060:
+                        MessageBox.Show("No se pudo acceder a la base de datos.", "ERR-SQL-002", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case -2:
+                        MessageBox.Show("Tiempo de espera agotado.", "ERR-SQL-003", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
                     case 208:
-
-                        MessageBox.Show("La tabla Categoria no existe.", "ERR-SQL-004", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("La tabla Categoria no fue encontrada.", "ERR-SQL-004", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
 
-                    // Error: conversión de datos
                     case 245:
-
-                        MessageBox.Show("El tipo de dato del campo Estado no es compatible " + "con la consulta.", "ERR-SQL-009", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Conversión o formato de datos incorrecto en la consulta.", "ERR-SQL-009", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
 
-                    // Otros errores
                     default:
-
-                        MessageBox.Show("Error al contar las categorías inactivas: " + ex.Message, "Error " + ex.Number, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Ocurrió un error inesperado de SQL al obtener las categorías activas.", "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                 }
 
+                return 0;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Ocurrió un error inesperado al obtener las categorías activas.", "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return 0;
+            }
+        }
+
+        public static int ContarCategoriasInactivas()
+        {
+            try
+            {
+                using (SqlConnection conexion = Conexion.Conectar())
+                {
+                    string query = @"SELECT COUNT(*) 
+                                     FROM Categoria 
+                                     WHERE Estado = 'Inactiva';";
+
+                    using (SqlCommand comando = new SqlCommand(query, conexion))
+                    {
+                        return Convert.ToInt32(comando.ExecuteScalar());
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                switch (ex.Number)
+                {
+                    case 53:
+                        MessageBox.Show("No se pudo conectar con el servidor SQL.", "ERR-SQL-001", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 4060:
+                        MessageBox.Show("No se pudo acceder a la base de datos.", "ERR-SQL-002", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case -2:
+                        MessageBox.Show("Tiempo de espera agotado.", "ERR-SQL-003", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 208:
+                        MessageBox.Show("La tabla Categoria no fue encontrada.", "ERR-SQL-004", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 245:
+                        MessageBox.Show("Conversión o formato de datos incorrecto en la consulta.", "ERR-SQL-009", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    default:
+                        MessageBox.Show("Ocurrió un error inesperado de SQL al obtener las categorías inactivas.", "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                }
+
+                return 0;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Ocurrió un error inesperado al obtener las categorías inactivas.", "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return 0;
             }
         }

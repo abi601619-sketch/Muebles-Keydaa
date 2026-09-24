@@ -29,7 +29,6 @@ namespace Modelo.Entidades
 
         public DbCotizacion()
         {
-
         }
 
         public int IdCotizacion1 { get => IdCotizacion; set => IdCotizacion = value; }
@@ -49,65 +48,60 @@ namespace Modelo.Entidades
                 string comando = "SELECT * FROM VerCotizaciones;";
                 SqlDataAdapter adapter = new SqlDataAdapter(comando, conectar);
                 DataTable dt = new DataTable();
+
                 adapter.Fill(dt);
+
                 return dt;
             }
             catch (SqlException ex)
             {
                 switch (ex.Number)
                 {
-                    case 208:
-                        MessageBox.Show("No se encontró la vista VerCotizaciones.",
-                            "Error 208", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        break;
-
                     case 53:
-                        MessageBox.Show("No se pudo conectar con el servidor SQL.",
-                            "Error 53", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("No se puede conectar al servidor SQL.", "ERR-SQL-001", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
 
                     case 4060:
-                        MessageBox.Show("No se pudo acceder a la base de datos.",
-                            "Error 4060", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("No se puede acceder a la base de datos.", "ERR-SQL-002", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
 
                     case -2:
-                        MessageBox.Show("La operación tardó demasiado tiempo.",
-                            "Error -2", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Tiempo de espera agotado.", "ERR-SQL-003", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 208:
+                        MessageBox.Show("Tabla, vista o procedimiento no encontrado.", "ERR-SQL-004", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
 
                     default:
-                        MessageBox.Show("Ocurrió un error al cargar las cotizaciones.",
-                            "Error " + ex.Number, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Error inesperado de SQL.", "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                 }
 
                 return new DataTable();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                MessageBox.Show("Ocurrió un error inesperado al cargar las cotizaciones.",
-                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
+                MessageBox.Show("Error inesperado de SQL.", "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return new DataTable();
             }
         }
 
         public int InsertarCotizacion()
         {
-            string comandoSQL = @"INSERT INTO Cotizacion(Fecha,IdCliente,CondicionPago,CondicionEntrega,Total,Estado,IdUsuario) VALUES(@Fecha,@IdCliente,@CondicionPago,@CondicionEntrega,@Total,@Estado, 1); SELECT CAST(SCOPE_IDENTITY() AS INT);";
+            string comandoSQL = @"INSERT INTO Cotizacion
+                                  (Fecha, IdCliente, CondicionPago, CondicionEntrega, Total, Estado, IdUsuario)
+                                  VALUES
+                                  (@Fecha, @IdCliente, @CondicionPago, @CondicionEntrega, @Total, @Estado, 1);
+                                  SELECT CAST(SCOPE_IDENTITY() AS INT);";
 
             using (SqlConnection conexion = Conexion.Conectar())
             {
-                using (SqlCommand comandoObjeto =
-                    new SqlCommand(comandoSQL, conexion))
+                using (SqlCommand comandoObjeto = new SqlCommand(comandoSQL, conexion))
                 {
                     comandoObjeto.Parameters.AddWithValue("@Fecha", Fecha);
-
                     comandoObjeto.Parameters.AddWithValue("@IdCliente", IdCliente);
-
                     comandoObjeto.Parameters.AddWithValue("@CondicionPago", CondicionPago);
-
                     comandoObjeto.Parameters.AddWithValue("@CondicionEntrega", CondicionEntrega);
 
                     SqlParameter parametroTotal = comandoObjeto.Parameters.Add("@Total", SqlDbType.Decimal);
@@ -127,66 +121,65 @@ namespace Modelo.Entidades
                     {
                         switch (ex.Number)
                         {
-                            case 2627:
-                            case 2601:
-                                MessageBox.Show("La cotización ya existe.",
-                                    "Error " + ex.Number, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                break;
-
-                            case 547:
-                                MessageBox.Show("El cliente o usuario seleccionado no existe.",
-                                    "Error 547", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                break;
-
-                            case 515:
-                                MessageBox.Show("Faltan datos obligatorios para guardar la cotización.",
-                                    "Error 515", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                break;
-
-                            case 8115:
-                                MessageBox.Show("El total de la cotización excede el límite permitido.",
-                                    "Error 8115", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                break;
-
-                            case 245:
-                                MessageBox.Show("Uno de los datos ingresados tiene un formato incorrecto.",
-                                    "Error 245", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                break;
-
                             case 53:
-                                MessageBox.Show("No se pudo conectar con el servidor SQL.",
-                                    "Error 53", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                MessageBox.Show("No se puede conectar al servidor SQL.", "ERR-SQL-001", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 break;
 
                             case 4060:
-                                MessageBox.Show("No se pudo acceder a la base de datos.",
-                                    "Error 4060", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                MessageBox.Show("No se puede acceder a la base de datos.", "ERR-SQL-002", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 break;
 
                             case -2:
-                                MessageBox.Show("La operación tardó demasiado tiempo.",
-                                    "Error -2", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                MessageBox.Show("Tiempo de espera agotado.", "ERR-SQL-003", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                break;
+
+                            case 208:
+                                MessageBox.Show("Tabla, vista o procedimiento no encontrado.", "ERR-SQL-004", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                break;
+
+                            case 2627:
+                                MessageBox.Show("Registro duplicado por clave primaria/UNIQUE.", "ERR-SQL-005", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                break;
+
+                            case 2601:
+                                MessageBox.Show("Registro duplicado por índice UNIQUE.", "ERR-SQL-006", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                break;
+
+                            case 547:
+                                MessageBox.Show("Violación de FK/CHECK.", "ERR-SQL-007", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                break;
+
+                            case 515:
+                                MessageBox.Show("Campo NOT NULL sin valor.", "ERR-SQL-008", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                break;
+
+                            case 245:
+                                MessageBox.Show("Conversión o formato de datos incorrecto.", "ERR-SQL-009", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                break;
+
+                            case 8115:
+                                MessageBox.Show("Desbordamiento numérico.", "ERR-SQL-010", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                break;
+
+                            case 8152:
+                                MessageBox.Show("Datos demasiado largos para la columna.", "ERR-SQL-011", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 break;
 
                             default:
-                                MessageBox.Show("Ocurrió un error al guardar la cotización.",
-                                    "Error " + ex.Number, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                MessageBox.Show("Error inesperado de SQL.", "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 break;
                         }
 
                         return 0;
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
-                        MessageBox.Show("Ocurrió un error inesperado al guardar la cotización.",
-                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
+                        MessageBox.Show("Error inesperado de SQL.", "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return 0;
                     }
                 }
             }
         }
-
 
         public bool EliminarCotizacion()
         {
@@ -196,15 +189,25 @@ namespace Modelo.Entidades
 
                 try
                 {
-                    SqlCommand cmdDetalle = new SqlCommand("DELETE FROM Productos_Cotizacion WHERE IdCotizacion = @IdCotizacion", conexion, transaccion);
+                    SqlCommand cmdDetalle = new SqlCommand(
+                        "DELETE FROM Productos_Cotizacion WHERE IdCotizacion = @IdCotizacion",
+                        conexion,
+                        transaccion);
+
                     cmdDetalle.Parameters.AddWithValue("@IdCotizacion", IdCotizacion1);
                     cmdDetalle.ExecuteNonQuery();
 
-                    SqlCommand cmdCot = new SqlCommand("DELETE FROM Cotizacion WHERE IdCotizacion = @IdCotizacion", conexion, transaccion);
+                    SqlCommand cmdCot = new SqlCommand(
+                        "DELETE FROM Cotizacion WHERE IdCotizacion = @IdCotizacion",
+                        conexion,
+                        transaccion);
+
                     cmdCot.Parameters.AddWithValue("@IdCotizacion", IdCotizacion1);
+
                     int filasAfectadas = cmdCot.ExecuteNonQuery();
 
                     transaccion.Commit();
+
                     return filasAfectadas > 0;
                 }
                 catch (SqlException ex)
@@ -219,35 +222,34 @@ namespace Modelo.Entidades
 
                     switch (ex.Number)
                     {
-                        case 547:
-                            MessageBox.Show("No se puede eliminar la cotización porque tiene datos relacionados.",
-                                "Error 547", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            break;
-
                         case 53:
-                            MessageBox.Show("No se pudo conectar con el servidor SQL.",
-                                "Error 53", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("No se puede conectar al servidor SQL.", "ERR-SQL-001", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             break;
 
                         case 4060:
-                            MessageBox.Show("No se pudo acceder a la base de datos.",
-                                "Error 4060", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("No se puede acceder a la base de datos.", "ERR-SQL-002", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             break;
 
                         case -2:
-                            MessageBox.Show("La operación tardó demasiado tiempo.",
-                                "Error -2", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("Tiempo de espera agotado.", "ERR-SQL-003", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+
+                        case 208:
+                            MessageBox.Show("Tabla, vista o procedimiento no encontrado.", "ERR-SQL-004", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+
+                        case 547:
+                            MessageBox.Show("Violación de FK/CHECK.", "ERR-SQL-007", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             break;
 
                         default:
-                            MessageBox.Show("Ocurrió un error al eliminar la cotización.",
-                                "Error " + ex.Number, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("Error inesperado de SQL.", "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             break;
                     }
 
                     return false;
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     try
                     {
@@ -257,9 +259,7 @@ namespace Modelo.Entidades
                     {
                     }
 
-                    MessageBox.Show("Ocurrió un error inesperado al eliminar la cotización.",
-                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
+                    MessageBox.Show("Error inesperado de SQL.", "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
             }
@@ -284,44 +284,48 @@ namespace Modelo.Entidades
                     {
                         switch (ex.Number)
                         {
-                            case 547:
-                                MessageBox.Show("No se puede actualizar el estado de la cotización.",
-                                    "Error 547", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                break;
-
-                            case 515:
-                                MessageBox.Show("El estado de la cotización es obligatorio.",
-                                    "Error 515", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                break;
-
                             case 53:
-                                MessageBox.Show("No se pudo conectar con el servidor SQL.",
-                                    "Error 53", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                MessageBox.Show("No se puede conectar al servidor SQL.", "ERR-SQL-001", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 break;
 
                             case 4060:
-                                MessageBox.Show("No se pudo acceder a la base de datos.",
-                                    "Error 4060", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                MessageBox.Show("No se puede acceder a la base de datos.", "ERR-SQL-002", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 break;
 
                             case -2:
-                                MessageBox.Show("La operación tardó demasiado tiempo.",
-                                    "Error -2", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                MessageBox.Show("Tiempo de espera agotado.", "ERR-SQL-003", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                break;
+
+                            case 208:
+                                MessageBox.Show("Tabla, vista o procedimiento no encontrado.", "ERR-SQL-004", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                break;
+
+                            case 547:
+                                MessageBox.Show("Violación de FK/CHECK.", "ERR-SQL-007", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                break;
+
+                            case 515:
+                                MessageBox.Show("Campo NOT NULL sin valor.", "ERR-SQL-008", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                break;
+
+                            case 245:
+                                MessageBox.Show("Conversión o formato de datos incorrecto.", "ERR-SQL-009", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                break;
+
+                            case 8152:
+                                MessageBox.Show("Datos demasiado largos para la columna.", "ERR-SQL-011", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 break;
 
                             default:
-                                MessageBox.Show("Ocurrió un error al actualizar el estado.",
-                                    "Error " + ex.Number, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                MessageBox.Show("Error inesperado de SQL.", "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 break;
                         }
 
                         return false;
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
-                        MessageBox.Show("Ocurrió un error inesperado al actualizar el estado.",
-                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
+                        MessageBox.Show("Error inesperado de SQL.", "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
                     }
                 }
@@ -334,7 +338,10 @@ namespace Modelo.Entidades
             {
                 SqlConnection conectar = Conexion.Conectar();
 
-                string comando = @"SELECT * FROM VerCotizaciones WHERE Cliente LIKE '%' + @Buscar + '%' ORDER BY IdCotizacion";
+                string comando = @"SELECT *
+                                   FROM VerCotizaciones
+                                   WHERE Cliente LIKE '%' + @Buscar + '%'
+                                   ORDER BY IdCotizacion";
 
                 SqlDataAdapter adapter = new SqlDataAdapter(comando, conectar);
 
@@ -350,39 +357,32 @@ namespace Modelo.Entidades
             {
                 switch (ex.Number)
                 {
-                    case 208:
-                        MessageBox.Show("No se encontró la vista VerCotizaciones.",
-                            "Error 208", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        break;
-
                     case 53:
-                        MessageBox.Show("No se pudo conectar con el servidor SQL.",
-                            "Error 53", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("No se puede conectar al servidor SQL.", "ERR-SQL-001", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
 
                     case 4060:
-                        MessageBox.Show("No se pudo acceder a la base de datos.",
-                            "Error 4060", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("No se puede acceder a la base de datos.", "ERR-SQL-002", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
 
                     case -2:
-                        MessageBox.Show("La operación tardó demasiado tiempo.",
-                            "Error -2", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Tiempo de espera agotado.", "ERR-SQL-003", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+
+                    case 208:
+                        MessageBox.Show("Tabla, vista o procedimiento no encontrado.", "ERR-SQL-004", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
 
                     default:
-                        MessageBox.Show("Ocurrió un error al buscar la cotización.",
-                            "Error " + ex.Number, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Error inesperado de SQL.", "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                 }
 
                 return new DataTable();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                MessageBox.Show("Ocurrió un error inesperado al buscar la cotización.",
-                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
+                MessageBox.Show("Error inesperado de SQL.", "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return new DataTable();
             }
         }

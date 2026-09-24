@@ -1259,6 +1259,20 @@ namespace Vista.Cotizaciones
                 );
             }
         }
+
+        private void txtPrecioUnitario_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '.')
+            {
+                e.Handled = true;
+            }
+
+            // Permitir solamente un punto decimal
+            if (e.KeyChar == '.' && txtPrecioUnitario.Text.Contains("."))
+            {
+                e.Handled = true;
+            }
+        }
     }
 }
 
