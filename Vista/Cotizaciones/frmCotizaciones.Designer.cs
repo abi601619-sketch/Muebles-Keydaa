@@ -28,7 +28,7 @@ namespace Vista.Cotizaciones
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pnlContenedorPrincipalCotizaciones = new System.Windows.Forms.Panel();
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.pnlBarraCambioRegistros = new System.Windows.Forms.Panel();
@@ -46,6 +46,9 @@ namespace Vista.Cotizaciones
             this.button2 = new System.Windows.Forms.Button();
             this.txtBuscar = new System.Windows.Forms.TextBox();
             this.pnlContenedorTabla = new System.Windows.Forms.Panel();
+            this.lblPagina = new System.Windows.Forms.Label();
+            this.btnAnterior = new System.Windows.Forms.Button();
+            this.btnSiguiente = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.dgvCotizacionesRegistradas = new System.Windows.Forms.DataGridView();
             this.pnlInformacionDelSeleccionado = new System.Windows.Forms.Panel();
@@ -55,7 +58,7 @@ namespace Vista.Cotizaciones
             this.lblMostrarTotal = new System.Windows.Forms.Label();
             this.lblPrecioEstimado = new System.Windows.Forms.Label();
             this.lblCliente = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lblClienteSelec = new System.Windows.Forms.Label();
             this.lblNumeroSelec = new System.Windows.Forms.Label();
             this.lblCotizacionSelect = new System.Windows.Forms.Label();
             this.btnEliminar = new System.Windows.Forms.Button();
@@ -116,9 +119,6 @@ namespace Vista.Cotizaciones
             this.lblCondicionesEntrega = new System.Windows.Forms.Label();
             this.lblObservaciones = new System.Windows.Forms.Label();
             this.lblCondicionesPago = new System.Windows.Forms.Label();
-            this.lblPagina = new System.Windows.Forms.Label();
-            this.btnAnterior = new System.Windows.Forms.Button();
-            this.btnSiguiente = new System.Windows.Forms.Button();
             this.pnlContenedorPrincipalCotizaciones.SuspendLayout();
             this.pnlHeader.SuspendLayout();
             this.pnlBarraSuperior.SuspendLayout();
@@ -349,6 +349,41 @@ namespace Vista.Cotizaciones
             this.pnlContenedorTabla.Size = new System.Drawing.Size(1066, 419);
             this.pnlContenedorTabla.TabIndex = 3;
             // 
+            // lblPagina
+            // 
+            this.lblPagina.AutoSize = true;
+            this.lblPagina.Font = new System.Drawing.Font("Times New Roman", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPagina.ForeColor = System.Drawing.Color.Black;
+            this.lblPagina.Location = new System.Drawing.Point(55, 396);
+            this.lblPagina.Name = "lblPagina";
+            this.lblPagina.Size = new System.Drawing.Size(39, 13);
+            this.lblPagina.TabIndex = 41;
+            this.lblPagina.Text = "label1";
+            // 
+            // btnAnterior
+            // 
+            this.btnAnterior.FlatAppearance.BorderSize = 0;
+            this.btnAnterior.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAnterior.Image = global::Vista.Properties.Resources.hacia_atras_negro2;
+            this.btnAnterior.Location = new System.Drawing.Point(18, 389);
+            this.btnAnterior.Name = "btnAnterior";
+            this.btnAnterior.Size = new System.Drawing.Size(30, 23);
+            this.btnAnterior.TabIndex = 40;
+            this.btnAnterior.UseVisualStyleBackColor = true;
+            this.btnAnterior.Click += new System.EventHandler(this.btnAnterior_Click);
+            // 
+            // btnSiguiente
+            // 
+            this.btnSiguiente.FlatAppearance.BorderSize = 0;
+            this.btnSiguiente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSiguiente.Image = global::Vista.Properties.Resources.hacia_adelante_negro;
+            this.btnSiguiente.Location = new System.Drawing.Point(142, 389);
+            this.btnSiguiente.Name = "btnSiguiente";
+            this.btnSiguiente.Size = new System.Drawing.Size(30, 23);
+            this.btnSiguiente.TabIndex = 39;
+            this.btnSiguiente.UseVisualStyleBackColor = true;
+            this.btnSiguiente.Click += new System.EventHandler(this.btnSiguiente_Click);
+            // 
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.Transparent;
@@ -358,7 +393,7 @@ namespace Vista.Cotizaciones
             this.button1.ForeColor = System.Drawing.Color.Black;
             this.button1.Image = global::Vista.Properties.Resources.Ventas16px;
             this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(833, 240);
+            this.button1.Location = new System.Drawing.Point(833, 255);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(165, 54);
             this.button1.TabIndex = 35;
@@ -374,20 +409,21 @@ namespace Vista.Cotizaciones
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvCotizacionesRegistradas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvCotizacionesRegistradas.BackgroundColor = System.Drawing.Color.White;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvCotizacionesRegistradas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle17.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle17.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle17.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvCotizacionesRegistradas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle17;
             this.dgvCotizacionesRegistradas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvCotizacionesRegistradas.Location = new System.Drawing.Point(10, 8);
             this.dgvCotizacionesRegistradas.Name = "dgvCotizacionesRegistradas";
             this.dgvCotizacionesRegistradas.ReadOnly = true;
             this.dgvCotizacionesRegistradas.Size = new System.Drawing.Size(744, 376);
             this.dgvCotizacionesRegistradas.TabIndex = 34;
+            this.dgvCotizacionesRegistradas.SelectionChanged += new System.EventHandler(this.dgvCotizacionesRegistradas_SelectionChanged);
             // 
             // pnlInformacionDelSeleccionado
             // 
@@ -399,19 +435,19 @@ namespace Vista.Cotizaciones
             this.pnlInformacionDelSeleccionado.Controls.Add(this.lblMostrarTotal);
             this.pnlInformacionDelSeleccionado.Controls.Add(this.lblPrecioEstimado);
             this.pnlInformacionDelSeleccionado.Controls.Add(this.lblCliente);
-            this.pnlInformacionDelSeleccionado.Controls.Add(this.label2);
+            this.pnlInformacionDelSeleccionado.Controls.Add(this.lblClienteSelec);
             this.pnlInformacionDelSeleccionado.Controls.Add(this.lblNumeroSelec);
             this.pnlInformacionDelSeleccionado.Controls.Add(this.lblCotizacionSelect);
             this.pnlInformacionDelSeleccionado.Location = new System.Drawing.Point(762, 25);
             this.pnlInformacionDelSeleccionado.Name = "pnlInformacionDelSeleccionado";
-            this.pnlInformacionDelSeleccionado.Size = new System.Drawing.Size(293, 162);
+            this.pnlInformacionDelSeleccionado.Size = new System.Drawing.Size(293, 183);
             this.pnlInformacionDelSeleccionado.TabIndex = 33;
             // 
             // lblEtsado
             // 
             this.lblEtsado.AutoSize = true;
             this.lblEtsado.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEtsado.Location = new System.Drawing.Point(186, 92);
+            this.lblEtsado.Location = new System.Drawing.Point(186, 102);
             this.lblEtsado.Name = "lblEtsado";
             this.lblEtsado.Size = new System.Drawing.Size(75, 19);
             this.lblEtsado.TabIndex = 8;
@@ -421,7 +457,7 @@ namespace Vista.Cotizaciones
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(119, 90);
+            this.label1.Location = new System.Drawing.Point(119, 102);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(64, 19);
             this.label1.TabIndex = 7;
@@ -441,7 +477,7 @@ namespace Vista.Cotizaciones
             // 
             this.lblMostrarTotal.AutoSize = true;
             this.lblMostrarTotal.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMostrarTotal.Location = new System.Drawing.Point(173, 119);
+            this.lblMostrarTotal.Location = new System.Drawing.Point(173, 123);
             this.lblMostrarTotal.Name = "lblMostrarTotal";
             this.lblMostrarTotal.Size = new System.Drawing.Size(61, 19);
             this.lblMostrarTotal.TabIndex = 5;
@@ -451,7 +487,7 @@ namespace Vista.Cotizaciones
             // 
             this.lblPrecioEstimado.AutoSize = true;
             this.lblPrecioEstimado.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPrecioEstimado.Location = new System.Drawing.Point(118, 118);
+            this.lblPrecioEstimado.Location = new System.Drawing.Point(118, 123);
             this.lblPrecioEstimado.Name = "lblPrecioEstimado";
             this.lblPrecioEstimado.Size = new System.Drawing.Size(48, 19);
             this.lblPrecioEstimado.TabIndex = 4;
@@ -467,15 +503,14 @@ namespace Vista.Cotizaciones
             this.lblCliente.TabIndex = 3;
             this.lblCliente.Text = "Cliente:";
             // 
-            // label2
+            // lblClienteSelec
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(174, 68);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(90, 19);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Daniel Avila";
+            this.lblClienteSelec.Font = new System.Drawing.Font("Times New Roman", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblClienteSelec.Location = new System.Drawing.Point(180, 68);
+            this.lblClienteSelec.Name = "lblClienteSelec";
+            this.lblClienteSelec.Size = new System.Drawing.Size(89, 41);
+            this.lblClienteSelec.TabIndex = 2;
+            this.lblClienteSelec.Text = "Daniel Avila";
             // 
             // lblNumeroSelec
             // 
@@ -504,7 +539,7 @@ namespace Vista.Cotizaciones
             this.btnEliminar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnEliminar.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEliminar.ForeColor = System.Drawing.Color.Black;
-            this.btnEliminar.Location = new System.Drawing.Point(930, 200);
+            this.btnEliminar.Location = new System.Drawing.Point(930, 218);
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(118, 30);
             this.btnEliminar.TabIndex = 2;
@@ -520,7 +555,7 @@ namespace Vista.Cotizaciones
             this.btnEditar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnEditar.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEditar.ForeColor = System.Drawing.Color.Black;
-            this.btnEditar.Location = new System.Drawing.Point(779, 200);
+            this.btnEditar.Location = new System.Drawing.Point(779, 218);
             this.btnEditar.Name = "btnEditar";
             this.btnEditar.Size = new System.Drawing.Size(142, 30);
             this.btnEditar.TabIndex = 1;
@@ -1171,41 +1206,6 @@ namespace Vista.Cotizaciones
             this.lblCondicionesPago.TabIndex = 3;
             this.lblCondicionesPago.Text = "Condiciones de pago:";
             // 
-            // lblPagina
-            // 
-            this.lblPagina.AutoSize = true;
-            this.lblPagina.Font = new System.Drawing.Font("Times New Roman", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPagina.ForeColor = System.Drawing.Color.Black;
-            this.lblPagina.Location = new System.Drawing.Point(55, 396);
-            this.lblPagina.Name = "lblPagina";
-            this.lblPagina.Size = new System.Drawing.Size(39, 13);
-            this.lblPagina.TabIndex = 41;
-            this.lblPagina.Text = "label1";
-            // 
-            // btnAnterior
-            // 
-            this.btnAnterior.FlatAppearance.BorderSize = 0;
-            this.btnAnterior.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAnterior.Image = global::Vista.Properties.Resources.hacia_atras_negro2;
-            this.btnAnterior.Location = new System.Drawing.Point(18, 389);
-            this.btnAnterior.Name = "btnAnterior";
-            this.btnAnterior.Size = new System.Drawing.Size(30, 23);
-            this.btnAnterior.TabIndex = 40;
-            this.btnAnterior.UseVisualStyleBackColor = true;
-            this.btnAnterior.Click += new System.EventHandler(this.btnAnterior_Click);
-            // 
-            // btnSiguiente
-            // 
-            this.btnSiguiente.FlatAppearance.BorderSize = 0;
-            this.btnSiguiente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSiguiente.Image = global::Vista.Properties.Resources.hacia_adelante_negro;
-            this.btnSiguiente.Location = new System.Drawing.Point(142, 389);
-            this.btnSiguiente.Name = "btnSiguiente";
-            this.btnSiguiente.Size = new System.Drawing.Size(30, 23);
-            this.btnSiguiente.TabIndex = 39;
-            this.btnSiguiente.UseVisualStyleBackColor = true;
-            this.btnSiguiente.Click += new System.EventHandler(this.btnSiguiente_Click);
-            // 
             // frmCotizaciones
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1279,7 +1279,7 @@ namespace Vista.Cotizaciones
         private System.Windows.Forms.Label lblMostrarTotal;
         private System.Windows.Forms.Label lblPrecioEstimado;
         private System.Windows.Forms.Label lblCliente;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblClienteSelec;
         private System.Windows.Forms.Label lblNumeroSelec;
         private System.Windows.Forms.Label lblCotizacionSelect;
         private System.Windows.Forms.Button btnEliminar;

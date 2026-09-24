@@ -889,7 +889,7 @@ namespace Vista.Cotizaciones
             if (e.RowIndex < 0 || dgvCotizacionesRegistradas.Rows[e.RowIndex].IsNewRow) return;
             DataGridViewRow row = dgvCotizacionesRegistradas.Rows[e.RowIndex];
             lblNumeroSelec.Text = row.Cells["IdCotizacion"].Value?.ToString();
-            label2.Text = row.Cells["Cliente"].Value?.ToString();
+            lblClienteSelec.Text = row.Cells["Cliente"].Value?.ToString();
             lblEtsado.Text = row.Cells["Estado"].Value?.ToString();
             lblMostrarTotal.Text = "$" + row.Cells["Total"].Value?.ToString();
         }
@@ -1218,6 +1218,45 @@ namespace Vista.Cotizaciones
             {
                 paginaActual++;
                 MostrarPaginaCotizaciones();
+            }
+        }
+
+        private void dgvCotizacionesRegistradas_SelectionChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (dgvCotizacionesRegistradas.CurrentRow == null)
+                    return;
+
+                if (dgvCotizacionesRegistradas.CurrentRow.IsNewRow)
+                    return;
+
+                if (dgvCotizacionesRegistradas.CurrentRow.Cells["IdCotizacion"].Value == null)
+                    return;
+
+                DataGridViewRow fila = dgvCotizacionesRegistradas.CurrentRow;
+
+                lblNumeroSelec.Text = fila.Cells["IdCotizacion"].Value?.ToString() ?? "";
+
+                lblClienteSelec.Text =
+                    fila.Cells["Cliente"].Value?.ToString() ?? "";
+
+                lblEstado.Text =
+                    fila.Cells["Estado"].Value?.ToString() ?? "";
+
+                lblMostrarTotal.Text =
+                    "$" + Convert.ToDecimal(
+                        fila.Cells["Total"].Value
+                    ).ToString("N2");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Error al cargar la cotización seleccionada: " + ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
             }
         }
     }
