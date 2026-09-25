@@ -12,7 +12,6 @@ using System.Windows.Forms;
 using Vista.Clientes;
 using Vista.Responsive;
 
-
 namespace Vista.Cotizaciones
 {
     public partial class frmCotizaciones : Form
@@ -88,58 +87,32 @@ namespace Vista.Cotizaciones
         private void ConfigurarTablasCotizaciones()
         {
             // TABLA DE COTIZACIONES REGISTRADAS
-
             dgvCotizacionesRegistradas.EnableHeadersVisualStyles = false;
 
             // Encabezado
-            dgvCotizacionesRegistradas.ColumnHeadersDefaultCellStyle.BackColor =
-                Color.FromArgb(121, 75, 45);
-
-            dgvCotizacionesRegistradas.ColumnHeadersDefaultCellStyle.ForeColor =
-                Color.White;
-
-            dgvCotizacionesRegistradas.ColumnHeadersDefaultCellStyle.Font =
-                new Font("Segoe UI", 9, FontStyle.Regular);
-
-            dgvCotizacionesRegistradas.ColumnHeadersDefaultCellStyle.Alignment =
-                DataGridViewContentAlignment.MiddleCenter;
-
-            dgvCotizacionesRegistradas.ColumnHeadersDefaultCellStyle.SelectionBackColor =
-                Color.FromArgb(121, 75, 45);
-
-            dgvCotizacionesRegistradas.ColumnHeadersDefaultCellStyle.SelectionForeColor =
-                Color.White;
+            dgvCotizacionesRegistradas.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(121, 75, 45);
+            dgvCotizacionesRegistradas.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dgvCotizacionesRegistradas.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9, FontStyle.Regular);
+            dgvCotizacionesRegistradas.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvCotizacionesRegistradas.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(121, 75, 45);
+            dgvCotizacionesRegistradas.ColumnHeadersDefaultCellStyle.SelectionForeColor = Color.White;
 
             // Filas
-            dgvCotizacionesRegistradas.DefaultCellStyle.BackColor =
-                Color.White;
-
-            dgvCotizacionesRegistradas.DefaultCellStyle.ForeColor =
-                Color.FromArgb(45, 45, 45);
-
-            dgvCotizacionesRegistradas.DefaultCellStyle.Font =
-                new Font("Segoe UI", 9, FontStyle.Regular);
-
-            dgvCotizacionesRegistradas.DefaultCellStyle.Alignment =
-                DataGridViewContentAlignment.MiddleLeft;
+            dgvCotizacionesRegistradas.DefaultCellStyle.BackColor = Color.White;
+            dgvCotizacionesRegistradas.DefaultCellStyle.ForeColor = Color.FromArgb(45, 45, 45);
+            dgvCotizacionesRegistradas.DefaultCellStyle.Font = new Font("Segoe UI", 9, FontStyle.Regular);
+            dgvCotizacionesRegistradas.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
 
             // Filas alternadas
-            dgvCotizacionesRegistradas.AlternatingRowsDefaultCellStyle.BackColor =
-                Color.FromArgb(248, 241, 232);
+            dgvCotizacionesRegistradas.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(248, 241, 232);
 
             // Selección
-            dgvCotizacionesRegistradas.DefaultCellStyle.SelectionBackColor =
-                Color.FromArgb(224, 193, 157);
-
-            dgvCotizacionesRegistradas.DefaultCellStyle.SelectionForeColor =
-                Color.Black;
+            dgvCotizacionesRegistradas.DefaultCellStyle.SelectionBackColor = Color.FromArgb(224, 193, 157);
+            dgvCotizacionesRegistradas.DefaultCellStyle.SelectionForeColor = Color.Black;
 
             // Bordes
-            dgvCotizacionesRegistradas.CellBorderStyle =
-                DataGridViewCellBorderStyle.SingleHorizontal;
-
-            dgvCotizacionesRegistradas.GridColor =
-                Color.FromArgb(220, 220, 220);
+            dgvCotizacionesRegistradas.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            dgvCotizacionesRegistradas.GridColor = Color.FromArgb(220, 220, 220);
 
             // Alto de las filas
             dgvCotizacionesRegistradas.RowTemplate.Height = 32;
@@ -149,78 +122,47 @@ namespace Vista.Cotizaciones
 
             // No permitir modificar
             dgvCotizacionesRegistradas.ReadOnly = true;
-
             dgvCotizacionesRegistradas.AllowUserToAddRows = false;
-
             dgvCotizacionesRegistradas.AllowUserToDeleteRows = false;
 
             // Seleccionar fila completa
-            dgvCotizacionesRegistradas.SelectionMode =
-                DataGridViewSelectionMode.FullRowSelect;
-
+            dgvCotizacionesRegistradas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvCotizacionesRegistradas.MultiSelect = false;
 
             // Quitar borde exterior
-            dgvCotizacionesRegistradas.BorderStyle =
-                BorderStyle.None;
+            dgvCotizacionesRegistradas.BorderStyle = BorderStyle.None;
 
-            // OCULTAR EL CUADRITO DE LA IZQUIERDA
+            // Ocultar el cuadrito de la izquierda
             dgvCotizacionesRegistradas.RowHeadersVisible = false;
 
-            //----------------------------------------------------------------
-            // TABLA DE DETALLE DE COTIZACIÓN
 
+            // TABLA DE DETALLE DE COTIZACIÓN
             dgvDetalleDeCotizacion.EnableHeadersVisualStyles = false;
 
             // Encabezado
-            dgvDetalleDeCotizacion.ColumnHeadersDefaultCellStyle.BackColor =
-                Color.FromArgb(121, 75, 45);
-
-            dgvDetalleDeCotizacion.ColumnHeadersDefaultCellStyle.ForeColor =
-                Color.White;
-
-            dgvDetalleDeCotizacion.ColumnHeadersDefaultCellStyle.Font =
-                new Font("Segoe UI", 9, FontStyle.Regular);
-
-            dgvDetalleDeCotizacion.ColumnHeadersDefaultCellStyle.Alignment =
-                DataGridViewContentAlignment.MiddleCenter;
-
-            dgvDetalleDeCotizacion.ColumnHeadersDefaultCellStyle.SelectionBackColor =
-                Color.FromArgb(121, 75, 45);
-
-            dgvDetalleDeCotizacion.ColumnHeadersDefaultCellStyle.SelectionForeColor =
-                Color.White;
+            dgvDetalleDeCotizacion.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(121, 75, 45);
+            dgvDetalleDeCotizacion.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dgvDetalleDeCotizacion.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9, FontStyle.Regular);
+            dgvDetalleDeCotizacion.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvDetalleDeCotizacion.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(121, 75, 45);
+            dgvDetalleDeCotizacion.ColumnHeadersDefaultCellStyle.SelectionForeColor = Color.White;
 
             // Filas
-            dgvDetalleDeCotizacion.DefaultCellStyle.BackColor =
-                Color.White;
-
-            dgvDetalleDeCotizacion.DefaultCellStyle.ForeColor =
-                Color.FromArgb(45, 45, 45);
-
-            dgvDetalleDeCotizacion.DefaultCellStyle.Font =
-                new Font("Segoe UI", 9, FontStyle.Regular);
-
-            dgvDetalleDeCotizacion.DefaultCellStyle.Alignment =
-                DataGridViewContentAlignment.MiddleLeft;
+            dgvDetalleDeCotizacion.DefaultCellStyle.BackColor = Color.White;
+            dgvDetalleDeCotizacion.DefaultCellStyle.ForeColor = Color.FromArgb(45, 45, 45);
+            dgvDetalleDeCotizacion.DefaultCellStyle.Font = new Font("Segoe UI", 9, FontStyle.Regular);
+            dgvDetalleDeCotizacion.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
 
             // Filas alternadas
-            dgvDetalleDeCotizacion.AlternatingRowsDefaultCellStyle.BackColor =
-                Color.FromArgb(248, 241, 232);
+            dgvDetalleDeCotizacion.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(248, 241, 232);
 
             // Selección
-            dgvDetalleDeCotizacion.DefaultCellStyle.SelectionBackColor =
-                Color.FromArgb(224, 193, 157);
-
-            dgvDetalleDeCotizacion.DefaultCellStyle.SelectionForeColor =
-                Color.Black;
+            dgvDetalleDeCotizacion.DefaultCellStyle.SelectionBackColor = Color.FromArgb(224, 193, 157);
+            dgvDetalleDeCotizacion.DefaultCellStyle.SelectionForeColor = Color.Black;
 
             // Bordes
-            dgvDetalleDeCotizacion.CellBorderStyle =
-                DataGridViewCellBorderStyle.SingleHorizontal;
-
-            dgvDetalleDeCotizacion.GridColor =
-                Color.FromArgb(220, 220, 220);
+            dgvDetalleDeCotizacion.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            dgvDetalleDeCotizacion.GridColor = Color.FromArgb(220, 220, 220);
 
             // Alto de las filas
             dgvDetalleDeCotizacion.RowTemplate.Height = 32;
@@ -230,22 +172,17 @@ namespace Vista.Cotizaciones
 
             // No permitir modificar
             dgvDetalleDeCotizacion.ReadOnly = true;
-
             dgvDetalleDeCotizacion.AllowUserToAddRows = false;
-
             dgvDetalleDeCotizacion.AllowUserToDeleteRows = false;
 
             // Seleccionar fila completa
-            dgvDetalleDeCotizacion.SelectionMode =
-                DataGridViewSelectionMode.FullRowSelect;
-
+            dgvDetalleDeCotizacion.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvDetalleDeCotizacion.MultiSelect = false;
 
             // Quitar borde exterior
-            dgvDetalleDeCotizacion.BorderStyle =
-                BorderStyle.None;
+            dgvDetalleDeCotizacion.BorderStyle = BorderStyle.None;
 
-            // OCULTAR EL CUADRITO DE LA IZQUIERDA
+            // Ocultar el cuadrito de la izquierda
             dgvDetalleDeCotizacion.RowHeadersVisible = false;
         }
         private void CalcularPaginasCotizaciones()
@@ -319,121 +256,53 @@ namespace Vista.Cotizaciones
             toolTip1.InitialDelay = 500;
             toolTip1.ReshowDelay = 200;
             toolTip1.ShowAlways = true;
-
             // Navegación de cotizaciones
-            toolTip1.SetToolTip(btnCotizacionDetalle,
-                "Muestra el formulario para crear una nueva cotización.");
-
-            toolTip1.SetToolTip(btnCotizacionesRegistradas,
-                "Muestra las cotizaciones registradas.");
+            toolTip1.SetToolTip(btnCotizacionDetalle, "Muestra el formulario para crear una nueva cotización.");
+            toolTip1.SetToolTip(btnCotizacionesRegistradas, "Muestra las cotizaciones registradas.");
 
             // Datos del cliente
-            toolTip1.SetToolTip(btnBuscarCliente,
-                "Busca y selecciona un cliente para la cotización.");
-
-            toolTip1.SetToolTip(txtCliente,
-                "Muestra el nombre del cliente seleccionado.");
-
-            toolTip1.SetToolTip(txtTelefono,
-                "Muestra el número de teléfono del cliente seleccionado.");
-
-            toolTip1.SetToolTip(txtCorreo,
-                "Muestra el correo electrónico del cliente seleccionado.");
-
-            toolTip1.SetToolTip(txtDireccion,
-                "Muestra la dirección del cliente seleccionado.");
+            toolTip1.SetToolTip(btnBuscarCliente, "Busca y selecciona un cliente para la cotización.");
+            toolTip1.SetToolTip(txtCliente, "Muestra el nombre del cliente seleccionado.");
+            toolTip1.SetToolTip(txtTelefono, "Muestra el número de teléfono del cliente seleccionado.");
+            toolTip1.SetToolTip(txtCorreo, "Muestra el correo electrónico del cliente seleccionado.");
+            toolTip1.SetToolTip(txtDireccion, "Muestra la dirección del cliente seleccionado.");
 
             // Datos de la cotización
-            toolTip1.SetToolTip(dtpFechaCotizacion,
-                "Muestra la fecha de la cotización.");
-
-            toolTip1.SetToolTip(cbEstado,
-                "Muestra el estado actual de la cotización.");
-
-            toolTip1.SetToolTip(txtCondicionesPago,
-                "Ingrese las condiciones de pago de la cotización.");
-
-            toolTip1.SetToolTip(txtCondicionesEntrega,
-                "Ingrese las condiciones de entrega de la cotización.");
+            toolTip1.SetToolTip(dtpFechaCotizacion, "Muestra la fecha de la cotización.");
+            toolTip1.SetToolTip(cbEstado, "Muestra el estado actual de la cotización.");
+            toolTip1.SetToolTip(txtCondicionesPago, "Ingrese las condiciones de pago de la cotización.");
+            toolTip1.SetToolTip(txtCondicionesEntrega, "Ingrese las condiciones de entrega de la cotización.");
 
             // Productos
-            toolTip1.SetToolTip(txtProductosCotizacion,
-                "Ingrese la descripción del producto que desea agregar.");
-
-            toolTip1.SetToolTip(txtLargo,
-                "Ingrese el largo del producto.");
-
-            toolTip1.SetToolTip(txtAncho,
-                "Ingrese el ancho del producto.");
-
-            toolTip1.SetToolTip(txtAlto,
-                "Ingrese el alto del producto.");
-
-            toolTip1.SetToolTip(nudCantidad,
-                "Indique la cantidad de unidades del producto.");
-
-            toolTip1.SetToolTip(txtPrecioUnitario,
-                "Ingrese el precio de una unidad del producto.");
-
-            toolTip1.SetToolTip(btnAgregar,
-                "Agrega el producto a la cotización.");
-
-            toolTip1.SetToolTip(dgvDetalleDeCotizacion,
-                "Muestra los productos agregados a la cotización.");
+            toolTip1.SetToolTip(txtProductosCotizacion, "Ingrese la descripción del producto que desea agregar.");
+            toolTip1.SetToolTip(txtLargo, "Ingrese el largo del producto en centímetros.");
+            toolTip1.SetToolTip(txtAncho, "Ingrese el ancho del producto en centímetros.");
+            toolTip1.SetToolTip(txtAlto, "Ingrese el alto del producto en centímetros.");
+            toolTip1.SetToolTip(nudCantidad, "Indique la cantidad de unidades del producto.");
+            toolTip1.SetToolTip(txtPrecioUnitario, "Ingrese el precio de una unidad del producto.");
+            toolTip1.SetToolTip(btnAgregar, "Agrega el producto a la cotización.");
 
             // Totales
-            toolTip1.SetToolTip(txtSubTotal,
-                "Muestra el subtotal de los productos de la cotización.");
-
-            toolTip1.SetToolTip(txtIVA,
-                "Muestra el IVA correspondiente a la cotización.");
-
-            toolTip1.SetToolTip(txtTotal,
-                "Muestra el total de la cotización.");
+            toolTip1.SetToolTip(txtSubTotal, "Muestra el subtotal de los productos de la cotización.");
+            toolTip1.SetToolTip(txtIVA, "Muestra el IVA correspondiente a la cotización.");
+            toolTip1.SetToolTip(txtTotal, "Muestra el total de la cotización.");
 
             // Acciones de la cotización
-            toolTip1.SetToolTip(btnGuardar,
-                "Guarda la cotización y los productos agregados.");
-
-            toolTip1.SetToolTip(btnGenerarPDF,
-                "Genera y abre el PDF de la cotización guardada.");
+            toolTip1.SetToolTip(btnGuardar, "Guarda la cotización y los productos agregados.");
+            toolTip1.SetToolTip(btnGenerarPDF, "Genera y abre el PDF de la cotización guardada.");
 
             // Búsqueda de cotizaciones
-            toolTip1.SetToolTip(txtBuscar,
-                "Busca una cotización por su código.");
+            toolTip1.SetToolTip(txtBuscar, "Busca una cotización por su código.");
 
             // Cotizaciones registradas
-            toolTip1.SetToolTip(dgvCotizacionesRegistradas,
-                "Muestra las cotizaciones registradas. Haz clic en una cotización para consultar sus datos.");
-
-            toolTip1.SetToolTip(btnEditar,
-                "Permite cambiar el estado de la cotización seleccionada.");
-
-            toolTip1.SetToolTip(btnEliminar,
-                "Elimina la cotización seleccionada.");
-
-            toolTip1.SetToolTip(button1,
-                "Convierte la cotización aprobada seleccionada en un pedido.");
+            toolTip1.SetToolTip(btnEditar, "Permite cambiar el estado de la cotización seleccionada.");
+            toolTip1.SetToolTip(btnEliminar, "Elimina la cotización seleccionada.");
+            toolTip1.SetToolTip(button1, "Convierte la cotización aprobada seleccionada en un pedido.");
 
             // Vista previa
-            toolTip1.SetToolTip(pnlPDFPreview,
-                "Muestra una vista previa del PDF de la cotización.");
-
-            toolTip1.SetToolTip(btnLimpiar,
-    "Limpia los campos del formulario para ingresar una nueva cotización.");
-
-            toolTip1.SetToolTip(button2,
-                "Limpia los filtros de búsqueda y muestra nuevamente todas las cotizaciones registradas.");
-
-            //Medidas
-            toolTip1.SetToolTip(txtLargo,
-    "Ingrese el largo del producto en centímetros.");
-
-            toolTip1.SetToolTip(txtAncho,
-                "Ingrese el ancho del producto en centímetros.");
-
-            toolTip1.SetToolTip(txtAlto,
-                "Ingrese el alto del producto en centímetros.");
+            toolTip1.SetToolTip(pnlPDFPreview, "Muestra una vista previa del PDF de la cotización.");
+            toolTip1.SetToolTip(btnLimpiar, "Limpia los campos del formulario para ingresar una nueva cotización.");
+            toolTip1.SetToolTip(button2, "Limpia los filtros de búsqueda y muestra nuevamente todas las cotizaciones registradas.");
         }
 
         private async void frmCotizaciones_Load(object sender, EventArgs e)
@@ -485,14 +354,9 @@ namespace Vista.Cotizaciones
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "No se pudo inicializar la vista previa.\n\n" + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                MessageBox.Show("No se pudo inicializar la vista previa.\n\n" + ex.Message, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-
         }
 
         private void ActualizarVistaPrevia()
@@ -528,8 +392,7 @@ namespace Vista.Cotizaciones
                     if (row.Cells["DescripcionMueble"].Value == null)
                         continue;
 
-                    string descripcion =
-                        row.Cells["DescripcionMueble"].Value.ToString();
+                    string descripcion = row.Cells["DescripcionMueble"].Value.ToString();
 
                     if (string.IsNullOrWhiteSpace(descripcion))
                         continue;
@@ -541,53 +404,30 @@ namespace Vista.Cotizaciones
                         Ancho = Convert.ToInt32(row.Cells["Ancho"].Value),
                         Alto = Convert.ToInt32(row.Cells["Alto"].Value),
                         Cantidad = Convert.ToInt32(row.Cells["Cantidad"].Value),
-                        PrecioUnitario = Convert.ToDecimal(
-                            row.Cells["PrecioUnitario"].Value),
-                        SubTotal = Convert.ToDecimal(
-                            row.Cells["SubTotal"].Value)
+                        PrecioUnitario = Convert.ToDecimal(row.Cells["PrecioUnitario"].Value),
+                        SubTotal = Convert.ToDecimal(row.Cells["SubTotal"].Value)
                     };
 
                     productos.Add(producto);
                 }
 
                 // Crear archivo temporal
-                rutaPDFPreview = Path.Combine(
-                    Path.GetTempPath(),
-                    "CotizacionPreview.pdf");
+                rutaPDFPreview = Path.Combine(Path.GetTempPath(), "CotizacionPreview.pdf");
 
                 // Generar PDF
-                CotizacionDocumentoPDF.Generar(
-                    rutaPDFPreview,
-                    idCotizacionGuardada,
-                    dtpFechaCotizacion.Value,
-                    txtCliente.Text.Trim(),
-                    txtTelefono.Text.Trim(),
-                    txtCorreo.Text.Trim(),
-                    txtDireccion.Text.Trim(),
-                    txtCondicionesPago.Text.Trim(),
-                    txtCondicionesEntrega.Text.Trim(),
-                    cbEstado.Text.Trim(),
-                    subtotal,
-                    iva,
-                    total,
-                    productos
-                );
+                CotizacionDocumentoPDF.Generar(rutaPDFPreview, idCotizacionGuardada, dtpFechaCotizacion.Value, txtCliente.Text.Trim(), txtTelefono.Text.Trim(),
+                    txtCorreo.Text.Trim(), txtDireccion.Text.Trim(), txtCondicionesPago.Text.Trim(), txtCondicionesEntrega.Text.Trim(), cbEstado.Text.Trim(), subtotal,
+                    iva, total, productos);
 
                 // Mostrar el PDF dentro del formulario
                 if (File.Exists(rutaPDFPreview))
                 {
-                    visorPDF.CoreWebView2.Navigate(
-                        new Uri(rutaPDFPreview).AbsoluteUri);
+                    visorPDF.CoreWebView2.Navigate(new Uri(rutaPDFPreview).AbsoluteUri);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "No se pudo actualizar la vista previa.\n\n" +
-                    ex.ToString(),
-                    "Vista previa",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                MessageBox.Show("No se pudo actualizar la vista previa.\n\n" + ex.ToString(), "Vista previa", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void btnBuscarCliente_Click(object sender, EventArgs e)
@@ -612,7 +452,6 @@ namespace Vista.Cotizaciones
                 return;
             }
         }
-
 
         private void CalcularTotalCotizacion()
         {
@@ -663,45 +502,44 @@ namespace Vista.Cotizaciones
         private void btnGuardar_Click_1(object sender, EventArgs e)
         {
 
+            // Validar cliente
             if (idClienteSeleccionado == 0)
             {
-                MessageBox.Show("Selecciona un cliente.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
+                errorProvider1.SetError(btnBuscarCliente, "Selecciona un cliente.");
+                btnBuscarCliente.Focus();
                 return;
             }
 
+            // Validar condiciones de pago
             if (string.IsNullOrWhiteSpace(txtCondicionesPago.Text))
             {
-                MessageBox.Show("Ingresa las condiciones de pago.");
-
+                errorProvider1.SetError(txtCondicionesPago, "Ingresa las condiciones de pago.");
                 txtCondicionesPago.Focus();
-
                 return;
             }
 
+            // Validar condiciones de entrega
             if (string.IsNullOrWhiteSpace(txtCondicionesEntrega.Text))
             {
-                MessageBox.Show("Ingresa las condiciones de entrega.");
-
+                errorProvider1.SetError(txtCondicionesEntrega, "Ingresa las condiciones de entrega.");
                 txtCondicionesEntrega.Focus();
-
                 return;
             }
 
 
             CalcularTotalCotizacion();
-
+            // Validar total
             if (total <= 0)
             {
-                MessageBox.Show(
-                    "El total de la cotización debe ser mayor que 0.");
-
+                errorProvider1.SetError(txtTotal, "El total de la cotización debe ser mayor que 0.");
+                txtTotal.Focus();
                 return;
             }
 
+            // Validar estado
             if (cbEstado.SelectedIndex == -1)
             {
-                MessageBox.Show("Selecciona el estado de la cotizaci?n.");
+                errorProvider1.SetError(cbEstado, "Selecciona el estado de la cotización.");
                 cbEstado.Focus();
                 return;
             }
@@ -766,7 +604,6 @@ namespace Vista.Cotizaciones
             dgvDetalleDeCotizacion.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
-
         private void LimpiarProducto()
         {
             txtProductosCotizacion.Clear();
@@ -782,60 +619,67 @@ namespace Vista.Cotizaciones
             txtProductosCotizacion.Focus();
         }
 
-
-
-
         private void btnAgregar_Click_1(object sender, EventArgs e)
         {
+            // Validar producto
             if (string.IsNullOrWhiteSpace(txtProductosCotizacion.Text))
             {
-                MessageBox.Show("Ingresa el producto."); txtProductosCotizacion.Focus();
+                errorProvider1.SetError(txtProductosCotizacion, "Ingresa el producto.");
+                txtProductosCotizacion.Focus();
                 return;
             }
 
+            // Validar cantidad
             int cantidad = Convert.ToInt32(nudCantidad.Value);
 
             if (cantidad <= 0)
             {
-                MessageBox.Show("La cantidad debe ser mayor que 0.");
+                errorProvider1.SetError(nudCantidad, "La cantidad debe ser mayor que 0.");
+                nudCantidad.Focus();
                 return;
             }
-            // Out significa que si se puede convertir la el texto lo guardara en una variable, ya que por Text Box se reciben string
+
+            // Validar largo
+            // Out significa que si se puede convertir el texto lo guardará en una variable,
+            // ya que por TextBox se reciben string.
             if (!int.TryParse(txtLargo.Text, out int largo) || largo <= 0)
             {
-                MessageBox.Show("Ingresa un largo v?lido.");
+                errorProvider1.SetError(txtLargo, "Ingresa un largo válido.");
                 txtLargo.Focus();
                 return;
             }
 
+            // Validar ancho
             if (!int.TryParse(txtAncho.Text, out int ancho) || ancho <= 0)
             {
-                MessageBox.Show("Ingresa un ancho v?lido.");
-                //Focus regresa al cursor al error para corregirlo
+                errorProvider1.SetError(txtAncho, "Ingresa un ancho válido.");
                 txtAncho.Focus();
                 return;
             }
 
+            // Validar alto
             if (!int.TryParse(txtAlto.Text, out int alto) || alto <= 0)
             {
-                MessageBox.Show("Ingresa un alto v?lido.");
+                errorProvider1.SetError(txtAlto, "Ingresa un alto válido.");
                 txtAlto.Focus();
                 return;
             }
 
+            // Validar precio
             if (!decimal.TryParse(txtPrecioUnitario.Text, out decimal precio))
             {
-                MessageBox.Show("Ingresa un precio v?lido.");
+                errorProvider1.SetError(txtPrecioUnitario, "Ingresa un precio válido.");
                 txtPrecioUnitario.Focus();
                 return;
             }
+
             // Validar que el precio no sea 0
             if (precio <= 0)
             {
-                MessageBox.Show("El precio debe ser mayor que 0.");
+                errorProvider1.SetError(txtPrecioUnitario, "El precio debe ser mayor que 0.");
+                txtPrecioUnitario.Focus();
                 return;
             }
-
             decimal subtotal = cantidad * precio;
 
             dgvDetalleDeCotizacion.Rows.Add(txtProductosCotizacion.Text.Trim(), largo, ancho, alto, cantidad, precio.ToString("0.00"), subtotal.ToString("0.00"));
@@ -847,7 +691,6 @@ namespace Vista.Cotizaciones
 
             LimpiarProducto();
         }
-
         private void dgvDetalleDeCotizacion_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0 || ((DataGridView)sender).Rows[e.RowIndex].IsNewRow)
@@ -920,7 +763,6 @@ namespace Vista.Cotizaciones
                 MessageBox.Show("Por favor, selecciona una cotización de la tabla para eliminar.");
             }
         }
-
         private void btnEditar_Click(object sender, EventArgs e)
         {
             cbEstado.Enabled = false;
@@ -929,8 +771,7 @@ namespace Vista.Cotizaciones
                 int idCotizacion = Convert.ToInt32(dgvCotizacionesRegistradas.CurrentRow.Cells["IdCotizacion"].Value);
                 string estadoActual = dgvCotizacionesRegistradas.CurrentRow.Cells["Estado"].Value?.ToString();
 
-                DialogResult result = MessageBox.Show("¿Deseas cambiar el estado de la cotización? #" + idCotizacion + "?\n\nPresiona SI para marcarla como 'Aprobada'.\nPresiona NO para marcarla como 'Rechazada'.\nPresiona CANCELAR para no hacer nada.",
-                    "Cambiar Estado",
+                DialogResult result = MessageBox.Show("¿Deseas cambiar el estado de la cotización? #" + idCotizacion + "?\n\nPresiona SI para marcarla como 'Aprobada'.\nPresiona NO para marcarla como 'Rechazada'.\nPresiona CANCELAR para no hacer nada.", "Cambiar Estado",
                     MessageBoxButtons.YesNoCancel,
                     MessageBoxIcon.Question);
 
@@ -1007,11 +848,7 @@ namespace Vista.Cotizaciones
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -1056,11 +893,7 @@ namespace Vista.Cotizaciones
                 // Verificar que la cotización haya sido guardada
                 if (idCotizacionGuardada <= 0)
                 {
-                    MessageBox.Show(
-                        "Primero debes guardar la cotización.",
-                        "Generar PDF",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning);
+                    MessageBox.Show("Primero debes guardar la cotización.", "Generar PDF", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                     return;
                 }
@@ -1086,23 +919,17 @@ namespace Vista.Cotizaciones
                     {
                         Descripcion = descripcion,
 
-                        Largo = Convert.ToInt32(
-                            row.Cells["Largo"].Value),
+                        Largo = Convert.ToInt32(row.Cells["Largo"].Value),
 
-                        Ancho = Convert.ToInt32(
-                            row.Cells["Ancho"].Value),
+                        Ancho = Convert.ToInt32(row.Cells["Ancho"].Value),
 
-                        Alto = Convert.ToInt32(
-                            row.Cells["Alto"].Value),
+                        Alto = Convert.ToInt32(row.Cells["Alto"].Value),
 
-                        Cantidad = Convert.ToInt32(
-                            row.Cells["Cantidad"].Value),
+                        Cantidad = Convert.ToInt32(row.Cells["Cantidad"].Value),
 
-                        PrecioUnitario = Convert.ToDecimal(
-                            row.Cells["PrecioUnitario"].Value),
+                        PrecioUnitario = Convert.ToDecimal(row.Cells["PrecioUnitario"].Value),
 
-                        SubTotal = Convert.ToDecimal(
-                            row.Cells["SubTotal"].Value)
+                        SubTotal = Convert.ToDecimal(row.Cells["SubTotal"].Value)
                     };
 
                     productos.Add(producto);
@@ -1110,11 +937,7 @@ namespace Vista.Cotizaciones
 
                 if (productos.Count == 0)
                 {
-                    MessageBox.Show(
-                        "Debes agregar al menos un producto.",
-                        "Generar PDF",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning);
+                    MessageBox.Show("Debes agregar al menos un producto.", "Generar PDF", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                     return;
                 }
@@ -1123,9 +946,7 @@ namespace Vista.Cotizaciones
                 CalcularTotalCotizacion();
 
                 // Crear carpeta de Cotizaciones
-                string carpeta = Path.Combine(
-                    Application.StartupPath,
-                    "Cotizaciones");
+                string carpeta = Path.Combine(Application.StartupPath, "Cotizaciones");
 
                 if (!Directory.Exists(carpeta))
                 {
@@ -1135,48 +956,22 @@ namespace Vista.Cotizaciones
                 Directory.CreateDirectory(carpeta);
 
                 // Ruta del PDF
-                string rutaPDF = Path.Combine(
-                    carpeta,
-                    $"Cotizacion_{idCotizacionGuardada}.pdf");
+                string rutaPDF = Path.Combine(carpeta, $"Cotizacion_{idCotizacionGuardada}.pdf");
                 // Mostrar la ruta real que se está utilizando
-                MessageBox.Show(
-                    "La ruta del PDF será:\n\n" + rutaPDF +
-                    "\n\nCarpeta:\n" + carpeta,
-                    "Ruta del PDF",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
+                MessageBox.Show("La ruta del PDF será:\n\n" + rutaPDF + "\n\nCarpeta:\n" + carpeta, "Ruta del PDF", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
 
                 // Generar PDF
-                CotizacionDocumentoPDF.Generar(
-                    rutaPDF,
-                    idCotizacionGuardada,
-                    dtpFechaCotizacion.Value,
-                    txtCliente.Text.Trim(),
-                    txtTelefono.Text.Trim(),
-                    txtCorreo.Text.Trim(),
-                    txtDireccion.Text.Trim(),
-                    txtCondicionesPago.Text.Trim(),
-                    txtCondicionesEntrega.Text.Trim(),
-                    cbEstado.Text.Trim(),
-                    subtotal,
-                    iva,
-                    total,
-                    productos
-                );
+                CotizacionDocumentoPDF.Generar(rutaPDF, idCotizacionGuardada, dtpFechaCotizacion.Value, txtCliente.Text.Trim(), txtTelefono.Text.Trim(), txtCorreo.Text.Trim(),
+                    txtDireccion.Text.Trim(), txtCondicionesPago.Text.Trim(), txtCondicionesEntrega.Text.Trim(), cbEstado.Text.Trim(), subtotal, iva, total,
+                    productos);
 
                 // Verificar que se haya creado
                 if (!File.Exists(rutaPDF))
                 {
-                    MessageBox.Show(
-                        "No se pudo crear el archivo PDF.",
-                        "Error",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Error);
-
+                    MessageBox.Show("No se pudo crear el archivo PDF.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-
                 // Abrir PDF
                 Process.Start(new ProcessStartInfo
                 {
@@ -1184,22 +979,12 @@ namespace Vista.Cotizaciones
                     UseShellExecute = true
                 });
 
-                MessageBox.Show(
-                    "PDF generado correctamente.\n\n" +
-                    "Guardado en:\n" + rutaPDF,
-                    "Generar PDF",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
+                MessageBox.Show("PDF generado correctamente.\n\n" + "Guardado en:\n" + rutaPDF, "Generar PDF", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 LimpiarFormulario();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Ocurrió un error al generar el PDF.\n\n" +
-                    ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                MessageBox.Show("Ocurrió un error al generar el PDF.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -1238,28 +1023,17 @@ namespace Vista.Cotizaciones
 
                 lblNumeroSelec.Text = fila.Cells["IdCotizacion"].Value?.ToString() ?? "";
 
-                lblClienteSelec.Text =
-                    fila.Cells["Cliente"].Value?.ToString() ?? "";
+                lblClienteSelec.Text = fila.Cells["Cliente"].Value?.ToString() ?? "";
 
-                lblEstado.Text =
-                    fila.Cells["Estado"].Value?.ToString() ?? "";
+                lblEstado.Text = fila.Cells["Estado"].Value?.ToString() ?? "";
 
-                lblMostrarTotal.Text =
-                    "$" + Convert.ToDecimal(
-                        fila.Cells["Total"].Value
-                    ).ToString("N2");
+                lblMostrarTotal.Text = "$" + Convert.ToDecimal(fila.Cells["Total"].Value).ToString("N2");
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error al cargar la cotización seleccionada: " + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Error al cargar la cotización seleccionada: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         private void txtPrecioUnitario_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '.')

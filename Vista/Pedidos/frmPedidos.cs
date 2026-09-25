@@ -42,61 +42,36 @@ namespace Vista.Pedidos
         //------------------------------------------------------------------------
         // CONFIGURAR TABLAS DE PEDIDOS
         private void ConfigurarTablas()
-        {
-            // TABLA DE PEDIDOS REGISTRADOS
-
+        {// TABLA DE PEDIDOS REGISTRADOS
             dgvPedidosRegistrados.EnableHeadersVisualStyles = false;
 
-
-
             // Encabezado
-            dgvPedidosRegistrados.ColumnHeadersDefaultCellStyle.BackColor =
-                Color.FromArgb(121, 75, 45);
-
-            dgvPedidosRegistrados.ColumnHeadersDefaultCellStyle.ForeColor =
-                Color.White;
-
-            dgvPedidosRegistrados.ColumnHeadersDefaultCellStyle.Font =
-                new Font("Segoe UI", 9, FontStyle.Regular);
-
-            dgvPedidosRegistrados.ColumnHeadersDefaultCellStyle.Alignment =
-                DataGridViewContentAlignment.MiddleCenter;
+            dgvPedidosRegistrados.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(121, 75, 45);
+            dgvPedidosRegistrados.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dgvPedidosRegistrados.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9, FontStyle.Regular);
+            dgvPedidosRegistrados.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
             // Filas
-            dgvPedidosRegistrados.DefaultCellStyle.BackColor =
-                Color.FromArgb(255, 255, 255);
-
-            dgvPedidosRegistrados.DefaultCellStyle.ForeColor =
-                Color.FromArgb(45, 45, 45);
-
-            dgvPedidosRegistrados.DefaultCellStyle.Font =
-                new Font("Segoe UI", 9, FontStyle.Regular);
-
-            dgvPedidosRegistrados.DefaultCellStyle.Alignment =
-                DataGridViewContentAlignment.MiddleLeft;
+            dgvPedidosRegistrados.DefaultCellStyle.BackColor = Color.FromArgb(255, 255, 255);
+            dgvPedidosRegistrados.DefaultCellStyle.ForeColor = Color.FromArgb(45, 45, 45);
+            dgvPedidosRegistrados.DefaultCellStyle.Font = new Font("Segoe UI", 9, FontStyle.Regular);
+            dgvPedidosRegistrados.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
 
             // Filas alternadas
-            dgvPedidosRegistrados.AlternatingRowsDefaultCellStyle.BackColor =
-                Color.FromArgb(248, 241, 232);
+            dgvPedidosRegistrados.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(248, 241, 232);
 
             // Selección
-            dgvPedidosRegistrados.DefaultCellStyle.SelectionBackColor =
-                Color.FromArgb(224, 193, 157);
-
-            dgvPedidosRegistrados.DefaultCellStyle.SelectionForeColor =
-                Color.Black;
+            dgvPedidosRegistrados.DefaultCellStyle.SelectionBackColor = Color.FromArgb(224, 193, 157);
+            dgvPedidosRegistrados.DefaultCellStyle.SelectionForeColor = Color.Black;
 
             // Bordes
-            dgvPedidosRegistrados.CellBorderStyle =
-                DataGridViewCellBorderStyle.SingleHorizontal;
-
-            dgvPedidosRegistrados.GridColor =
-                Color.FromArgb(220, 220, 220);
+            dgvPedidosRegistrados.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            dgvPedidosRegistrados.GridColor = Color.FromArgb(220, 220, 220);
 
             // Alto de filas
             dgvPedidosRegistrados.RowTemplate.Height = 40;
 
-            // Encabezado
+            // Alto del encabezado
             dgvPedidosRegistrados.ColumnHeadersHeight = 30;
 
             // No permitir modificar la tabla
@@ -105,9 +80,7 @@ namespace Vista.Pedidos
             dgvPedidosRegistrados.AllowUserToDeleteRows = false;
 
             // Seleccionar una fila completa
-            dgvPedidosRegistrados.SelectionMode =
-                DataGridViewSelectionMode.FullRowSelect;
-
+            dgvPedidosRegistrados.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvPedidosRegistrados.MultiSelect = false;
 
             // Quitar borde exterior
@@ -119,106 +92,74 @@ namespace Vista.Pedidos
                 dgvPedidosRegistrados.Columns["IdPedido"].Visible = true;
                 dgvPedidosRegistrados.Columns["IdPedido"].Width = 100;
                 dgvPedidosRegistrados.Columns["IdPedido"].HeaderText = "N.º de Pedido";
-                dgvPedidosRegistrados.Columns["IdPedido"].DefaultCellStyle.Alignment =
-                    DataGridViewContentAlignment.MiddleCenter;
+                dgvPedidosRegistrados.Columns["IdPedido"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             }
 
             if (dgvPedidosRegistrados.Columns.Contains("Cliente"))
             {
-                dgvPedidosRegistrados.Columns["Cliente"].AutoSizeMode =
-                    DataGridViewAutoSizeColumnMode.Fill;
+                dgvPedidosRegistrados.Columns["Cliente"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             }
 
             if (dgvPedidosRegistrados.Columns.Contains("FechaDePedido"))
             {
                 dgvPedidosRegistrados.Columns["FechaDePedido"].Width = 120;
-                dgvPedidosRegistrados.Columns["FechaDePedido"].HeaderText =
-                    "Fecha del Pedido";
+                dgvPedidosRegistrados.Columns["FechaDePedido"].HeaderText = "Fecha del Pedido";
 
-                dgvPedidosRegistrados.Columns["FechaDePedido"].DefaultCellStyle.Alignment =
-                    DataGridViewContentAlignment.MiddleCenter;
+                dgvPedidosRegistrados.Columns["FechaDePedido"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             }
 
             if (dgvPedidosRegistrados.Columns.Contains("FechaDeEntrega"))
             {
                 dgvPedidosRegistrados.Columns["FechaDeEntrega"].Width = 120;
-                dgvPedidosRegistrados.Columns["FechaDeEntrega"].HeaderText =
-                    "Fecha de Entrega";
+                dgvPedidosRegistrados.Columns["FechaDeEntrega"].HeaderText = "Fecha de Entrega";
 
-                dgvPedidosRegistrados.Columns["FechaDeEntrega"].DefaultCellStyle.Alignment =
-                    DataGridViewContentAlignment.MiddleCenter;
+                dgvPedidosRegistrados.Columns["FechaDeEntrega"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             }
 
             if (dgvPedidosRegistrados.Columns.Contains("Estado"))
             {
                 dgvPedidosRegistrados.Columns["Estado"].Width = 100;
 
-                dgvPedidosRegistrados.Columns["Estado"].DefaultCellStyle.Alignment =
-                    DataGridViewContentAlignment.MiddleCenter;
+                dgvPedidosRegistrados.Columns["Estado"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             }
 
-
-
             // TABLA DE DETALLES DEL PEDIDO
-
 
             dgvDetallesDePedido.EnableHeadersVisualStyles = false;
             dgvDetallesDePedido.RowTemplate.Height = 36;
 
+            // TABLA DE DETALLES DE PEDIDO
+            dgvDetallesDePedido.EnableHeadersVisualStyles = false;
+
             // Encabezado
-            dgvDetallesDePedido.ColumnHeadersDefaultCellStyle.BackColor =
-                Color.FromArgb(121, 75, 45);
-
-            dgvDetallesDePedido.ColumnHeadersDefaultCellStyle.ForeColor =
-                Color.White;
-
-            dgvDetallesDePedido.ColumnHeadersDefaultCellStyle.Font =
-                new Font("Segoe UI", 9, FontStyle.Regular);
-
-            dgvDetallesDePedido.ColumnHeadersDefaultCellStyle.Alignment =
-                DataGridViewContentAlignment.MiddleCenter;
-
-            dgvPedidosRegistrados.ColumnHeadersDefaultCellStyle.SelectionBackColor =
-    Color.FromArgb(121, 75, 45);
-
-            dgvPedidosRegistrados.ColumnHeadersDefaultCellStyle.SelectionForeColor =
-                Color.White;
+            dgvDetallesDePedido.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(121, 75, 45);
+            dgvDetallesDePedido.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dgvDetallesDePedido.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9, FontStyle.Regular);
+            dgvDetallesDePedido.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvDetallesDePedido.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(121, 75, 45);
+            dgvDetallesDePedido.ColumnHeadersDefaultCellStyle.SelectionForeColor = Color.White;
 
             // Filas
-            dgvDetallesDePedido.DefaultCellStyle.BackColor =
-                Color.White;
-
-            dgvDetallesDePedido.DefaultCellStyle.ForeColor =
-                Color.FromArgb(45, 45, 45);
-
-            dgvDetallesDePedido.DefaultCellStyle.Font =
-                new Font("Segoe UI", 9, FontStyle.Regular);
-
-            dgvDetallesDePedido.DefaultCellStyle.Alignment =
-                DataGridViewContentAlignment.MiddleLeft;
+            dgvDetallesDePedido.DefaultCellStyle.BackColor = Color.White;
+            dgvDetallesDePedido.DefaultCellStyle.ForeColor = Color.FromArgb(45, 45, 45);
+            dgvDetallesDePedido.DefaultCellStyle.Font = new Font("Segoe UI", 9, FontStyle.Regular);
+            dgvDetallesDePedido.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
 
             // Filas alternadas
-            dgvDetallesDePedido.AlternatingRowsDefaultCellStyle.BackColor =
-                Color.FromArgb(248, 241, 232);
+            dgvDetallesDePedido.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(248, 241, 232);
 
             // Selección
-            dgvDetallesDePedido.DefaultCellStyle.SelectionBackColor =
-                Color.FromArgb(224, 193, 157);
-
-            dgvDetallesDePedido.DefaultCellStyle.SelectionForeColor =
-                Color.Black;
+            dgvDetallesDePedido.DefaultCellStyle.SelectionBackColor = Color.FromArgb(224, 193, 157);
+            dgvDetallesDePedido.DefaultCellStyle.SelectionForeColor = Color.Black;
 
             // Bordes
-            dgvDetallesDePedido.CellBorderStyle =
-                DataGridViewCellBorderStyle.SingleHorizontal;
-
-            dgvDetallesDePedido.GridColor =
-                Color.FromArgb(220, 220, 220);
+            dgvDetallesDePedido.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            dgvDetallesDePedido.GridColor = Color.FromArgb(220, 220, 220);
 
             // Alto de filas
             dgvDetallesDePedido.RowTemplate.Height = 32;
 
-            // Encabezado
+            // Alto del encabezado
             dgvDetallesDePedido.ColumnHeadersHeight = 30;
 
             // No permitir modificar
@@ -227,15 +168,11 @@ namespace Vista.Pedidos
             dgvDetallesDePedido.AllowUserToDeleteRows = false;
 
             // Seleccionar fila completa
-            dgvDetallesDePedido.SelectionMode =
-                DataGridViewSelectionMode.FullRowSelect;
-
+            dgvDetallesDePedido.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvDetallesDePedido.MultiSelect = false;
 
             // Quitar borde exterior
-            dgvDetallesDePedido.BorderStyle =
-                BorderStyle.None;
-
+            dgvDetallesDePedido.BorderStyle = BorderStyle.None;
             // COLUMNAS DE DETALLES
 
             if (dgvDetallesDePedido.Columns.Contains("IdDetallePedido"))
@@ -252,8 +189,7 @@ namespace Vista.Pedidos
             {
                 dgvDetallesDePedido.Columns["Mueble"].HeaderText = "Mueble";
 
-                dgvDetallesDePedido.Columns["Mueble"].AutoSizeMode =
-                    DataGridViewAutoSizeColumnMode.Fill;
+                dgvDetallesDePedido.Columns["Mueble"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             }
 
             if (dgvDetallesDePedido.Columns.Contains("Cantidad"))
@@ -261,8 +197,7 @@ namespace Vista.Pedidos
                 dgvDetallesDePedido.Columns["Cantidad"].HeaderText = "Cantidad";
                 dgvDetallesDePedido.Columns["Cantidad"].Width = 90;
 
-                dgvDetallesDePedido.Columns["Cantidad"].DefaultCellStyle.Alignment =
-                    DataGridViewContentAlignment.MiddleCenter;
+                dgvDetallesDePedido.Columns["Cantidad"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             }
 
             if (dgvDetallesDePedido.Columns.Contains("Medidas"))
@@ -270,20 +205,14 @@ namespace Vista.Pedidos
                 dgvDetallesDePedido.Columns["Medidas"].HeaderText = "Medidas";
                 dgvDetallesDePedido.Columns["Medidas"].Width = 150;
 
-                dgvDetallesDePedido.Columns["Medidas"].DefaultCellStyle.Alignment =
-                    DataGridViewContentAlignment.MiddleCenter;
+                dgvDetallesDePedido.Columns["Medidas"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             }
-
-
 
             // BOTÓN ELIMINAR
 
-
             if (dgvDetallesDePedido.Columns.Contains("EliminarProducto"))
             {
-                DataGridViewButtonColumn botonEliminar =
-                    dgvDetallesDePedido.Columns["EliminarProducto"]
-                    as DataGridViewButtonColumn;
+                DataGridViewButtonColumn botonEliminar = dgvDetallesDePedido.Columns["EliminarProducto"] as DataGridViewButtonColumn;
 
                 if (botonEliminar != null)
                 {
@@ -292,25 +221,17 @@ namespace Vista.Pedidos
                     botonEliminar.UseColumnTextForButtonValue = true;
                     botonEliminar.Width = 90;
 
-                    botonEliminar.DefaultCellStyle.BackColor =
-                        Color.FromArgb(121, 75, 45);
+                    botonEliminar.DefaultCellStyle.BackColor = Color.FromArgb(121, 75, 45);
 
-                    botonEliminar.DefaultCellStyle.ForeColor =
-                        Color.White;
+                    botonEliminar.DefaultCellStyle.ForeColor = Color.White;
 
-                    botonEliminar.DefaultCellStyle.SelectionBackColor =
-                        Color.FromArgb(94, 56, 33);
+                    botonEliminar.DefaultCellStyle.SelectionBackColor = Color.FromArgb(94, 56, 33);
 
-                    botonEliminar.DefaultCellStyle.SelectionForeColor =
-                        Color.White;
+                    botonEliminar.DefaultCellStyle.SelectionForeColor = Color.White;
 
-                    botonEliminar.DefaultCellStyle.Alignment =
-                        DataGridViewContentAlignment.MiddleCenter;
-                    dgvDetallesDePedido.ColumnHeadersDefaultCellStyle.SelectionBackColor =
-    Color.FromArgb(121, 75, 45);
+                    botonEliminar.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter; dgvDetallesDePedido.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(121, 75, 45);
 
-                    dgvDetallesDePedido.ColumnHeadersDefaultCellStyle.SelectionForeColor =
-                        Color.White;
+                    dgvDetallesDePedido.ColumnHeadersDefaultCellStyle.SelectionForeColor = Color.White;
                 }
             }
         }
@@ -342,11 +263,9 @@ namespace Vista.Pedidos
             try
             {
                 bool ultimo = DetallePedidos.CargarDetallesPorPedido(pedido).Rows.Count == 1;
-                string aviso = ultimo
-                    ? "Al eliminar el último producto, el pedido quedará marcado como Cancelado. El registro del pedido se conservará. ¿Desea continuar?"
+                string aviso = ultimo ? "Al eliminar el último producto, el pedido quedará marcado como Cancelado. El registro del pedido se conservará. ¿Desea continuar?"
                     : "¿Desea eliminar este producto del pedido?";
-                if (MessageBox.Show(aviso, "Confirmar eliminación", MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) != DialogResult.Yes)
+                if (MessageBox.Show(aviso, "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) != DialogResult.Yes)
                     return;
                 bool cancelado = DetallePedidos.EliminarDetalle(pedido, detalle, ultimo);
                 dgvDetallesDePedido.DataSource = DetallePedidos.CargarDetallesPorPedido(pedido);
@@ -357,13 +276,11 @@ namespace Vista.Pedidos
                     txtEstado.Text = "Cancelado";
                     estadoOriginal = "Cancelado";
                 }
-                MessageBox.Show(cancelado ? "Producto eliminado. El pedido quedó Cancelado."
-                    : "Producto eliminado correctamente.");
+                MessageBox.Show(cancelado ? "Producto eliminado. El pedido quedó Cancelado." : "Producto eliminado correctamente.");
             }
             catch (Exception ex)
             {
-                MessageBox.Show("No se pudo eliminar el producto: " + ex.Message,
-                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("No se pudo eliminar el producto: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         //--------------------------------------------------------------------------------
@@ -387,7 +304,6 @@ namespace Vista.Pedidos
                 txtBuscar.ForeColor = Color.Gray;
             }
         }
-
         private void txtBuscar_TextChanged(object sender, EventArgs e)
         {
             try
@@ -416,9 +332,7 @@ namespace Vista.Pedidos
                 paginaActual = 1;
 
                 // Calcular páginas de los resultados
-                totalPaginas = (int)Math.Ceiling(
-                    (double)dtPedidos.Rows.Count / registrosPorPagina
-                );
+                totalPaginas = (int)Math.Ceiling((double)dtPedidos.Rows.Count / registrosPorPagina);
 
                 if (totalPaginas == 0)
                 {
@@ -429,12 +343,7 @@ namespace Vista.Pedidos
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         //------------------------------------------------------------------
@@ -448,9 +357,7 @@ namespace Vista.Pedidos
                 dtPedidos = DbPedidos.CargarRegistroPedidos();
 
                 // Calcular el total de páginas
-                totalPaginas = (int)Math.Ceiling(
-                    (double)dtPedidos.Rows.Count / registrosPorPagina
-                );
+                totalPaginas = (int)Math.Ceiling((double)dtPedidos.Rows.Count / registrosPorPagina);
 
                 // Si no existen pedidos
                 if (totalPaginas == 0)
@@ -468,12 +375,7 @@ namespace Vista.Pedidos
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error al cargar los pedidos: " + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Error al cargar los pedidos: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -486,10 +388,7 @@ namespace Vista.Pedidos
 
             int inicio = (paginaActual - 1) * registrosPorPagina;
 
-            int fin = Math.Min(
-                inicio + registrosPorPagina,
-                dtPedidos.Rows.Count
-            );
+            int fin = Math.Min(inicio + registrosPorPagina, dtPedidos.Rows.Count);
 
             for (int i = inicio; i < fin; i++)
             {
@@ -538,7 +437,6 @@ namespace Vista.Pedidos
             dtpFechaDeEntrega.TabIndex = 3;
             txtEstado.TabIndex = 4;
 
-
             // Encabezados visibles
             dgvDetallesDePedido.Columns["IdDetallePedido"].Visible = false;
             dgvDetallesDePedido.Columns["IdPedido"].Visible = false;
@@ -551,7 +449,6 @@ namespace Vista.Pedidos
             dgvPedidosRegistrados.Columns["FechaDePedido"].HeaderText = "Fecha del Pedido";
             dgvPedidosRegistrados.Columns["FechaDeEntrega"].HeaderText = "Fecha de Entrega";
             dgvPedidosRegistrados.Columns["Estado"].HeaderText = "Estado";
-
         }
 
         private void MostrarDetallesPedido()
@@ -599,21 +496,18 @@ namespace Vista.Pedidos
                 if (e.RowIndex < 0)
                     return;
 
-                DataGridViewRow fila =
-                    dgvPedidosRegistrados.Rows[e.RowIndex];
+                DataGridViewRow fila = dgvPedidosRegistrados.Rows[e.RowIndex];
 
                 if (fila.IsNewRow)
                     return;
 
                 // Obtener el ID del pedido seleccionado
-                if (fila.Cells["IdPedido"].Value == null ||
-                    fila.Cells["IdPedido"].Value == DBNull.Value)
+                if (fila.Cells["IdPedido"].Value == null || fila.Cells["IdPedido"].Value == DBNull.Value)
                 {
                     return;
                 }
 
-                idPedidoSeleccionado =
-                    Convert.ToInt32(fila.Cells["IdPedido"].Value);
+                idPedidoSeleccionado = Convert.ToInt32(fila.Cells["IdPedido"].Value);
 
                 // CARGAR ESTADO
                 string estado = fila.Cells["Estado"].Value?.ToString() ?? "";
@@ -624,8 +518,7 @@ namespace Vista.Pedidos
 
                 // CARGAR FECHA DEL PEDIDO              
 
-                if (fila.Cells["FechaDePedido"].Value != null &&
-                    fila.Cells["FechaDePedido"].Value != DBNull.Value)
+                if (fila.Cells["FechaDePedido"].Value != null && fila.Cells["FechaDePedido"].Value != DBNull.Value)
                 {
                     dtpFechaPedido.Value = Convert.ToDateTime(fila.Cells["FechaDePedido"].Value);
                 }
@@ -645,11 +538,9 @@ namespace Vista.Pedidos
 
                 if (fila.Cells["Cliente"].Value != null)
                 {
-                    txtClienteSeleccionado.Text =
-                        fila.Cells["Cliente"].Value.ToString();
+                    txtClienteSeleccionado.Text = fila.Cells["Cliente"].Value.ToString();
 
-                    txtClienteSeleccionado.ForeColor =
-                        Color.Black;
+                    txtClienteSeleccionado.ForeColor = Color.Black;
 
                     txtClienteSeleccionado.Enabled = false;
                 }
@@ -668,12 +559,7 @@ namespace Vista.Pedidos
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Ocurrió un error al cargar los detalles del pedido.\n" +
-                    ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                MessageBox.Show("Ocurrió un error al cargar los detalles del pedido.\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -761,40 +647,25 @@ namespace Vista.Pedidos
 
             if (idPedidoSeleccionado <= 0)
             {
-                MessageBox.Show("Para actualizar la fecha de entrega, selecciona un pedido de la lista y presiona Guardar.", "Pedido no seleccionado",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Para actualizar la fecha de entrega, selecciona un pedido de la lista y presiona Guardar.", "Pedido no seleccionado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                 return;
             }
 
             DateTime nuevaFechaEntrega = dtpFechaDeEntrega.Value;
 
-            bool fechaCambio =
-                fechaEntregaOriginal.Date != nuevaFechaEntrega.Date;
+            bool fechaCambio = fechaEntregaOriginal.Date != nuevaFechaEntrega.Date;
 
             if (!fechaCambio)
             {
-                MessageBox.Show(
-                    "No se realizaron cambios en el pedido.",
-                    "Sin cambios",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information
-                );
+                MessageBox.Show("No se realizaron cambios en el pedido.", "Sin cambios", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 return;
             }
 
-            if (DbPedidos.ActualizarPedidoFecha(
-                idPedidoSeleccionado,
-                nuevaFechaEntrega))
+            if (DbPedidos.ActualizarPedidoFecha(idPedidoSeleccionado, nuevaFechaEntrega))
             {
-                MessageBox.Show(
-                    "La fecha de entrega del pedido se modificó correctamente a: " +
-                    nuevaFechaEntrega.ToString("dd/MM/yyyy"),
-                    "Fecha actualizada",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information
-                );
+                MessageBox.Show("La fecha de entrega del pedido se modificó correctamente a: " + nuevaFechaEntrega.ToString("dd/MM/yyyy"), "Fecha actualizada", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 fechaEntregaOriginal = nuevaFechaEntrega;
 
@@ -802,12 +673,7 @@ namespace Vista.Pedidos
             }
             else
             {
-                MessageBox.Show(
-                    "Error al actualizar la fecha del pedido.",
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Error al actualizar la fecha del pedido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

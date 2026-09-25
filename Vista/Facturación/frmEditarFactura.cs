@@ -54,15 +54,20 @@ namespace Vista.Facturación
             txtSubTotal.Text = Convert.ToDecimal(fila["SubTotal"]).ToString("0.00");
 
             if (fila["Descuento"] == DBNull.Value)
+            {
                 txtDescuento.Text = "";
+
+            }
             else
+            {
                 txtDescuento.Text = Convert.ToDecimal(fila["Descuento"]).ToString("0.00");
 
-            txtIVA.Text = Convert.ToDecimal(fila["IVA"]).ToString("0.00");
+                txtIVA.Text = Convert.ToDecimal(fila["IVA"]).ToString("0.00");
 
-            txtTotal.Text = Convert.ToDecimal(fila["Total"]).ToString("0.00");
+                txtTotal.Text = Convert.ToDecimal(fila["Total"]).ToString("0.00");
 
-            txtObservaciones.Text = fila["Observaciones"] == DBNull.Value ? "" : fila["Observaciones"].ToString();
+                txtObservaciones.Text = fila["Observaciones"] == DBNull.Value ? "" : fila["Observaciones"].ToString();
+            }
         }
 
         private void txtDescuento_TextChanged(object sender, EventArgs e)
@@ -101,9 +106,7 @@ namespace Vista.Facturación
 
             if (!string.IsNullOrWhiteSpace(txtDescuento.Text))
             {
-                if (!decimal.TryParse(
-                    txtDescuento.Text,
-                    out decimal valorDescuento))
+                if (!decimal.TryParse(txtDescuento.Text, out decimal valorDescuento))
                 {
                     MessageBox.Show("Ingrese un descuento válido.");
                     return;

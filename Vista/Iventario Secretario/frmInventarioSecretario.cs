@@ -69,12 +69,7 @@ namespace Vista.Iventario_Secretario
             dgvMateriales.CellBorderStyle =
                 DataGridViewCellBorderStyle.SingleHorizontal;
 
-            dgvMateriales.GridColor =
-                Color.FromArgb(
-                    225,
-                    225,
-                    225
-                );
+            dgvMateriales.GridColor = Color.FromArgb(225, 225, 225);
 
             dgvMateriales.EnableHeadersVisualStyles = false;
 
@@ -85,153 +80,48 @@ namespace Vista.Iventario_Secretario
             dgvMateriales.RowTemplate.Height = 34;
 
             // Ajustar columnas
-            dgvMateriales.AutoSizeColumnsMode =
-                DataGridViewAutoSizeColumnsMode.Fill;
+            dgvMateriales.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
 
             //----------------------------------------------------------------------
             // ENCABEZADO
+            // ENCABEZADO
+            dgvMateriales.ColumnHeadersDefaultCellStyle = new DataGridViewCellStyle
+            {
+                BackColor = Color.FromArgb(121, 78, 48),
+                ForeColor = Color.White,
+                Font = new Font("Segoe UI", 10, FontStyle.Bold),
+                Alignment = DataGridViewContentAlignment.MiddleCenter,
+                SelectionBackColor = Color.FromArgb(121, 78, 48),
+                SelectionForeColor = Color.White,
+                Padding = new Padding(5)
+            };
 
-            dgvMateriales.ColumnHeadersDefaultCellStyle =
-                new DataGridViewCellStyle
-                {
-                    BackColor =
-                        Color.FromArgb(
-                            121,
-                            78,
-                            48
-                        ),
-
-                    ForeColor =
-                        Color.White,
-
-                    Font =
-                        new Font(
-                            "Segoe UI",
-                            10,
-                            FontStyle.Bold
-                        ),
-
-                    Alignment =
-                        DataGridViewContentAlignment.MiddleCenter,
-
-                    SelectionBackColor =
-                        Color.FromArgb(
-                            121,
-                            78,
-                            48
-                        ),
-
-                    SelectionForeColor =
-                        Color.White,
-
-                    Padding =
-                        new Padding(5)
-                };
-
-
-            //----------------------------------------------------------------------
             // FILAS
+            dgvMateriales.DefaultCellStyle = new DataGridViewCellStyle
+            {
+                BackColor = Color.White,
+                ForeColor = Color.FromArgb(55, 55, 55),
+                Font = new Font("Segoe UI", 10),
+                Alignment = DataGridViewContentAlignment.MiddleCenter,
+                SelectionBackColor = Color.FromArgb(238, 215, 185),
+                SelectionForeColor = Color.FromArgb(60, 45, 35),
+                Padding = new Padding(5)
+            };
 
-            dgvMateriales.DefaultCellStyle =
-                new DataGridViewCellStyle
-                {
-                    BackColor =
-                        Color.White,
-
-                    ForeColor =
-                        Color.FromArgb(
-                            55,
-                            55,
-                            55
-                        ),
-
-                    Font =
-                        new Font(
-                            "Segoe UI",
-                            10
-                        ),
-
-                    Alignment =
-                        DataGridViewContentAlignment.MiddleCenter,
-
-                    SelectionBackColor =
-                        Color.FromArgb(
-                            238,
-                            215,
-                            185
-                        ),
-
-                    SelectionForeColor =
-                        Color.FromArgb(
-                            60,
-                            45,
-                            35
-                        ),
-
-                    Padding =
-                        new Padding(5)
-                };
-
-
-            //----------------------------------------------------------------------
             // FILAS ALTERNADAS
+            dgvMateriales.AlternatingRowsDefaultCellStyle = new DataGridViewCellStyle
+            {
+                BackColor = Color.FromArgb(250, 246, 240),
+                ForeColor = Color.FromArgb(55, 55, 55),
+                Font = new Font("Segoe UI", 10),
+                SelectionBackColor = Color.FromArgb(238, 215, 185),
+                SelectionForeColor = Color.FromArgb(60, 45, 35)
+            };
 
-            dgvMateriales.AlternatingRowsDefaultCellStyle =
-                new DataGridViewCellStyle
-                {
-                    BackColor =
-                        Color.FromArgb(
-                            250,
-                            246,
-                            240
-                        ),
-
-                    ForeColor =
-                        Color.FromArgb(
-                            55,
-                            55,
-                            55
-                        ),
-
-                    Font =
-                        new Font(
-                            "Segoe UI",
-                            10
-                        ),
-
-                    SelectionBackColor =
-                        Color.FromArgb(
-                            238,
-                            215,
-                            185
-                        ),
-
-                    SelectionForeColor =
-                        Color.FromArgb(
-                            60,
-                            45,
-                            35
-                        )
-                };
-
-
-            //----------------------------------------------------------------------
             // FILA SELECCIONADA
-
-            dgvMateriales.RowsDefaultCellStyle.SelectionBackColor =
-                Color.FromArgb(
-                    238,
-                    215,
-                    185
-                );
-
-            dgvMateriales.RowsDefaultCellStyle.SelectionForeColor =
-                Color.FromArgb(
-                    60,
-                    45,
-                    35
-                );
+            dgvMateriales.RowsDefaultCellStyle.SelectionBackColor = Color.FromArgb(238, 215, 185);
+            dgvMateriales.RowsDefaultCellStyle.SelectionForeColor = Color.FromArgb(60, 45, 35);
         }
 
         //----------------------------------------------------------------------
@@ -255,12 +145,9 @@ namespace Vista.Iventario_Secretario
 
             if (dgvMateriales.Columns.Contains("Material"))
             {
-                dgvMateriales.Columns["Material"]
-                    .HeaderText = "Material";
+                dgvMateriales.Columns["Material"].HeaderText = "Material";
 
-                dgvMateriales.Columns["Material"]
-                    .DefaultCellStyle.Alignment =
-                    DataGridViewContentAlignment.MiddleLeft;
+                dgvMateriales.Columns["Material"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
             }
 
 
@@ -268,8 +155,7 @@ namespace Vista.Iventario_Secretario
 
             if (dgvMateriales.Columns.Contains("UnidadMedida"))
             {
-                dgvMateriales.Columns["UnidadMedida"]
-                    .HeaderText = "Unidad de medida";
+                dgvMateriales.Columns["UnidadMedida"].HeaderText = "Unidad de medida";
             }
 
 
@@ -277,8 +163,7 @@ namespace Vista.Iventario_Secretario
 
             if (dgvMateriales.Columns.Contains("Stock"))
             {
-                dgvMateriales.Columns["Stock"]
-                    .HeaderText = "Stock";
+                dgvMateriales.Columns["Stock"].HeaderText = "Stock";
             }
 
 
@@ -286,12 +171,9 @@ namespace Vista.Iventario_Secretario
 
             if (dgvMateriales.Columns.Contains("Categoria"))
             {
-                dgvMateriales.Columns["Categoria"]
-                    .HeaderText = "Categoría";
+                dgvMateriales.Columns["Categoria"].HeaderText = "Categoría";
 
-                dgvMateriales.Columns["Categoria"]
-                    .DefaultCellStyle.Alignment =
-                    DataGridViewContentAlignment.MiddleLeft;
+                dgvMateriales.Columns["Categoria"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
             }
 
 
@@ -301,15 +183,13 @@ namespace Vista.Iventario_Secretario
                 DataGridViewColumn columna
                 in dgvMateriales.Columns)
             {
-                columna.SortMode =
-                    DataGridViewColumnSortMode.NotSortable;
+                columna.SortMode = DataGridViewColumnSortMode.NotSortable;
             }
 
 
             // Ajustar columnas
 
-            dgvMateriales.AutoSizeColumnsMode =
-                DataGridViewAutoSizeColumnsMode.Fill;
+            dgvMateriales.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
 
@@ -352,12 +232,7 @@ namespace Vista.Iventario_Secretario
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error al cargar el inventario: " + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Error al cargar el inventario: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -367,79 +242,28 @@ namespace Vista.Iventario_Secretario
             ToolTip toolTip = new ToolTip();
 
             // Buscador
-            toolTip.SetToolTip(
-                txtBuscar,
-                "Busca un material por su nombre."
-            );
+            toolTip.SetToolTip(txtBuscar, "Busca un material por su nombre.");
 
             // Datos del material
-            toolTip.SetToolTip(
-                txtMaterial,
-                "Ingrese el nombre del material."
-            );
-
-            toolTip.SetToolTip(
-                cbCategorias,
-                "Seleccione la categoría a la que pertenece el material."
-            );
-
-            toolTip.SetToolTip(
-                cbUnidadMedida,
-                "Seleccione la unidad de medida del material."
-            );
-
-            toolTip.SetToolTip(
-                txtCantidad,
-                "Ingrese la cantidad disponible del material."
-            );
+            toolTip.SetToolTip(txtMaterial, "Ingrese el nombre del material.");
+            toolTip.SetToolTip(cbCategorias, "Seleccione la categoría a la que pertenece el material.");
+            toolTip.SetToolTip(cbUnidadMedida, "Seleccione la unidad de medida del material.");
+            toolTip.SetToolTip(txtCantidad, "Ingrese la cantidad disponible del material.");
 
             // Botones
-            toolTip.SetToolTip(
-                btnNuevo,
-                "Limpia el formulario para registrar un nuevo material."
-            );
-
-            toolTip.SetToolTip(
-                btnGuardar,
-                "Guarda el nuevo material en el inventario."
-            );
-
-            toolTip.SetToolTip(
-                btnEditar,
-                "Permite modificar los datos del material seleccionado."
-            );
-
-            toolTip.SetToolTip(
-                btnGuardarCambios,
-                "Guarda los cambios realizados al material."
-            );
+            toolTip.SetToolTip(btnNuevo, "Limpia el formulario para registrar un nuevo material.");
+            toolTip.SetToolTip(btnGuardar, "Guarda el nuevo material en el inventario.");
+            toolTip.SetToolTip(btnEditar, "Permite modificar los datos del material seleccionado.");
+            toolTip.SetToolTip(btnGuardarCambios, "Guarda los cambios realizados al material.");
 
             // Tabla
-            toolTip.SetToolTip(
-                dgvMateriales,
-                "Muestra los materiales registrados en el inventario. Haz doble clic en un material para seleccionarlo."
-            );
+            toolTip.SetToolTip(dgvMateriales, "Muestra los materiales registrados en el inventario. Haz doble clic en un material para seleccionarlo.");
 
             // Estadísticas
-            toolTip.SetToolTip(
-                lblTotalRegistrados,
-                "Cantidad total de materiales registrados."
-            );
-
-            toolTip.SetToolTip(
-                lblAgotandose,
-                "Cantidad de materiales cuyo stock está próximo a agotarse."
-            );
-
-            toolTip.SetToolTip(
-                lblDisponibles,
-                "Cantidad de materiales disponibles actualmente."
-            );
-
-            toolTip.SetToolTip(
-                lblMaterialesAgotados,
-                "Cantidad de materiales que se encuentran agotados."
-            );
+            toolTip.SetToolTip(lblTotalRegistrados, "Cantidad total de materiales registrados.");
+            toolTip.SetToolTip(lblAgotandose, "Cantidad de materiales cuyo stock está próximo a agotarse.");
+            toolTip.SetToolTip(lblDisponibles, "Cantidad de materiales disponibles actualmente.");
+            toolTip.SetToolTip(lblMaterialesAgotados, "Cantidad de materiales que se encuentran agotados.");
         }
         //-------------------------------------------------------------------
         // Metodo que carga los materiales en el DataGridView
@@ -447,20 +271,13 @@ namespace Vista.Iventario_Secretario
         {
             try
             {
-                int registrosSaltar =
-                    (paginaActual - 1) *
-                    registrosPorPagina;
+                int registrosSaltar = (paginaActual - 1) * registrosPorPagina;
 
-                dtInventario =
-                    Material.CargarMateriales();
+                dtInventario = Material.CargarMateriales();
 
-                totalRegistros =
-                    dtInventario.Rows.Count;
+                totalRegistros = dtInventario.Rows.Count;
 
-                totalPaginas =
-                    (int)Math.Ceiling(
-                        (double)totalRegistros /
-                        registrosPorPagina);
+                totalPaginas = (int)Math.Ceiling((double)totalRegistros / registrosPorPagina);
 
                 if (totalPaginas == 0)
                 {
@@ -479,13 +296,7 @@ namespace Vista.Iventario_Secretario
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error al mostrar los materiales: "
-                    + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Error al mostrar los materiales: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -497,18 +308,11 @@ namespace Vista.Iventario_Secretario
             if (dtInventario == null)
                 return;
 
-            DataTable dtPagina =
-                dtInventario.Clone();
+            DataTable dtPagina = dtInventario.Clone();
 
-            int inicio =
-                (paginaActual - 1) *
-                registrosPorPagina;
+            int inicio = (paginaActual - 1) * registrosPorPagina;
 
-            int fin =
-                Math.Min(
-                    inicio + registrosPorPagina,
-                    dtInventario.Rows.Count
-                );
+            int fin = Math.Min(inicio + registrosPorPagina, dtInventario.Rows.Count);
 
             for (int i = inicio; i < fin; i++)
             {
@@ -519,19 +323,15 @@ namespace Vista.Iventario_Secretario
 
             dgvMateriales.DataSource = null;
 
-            dgvMateriales.DataSource =
-                dtPagina;
+            dgvMateriales.DataSource = dtPagina;
 
             FormatearTablaInventario();
 
-            lblPagina.Text =
-                $"Página {paginaActual} de {totalPaginas}";
+            lblPagina.Text = $"Página {paginaActual} de {totalPaginas}";
 
-            btnAnterior.Enabled =
-                paginaActual > 1;
+            btnAnterior.Enabled = paginaActual > 1;
 
-            btnSiguiente.Enabled =
-                paginaActual < totalPaginas;
+            btnSiguiente.Enabled = paginaActual < totalPaginas;
         }
         //------------------------------------------------------------------------
         //COMBO BOXS
@@ -550,12 +350,7 @@ namespace Vista.Iventario_Secretario
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error al cargar las categorías: " + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Error al cargar las categorías: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -564,8 +359,7 @@ namespace Vista.Iventario_Secretario
         {
             try
             {
-                DataTable dtUnidadMedida =
-                    UnidadMedida.CargarUnidadesDeMedida();
+                DataTable dtUnidadMedida = UnidadMedida.CargarUnidadesDeMedida();
 
                 cbUnidadMedida.DataSource = dtUnidadMedida;
                 cbUnidadMedida.DisplayMember = "UnidadMedida";
@@ -574,12 +368,7 @@ namespace Vista.Iventario_Secretario
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error al cargar las unidades de medida: " + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Error al cargar las unidades de medida: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         //---------------------------------------------------------------------------
@@ -591,7 +380,7 @@ namespace Vista.Iventario_Secretario
                 // Verifica que se haya escrito el nombre
                 if (string.IsNullOrWhiteSpace(txtMaterial.Text))
                 {
-                    MessageBox.Show("Ingrese el nombre del material.");
+                    errorProvider1.SetError(txtMaterial, "Ingrese el nombre del material.");
                     txtMaterial.Focus();
                     return;
                 }
@@ -599,7 +388,7 @@ namespace Vista.Iventario_Secretario
                 // Verifica que se haya seleccionado una unidad
                 if (cbUnidadMedida.SelectedIndex == -1)
                 {
-                    MessageBox.Show("Seleccione la unidad de medida.");
+                    errorProvider1.SetError(cbUnidadMedida, "Seleccione la unidad de medida.");
                     cbUnidadMedida.Focus();
                     return;
                 }
@@ -607,7 +396,7 @@ namespace Vista.Iventario_Secretario
                 // Verifica que se haya seleccionado una categoría
                 if (cbCategorias.SelectedIndex == -1)
                 {
-                    MessageBox.Show("Seleccione una categoría.");
+                    errorProvider1.SetError(cbCategorias, "Seleccione una categoría.");
                     cbCategorias.Focus();
                     return;
                 }
@@ -615,7 +404,7 @@ namespace Vista.Iventario_Secretario
                 // Verifica que se haya ingresado el stock
                 if (string.IsNullOrWhiteSpace(txtCantidad.Text))
                 {
-                    MessageBox.Show("Ingrese el stock inicial.");
+                    errorProvider1.SetError(txtCantidad, "Ingrese el stock inicial.");
                     txtCantidad.Focus();
                     return;
                 }
@@ -623,7 +412,7 @@ namespace Vista.Iventario_Secretario
                 // Verifica que el stock sea un número entero
                 if (!int.TryParse(txtCantidad.Text, out int stock))
                 {
-                    MessageBox.Show("El stock inicial debe ser un número.");
+                    errorProvider1.SetError(txtCantidad, "El stock inicial debe ser un número.");
                     txtCantidad.Focus();
                     return;
                 }
@@ -631,18 +420,16 @@ namespace Vista.Iventario_Secretario
                 // Evita que se registren cantidades negativas
                 if (stock < 0)
                 {
-                    MessageBox.Show("El stock inicial no puede ser negativo.");
+                    errorProvider1.SetError(txtCantidad, "El stock inicial no puede ser negativo.");
                     txtCantidad.Focus();
                     return;
                 }
-
                 // Crea un nuevo objeto Material
                 Material material = new Material();
 
                 material.idMaterial1 = 0;
                 material.NombreDelMaterial1 = txtMaterial.Text.Trim();
-                material.UnidadDeMedida1 =
-                    Convert.ToInt32(cbUnidadMedida.SelectedValue);
+                material.UnidadDeMedida1 = Convert.ToInt32(cbUnidadMedida.SelectedValue);
                 material.Stock1 = stock;
                 material.Categoria1 = cbCategorias.Text;
 
@@ -651,11 +438,7 @@ namespace Vista.Iventario_Secretario
 
                 if (resultado)
                 {
-                    MessageBox.Show(
-                        "Material registrado correctamente.",
-                        "Registro exitoso",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information
+                    MessageBox.Show("Material registrado correctamente.", "Registro exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information
                     );
 
                     // Actualiza la tabla y limpia los campos
@@ -668,8 +451,7 @@ namespace Vista.Iventario_Secretario
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al registrar el material: " + ex.Message, "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error al registrar el material: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         //------------------------------------------------------------------
@@ -712,8 +494,7 @@ namespace Vista.Iventario_Secretario
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al seleccionar el material: " + ex.Message, "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error al seleccionar el material: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         // Permite modificar el material seleccionado
@@ -735,12 +516,7 @@ namespace Vista.Iventario_Secretario
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error al habilitar la edición: " + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Error al habilitar la edición: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         }
@@ -778,68 +554,59 @@ namespace Vista.Iventario_Secretario
         {
             try
             {
-                // Verifica que exista un material seleccionado
-                if (idMaterialSeleccionado == 0)
-                {
-                    MessageBox.Show("No hay ningún material seleccionado.");
-                    return;
-                }
-
-                // Valida el nombre del material
+                // Verifica que se haya escrito el nombre
                 if (string.IsNullOrWhiteSpace(txtMaterial.Text))
                 {
-                    MessageBox.Show("Ingrese el nombre del material.");
+                    errorProvider1.SetError(txtMaterial, "Ingrese el nombre del material.");
                     txtMaterial.Focus();
                     return;
                 }
 
-                // Valida la unidad de medida
+                // Verifica que se haya seleccionado una unidad
                 if (cbUnidadMedida.SelectedIndex == -1)
                 {
-                    MessageBox.Show("Seleccione la unidad de medida.");
+                    errorProvider1.SetError(cbUnidadMedida, "Seleccione la unidad de medida.");
                     cbUnidadMedida.Focus();
                     return;
                 }
 
-                // Valida la categoría
+                // Verifica que se haya seleccionado una categoría
                 if (cbCategorias.SelectedIndex == -1)
                 {
-                    MessageBox.Show("Seleccione una categoría.");
+                    errorProvider1.SetError(cbCategorias, "Seleccione una categoría.");
                     cbCategorias.Focus();
                     return;
                 }
 
-                // Valida que se haya ingresado el stock
+                // Verifica que se haya ingresado el stock
                 if (string.IsNullOrWhiteSpace(txtCantidad.Text))
                 {
-                    MessageBox.Show("Ingrese el stock.");
+                    errorProvider1.SetError(txtCantidad, "Ingrese el stock inicial.");
                     txtCantidad.Focus();
                     return;
                 }
 
-                // Valida que el stock sea numérico
+                // Verifica que el stock sea un número entero
                 if (!int.TryParse(txtCantidad.Text, out int stock))
                 {
-                    MessageBox.Show("El stock debe ser un número.");
+                    errorProvider1.SetError(txtCantidad, "El stock inicial debe ser un número.");
                     txtCantidad.Focus();
                     return;
                 }
 
-                // Evita cantidades negativas
+                // Evita que se registren cantidades negativas
                 if (stock < 0)
                 {
-                    MessageBox.Show("El stock no puede ser negativo.");
+                    errorProvider1.SetError(txtCantidad, "El stock inicial no puede ser negativo.");
                     txtCantidad.Focus();
                     return;
                 }
-
                 // Crea el objeto con los datos modificados
                 Material material = new Material();
 
                 material.idMaterial1 = idMaterialSeleccionado;
                 material.NombreDelMaterial1 = txtMaterial.Text.Trim();
-                material.UnidadDeMedida1 =
-                    Convert.ToInt32(cbUnidadMedida.SelectedValue);
+                material.UnidadDeMedida1 = Convert.ToInt32(cbUnidadMedida.SelectedValue);
                 material.Stock1 = stock;
                 material.Categoria1 = cbCategorias.Text;
 
@@ -848,11 +615,7 @@ namespace Vista.Iventario_Secretario
 
                 if (resultado)
                 {
-                    MessageBox.Show(
-                        "Material actualizado correctamente.",
-                        "Actualización exitosa",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information
+                    MessageBox.Show("Material actualizado correctamente.", "Actualización exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information
                     );
 
                     // Actualiza la tabla y limpia los controles
@@ -865,12 +628,7 @@ namespace Vista.Iventario_Secretario
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error al actualizar el material: " + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Error al actualizar el material: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         //------------------------------------------------------------------------
@@ -904,8 +662,7 @@ namespace Vista.Iventario_Secretario
                     return;
                 }
 
-                string buscar =
-                    txtBuscar.Text.Trim();
+                string buscar = txtBuscar.Text.Trim();
 
                 if (string.IsNullOrWhiteSpace(buscar))
                 {
@@ -920,21 +677,15 @@ namespace Vista.Iventario_Secretario
 
 
                 // Obtiene todos los resultados encontrados
-                dtInventarioBusqueda =
-                    Material.BuscarMaterial(buscar);
+                dtInventarioBusqueda = Material.BuscarMaterial(buscar);
 
 
                 // Calcula el total de resultados
-                totalRegistros =
-                    dtInventarioBusqueda.Rows.Count;
+                totalRegistros = dtInventarioBusqueda.Rows.Count;
 
 
                 // Calcula las páginas
-                totalPaginas =
-                    (int)Math.Ceiling(
-                        (double)totalRegistros /
-                        registrosPorPagina
-                    );
+                totalPaginas = (int)Math.Ceiling((double)totalRegistros / registrosPorPagina);
 
 
                 if (totalPaginas == 0)
@@ -952,13 +703,7 @@ namespace Vista.Iventario_Secretario
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error al buscar el material: "
-                    + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Error al buscar el material: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -970,41 +715,28 @@ namespace Vista.Iventario_Secretario
             if (dtInventarioBusqueda == null)
                 return;
 
-            DataTable dtPagina =
-                dtInventarioBusqueda.Clone();
+            DataTable dtPagina = dtInventarioBusqueda.Clone();
 
-            int inicio =
-                (paginaActual - 1) *
-                registrosPorPagina;
+            int inicio = (paginaActual - 1) * registrosPorPagina;
 
-            int fin =
-                Math.Min(
-                    inicio + registrosPorPagina,
-                    dtInventarioBusqueda.Rows.Count
-                );
+            int fin = Math.Min(inicio + registrosPorPagina, dtInventarioBusqueda.Rows.Count);
 
             for (int i = inicio; i < fin; i++)
             {
-                dtPagina.ImportRow(
-                    dtInventarioBusqueda.Rows[i]
-                );
+                dtPagina.ImportRow(dtInventarioBusqueda.Rows[i]);
             }
 
             dgvMateriales.DataSource = null;
 
-            dgvMateriales.DataSource =
-                dtPagina;
+            dgvMateriales.DataSource = dtPagina;
 
             FormatearTablaInventario();
 
-            lblPagina.Text =
-                $"Página {paginaActual} de {totalPaginas}";
+            lblPagina.Text = $"Página {paginaActual} de {totalPaginas}";
 
-            btnAnterior.Enabled =
-                paginaActual > 1;
+            btnAnterior.Enabled = paginaActual > 1;
 
-            btnSiguiente.Enabled =
-                paginaActual < totalPaginas;
+            btnSiguiente.Enabled = paginaActual < totalPaginas;
         }
 
         //----------------------------------------------------------------------
@@ -1013,27 +745,17 @@ namespace Vista.Iventario_Secretario
         {
             try
             {
-                lblTotalRegistrados.Text =
-                    Material.ContarMaterialesTotales().ToString();
+                lblTotalRegistrados.Text = Material.ContarMaterialesTotales().ToString();
 
-                lblAgotandose.Text =
-                    Material.ContarMaterialesAgotandose().ToString();
+                lblAgotandose.Text = Material.ContarMaterialesAgotandose().ToString();
 
-                lblDisponibles.Text =
-                    Material.ContarMaterialesDisponibles().ToString();
+                lblDisponibles.Text = Material.ContarMaterialesDisponibles().ToString();
 
-                lblMaterialesAgotados.Text =
-                    Material.ContarMaterialesAgotados().ToString();
+                lblMaterialesAgotados.Text = Material.ContarMaterialesAgotados().ToString();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error al cargar las estadísticas del inventario: "
-                    + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Error al cargar las estadísticas del inventario: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         //-----------------------------------------------------------

@@ -12,17 +12,11 @@ namespace Vista.Dashboard
 {
     public partial class frmInicio : Form
     {
-
         private static string servidor = "(localdb)\\MSSQLLocalDB";
         private static string baseDeDatos = "MueblesKeyda";
-
-        private string cadena =
-            $"Data source={servidor};" +
-            $"Initial Catalog={baseDeDatos};" +
-            $"Integrated Security=true;";
+        private string cadena = $"Data source={servidor};" + $"Initial Catalog={baseDeDatos};" + $"Integrated Security=true;";
 
         private DbDashboard dbDashboard;
-
         public frmInicio()
         {
             InitializeComponent();
@@ -31,16 +25,13 @@ namespace Vista.Dashboard
             // Inicializar acceso al Dashboard
             dbDashboard = new DbDashboard(cadena);
         }
-
         private void CargarLogoEmpresa()
         {
             try
             {
-                string rutaLogo =
-                    Modelo.Properties.Settings.Default.LogoEmpresa;
+                string rutaLogo = Modelo.Properties.Settings.Default.LogoEmpresa;
 
-                if (!string.IsNullOrWhiteSpace(rutaLogo) &&
-                    File.Exists(rutaLogo))
+                if (!string.IsNullOrWhiteSpace(rutaLogo) && File.Exists(rutaLogo))
                 {
                     if (picLogo.Image != null)
                     {
@@ -63,11 +54,7 @@ namespace Vista.Dashboard
             }
             catch (Exception)
             {
-                MessageBox.Show(
-                    "ERR-DASH-001: No se pudo cargar el logo de la empresa.",
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
+                MessageBox.Show("ERR-DASH-001: No se pudo cargar el logo de la empresa.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error
                 );
             }
         }
@@ -76,50 +63,30 @@ namespace Vista.Dashboard
         {
             try
             {
-                DataTable datos =
-                    dbDashboard.ObtenerIndicadores();
+                DataTable datos = dbDashboard.ObtenerIndicadores();
 
                 if (datos.Rows.Count > 0)
                 {
                     DataRow fila = datos.Rows[0];
 
                     // Materiales registrados
-                    lblMateriales.Text =
-                        Convert.ToInt32(
-                            fila["MaterialesRegistrados"]
-                        ).ToString();
+                    lblMateriales.Text = Convert.ToInt32(fila["MaterialesRegistrados"]).ToString();
 
                     // Clientes registrados
-                    lblClientess.Text =
-                        Convert.ToInt32(
-                            fila["ClientesRegistrados"]
-                        ).ToString();
+                    lblClientess.Text = Convert.ToInt32(fila["ClientesRegistrados"]).ToString();
 
                     // Ventas del mes
-                    decimal ventas =
-                        Convert.ToDecimal(
-                            fila["VentasDelMes"]
-                        );
+                    decimal ventas = Convert.ToDecimal(fila["VentasDelMes"]);
 
-                    lblVentas.Text =
-                        ventas.ToString("$#,##0.00");
+                    lblVentas.Text = ventas.ToString("$#,##0.00");
 
                     // Cotizaciones registradas
-                    lblCotizacioness.Text =
-                        Convert.ToInt32(
-                            fila["CotizacionesRegistradas"]
-                        ).ToString();
+                    lblCotizacioness.Text = Convert.ToInt32(fila["CotizacionesRegistradas"]).ToString();
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error al cargar los indicadores: "
-                    + ex.Message,
-                    "Dashboard",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Error al cargar los indicadores: " + ex.Message, "Dashboard", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -189,11 +156,7 @@ namespace Vista.Dashboard
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error al cargar el gráfico de pedidos:\n\n" + ex.Message,
-                    "Dashboard",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                MessageBox.Show("Error al cargar el gráfico de pedidos:\n\n" + ex.Message, "Dashboard", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void CargarVentasPorMes()
@@ -217,40 +180,25 @@ namespace Vista.Dashboard
 
                 foreach (DataRow fila in datos.Rows)
                 {
-                    string mes =
-                        fila["Mes"].ToString();
+                    string mes = fila["Mes"].ToString();
 
-                    decimal total =
-                        Convert.ToDecimal(
-                            fila["TotalVentas"]
-                        );
+                    decimal total = Convert.ToDecimal(fila["TotalVentas"]);
 
-                    serie.Points.AddXY(
-                        mes,
-                        total
-                    );
+                    serie.Points.AddXY(mes, total);
                 }
 
                 chartVentasMes.Series.Add(serie);
 
-                ChartArea area =
-                    chartVentasMes.ChartAreas[0];
+                ChartArea area = chartVentasMes.ChartAreas[0];
 
                 area.AxisX.Title = "Mes";
                 area.AxisY.Title = "Ventas";
 
-                area.AxisY.LabelStyle.Format =
-                    "$#,##0.00";
+                area.AxisY.LabelStyle.Format = "$#,##0.00";
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error al cargar el gráfico de ventas: "
-                    + ex.Message,
-                    "Dashboard",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Error al cargar el gráfico de ventas: " + ex.Message, "Dashboard", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -264,56 +212,34 @@ namespace Vista.Dashboard
                 chartCotizacionesEstado.Titles.Clear();
                 chartCotizacionesEstado.Legends.Clear();
 
-                chartCotizacionesEstado.Titles.Add(
-                    "Cotizaciones por Estado"
-                );
+                chartCotizacionesEstado.Titles.Add("Cotizaciones por Estado");
 
-                Series serie =
-                    new Series("Cotizaciones");
+                Series serie = new Series("Cotizaciones");
 
-                serie.ChartType =
-                    SeriesChartType.Doughnut;
+                serie.ChartType = SeriesChartType.Doughnut;
 
                 serie.IsValueShownAsLabel = true;
 
                 foreach (DataRow fila in datos.Rows)
                 {
-                    string estado =
-                        fila["Estado"].ToString();
+                    string estado = fila["Estado"].ToString();
 
-                    int cantidad =
-                        Convert.ToInt32(
-                            fila["Cantidad"]
-                        );
+                    int cantidad = Convert.ToInt32(fila["Cantidad"]);
 
-                    serie.Points.AddXY(
-                        estado,
-                        cantidad
-                    );
+                    serie.Points.AddXY(estado, cantidad);
                 }
 
-                chartCotizacionesEstado.Series.Add(
-                    serie
-                );
+                chartCotizacionesEstado.Series.Add(serie);
 
-                Legend leyenda =
-                    new Legend("Estados");
+                Legend leyenda = new Legend("Estados");
 
-                chartCotizacionesEstado.Legends.Add(
-                    leyenda
-                );
+                chartCotizacionesEstado.Legends.Add(leyenda);
 
                 serie.Legend = "Estados";
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error al cargar el gráfico de cotizaciones: "
-                    + ex.Message,
-                    "Dashboard",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Error al cargar el gráfico de cotizaciones: " + ex.Message, "Dashboard", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -336,7 +262,6 @@ namespace Vista.Dashboard
                 MessageBox.Show("Error al cargar el Dashboard: " + ex.Message, "Dashboard", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         private void chartPedidosEstado_Click(object sender, EventArgs e)
         {
 

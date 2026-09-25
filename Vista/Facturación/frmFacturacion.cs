@@ -104,55 +104,36 @@ namespace Vista.Facturación
             // Encabezado
             dgvFacturasRegistradas.EnableHeadersVisualStyles = false;
 
-            dgvFacturasRegistradas.ColumnHeadersDefaultCellStyle.BackColor =
-                Color.FromArgb(121, 75, 45);
+            dgvFacturasRegistradas.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(121, 75, 45);
 
-            dgvFacturasRegistradas.ColumnHeadersDefaultCellStyle.ForeColor =
-                Color.White;
+            dgvFacturasRegistradas.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
 
-            dgvFacturasRegistradas.ColumnHeadersDefaultCellStyle.Font =
-                new System.Drawing.Font("Times New Roman", 9, System.Drawing.FontStyle.Regular);
+            dgvFacturasRegistradas.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Times New Roman", 9, System.Drawing.FontStyle.Regular);
 
-            dgvFacturasRegistradas.ColumnHeadersDefaultCellStyle.Alignment =
-                DataGridViewContentAlignment.MiddleCenter;
+            dgvFacturasRegistradas.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
-            dgvFacturasRegistradas.ColumnHeadersDefaultCellStyle.SelectionBackColor =
-                Color.FromArgb(121, 75, 45);
+            dgvFacturasRegistradas.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(121, 75, 45);
 
-            dgvFacturasRegistradas.ColumnHeadersDefaultCellStyle.SelectionForeColor =
-                Color.White;
+            dgvFacturasRegistradas.ColumnHeadersDefaultCellStyle.SelectionForeColor = Color.White;
 
             // Filas
-            dgvFacturasRegistradas.DefaultCellStyle.BackColor =
-                Color.White;
-
-            dgvFacturasRegistradas.DefaultCellStyle.ForeColor =
-                Color.FromArgb(45, 45, 45);
-
-            dgvFacturasRegistradas.DefaultCellStyle.Font =
-                new System.Drawing.Font("Segoe UI", 9, System.Drawing.FontStyle.Regular);
-
-            dgvFacturasRegistradas.DefaultCellStyle.Alignment =
-                DataGridViewContentAlignment.MiddleCenter;
-
+            dgvFacturasRegistradas.DefaultCellStyle.BackColor = Color.White;
+            dgvFacturasRegistradas.DefaultCellStyle.ForeColor = Color.FromArgb(45, 45, 45);
+            dgvFacturasRegistradas.DefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 9, System.Drawing.FontStyle.Regular);
+            dgvFacturasRegistradas.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
             // Filas alternadas
-            dgvFacturasRegistradas.AlternatingRowsDefaultCellStyle.BackColor =
-                Color.FromArgb(248, 241, 232);
+            dgvFacturasRegistradas.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(248, 241, 232);
 
             // Selección
-            dgvFacturasRegistradas.DefaultCellStyle.SelectionBackColor =
-                Color.FromArgb(224, 193, 157);
+            dgvFacturasRegistradas.DefaultCellStyle.SelectionBackColor = Color.FromArgb(224, 193, 157);
 
-            dgvFacturasRegistradas.DefaultCellStyle.SelectionForeColor =
-                Color.Black;
+            dgvFacturasRegistradas.DefaultCellStyle.SelectionForeColor = Color.Black;
 
             // Bordes
-            dgvFacturasRegistradas.CellBorderStyle =
-                DataGridViewCellBorderStyle.SingleHorizontal;
+            dgvFacturasRegistradas.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
 
-            dgvFacturasRegistradas.GridColor =
-                Color.FromArgb(220, 220, 220);
+            dgvFacturasRegistradas.GridColor = Color.FromArgb(220, 220, 220);
 
             // Alto de las filas
             dgvFacturasRegistradas.RowTemplate.Height = 32;
@@ -181,61 +162,44 @@ namespace Vista.Facturación
             dgvFacturasRegistradas.RowHeadersVisible = false;
 
 
-            // =========================
             // TABLA DETALLE DE VENTA
-            // =========================
 
             // Encabezado
             dgvDetalleVenta.EnableHeadersVisualStyles = false;
 
-            dgvDetalleVenta.ColumnHeadersDefaultCellStyle.BackColor =
-                Color.FromArgb(121, 75, 45);
+            dgvDetalleVenta.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(121, 75, 45);
 
-            dgvDetalleVenta.ColumnHeadersDefaultCellStyle.ForeColor =
-                Color.White;
+            dgvDetalleVenta.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
 
-            dgvDetalleVenta.ColumnHeadersDefaultCellStyle.Font =
-                new System.Drawing.Font("Times New Roman", 9, System.Drawing.FontStyle.Regular);
+            dgvDetalleVenta.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Times New Roman", 9, System.Drawing.FontStyle.Regular);
 
-            dgvDetalleVenta.ColumnHeadersDefaultCellStyle.Alignment =
-                DataGridViewContentAlignment.MiddleCenter;
+            dgvDetalleVenta.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
-            dgvDetalleVenta.ColumnHeadersDefaultCellStyle.SelectionBackColor =
-                Color.FromArgb(121, 75, 45);
+            dgvDetalleVenta.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(121, 75, 45);
 
-            dgvDetalleVenta.ColumnHeadersDefaultCellStyle.SelectionForeColor =
-                Color.White;
+            dgvDetalleVenta.ColumnHeadersDefaultCellStyle.SelectionForeColor = Color.White;
 
             // Filas
-            dgvDetalleVenta.DefaultCellStyle.BackColor =
-                Color.White;
+            dgvDetalleVenta.DefaultCellStyle.BackColor = Color.White;
 
-            dgvDetalleVenta.DefaultCellStyle.ForeColor =
-                Color.FromArgb(45, 45, 45);
+            dgvDetalleVenta.DefaultCellStyle.ForeColor = Color.FromArgb(45, 45, 45);
 
-            dgvDetalleVenta.DefaultCellStyle.Font =
-                new System.Drawing.Font("Segoe UI", 9, System.Drawing.FontStyle.Regular);
+            dgvDetalleVenta.DefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 9, System.Drawing.FontStyle.Regular);
 
-            dgvDetalleVenta.DefaultCellStyle.Alignment =
-                DataGridViewContentAlignment.MiddleLeft;
+            dgvDetalleVenta.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
 
             // Filas alternadas
-            dgvDetalleVenta.AlternatingRowsDefaultCellStyle.BackColor =
-                Color.FromArgb(248, 241, 232);
+            dgvDetalleVenta.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(248, 241, 232);
 
             // Selección
-            dgvDetalleVenta.DefaultCellStyle.SelectionBackColor =
-                Color.FromArgb(224, 193, 157);
+            dgvDetalleVenta.DefaultCellStyle.SelectionBackColor = Color.FromArgb(224, 193, 157);
 
-            dgvDetalleVenta.DefaultCellStyle.SelectionForeColor =
-                Color.Black;
+            dgvDetalleVenta.DefaultCellStyle.SelectionForeColor = Color.Black;
 
             // Bordes
-            dgvDetalleVenta.CellBorderStyle =
-                DataGridViewCellBorderStyle.SingleHorizontal;
+            dgvDetalleVenta.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
 
-            dgvDetalleVenta.GridColor =
-                Color.FromArgb(220, 220, 220);
+            dgvDetalleVenta.GridColor = Color.FromArgb(220, 220, 220);
 
             // Alto de las filas
             dgvDetalleVenta.RowTemplate.Height = 32;
@@ -251,14 +215,12 @@ namespace Vista.Facturación
             dgvDetalleVenta.AllowUserToDeleteRows = false;
 
             // Seleccionar fila completa
-            dgvDetalleVenta.SelectionMode =
-                DataGridViewSelectionMode.FullRowSelect;
+            dgvDetalleVenta.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
             dgvDetalleVenta.MultiSelect = false;
 
             // Quitar borde exterior
-            dgvDetalleVenta.BorderStyle =
-                BorderStyle.None;
+            dgvDetalleVenta.BorderStyle = BorderStyle.None;
 
             // Quitar columna de selección de filas
             dgvDetalleVenta.RowHeadersVisible = false;
@@ -291,8 +253,6 @@ namespace Vista.Facturación
             dgvFacturasRegistradas.Columns["IdFactura"].HeaderText = "N° de Factura";
             dgvFacturasRegistradas.Columns["Fecha"].HeaderText = "Fecha de emisión";
         }
-
-
         private void MostrarRegistrosFacturas()
         {
             try
@@ -311,12 +271,7 @@ namespace Vista.Facturación
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error al cargar las facturas: " + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Error al cargar las facturas: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void CalcularPaginasFacturas()
@@ -328,9 +283,7 @@ namespace Vista.Facturación
                 return;
             }
 
-            totalPaginas = (int)Math.Ceiling(
-                (double)dtFacturas.Rows.Count / registrosPorPagina
-            );
+            totalPaginas = (int)Math.Ceiling((double)dtFacturas.Rows.Count / registrosPorPagina);
 
             if (totalPaginas == 0)
                 totalPaginas = 1;
@@ -348,10 +301,7 @@ namespace Vista.Facturación
 
             int inicio = (paginaActual - 1) * registrosPorPagina;
 
-            int fin = Math.Min(
-                inicio + registrosPorPagina,
-                dtFacturas.Rows.Count
-            );
+            int fin = Math.Min(inicio + registrosPorPagina, dtFacturas.Rows.Count);
 
             for (int i = inicio; i < fin; i++)
             {
@@ -370,15 +320,12 @@ namespace Vista.Facturación
             ConfigurarTablasFacturacion();
 
             // Mostrar página actual
-            lblPagina.Text =
-                $"Página {paginaActual} de {totalPaginas}";
+            lblPagina.Text = $"Página {paginaActual} de {totalPaginas}";
 
             // Activar o desactivar botones
             btnAnterior.Enabled = paginaActual > 1;
             btnSiguiente.Enabled = paginaActual < totalPaginas;
         }
-
-
 
         private void MostrarDetalleFactura()
         {
@@ -402,8 +349,6 @@ namespace Vista.Facturación
             pnlRegistroCotizacion.Visible = true;
         }
 
-
-
         private void label6_Click(object sender, EventArgs e)
         {
 
@@ -424,8 +369,6 @@ namespace Vista.Facturación
                 }
             }
         }
-
-
         //Metodo para buscar venta para generar factura y usar los datos de esa venta
         private void btnBuscarVenta_Click(object sender, EventArgs e)
         {
@@ -616,11 +559,7 @@ namespace Vista.Facturación
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -636,11 +575,7 @@ namespace Vista.Facturación
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -656,9 +591,7 @@ namespace Vista.Facturación
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -686,7 +619,6 @@ namespace Vista.Facturación
 
             formulario.ShowDialog();
 
-
             MostrarRegistrosFacturas();
             dgvFacturasRegistradas.Columns["IdFactura"].HeaderText = "N° de Factura";
             dgvFacturasRegistradas.Columns["Fecha"].HeaderText = "Fecha de emisión";
@@ -697,34 +629,33 @@ namespace Vista.Facturación
         {
             try
             {
-                //VALIDAR EL NUMERO DE LA VENTA QUE SE INGRESO
-
+                // VALIDAR EL NUMERO DE LA VENTA QUE SE INGRESO
                 if (string.IsNullOrWhiteSpace(txtnVenta.Text))
                 {
-                    MessageBox.Show("Debe ingresar el número de venta.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    errorProvider1.SetError(txtnVenta, "Debe ingresar el número de venta.");
                     txtnVenta.Focus();
                     return;
                 }
 
                 if (!int.TryParse(txtnVenta.Text.Trim(), out int idVenta))
                 {
-                    MessageBox.Show("El número de venta debe ser un número válido.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    errorProvider1.SetError(txtnVenta, "El número de venta debe ser un número válido.");
                     txtnVenta.Focus();
                     return;
                 }
-                //VALIDACIÓN DE FECHAS
-                DateTime fechaEmision = dtFechaDatosGeneralesFactura.Value;
 
+                // VALIDACIÓN DE FECHAS
+                DateTime fechaEmision = dtFechaDatosGeneralesFactura.Value;
                 DateTime fechaVencimiento = dtpFechaVencimiento.Value;
 
                 if (fechaVencimiento < fechaEmision)
                 {
-                    MessageBox.Show("La fecha de vencimiento no puede ser menor que la fecha de emisión.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
+                    errorProvider1.SetError(dtpFechaVencimiento, "La fecha de vencimiento no puede ser menor que la fecha de emisión.");
+                    dtpFechaVencimiento.Focus();
                     return;
                 }
-                //OBTIENE EL DESCUENTO Y LO ALMACENA EN LA VARIABLE LUEGO DE CONVERTIRLO
 
+                // OBTIENE EL DESCUENTO Y LO ALMACENA EN LA VARIABLE LUEGO DE CONVERTIRLO
                 if (!decimal.TryParse(txtDescuento.Text.Trim(), out decimal descuento))
                 {
                     descuento = 0;
@@ -732,8 +663,7 @@ namespace Vista.Facturación
 
                 if (descuento < 0)
                 {
-                    MessageBox.Show("El descuento no puede ser negativo.", "Descuento inválido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
+                    errorProvider1.SetError(txtDescuento, "El descuento no puede ser negativo.");
                     txtDescuento.Focus();
                     return;
                 }
@@ -761,16 +691,11 @@ namespace Vista.Facturación
                 //ACTUALIZA LA TABLA DE LOS REGISTROS LUEGO DE GUARDAR LA FACTURA
                 MostrarRegistrosFacturas();
 
-                MessageBox.Show($"La factura N.º {idFactura} se guardó correctamente.\n\n" + "Ahora puedes presionar 'Generar PDF'.", "Factura guardada", MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
+                MessageBox.Show($"La factura N.º {idFactura} se guardó correctamente.\n\n" + "Ahora puedes presionar 'Generar PDF'.", "Factura guardada", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (SqlException ex)
             {
-                MessageBox.Show(
-                    "Error al insertar la factura:\n\n" + ex.Message, "Error " + ex.Number,
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Error al insertar la factura:\n\n" + ex.Message, "Error " + ex.Number, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void LimpiarFormulario()
@@ -817,7 +742,6 @@ namespace Vista.Facturación
             // Restablecer total a pagar
             lblTotalAPagar.Text = "Total a pagar $ : 0.00";
         }
-
         private void btnGuardarFactura_Click(object sender, EventArgs e)
         {
             GuardarFactura();
@@ -829,9 +753,7 @@ namespace Vista.Facturación
             try
             {
                 // Verificar que exista una factura
-                if (!int.TryParse(
-                    txtNumeroFactura.Text.Trim(),
-                    out int idFactura))
+                if (!int.TryParse(txtNumeroFactura.Text.Trim(), out int idFactura))
                 {
                     MessageBox.Show("Primero debes guardar una factura.", "Generar PDF", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 

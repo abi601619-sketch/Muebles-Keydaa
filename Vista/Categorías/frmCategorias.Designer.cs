@@ -28,14 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pnlIndicador1 = new System.Windows.Forms.Panel();
             this.lblCategoriasInactivas = new System.Windows.Forms.Label();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.lblInactivas = new System.Windows.Forms.Label();
             this.pnlIndicador2 = new System.Windows.Forms.Panel();
             this.lblCategoriasActivas = new System.Windows.Forms.Label();
+            this.pbActivas = new System.Windows.Forms.PictureBox();
             this.lblActivas = new System.Windows.Forms.Label();
             this.pnlPrincipal = new System.Windows.Forms.Panel();
+            this.lblPagina = new System.Windows.Forms.Label();
+            this.btnAnterior = new System.Windows.Forms.Button();
+            this.btnSiguiente = new System.Windows.Forms.Button();
             this.dgvCategorias = new System.Windows.Forms.DataGridView();
             this.txtDescripcion = new System.Windows.Forms.TextBox();
             this.btnGuardar = new System.Windows.Forms.Button();
@@ -43,6 +49,7 @@
             this.lblDescripcion = new System.Windows.Forms.Label();
             this.pnlIndicador3 = new System.Windows.Forms.Panel();
             this.lblCategoriasRegistradas = new System.Windows.Forms.Label();
+            this.pbTotalCategorias = new System.Windows.Forms.PictureBox();
             this.lblTotalCategorias = new System.Windows.Forms.Label();
             this.lblSubTexto = new System.Windows.Forms.Label();
             this.txtCategoria = new System.Windows.Forms.TextBox();
@@ -56,30 +63,26 @@
             this.lblCategoria = new System.Windows.Forms.Label();
             this.pnlContenedorPrincipalInventario = new System.Windows.Forms.Panel();
             this.pnlHeader = new System.Windows.Forms.Panel();
+            this.btnBuscar = new System.Windows.Forms.Button();
             this.txtBuscarCategoria = new System.Windows.Forms.TextBox();
             this.pnlBarraInformativa = new System.Windows.Forms.Panel();
             this.lblAdministrador = new System.Windows.Forms.Label();
             this.pbPerfil = new System.Windows.Forms.PictureBox();
-            this.btnBuscar = new System.Windows.Forms.Button();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.pbTotalCategorias = new System.Windows.Forms.PictureBox();
-            this.pbActivas = new System.Windows.Forms.PictureBox();
-            this.lblPagina = new System.Windows.Forms.Label();
-            this.btnAnterior = new System.Windows.Forms.Button();
-            this.btnSiguiente = new System.Windows.Forms.Button();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.pnlIndicador1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.pnlIndicador2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbActivas)).BeginInit();
             this.pnlPrincipal.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCategorias)).BeginInit();
             this.pnlIndicador3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbTotalCategorias)).BeginInit();
             this.pnlPedidaDeDatos.SuspendLayout();
             this.pnlContenedorPrincipalInventario.SuspendLayout();
             this.pnlHeader.SuspendLayout();
             this.pnlBarraInformativa.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbPerfil)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbTotalCategorias)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbActivas)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlIndicador1
@@ -102,6 +105,16 @@
             this.lblCategoriasInactivas.Size = new System.Drawing.Size(35, 13);
             this.lblCategoriasInactivas.TabIndex = 4;
             this.lblCategoriasInactivas.Text = "label1";
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Image = global::Vista.Properties.Resources.exit_787267;
+            this.pictureBox3.Location = new System.Drawing.Point(26, 14);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(55, 63);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox3.TabIndex = 3;
+            this.pictureBox3.TabStop = false;
             // 
             // lblInactivas
             // 
@@ -134,6 +147,16 @@
             this.lblCategoriasActivas.TabIndex = 5;
             this.lblCategoriasActivas.Text = "label2";
             // 
+            // pbActivas
+            // 
+            this.pbActivas.Image = global::Vista.Properties.Resources.task_2353457;
+            this.pbActivas.Location = new System.Drawing.Point(33, 11);
+            this.pbActivas.Name = "pbActivas";
+            this.pbActivas.Size = new System.Drawing.Size(55, 63);
+            this.pbActivas.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbActivas.TabIndex = 2;
+            this.pbActivas.TabStop = false;
+            // 
             // lblActivas
             // 
             this.lblActivas.AutoSize = true;
@@ -157,6 +180,41 @@
             this.pnlPrincipal.Size = new System.Drawing.Size(765, 403);
             this.pnlPrincipal.TabIndex = 3;
             // 
+            // lblPagina
+            // 
+            this.lblPagina.AutoSize = true;
+            this.lblPagina.Font = new System.Drawing.Font("Times New Roman", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPagina.ForeColor = System.Drawing.Color.White;
+            this.lblPagina.Location = new System.Drawing.Point(622, 379);
+            this.lblPagina.Name = "lblPagina";
+            this.lblPagina.Size = new System.Drawing.Size(39, 13);
+            this.lblPagina.TabIndex = 7;
+            this.lblPagina.Text = "label1";
+            // 
+            // btnAnterior
+            // 
+            this.btnAnterior.FlatAppearance.BorderSize = 0;
+            this.btnAnterior.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAnterior.Image = global::Vista.Properties.Resources.flecha_atras;
+            this.btnAnterior.Location = new System.Drawing.Point(593, 374);
+            this.btnAnterior.Name = "btnAnterior";
+            this.btnAnterior.Size = new System.Drawing.Size(30, 23);
+            this.btnAnterior.TabIndex = 6;
+            this.btnAnterior.UseVisualStyleBackColor = true;
+            this.btnAnterior.Click += new System.EventHandler(this.btnAnterior_Click);
+            // 
+            // btnSiguiente
+            // 
+            this.btnSiguiente.FlatAppearance.BorderSize = 0;
+            this.btnSiguiente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSiguiente.Image = global::Vista.Properties.Resources.flecha_adelante;
+            this.btnSiguiente.Location = new System.Drawing.Point(717, 374);
+            this.btnSiguiente.Name = "btnSiguiente";
+            this.btnSiguiente.Size = new System.Drawing.Size(30, 23);
+            this.btnSiguiente.TabIndex = 5;
+            this.btnSiguiente.UseVisualStyleBackColor = true;
+            this.btnSiguiente.Click += new System.EventHandler(this.btnSiguiente_Click);
+            // 
             // dgvCategorias
             // 
             this.dgvCategorias.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -164,14 +222,14 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvCategorias.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvCategorias.BackgroundColor = System.Drawing.Color.White;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.PeachPuff;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvCategorias.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.PeachPuff;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvCategorias.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvCategorias.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvCategorias.GridColor = System.Drawing.Color.Black;
             this.dgvCategorias.Location = new System.Drawing.Point(14, 6);
@@ -252,6 +310,16 @@
             this.lblCategoriasRegistradas.Size = new System.Drawing.Size(35, 13);
             this.lblCategoriasRegistradas.TabIndex = 6;
             this.lblCategoriasRegistradas.Text = "label3";
+            // 
+            // pbTotalCategorias
+            // 
+            this.pbTotalCategorias.Image = global::Vista.Properties.Resources.clipboard_5679881;
+            this.pbTotalCategorias.Location = new System.Drawing.Point(15, 9);
+            this.pbTotalCategorias.Name = "pbTotalCategorias";
+            this.pbTotalCategorias.Size = new System.Drawing.Size(53, 64);
+            this.pbTotalCategorias.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbTotalCategorias.TabIndex = 0;
+            this.pbTotalCategorias.TabStop = false;
             // 
             // lblTotalCategorias
             // 
@@ -417,6 +485,18 @@
             this.pnlHeader.Size = new System.Drawing.Size(1102, 627);
             this.pnlHeader.TabIndex = 0;
             // 
+            // btnBuscar
+            // 
+            this.btnBuscar.BackColor = System.Drawing.Color.White;
+            this.btnBuscar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnBuscar.Image = global::Vista.Properties.Resources.lupa;
+            this.btnBuscar.Location = new System.Drawing.Point(900, 50);
+            this.btnBuscar.Name = "btnBuscar";
+            this.btnBuscar.Size = new System.Drawing.Size(75, 29);
+            this.btnBuscar.TabIndex = 20;
+            this.btnBuscar.UseVisualStyleBackColor = false;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
+            // 
             // txtBuscarCategoria
             // 
             this.txtBuscarCategoria.Font = new System.Drawing.Font("Times New Roman", 14F);
@@ -464,82 +544,9 @@
             this.pbPerfil.TabIndex = 25;
             this.pbPerfil.TabStop = false;
             // 
-            // btnBuscar
+            // errorProvider1
             // 
-            this.btnBuscar.BackColor = System.Drawing.Color.White;
-            this.btnBuscar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnBuscar.Image = global::Vista.Properties.Resources.lupa;
-            this.btnBuscar.Location = new System.Drawing.Point(900, 50);
-            this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(75, 29);
-            this.btnBuscar.TabIndex = 20;
-            this.btnBuscar.UseVisualStyleBackColor = false;
-            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
-            // 
-            // pictureBox3
-            // 
-            this.pictureBox3.Image = global::Vista.Properties.Resources.exit_787267;
-            this.pictureBox3.Location = new System.Drawing.Point(26, 14);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(55, 63);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox3.TabIndex = 3;
-            this.pictureBox3.TabStop = false;
-            // 
-            // pbTotalCategorias
-            // 
-            this.pbTotalCategorias.Image = global::Vista.Properties.Resources.clipboard_5679881;
-            this.pbTotalCategorias.Location = new System.Drawing.Point(15, 9);
-            this.pbTotalCategorias.Name = "pbTotalCategorias";
-            this.pbTotalCategorias.Size = new System.Drawing.Size(53, 64);
-            this.pbTotalCategorias.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pbTotalCategorias.TabIndex = 0;
-            this.pbTotalCategorias.TabStop = false;
-            // 
-            // pbActivas
-            // 
-            this.pbActivas.Image = global::Vista.Properties.Resources.task_2353457;
-            this.pbActivas.Location = new System.Drawing.Point(33, 11);
-            this.pbActivas.Name = "pbActivas";
-            this.pbActivas.Size = new System.Drawing.Size(55, 63);
-            this.pbActivas.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pbActivas.TabIndex = 2;
-            this.pbActivas.TabStop = false;
-            // 
-            // lblPagina
-            // 
-            this.lblPagina.AutoSize = true;
-            this.lblPagina.Font = new System.Drawing.Font("Times New Roman", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPagina.ForeColor = System.Drawing.Color.White;
-            this.lblPagina.Location = new System.Drawing.Point(622, 379);
-            this.lblPagina.Name = "lblPagina";
-            this.lblPagina.Size = new System.Drawing.Size(39, 13);
-            this.lblPagina.TabIndex = 7;
-            this.lblPagina.Text = "label1";
-            // 
-            // btnAnterior
-            // 
-            this.btnAnterior.FlatAppearance.BorderSize = 0;
-            this.btnAnterior.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAnterior.Image = global::Vista.Properties.Resources.flecha_atras;
-            this.btnAnterior.Location = new System.Drawing.Point(593, 374);
-            this.btnAnterior.Name = "btnAnterior";
-            this.btnAnterior.Size = new System.Drawing.Size(30, 23);
-            this.btnAnterior.TabIndex = 6;
-            this.btnAnterior.UseVisualStyleBackColor = true;
-            this.btnAnterior.Click += new System.EventHandler(this.btnAnterior_Click);
-            // 
-            // btnSiguiente
-            // 
-            this.btnSiguiente.FlatAppearance.BorderSize = 0;
-            this.btnSiguiente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSiguiente.Image = global::Vista.Properties.Resources.flecha_adelante;
-            this.btnSiguiente.Location = new System.Drawing.Point(717, 374);
-            this.btnSiguiente.Name = "btnSiguiente";
-            this.btnSiguiente.Size = new System.Drawing.Size(30, 23);
-            this.btnSiguiente.TabIndex = 5;
-            this.btnSiguiente.UseVisualStyleBackColor = true;
-            this.btnSiguiente.Click += new System.EventHandler(this.btnSiguiente_Click);
+            this.errorProvider1.ContainerControl = this;
             // 
             // frmCategorias
             // 
@@ -555,13 +562,16 @@
             this.Load += new System.EventHandler(this.frmCategorias_Load);
             this.pnlIndicador1.ResumeLayout(false);
             this.pnlIndicador1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.pnlIndicador2.ResumeLayout(false);
             this.pnlIndicador2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbActivas)).EndInit();
             this.pnlPrincipal.ResumeLayout(false);
             this.pnlPrincipal.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCategorias)).EndInit();
             this.pnlIndicador3.ResumeLayout(false);
             this.pnlIndicador3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbTotalCategorias)).EndInit();
             this.pnlPedidaDeDatos.ResumeLayout(false);
             this.pnlPedidaDeDatos.PerformLayout();
             this.pnlContenedorPrincipalInventario.ResumeLayout(false);
@@ -570,9 +580,7 @@
             this.pnlBarraInformativa.ResumeLayout(false);
             this.pnlBarraInformativa.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbPerfil)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbTotalCategorias)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbActivas)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -617,5 +625,6 @@
         private System.Windows.Forms.Label lblPagina;
         private System.Windows.Forms.Button btnAnterior;
         private System.Windows.Forms.Button btnSiguiente;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

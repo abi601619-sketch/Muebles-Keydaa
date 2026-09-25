@@ -287,9 +287,7 @@ namespace Vista.InicioSecretario
 
             chartInventarioEstado.Series.Add(serie);
 
-            Title titulo = new Title("Estado del inventario", Docking.Top, new Font("Times New Roman", 12, FontStyle.Bold),
-                    Color.FromArgb(70, 45, 30)
-                );
+            Title titulo = new Title("Estado del inventario", Docking.Top, new Font("Times New Roman", 12, FontStyle.Bold), Color.FromArgb(70, 45, 30));
 
 
             chartInventarioEstado.Titles.Add(titulo);
@@ -298,8 +296,7 @@ namespace Vista.InicioSecretario
         {
             try
             {
-                DataTable datos =
-                    dbDashboard.ObtenerIndicadores();
+                DataTable datos = dbDashboard.ObtenerIndicadores();
 
                 if (datos.Rows.Count > 0)
                 {
@@ -323,17 +320,10 @@ namespace Vista.InicioSecretario
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error al cargar los indicadores: "
-                    + ex.Message,
-                    "Dashboard",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
+                MessageBox.Show("Error al cargar los indicadores: " + ex.Message, "Dashboard", MessageBoxButtons.OK, MessageBoxIcon.Error
                 );
             }
         }
-
-
 
         //CARGAR PEDIDOS POR ESTADO
 
@@ -534,12 +524,7 @@ namespace Vista.InicioSecretario
             }
             catch (Exception)
             {
-                MessageBox.Show(
-                    "ERR-DASH-001: No se pudo cargar el logo de la empresa.",
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("ERR-DASH-001: No se pudo cargar el logo de la empresa.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

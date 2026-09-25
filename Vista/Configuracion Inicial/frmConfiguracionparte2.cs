@@ -73,9 +73,7 @@ namespace Vista.Configuracion_Inicial
                 // Validar nombre
                 if (string.IsNullOrWhiteSpace(txtNombreEmpresa.Text))
                 {
-                    MessageBox.Show("Ingrese el nombre de la empresa.", "Configuración",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
+                    errorProvider1.SetError(txtNombreEmpresa, "Ingrese el nombre de la empresa.");
                     txtNombreEmpresa.Focus();
                     return;
                 }
@@ -83,18 +81,15 @@ namespace Vista.Configuracion_Inicial
                 // Validar teléfono
                 if (string.IsNullOrWhiteSpace(txtTelefono.Text))
                 {
-                    MessageBox.Show("Ingrese el teléfono.", "Configuración",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
+                    errorProvider1.SetError(txtTelefono, "Ingrese el teléfono.");
                     txtTelefono.Focus();
                     return;
                 }
+
                 // Validar dirección
                 if (string.IsNullOrWhiteSpace(txtDireccion.Text))
                 {
-                    MessageBox.Show("Ingrese la dirección.", "Configuración",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
+                    errorProvider1.SetError(txtDireccion, "Ingrese la dirección.");
                     txtDireccion.Focus();
                     return;
                 }
@@ -102,23 +97,23 @@ namespace Vista.Configuracion_Inicial
                 // Validar logo
                 if (string.IsNullOrWhiteSpace(rutaLogo))
                 {
-                    MessageBox.Show("Seleccione el logo de la empresa.", "Configuración",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
+                    errorProvider1.SetError(btnSeleccionarLogo, "Seleccione el logo de la empresa.");
+                    btnSeleccionarLogo.Focus();
                     return;
                 }
+
                 // Validar correo
                 if (string.IsNullOrWhiteSpace(txtCorreo.Text))
                 {
-                    MessageBox.Show("Ingrese el correo electrónico.", "Configuración",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
+                    errorProvider1.SetError(txtCorreo, "Ingrese el correo electrónico.");
                     txtCorreo.Focus();
                     return;
                 }
 
                 if (!ValidarCorreo())
                 {
+                    errorProvider1.SetError(txtCorreo, "Ingrese un correo electrónico válido.");
+                    txtCorreo.Focus();
                     return;
                 }
 

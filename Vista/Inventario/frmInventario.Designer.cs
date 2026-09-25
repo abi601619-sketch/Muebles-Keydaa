@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.pnlContenedorPrincipalInventario = new System.Windows.Forms.Panel();
             this.pnlPedidaDeDatos = new System.Windows.Forms.Panel();
             this.btnNuevo = new System.Windows.Forms.Button();
@@ -68,10 +69,11 @@
             this.pbDisponibles = new System.Windows.Forms.PictureBox();
             this.lblMensajeInformativoPrincipal = new System.Windows.Forms.Label();
             this.pnlPrincipal = new System.Windows.Forms.Panel();
-            this.dgvMateriales = new System.Windows.Forms.DataGridView();
             this.lblPagina = new System.Windows.Forms.Label();
             this.btnAnterior = new System.Windows.Forms.Button();
             this.btnSiguiente = new System.Windows.Forms.Button();
+            this.dgvMateriales = new System.Windows.Forms.DataGridView();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.pnlContenedorPrincipalInventario.SuspendLayout();
             this.pnlPedidaDeDatos.SuspendLayout();
             this.pnlHeader.SuspendLayout();
@@ -88,6 +90,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbDisponibles)).BeginInit();
             this.pnlPrincipal.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMateriales)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlContenedorPrincipalInventario
@@ -549,28 +552,6 @@
             this.pnlPrincipal.Size = new System.Drawing.Size(817, 387);
             this.pnlPrincipal.TabIndex = 3;
             // 
-            // dgvMateriales
-            // 
-            this.dgvMateriales.AllowUserToResizeColumns = false;
-            this.dgvMateriales.AllowUserToResizeRows = false;
-            this.dgvMateriales.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvMateriales.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvMateriales.BackgroundColor = System.Drawing.Color.White;
-            this.dgvMateriales.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dgvMateriales.ColumnHeadersHeight = 30;
-            this.dgvMateriales.GridColor = System.Drawing.Color.Black;
-            this.dgvMateriales.Location = new System.Drawing.Point(10, 7);
-            this.dgvMateriales.Name = "dgvMateriales";
-            this.dgvMateriales.ReadOnly = true;
-            this.dgvMateriales.RowHeadersWidth = 45;
-            this.dgvMateriales.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.dgvMateriales.Size = new System.Drawing.Size(797, 347);
-            this.dgvMateriales.TabIndex = 0;
-            this.dgvMateriales.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvInventario_CellClick);
-            this.dgvMateriales.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMateriales_CellDoubleClick);
-            // 
             // lblPagina
             // 
             this.lblPagina.AutoSize = true;
@@ -605,6 +586,32 @@
             this.btnSiguiente.TabIndex = 5;
             this.btnSiguiente.UseVisualStyleBackColor = true;
             this.btnSiguiente.Click += new System.EventHandler(this.btnSiguiente_Click);
+            // 
+            // dgvMateriales
+            // 
+            this.dgvMateriales.AllowUserToResizeColumns = false;
+            this.dgvMateriales.AllowUserToResizeRows = false;
+            this.dgvMateriales.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvMateriales.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvMateriales.BackgroundColor = System.Drawing.Color.White;
+            this.dgvMateriales.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dgvMateriales.ColumnHeadersHeight = 30;
+            this.dgvMateriales.GridColor = System.Drawing.Color.Black;
+            this.dgvMateriales.Location = new System.Drawing.Point(10, 7);
+            this.dgvMateriales.Name = "dgvMateriales";
+            this.dgvMateriales.ReadOnly = true;
+            this.dgvMateriales.RowHeadersWidth = 45;
+            this.dgvMateriales.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.dgvMateriales.Size = new System.Drawing.Size(797, 347);
+            this.dgvMateriales.TabIndex = 0;
+            this.dgvMateriales.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvInventario_CellClick);
+            this.dgvMateriales.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMateriales_CellDoubleClick);
+            // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
             // 
             // frmInventario
             // 
@@ -641,6 +648,7 @@
             this.pnlPrincipal.ResumeLayout(false);
             this.pnlPrincipal.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMateriales)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -691,5 +699,6 @@
         private System.Windows.Forms.Label lblPagina;
         private System.Windows.Forms.Button btnAnterior;
         private System.Windows.Forms.Button btnSiguiente;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

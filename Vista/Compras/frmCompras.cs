@@ -36,11 +36,7 @@ namespace Vista.Compras
         private int paginaActual = 1;
         private int registrosPorPagina = 10;
         private int totalPaginas = 0;
-
-
         private int idDetalleEditando = 0;
-
-
         private decimal totalCompra = 0;
 
         private void txtBuscar_Enter(object sender, EventArgs e)
@@ -53,10 +49,7 @@ namespace Vista.Compras
                 txtBuscar.ForeColor = Color.Black;
 
             }
-
-
         }
-
         private void txtBuscar_Leave(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtBuscar.Text))
@@ -66,8 +59,6 @@ namespace Vista.Compras
             }
 
         }
-
-        // CONFIGURAR TOOLTIPS
         private void ConfigurarTooltips()
         {
             ToolTip toolTip = new ToolTip();
@@ -80,137 +71,55 @@ namespace Vista.Compras
 
             // Búsqueda
             toolTip.SetToolTip(txtBuscar, "Busca una compra por su número, fecha o proveedor.");
-
             // Datos de la compra
             toolTip.SetToolTip(cbProveedor, "Seleccione el proveedor de la compra.");
-
             toolTip.SetToolTip(dtpFechaDeCompra, "Seleccione la fecha en que se realizó la compra.");
-
             // Datos del material
-            toolTip.SetToolTip(
-                cbMaterial,
-                "Seleccione el material que desea agregar a la compra."
-            );
-
-            toolTip.SetToolTip(
-                nudCantidad,
-                "Indique la cantidad de unidades del material."
-            );
-
-            toolTip.SetToolTip(
-                txtPrecioUnitario,
-                "Ingrese el precio de una unidad del material."
-            );
-
+            toolTip.SetToolTip(cbMaterial, "Seleccione el material que desea agregar a la compra.");
+            toolTip.SetToolTip(nudCantidad, "Indique la cantidad de unidades del material.");
+            toolTip.SetToolTip(txtPrecioUnitario, "Ingrese el precio de una unidad del material.");
             // Botones de materiales
-            toolTip.SetToolTip(
-                btnAgregarProductos,
-                "Agrega el material seleccionado a la compra."
-            );
-
-            toolTip.SetToolTip(
-                btnActualizar,
-                "Actualiza los datos del material seleccionado."
-            );
-
+            toolTip.SetToolTip(btnAgregarProductos, "Agrega el material seleccionado a la compra.");
+            toolTip.SetToolTip(btnActualizar, "Actualiza los datos del material seleccionado.");
             // Total
-            toolTip.SetToolTip(
-                txtTotalCompra,
-                "Muestra el total de la compra."
-            );
-
+            toolTip.SetToolTip(txtTotalCompra, "Muestra el total de la compra.");
             // Botones de compra
-            toolTip.SetToolTip(
-                btnNueva,
-                "Limpia el formulario para registrar una nueva compra."
-            );
-
-            toolTip.SetToolTip(
-                btnGuardar,
-                "Guarda la compra y sus materiales."
-            );
-
-            toolTip.SetToolTip(
-                btnActualizarCompra,
-                "Guarda los cambios realizados en la compra seleccionada."
-            );
-
-            toolTip.SetToolTip(
-                btnCancelar,
-                "Elimina la compra seleccionada y ajusta el inventario."
-            );
-
-            // Tabla de detalles
-            toolTip.SetToolTip(
-                dgvDetalleCompras,
-                "Muestra los materiales agregados a la compra. Haz doble clic en un material para modificarlo."
-            );
-
-            // Historial de compras
-            toolTip.SetToolTip(
-                dgvHistorialCompras,
-                "Muestra el historial de compras registradas. Haz doble clic en una compra para editarla."
-            );
+            toolTip.SetToolTip(btnNueva, "Limpia el formulario para registrar una nueva compra.");
+            toolTip.SetToolTip(btnGuardar, "Guarda la compra y sus materiales.");
+            toolTip.SetToolTip(btnActualizarCompra, "Guarda los cambios realizados en la compra seleccionada.");
+            toolTip.SetToolTip(btnCancelar, "Elimina la compra seleccionada y ajusta el inventario.");
         }
 
         // CONFIGURAR DISEÑO DE LAS TABLAS
         private void ConfigurarTablasCompras()
         {
-            // ==============================
             // TABLA HISTORIAL DE COMPRAS
-            // ==============================
 
             // Encabezado
             dgvHistorialCompras.EnableHeadersVisualStyles = false;
-
-            dgvHistorialCompras.ColumnHeadersDefaultCellStyle.BackColor =
-                Color.FromArgb(121, 75, 45);
-
-            dgvHistorialCompras.ColumnHeadersDefaultCellStyle.ForeColor =
-                Color.White;
-
-            dgvHistorialCompras.ColumnHeadersDefaultCellStyle.Font =
-                new Font("Times New Roman", 9, FontStyle.Regular);
-
-            dgvHistorialCompras.ColumnHeadersDefaultCellStyle.Alignment =
-                DataGridViewContentAlignment.MiddleCenter;
-
-            dgvHistorialCompras.ColumnHeadersDefaultCellStyle.SelectionBackColor =
-                Color.FromArgb(121, 75, 45);
-
-            dgvHistorialCompras.ColumnHeadersDefaultCellStyle.SelectionForeColor =
-                Color.White;
+            dgvHistorialCompras.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(121, 75, 45);
+            dgvHistorialCompras.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dgvHistorialCompras.ColumnHeadersDefaultCellStyle.Font = new Font("Times New Roman", 9, FontStyle.Regular);
+            dgvHistorialCompras.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvHistorialCompras.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(121, 75, 45);
+            dgvHistorialCompras.ColumnHeadersDefaultCellStyle.SelectionForeColor = Color.White;
 
             // Filas
-            dgvHistorialCompras.DefaultCellStyle.BackColor =
-                Color.White;
-
-            dgvHistorialCompras.DefaultCellStyle.ForeColor =
-                Color.FromArgb(45, 45, 45);
-
-            dgvHistorialCompras.DefaultCellStyle.Font =
-                new Font("Segoe UI", 9, FontStyle.Regular);
-
-            dgvHistorialCompras.DefaultCellStyle.Alignment =
-                DataGridViewContentAlignment.MiddleLeft;
+            dgvHistorialCompras.DefaultCellStyle.BackColor = Color.White;
+            dgvHistorialCompras.DefaultCellStyle.ForeColor = Color.FromArgb(45, 45, 45);
+            dgvHistorialCompras.DefaultCellStyle.Font = new Font("Segoe UI", 9, FontStyle.Regular);
+            dgvHistorialCompras.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
 
             // Filas alternadas
-            dgvHistorialCompras.AlternatingRowsDefaultCellStyle.BackColor =
-                Color.FromArgb(248, 241, 232);
+            dgvHistorialCompras.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(248, 241, 232);
 
             // Selección
-            dgvHistorialCompras.DefaultCellStyle.SelectionBackColor =
-                Color.FromArgb(224, 193, 157);
-
-            dgvHistorialCompras.DefaultCellStyle.SelectionForeColor =
-                Color.Black;
+            dgvHistorialCompras.DefaultCellStyle.SelectionBackColor = Color.FromArgb(224, 193, 157);
+            dgvHistorialCompras.DefaultCellStyle.SelectionForeColor = Color.Black;
 
             // Bordes
-            dgvHistorialCompras.CellBorderStyle =
-                DataGridViewCellBorderStyle.SingleHorizontal;
-
-            dgvHistorialCompras.GridColor =
-                Color.FromArgb(220, 220, 220);
+            dgvHistorialCompras.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            dgvHistorialCompras.GridColor = Color.FromArgb(220, 220, 220);
 
             // Alto de las filas
             dgvHistorialCompras.RowTemplate.Height = 32;
@@ -220,20 +129,15 @@ namespace Vista.Compras
 
             // No permitir modificar
             dgvHistorialCompras.ReadOnly = true;
-
             dgvHistorialCompras.AllowUserToAddRows = false;
-
             dgvHistorialCompras.AllowUserToDeleteRows = false;
 
             // Seleccionar fila completa
-            dgvHistorialCompras.SelectionMode =
-                DataGridViewSelectionMode.FullRowSelect;
-
+            dgvHistorialCompras.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvHistorialCompras.MultiSelect = false;
 
             // Quitar borde exterior
-            dgvHistorialCompras.BorderStyle =
-                BorderStyle.None;
+            dgvHistorialCompras.BorderStyle = BorderStyle.None;
 
 
             // ==============================
@@ -242,55 +146,29 @@ namespace Vista.Compras
 
             // Encabezado
             dgvDetalleCompras.EnableHeadersVisualStyles = false;
-
-            dgvDetalleCompras.ColumnHeadersDefaultCellStyle.BackColor =
-                Color.FromArgb(121, 75, 45);
-
-            dgvDetalleCompras.ColumnHeadersDefaultCellStyle.ForeColor =
-                Color.White;
-
-            dgvDetalleCompras.ColumnHeadersDefaultCellStyle.Font =
-                new Font("Times New Roman", 9, FontStyle.Regular);
-
-            dgvDetalleCompras.ColumnHeadersDefaultCellStyle.Alignment =
-                DataGridViewContentAlignment.MiddleCenter;
-
-            dgvDetalleCompras.ColumnHeadersDefaultCellStyle.SelectionBackColor =
-                Color.FromArgb(121, 75, 45);
-
-            dgvDetalleCompras.ColumnHeadersDefaultCellStyle.SelectionForeColor =
-                Color.White;
+            dgvDetalleCompras.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(121, 75, 45);
+            dgvDetalleCompras.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dgvDetalleCompras.ColumnHeadersDefaultCellStyle.Font = new Font("Times New Roman", 9, FontStyle.Regular);
+            dgvDetalleCompras.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvDetalleCompras.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(121, 75, 45);
+            dgvDetalleCompras.ColumnHeadersDefaultCellStyle.SelectionForeColor = Color.White;
 
             // Filas
-            dgvDetalleCompras.DefaultCellStyle.BackColor =
-                Color.White;
-
-            dgvDetalleCompras.DefaultCellStyle.ForeColor =
-                Color.FromArgb(45, 45, 45);
-
-            dgvDetalleCompras.DefaultCellStyle.Font =
-                new Font("Segoe UI", 9, FontStyle.Regular);
-
-            dgvDetalleCompras.DefaultCellStyle.Alignment =
-                DataGridViewContentAlignment.MiddleLeft;
+            dgvDetalleCompras.DefaultCellStyle.BackColor = Color.White;
+            dgvDetalleCompras.DefaultCellStyle.ForeColor = Color.FromArgb(45, 45, 45);
+            dgvDetalleCompras.DefaultCellStyle.Font = new Font("Segoe UI", 9, FontStyle.Regular);
+            dgvDetalleCompras.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
 
             // Filas alternadas
-            dgvDetalleCompras.AlternatingRowsDefaultCellStyle.BackColor =
-                Color.FromArgb(248, 241, 232);
+            dgvDetalleCompras.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(248, 241, 232);
 
             // Selección
-            dgvDetalleCompras.DefaultCellStyle.SelectionBackColor =
-                Color.FromArgb(224, 193, 157);
-
-            dgvDetalleCompras.DefaultCellStyle.SelectionForeColor =
-                Color.Black;
+            dgvDetalleCompras.DefaultCellStyle.SelectionBackColor = Color.FromArgb(224, 193, 157);
+            dgvDetalleCompras.DefaultCellStyle.SelectionForeColor = Color.Black;
 
             // Bordes
-            dgvDetalleCompras.CellBorderStyle =
-                DataGridViewCellBorderStyle.SingleHorizontal;
-
-            dgvDetalleCompras.GridColor =
-                Color.FromArgb(220, 220, 220);
+            dgvDetalleCompras.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            dgvDetalleCompras.GridColor = Color.FromArgb(220, 220, 220);
 
             // Alto de las filas
             dgvDetalleCompras.RowTemplate.Height = 32;
@@ -300,20 +178,15 @@ namespace Vista.Compras
 
             // No permitir modificar
             dgvDetalleCompras.ReadOnly = true;
-
             dgvDetalleCompras.AllowUserToAddRows = false;
-
             dgvDetalleCompras.AllowUserToDeleteRows = false;
 
             // Seleccionar fila completa
-            dgvDetalleCompras.SelectionMode =
-                DataGridViewSelectionMode.FullRowSelect;
-
+            dgvDetalleCompras.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvDetalleCompras.MultiSelect = false;
 
             // Quitar borde exterior
-            dgvDetalleCompras.BorderStyle =
-                BorderStyle.None;
+            dgvDetalleCompras.BorderStyle = BorderStyle.None;
         }
 
         private void frmCompras_Load(object sender, EventArgs e)
@@ -382,12 +255,8 @@ namespace Vista.Compras
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error al mostrar las compras: " + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Error al mostrar las compras: " + ex.Message, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -444,8 +313,7 @@ namespace Vista.Compras
             ConfigurarTablasCompras();
 
             // Mostrar página actual
-            lblPagina.Text =
-                $"Página {paginaActual} de {totalPaginas}";
+            lblPagina.Text = $"Página {paginaActual} de {totalPaginas}";
 
             // Activar o desactivar botones
             btnAnterior.Enabled = paginaActual > 1;
@@ -601,42 +469,49 @@ namespace Vista.Compras
 
         private void btnAgregarProductos_Click_1(object sender, EventArgs e)
         {
+            // Validar material
             if (cbMaterial.SelectedIndex == -1)
             {
-                MessageBox.Show("Selecciona un material.");
+                errorProvider1.SetError(cbMaterial, "Selecciona un material.");
+                cbMaterial.Focus();
                 return;
             }
 
+            // Validar que el precio no esté vacío
             if (string.IsNullOrWhiteSpace(txtPrecioUnitario.Text))
             {
-                MessageBox.Show("Ingresa el precio unitario.");
+                errorProvider1.SetError(txtPrecioUnitario, "Ingresa el precio unitario.");
                 txtPrecioUnitario.Focus();
                 return;
             }
 
+            // Validar que el precio sea numérico
             if (!decimal.TryParse(txtPrecioUnitario.Text, out decimal precio))
             {
-                MessageBox.Show("Ingresa un precio vlido.");
+                errorProvider1.SetError(txtPrecioUnitario, "Ingresa un precio vlido.");
                 txtPrecioUnitario.Focus();
                 return;
             }
 
+            // Validar que el precio sea mayor que 0
             if (precio <= 0)
             {
-                MessageBox.Show("El precio unitario debe ser mayor que 0.");
+                errorProvider1.SetError(txtPrecioUnitario, "El precio unitario debe ser mayor que 0.");
+                txtPrecioUnitario.Focus();
                 return;
             }
 
+            // Obtener cantidad
             int cantidad = Convert.ToInt32(nudCantidad.Value);
 
+            // Validar cantidad
             if (cantidad <= 0)
             {
-                MessageBox.Show("La cantidad debe ser mayor que 0.");
+                errorProvider1.SetError(nudCantidad, "La cantidad debe ser mayor que 0.");
+                nudCantidad.Focus();
                 return;
             }
-
             int idMaterial = Convert.ToInt32(cbMaterial.SelectedValue);
-
             // Verificar si ya est en la lista
             foreach (DetalleCompraMaterial detalle
             in detallesTemporales)
@@ -663,7 +538,6 @@ namespace Vista.Compras
             cbMaterial.SelectedIndex = -1;
             nudCantidad.Value = 1;
             txtPrecioUnitario.Clear();
-
         }
 
         private void MostrarDetallesTemporales()
@@ -694,7 +568,6 @@ namespace Vista.Compras
 
             txtTotalCompra.Text = totalCompra.ToString("0.00");
         }
-
 
         private void LimpiarCompra()
         {
@@ -727,23 +600,26 @@ namespace Vista.Compras
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            // Validar que se seleccion un proveedor
+            // Validar que se seleccionó un proveedor
             if (cbProveedor.SelectedIndex == -1)
             {
-                MessageBox.Show("Selecciona un proveedor."); cbProveedor.Focus();
+                errorProvider1.SetError(cbProveedor, "Selecciona un proveedor.");
+                cbProveedor.Focus();
                 return;
             }
 
             // Validar que haya materiales
             if (dgvDetalleCompras.Rows.Count == 0)
             {
-                MessageBox.Show("Agrega al menos un material.", "Validacin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                errorProvider1.SetError(dgvDetalleCompras, "Agrega al menos un material.");
+                dgvDetalleCompras.Focus();
                 return;
             }
+
             // Validar fecha
             if (dtpFechaDeCompra.Value == null)
             {
-                MessageBox.Show("Debe ingresar la fecha de la compra.", "Validacin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                errorProvider1.SetError(dtpFechaDeCompra, "Debe ingresar la fecha de la compra.");
                 dtpFechaDeCompra.Focus();
                 return;
             }
@@ -788,11 +664,8 @@ namespace Vista.Compras
 
         }
 
-
-
         private void CargarCompraParaEditar(int idCompra)
         {
-
             btnGuardar.Visible = false;
             btnActualizarCompra.Visible = true;
 
@@ -847,8 +720,6 @@ namespace Vista.Compras
             }
 
             // COPIAR ORIGINALES A TEMPORALES
-
-
             foreach (DetalleCompraMaterial original in detallesOriginales)
             {
                 DetalleCompraMaterial temporal = new DetalleCompraMaterial(original.IdDetalleCompraMaterial1, original.IdCompra1, original.IdMaterial1, original.Cantidad1, original.PrecioUnitario1
@@ -857,15 +728,11 @@ namespace Vista.Compras
                 detallesTemporales.Add(temporal);
             }
 
-
-
             // MOSTRAR TEMPORALES
 
             MostrarDetallesTemporales();
 
         }
-
-
 
         private void dgvDetalleCompras_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -887,16 +754,13 @@ namespace Vista.Compras
             nudCantidad.Value = cantidad;
 
             txtPrecioUnitario.Text = precio.ToString("0.00");
-
-
-
         }
 
         private void btnActualizar_Click(object sender, EventArgs e)
         {
             if (!decimal.TryParse(txtPrecioUnitario.Text, out decimal precio))
             {
-                MessageBox.Show("Ingresa un precio válido.");
+                errorProvider1.SetError(txtPrecioUnitario, "Ingresa un precio válido.");
                 return;
             }
 
@@ -928,10 +792,7 @@ namespace Vista.Compras
             // Reiniciar el detalle que se está editando
             idDetalleEditando = 0;
 
-
-
         }
-
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
@@ -984,8 +845,6 @@ namespace Vista.Compras
             }
         }
 
-
-
         private void txtBuscar_TextChanged(object sender, EventArgs e)
         {
             try
@@ -1024,21 +883,27 @@ namespace Vista.Compras
 
         private void btnActualizarCompra_Click(object sender, EventArgs e)
         {
+            // Validar que exista una compra seleccionada
             if (!modoEdicion || idCompraSeleccionada == 0)
             {
-                MessageBox.Show("Primero selecciona una compra para editar.");
+                errorProvider1.SetError(cbProveedor, "Primero selecciona una compra para editar.");
+                cbProveedor.Focus();
                 return;
             }
 
+            // Validar proveedor
             if (cbProveedor.SelectedIndex == -1)
             {
-                MessageBox.Show("Selecciona un proveedor.");
+                errorProvider1.SetError(cbProveedor, "Selecciona un proveedor.");
+                cbProveedor.Focus();
                 return;
             }
 
+            // Validar que haya materiales
             if (detallesTemporales.Count == 0)
             {
-                MessageBox.Show("La compra debe tener al menos un material.");
+                errorProvider1.SetError(dgvDetalleCompras, "La compra debe tener al menos un material.");
+                dgvDetalleCompras.Focus();
                 return;
             }
 
@@ -1050,8 +915,7 @@ namespace Vista.Compras
 
                 ComprasDb.GuardarCompleta(idCompraSeleccionada, dtpFechaDeCompra.Value, idProveedor, detallesTemporales);
 
-                MessageBox.Show("Compra actualizada correctamente.", "Compra",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Compra actualizada correctamente.", "Compra", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 MostrarCompras();
 
@@ -1059,8 +923,7 @@ namespace Vista.Compras
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ocurrió un error al actualizar la compra.\n\n" + ex.Message, "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Ocurrió un error al actualizar la compra.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -1115,11 +978,6 @@ namespace Vista.Compras
             MessageBox.Show("Material quitado de la lista. Guarda o actualiza la compra para aplicar el cambio.", "Eliminación",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
-
-
-
-
     }
-
 }
 

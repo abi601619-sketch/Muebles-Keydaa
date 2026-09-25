@@ -18,9 +18,6 @@ namespace Vista.Login
             ResponsiveHelper.Apply(this);
             ConfigurarTooltips();
         }
-
-
-
         private void btnIngresar_Click_1(object sender, EventArgs e)
         {
             IniciarSesion();
@@ -55,7 +52,6 @@ namespace Vista.Login
 
             toolTip1.SetToolTip(btnCerrarClientes, "Cierra la aplicación.");
         }
-
         private void IniciarSesion()
         {
             string usuario = txtUsuario.Text.Trim();
@@ -79,8 +75,7 @@ namespace Vista.Login
 
             using (SqlConnection conexion = Conexion.Conectar())
             {
-                string consulta = @"SELECT IdUsuario, Nombre, Usuario, Contraseña, Rol, Estado FROM Usuario
-                    WHERE Usuario COLLATE Latin1_General_CS_AS = @Usuario";
+                string consulta = @"SELECT IdUsuario, Nombre, Usuario, Contraseña, Rol, Estado FROM Usuario WHERE Usuario COLLATE Latin1_General_CS_AS = @Usuario";
 
                 using (SqlCommand comando = new SqlCommand(consulta, conexion))
                 {

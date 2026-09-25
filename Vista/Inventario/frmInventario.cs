@@ -50,7 +50,6 @@ namespace Vista.Inventario
                 MessageBox.Show("Error al cargar el inventario: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         private void MostrarPagina()
         {
             if (dtInventario == null)
@@ -95,54 +94,39 @@ namespace Vista.Inventario
             // Encabezado
             dgvMateriales.EnableHeadersVisualStyles = false;
 
-            dgvMateriales.ColumnHeadersDefaultCellStyle.BackColor =
-                Color.FromArgb(121, 75, 45);
+            dgvMateriales.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(121, 75, 45);
 
-            dgvMateriales.ColumnHeadersDefaultCellStyle.ForeColor =
-                Color.White;
+            dgvMateriales.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
 
-            dgvMateriales.ColumnHeadersDefaultCellStyle.Font =
-                new Font("Times New Roman", 9, FontStyle.Regular);
+            dgvMateriales.ColumnHeadersDefaultCellStyle.Font = new Font("Times New Roman", 9, FontStyle.Regular);
 
-            dgvMateriales.ColumnHeadersDefaultCellStyle.Alignment =
-                DataGridViewContentAlignment.MiddleCenter;
+            dgvMateriales.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
-            dgvMateriales.ColumnHeadersDefaultCellStyle.SelectionBackColor =
-                Color.FromArgb(121, 75, 45);
+            dgvMateriales.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(121, 75, 45);
 
-            dgvMateriales.ColumnHeadersDefaultCellStyle.SelectionForeColor =
-                Color.White;
+            dgvMateriales.ColumnHeadersDefaultCellStyle.SelectionForeColor = Color.White;
 
             // Filas
-            dgvMateriales.DefaultCellStyle.BackColor =
-                Color.White;
+            dgvMateriales.DefaultCellStyle.BackColor = Color.White;
 
-            dgvMateriales.DefaultCellStyle.ForeColor =
-                Color.FromArgb(45, 45, 45);
+            dgvMateriales.DefaultCellStyle.ForeColor = Color.FromArgb(45, 45, 45);
 
-            dgvMateriales.DefaultCellStyle.Font =
-                new Font("Segoe UI", 9, FontStyle.Regular);
+            dgvMateriales.DefaultCellStyle.Font = new Font("Segoe UI", 9, FontStyle.Regular);
 
-            dgvMateriales.DefaultCellStyle.Alignment =
-                DataGridViewContentAlignment.MiddleLeft;
+            dgvMateriales.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
 
             // Filas alternadas
-            dgvMateriales.AlternatingRowsDefaultCellStyle.BackColor =
-                Color.FromArgb(248, 241, 232);
+            dgvMateriales.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(248, 241, 232);
 
             // Selección
-            dgvMateriales.DefaultCellStyle.SelectionBackColor =
-                Color.FromArgb(224, 193, 157);
+            dgvMateriales.DefaultCellStyle.SelectionBackColor = Color.FromArgb(224, 193, 157);
 
-            dgvMateriales.DefaultCellStyle.SelectionForeColor =
-                Color.Black;
+            dgvMateriales.DefaultCellStyle.SelectionForeColor = Color.Black;
 
             // Bordes
-            dgvMateriales.CellBorderStyle =
-                DataGridViewCellBorderStyle.SingleHorizontal;
+            dgvMateriales.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
 
-            dgvMateriales.GridColor =
-                Color.FromArgb(220, 220, 220);
+            dgvMateriales.GridColor = Color.FromArgb(220, 220, 220);
 
             // Alto de las filas
             dgvMateriales.RowTemplate.Height = 32;
@@ -158,21 +142,17 @@ namespace Vista.Inventario
             dgvMateriales.AllowUserToDeleteRows = false;
 
             // Seleccionar fila completa
-            dgvMateriales.SelectionMode =
-                DataGridViewSelectionMode.FullRowSelect;
+            dgvMateriales.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
             dgvMateriales.MultiSelect = false;
 
             // Quitar borde exterior
-            dgvMateriales.BorderStyle =
-                BorderStyle.None;
+            dgvMateriales.BorderStyle = BorderStyle.None;
 
             // Ajustar contenido
-            dgvMateriales.DefaultCellStyle.WrapMode =
-                DataGridViewTriState.True;
+            dgvMateriales.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
 
-            dgvMateriales.AutoSizeRowsMode =
-                DataGridViewAutoSizeRowsMode.AllCells;
+            dgvMateriales.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
 
             // Quitar columna de selección de filas
             dgvMateriales.RowHeadersVisible = false;
@@ -229,83 +209,29 @@ namespace Vista.Inventario
         private void ConfigurarTooltips()
         {
             ToolTip toolTip = new ToolTip();
-
-
-
             // Buscador
-            toolTip.SetToolTip(
-                txtBuscar,
-                "Busca un material por su nombre."
-            );
+            toolTip.SetToolTip(txtBuscar, "Busca un material por su nombre.");
 
             // Datos del material
-            toolTip.SetToolTip(
-                txtMaterial,
-                "Ingrese el nombre del material."
-            );
-
-            toolTip.SetToolTip(
-                cbCategorias,
-                "Seleccione la categoría a la que pertenece el material."
-            );
-
-            toolTip.SetToolTip(
-                cbUnidadMedida,
-                "Seleccione la unidad de medida del material."
-            );
-
-            toolTip.SetToolTip(
-                txtCantidad,
-                "Ingrese la cantidad disponible del material."
-            );
+            toolTip.SetToolTip(txtMaterial, "Ingrese el nombre del material.");
+            toolTip.SetToolTip(cbCategorias, "Seleccione la categoría a la que pertenece el material.");
+            toolTip.SetToolTip(cbUnidadMedida, "Seleccione la unidad de medida del material.");
+            toolTip.SetToolTip(txtCantidad, "Ingrese la cantidad disponible del material.");
 
             // Botones
-            toolTip.SetToolTip(
-                btnNuevo,
-                "Limpia el formulario para registrar un nuevo material."
-            );
-
-            toolTip.SetToolTip(
-                btnGuardar,
-                "Guarda el nuevo material en el inventario."
-            );
-
-            toolTip.SetToolTip(
-                btnEditar,
-                "Permite modificar los datos del material seleccionado."
-            );
-
-            toolTip.SetToolTip(
-                btnGuardarCambios,
-                "Guarda los cambios realizados al material."
-            );
+            toolTip.SetToolTip(btnNuevo, "Limpia el formulario para registrar un nuevo material.");
+            toolTip.SetToolTip(btnGuardar, "Guarda el nuevo material en el inventario.");
+            toolTip.SetToolTip(btnEditar, "Permite modificar los datos del material seleccionado.");
+            toolTip.SetToolTip(btnGuardarCambios, "Guarda los cambios realizados al material.");
 
             // Tabla
-            toolTip.SetToolTip(
-                dgvMateriales,
-                "Muestra los materiales registrados en el inventario. Haz doble clic en un material para seleccionarlo."
-            );
+            toolTip.SetToolTip(dgvMateriales, "Muestra los materiales registrados en el inventario. Haz doble clic en un material para seleccionarlo.");
 
             // Estadísticas
-            toolTip.SetToolTip(
-                lblTotalRegistrados,
-                "Cantidad total de materiales registrados."
-            );
-
-            toolTip.SetToolTip(
-                lblAgotandose,
-                "Cantidad de materiales cuyo stock está próximo a agotarse."
-            );
-
-            toolTip.SetToolTip(
-                lblDisponibles,
-                "Cantidad de materiales disponibles actualmente."
-            );
-
-            toolTip.SetToolTip(
-                lblMaterialesAgotados,
-                "Cantidad de materiales que se encuentran agotados."
-            );
+            toolTip.SetToolTip(lblTotalRegistrados, "Cantidad total de materiales registrados.");
+            toolTip.SetToolTip(lblAgotandose, "Cantidad de materiales cuyo stock está próximo a agotarse.");
+            toolTip.SetToolTip(lblDisponibles, "Cantidad de materiales disponibles actualmente.");
+            toolTip.SetToolTip(lblMaterialesAgotados, "Cantidad de materiales que se encuentran agotados.");
         }
 
         private void frmInventario_Load(object sender, EventArgs e)
@@ -371,7 +297,7 @@ namespace Vista.Inventario
             // Validar nombre del material
             if (string.IsNullOrWhiteSpace(txtMaterial.Text))
             {
-                MessageBox.Show("Ingrese el nombre del material.");
+                errorProvider1.SetError(txtMaterial, "Ingrese el nombre del material.");
                 txtMaterial.Focus();
                 return;
             }
@@ -379,15 +305,15 @@ namespace Vista.Inventario
             // Validar unidad de medida
             if (string.IsNullOrWhiteSpace(cbUnidadMedida.Text))
             {
-                MessageBox.Show("Ingrese la unidad de medida.");
+                errorProvider1.SetError(cbUnidadMedida, "Ingrese la unidad de medida.");
                 cbUnidadMedida.Focus();
                 return;
             }
 
-            // Validar categora
+            // Validar categoría
             if (cbCategorias.SelectedIndex == -1)
             {
-                MessageBox.Show("Seleccione una categora.");
+                errorProvider1.SetError(cbCategorias, "Seleccione una categoría.");
                 cbCategorias.Focus();
                 return;
             }
@@ -395,26 +321,26 @@ namespace Vista.Inventario
             // Validar stock inicial
             if (string.IsNullOrWhiteSpace(txtCantidad.Text))
             {
-                MessageBox.Show("Ingrese el stock inicial.");
+                errorProvider1.SetError(txtCantidad, "Ingrese el stock inicial.");
                 txtCantidad.Focus();
                 return;
             }
 
-            // Validar que el stock sea numrico
+            // Validar que el stock sea numérico
             if (!int.TryParse(txtCantidad.Text, out int stock))
             {
-                MessageBox.Show("El stock inicial debe ser un nmero.");
+                errorProvider1.SetError(txtCantidad, "El stock inicial debe ser un número.");
                 txtCantidad.Focus();
                 return;
             }
+
             // Validar que no sea negativo
             if (stock < 0)
             {
-                MessageBox.Show("El stock inicial no puede ser negativo.");
+                errorProvider1.SetError(txtCantidad, "El stock inicial no puede ser negativo.");
                 txtCantidad.Focus();
                 return;
             }
-
 
             //INSERT
             Material material = new Material();
@@ -446,7 +372,6 @@ namespace Vista.Inventario
         {
 
         }
-
         private void btnEditar_Click(object sender, EventArgs e)
         {
             if (idMaterialSeleccionado == 0)
@@ -456,9 +381,6 @@ namespace Vista.Inventario
             }
             HabilitarCampos();
             btnGuardarCambios.Visible = true;
-
-
-
         }
         private void BloquearCampos()
         {
@@ -469,8 +391,6 @@ namespace Vista.Inventario
 
             btnEditar.Visible = true;
             btnGuardar.Visible = false;
-
-
         }
 
         private void HabilitarCampos()
@@ -597,9 +517,6 @@ namespace Vista.Inventario
                 e.Handled = true;
             }
         }
-
-
-
         private void txtBuscar_TextChanged(object sender, EventArgs e)
         {
             try
@@ -613,8 +530,6 @@ namespace Vista.Inventario
             {
                 MessageBox.Show(ex.Message);
             }
-
-
         }
 
         //METODO PARA CARGAR LAS ESTADISTICAS
@@ -652,8 +567,6 @@ namespace Vista.Inventario
 
             txtMaterial.Focus();
         }
-
-
     }
 }
 

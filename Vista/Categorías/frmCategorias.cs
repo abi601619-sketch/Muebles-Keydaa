@@ -300,11 +300,18 @@ namespace Vista.Categorías
         {
             try
             {
-                // Valida el nombre de la categoría
+                // Verifica que exista una categoría seleccionada
+                if (idCategoriaSeleccionada == 0)
+                {
+                    errorProvider1.SetError(txtCategoria, "No hay ninguna categoría seleccionada.");
+                    txtCategoria.Focus();
+                    return;
+                }
+
+                // Valida el nombre
                 if (string.IsNullOrWhiteSpace(txtCategoria.Text))
                 {
-                    MessageBox.Show("Debe ingresar el nombre de la categoría.");
-
+                    errorProvider1.SetError(txtCategoria, "Debe ingresar el nombre de la categoría.");
                     txtCategoria.Focus();
                     return;
                 }
@@ -312,17 +319,15 @@ namespace Vista.Categorías
                 // Valida la descripción
                 if (string.IsNullOrWhiteSpace(txtDescripcion.Text))
                 {
-                    MessageBox.Show("Debe ingresar la descripción de la categoría.");
-
+                    errorProvider1.SetError(txtDescripcion, "Debe ingresar la descripción de la categoría.");
                     txtDescripcion.Focus();
                     return;
                 }
 
-                // Valida que se seleccione un estado
+                // Valida el estado
                 if (cbEstado.SelectedIndex == -1)
                 {
-                    MessageBox.Show("Debe seleccionar el estado de la categoría.");
-
+                    errorProvider1.SetError(cbEstado, "Debe seleccionar el estado de la categoría.");
                     cbEstado.Focus();
                     return;
                 }
@@ -486,15 +491,15 @@ namespace Vista.Categorías
                 // Verifica que exista una categoría seleccionada
                 if (idCategoriaSeleccionada == 0)
                 {
-                    MessageBox.Show("No hay ninguna categoría seleccionada.");
+                    errorProvider1.SetError(txtCategoria, "No hay ninguna categoría seleccionada.");
+                    txtCategoria.Focus();
                     return;
                 }
 
                 // Valida el nombre
                 if (string.IsNullOrWhiteSpace(txtCategoria.Text))
                 {
-                    MessageBox.Show("Debe ingresar el nombre de la categoría.");
-
+                    errorProvider1.SetError(txtCategoria, "Debe ingresar el nombre de la categoría.");
                     txtCategoria.Focus();
                     return;
                 }
@@ -502,8 +507,7 @@ namespace Vista.Categorías
                 // Valida la descripción
                 if (string.IsNullOrWhiteSpace(txtDescripcion.Text))
                 {
-                    MessageBox.Show("Debe ingresar la descripción de la categoría.");
-
+                    errorProvider1.SetError(txtDescripcion, "Debe ingresar la descripción de la categoría.");
                     txtDescripcion.Focus();
                     return;
                 }
@@ -511,12 +515,10 @@ namespace Vista.Categorías
                 // Valida el estado
                 if (cbEstado.SelectedIndex == -1)
                 {
-                    MessageBox.Show("Debe seleccionar el estado de la categoría.");
-
+                    errorProvider1.SetError(cbEstado, "Debe seleccionar el estado de la categoría.");
                     cbEstado.Focus();
                     return;
                 }
-
                 // Obtener los nuevos valores
                 string nuevoNombre = txtCategoria.Text.Trim();
                 string nuevaDescripcion = txtDescripcion.Text.Trim();

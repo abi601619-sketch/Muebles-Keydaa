@@ -788,12 +788,14 @@ namespace Vista.Clientes_Secretario
 
         private bool ValidarCampos()
         {
+
             // Validar que haya seleccionado un tipo de cliente
             if (!modoEdicion)
             {
                 if (cbTipoCliente.SelectedIndex == -1)
                 {
-                    MessageBox.Show("Seleccione un tipo de cliente.");
+                    errorProvider1.SetError(cbTipoCliente, "Seleccione un tipo de cliente.");
+                    cbTipoCliente.Focus();
                     return false;
                 }
             }
@@ -803,41 +805,42 @@ namespace Vista.Clientes_Secretario
             {
                 if (string.IsNullOrWhiteSpace(txtNombres.Text))
                 {
-                    MessageBox.Show("Debe ingresar el nombre del cliente.");
+                    errorProvider1.SetError(txtNombres, "Debe ingresar el nombre del cliente.");
                     txtNombres.Focus();
                     return false;
                 }
+
                 if (string.IsNullOrWhiteSpace(txtApellidos.Text))
                 {
-                    MessageBox.Show("Debe ingresar los apellidos del cliente.");
+                    errorProvider1.SetError(txtApellidos, "Debe ingresar los apellidos del cliente.");
                     txtApellidos.Focus();
                     return false;
                 }
 
                 if (string.IsNullOrWhiteSpace(txtDUI.Text))
                 {
-                    MessageBox.Show("Debe ingresar el DUI del ciente.");
+                    errorProvider1.SetError(txtDUI, "Debe ingresar el DUI del ciente.");
                     txtDUI.Focus();
                     return false;
                 }
 
                 if (string.IsNullOrWhiteSpace(txtTelefono.Text))
                 {
-                    MessageBox.Show("Debe ingresar el teléfono del cliente.");
+                    errorProvider1.SetError(txtTelefono, "Debe ingresar el teléfono del cliente.");
                     txtTelefono.Focus();
                     return false;
                 }
 
-
                 if (string.IsNullOrWhiteSpace(txtCorreo.Text))
                 {
-                    MessageBox.Show("Debe ingresar el Correo del cliente.");
+                    errorProvider1.SetError(txtCorreo, "Debe ingresar el Correo del cliente.");
                     txtCorreo.Focus();
                     return false;
                 }
+
                 if (string.IsNullOrWhiteSpace(txtDireccion.Text))
                 {
-                    MessageBox.Show("Debe ingresar la dirección del cliente.");
+                    errorProvider1.SetError(txtDireccion, "Debe ingresar la dirección del cliente.");
                     txtDireccion.Focus();
                     return false;
                 }
@@ -848,42 +851,43 @@ namespace Vista.Clientes_Secretario
             {
                 if (string.IsNullOrWhiteSpace(txtNombreEmpresa.Text))
                 {
-                    MessageBox.Show("Debe ingresar el nombre de la empresa.");
+                    errorProvider1.SetError(txtNombreEmpresa, "Debe ingresar el nombre de la empresa.");
                     txtNombreEmpresa.Focus();
                     return false;
                 }
 
                 if (string.IsNullOrWhiteSpace(txtNombreEncargado.Text))
                 {
-                    MessageBox.Show("Debe ingresar el nombre del encargado.");
+                    errorProvider1.SetError(txtNombreEncargado, "Debe ingresar el nombre del encargado.");
                     txtNombreEncargado.Focus();
                     return false;
                 }
 
                 if (string.IsNullOrWhiteSpace(txtNIT.Text))
                 {
-                    MessageBox.Show("Debe ingresar el documento de la empresa.");
+                    errorProvider1.SetError(txtNIT, "Debe ingresar el documento de la empresa.");
                     txtNIT.Focus();
                     return false;
                 }
 
                 if (string.IsNullOrWhiteSpace(txtTelefono.Text))
                 {
-                    MessageBox.Show("Debe ingresar el teléfono.");
+                    errorProvider1.SetError(txtTelefono, "Debe ingresar el teléfono.");
                     txtTelefono.Focus();
                     return false;
                 }
 
                 if (string.IsNullOrWhiteSpace(txtCorreo.Text))
                 {
-                    MessageBox.Show("Debe ingresar el Correo.");
+                    errorProvider1.SetError(txtCorreo, "Debe ingresar el Correo.");
                     txtCorreo.Focus();
                     return false;
                 }
+
                 if (string.IsNullOrWhiteSpace(txtDireccion.Text))
                 {
-                    MessageBox.Show("Debe ingresar la dirección de la empresa.");
-                    txtCorreo.Focus();
+                    errorProvider1.SetError(txtDireccion, "Debe ingresar la dirección de la empresa.");
+                    txtDireccion.Focus();
                     return false;
                 }
             }
