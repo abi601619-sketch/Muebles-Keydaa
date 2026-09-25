@@ -18,3 +18,15 @@ FixMangled.cs
 FixNamespaces.cs
 FixNamespaces2.cs
 PrintO.cs
+# Dependencias necesarias de SQL Server
+!SqlServerTypes/
+!SqlServerTypes/x86/
+!SqlServerTypes/x64/
+!SqlServerTypes/x86/*.dll
+!SqlServerTypes/x64/*.dll
+
+!Vista/SqlServerTypes/
+!Vista/SqlServerTypes/x86/
+!Vista/SqlServerTypes/x64/
+!Vista/SqlServerTypes/x86/*.dll
+!Vista/SqlServerTypes/x64/*.dll
