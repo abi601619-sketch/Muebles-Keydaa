@@ -2,6 +2,8 @@ using Modelo.Conexión_DB;
 using Modelo.Entidades;
 using System;
 using System.Data.SqlClient;
+using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 using Vista.Dashboard;
 using Vista.DashboardSecretario;
@@ -165,6 +167,43 @@ namespace Vista.Login
             frmRecuperarClave recuperar = new frmRecuperarClave();
 
             recuperar.Show();
+        }
+
+        private void CargarLogoEmpresa()
+        {
+            string rutaLogo = Modelo.Properties.Settings.Default.LogoEmpresa;
+
+            if (!string.IsNullOrWhiteSpace(rutaLogo) && File.Exists(rutaLogo))
+            {
+                try
+                {
+                    if (picLogo.Image != null)
+                    {
+                        picLogo.Image.Dispose();
+                        picLogo.Image = null;
+                    }
+
+                    using (Image imagenOriginal = Image.FromFile(rutaLogo))
+                    {
+                        picLogo.Image = new Bitmap(imagenOriginal);
+                    }
+
+                    picLogo.SizeMode = PictureBoxSizeMode.Zoom;
+                }
+                catch
+                {
+                    picLogo.Image = null;
+                }
+            }
+            else
+            {
+                picLogo.Image = null;
+            }
+        }
+
+        private void frmLogin_Load(object sender, EventArgs e)
+        {
+            CargarLogoEmpresa();
         }
     }
 

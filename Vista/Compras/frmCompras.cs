@@ -348,6 +348,9 @@ namespace Vista.Compras
             cbMaterial.DisplayMember = "Material";
             cbMaterial.ValueMember = "IdMaterial";
             cbMaterial.SelectedIndex = -1;
+            cbMaterial.DropDownStyle = ComboBoxStyle.DropDown;
+            cbMaterial.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            cbMaterial.AutoCompleteSource = AutoCompleteSource.ListItems;
         }
 
         private void CargarComboBoxProveedores()
@@ -358,6 +361,9 @@ namespace Vista.Compras
             cbProveedor.DisplayMember = "Proveedor";
             cbProveedor.ValueMember = "IdProveedor";
             cbProveedor.SelectedIndex = -1;
+            cbProveedor.DropDownStyle = ComboBoxStyle.DropDown;
+            cbProveedor.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            cbProveedor.AutoCompleteSource = AutoCompleteSource.ListItems;
         }
 
 

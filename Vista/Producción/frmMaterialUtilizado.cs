@@ -225,6 +225,9 @@ namespace Vista.Producción
 
             // No seleccionar ningún material inicialmente
             cbMateriales.SelectedIndex = -1;
+            cbMateriales.DropDownStyle = ComboBoxStyle.DropDown;
+            cbMateriales.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            cbMateriales.AutoCompleteSource = AutoCompleteSource.ListItems;
         }
 
         //METODO PARA CARGAR LOS MATERIALES UTILIZADOS
@@ -253,6 +256,7 @@ namespace Vista.Producción
             dgvMaterialesAgregados.ReadOnly = true;
             dgvMaterialesAgregados.AllowUserToDeleteRows = false;
             dgvMaterialesAgregados.AllowUserToAddRows = false;
+
         }
 
         // CAMBIO DE MATERIAL SELECCIONADO

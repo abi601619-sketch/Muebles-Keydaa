@@ -4,6 +4,7 @@ using Vista.Ayuda;
 using Vista.Categorías;
 using Vista.Clientes;
 using Vista.Compras;
+using Vista.configuracion;
 using Vista.Cotizaciones;
 using Vista.Facturación;
 using Vista.Inventario;
@@ -180,6 +181,12 @@ namespace Vista.Dashboard
         private void btnAyuda_Click(object sender, EventArgs e)
         {
             AbrirFormulario(new frmAyuda());
+        }
+
+        private void btnConfiguracion_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario(new frmConfiguracion());
+
         }
     }
 }

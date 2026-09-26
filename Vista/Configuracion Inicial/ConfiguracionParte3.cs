@@ -51,6 +51,14 @@ namespace Vista.Configuracion_Inicial
                 return;
             }
 
+            //Verifica que el correo no este nulo
+            if (string.IsNullOrWhiteSpace(txtCorreo.Text))
+            {
+                errorProvider1.SetError(txtCorreo, "Ingrese un correo.");
+                txtContrasena.Focus();
+                return;
+            }
+
             // Verifica que ambas contraseñas sean iguales.
             if (txtContrasena.Text != txtConfirmarContrasena.Text)
             {
@@ -70,7 +78,7 @@ namespace Vista.Configuracion_Inicial
             DbUsuarios usuario = new DbUsuarios();
 
             // Intenta crear el administrador inicial.
-            bool creado = usuario.CrearAdministradorInicial(txtNombreAdministrador.Text.Trim(), txtUsuario.Text.Trim(), txtContrasena.Text);
+            bool creado = usuario.CrearAdministradorInicial(txtNombreAdministrador.Text.Trim(), txtUsuario.Text.Trim(), txtContrasena.Text, txtCorreo.Text);
 
             // Si el administrador se creó correctamente...
             if (creado)

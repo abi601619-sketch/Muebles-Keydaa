@@ -399,14 +399,10 @@ namespace Vista.Facturación
             txtCorreo.Text = fila["Correo"].ToString();
 
             // FECHA DE VENTA
-            dtpFechaVenta.Text = Convert.ToDateTime(
-                fila["Fecha de Venta"]
-            ).ToString("dd/MM/yyyy");
+            dtpFechaVenta.Text = Convert.ToDateTime(fila["Fecha de Venta"]).ToString("dd/MM/yyyy");
 
             // SUBTOTAL
-            txtSubTotal.Text = Convert.ToDecimal(
-                fila["SubTotal"]
-            ).ToString("0.00");
+            txtSubTotal.Text = Convert.ToDecimal(fila["SubTotal"]).ToString("0.00");
 
             // DESCUENTO
             txtDescuento.Text = "0.00";
@@ -523,8 +519,6 @@ namespace Vista.Facturación
 
             return cantidadTotal;
         }
-
-
 
         private void txtBuscar_TextChanged(object sender, EventArgs e)
         {
@@ -692,6 +686,8 @@ namespace Vista.Facturación
                 MostrarRegistrosFacturas();
 
                 MessageBox.Show($"La factura N.º {idFactura} se guardó correctamente.\n\n" + "Ahora puedes presionar 'Generar PDF'.", "Factura guardada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+
             }
             catch (SqlException ex)
             {
@@ -751,8 +747,7 @@ namespace Vista.Facturación
         private void btnGenerarPDF_Click(object sender, EventArgs e)
         {
             try
-            {
-                // Verificar que exista una factura
+            {// Verificar que exista una factura
                 if (!int.TryParse(txtNumeroFactura.Text.Trim(), out int idFactura))
                 {
                     MessageBox.Show("Primero debes guardar una factura.", "Generar PDF", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -770,8 +765,7 @@ namespace Vista.Facturación
                     if (guardar.ShowDialog() != DialogResult.OK)
                         return;
 
-                    // Generar el PDF, mandando los paraámetros al contructor de la clase del PDF
-                    //manda el id de la factura que se obtiene depués de guardar, y manda el encabezado o titulo que tendrá el pdf
+                    // Generar el PDF
                     GeneradorFactura.Generar(idFactura, guardar.FileName);
 
                     // Limpiar solamente después de generar

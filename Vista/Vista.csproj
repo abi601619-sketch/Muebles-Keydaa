@@ -171,6 +171,12 @@
     <Compile Include="Configuracion Inicial\frmConfiguracionparte2.Designer.cs">
       <DependentUpon>frmConfiguracionparte2.cs</DependentUpon>
     </Compile>
+    <Compile Include="configuracion\frmConfiguracion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="configuracion\frmConfiguracion.Designer.cs">
+      <DependentUpon>frmConfiguracion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Cotizaciones\frmCotizaciones.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -354,6 +360,9 @@
     <EmbeddedResource Include="Configuracion Inicial\frmConfiguracionparte2.resx">
       <DependentUpon>frmConfiguracionparte2.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="configuracion\frmConfiguracion.resx">
+      <DependentUpon>frmConfiguracion.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Cotizaciones\frmCotizaciones.resx">
       <DependentUpon>frmCotizaciones.cs</DependentUpon>
     </EmbeddedResource>
@@ -443,6 +452,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Recursos\Manuales\MANUAL TECNICO.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Resources\Captura de pantalla 2026-07-06 171749.png" />
   </ItemGroup>
   <ItemGroup>
@@ -718,6 +730,11 @@
     <None Include="Resources\Captura Para tutorial cotizacion.png" />
     <None Include="Resources\controlar.png" />
     <None Include="Resources\error.png" />
+    <None Include="Resources\galeria-de-imagenes.png" />
+    <None Include="Resources\galeria-de-imagenes %281%29.png" />
+    <None Include="Resources\curriculum.png" />
+    <None Include="Resources\ajuste.png" />
+    <None Include="Resources\ajuste %281%29.png" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -732,6 +749,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\QuestPDF.2026.9.0\build\net4\QuestPDF.targets" Condition="Exists('..\packages\QuestPDF.2026.9.0\build\net4\QuestPDF.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

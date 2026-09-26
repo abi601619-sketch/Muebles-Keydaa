@@ -43,7 +43,6 @@ namespace Vista.Dashboard
             this.gbBarraDecorativa = new System.Windows.Forms.GroupBox();
             this.panel5 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.panel3 = new System.Windows.Forms.Panel();
             this.pnlCategorias = new System.Windows.Forms.Panel();
             this.btnCategorias = new System.Windows.Forms.Button();
             this.pnlContenedorPrincipal = new System.Windows.Forms.Panel();
@@ -52,6 +51,7 @@ namespace Vista.Dashboard
             this.pnlMargen = new System.Windows.Forms.Panel();
             this.pnlMenu = new System.Windows.Forms.Panel();
             this.pnlBotones = new System.Windows.Forms.Panel();
+            this.btnConfiguracion = new System.Windows.Forms.Button();
             this.btnAyuda = new System.Windows.Forms.Button();
             this.btnUsuarios = new System.Windows.Forms.Button();
             this.pnlSubVentas = new System.Windows.Forms.Panel();
@@ -273,7 +273,7 @@ namespace Vista.Dashboard
             // 
             this.gbBarraDecorativa.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(33)))), ((int)(((byte)(41)))));
             this.gbBarraDecorativa.Dock = System.Windows.Forms.DockStyle.Top;
-            this.gbBarraDecorativa.Location = new System.Drawing.Point(3, 133);
+            this.gbBarraDecorativa.Location = new System.Drawing.Point(3, 93);
             this.gbBarraDecorativa.Margin = new System.Windows.Forms.Padding(2);
             this.gbBarraDecorativa.Name = "gbBarraDecorativa";
             this.gbBarraDecorativa.Padding = new System.Windows.Forms.Padding(2);
@@ -284,7 +284,7 @@ namespace Vista.Dashboard
             // panel5
             // 
             this.panel5.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel5.Location = new System.Drawing.Point(3, 115);
+            this.panel5.Location = new System.Drawing.Point(3, 75);
             this.panel5.Margin = new System.Windows.Forms.Padding(2);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(127, 18);
@@ -294,21 +294,12 @@ namespace Vista.Dashboard
             // 
             this.panel4.Controls.Add(this.label1);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel4.Location = new System.Drawing.Point(3, 43);
+            this.panel4.Location = new System.Drawing.Point(3, 3);
             this.panel4.Margin = new System.Windows.Forms.Padding(2);
             this.panel4.Name = "panel4";
             this.panel4.Padding = new System.Windows.Forms.Padding(7, 13, 13, 13);
             this.panel4.Size = new System.Drawing.Size(127, 72);
             this.panel4.TabIndex = 0;
-            // 
-            // panel3
-            // 
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel3.Location = new System.Drawing.Point(3, 3);
-            this.panel3.Margin = new System.Windows.Forms.Padding(2);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(127, 40);
-            this.panel3.TabIndex = 0;
             // 
             // pnlCategorias
             // 
@@ -391,7 +382,6 @@ namespace Vista.Dashboard
             this.pnlMenu.Controls.Add(this.gbBarraDecorativa);
             this.pnlMenu.Controls.Add(this.panel5);
             this.pnlMenu.Controls.Add(this.panel4);
-            this.pnlMenu.Controls.Add(this.panel3);
             this.pnlMenu.Dock = System.Windows.Forms.DockStyle.Left;
             this.pnlMenu.Location = new System.Drawing.Point(10, 0);
             this.pnlMenu.Margin = new System.Windows.Forms.Padding(2);
@@ -402,6 +392,7 @@ namespace Vista.Dashboard
             // 
             // pnlBotones
             // 
+            this.pnlBotones.Controls.Add(this.btnConfiguracion);
             this.pnlBotones.Controls.Add(this.btnAyuda);
             this.pnlBotones.Controls.Add(this.btnUsuarios);
             this.pnlBotones.Controls.Add(this.pnlCotizaciones);
@@ -416,12 +407,32 @@ namespace Vista.Dashboard
             this.pnlBotones.Controls.Add(this.pnlClientes);
             this.pnlBotones.Controls.Add(this.pnlInicio);
             this.pnlBotones.Dock = System.Windows.Forms.DockStyle.Left;
-            this.pnlBotones.Location = new System.Drawing.Point(3, 136);
+            this.pnlBotones.Location = new System.Drawing.Point(3, 96);
             this.pnlBotones.Margin = new System.Windows.Forms.Padding(2);
             this.pnlBotones.Name = "pnlBotones";
             this.pnlBotones.Padding = new System.Windows.Forms.Padding(3, 13, 3, 3);
-            this.pnlBotones.Size = new System.Drawing.Size(127, 498);
+            this.pnlBotones.Size = new System.Drawing.Size(127, 538);
             this.pnlBotones.TabIndex = 1;
+            // 
+            // btnConfiguracion
+            // 
+            this.btnConfiguracion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(228)))), ((int)(((byte)(166)))));
+            this.btnConfiguracion.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnConfiguracion.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(221)))), ((int)(((byte)(175)))));
+            this.btnConfiguracion.FlatAppearance.BorderSize = 4;
+            this.btnConfiguracion.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(153)))), ((int)(((byte)(105)))));
+            this.btnConfiguracion.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(153)))), ((int)(((byte)(105)))));
+            this.btnConfiguracion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnConfiguracion.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnConfiguracion.Location = new System.Drawing.Point(3, 507);
+            this.btnConfiguracion.Margin = new System.Windows.Forms.Padding(0);
+            this.btnConfiguracion.Name = "btnConfiguracion";
+            this.btnConfiguracion.Size = new System.Drawing.Size(121, 35);
+            this.btnConfiguracion.TabIndex = 3;
+            this.btnConfiguracion.Text = "Configuracion";
+            this.btnConfiguracion.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnConfiguracion.UseVisualStyleBackColor = false;
+            this.btnConfiguracion.Click += new System.EventHandler(this.btnConfiguracion_Click);
             // 
             // btnAyuda
             // 
@@ -844,7 +855,6 @@ namespace Vista.Dashboard
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Button btnProduccion;
-        private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel pnlCategorias;
         private System.Windows.Forms.Panel pnlContenedorPrincipal;
         private System.Windows.Forms.Panel pnlContenedor;
@@ -873,5 +883,6 @@ namespace Vista.Dashboard
         private System.Windows.Forms.Button btnUsuarios;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Button btnAyuda;
+        private System.Windows.Forms.Button btnConfiguracion;
     }
 }

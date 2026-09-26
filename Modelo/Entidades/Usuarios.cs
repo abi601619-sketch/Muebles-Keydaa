@@ -57,23 +57,23 @@ namespace Modelo.Entidades
                 switch (ex.Number)
                 {
                     case 208:
-                        MessageBox.Show("La vista VerUsuarios no existe.", "Error 208", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("La vista VerUsuarios no existe.", "ERR-SQL-004", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
 
                     case 53:
-                        MessageBox.Show("No se pudo conectar con el servidor SQL.", "Error 53", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("No se puede conectar al servidor SQL.", "ERR-SQL-001", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
 
                     case 4060:
-                        MessageBox.Show("No se pudo acceder a la base de datos.", "Error 4060", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("No se puede acceder a la base de datos.", "ERR-SQL-002", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
 
                     case -2:
-                        MessageBox.Show("La operación tardó demasiado.", "Error -2", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Tiempo de espera agotado.", "ERR-SQL-003", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         break;
 
                     default:
-                        MessageBox.Show("Error SQL: " + ex.Message, "Error " + ex.Number, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Error inesperado de SQL.", "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                 }
             }
@@ -112,40 +112,43 @@ namespace Modelo.Entidades
                 switch (ex.Number)
                 {
                     case 2627:
+                        MessageBox.Show("El nombre de usuario o correo electrónico ya está registrado.", "ERR-SQL-005", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+
                     case 2601:
-                        MessageBox.Show("El nombre de usuario o correo electrónico ya está registrado.", "Error " + ex.Number, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("El nombre de usuario o correo electrónico ya está registrado.", "ERR-SQL-006", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         break;
 
                     case 547:
-                        MessageBox.Show("El rol seleccionado no existe.", "Error 547", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("El rol seleccionado no existe.", "ERR-SQL-007", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
 
                     case 515:
-                        MessageBox.Show("Hay campos obligatorios sin completar.", "Error 515", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Hay campos obligatorios sin completar.", "ERR-SQL-008", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         break;
 
                     case 53:
-                        MessageBox.Show("No se pudo conectar con el servidor SQL.", "Error 53", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("No se puede conectar al servidor SQL.", "ERR-SQL-001", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
 
                     case 4060:
-                        MessageBox.Show("No se pudo acceder a la base de datos.", "Error 4060", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("No se puede acceder a la base de datos.", "ERR-SQL-002", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
 
                     case -2:
-                        MessageBox.Show("La operación tardó demasiado.", "Error -2", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Tiempo de espera agotado.", "ERR-SQL-003", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         break;
 
                     case 208:
-                        MessageBox.Show("La tabla Usuario no existe.", "Error 208", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Tabla, vista o procedimiento no encontrado.", "ERR-SQL-004", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
 
                     case 8152:
-                        MessageBox.Show("Uno de los datos ingresados es demasiado largo.", "Error 8152", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Datos demasiado largos para la columna.", "ERR-SQL-011", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         break;
 
                     default:
-                        MessageBox.Show("Error SQL: " + ex.Message, "Error " + ex.Number, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Error inesperado de SQL.", "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                 }
             }
@@ -179,28 +182,29 @@ namespace Modelo.Entidades
                 switch (ex.Number)
                 {
                     case 547:
-                        MessageBox.Show("No se puede desactivar el usuario.", "Error 547", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("No se puede desactivar el usuario.", "ERR-SQL-007", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
 
                     case 53:
-                        MessageBox.Show("No se pudo conectar con el servidor SQL.", "Error 53", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("No se puede conectar al servidor SQL.", "ERR-SQL-001", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
 
                     case 4060:
-                        MessageBox.Show("No se pudo acceder a la base de datos.", "Error 4060", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("No se puede acceder a la base de datos.", "ERR-SQL-002", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
 
                     case -2:
-                        MessageBox.Show("La operación tardó demasiado.", "Error -2", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Tiempo de espera agotado.", "ERR-SQL-003", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         break;
 
                     case 208:
-                        MessageBox.Show("La tabla Usuario no existe.", "Error 208", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Tabla, vista o procedimiento no encontrado.", "ERR-SQL-004", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
 
                     default:
-                        MessageBox.Show("Error SQL: " + ex.Message, "Error " + ex.Number, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Error inesperado de SQL.", "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
+
                 }
             }
             catch (Exception ex)
@@ -227,23 +231,23 @@ namespace Modelo.Entidades
                 switch (ex.Number)
                 {
                     case 53:
-                        MessageBox.Show("No se pudo conectar con el servidor SQL.", "Error 53", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("No se puede conectar al servidor SQL.", "ERR-SQL-001", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
 
                     case 4060:
-                        MessageBox.Show("No se pudo acceder a la base de datos.", "Error 4060", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("No se puede acceder a la base de datos.", "ERR-SQL-002", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
 
                     case -2:
-                        MessageBox.Show("La operación tardó demasiado.", "Error -2", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Tiempo de espera agotado.", "ERR-SQL-003", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         break;
 
                     case 208:
-                        MessageBox.Show("La tabla Usuario no existe.", "Error 208", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Tabla, vista o procedimiento no encontrado.", "ERR-SQL-004", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
 
                     default:
-                        MessageBox.Show("Error SQL: " + ex.Message, "Error " + ex.Number, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Error inesperado de SQL.", "ERR-SQL-999", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                 }
 
@@ -256,15 +260,15 @@ namespace Modelo.Entidades
             }
         }
 
-        public bool CrearAdministradorInicial(string nombre, string usuario, string contraseña)
+        public bool CrearAdministradorInicial(string nombre, string usuario, string contraseña, string correo)
         {
             try
             {
                 string contraseñaHash = BCrypt.Net.BCrypt.HashPassword(contraseña);
 
                 string comandoSQL = @"INSERT INTO Usuario
-                    (Nombre, Usuario, Contraseña, Rol, Estado)
-                    VALUES (@Nombre, @Usuario, @Contraseña, 'Administrador', 1);";
+                    (Nombre, Usuario, Contraseña,Correo, Rol, Estado)
+                    VALUES (@Nombre, @Usuario, @Contraseña,@Correo 'Administrador', 1);";
 
                 using (SqlConnection conexion = Conexion.Conectar())
                 using (SqlCommand comando = new SqlCommand(comandoSQL, conexion))
@@ -272,6 +276,8 @@ namespace Modelo.Entidades
                     comando.Parameters.AddWithValue("@Nombre", nombre);
                     comando.Parameters.AddWithValue("@Usuario", usuario);
                     comando.Parameters.AddWithValue("@Contraseña", contraseñaHash);
+                    comando.Parameters.AddWithValue("@Correo", correo);
+
 
                     return comando.ExecuteNonQuery() > 0;
                 }
@@ -281,36 +287,51 @@ namespace Modelo.Entidades
                 switch (ex.Number)
                 {
                     case 53:
-                        MessageBox.Show("No se pudo conectar con el servidor SQL.", "Error 53", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("No se puede conectar al servidor SQL.", "ERR-SQL-001", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
 
                     case 4060:
-                        MessageBox.Show("No se pudo acceder a la base de datos.", "Error 4060", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("No se puede acceder a la base de datos.", "ERR-SQL-002", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
 
                     case -2:
-                        MessageBox.Show("La operación tardó demasiado.", "Error -2", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Tiempo de espera agotado.", "ERR-SQL-003", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         break;
 
                     case 208:
-                        MessageBox.Show("La tabla Usuario no existe.", "Error 208", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Tabla, vista o procedimiento no encontrado.", "ERR-SQL-004", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
 
                     case 2627:
+                        MessageBox.Show("Registro duplicado por clave primaria o UNIQUE.", "ERR-SQL-005", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+
                     case 2601:
-                        MessageBox.Show("El nombre de usuario ya existe.", "Error " + ex.Number, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Registro duplicado por índice UNIQUE.", "ERR-SQL-006", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+
+                    case 547:
+                        MessageBox.Show("Violación de clave foránea o restricción CHECK.", "ERR-SQL-007", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         break;
 
                     case 515:
-                        MessageBox.Show("Falta un dato obligatorio.", "Error 515", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Campo NOT NULL sin valor.", "ERR-SQL-008", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+
+                    case 245:
+                        MessageBox.Show("Conversión o formato de datos incorrecto.", "ERR-SQL-009", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+
+                    case 8115:
+                        MessageBox.Show("Desbordamiento numérico.", "ERR-SQL-010", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         break;
 
                     case 8152:
-                        MessageBox.Show("Uno de los datos ingresados es demasiado largo.", "Error 8152", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Datos demasiado largos para la columna.", "ERR-SQL-011", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         break;
 
                     default:
-                        MessageBox.Show("Error SQL: " + ex.Message, "Error " + ex.Number, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Número de error: " + ex.Number + "\n\nMensaje: " + ex.Message, "Error SQL", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                 }
 

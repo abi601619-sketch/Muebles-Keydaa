@@ -40,15 +40,15 @@
             this.lblIndoInicio = new System.Windows.Forms.Label();
             this.lblIniciarSesion = new System.Windows.Forms.Label();
             this.pbImagenPrincipal = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnCerrarClientes = new System.Windows.Forms.Button();
+            this.picLogo = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             this.pnlPrincipalLogin.SuspendLayout();
             this.pnlContenedorLogin.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbImagenPrincipal)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picLogo)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -84,7 +84,7 @@
             this.pnlContenedorLogin.Controls.Add(this.lblIndoInicio);
             this.pnlContenedorLogin.Controls.Add(this.lblIniciarSesion);
             this.pnlContenedorLogin.Controls.Add(this.pbImagenPrincipal);
-            this.pnlContenedorLogin.Controls.Add(this.pictureBox1);
+            this.pnlContenedorLogin.Controls.Add(this.picLogo);
             this.pnlContenedorLogin.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlContenedorLogin.Location = new System.Drawing.Point(0, 0);
             this.pnlContenedorLogin.Name = "pnlContenedorLogin";
@@ -195,16 +195,6 @@
             this.pbImagenPrincipal.TabIndex = 0;
             this.pbImagenPrincipal.TabStop = false;
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::Vista.Properties.Resources.LogoPrincipal;
-            this.pictureBox1.Location = new System.Drawing.Point(565, -21);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(350, 264);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 9;
-            this.pictureBox1.TabStop = false;
-            // 
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(129)))), ((int)(((byte)(62)))), ((int)(((byte)(36)))));
@@ -225,6 +215,15 @@
             this.btnCerrarClientes.UseVisualStyleBackColor = true;
             this.btnCerrarClientes.Click += new System.EventHandler(this.btnCerrarClientes_Click);
             // 
+            // picLogo
+            // 
+            this.picLogo.Location = new System.Drawing.Point(615, 3);
+            this.picLogo.Name = "picLogo";
+            this.picLogo.Size = new System.Drawing.Size(281, 201);
+            this.picLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picLogo.TabIndex = 12;
+            this.picLogo.TabStop = false;
+            // 
             // frmLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -237,13 +236,14 @@
             this.Name = "frmLogin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmLogin";
+            this.Load += new System.EventHandler(this.frmLogin_Load);
             this.panel1.ResumeLayout(false);
             this.pnlPrincipalLogin.ResumeLayout(false);
             this.pnlContenedorLogin.ResumeLayout(false);
             this.pnlContenedorLogin.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbImagenPrincipal)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picLogo)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -261,9 +261,9 @@
         private System.Windows.Forms.Label lblIndoInicio;
         private System.Windows.Forms.Label lblIniciarSesion;
         private System.Windows.Forms.PictureBox pbImagenPrincipal;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button btnCerrarClientes;
         private System.Windows.Forms.Button btnRecuperarContrasena;
+        private System.Windows.Forms.PictureBox picLogo;
     }
 }

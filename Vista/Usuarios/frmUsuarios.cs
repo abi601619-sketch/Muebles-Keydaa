@@ -2,6 +2,7 @@
 using System;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 using Vista.Responsive;
 
@@ -324,6 +325,7 @@ namespace Vista.Usuarios
                 MostrarUsuarios();
                 chkEstado.Visible = false;
                 ConfigurarTablaUsuarios();
+                CargarLogoEmpresa();
             }
             catch (Exception ex)
             {
@@ -404,6 +406,37 @@ namespace Vista.Usuarios
             chkEstado.Checked = false;
         }
 
+        private void CargarLogoEmpresa()
+        {
+            string rutaLogo = Modelo.Properties.Settings.Default.LogoEmpresa;
+
+            if (!string.IsNullOrWhiteSpace(rutaLogo) && File.Exists(rutaLogo))
+            {
+                try
+                {
+                    if (picLogo.Image != null)
+                    {
+                        picLogo.Image.Dispose();
+                        picLogo.Image = null;
+                    }
+
+                    using (Image imagenOriginal = Image.FromFile(rutaLogo))
+                    {
+                        picLogo.Image = new Bitmap(imagenOriginal);
+                    }
+
+                    picLogo.SizeMode = PictureBoxSizeMode.Zoom;
+                }
+                catch
+                {
+                    picLogo.Image = null;
+                }
+            }
+            else
+            {
+                picLogo.Image = null;
+            }
+        }
 
     }
 }

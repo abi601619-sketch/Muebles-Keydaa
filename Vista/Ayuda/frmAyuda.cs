@@ -68,7 +68,7 @@ namespace Vista.Ayuda
         {
             try
             {
-                AbrirManual("ManualTecnico.pdf");
+                AbrirManual("MANUAL TECNICO.pdf");
             }
             catch (FileNotFoundException)
             {
@@ -83,8 +83,7 @@ namespace Vista.Ayuda
         // ABRIR MANUAL
         private void AbrirManual(string nombreArchivo)
         {
-            string ruta = Path.Combine(
-                Application.StartupPath, "Recursos", "Manuales", nombreArchivo);
+            string ruta = Path.Combine(Application.StartupPath, "Recursos", "Manuales", nombreArchivo);
 
             if (!File.Exists(ruta))
             {

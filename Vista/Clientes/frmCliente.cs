@@ -504,8 +504,7 @@ namespace Vista.Clientes
             // Validar que haya seleccionado un tipo de cliente
             if (!modoEdicion && cbTipoCliente.SelectedIndex == -1)
             {
-                errorProvider.SetError(
-                    cbTipoCliente, "Seleccione un tipo de cliente.");
+                errorProvider.SetError(cbTipoCliente, "Seleccione un tipo de cliente.");
                 cbTipoCliente.Focus();
                 return false;
             }
@@ -665,7 +664,7 @@ namespace Vista.Clientes
                 e.Handled = true;
             }
 
-            if (char.IsDigit(e.KeyChar) && txtNIT.Text.Length >= 14)
+            if (char.IsDigit(e.KeyChar) && txtNIT.Text.Length >= 18)
             {
                 e.Handled = true;
             }
@@ -997,7 +996,7 @@ namespace Vista.Clientes
             // Validar NIT
             if (txtNIT.Text.Length != 14)
             {
-                errorProvider1.SetError(txtNIT, "El NIT debe tener 14 números.");
+                errorProvider1.SetError(txtNIT, "El NIT debe tener el formato 7172-910203-020-1.");
                 txtNIT.Focus();
                 return;
             }
@@ -1258,7 +1257,7 @@ namespace Vista.Clientes
             {
                 if (txtNIT.Text.Length != 14)
                 {
-                    errorProvider1.SetError(txtNIT, "El NIT debe tener 14 números.");
+                    errorProvider1.SetError(txtNIT, "El NIT debe tener el formato 8181-929200-182-9.");
                     txtNIT.Focus();
                     return;
                 }
@@ -1608,6 +1607,30 @@ namespace Vista.Clientes
 
         }
 
+        private void txtNIT_TextChanged(object sender, EventArgs e)
+        {
+            string nit = txtNIT.Text.Replace("-", "");
+
+            if (nit.Length > 14)
+                nit = nit.Substring(0, 14);
+
+            string resultado = "";
+
+            if (nit.Length > 0)
+                resultado += nit.Substring(0, Math.Min(4, nit.Length));
+
+            if (nit.Length > 4)
+                resultado += "-" + nit.Substring(4, Math.Min(6, nit.Length - 4));
+
+            if (nit.Length > 10)
+                resultado += "-" + nit.Substring(10, Math.Min(3, nit.Length - 10));
+
+            if (nit.Length > 13)
+                resultado += "-" + nit.Substring(13, 1);
+
+            txtNIT.Text = resultado;
+            txtNIT.SelectionStart = txtNIT.Text.Length;
+        }
     }
 }
 

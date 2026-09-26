@@ -33,10 +33,10 @@
             this.txtConfirmarContrasena = new System.Windows.Forms.TextBox();
             this.txtUsuario = new System.Windows.Forms.TextBox();
             this.lblDireccion = new System.Windows.Forms.Label();
-            this.lblCorreo = new System.Windows.Forms.Label();
+            this.lblUsuario = new System.Windows.Forms.Label();
             this.txtContrasena = new System.Windows.Forms.TextBox();
             this.txtNombreAdministrador = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
+            this.lblNombreUsuario = new System.Windows.Forms.Label();
             this.button6 = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.chkAceptarCondiciones = new System.Windows.Forms.CheckBox();
@@ -52,6 +52,8 @@
             this.lblCrear = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.txtCorreo = new System.Windows.Forms.TextBox();
+            this.lblCorreo = new System.Windows.Forms.Label();
             this.panel3.SuspendLayout();
             this.flpBotones.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -96,15 +98,15 @@
             this.lblDireccion.Text = "Confirmar contraseña:";
             this.lblDireccion.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // lblCorreo
+            // lblUsuario
             // 
-            this.lblCorreo.Font = new System.Drawing.Font("Times New Roman", 12F);
-            this.lblCorreo.Location = new System.Drawing.Point(27, 72);
-            this.lblCorreo.Name = "lblCorreo";
-            this.lblCorreo.Size = new System.Drawing.Size(61, 22);
-            this.lblCorreo.TabIndex = 15;
-            this.lblCorreo.Text = "Usuario:";
-            this.lblCorreo.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.lblUsuario.Font = new System.Drawing.Font("Times New Roman", 12F);
+            this.lblUsuario.Location = new System.Drawing.Point(27, 72);
+            this.lblUsuario.Name = "lblUsuario";
+            this.lblUsuario.Size = new System.Drawing.Size(61, 22);
+            this.lblUsuario.TabIndex = 15;
+            this.lblUsuario.Text = "Usuario:";
+            this.lblUsuario.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // txtContrasena
             // 
@@ -122,15 +124,15 @@
             this.txtNombreAdministrador.Size = new System.Drawing.Size(551, 20);
             this.txtNombreAdministrador.TabIndex = 12;
             // 
-            // label3
+            // lblNombreUsuario
             // 
-            this.label3.Font = new System.Drawing.Font("Times New Roman", 12F);
-            this.label3.Location = new System.Drawing.Point(27, 15);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(124, 22);
-            this.label3.TabIndex = 11;
-            this.label3.Text = "Nombre completo:";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.lblNombreUsuario.Font = new System.Drawing.Font("Times New Roman", 12F);
+            this.lblNombreUsuario.Location = new System.Drawing.Point(27, 15);
+            this.lblNombreUsuario.Name = "lblNombreUsuario";
+            this.lblNombreUsuario.Size = new System.Drawing.Size(124, 22);
+            this.lblNombreUsuario.TabIndex = 11;
+            this.lblNombreUsuario.Text = "Nombre completo:";
+            this.lblNombreUsuario.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // button6
             // 
@@ -147,24 +149,26 @@
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.panel3.Controls.Add(this.lblCorreo);
+            this.panel3.Controls.Add(this.txtCorreo);
             this.panel3.Controls.Add(this.chkAceptarCondiciones);
             this.panel3.Controls.Add(this.lblLogo);
             this.panel3.Controls.Add(this.txtConfirmarContrasena);
             this.panel3.Controls.Add(this.txtUsuario);
             this.panel3.Controls.Add(this.lblDireccion);
-            this.panel3.Controls.Add(this.lblCorreo);
+            this.panel3.Controls.Add(this.lblUsuario);
             this.panel3.Controls.Add(this.txtContrasena);
             this.panel3.Controls.Add(this.txtNombreAdministrador);
-            this.panel3.Controls.Add(this.label3);
+            this.panel3.Controls.Add(this.lblNombreUsuario);
             this.panel3.Location = new System.Drawing.Point(224, 98);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(632, 296);
+            this.panel3.Size = new System.Drawing.Size(632, 328);
             this.panel3.TabIndex = 16;
             // 
             // chkAceptarCondiciones
             // 
             this.chkAceptarCondiciones.AutoSize = true;
-            this.chkAceptarCondiciones.Location = new System.Drawing.Point(29, 247);
+            this.chkAceptarCondiciones.Location = new System.Drawing.Point(28, 296);
             this.chkAceptarCondiciones.Name = "chkAceptarCondiciones";
             this.chkAceptarCondiciones.Size = new System.Drawing.Size(226, 17);
             this.chkAceptarCondiciones.TabIndex = 21;
@@ -302,6 +306,25 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
+            // txtCorreo
+            // 
+            this.txtCorreo.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.txtCorreo.Location = new System.Drawing.Point(28, 263);
+            this.txtCorreo.Multiline = true;
+            this.txtCorreo.Name = "txtCorreo";
+            this.txtCorreo.Size = new System.Drawing.Size(551, 20);
+            this.txtCorreo.TabIndex = 22;
+            // 
+            // lblCorreo
+            // 
+            this.lblCorreo.Font = new System.Drawing.Font("Times New Roman", 12F);
+            this.lblCorreo.Location = new System.Drawing.Point(24, 238);
+            this.lblCorreo.Name = "lblCorreo";
+            this.lblCorreo.Size = new System.Drawing.Size(62, 22);
+            this.lblCorreo.TabIndex = 23;
+            this.lblCorreo.Text = "Correo:";
+            this.lblCorreo.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
             // ConfiguracionParte3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -333,10 +356,10 @@
         private System.Windows.Forms.TextBox txtConfirmarContrasena;
         private System.Windows.Forms.TextBox txtUsuario;
         private System.Windows.Forms.Label lblDireccion;
-        private System.Windows.Forms.Label lblCorreo;
+        private System.Windows.Forms.Label lblUsuario;
         private System.Windows.Forms.TextBox txtContrasena;
         private System.Windows.Forms.TextBox txtNombreAdministrador;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lblNombreUsuario;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Button button5;
@@ -352,5 +375,7 @@
         private System.Windows.Forms.CheckBox chkAceptarCondiciones;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ErrorProvider errorProvider1;
+        private System.Windows.Forms.Label lblCorreo;
+        private System.Windows.Forms.TextBox txtCorreo;
     }
 }

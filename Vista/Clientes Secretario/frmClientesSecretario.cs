@@ -943,15 +943,13 @@ namespace Vista.Clientes_Secretario
         private void txtDUI_KeyPress(object sender, KeyPressEventArgs e)
         {
             // Solo permite números y borrar
-            if (!char.IsDigit(e.KeyChar) &&
-                e.KeyChar != (char)Keys.Back)
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
             {
                 e.Handled = true;
             }
 
             // Máximo 10 caracteres
-            if (char.IsDigit(e.KeyChar) &&
-                txtDUI.Text.Length >= 10)
+            if (char.IsDigit(e.KeyChar) && txtDUI.Text.Length >= 10)
             {
                 e.Handled = true;
             }
@@ -960,15 +958,13 @@ namespace Vista.Clientes_Secretario
         private void txtNIT_KeyPress(object sender, KeyPressEventArgs e)
         {
             // Solo permite números y borrar
-            if (!char.IsDigit(e.KeyChar) &&
-                e.KeyChar != (char)Keys.Back)
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
             {
                 e.Handled = true;
             }
 
             // Máximo 14 caracteres
-            if (char.IsDigit(e.KeyChar) &&
-                txtNIT.Text.Length >= 14)
+            if (char.IsDigit(e.KeyChar) && txtNIT.Text.Length >= 18)
             {
                 e.Handled = true;
             }
@@ -977,15 +973,13 @@ namespace Vista.Clientes_Secretario
         private void txtTelefono_KeyPress(object sender, KeyPressEventArgs e)
         {
             // Solo permite números y borrar
-            if (!char.IsDigit(e.KeyChar) &&
-                e.KeyChar != (char)Keys.Back)
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
             {
                 e.Handled = true;
             }
 
             // Máximo 9 caracteres
-            if (char.IsDigit(e.KeyChar) &&
-                txtTelefono.Text.Length >= 9)
+            if (char.IsDigit(e.KeyChar) && txtTelefono.Text.Length >= 9)
             {
                 e.Handled = true;
             }
@@ -1730,7 +1724,30 @@ namespace Vista.Clientes_Secretario
             LimpiarFormularioCliente();
         }
 
+        private void txtNIT_TextChanged(object sender, EventArgs e)
+        {
+            string nit = txtNIT.Text.Replace("-", "");
 
+            if (nit.Length > 14)
+                nit = nit.Substring(0, 14);
+
+            string resultado = "";
+
+            if (nit.Length > 0)
+                resultado += nit.Substring(0, Math.Min(4, nit.Length));
+
+            if (nit.Length > 4)
+                resultado += "-" + nit.Substring(4, Math.Min(6, nit.Length - 4));
+
+            if (nit.Length > 10)
+                resultado += "-" + nit.Substring(10, Math.Min(3, nit.Length - 10));
+
+            if (nit.Length > 13)
+                resultado += "-" + nit.Substring(13, 1);
+
+            txtNIT.Text = resultado;
+            txtNIT.SelectionStart = txtNIT.Text.Length;
+        }
     }
 }
 
