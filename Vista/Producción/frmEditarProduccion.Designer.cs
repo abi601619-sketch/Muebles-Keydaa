@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.dtpFechaEntrega = new System.Windows.Forms.DateTimePicker();
             this.nudProgreso = new System.Windows.Forms.NumericUpDown();
             this.txtMuebleRealizar = new System.Windows.Forms.TextBox();
@@ -45,8 +46,10 @@
             this.lblEstado = new System.Windows.Forms.Label();
             this.txtCliente = new System.Windows.Forms.TextBox();
             this.lblTextoEstado = new System.Windows.Forms.Label();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.nudProgreso)).BeginInit();
             this.pnlBuscarClienteSuperior.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // dtpFechaEntrega
@@ -218,6 +221,10 @@
             this.lblTextoEstado.TabIndex = 49;
             this.lblTextoEstado.Text = "Estado :";
             // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
             // frmEditarProduccion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -246,6 +253,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudProgreso)).EndInit();
             this.pnlBuscarClienteSuperior.ResumeLayout(false);
             this.pnlBuscarClienteSuperior.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -269,5 +277,6 @@
         private System.Windows.Forms.Label lblEstado;
         private System.Windows.Forms.TextBox txtCliente;
         private System.Windows.Forms.Label lblTextoEstado;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

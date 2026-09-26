@@ -32,7 +32,6 @@ namespace Vista.Proveedores
                 txtBuscar.ForeColor = Color.Black;
             }
         }
-
         private void txtBuscar_Leave(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtBuscar.Text))
@@ -91,43 +90,32 @@ namespace Vista.Proveedores
 
             dgvProveedores.AllowUserToResizeRows = false;
 
-            dgvProveedores.ColumnHeadersDefaultCellStyle.BackColor =
-                Color.FromArgb(121, 75, 45);
+            dgvProveedores.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(121, 75, 45);
 
-            dgvProveedores.ColumnHeadersDefaultCellStyle.ForeColor =
-                Color.White;
+            dgvProveedores.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
 
-            dgvProveedores.ColumnHeadersDefaultCellStyle.Font =
-                new Font("Times New Roman", 9, FontStyle.Regular);
+            dgvProveedores.ColumnHeadersDefaultCellStyle.Font = new Font("Times New Roman", 9, FontStyle.Regular);
 
-            dgvProveedores.ColumnHeadersDefaultCellStyle.Alignment =
-                DataGridViewContentAlignment.MiddleCenter;
+            dgvProveedores.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
-            dgvProveedores.ColumnHeadersDefaultCellStyle.SelectionBackColor =
-                Color.FromArgb(121, 75, 45);
+            dgvProveedores.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(121, 75, 45);
 
-            dgvProveedores.ColumnHeadersDefaultCellStyle.SelectionForeColor =
-                Color.White;
+            dgvProveedores.ColumnHeadersDefaultCellStyle.SelectionForeColor = Color.White;
 
             // Filas
-            dgvProveedores.DefaultCellStyle.BackColor =
-                Color.White;
+            dgvProveedores.DefaultCellStyle.BackColor = Color.White;
 
-            dgvProveedores.DefaultCellStyle.ForeColor =
-                Color.FromArgb(45, 45, 45);
+            dgvProveedores.DefaultCellStyle.ForeColor = Color.FromArgb(45, 45, 45);
 
-            dgvProveedores.DefaultCellStyle.Font =
-                new Font("Segoe UI", 9, FontStyle.Regular);
+            dgvProveedores.DefaultCellStyle.Font = new Font("Segoe UI", 9, FontStyle.Regular);
 
-            dgvProveedores.DefaultCellStyle.Alignment =
-                DataGridViewContentAlignment.MiddleLeft;
+            dgvProveedores.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
 
             // Filas alternadas
             dgvProveedores.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(248, 241, 232);
 
             // Selección
-            dgvProveedores.DefaultCellStyle.SelectionBackColor =
-                Color.FromArgb(224, 193, 157);
+            dgvProveedores.DefaultCellStyle.SelectionBackColor = Color.FromArgb(224, 193, 157);
 
             dgvProveedores.DefaultCellStyle.SelectionForeColor = Color.Black;
 
@@ -150,14 +138,12 @@ namespace Vista.Proveedores
             dgvProveedores.AllowUserToDeleteRows = false;
 
             // Seleccionar fila completa
-            dgvProveedores.SelectionMode =
-                DataGridViewSelectionMode.FullRowSelect;
+            dgvProveedores.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
             dgvProveedores.MultiSelect = false;
 
             // Quitar borde exterior
-            dgvProveedores.BorderStyle =
-                BorderStyle.None;
+            dgvProveedores.BorderStyle = BorderStyle.None;
 
             // Quitar columna de selección de filas
             dgvProveedores.RowHeadersVisible = false;
@@ -214,12 +200,7 @@ namespace Vista.Proveedores
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error al mostrar los proveedores: " + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Error al mostrar los proveedores: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -232,8 +213,7 @@ namespace Vista.Proveedores
                 return;
             }
 
-            totalPaginas = (int)Math.Ceiling(
-                (double)dtProveedores.Rows.Count / registrosPorPagina
+            totalPaginas = (int)Math.Ceiling((double)dtProveedores.Rows.Count / registrosPorPagina
             );
 
             if (totalPaginas == 0)
@@ -252,16 +232,12 @@ namespace Vista.Proveedores
 
             int inicio = (paginaActual - 1) * registrosPorPagina;
 
-            int fin = Math.Min(
-                inicio + registrosPorPagina,
-                dtProveedores.Rows.Count
-            );
+            int fin = Math.Min(inicio + registrosPorPagina, dtProveedores.Rows.Count);
 
             for (int i = inicio; i < fin; i++)
             {
                 dtPagina.ImportRow(dtProveedores.Rows[i]);
             }
-
             // Mostrar únicamente los registros de la página actual
             dgvProveedores.DataSource = null;
             dgvProveedores.DataSource = dtPagina;
@@ -276,8 +252,7 @@ namespace Vista.Proveedores
             ConfigurarTablaProveedores();
 
             // Mostrar página actual
-            lblPagina.Text =
-                $"Página {paginaActual} de {totalPaginas}";
+            lblPagina.Text = $"Página {paginaActual} de {totalPaginas}";
 
             // Activar o desactivar botones
             btnAnterior.Enabled = paginaActual > 1;
@@ -306,30 +281,29 @@ namespace Vista.Proveedores
             //Validar que el nombre del proveedor no quede vacío
             if (string.IsNullOrWhiteSpace(txtNombreProveedor.Text))
             {
-                MessageBox.Show("Ingrese el nombre del proveedor.");
+                errorProvider1.SetError(txtNombreProveedor, "Ingrese el nombre del proveedor.");
                 txtNombreProveedor.Focus();
                 return;
             }
             //Validar que telefono no este vacío
             if (string.IsNullOrWhiteSpace(txtTelefono.Text))
             {
-                MessageBox.Show("Ingrese el teléfono del proveedor.");
+                errorProvider1.SetError(txtTelefono, "Ingrese el teléfono del proveedor.");
                 txtTelefono.Focus();
                 return;
             }
             // Validar que ubicacion no este vacía
             if (string.IsNullOrWhiteSpace(txtUbicacion.Text))
             {
-                MessageBox.Show("Ingrese la ubicación del proveedor.");
+                errorProvider1.SetError(txtUbicacion, "Ingrese la ubicación del proveedor.");
                 txtUbicacion.Focus();
                 return;
             }
 
-
             //Validar Correo
             if (string.IsNullOrWhiteSpace(txtCorreo.Text))
             {
-                MessageBox.Show("El correo es obligatorio.");
+                errorProvider1.SetError(txtCorreo, "El correo es obligatorio.");
                 txtCorreo.Focus();
                 return;
             }
@@ -355,7 +329,6 @@ namespace Vista.Proveedores
             // Todo proveedor su estado inicial siempre sera activo, hasta que el usuario decida desactivarlo
             proveedor.Estado1 = true;
 
-
             if (proveedor.InsertarProveedor())
             {
                 MessageBox.Show("Proveedor registrado correctamente.", "Registro exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -364,7 +337,6 @@ namespace Vista.Proveedores
                 // Actualiza la tabla de proveedores
 
                 MostrarProveedor();
-
             }
         }
 
@@ -384,7 +356,6 @@ namespace Vista.Proveedores
                 txtUbicacion.Text = fila.Cells["Ubicacion"].Value.ToString();
                 chkEstado.Checked = fila.Cells["Estado"].Value.ToString() == "Activo";
 
-
                 btnEditar.Visible = true;
                 btnGuardar.Visible = true;
 
@@ -398,8 +369,6 @@ namespace Vista.Proveedores
             HabilitarCampos();
 
         }
-
-
         private void HabilitarCampos()
         {
             chkEstado.Enabled = true;
@@ -408,8 +377,6 @@ namespace Vista.Proveedores
             txtTelefono.ReadOnly = false;
             txtCorreo.ReadOnly = false;
             txtUbicacion.ReadOnly = false;
-
-
         }
 
         private void BloquearCampos()
@@ -419,10 +386,7 @@ namespace Vista.Proveedores
             txtTelefono.ReadOnly = true;
             txtCorreo.ReadOnly = true;
             txtUbicacion.ReadOnly = true;
-
-
         }
-
 
         private void Limpiar()
         {
@@ -451,7 +415,6 @@ namespace Vista.Proveedores
         {
 
         }
-
         private void DesactivarCopiarPegar(Control control)
         {
             foreach (Control elemento in control.Controls)
@@ -516,12 +479,7 @@ namespace Vista.Proveedores
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -572,11 +530,10 @@ namespace Vista.Proveedores
             proveedor.Telefono1 = txtTelefono.Text.Trim();
             proveedor.Correo1 = txtCorreo.Text.Trim();
             proveedor.Ubicacion1 = txtUbicacion.Text.Trim();
-
-            //Validar Correo
+            // Validar correo
             if (string.IsNullOrWhiteSpace(txtCorreo.Text))
             {
-                MessageBox.Show("El correo es obligatorio.");
+                errorProvider1.SetError(txtCorreo, "El correo es obligatorio.");
                 txtCorreo.Focus();
                 return;
             }
@@ -587,7 +544,7 @@ namespace Vista.Proveedores
             }
             catch
             {
-                MessageBox.Show("Ingrese un correo válido.");
+                errorProvider1.SetError(txtCorreo, "Ingrese un correo válido.");
                 txtCorreo.Focus();
                 return;
             }
@@ -624,7 +581,6 @@ namespace Vista.Proveedores
                 btnDesactivar.ForeColor = Color.White;
             }
         }
-
 
         private void btnNuevo_Click(object sender, EventArgs e)
         {

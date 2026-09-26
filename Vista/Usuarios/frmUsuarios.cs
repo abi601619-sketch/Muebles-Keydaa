@@ -83,53 +83,60 @@ namespace Vista.Usuarios
                 string contraseña = txtContrasena.Text;
                 bool estado = true;
 
+                // Validar nombre
                 if (string.IsNullOrWhiteSpace(nombre))
                 {
-                    MessageBox.Show("Debe ingresar el nombre del usuario.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    errorProvider1.SetError(txtUsuario, "Debe ingresar el nombre del usuario.");
                     txtUsuario.Focus();
                     return;
                 }
 
+                // Validar nombre de usuario
                 if (string.IsNullOrWhiteSpace(usuarioNombre))
                 {
-                    MessageBox.Show("Debe ingresar un nombre de usuario.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    errorProvider1.SetError(txtUsuario, "Debe ingresar un nombre de usuario.");
                     txtUsuario.Focus();
                     return;
                 }
 
+                // Validar correo
                 if (string.IsNullOrWhiteSpace(correo))
                 {
-                    MessageBox.Show("Debe ingresar un correo electrónico.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    errorProvider1.SetError(txtCorreo, "Debe ingresar un correo electrónico.");
                     txtCorreo.Focus();
                     return;
                 }
 
+                // Validar formato del correo
                 if (!correo.Contains("@") || !correo.Contains("."))
                 {
-                    MessageBox.Show("Ingrese un correo electrónico válido.", "Correo inválido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    errorProvider1.SetError(txtCorreo, "Ingrese un correo electrónico válido.");
                     txtCorreo.Focus();
                     return;
                 }
 
+                // Validar contraseña
                 if (string.IsNullOrWhiteSpace(contraseña))
                 {
-                    MessageBox.Show("Debe ingresar una contraseña.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    errorProvider1.SetError(txtContrasena, "Debe ingresar una contraseña.");
                     txtContrasena.Focus();
                     return;
                 }
 
+                // Validar rol
                 if (cmbRol.SelectedIndex == -1)
                 {
-                    MessageBox.Show("Se debe seleccionar un rol.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    errorProvider1.SetError(cmbRol, "Se debe seleccionar un rol.");
                     cmbRol.Focus();
                     return;
                 }
 
                 string rol = cmbRol.Text.Trim();
 
+                // Validar rol válido
                 if (rol != "Administrador" && rol != "Secretario")
                 {
-                    MessageBox.Show("Se debe seleccionar un rol válido.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    errorProvider1.SetError(cmbRol, "Se debe seleccionar un rol válido.");
                     cmbRol.Focus();
                     return;
                 }
@@ -143,7 +150,6 @@ namespace Vista.Usuarios
                     Rol1 = rol,
                     Estado1 = estado
                 };
-
                 nuevoUsuario.InsertarUsuario();
 
                 MessageBox.Show("Usuario registrado correctamente.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -169,7 +175,6 @@ namespace Vista.Usuarios
                 MessageBox.Show("Error inesperado: " + ex.Message, "Error inesperado", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
 
         // DESACTIVAR USUARIO
         private void btnDesactivarUsuario_Click(object sender, EventArgs e)
@@ -236,8 +241,7 @@ namespace Vista.Usuarios
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ocurrió un error al cargar los usuarios:\n\n" + ex.Message, "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Ocurrió un error al cargar los usuarios:\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void CalcularPaginasUsuarios()

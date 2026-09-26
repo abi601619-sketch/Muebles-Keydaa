@@ -28,9 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.btnRecuperarClave = new System.Windows.Forms.Button();
             this.lblBienvenida = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.btnVerContrasena = new System.Windows.Forms.Button();
             this.btnCodigoRecuperar = new System.Windows.Forms.Button();
             this.lblNuevaContra = new System.Windows.Forms.Label();
             this.txtConfirmarContrasena = new System.Windows.Forms.TextBox();
@@ -40,8 +42,9 @@
             this.txtNuevaContrasena = new System.Windows.Forms.TextBox();
             this.txtCorreoRecuperacion = new System.Windows.Forms.TextBox();
             this.lblCorreoRecuperacion = new System.Windows.Forms.Label();
-            this.btnVerContrasena = new System.Windows.Forms.Button();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // btnRecuperarClave
@@ -85,6 +88,19 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(632, 359);
             this.panel3.TabIndex = 17;
+            // 
+            // btnVerContrasena
+            // 
+            this.btnVerContrasena.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.btnVerContrasena.FlatAppearance.BorderSize = 0;
+            this.btnVerContrasena.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnVerContrasena.Image = global::Vista.Properties.Resources.ojo__1_;
+            this.btnVerContrasena.Location = new System.Drawing.Point(553, 190);
+            this.btnVerContrasena.Name = "btnVerContrasena";
+            this.btnVerContrasena.Size = new System.Drawing.Size(28, 17);
+            this.btnVerContrasena.TabIndex = 21;
+            this.btnVerContrasena.UseVisualStyleBackColor = false;
+            this.btnVerContrasena.Click += new System.EventHandler(this.btnVerContrasena_Click);
             // 
             // btnCodigoRecuperar
             // 
@@ -170,18 +186,9 @@
             this.lblCorreoRecuperacion.Text = "Correo:";
             this.lblCorreoRecuperacion.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // btnVerContrasena
+            // errorProvider1
             // 
-            this.btnVerContrasena.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.btnVerContrasena.FlatAppearance.BorderSize = 0;
-            this.btnVerContrasena.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnVerContrasena.Image = global::Vista.Properties.Resources.ojo__1_;
-            this.btnVerContrasena.Location = new System.Drawing.Point(553, 190);
-            this.btnVerContrasena.Name = "btnVerContrasena";
-            this.btnVerContrasena.Size = new System.Drawing.Size(28, 17);
-            this.btnVerContrasena.TabIndex = 21;
-            this.btnVerContrasena.UseVisualStyleBackColor = false;
-            this.btnVerContrasena.Click += new System.EventHandler(this.btnVerContrasena_Click);
+            this.errorProvider1.ContainerControl = this;
             // 
             // frmRecuperarClave
             // 
@@ -195,6 +202,7 @@
             this.Text = "RECUPERAR CONTRASEÑA";
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -214,5 +222,6 @@
         private System.Windows.Forms.Label lblCorreoRecuperacion;
         private System.Windows.Forms.Button btnCodigoRecuperar;
         private System.Windows.Forms.Button btnVerContrasena;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

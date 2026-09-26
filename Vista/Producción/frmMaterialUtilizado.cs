@@ -21,9 +21,6 @@ namespace Vista.Producción
         // Tabla temporal donde se almacenan los materiales
         // agregados antes de guardarlos en la base de datos.
         private DataTable dtMateriales;
-
-
-
         public frmMaterialUtilizado(int idProduccion, string producto, DateTime fechaEntrega)
         {
             InitializeComponent();
@@ -40,55 +37,29 @@ namespace Vista.Producción
         {
             // Encabezado
             dgvMaterialesAgregados.EnableHeadersVisualStyles = false;
-
-            dgvMaterialesAgregados.ColumnHeadersDefaultCellStyle.BackColor =
-                Color.FromArgb(121, 75, 45);
-
-            dgvMaterialesAgregados.ColumnHeadersDefaultCellStyle.ForeColor =
-                Color.White;
-
-            dgvMaterialesAgregados.ColumnHeadersDefaultCellStyle.Font =
-                new Font("Segoe UI", 9, FontStyle.Regular);
-
-            dgvMaterialesAgregados.ColumnHeadersDefaultCellStyle.Alignment =
-                DataGridViewContentAlignment.MiddleCenter;
-
-            dgvMaterialesAgregados.ColumnHeadersDefaultCellStyle.SelectionBackColor =
-                Color.FromArgb(121, 75, 45);
-
-            dgvMaterialesAgregados.ColumnHeadersDefaultCellStyle.SelectionForeColor =
-                Color.White;
+            dgvMaterialesAgregados.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(121, 75, 45);
+            dgvMaterialesAgregados.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dgvMaterialesAgregados.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9, FontStyle.Regular);
+            dgvMaterialesAgregados.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvMaterialesAgregados.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(121, 75, 45);
+            dgvMaterialesAgregados.ColumnHeadersDefaultCellStyle.SelectionForeColor = Color.White;
 
             // Filas
-            dgvMaterialesAgregados.DefaultCellStyle.BackColor =
-                Color.White;
-
-            dgvMaterialesAgregados.DefaultCellStyle.ForeColor =
-                Color.FromArgb(45, 45, 45);
-
-            dgvMaterialesAgregados.DefaultCellStyle.Font =
-                new Font("Segoe UI", 9, FontStyle.Regular);
-
-            dgvMaterialesAgregados.DefaultCellStyle.Alignment =
-                DataGridViewContentAlignment.MiddleLeft;
+            dgvMaterialesAgregados.DefaultCellStyle.BackColor = Color.White;
+            dgvMaterialesAgregados.DefaultCellStyle.ForeColor = Color.FromArgb(45, 45, 45);
+            dgvMaterialesAgregados.DefaultCellStyle.Font = new Font("Segoe UI", 9, FontStyle.Regular);
+            dgvMaterialesAgregados.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
 
             // Filas alternadas
-            dgvMaterialesAgregados.AlternatingRowsDefaultCellStyle.BackColor =
-                Color.FromArgb(248, 241, 232);
+            dgvMaterialesAgregados.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(248, 241, 232);
 
             // Selección
-            dgvMaterialesAgregados.DefaultCellStyle.SelectionBackColor =
-                Color.FromArgb(224, 193, 157);
-
-            dgvMaterialesAgregados.DefaultCellStyle.SelectionForeColor =
-                Color.Black;
+            dgvMaterialesAgregados.DefaultCellStyle.SelectionBackColor = Color.FromArgb(224, 193, 157);
+            dgvMaterialesAgregados.DefaultCellStyle.SelectionForeColor = Color.Black;
 
             // Bordes
-            dgvMaterialesAgregados.CellBorderStyle =
-                DataGridViewCellBorderStyle.SingleHorizontal;
-
-            dgvMaterialesAgregados.GridColor =
-                Color.FromArgb(220, 220, 220);
+            dgvMaterialesAgregados.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            dgvMaterialesAgregados.GridColor = Color.FromArgb(220, 220, 220);
 
             // Alto de las filas
             dgvMaterialesAgregados.RowTemplate.Height = 32;
@@ -98,31 +69,22 @@ namespace Vista.Producción
 
             // No permitir modificar
             dgvMaterialesAgregados.ReadOnly = true;
-
             dgvMaterialesAgregados.AllowUserToAddRows = false;
-
             dgvMaterialesAgregados.AllowUserToDeleteRows = false;
 
             // Seleccionar fila completa
-            dgvMaterialesAgregados.SelectionMode =
-                DataGridViewSelectionMode.FullRowSelect;
-
+            dgvMaterialesAgregados.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvMaterialesAgregados.MultiSelect = false;
 
             // Quitar borde exterior
-            dgvMaterialesAgregados.BorderStyle =
-                BorderStyle.None;
+            dgvMaterialesAgregados.BorderStyle = BorderStyle.None;
 
             // Ajustar el contenido
-            dgvMaterialesAgregados.DefaultCellStyle.WrapMode =
-                DataGridViewTriState.True;
-
-            dgvMaterialesAgregados.AutoSizeRowsMode =
-                DataGridViewAutoSizeRowsMode.AllCells;
+            dgvMaterialesAgregados.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            dgvMaterialesAgregados.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
 
             // Centrar verticalmente el contenido
-            dgvMaterialesAgregados.DefaultCellStyle.Alignment =
-                DataGridViewContentAlignment.MiddleLeft;
+            dgvMaterialesAgregados.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
         }
 
         //--------------------------------------------------------------------------
@@ -133,81 +95,42 @@ namespace Vista.Producción
             ToolTip toolTip = new ToolTip();
 
             // Materiales
-            toolTip.SetToolTip(
-                cbMateriales,
-                "Selecciona el material que deseas utilizar en la producción."
-            );
+            toolTip.SetToolTip(cbMateriales, "Selecciona el material que deseas utilizar en la producción.");
 
             // Unidad de medida
-            toolTip.SetToolTip(
-                txtUnidadMedida,
-                "Muestra la unidad de medida correspondiente al material seleccionado."
-            );
+            toolTip.SetToolTip(txtUnidadMedida, "Muestra la unidad de medida correspondiente al material seleccionado.");
 
             // Stock disponible
-            toolTip.SetToolTip(
-                txtStockDisponible,
-                "Muestra la cantidad disponible del material seleccionado."
-            );
+            toolTip.SetToolTip(txtStockDisponible, "Muestra la cantidad disponible del material seleccionado.");
 
             // Cantidad utilizada
-            toolTip.SetToolTip(
-                txtCantidadUtilizada,
-                "Ingresa la cantidad del material que será utilizada en la producción."
-            );
+            toolTip.SetToolTip(txtCantidadUtilizada, "Ingresa la cantidad del material que será utilizada en la producción.");
 
             // Agregar material
-            toolTip.SetToolTip(
-                btnAgregarMaterialUtilizado,
-                "Agrega el material y la cantidad utilizada a la lista."
-            );
+            toolTip.SetToolTip(btnAgregarMaterialUtilizado, "Agrega el material y la cantidad utilizada a la lista.");
 
             // Guardar consumo
-            toolTip.SetToolTip(
-                btnGuardarConsumo,
-                "Guarda en la base de datos los materiales utilizados."
-            );
+            toolTip.SetToolTip(btnGuardarConsumo, "Guarda en la base de datos los materiales utilizados.");
 
             // Salir
-            toolTip.SetToolTip(
-                btnSalir,
-                "Cierra el formulario de materiales utilizados."
-            );
+            toolTip.SetToolTip(btnSalir, "Cierra el formulario de materiales utilizados.");
 
             // ID de producción
-            toolTip.SetToolTip(
-                txtIdProduccion,
-                "Muestra el número de producción seleccionada."
-            );
+            toolTip.SetToolTip(txtIdProduccion, "Muestra el número de producción seleccionada.");
 
             // Mueble
-            toolTip.SetToolTip(
-                txtMuebleProduccion,
-                "Muestra el producto o mueble asociado a la producción."
-            );
+            toolTip.SetToolTip(txtMuebleProduccion, "Muestra el producto o mueble asociado a la producción.");
 
             // Fecha de entrega
-            toolTip.SetToolTip(
-                dtpFechaEntrega,
-                "Muestra la fecha de entrega establecida para la producción."
-            );
+            toolTip.SetToolTip(dtpFechaEntrega, "Muestra la fecha de entrega establecida para la producción.");
 
             // Tabla
-            toolTip.SetToolTip(
-                dgvMaterialesAgregados,
-                "Muestra los materiales utilizados en la producción."
-            );
+            toolTip.SetToolTip(dgvMaterialesAgregados, "Muestra los materiales utilizados en la producción.");
         }
-
-
-
-
-
         private void btnSalir_Click(object sender, EventArgs e)
         {
             Close();
         }
-
 
         private void frmMaterialUtilizado_Load(object sender, EventArgs e)
         {
@@ -332,7 +255,6 @@ namespace Vista.Producción
             dgvMaterialesAgregados.AllowUserToAddRows = false;
         }
 
-
         // CAMBIO DE MATERIAL SELECCIONADO
 
         private void cbMateriales_SelectedIndexChanged(object sender, EventArgs e)
@@ -344,7 +266,6 @@ namespace Vista.Producción
 
                 return;
             }
-
             try
             {
                 DataRowView fila = cbMateriales.SelectedItem as DataRowView;
@@ -367,7 +288,6 @@ namespace Vista.Producción
             }
         }
 
-
         // AGREGAR MATERIAL A LA LISTA
         private void btnAgregarMaterialUtilizado_Click_1(object sender, EventArgs e)
         {
@@ -381,14 +301,12 @@ namespace Vista.Producción
             }
             // VALIDAR CANTIDAD DEL MATERIAL
 
-
             if (!int.TryParse(txtCantidadUtilizada.Text, out int cantidad))
             {
                 MessageBox.Show("Ingresa una cantidad válida.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                 return;
             }
-
 
             // Validar que la cantidad sea mayor que cero
             if (cantidad <= 0)
@@ -407,7 +325,6 @@ namespace Vista.Producción
                 return;
             }
 
-
             // VALIDAR QUE LA CANTIDAD UTILIZADA NO SUPERE EL STOCK DISPONIBLE
 
             if (cantidad > stock)
@@ -416,7 +333,6 @@ namespace Vista.Producción
 
                 return;
             }
-
 
             // OBTENER DATOS DEL MATERIAL
 
@@ -428,8 +344,6 @@ namespace Vista.Producción
 
             // Mostrar la unidad de medida correspondiente
             txtUnidadMedida.Text = fila["UnidadMedida"].ToString();
-
-
 
             // AGREGAR CADA MATERIAL A LA TABLA TEMPORAL
 
@@ -448,13 +362,6 @@ namespace Vista.Producción
             txtStockDisponible.Clear();
             txtCantidadUtilizada.Clear();
         }
-
-
-
-
-
-
-
         private void btnGuardarConsumo_Click(object sender, EventArgs e)
         {
             try

@@ -18,8 +18,6 @@ namespace Vista.Pedidos_Secretario
             dgvDetallesDePedido.ReadOnly = true;
 
         }
-
-
         // PAGINACIÓN
         private DataTable dtPedidos;
         private int paginaActual = 1;
@@ -29,8 +27,7 @@ namespace Vista.Pedidos_Secretario
 
         private void EliminarProducto_Click(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex < 0 || e.ColumnIndex < 0 ||
-                dgvDetallesDePedido.Columns[e.ColumnIndex].Name != "EliminarProducto")
+            if (e.RowIndex < 0 || e.ColumnIndex < 0 || dgvDetallesDePedido.Columns[e.ColumnIndex].Name != "EliminarProducto")
                 return;
             var fila = dgvDetallesDePedido.Rows[e.RowIndex];
             if (fila.IsNewRow) return;
@@ -53,7 +50,6 @@ namespace Vista.Pedidos_Secretario
                 MessageBox.Show("No se pudo eliminar el producto: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
 
         //-------------------------------------------------------------------------
         //METODOS DE BUSQUEDA
@@ -107,34 +103,20 @@ namespace Vista.Pedidos_Secretario
                 paginaActual = 1;
 
                 // Calcular páginas de los resultados
-                totalPaginas = (int)Math.Ceiling(
-                    (double)dtPedidos.Rows.Count / registrosPorPagina
-                );
+                totalPaginas = (int)Math.Ceiling((double)dtPedidos.Rows.Count / registrosPorPagina);
 
                 if (totalPaginas == 0)
                 {
                     totalPaginas = 1;
                 }
-
                 MostrarPaginaPedidos();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         }
-
-        //------------------------------------------------------------------------
-        // CARGAR PAGINACIÓN
-
-
-
 
         //------------------------------------------------------------------------
         // MOSTRAR PÁGINA
@@ -181,10 +163,6 @@ namespace Vista.Pedidos_Secretario
 
             btnSiguiente.Enabled = paginaActual < totalPaginas;
         }
-
-
-
-
         //------------------------------------------------------------------------
         //EVENTO LOAD
         private void frmPedidosSecretario_Load(object sender, EventArgs e)
@@ -336,7 +314,6 @@ namespace Vista.Pedidos_Secretario
 
 
         }
-
         private void ConfigurarTooltips()
         {
             ToolTip toolTip = new ToolTip();
@@ -491,11 +468,7 @@ namespace Vista.Pedidos_Secretario
             {
                 dgvDetallesDePedido.DataSource = null;
 
-                MessageBox.Show(
-                    "No se pudieron cargar los productos del pedido.\n\n" + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                MessageBox.Show("No se pudieron cargar los productos del pedido.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

@@ -415,7 +415,7 @@
             this.pnlReporteCotizaciones.Controls.Add(this.panel9);
             this.pnlReporteCotizaciones.Controls.Add(this.panel10);
             this.pnlReporteCotizaciones.Controls.Add(this.pnlRegistroCotizaciones);
-            this.pnlReporteCotizaciones.Location = new System.Drawing.Point(64, 193);
+            this.pnlReporteCotizaciones.Location = new System.Drawing.Point(63, 193);
             this.pnlReporteCotizaciones.Margin = new System.Windows.Forms.Padding(2);
             this.pnlReporteCotizaciones.Name = "pnlReporteCotizaciones";
             this.pnlReporteCotizaciones.Size = new System.Drawing.Size(985, 420);

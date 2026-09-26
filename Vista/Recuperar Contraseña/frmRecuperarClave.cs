@@ -26,7 +26,7 @@ namespace Vista.Recuperar_Contraseña
                 // VALIDAR CORREO
                 if (string.IsNullOrWhiteSpace(correo))
                 {
-                    MessageBox.Show("Ingrese su correo electrónico.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    errorProvider1.SetError(txtCorreoRecuperacion, "Ingrese su correo electrónico.");
 
                     txtCorreoRecuperacion.Focus();
                     return;
@@ -109,12 +109,7 @@ namespace Vista.Recuperar_Contraseña
 
                 if (string.IsNullOrWhiteSpace(confirmarContraseña))
                 {
-                    MessageBox.Show(
-                        "Confirme la nueva contraseña.",
-                        "Advertencia",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning
-                    );
+                    MessageBox.Show("Confirme la nueva contraseña.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                     txtConfirmarContrasena.Focus();
                     return;
@@ -162,7 +157,6 @@ namespace Vista.Recuperar_Contraseña
                 MessageBox.Show("La contraseña se cambió correctamente.", "Contraseña actualizada", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 // LIMPIAR CAMPOS
-
                 txtCorreoRecuperacion.Clear();
                 txtCodigo.Clear();
                 txtNuevaContrasena.Clear();

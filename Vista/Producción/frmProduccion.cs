@@ -15,7 +15,6 @@ namespace Vista.Producción
         private int registrosPorPagina = 10;
         private int totalPaginas = 0;
         private DataTable dtProduccionOriginal;
-
         public frmProduccion()
         {
             InitializeComponent();
@@ -47,12 +46,7 @@ namespace Vista.Producción
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error al cargar producción: " + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Error al cargar producción: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         //---------------------------------------------------------------
@@ -62,55 +56,41 @@ namespace Vista.Producción
             // Encabezado
             dgvProduccion.EnableHeadersVisualStyles = false;
 
-            dgvProduccion.ColumnHeadersDefaultCellStyle.BackColor =
-                Color.FromArgb(121, 75, 45);
+            dgvProduccion.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(121, 75, 45);
 
-            dgvProduccion.ColumnHeadersDefaultCellStyle.ForeColor =
-                Color.White;
+            dgvProduccion.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
 
-            dgvProduccion.ColumnHeadersDefaultCellStyle.Font =
-                new Font("Segoe UI", 9, FontStyle.Regular);
+            dgvProduccion.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9, FontStyle.Regular);
 
-            dgvProduccion.ColumnHeadersDefaultCellStyle.Alignment =
-                DataGridViewContentAlignment.MiddleCenter;
+            dgvProduccion.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
             // Color del encabezado al seleccionar
-            dgvProduccion.ColumnHeadersDefaultCellStyle.SelectionBackColor =
-                Color.FromArgb(121, 75, 45);
+            dgvProduccion.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(121, 75, 45);
 
-            dgvProduccion.ColumnHeadersDefaultCellStyle.SelectionForeColor =
-                Color.White;
+            dgvProduccion.ColumnHeadersDefaultCellStyle.SelectionForeColor = Color.White;
 
             // Filas
-            dgvProduccion.DefaultCellStyle.BackColor =
-                Color.White;
+            dgvProduccion.DefaultCellStyle.BackColor = Color.White;
 
             dgvProduccion.DefaultCellStyle.ForeColor =
                 Color.FromArgb(45, 45, 45);
 
-            dgvProduccion.DefaultCellStyle.Font =
-                new Font("Segoe UI", 9, FontStyle.Regular);
+            dgvProduccion.DefaultCellStyle.Font = new Font("Segoe UI", 9, FontStyle.Regular);
 
-            dgvProduccion.DefaultCellStyle.Alignment =
-                DataGridViewContentAlignment.MiddleLeft;
+            dgvProduccion.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
 
             // Filas alternadas
-            dgvProduccion.AlternatingRowsDefaultCellStyle.BackColor =
-                Color.FromArgb(248, 241, 232);
+            dgvProduccion.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(248, 241, 232);
 
             // Selección
-            dgvProduccion.DefaultCellStyle.SelectionBackColor =
-                Color.FromArgb(224, 193, 157);
+            dgvProduccion.DefaultCellStyle.SelectionBackColor = Color.FromArgb(224, 193, 157);
 
-            dgvProduccion.DefaultCellStyle.SelectionForeColor =
-                Color.Black;
+            dgvProduccion.DefaultCellStyle.SelectionForeColor = Color.Black;
 
             // Bordes
-            dgvProduccion.CellBorderStyle =
-                DataGridViewCellBorderStyle.SingleHorizontal;
+            dgvProduccion.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
 
-            dgvProduccion.GridColor =
-                Color.FromArgb(220, 220, 220);
+            dgvProduccion.GridColor = Color.FromArgb(220, 220, 220);
 
             // Alto de las filas
             dgvProduccion.RowTemplate.Height = 32;
@@ -126,14 +106,12 @@ namespace Vista.Producción
             dgvProduccion.AllowUserToDeleteRows = false;
 
             // Seleccionar fila completa
-            dgvProduccion.SelectionMode =
-                DataGridViewSelectionMode.FullRowSelect;
+            dgvProduccion.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
             dgvProduccion.MultiSelect = false;
 
             // Quitar borde exterior
-            dgvProduccion.BorderStyle =
-                BorderStyle.None;
+            dgvProduccion.BorderStyle = BorderStyle.None;
 
         }
         //CONFIGURAR TOOLTIPS----------------------------------------------------------
@@ -142,63 +120,29 @@ namespace Vista.Producción
             ToolTip toolTip = new ToolTip();
 
             // Buscador
-            toolTip.SetToolTip(
-                txtBuscar,
-                "Busca una producción por código o nombre del cliente."
-            );
+            toolTip.SetToolTip(txtBuscar, "Busca una producción por código o nombre del cliente.");
 
             // Filtro por estado
-            toolTip.SetToolTip(
-                cbEstados,
-                "Selecciona un estado para filtrar las producciones."
-            );
+            toolTip.SetToolTip(cbEstados, "Selecciona un estado para filtrar las producciones.");
 
             // Limpiar filtros
-            toolTip.SetToolTip(
-                btnLimpiar,
-                "Limpia el buscador y los filtros aplicados."
-            );
+            toolTip.SetToolTip(btnLimpiar, "Limpia el buscador y los filtros aplicados.");
 
             // Editar producción
-            toolTip.SetToolTip(
-                btnEditar,
-                "Edita la producción seleccionada."
-            );
+            toolTip.SetToolTip(btnEditar, "Edita la producción seleccionada.");
 
             // Material utilizado
-            toolTip.SetToolTip(
-                btnMaterialUtilizado,
-                "Consulta los materiales utilizados en la producción seleccionada."
-            );
+            toolTip.SetToolTip(btnMaterialUtilizado, "Consulta los materiales utilizados en la producción seleccionada.");
 
             // Tabla de producciones
-            toolTip.SetToolTip(
-                dgvProduccion,
-                "Muestra las producciones registradas y su información."
-            );
+            toolTip.SetToolTip(dgvProduccion, "Muestra las producciones registradas y su información.");
 
             // Estadísticas
-            toolTip.SetToolTip(
-                lblMostrarRegistrados,
-                "Cantidad total de producciones registradas."
-            );
-
-            toolTip.SetToolTip(
-                lblMostrarPendientes,
-                "Cantidad de producciones pendientes."
-            );
-
-            toolTip.SetToolTip(
-                lblMostrarEnProduccion,
-                "Cantidad de producciones que se encuentran en proceso."
-            );
-
-            toolTip.SetToolTip(
-                lblMostrarFinalizados,
-                "Cantidad de producciones finalizadas."
-            );
+            toolTip.SetToolTip(lblMostrarRegistrados, "Cantidad total de producciones registradas.");
+            toolTip.SetToolTip(lblMostrarPendientes, "Cantidad de producciones pendientes.");
+            toolTip.SetToolTip(lblMostrarEnProduccion, "Cantidad de producciones que se encuentran en proceso.");
+            toolTip.SetToolTip(lblMostrarFinalizados, "Cantidad de producciones finalizadas.");
         }
-
         //---------------------------------------------------------------
         // CONFIGURAR COLUMNAS
         private void ConfigurarColumnasProduccion()
@@ -256,12 +200,7 @@ namespace Vista.Producción
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error al mostrar las producciones: " + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Error al mostrar las producciones: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -340,27 +279,18 @@ namespace Vista.Producción
                 lblPage.Text = $"Página {paginaActual} de {totalPaginas}";
 
                 // Activar/desactivar botones
-                btnAtrass.Enabled =
-                    paginaActual > 1;
+                btnAtrass.Enabled = paginaActual > 1;
 
-                btnSiguient.Enabled =
-                    paginaActual < totalPaginas;
+                btnSiguient.Enabled = paginaActual < totalPaginas;
 
                 // Ajusta el texto y el tamaño de las filas
-                dgvProduccion.DefaultCellStyle.WrapMode =
-                    DataGridViewTriState.True;
+                dgvProduccion.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
 
-                dgvProduccion.AutoSizeRowsMode =
-                    DataGridViewAutoSizeRowsMode.AllCells;
+                dgvProduccion.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error al mostrar la página: " + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Error al mostrar la página: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         //------------------------------------------------------------------
@@ -425,7 +355,6 @@ namespace Vista.Producción
             }
         }
 
-
         // Filtra la tabla según el estado y búsqueda
         private void FiltrarTabla()
         {
@@ -436,20 +365,14 @@ namespace Vista.Producción
 
                 string estado = cbEstados.Text;
 
-                string buscar =
-                    txtBuscar.Text == "Buscar por código o nombre de cliente..."
-                    ? ""
-                    : txtBuscar.Text.Trim();
+                string buscar = txtBuscar.Text == "Buscar por código o nombre de cliente..." ? "" : txtBuscar.Text.Trim();
 
                 string filtro = "1=1";
 
                 // Filtra por estado
                 if (!string.IsNullOrWhiteSpace(estado) && estado != "Todos")
                 {
-                    filtro +=
-                        " AND Estado = '" +
-                        estado.Replace("'", "''") +
-                        "'";
+                    filtro += " AND Estado = '" + estado.Replace("'", "''") + "'";
                 }
 
                 // Filtra por cliente, producción o pedido
@@ -457,10 +380,7 @@ namespace Vista.Producción
                 {
                     buscar = buscar.Replace("'", "''");
 
-                    filtro +=
-                        " AND (Cliente LIKE '%" + buscar + "%' OR " +
-                        "Convert(IdProduccion, 'System.String') LIKE '%" + buscar + "%' OR " +
-                        "Convert(IdPedido, 'System.String') LIKE '%" + buscar + "%')";
+                    filtro += " AND (Cliente LIKE '%" + buscar + "%' OR " + "Convert(IdProduccion, 'System.String') LIKE '%" + buscar + "%' OR " + "Convert(IdPedido, 'System.String') LIKE '%" + buscar + "%')";
                 }
 
                 // Aplicar filtro sobre los datos originales
@@ -482,12 +402,7 @@ namespace Vista.Producción
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error al filtrar las producciones: " + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Error al filtrar las producciones: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -534,7 +449,6 @@ namespace Vista.Producción
         // MATERIAL UTILIZADO
         private void btnMaterialUtilizado_Click(object sender, EventArgs e)
         {
-
             try
             {
                 // Verifica que exista una producción seleccionada
@@ -594,9 +508,6 @@ namespace Vista.Producción
                 );
             }
         }
-
-
-
     }
 }
 

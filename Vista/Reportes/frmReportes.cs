@@ -9,8 +9,6 @@ using System.IO;
 using System.Windows.Forms;
 using Vista.Responsive;
 
-
-
 namespace Vista.Reportes
 {
     public partial class frmReportes : Form
@@ -45,7 +43,6 @@ namespace Vista.Reportes
             pnlReporteCotizaciones.Visible = false;
             btnConsultarCotizaciones.Visible = false;
             btnExportarCotizaciones.Visible = false;
-
 
         }
 
@@ -124,78 +121,42 @@ namespace Vista.Reportes
             toolTip1.ShowAlways = true;
 
             // Tipos de reportes
-            toolTip1.SetToolTip(btnClientes,
-                "Muestra el reporte de clientes registrados.");
-
-            toolTip1.SetToolTip(btnVentas,
-                "Muestra el reporte de ventas realizadas.");
-
-            toolTip1.SetToolTip(btnCotizaciones,
-                "Muestra el reporte de cotizaciones registradas.");
+            toolTip1.SetToolTip(btnClientes, "Muestra el reporte de clientes registrados.");
+            toolTip1.SetToolTip(btnVentas, "Muestra el reporte de ventas realizadas.");
+            toolTip1.SetToolTip(btnCotizaciones, "Muestra el reporte de cotizaciones registradas.");
 
             // Filtros por fecha
-            toolTip1.SetToolTip(dtpFechaInicio,
-                "Seleccione la fecha de inicio del período del reporte.");
-
-            toolTip1.SetToolTip(dtpFechaFin,
-                "Seleccione la fecha final del período del reporte.");
+            toolTip1.SetToolTip(dtpFechaInicio, "Seleccione la fecha de inicio del período del reporte.");
+            toolTip1.SetToolTip(dtpFechaFin, "Seleccione la fecha final del período del reporte.");
 
             // Reporte de clientes
-            toolTip1.SetToolTip(btnConsultar,
-                "Consulta los clientes registrados durante el período seleccionado.");
-
-            toolTip1.SetToolTip(btnExportarReporteClientes,
-                "Genera y abre un PDF con el reporte de clientes.");
-
-            toolTip1.SetToolTip(dgvReporteClientes,
-                "Muestra los clientes registrados durante el período seleccionado.");
+            toolTip1.SetToolTip(btnConsultar, "Consulta los clientes registrados durante el período seleccionado.");
+            toolTip1.SetToolTip(btnExportarReporteClientes, "Genera y abre un PDF con el reporte de clientes.");
+            toolTip1.SetToolTip(dgvReporteClientes, "Muestra los clientes registrados durante el período seleccionado.");
 
             // Estadísticas de clientes
-            toolTip1.SetToolTip(lblContadorTotal,
-                "Cantidad total de clientes registrados.");
-
-            toolTip1.SetToolTip(lblContadorCorporativos,
-                "Cantidad de clientes corporativos registrados.");
-
-            toolTip1.SetToolTip(lblContadorIndividual,
-                "Cantidad de clientes individuales registrados.");
+            toolTip1.SetToolTip(lblContadorTotal, "Cantidad total de clientes registrados.");
+            toolTip1.SetToolTip(lblContadorCorporativos, "Cantidad de clientes corporativos registrados.");
+            toolTip1.SetToolTip(lblContadorIndividual, "Cantidad de clientes individuales registrados.");
 
             // Reporte de ventas
-            toolTip1.SetToolTip(btnConsultarVentas,
-                "Consulta las ventas realizadas durante el período seleccionado.");
-
-            toolTip1.SetToolTip(btnExportarReporteVentas,
-                "Genera y abre un PDF con el reporte de ventas.");
-
-            toolTip1.SetToolTip(dgvReporteVentas,
-                "Muestra las ventas registradas durante el período seleccionado.");
+            toolTip1.SetToolTip(btnConsultarVentas, "Consulta las ventas realizadas durante el período seleccionado.");
+            toolTip1.SetToolTip(btnExportarReporteVentas, "Genera y abre un PDF con el reporte de ventas.");
+            toolTip1.SetToolTip(dgvReporteVentas, "Muestra las ventas registradas durante el período seleccionado.");
 
             // Estadísticas de ventas
-            toolTip1.SetToolTip(lblContadorVentasTotales,
-                "Cantidad total de ventas registradas.");
-
-            toolTip1.SetToolTip(lblMostrarFacturasEmitidas,
-                "Cantidad de facturas emitidas durante el período seleccionado.");
+            toolTip1.SetToolTip(lblContadorVentasTotales, "Cantidad total de ventas registradas.");
+            toolTip1.SetToolTip(lblMostrarFacturasEmitidas, "Cantidad de facturas emitidas durante el período seleccionado.");
 
             // Reporte de cotizaciones
-            toolTip1.SetToolTip(btnConsultarCotizaciones,
-                "Consulta las cotizaciones registradas durante el período seleccionado.");
-
-            toolTip1.SetToolTip(btnExportarCotizaciones,
-                "Genera y abre un PDF con el reporte de cotizaciones.");
-
-            toolTip1.SetToolTip(dgvReporteCotizaciones,
-                "Muestra las cotizaciones registradas durante el período seleccionado.");
+            toolTip1.SetToolTip(btnConsultarCotizaciones, "Consulta las cotizaciones registradas durante el período seleccionado.");
+            toolTip1.SetToolTip(btnExportarCotizaciones, "Genera y abre un PDF con el reporte de cotizaciones.");
+            toolTip1.SetToolTip(dgvReporteCotizaciones, "Muestra las cotizaciones registradas durante el período seleccionado.");
 
             // Estadísticas de cotizaciones
-            toolTip1.SetToolTip(lblMostrarCotizacionesAprobadas,
-                "Cantidad de cotizaciones aprobadas.");
-
-            toolTip1.SetToolTip(lblMostrarCotizacionesRechazadas,
-                "Cantidad de cotizaciones rechazadas.");
-
-            toolTip1.SetToolTip(lblMostrarTotalCotizaciones,
-                "Cantidad total de cotizaciones registradas.");
+            toolTip1.SetToolTip(lblMostrarCotizacionesAprobadas, "Cantidad de cotizaciones aprobadas.");
+            toolTip1.SetToolTip(lblMostrarCotizacionesRechazadas, "Cantidad de cotizaciones rechazadas.");
+            toolTip1.SetToolTip(lblMostrarTotalCotizaciones, "Cantidad total de cotizaciones registradas.");
         }
 
         private void frmReportes_Load(object sender, EventArgs e)
@@ -237,34 +198,23 @@ namespace Vista.Reportes
             dgvReporteVentas.Columns["FechaVenta"].HeaderText = "Fecha de venta";
 
 
-            // ==========================================
             // ENCABEZADOS DE COTIZACIONES
-            // ==========================================
 
-            dgvReporteCotizaciones.Columns["IdCotizacion"].HeaderText =
-                "N° Cotización";
+            dgvReporteCotizaciones.Columns["IdCotizacion"].HeaderText = "N° Cotización";
 
-            dgvReporteCotizaciones.Columns["Fecha"].HeaderText =
-                "Fecha";
+            dgvReporteCotizaciones.Columns["Fecha"].HeaderText = "Fecha";
 
-            dgvReporteCotizaciones.Columns["Cliente"].HeaderText =
-                "Cliente";
+            dgvReporteCotizaciones.Columns["Cliente"].HeaderText = "Cliente";
 
-            dgvReporteCotizaciones.Columns["TipoCliente"].HeaderText =
-                "Tipo de Cliente";
+            dgvReporteCotizaciones.Columns["TipoCliente"].HeaderText = "Tipo de Cliente";
 
-            dgvReporteCotizaciones.Columns["Estado"].HeaderText =
-                "Estado";
+            dgvReporteCotizaciones.Columns["Estado"].HeaderText = "Estado";
 
-            dgvReporteCotizaciones.Columns["Total"].HeaderText =
-                "Total";
+            dgvReporteCotizaciones.Columns["Total"].HeaderText = "Total";
 
-            // ==========================================
             // ESPACIO DE COLUMNAS
-            // ==========================================
 
-            dgvReporteCotizaciones.AutoSizeColumnsMode =
-                DataGridViewAutoSizeColumnsMode.Fill;
+            dgvReporteCotizaciones.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
             dgvReporteCotizaciones.Columns["IdCotizacion"].FillWeight = 80;
             dgvReporteCotizaciones.Columns["Fecha"].FillWeight = 90;
@@ -273,12 +223,9 @@ namespace Vista.Reportes
             dgvReporteCotizaciones.Columns["Estado"].FillWeight = 100;
             dgvReporteCotizaciones.Columns["Total"].FillWeight = 100;
 
-            dgvReporteCotizaciones.Columns["Total"]
-                .DefaultCellStyle.Format = "$#,##0.00";
+            dgvReporteCotizaciones.Columns["Total"].DefaultCellStyle.Format = "$#,##0.00";
 
         }
-
-
 
         private void ActualizarEstadisticasClientes()
         {
@@ -302,12 +249,7 @@ namespace Vista.Reportes
 
                 if (fechaInicio > fechaFin)
                 {
-                    MessageBox.Show(
-                        "La fecha de inicio no puede ser mayor que la fecha final.",
-                        "Período inválido",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning
-                    );
+                    MessageBox.Show("La fecha de inicio no puede ser mayor que la fecha final.", "Período inválido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                     return;
                 }
@@ -317,12 +259,7 @@ namespace Vista.Reportes
 
                 if (clientes == null || clientes.Rows.Count == 0)
                 {
-                    MessageBox.Show(
-                        "No existen clientes registrados durante el período seleccionado.",
-                        "Sin resultados",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information
-                    );
+                    MessageBox.Show("No existen clientes registrados durante el período seleccionado.", "Sin resultados", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     return;
                 }
@@ -332,13 +269,7 @@ namespace Vista.Reportes
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Ocurrió un error al consultar el reporte de clientes:\n\n" +
-                    ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Ocurrió un error al consultar el reporte de clientes:\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -424,8 +355,7 @@ namespace Vista.Reportes
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ocurrió un error al generar el reporte de clientes:\n\n" + ex.Message, "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Ocurrió un error al generar el reporte de clientes:\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -438,22 +368,16 @@ namespace Vista.Reportes
 
                 if (fechaInicio > fechaFin)
                 {
-                    MessageBox.Show("La fecha de inicio no puede ser mayor que la fecha de fin.", "Rango de fechas",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("La fecha de inicio no puede ser mayor que la fecha de fin.", "Rango de fechas", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                     return;
                 }
 
-                dgvReporteVentas.DataSource =
-                    ReportesVentas.ObtenerVentasPorFecha(
-                        fechaInicio,
-                        fechaFin
-                    );
+                dgvReporteVentas.DataSource = ReportesVentas.ObtenerVentasPorFecha(fechaInicio, fechaFin);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ocurrió un error al consultar el reporte de ventas:\n\n" + ex.Message, "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Ocurrió un error al consultar el reporte de ventas:\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -468,8 +392,7 @@ namespace Vista.Reportes
 
                 if (fechaInicio > fechaFin)
                 {
-                    MessageBox.Show("La fecha de inicio no puede ser mayor que la fecha final.", "Período inválido",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("La fecha de inicio no puede ser mayor que la fecha final.", "Período inválido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                     return;
                 }
@@ -480,8 +403,7 @@ namespace Vista.Reportes
 
                 if (ventas == null || ventas.Rows.Count == 0)
                 {
-                    MessageBox.Show("No existen ventas registradas durante el período seleccionado.", "Sin resultados",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("No existen ventas registradas durante el período seleccionado.", "Sin resultados", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     return;
                 }
@@ -496,17 +418,11 @@ namespace Vista.Reportes
 
                 if (estadisticas != null && estadisticas.Rows.Count > 0)
                 {
-                    facturasEmitidas = Convert.ToInt32(
-                        estadisticas.Rows[0]["FacturasEmitidas"]
-                    );
+                    facturasEmitidas = Convert.ToInt32(estadisticas.Rows[0]["FacturasEmitidas"]);
 
-                    totalVentas = Convert.ToDouble(
-                        estadisticas.Rows[0]["TotalVentas"]
-                    );
+                    totalVentas = Convert.ToDouble(estadisticas.Rows[0]["TotalVentas"]);
 
-                    ventaMasAlta = Convert.ToDouble(
-                        estadisticas.Rows[0]["VentaMasAlta"]
-                    );
+                    ventaMasAlta = Convert.ToDouble(estadisticas.Rows[0]["VentaMasAlta"]);
                 }
 
                 // CREAR CARPETA DE REPORTES
@@ -526,12 +442,7 @@ namespace Vista.Reportes
 
                 // CREAR DOCUMENTO
 
-                VentasDocumentoPDF documento = new VentasDocumentoPDF(
-                    ventas,
-                    estadisticas,
-                    fechaInicio,
-                    fechaFin,
-                    rutaLogo);
+                VentasDocumentoPDF documento = new VentasDocumentoPDF(ventas, estadisticas, fechaInicio, fechaFin, rutaLogo);
 
                 // GENERAR PDF
                 documento.GenerarPDF(rutaArchivo);
@@ -539,27 +450,14 @@ namespace Vista.Reportes
 
                 // MENSAJE
 
-                MessageBox.Show(
-                    "El reporte de ventas se generó correctamente.\n\n" +
-                    $"Período: {fechaInicio:dd/MM/yyyy} - {fechaFin:dd/MM/yyyy}\n\n" +
-                    $"Facturas emitidas: {facturasEmitidas}\n" +
-                    $"Total de ventas: ${totalVentas:N2}\n" +
-                    $"Venta más alta: ${ventaMasAlta:N2}\n\n" +
-                    $"Guardado en:\n{rutaArchivo}",
-                    "Reporte generado",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information
-                );
+                MessageBox.Show("El reporte de ventas se generó correctamente.\n\n" + $"Período: {fechaInicio:dd/MM/yyyy} - {fechaFin:dd/MM/yyyy}\n\n" + $"Facturas emitidas: {facturasEmitidas}\n" +
+                    $"Total de ventas: ${totalVentas:N2}\n" + $"Venta más alta: ${ventaMasAlta:N2}\n\n" + $"Guardado en:\n{rutaArchivo}", "Reporte generado", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 // VERIFICAR QUE EL PDF EXISTA
 
                 if (!File.Exists(rutaArchivo))
                 {
-                    MessageBox.Show(
-                        "El PDF se generó, pero no se encontró en:\n\n" + rutaArchivo,
-                        "Archivo no encontrado",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Error);
+                    MessageBox.Show("El PDF se generó, pero no se encontró en:\n\n" + rutaArchivo, "Archivo no encontrado", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                     return;
                 }
@@ -576,17 +474,9 @@ namespace Vista.Reportes
 
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "ERROR:\n\n" +
-                    ex.ToString(),
-                    "Error al generar el reporte",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                MessageBox.Show("ERROR:\n\n" + ex.ToString(), "Error al generar el reporte", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-
-
 
         private void ActualizarEstadisticasCotizaciones()
         {
@@ -596,29 +486,15 @@ namespace Vista.Reportes
                 DateTime fechaInicio = new DateTime(2000, 1, 1);
                 DateTime fechaFin = DateTime.Today;
 
-                DataTable estadisticas =
-                    ReportesCotizaciones.ObtenerEstadisticasCotizaciones(
-                        fechaInicio,
-                        fechaFin
-                    );
+                DataTable estadisticas = ReportesCotizaciones.ObtenerEstadisticasCotizaciones(fechaInicio, fechaFin);
 
-                if (estadisticas != null &&
-                    estadisticas.Rows.Count > 0)
+                if (estadisticas != null && estadisticas.Rows.Count > 0)
                 {
-                    lblMostrarCotizacionesAprobadas.Text =
-                        Convert.ToInt32(
-                            estadisticas.Rows[0]["CotizacionesAprobadas"]
-                        ).ToString();
+                    lblMostrarCotizacionesAprobadas.Text = Convert.ToInt32(estadisticas.Rows[0]["CotizacionesAprobadas"]).ToString();
 
-                    lblMostrarCotizacionesRechazadas.Text =
-                        Convert.ToInt32(
-                            estadisticas.Rows[0]["CotizacionesRechazadas"]
-                        ).ToString();
+                    lblMostrarCotizacionesRechazadas.Text = Convert.ToInt32(estadisticas.Rows[0]["CotizacionesRechazadas"]).ToString();
 
-                    lblMostrarTotalCotizaciones.Text =
-                        Convert.ToInt32(
-                            estadisticas.Rows[0]["CotizacionesRegistradas"]
-                        ).ToString();
+                    lblMostrarTotalCotizaciones.Text = Convert.ToInt32(estadisticas.Rows[0]["CotizacionesRegistradas"]).ToString();
                 }
                 else
                 {
@@ -629,13 +505,7 @@ namespace Vista.Reportes
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Ocurrió un error al actualizar las estadísticas de cotizaciones:\n\n" +
-                    ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Ocurrió un error al actualizar las estadísticas de cotizaciones:\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -647,34 +517,22 @@ namespace Vista.Reportes
                 DateTime fechaInicio = dtpFechaInicio.Value.Date;
                 DateTime fechaFin = dtpFechaFin.Value.Date;
 
-                // ==========================================
                 // VALIDAR FECHAS
-                // ==========================================
 
                 if (fechaInicio > fechaFin)
                 {
-                    MessageBox.Show(
-                        "La fecha de inicio no puede ser mayor que la fecha final.",
-                        "Período inválido",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning
-                    );
+                    MessageBox.Show("La fecha de inicio no puede ser mayor que la fecha final.", "Período inválido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                     return;
                 }
 
                 // OBTENER COTIZACIONES
 
-                DataTable cotizaciones =
-                    ReportesCotizaciones.ObtenerCotizacionesPorFecha(
-                        fechaInicio,
-                        fechaFin
-                    );
+                DataTable cotizaciones = ReportesCotizaciones.ObtenerCotizacionesPorFecha(fechaInicio, fechaFin);
 
                 // VALIDAR RESULTADOS
 
-                if (cotizaciones == null ||
-                    cotizaciones.Rows.Count == 0)
+                if (cotizaciones == null || cotizaciones.Rows.Count == 0)
                 {
                     dgvReporteCotizaciones.DataSource = null;
 
@@ -682,12 +540,7 @@ namespace Vista.Reportes
                     lblMostrarCotizacionesRechazadas.Text = "0";
                     lblMostrarTotalCotizaciones.Text = "0";
 
-                    MessageBox.Show(
-                        "No existen cotizaciones registradas durante el período seleccionado.",
-                        "Sin resultados",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information
-                    );
+                    MessageBox.Show("No existen cotizaciones registradas durante el período seleccionado.", "Sin resultados", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     return;
                 }
@@ -699,114 +552,58 @@ namespace Vista.Reportes
 
                 // OBTENER ESTADÍSTICAS DEL MISMO PERÍODO
 
-                DataTable estadisticas =
-                    ReportesCotizaciones.ObtenerEstadisticasCotizaciones(
-                        fechaInicio,
-                        fechaFin
-                    );
+                DataTable estadisticas = ReportesCotizaciones.ObtenerEstadisticasCotizaciones(fechaInicio, fechaFin);
 
                 // MOSTRAR ESTADÍSTICAS
 
                 if (estadisticas != null &&
                     estadisticas.Rows.Count > 0)
                 {
-                    lblMostrarCotizacionesAprobadas.Text =
-                        Convert.ToInt32(
-                            estadisticas.Rows[0]["CotizacionesAprobadas"]
-                        ).ToString();
+                    lblMostrarCotizacionesAprobadas.Text = Convert.ToInt32(estadisticas.Rows[0]["CotizacionesAprobadas"]).ToString();
 
-                    lblMostrarCotizacionesRechazadas.Text =
-                        Convert.ToInt32(
-                            estadisticas.Rows[0]["CotizacionesRechazadas"]
-                        ).ToString();
+                    lblMostrarCotizacionesRechazadas.Text = Convert.ToInt32(estadisticas.Rows[0]["CotizacionesRechazadas"]).ToString();
 
-                    lblMostrarTotalCotizaciones.Text =
-                        Convert.ToInt32(
-                            estadisticas.Rows[0]["CotizacionesRegistradas"]
-                        ).ToString();
+                    lblMostrarTotalCotizaciones.Text = Convert.ToInt32(estadisticas.Rows[0]["CotizacionesRegistradas"]).ToString();
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Ocurrió un error al consultar el reporte de cotizaciones:\n\n" +
-                    ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Ocurrió un error al consultar el reporte de cotizaciones:\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private void GenerarReportePDF(
-    DataTable cotizaciones,
-    DateTime fechaInicio,
-    DateTime fechaFin,
-    int cotizacionesRegistradas,
-    int cotizacionesAprobadas,
-    int cotizacionesRechazadas)
+        private void GenerarReportePDF(DataTable cotizaciones, DateTime fechaInicio, DateTime fechaFin, int cotizacionesRegistradas, int cotizacionesAprobadas, int cotizacionesRechazadas)
         {
             try
             {
                 // CREAR CARPETA DE REPORTES
 
-                string carpetaReportes =
-                    Path.Combine(
-                        Application.StartupPath,
-                        "Reportes"
-                    );
+                string carpetaReportes = Path.Combine(Application.StartupPath, "Reportes");
 
                 if (!Directory.Exists(carpetaReportes))
                 {
                     Directory.CreateDirectory(carpetaReportes);
                 }
 
-
                 // NOMBRE DEL ARCHIVO
 
-                string nombreArchivo =
-                    $"Reporte_Cotizaciones_{fechaInicio:dd-MM-yyyy}_{fechaFin:dd-MM-yyyy}.pdf";
+                string nombreArchivo = $"Reporte_Cotizaciones_{fechaInicio:dd-MM-yyyy}_{fechaFin:dd-MM-yyyy}.pdf";
 
-                string rutaArchivo =
-                    Path.Combine(
-                        carpetaReportes,
-                        nombreArchivo
-                    );
+                string rutaArchivo = Path.Combine(carpetaReportes, nombreArchivo);
 
 
-                // ==========================================
                 // CREAR DOCUMENTO
-                // ==========================================
 
-                CotizacionesDocumentoPDF documento =
-                    new CotizacionesDocumentoPDF(
-                        cotizaciones,
-                        fechaInicio,
-                        fechaFin,
-                        cotizacionesRegistradas,
-                        cotizacionesAprobadas,
-                        cotizacionesRechazadas
-                    );
-
+                CotizacionesDocumentoPDF documento = new CotizacionesDocumentoPDF(cotizaciones, fechaInicio, fechaFin, cotizacionesRegistradas, cotizacionesAprobadas, cotizacionesRechazadas);
 
                 // GENERAR PDF
 
                 documento.GeneratePdf(rutaArchivo);
 
-
                 // MENSAJE
 
-                MessageBox.Show(
-                    "El reporte de cotizaciones se generó correctamente.\n\n" +
-                    $"Período: {fechaInicio:dd/MM/yyyy} - {fechaFin:dd/MM/yyyy}\n\n" +
-                    $"Cotizaciones registradas: {cotizacionesRegistradas}\n" +
-                    $"Cotizaciones aprobadas: {cotizacionesAprobadas}\n" +
-                    $"Cotizaciones rechazadas: {cotizacionesRechazadas}\n\n" +
-                    $"Guardado en:\n{rutaArchivo}",
-                    "Reporte generado",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information
-                );
+                MessageBox.Show("El reporte de cotizaciones se generó correctamente.\n\n" + $"Período: {fechaInicio:dd/MM/yyyy} - {fechaFin:dd/MM/yyyy}\n\n" + $"Cotizaciones registradas: {cotizacionesRegistradas}\n" +
+                    $"Cotizaciones aprobadas: {cotizacionesAprobadas}\n" + $"Cotizaciones rechazadas: {cotizacionesRechazadas}\n\n" + $"Guardado en:\n{rutaArchivo}", "Reporte generado", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
 
                 // ABRIR PDF
@@ -819,13 +616,7 @@ namespace Vista.Reportes
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Ocurrió un error al generar el reporte de cotizaciones:\n\n" +
-                    ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Ocurrió un error al generar el reporte de cotizaciones:\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -840,12 +631,7 @@ namespace Vista.Reportes
 
                 if (fechaInicio > fechaFin)
                 {
-                    MessageBox.Show(
-                        "La fecha de inicio no puede ser mayor que la fecha final.",
-                        "Período inválido",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning
-                    );
+                    MessageBox.Show("La fecha de inicio no puede ser mayor que la fecha final.", "Período inválido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                     return;
                 }
@@ -853,34 +639,19 @@ namespace Vista.Reportes
 
                 // OBTENER COTIZACIONES
 
-                DataTable cotizaciones =
-                    ReportesCotizaciones.ObtenerCotizacionesPorFecha(
-                        fechaInicio,
-                        fechaFin
-                    );
+                DataTable cotizaciones = ReportesCotizaciones.ObtenerCotizacionesPorFecha(fechaInicio, fechaFin);
 
 
-                if (cotizaciones == null ||
-                    cotizaciones.Rows.Count == 0)
+                if (cotizaciones == null || cotizaciones.Rows.Count == 0)
                 {
-                    MessageBox.Show(
-                        "No existen cotizaciones registradas durante el período seleccionado.",
-                        "Sin resultados",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information
-                    );
+                    MessageBox.Show("No existen cotizaciones registradas durante el período seleccionado.", "Sin resultados", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     return;
                 }
 
-
                 // OBTENER ESTADÍSTICAS
 
-                DataTable estadisticas =
-                    ReportesCotizaciones.ObtenerEstadisticasCotizaciones(
-                        fechaInicio,
-                        fechaFin
-                    );
+                DataTable estadisticas = ReportesCotizaciones.ObtenerEstadisticasCotizaciones(fechaInicio, fechaFin);
 
 
                 int cotizacionesRegistradas = 0;
@@ -891,43 +662,21 @@ namespace Vista.Reportes
                 if (estadisticas != null &&
                     estadisticas.Rows.Count > 0)
                 {
-                    cotizacionesRegistradas =
-                        Convert.ToInt32(
-                            estadisticas.Rows[0]["CotizacionesRegistradas"]
-                        );
+                    cotizacionesRegistradas = Convert.ToInt32(estadisticas.Rows[0]["CotizacionesRegistradas"]);
 
-                    cotizacionesAprobadas =
-                        Convert.ToInt32(
-                            estadisticas.Rows[0]["CotizacionesAprobadas"]
-                        );
+                    cotizacionesAprobadas = Convert.ToInt32(estadisticas.Rows[0]["CotizacionesAprobadas"]);
 
-                    cotizacionesRechazadas =
-                        Convert.ToInt32(
-                            estadisticas.Rows[0]["CotizacionesRechazadas"]
-                        );
+                    cotizacionesRechazadas = Convert.ToInt32(estadisticas.Rows[0]["CotizacionesRechazadas"]);
                 }
 
 
                 // GENERAR PDF
 
-                GenerarReportePDF(
-                    cotizaciones,
-                    fechaInicio,
-                    fechaFin,
-                    cotizacionesRegistradas,
-                    cotizacionesAprobadas,
-                    cotizacionesRechazadas
-                );
+                GenerarReportePDF(cotizaciones, fechaInicio, fechaFin, cotizacionesRegistradas, cotizacionesAprobadas, cotizacionesRechazadas);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Ocurrió un error al exportar el reporte de cotizaciones:\n\n" +
-                    ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Ocurrió un error al exportar el reporte de cotizaciones:\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

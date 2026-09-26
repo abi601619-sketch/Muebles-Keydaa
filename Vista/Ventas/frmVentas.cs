@@ -21,7 +21,6 @@ namespace Vista.Ventas
             ResponsiveHelper.Apply(this);
             pnlFacturaRegistrada.Visible = false;
         }
-
         private void panel6_Paint(object sender, PaintEventArgs e)
         {
 
@@ -79,11 +78,7 @@ namespace Vista.Ventas
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error al buscar la venta:\n" + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                MessageBox.Show("Error al buscar la venta:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -106,71 +101,40 @@ namespace Vista.Ventas
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error al cargar las ventas:\n" + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                MessageBox.Show("Error al cargar las ventas:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         //------------------------------------------------------------------------//
         // CONFIGURAR DISEÑO DE LAS TABLAS
         private void ConfigurarTablasVentas()
         {
-
             // TABLA DE VENTAS
 
             // Encabezado
             dgvVentas.EnableHeadersVisualStyles = false;
-
-            dgvVentas.ColumnHeadersDefaultCellStyle.BackColor =
-                Color.FromArgb(121, 75, 45);
-
-            dgvVentas.ColumnHeadersDefaultCellStyle.ForeColor =
-                Color.White;
-
-            dgvVentas.ColumnHeadersDefaultCellStyle.Font =
-                new Font("Times New Roman", 9, FontStyle.Regular);
-
-            dgvVentas.ColumnHeadersDefaultCellStyle.Alignment =
-                DataGridViewContentAlignment.MiddleCenter;
-
-            dgvVentas.ColumnHeadersDefaultCellStyle.SelectionBackColor =
-                Color.FromArgb(121, 75, 45);
-
-            dgvVentas.ColumnHeadersDefaultCellStyle.SelectionForeColor =
-                Color.White;
+            dgvVentas.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(121, 75, 45);
+            dgvVentas.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dgvVentas.ColumnHeadersDefaultCellStyle.Font = new Font("Times New Roman", 9, FontStyle.Regular);
+            dgvVentas.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvVentas.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(121, 75, 45);
+            dgvVentas.ColumnHeadersDefaultCellStyle.SelectionForeColor = Color.White;
 
             // Filas
-            dgvVentas.DefaultCellStyle.BackColor =
-                Color.White;
-
-            dgvVentas.DefaultCellStyle.ForeColor =
-                Color.FromArgb(45, 45, 45);
-
-            dgvVentas.DefaultCellStyle.Font =
-                new Font("Segoe UI", 9, FontStyle.Regular);
-
-            dgvVentas.DefaultCellStyle.Alignment =
-                DataGridViewContentAlignment.MiddleLeft;
+            dgvVentas.DefaultCellStyle.BackColor = Color.White;
+            dgvVentas.DefaultCellStyle.ForeColor = Color.FromArgb(45, 45, 45);
+            dgvVentas.DefaultCellStyle.Font = new Font("Segoe UI", 9, FontStyle.Regular);
+            dgvVentas.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
 
             // Filas alternadas
-            dgvVentas.AlternatingRowsDefaultCellStyle.BackColor =
-                Color.FromArgb(248, 241, 232);
+            dgvVentas.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(248, 241, 232);
 
             // Selección
-            dgvVentas.DefaultCellStyle.SelectionBackColor =
-                Color.FromArgb(224, 193, 157);
-
-            dgvVentas.DefaultCellStyle.SelectionForeColor =
-                Color.Black;
+            dgvVentas.DefaultCellStyle.SelectionBackColor = Color.FromArgb(224, 193, 157);
+            dgvVentas.DefaultCellStyle.SelectionForeColor = Color.Black;
 
             // Bordes
-            dgvVentas.CellBorderStyle =
-                DataGridViewCellBorderStyle.SingleHorizontal;
-
-            dgvVentas.GridColor =
-                Color.FromArgb(220, 220, 220);
+            dgvVentas.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            dgvVentas.GridColor = Color.FromArgb(220, 220, 220);
 
             // Alto de las filas
             dgvVentas.RowTemplate.Height = 32;
@@ -180,74 +144,44 @@ namespace Vista.Ventas
 
             // No permitir modificar
             dgvVentas.ReadOnly = true;
-
             dgvVentas.AllowUserToAddRows = false;
-
             dgvVentas.AllowUserToDeleteRows = false;
 
             // Seleccionar fila completa
-            dgvVentas.SelectionMode =
-                DataGridViewSelectionMode.FullRowSelect;
-
+            dgvVentas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvVentas.MultiSelect = false;
 
             // Quitar borde exterior
-            dgvVentas.BorderStyle =
-                BorderStyle.None;
+            dgvVentas.BorderStyle = BorderStyle.None;
+
 
             // TABLA DETALLE DE VENTA
 
             // Encabezado
             dgvDetalleDeVenta.EnableHeadersVisualStyles = false;
-
-            dgvDetalleDeVenta.ColumnHeadersDefaultCellStyle.BackColor =
-                Color.FromArgb(121, 75, 45);
-
-            dgvDetalleDeVenta.ColumnHeadersDefaultCellStyle.ForeColor =
-                Color.White;
-
-            dgvDetalleDeVenta.ColumnHeadersDefaultCellStyle.Font =
-                new Font("Times New Roman", 9, FontStyle.Regular);
-
-            dgvDetalleDeVenta.ColumnHeadersDefaultCellStyle.Alignment =
-                DataGridViewContentAlignment.MiddleCenter;
-
-            dgvDetalleDeVenta.ColumnHeadersDefaultCellStyle.SelectionBackColor =
-                Color.FromArgb(121, 75, 45);
-
-            dgvDetalleDeVenta.ColumnHeadersDefaultCellStyle.SelectionForeColor =
-                Color.White;
+            dgvDetalleDeVenta.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(121, 75, 45);
+            dgvDetalleDeVenta.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dgvDetalleDeVenta.ColumnHeadersDefaultCellStyle.Font = new Font("Times New Roman", 9, FontStyle.Regular);
+            dgvDetalleDeVenta.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvDetalleDeVenta.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(121, 75, 45);
+            dgvDetalleDeVenta.ColumnHeadersDefaultCellStyle.SelectionForeColor = Color.White;
 
             // Filas
-            dgvDetalleDeVenta.DefaultCellStyle.BackColor =
-                Color.White;
-
-            dgvDetalleDeVenta.DefaultCellStyle.ForeColor =
-                Color.FromArgb(45, 45, 45);
-
-            dgvDetalleDeVenta.DefaultCellStyle.Font =
-                new Font("Segoe UI", 9, FontStyle.Regular);
-
-            dgvDetalleDeVenta.DefaultCellStyle.Alignment =
-                DataGridViewContentAlignment.MiddleLeft;
+            dgvDetalleDeVenta.DefaultCellStyle.BackColor = Color.White;
+            dgvDetalleDeVenta.DefaultCellStyle.ForeColor = Color.FromArgb(45, 45, 45);
+            dgvDetalleDeVenta.DefaultCellStyle.Font = new Font("Segoe UI", 9, FontStyle.Regular);
+            dgvDetalleDeVenta.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
 
             // Filas alternadas
-            dgvDetalleDeVenta.AlternatingRowsDefaultCellStyle.BackColor =
-                Color.FromArgb(248, 241, 232);
+            dgvDetalleDeVenta.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(248, 241, 232);
 
             // Selección
-            dgvDetalleDeVenta.DefaultCellStyle.SelectionBackColor =
-                Color.FromArgb(224, 193, 157);
-
-            dgvDetalleDeVenta.DefaultCellStyle.SelectionForeColor =
-                Color.Black;
+            dgvDetalleDeVenta.DefaultCellStyle.SelectionBackColor = Color.FromArgb(224, 193, 157);
+            dgvDetalleDeVenta.DefaultCellStyle.SelectionForeColor = Color.Black;
 
             // Bordes
-            dgvDetalleDeVenta.CellBorderStyle =
-                DataGridViewCellBorderStyle.SingleHorizontal;
-
-            dgvDetalleDeVenta.GridColor =
-                Color.FromArgb(220, 220, 220);
+            dgvDetalleDeVenta.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            dgvDetalleDeVenta.GridColor = Color.FromArgb(220, 220, 220);
 
             // Alto de las filas
             dgvDetalleDeVenta.RowTemplate.Height = 32;
@@ -257,20 +191,15 @@ namespace Vista.Ventas
 
             // No permitir modificar
             dgvDetalleDeVenta.ReadOnly = true;
-
             dgvDetalleDeVenta.AllowUserToAddRows = false;
-
             dgvDetalleDeVenta.AllowUserToDeleteRows = false;
 
             // Seleccionar fila completa
-            dgvDetalleDeVenta.SelectionMode =
-                DataGridViewSelectionMode.FullRowSelect;
-
+            dgvDetalleDeVenta.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvDetalleDeVenta.MultiSelect = false;
 
             // Quitar borde exterior
-            dgvDetalleDeVenta.BorderStyle =
-                BorderStyle.None;
+            dgvDetalleDeVenta.BorderStyle = BorderStyle.None;
         }
         //-----------------------------------------PAGINACIÓN DE VENTAS--------------------------------------//
         private void MostrarPaginaVentas()
@@ -282,9 +211,7 @@ namespace Vista.Ventas
 
             int inicio = (paginaActual - 1) * registrosPorPagina;
 
-            int fin = Math.Min(
-                inicio + registrosPorPagina,
-                dtVentas.Rows.Count);
+            int fin = Math.Min(inicio + registrosPorPagina, dtVentas.Rows.Count);
 
             for (int i = inicio; i < fin; i++)
             {
@@ -306,8 +233,7 @@ namespace Vista.Ventas
             ConfigurarTablasVentas();
 
             // Mostrar página actual
-            lblPagina.Text =
-                $"Página {paginaActual} de {totalPaginas}";
+            lblPagina.Text = $"Página {paginaActual} de {totalPaginas}";
 
             // Activar o desactivar botones
             btnAnterior.Enabled = paginaActual > 1;
@@ -323,8 +249,7 @@ namespace Vista.Ventas
                 return;
             }
 
-            totalPaginas = (int)Math.Ceiling(
-                (double)dtVentas.Rows.Count / registrosPorPagina);
+            totalPaginas = (int)Math.Ceiling((double)dtVentas.Rows.Count / registrosPorPagina);
 
             if (totalPaginas == 0)
                 totalPaginas = 1;
@@ -430,8 +355,6 @@ namespace Vista.Ventas
                     btnRegistrarFactura.Enabled = true;
                 }
 
-
-
                 dgvDetalleDeVenta.DataSource = null;
                 dgvDetalleDeVenta.DataSource = detalle;
 
@@ -446,8 +369,7 @@ namespace Vista.Ventas
                 if (dgvDetalleDeVenta.Columns.Contains("ProductoVendido"))
                 {
                     dgvDetalleDeVenta.Columns["ProductoVendido"].HeaderText = "Producto";
-                    dgvDetalleDeVenta.Columns["ProductoVendido"].AutoSizeMode =
-                        DataGridViewAutoSizeColumnMode.Fill;
+                    dgvDetalleDeVenta.Columns["ProductoVendido"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 }
 
                 if (dgvDetalleDeVenta.Columns.Contains("Cantidad"))
@@ -469,12 +391,7 @@ namespace Vista.Ventas
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error al cargar el detalle de la venta:\n" + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Error al cargar el detalle de la venta:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -503,8 +420,7 @@ namespace Vista.Ventas
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al cargar la información de la venta:\n" + ex.Message, "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error al cargar la información de la venta:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         //-------------------------------EVENTO LOAD-----------------------------------------------//
@@ -536,12 +452,7 @@ namespace Vista.Ventas
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error al cargar el formulario de ventas:\n" +
-                    ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                MessageBox.Show("Error al cargar el formulario de ventas:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         //-------------------------------BOTON DE ELIMIAR UNA VENTA---------------------------------//
@@ -595,17 +506,12 @@ namespace Vista.Ventas
             {
                 if (dgvVentas.CurrentRow == null)
                 {
-                    MessageBox.Show(
-                        "Seleccione una venta para registrar la factura.",
-                        "Venta requerida",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning);
+                    MessageBox.Show("Seleccione una venta para registrar la factura.", "Venta requerida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                     return;
                 }
 
-                int idVenta = Convert.ToInt32(
-                    dgvVentas.CurrentRow.Cells["IdVenta"].Value);
+                int idVenta = Convert.ToInt32(dgvVentas.CurrentRow.Cells["IdVenta"].Value);
 
                 frmFacturacion formularioFactura = new frmFacturacion();
 
@@ -614,11 +520,7 @@ namespace Vista.Ventas
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error al abrir el formulario de facturación:\n" + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                MessageBox.Show("Error al abrir el formulario de facturación:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

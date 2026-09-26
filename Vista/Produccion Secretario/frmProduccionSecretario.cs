@@ -35,56 +35,29 @@ namespace Vista.Produccion_Secretario
             toolTip.ShowAlways = true;
 
             // Buscador
-            toolTip.SetToolTip(
-                txtBuscar,
-                "Busca una producción por código o nombre del cliente."
-            );
+            toolTip.SetToolTip(txtBuscar, "Busca una producción por código o nombre del cliente.");
 
             // Estados
-            toolTip.SetToolTip(
-                cbEstados,
-                "Filtra las producciones según su estado."
-            );
+            toolTip.SetToolTip(cbEstados, "Filtra las producciones según su estado.");
 
             // Limpiar
-            toolTip.SetToolTip(
-                btnLimpiar,
-                "Limpia todos los filtros de producción."
-            );
+            toolTip.SetToolTip(btnLimpiar, "Limpia todos los filtros de producción.");
 
             // Editar
-            toolTip.SetToolTip(
-                btnEditar,
-                "Permite editar la producción seleccionada."
-            );
+            toolTip.SetToolTip(btnEditar, "Permite editar la producción seleccionada.");
 
             // Material utilizado
-            toolTip.SetToolTip(
-                btnMaterialUtilizado,
-                "Muestra los materiales utilizados en la producción seleccionada."
-            );
+            toolTip.SetToolTip(btnMaterialUtilizado, "Muestra los materiales utilizados en la producción seleccionada.");
 
             // Tabla
-            toolTip.SetToolTip(
-                dgvProduccion,
-                "Selecciona una producción para consultar sus opciones."
-            );
+            toolTip.SetToolTip(dgvProduccion, "Selecciona una producción para consultar sus opciones.");
 
             // Paginación
-            toolTip.SetToolTip(
-                btnAtrass,
-                "Muestra la página anterior."
-            );
+            toolTip.SetToolTip(btnAtrass, "Muestra la página anterior.");
 
-            toolTip.SetToolTip(
-                btnSiguient,
-                "Muestra la página siguiente."
-            );
+            toolTip.SetToolTip(btnSiguient, "Muestra la página siguiente.");
 
-            toolTip.SetToolTip(
-                lblPage,
-                "Indica la página actual y el total de páginas."
-            );
+            toolTip.SetToolTip(lblPage, "Indica la página actual y el total de páginas.");
         }
 
         // CONFIGURAR DISEÑO DE LA TABLA
@@ -100,55 +73,40 @@ namespace Vista.Produccion_Secretario
             // Encabezado
             dgvProduccion.EnableHeadersVisualStyles = false;
 
-            dgvProduccion.ColumnHeadersDefaultCellStyle.BackColor =
-                Color.FromArgb(121, 75, 45);
+            dgvProduccion.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(121, 75, 45);
 
-            dgvProduccion.ColumnHeadersDefaultCellStyle.ForeColor =
-                Color.White;
+            dgvProduccion.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
 
-            dgvProduccion.ColumnHeadersDefaultCellStyle.Font =
-                new Font("Segoe UI", 9, FontStyle.Regular);
+            dgvProduccion.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9, FontStyle.Regular);
 
-            dgvProduccion.ColumnHeadersDefaultCellStyle.Alignment =
-                DataGridViewContentAlignment.MiddleCenter;
+            dgvProduccion.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
             // Color del encabezado al seleccionar
-            dgvProduccion.ColumnHeadersDefaultCellStyle.SelectionBackColor =
-                Color.FromArgb(121, 75, 45);
+            dgvProduccion.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(121, 75, 45);
 
-            dgvProduccion.ColumnHeadersDefaultCellStyle.SelectionForeColor =
-                Color.White;
+            dgvProduccion.ColumnHeadersDefaultCellStyle.SelectionForeColor = Color.White;
 
             // Filas
-            dgvProduccion.DefaultCellStyle.BackColor =
-                Color.White;
+            dgvProduccion.DefaultCellStyle.BackColor = Color.White;
 
-            dgvProduccion.DefaultCellStyle.ForeColor =
-                Color.FromArgb(45, 45, 45);
+            dgvProduccion.DefaultCellStyle.ForeColor = Color.FromArgb(45, 45, 45);
 
-            dgvProduccion.DefaultCellStyle.Font =
-                new Font("Segoe UI", 9, FontStyle.Regular);
+            dgvProduccion.DefaultCellStyle.Font = new Font("Segoe UI", 9, FontStyle.Regular);
 
-            dgvProduccion.DefaultCellStyle.Alignment =
-                DataGridViewContentAlignment.MiddleLeft;
+            dgvProduccion.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
 
             // Filas alternadas
-            dgvProduccion.AlternatingRowsDefaultCellStyle.BackColor =
-                Color.FromArgb(248, 241, 232);
+            dgvProduccion.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(248, 241, 232);
 
             // Selección
-            dgvProduccion.DefaultCellStyle.SelectionBackColor =
-                Color.FromArgb(224, 193, 157);
+            dgvProduccion.DefaultCellStyle.SelectionBackColor = Color.FromArgb(224, 193, 157);
 
-            dgvProduccion.DefaultCellStyle.SelectionForeColor =
-                Color.Black;
+            dgvProduccion.DefaultCellStyle.SelectionForeColor = Color.Black;
 
             // Bordes
-            dgvProduccion.CellBorderStyle =
-                DataGridViewCellBorderStyle.SingleHorizontal;
+            dgvProduccion.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
 
-            dgvProduccion.GridColor =
-                Color.FromArgb(220, 220, 220);
+            dgvProduccion.GridColor = Color.FromArgb(220, 220, 220);
 
             // Alto de las filas
             dgvProduccion.RowTemplate.Height = 32;
@@ -164,14 +122,12 @@ namespace Vista.Produccion_Secretario
             dgvProduccion.AllowUserToDeleteRows = false;
 
             // Seleccionar fila completa
-            dgvProduccion.SelectionMode =
-                DataGridViewSelectionMode.FullRowSelect;
+            dgvProduccion.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
             dgvProduccion.MultiSelect = false;
 
             // Quitar borde exterior
-            dgvProduccion.BorderStyle =
-                BorderStyle.None;
+            dgvProduccion.BorderStyle = BorderStyle.None;
         }
 
         // CARGA INICIAL DEL FORMULARIO
@@ -190,12 +146,7 @@ namespace Vista.Produccion_Secretario
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error al cargar producción: " + ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Error al cargar producción: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         //---------------------------------------------------------
@@ -215,15 +166,13 @@ namespace Vista.Produccion_Secretario
             if (dgvProduccion.Columns.Contains("Cliente"))
             {
                 dgvProduccion.Columns["Cliente"].HeaderText = "Cliente";
-                dgvProduccion.Columns["Cliente"].DefaultCellStyle.Alignment =
-                    DataGridViewContentAlignment.MiddleLeft;
+                dgvProduccion.Columns["Cliente"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
             }
 
             if (dgvProduccion.Columns.Contains("Producto"))
             {
                 dgvProduccion.Columns["Producto"].HeaderText = "Producto";
-                dgvProduccion.Columns["Producto"].DefaultCellStyle.Alignment =
-                    DataGridViewContentAlignment.MiddleLeft;
+                dgvProduccion.Columns["Producto"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
             }
 
             if (dgvProduccion.Columns.Contains("Largo"))
@@ -258,19 +207,16 @@ namespace Vista.Produccion_Secretario
 
             if (dgvProduccion.Columns.Contains("Fecha de Entrega"))
             {
-                dgvProduccion.Columns["Fecha de Entrega"].HeaderText =
-                    "Fecha de entrega";
+                dgvProduccion.Columns["Fecha de Entrega"].HeaderText = "Fecha de entrega";
             }
 
             // Desactivar ordenamiento manual
             foreach (DataGridViewColumn columna in dgvProduccion.Columns)
             {
-                columna.SortMode =
-                    DataGridViewColumnSortMode.NotSortable;
+                columna.SortMode = DataGridViewColumnSortMode.NotSortable;
             }
 
-            dgvProduccion.AutoSizeColumnsMode =
-                DataGridViewAutoSizeColumnsMode.Fill;
+            dgvProduccion.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
         //---------------------------------------------------------------
@@ -280,11 +226,9 @@ namespace Vista.Produccion_Secretario
             try
             {
                 // Obtiene todas las producciones
-                dtProduccion =
-                    DbProducción.CargarProducción();
+                dtProduccion = DbProducción.CargarProducción();
 
-                totalRegistros =
-                    dtProduccion.Rows.Count;
+                totalRegistros = dtProduccion.Rows.Count;
 
                 totalPaginas =
                     (int)Math.Ceiling(
@@ -307,13 +251,7 @@ namespace Vista.Produccion_Secretario
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error al mostrar las producciones: " +
-                    ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Error al mostrar las producciones: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         //------------------------------------------------------------------------
@@ -323,24 +261,16 @@ namespace Vista.Produccion_Secretario
             if (dtProduccion == null)
                 return;
 
-            DataTable dtPagina =
-                dtProduccion.Clone();
+            DataTable dtPagina = dtProduccion.Clone();
 
-            int inicio =
-                (paginaActual - 1) *
-                registrosPorPagina;
+            int inicio = (paginaActual - 1) * registrosPorPagina;
 
-            int fin =
-                Math.Min(
-                    inicio + registrosPorPagina,
-                    dtProduccion.Rows.Count
-                );
+            int fin = Math.Min(inicio + registrosPorPagina, dtProduccion.Rows.Count);
 
             for (int i = inicio; i < fin; i++)
             {
-                dtPagina.ImportRow(
-                    dtProduccion.Rows[i]
-                );
+                dtPagina.ImportRow(dtProduccion.Rows[i]);
+                dtPagina.ImportRow(dtProduccion.Rows[i]);
             }
 
             dgvProduccion.DataSource = null;
@@ -356,14 +286,11 @@ namespace Vista.Produccion_Secretario
         // ACTUALIZAR CONTROLES DE PAGINACIÓN
         private void ActualizarControlesPaginacion()
         {
-            lblPage.Text =
-                $"Página {paginaActual} de {totalPaginas}";
+            lblPage.Text = $"Página {paginaActual} de {totalPaginas}";
 
-            btnAtrass.Enabled =
-                paginaActual > 1;
+            btnAtrass.Enabled = paginaActual > 1;
 
-            btnSiguient.Enabled =
-                paginaActual < totalPaginas;
+            btnSiguient.Enabled = paginaActual < totalPaginas;
         }
         //---------------------------------------------------------
         // PÁGINA ANTERIOR
@@ -411,11 +338,7 @@ namespace Vista.Produccion_Secretario
 
                 string estado = cbEstados.Text;
 
-                string buscar =
-                    txtBuscar.Text ==
-                    "Buscar por código o nombre de cliente..."
-                        ? ""
-                        : txtBuscar.Text.Trim();
+                string buscar = txtBuscar.Text == "Buscar por código o nombre de cliente..." ? "" : txtBuscar.Text.Trim();
 
                 string filtro = "1=1";
 
@@ -423,46 +346,28 @@ namespace Vista.Produccion_Secretario
                 if (!string.IsNullOrWhiteSpace(estado) &&
                     estado != "Todos")
                 {
-                    filtro +=
-                        " AND Estado = '" +
-                        estado.Replace("'", "''") +
-                        "'";
+                    filtro += " AND Estado = '" + estado.Replace("'", "''") + "'";
                 }
 
                 // Filtra por cliente, producción o pedido
                 if (!string.IsNullOrWhiteSpace(buscar))
                 {
-                    buscar =
-                        buscar.Replace("'", "''");
+                    buscar = buscar.Replace("'", "''");
 
-                    filtro +=
-                        " AND (Cliente LIKE '%" +
-                        buscar +
-                        "%' OR " +
-                        "Convert(IdProduccion, 'System.String') LIKE '%" +
-                        buscar +
-                        "%' OR " +
-                        "Convert(IdPedido, 'System.String') LIKE '%" +
-                        buscar +
-                        "%')";
+                    filtro += " AND (Cliente LIKE '%" + buscar + "%' OR " + "Convert(IdProduccion, 'System.String') LIKE '%" +
+                        buscar + "%' OR " + "Convert(IdPedido, 'System.String') LIKE '%" + buscar + "%')";
                 }
 
-                DataView vista =
-                    new DataView(dtProduccion);
+                DataView vista = new DataView(dtProduccion);
 
                 vista.RowFilter = filtro;
 
-                dtProduccionFiltrada =
-                    vista.ToTable();
+                dtProduccionFiltrada = vista.ToTable();
 
                 totalRegistros =
                     dtProduccionFiltrada.Rows.Count;
 
-                totalPaginas =
-                    (int)Math.Ceiling(
-                        (double)totalRegistros /
-                        registrosPorPagina
-                    );
+                totalPaginas = (int)Math.Ceiling((double)totalRegistros / registrosPorPagina);
 
                 if (totalPaginas == 0)
                 {
@@ -475,13 +380,7 @@ namespace Vista.Produccion_Secretario
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error al filtrar las producciones: " +
-                    ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Error al filtrar las producciones: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -491,24 +390,15 @@ namespace Vista.Produccion_Secretario
             if (dtProduccionFiltrada == null)
                 return;
 
-            DataTable dtPagina =
-                dtProduccionFiltrada.Clone();
+            DataTable dtPagina = dtProduccionFiltrada.Clone();
 
-            int inicio =
-                (paginaActual - 1) *
-                registrosPorPagina;
+            int inicio = (paginaActual - 1) * registrosPorPagina;
 
-            int fin =
-                Math.Min(
-                    inicio + registrosPorPagina,
-                    dtProduccionFiltrada.Rows.Count
-                );
+            int fin = Math.Min(inicio + registrosPorPagina, dtProduccionFiltrada.Rows.Count);
 
             for (int i = inicio; i < fin; i++)
             {
-                dtPagina.ImportRow(
-                    dtProduccionFiltrada.Rows[i]
-                );
+                dtPagina.ImportRow(dtProduccionFiltrada.Rows[i]);
             }
 
             dgvProduccion.DataSource = null;
@@ -523,11 +413,8 @@ namespace Vista.Produccion_Secretario
 
         //------------------------------------------------------------------
         // EDITAR PRODUCCIÓN
-
-
         private void btnEditar_Click(object sender, EventArgs e)
         {
-
             try
             {
                 // Verifica que exista una producción seleccionada
@@ -558,12 +445,9 @@ namespace Vista.Produccion_Secretario
                 MessageBox.Show("Error al editar la producción: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         //_---------------------------------------------------------------------------------------
         // BUSCAR PRODUCCIÓN
-
         // Quita el texto de indicación
-
         private void txtBuscar_Enter(object sender, EventArgs e)
         {
             //Cuando el usuario de enter para escribir, se va a borrar el texto de indicacion
@@ -588,7 +472,6 @@ namespace Vista.Produccion_Secretario
             }
         }
 
-
         // Ejecuta el filtro cuando cambia el estado
         private void cbEstados_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -605,6 +488,7 @@ namespace Vista.Produccion_Secretario
                 FiltrarTabla();
             }
         }
+
         //------------------------------------------------------------------------------
         // LIMPIAR FILTROS
 
@@ -632,13 +516,7 @@ namespace Vista.Produccion_Secretario
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error al limpiar los filtros: " +
-                    ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Error al limpiar los filtros: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         //---------------------------------------------------------------------------
@@ -698,10 +576,7 @@ namespace Vista.Produccion_Secretario
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al actualizar las estadísticas: " + ex.Message, "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Error al actualizar las estadísticas: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

@@ -74,8 +74,6 @@ namespace Vista.Producción
             }
         }
 
-
-
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
@@ -105,12 +103,11 @@ namespace Vista.Producción
                 lblEstado.Text = "Finalizado";
             }
         }
-
         private void btnGuardarCambios_Click_1(object sender, EventArgs e)
         {
             if (dtpFechaEntrega.Value.Date < DateTime.Today)
             {
-                MessageBox.Show("La fecha no puede ser anterior a la fecha actual.");
+                errorProvider1.SetError(dtpFechaEntrega, "La fecha no puede ser anterior a la fecha actual.");
                 dtpFechaEntrega.Focus();
                 return;
             }
@@ -122,11 +119,7 @@ namespace Vista.Producción
 
             if (produccion.ActualizarProduccion())
             {
-                MessageBox.Show(
-                    "Producción actualizada correctamente.",
-                    "Éxito",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
+                MessageBox.Show("Producción actualizada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 DialogResult = DialogResult.OK;
 
